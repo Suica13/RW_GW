@@ -1,0 +1,36 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+[hiddenAction_AutoProduce_PapuaClass]
+@copyFromSection:template_AutoProduce
+@define UnitID=PapuaClass
+alsoTriggerAction:AutoProduce_PapuaClass_Step2
+
+[hiddenAction_AutoProduce_PapuaClass_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=750
+@define Resource=1750
+alsoQueueAction:Produce_PapuaClass_StandardSquad
+
+
+
+[action_Produce_PapuaClass_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=PapuaClass
+@define Money=750
+@define Resource=1750
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:35s
+
+alsoQueueAction:"""
+Produce_PapuaClass_StandardSquad_1
+"""
+[hiddenAction_Produce_PapuaClass_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+PapuaClass*1(addResources=PilotType:2101|EquipmentIndex:0)
+"""

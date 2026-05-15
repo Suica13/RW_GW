@@ -1,0 +1,40 @@
+[core]
+dont_load:false
+copyFrom:"""
+Common_ArmBMG_Yellow.gw
+"""
+
+
+[projectile_Common_ArmBMG_Yellow_Projectile]
+spawnUnit:"""
+Projectile_BeamGun_Yellow*1
+(
+    addResources=
+    BeamDamage:1750
+    |DpDamage:50
+    |WeaponAccuracy=85
+    |PartBreakModifier=1
+    |CockpitBreakModifier=1
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=1
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=1
+    |AntiBuilding=1
+    |AntiAqua=0.5
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |PartBreakModifier=1.0
+    |HeightChangeSpeed=2
+    |HeightHitRange=25
+    |ProjectileSpeed:85
+    |ProjectileSpread:3
+    |ProjectileLife:20
+)
+"""
+
+
+
+

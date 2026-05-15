@@ -1,0 +1,37 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+
+[hiddenAction_AutoProduce_MusaiClassFinalType]
+@copyFromSection:template_AutoProduce
+@define UnitID=MusaiClassFinalType
+alsoTriggerAction:AutoProduce_MusaiClassFinalType_Step2
+
+[hiddenAction_AutoProduce_MusaiClassFinalType_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=3750
+@define Resource=4750
+alsoQueueAction:Produce_MusaiClassFinalType
+
+
+
+[action_Produce_MusaiClassFinalType]
+@copyFromSection:template_Produce_Fast
+@define UnitID=MusaiClassFinalType
+@define Money=3750
+@define Resource=4750
+@define FactionVisible= (memory.Pannel_NEO_ZEON_0087_DontShow==false)
+buildSpeed:50s
+
+alsoQueueAction:"""
+Produce_MusaiClassFinalType_1
+"""
+[hiddenAction_Produce_MusaiClassFinalType_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MusaiClassFinalType*1(addResources=PilotType:2101|EquipmentIndex:0)
+"""

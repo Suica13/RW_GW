@@ -1,0 +1,14 @@
+[core]
+[movement]
+
+movementType: AIR
+
+moveAccelerationSpeed: 0.1
+moveDecelerationSpeed: 0.025
+reverseSpeedPercentage:0.0
+
+turnAcceleration: 2
+
+heightChangeRate:1
+targetHeightDrift:1
+targetHeight:35

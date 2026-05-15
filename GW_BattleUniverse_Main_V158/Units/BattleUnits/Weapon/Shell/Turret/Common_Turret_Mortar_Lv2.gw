@@ -1,0 +1,44 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Units/BattleUnits/Weapon/Shell/Common_Turret_Mortar.gw
+"""
+
+
+
+[projectile_Common_Turret_Mortar_Projectile]
+
+directDamage: 0
+life: 1
+explodeOnEndOfLife:true
+speed: 0
+instant:true
+
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_MortarMarker_A*1
+(
+    offsetRandomXY=100,
+    addResources=
+    ShellDamage:4000
+    |DpDamage:750
+    |WeaponAccuracy=75
+    |PartBreakModifier=0.5
+    |CockpitBreakModifier=0.5
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiBuilding=2.0
+    |AntiAqua=0.75
+    |AntiAir=0.5 
+    |AntiLand=1
+    |AntiSpace=1
+
+    |ProjectileSpeed:60
+    |ProjectileSpread:25
+    |ProjectileExplosionRange:80
+    |ProjectileLife:70
+)
+"""
+

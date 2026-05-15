@@ -1,0 +1,89 @@
+[core]
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_Light_1.gw
+"""
+dont_load:false
+
+
+
+[template_CustomUnit]
+@define UnitID=MS_06F
+@define CustomRule=(true)
+@define AutoCustomRule=(false)
+@define Money=0
+@define Resource=0
+
+autoTrigger:"""
+if memory.canSupply==true 
+and ${CustomRule} 
+and ${AutoCustomRule} 
+and ${onSkill}==false
+"""
+
+tags:Upgrade
+isVisible:if not self.hasTags(includes='inHangar')
+addActionCooldownTime:0
+buildSpeed:20s
+
+pos:3000
+
+text:ConvertTo
+text_zh:改装至
+textAddUnitName:${UnitID}
+unitShownInUI:${UnitID}
+descriptionAddFromUnit:${UnitID}
+
+isGuiBlinking:true
+displayType:infoOnly
+
+price:"""
+Money=${Money},
+Resource=${Resource}
+"""
+
+isVisible:if memory.canSupply==true and ${CustomRule}
+
+isLocked:if ${cantAction}==true and ${onSkill}==false
+isLockedMessage:Can not Action
+isLockedMessage_zh:现在不能行动
+
+ai_isDisabled:true
+spawnEffects:Light_50
+playSoundAtUnit:ROOT:Resource/Sound/SE/Action/Common/ChangeEquipment.ogg:0.5
+
+removeAllQueuedItemsWithoutRefund:true
+
+convertTo:${UnitID}
+convertTo_keepCurrentTags:false
+convertTo_keepCurrentFields:"""
+selfRegenRate,
+shieldRegen,
+maxEnergy,
+armour,
+mass,
+movespeed,
+maxTurnSpeed,
+maxAttackRange,
+nanoRange,
+fogOfWarSightRange,
+nanoFactorySpeed,
+targetHeight
+"""
+whenBuilding_triggerAction:SetAttackingOff,SetOnSkillOff,Send_ForceUnload_TransportUnits
+alsoTriggerAction:Send_UnitTurretRemove,Send_SubUnitRemove,Send_TryClearQueued,Send_TryTransform_CustomUnit
+
+[hiddenAction_Send_TryTransform_CustomUnit]
+@copyFromSection:hiddenAction_Send_TryTransform
+sendMessageWithData:"""
+RecoverHp=0,
+RecoverHpPer=0.25,
+RecoverShield=0,
+RecoverShieldPer=0.25,
+RecoverEn=0,
+RecoverEnPer=1,
+ResetTags=1,
+UnitTurretSpawn=1,
+SubUnitSpawn=1
+"""
+
+

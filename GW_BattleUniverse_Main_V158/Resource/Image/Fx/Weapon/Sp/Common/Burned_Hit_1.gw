@@ -1,0 +1,28 @@
+[core]
+dont_load:false
+
+[effect_Burned_Hit_1]
+life: 200
+
+xOffsetRelative: -1
+yOffsetRelative: 10
+hOffset: 0
+dirOffset: -90
+attachedToUnit: false
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+alpha:0.85
+scaleFrom: 1.0
+scaleTo: 1.0
+image:ROOT:Resource/Image/Fx/Weapon/Sp/Image/Burned_Hit_1.png
+alsoPlaySound:ROOT:\Resource\Sound\SE\Weapon\Hit\Explosion_Hit_1.ogg:0.35
+
+total_frames: 13
+animateFrameStart: 0
+animateFrameEnd: 12
+animateFrameSpeed: 0.1
+showInFog:true

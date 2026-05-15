@@ -1,0 +1,11 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Units/BattleUnits/Weapon/Shell/ZN_105mmMG_L_Lv2.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_StandShoot_A.gw
+"""
+
+
+[hiddenAction_ZN_105mmMG_L_Fire_Step_2]
+alsoTriggerAction:PlayCommon_StandShoot_A_Step_1
+

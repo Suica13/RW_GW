@@ -1,0 +1,188 @@
+[core]
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_Light_1.gw
+"""
+dont_load:false
+
+
+@memory changeTransform_LandFlyCD:float
+
+@memory cantTransform:bool
+
+
+[hiddenAction_Check_CantTransform]
+autoTrigger:true
+setUnitMemory:"""
+cantTransform=select
+(
+    memory.headBreaked==true 
+    or memory.backpackBreaked==true 
+    or memory.armLBreaked==true 
+    or memory.armRBreaked==true 
+    or memory.legLBreaked==true 
+    or memory.legRBreaked==true,
+    true,
+    false
+)
+"""
+
+
+[action_Transform_LandFlyB]
+autoTrigger:"""
+if self.isControlledByAI()==true 
+and ${allowAI}==true 
+and memory.cantTransform==false 
+and memory.close==false 
+and not self.hasTags(includes='inHangar') 
+and ${cantAction}==false 
+and self.timeAlive>memory.changeTransform_LandFlyCD 
+and memory.flyUnit!=1 
+and not self.tags(includes='inBattle')
+"""
+
+pos:1
+
+buildSpeed:0s
+tags:Upgrade
+
+highPriorityQueue:true
+allowMultipleInQueue:false
+canPlayerCancel:true
+alwaysSinglePress:true
+ai_isDisabled:true
+extraLagHidingInUI:true
+
+displayType:Upgrade
+
+text:SwitchToStyle B
+text_zh:切换到形态 B
+
+isVisible:if memory.close==false and memory.styleIndex!=96 and memory.styleIndex!=100 and not self.hasTags(includes='inHangar')
+
+iconImage:ROOT:Resource/Image/Units/Button/Action/Transform_1.png
+playSoundToPlayer:ROOT:Resource/Sound/SE/Action/Common/Transform_3.ogg
+
+spawnEffects:Light_50
+
+isGuiBlinking:true
+
+isLocked:if memory.cantTransform==true
+isLockedMessage:Need Repair
+isLockedMessage_zh:需要修理
+isLockedAlt:if self.timeAlive<memory.changeTransform_LandFlyCD
+isLockedAltMessage:In Cooldown[%{memory.changeTransform_LandFlyCD-self.timeAlive}s]
+isLockedAltMessage_zh:冷却中[%{memory.changeTransform_LandFlyCD-self.timeAlive}s]
+isLockedAlt2:if ${cantAction}==true or ${onSkill}==true or parent.hp>0
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+#convertTo:
+convertTo_keepCurrentTags:true
+convertTo_keepCurrentFields:"""
+selfRegenRate,
+shieldRegen,
+maxEnergy,
+armour,
+mass,
+movespeed,
+maxTurnSpeed,
+maxAttackRange,
+nanoRange,
+fogOfWarSightRange,
+nanoFactorySpeed,
+targetHeight
+"""
+
+setUnitMemory:styleIndex=96
+
+
+whenBuilding_triggerAction:SetAttackingOff
+alsoTriggerAction:Send_UnitTurretRemove,Transform_LandFlyCD,Send_TryClearQueued,Send_TryTransform
+
+[action_Transform_LandFlyA]
+@copyFromSection:action_Transform_LandFlyB
+autoTrigger:false
+
+text:SwitchToStyle A
+text_zh:切换到形态 A
+
+isVisible:if memory.close==false and memory.styleIndex!=0 and not self.hasTags(includes='inHangar')
+iconImage:ROOT:Resource/Image/Units/Button/Action/Transform_2.png
+
+#convertTo:
+
+setUnitMemory:styleIndex=0
+
+
+[hiddenAction_Transform_LandFlyCD]
+setUnitMemory:changeTransform_LandFlyCD=self.timeAlive+3
+
+
+[hiddenAction_Transform_LandFly_cantTransform]
+autoTrigger:"""
+if 
+(
+    memory.cantTransform==true 
+    or memory.battleUnitCore.readUnitMemory("onDaze",type="bool")==true 
+    or memory.battleUnitCore.readUnitMemory("onStagger",type="bool")==true 
+) 
+and memory.flyUnit==1 
+"""
+alsoTriggerAction:Transform_LandFlyA
+
+
+
+
+
+
+
+
+
+
+[hiddenAction_TurnToOverLine_T]
+autoTrigger:"""
+if memory.styleIndex==96 
+and memory.styleIndex!=100 
+and memory.styleIndex!=99 
+and memory.styleIndex!=98 
+and self.resource().DedicatedMap==1 
+and self.timeAlive>0.25 
+"""
+convertTo_keepCurrentTags:true
+convertTo_keepCurrentFields:"""
+selfRegenRate,
+shieldRegen,
+maxEnergy,
+armour,
+mass,
+movespeed,
+maxTurnSpeed,
+maxAttackRange,
+nanoRange,
+fogOfWarSightRange,
+nanoFactorySpeed,
+targetHeight
+"""
+#clearActiveWaypoint:true
+setUnitMemory:styleIndex=100
+[hiddenAction_TurnToOverLine_F]
+autoTrigger:"""
+if memory.styleIndex==100 
+and self.resource().DedicatedMap==0
+"""
+convertTo_keepCurrentTags:true
+convertTo_keepCurrentFields:"""
+selfRegenRate,
+shieldRegen,
+maxEnergy,
+armour,
+mass,
+movespeed,
+maxTurnSpeed,
+maxAttackRange,
+nanoRange,
+fogOfWarSightRange,
+nanoFactorySpeed,
+targetHeight
+"""
+setUnitMemory:styleIndex=90

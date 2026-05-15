@@ -1,0 +1,51 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+[hiddenAction_AutoProduce_ConnectedArmoredVehicle]
+@copyFromSection:template_AutoProduce
+@define UnitID=ConnectedArmoredVehicle
+alsoTriggerAction:AutoProduce_ConnectedArmoredVehicle_Step2
+
+[hiddenAction_AutoProduce_ConnectedArmoredVehicle_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=250
+@define Resource=500
+alsoQueueAction:Produce_ConnectedArmoredVehicle_StandardSquad
+
+
+
+
+
+[action_Produce_ConnectedArmoredVehicle_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=ConnectedArmoredVehicle
+@define Money=400
+@define Resource=800
+@define FactionVisible= (memory.Pannel_ZAFT_CE71_DontShow==false)
+buildSpeed:35s
+
+alsoQueueAction:"""
+Produce_ConnectedArmoredVehicle_StandardSquad_1,
+Produce_ConnectedArmoredVehicle_StandardSquad_2,
+Produce_ConnectedArmoredVehicle_StandardSquad_3
+"""
+[hiddenAction_Produce_ConnectedArmoredVehicle_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+ConnectedArmoredVehicle*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_ConnectedArmoredVehicle_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+ConnectedArmoredVehicle*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_ConnectedArmoredVehicle_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+ConnectedArmoredVehicle*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

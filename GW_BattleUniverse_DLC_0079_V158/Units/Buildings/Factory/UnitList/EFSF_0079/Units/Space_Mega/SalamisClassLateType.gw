@@ -1,0 +1,37 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+
+[hiddenAction_AutoProduce_SalamisClassLateType]
+@copyFromSection:template_AutoProduce
+@define UnitID=SalamisClassLateType
+alsoTriggerAction:AutoProduce_SalamisClassLateType_Step2
+
+[hiddenAction_AutoProduce_SalamisClassLateType_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=2500
+@define Resource=5500
+alsoQueueAction:Produce_SalamisClassLateType
+
+
+
+[action_Produce_SalamisClassLateType]
+@copyFromSection:template_Produce_Fast
+@define UnitID=SalamisClassLateType
+@define Money=2500
+@define Resource=5500
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+buildSpeed:45s
+
+alsoQueueAction:"""
+Produce_SalamisClassLateType_1
+"""
+[hiddenAction_Produce_SalamisClassLateType_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+SalamisClassLateType*1(addResources=PilotType:2101|EquipmentIndex:0)
+"""

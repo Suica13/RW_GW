@@ -1,0 +1,90 @@
+[core]
+dont_load:false
+
+
+[animation_OnMovingWalk]
+KeyframeTimeScale:1
+
+
+#头部
+arm19_0.0s: {x:0, y:0,dir:0}
+arm19_0.25s: {x:0, y:0.1,dir:0}
+arm19_0.5s: {x:0, y:0,dir:0}
+arm19_0.75s: {x:0, y:-0.1,dir:0}
+arm19_0.95s: {x:0, y:0,dir:0}
+
+arm20_0.0s: {x:0, y:0,dir:0}
+arm20_0.25s: {x:0, y:0.1,dir:0}
+arm20_0.5s: {x:0, y:0,dir:0}
+arm20_0.75s: {x:0, y:-0.1,dir:0}
+arm20_0.95s: {x:0, y:0,dir:0}
+
+#胯部
+arm1_0.0s: {x:0, y:0,dir:0}
+arm1_0.25s: {x:0, y:0,dir:0}
+arm1_0.5s: {x:0, y:0,dir:0}
+arm1_0.75s: {x:0, y:0,dir:0}
+arm1_0.95s: {x:0, y:0,dir:0}
+
+
+#胸部
+arm2_0.0s: {x:0, y:0,dir:0}
+arm2_0.25s: {x:0, y:0,dir:0}
+arm2_0.5s: {x:0, y:0,dir:0}
+arm2_0.75s: {x:0, y:0,dir:0}
+arm2_0.95s: {x:0, y:0,dir:0}
+
+#左手
+arm3_0.0s: {x:0, y:0,dir:0}
+arm3_0.25s: {x:0, y:0.25,dir:0}
+arm3_0.5s: {x:0, y:0,dir:0}
+arm3_0.75s: {x:0, y:-0.25,dir:0}
+arm3_0.95s: {x:0, y:0,dir:0}
+
+#右手
+arm4_0.0s: {x:0, y:0,dir:0}
+arm4_0.25s: {x:0, y:-0.25,dir:0}
+arm4_0.5s: {x:0, y:0,dir:0}
+arm4_0.75s: {x:0, y:0.25,dir:0}
+arm4_0.95s: {x:0, y:0,dir:0}
+
+#左肩
+arm5_0.0s: {x:0, y:0,dir:0}
+arm5_0.25s: {x:0, y:0.25,dir:-2}
+arm5_0.5s: {x:0, y:0,dir:0}
+arm5_0.75s: {x:0, y:-0.25,dir:2}
+arm5_0.95s: {x:0, y:0,dir:0}
+
+#右肩
+arm6_0.0s: {x:0, y:0,dir:0}
+arm6_0.25s: {x:0, y:-0.25,dir:2}
+arm6_0.5s: {x:0, y:0,dir:0}
+arm6_0.75s: {x:0, y:0.25,dir:-2}
+arm6_0.95s: {x:0, y:0,dir:0}
+
+
+
+leg17_0.0s: {y: 0, dir: 0 }
+leg17_0.25s: {y: -4, dir: 0 }
+leg17_0.5s: {y: -2, dir: 0 }
+leg17_0.75s: {y: 4, dir: 0 }
+leg17_0.95s: {y: 0, dir: 0 }
+
+leg18_0.0s: {y: 0, dir: 0 }
+leg18_0.25s: {y: -3, dir: 0 }
+leg18_0.5s: {y: 0, dir: 0 }
+leg18_0.75s: {y: 3, dir: 0 }
+leg18_0.95s: {y: 0, dir: 0 }
+
+leg19_0.0s: {y: 0, dir: -0 }
+leg19_0.25s: {y: 4, dir: -0 }
+leg19_0.5s: {y: 1, dir: -0 }
+leg19_0.75s: {y: -4, dir: -0 }
+leg19_0.95s: {y: 0, dir: -0 }
+
+leg20_0.0s: {y: 0, dir: -0 }
+leg20_0.25s: {y: 3, dir: -0 }
+leg20_0.5s: {y: 0, dir: -0 }
+leg20_0.75s: {y: -3, dir: -0 }
+leg20_0.95s: {y: 0, dir: -0 }
+

@@ -1,0 +1,99 @@
+[core]
+dont_load:true
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_Flash_1.gw
+"""
+
+@memory Pilot_AwakeningUp_Active:bool
+@memory Pilot_AwakeningUp_ActiveTimer:float
+@global Pilot_AwakeningUp_ActiveTime:15
+@memory Pilot_AwakeningUp_CDTimer:float
+@global Pilot_AwakeningUp_CD=90
+
+@memory Pilot_AwakeningUp_Awakening:float
+@global Pilot_AwakeningUp_AwakeningUp:1.75
+
+
+
+
+
+[hiddenAction_Pilot_AwakeningUp_Check]
+autoTrigger:true
+setUnitMemory:"""
+Pilot_AwakeningUp_Awakening=select(memory.Pilot_AwakeningUp_Active==true,${Pilot_AwakeningUp_AwakeningUp},1)
+"""
+
+[hiddenAction_Check_UnitBuffRule_Awakening]
+setUnitMemory:pilotBuffRuleAwakeningModifier=1*memory.Pilot_AwakeningUp_Awakening
+
+[action_Pilot_AwakeningUp_Trigger]
+pos:10
+text:"""
+AwakeningUp 
+%{
+    select(memory.Pilot_AwakeningUp_Active==true,
+    str(int(memory.Pilot_AwakeningUp_ActiveTimer-self.timeAlive))+"s",
+    select(self.timeAlive<=memory.Pilot_AwakeningUp_CDTimer,"CD:" + str(int(memory.Pilot_AwakeningUp_CDTimer-self.timeAlive))+"s","OK"))
+}
+"""
+text_zh:"""
+觉醒值上升 
+%{
+    select(memory.Pilot_AwakeningUp_Active==true,
+    str(int(memory.Pilot_AwakeningUp_ActiveTimer-self.timeAlive))+"秒",
+    select(self.timeAlive<=memory.Pilot_AwakeningUp_CDTimer,"冷却中:" + str(int(memory.Pilot_AwakeningUp_CDTimer-self.timeAlive))+"秒","OK"))
+}
+"""
+text_KP:100
+
+description:Awakening Up 75% in 15sec
+description_zh:15秒内觉醒值提高75%
+
+displayType:infoOnly
+
+price:EN=100
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+highPriorityQueue:true
+ai_isDisabled:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Skill/Pilot_AwakeningUp.png
+
+isVisible:if not self.hasTags(includes='inHangar')
+
+
+
+isGuiBlinking:"""
+if self.timeAlive>memory.Pilot_AwakeningUp_CDTimer and memory.Pilot_AwakeningUp_Active==false
+"""
+
+isLocked:if self.timeAlive<=memory.Pilot_AwakeningUp_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+isLockedAlt:if memory.Pilot_AwakeningUp_Active==true
+isLockedAltMessage:In Action
+isLockedAltMessage_zh:行动中
+
+alsoTriggerAction:"""
+Pilot_AwakeningUp_Step_1
+"""
+[hiddenAction_Pilot_AwakeningUp_Step_1]
+spawnEffects:Flash_1_N
+playSoundAtUnit:ROOT:Resource/Sound/SE/Action/Common/Action_8.ogg:0.5
+
+setUnitMemory:"""
+Pilot_AwakeningUp_Active=true,
+Pilot_AwakeningUp_ActiveTimer=self.timeAlive+${Pilot_AwakeningUp_ActiveTime}
+"""
+
+[hiddenAction_Pilot_AwakeningUp_CheckOver]
+autoTrigger:"""
+if memory.Pilot_AwakeningUp_Active==true 
+and self.timeAlive>memory.Pilot_AwakeningUp_ActiveTimer
+"""
+setUnitMemory:"""
+Pilot_AwakeningUp_Active=false,
+Pilot_AwakeningUp_CDTimer=self.timeAlive+${Pilot_AwakeningUp_CD}
+"""

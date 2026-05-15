@@ -1,0 +1,92 @@
+[core]
+copyFrom:"""
+ROOT:Template/UI/Common_UI.gw
+"""
+
+
+name:SkillsUnits_Core
+
+showInEditor:true
+
+canNotBeDirectlyAttacked:true
+
+
+@memory finalShootLevel:float
+@memory finalCqbLevel:float
+@memory finalAccuracyLevel:float
+@memory extraBuildingDef:float
+@memory extraBuildingAtk:float
+
+
+[hiddenAction_InitializeStats]
+autoTriggerOnEvent:created
+setUnitMemory:"""
+finalShootLevel=100,
+finalCqbLevel=100,
+finalAccuracyLevel=100,
+
+extraBuildingDef=1,
+extraBuildingAtk=1
+"""
+
+
+
+[decal_Core]
+layer:beforeUI
+order:1
+onlyWhileAlive:true
+onlyTeam:own
+isVisible:true
+image:ROOT:Resource/Image/Units/Button/Misc/Haro_1.png
+imageScale:0.4
+xOffsetRelative:0
+yOffsetRelative:0
+
+
+[decal_Text]
+layer:beforeUI
+order:3
+onlyWhileAlive:true
+onlyTeam:own
+alpha:1
+image:ROOT:Resource/Image/Text/Icon/HQ_Skills.png
+imageScale:0.3
+xOffsetAbsolute:0
+yOffsetAbsolute:16
+alwaysStartDirAtZero:true
+onlyOnNonPreview:true
+isVisible:if self.resource.GameStart==1
+[decal_Text_Background]
+@copyFromSection:decal_Text
+order:2
+imageScale:0.375
+image:ROOT:Resource/Image/Text/Icon/HQ_Slot_Background.png
+
+
+
+[turret_MainTurret]
+x:0
+y:0
+canShoot:false
+projectile:MainTurret
+limitingRange:99999
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+shoot_flame:none
+
+[projectile_MainTurret]
+
+directDamage: 0
+life: 1
+explodeOnEndOfLife:true
+speed: 100
+
+
+effectOnCreate:none
+explodeEffect:none
+
+
+[attack]
+maxAttackRange:10000

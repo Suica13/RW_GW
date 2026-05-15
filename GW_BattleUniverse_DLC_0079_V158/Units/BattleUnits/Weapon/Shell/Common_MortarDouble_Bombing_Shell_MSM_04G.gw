@@ -1,0 +1,22 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Units/BattleUnits/Weapon/Shell/Common_MortarDouble_Bombing_Shell.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_StandShoot_A.gw
+"""
+
+
+[turret_Common_MortarDouble_Bombing_Shell]
+barrelX:-22
+barrelY:22
+
+[turret_Common_MortarDouble_Bombing_Shell_R]
+@copyFromSection:turret_Common_MortarDouble_Bombing_Shell
+barrelX:22
+
+
+[hiddenAction_Common_MortarDouble_Bombing_Shell_Fire_Step_2]
+alsoTriggerAction:PlayCommon_StandShoot_A_Step_1
+
+[action_Common_MortarDouble_Bombing_Shell_Trigger]
+isLockedAlt2:if ${cantAction}==true  or ${onSkill}==true or ${allowAI}==true or memory.armLBreaked==true or memory.armRBreaked==true

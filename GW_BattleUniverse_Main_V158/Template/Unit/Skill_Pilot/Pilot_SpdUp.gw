@@ -1,0 +1,99 @@
+[core]
+dont_load:true
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_Flash_1.gw
+"""
+
+@memory Pilot_SpdUp_Active:bool
+@memory Pilot_SpdUp_ActiveTimer:float
+@global Pilot_SpdUp_ActiveTime:15
+@memory Pilot_SpdUp_CDTimer:float
+@global Pilot_SpdUp_CD=90
+
+@memory Pilot_SpdUp_Spd:float
+@global Pilot_SpdUp_SpdUp:1.35
+
+
+
+
+
+[hiddenAction_Pilot_SpdUp_Check]
+autoTrigger:true
+setUnitMemory:"""
+Pilot_SpdUp_Spd=select(memory.Pilot_SpdUp_Active==true,${Pilot_SpdUp_SpdUp},1)
+"""
+
+[hiddenAction_Check_UnitBuffRule_Spd]
+setUnitMemory:pilotBuffRuleSpdModifier=1*memory.Pilot_SpdUp_Spd
+
+[action_Pilot_SpdUp_Trigger]
+pos:10
+text:"""
+SpeedUp 
+%{
+    select(memory.Pilot_SpdUp_Active==true,
+    str(int(memory.Pilot_SpdUp_ActiveTimer-self.timeAlive))+"s",
+    select(self.timeAlive<=memory.Pilot_SpdUp_CDTimer,"CD:" + str(int(memory.Pilot_SpdUp_CDTimer-self.timeAlive))+"s","OK"))
+}
+"""
+text_zh:"""
+机动力上升 
+%{
+    select(memory.Pilot_SpdUp_Active==true,
+    str(int(memory.Pilot_SpdUp_ActiveTimer-self.timeAlive))+"秒",
+    select(self.timeAlive<=memory.Pilot_SpdUp_CDTimer,"冷却中:" + str(int(memory.Pilot_SpdUp_CDTimer-self.timeAlive))+"秒","OK"))
+}
+"""
+text_KP:100
+
+description:Spd Up 35% in 15sec
+description_zh:15秒内机动力提高35%
+
+displayType:infoOnly
+
+price:EN=100
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+highPriorityQueue:true
+ai_isDisabled:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Skill/Pilot_SpdUp.png
+
+isVisible:if not self.hasTags(includes='inHangar')
+
+
+
+isGuiBlinking:"""
+if self.timeAlive>memory.Pilot_SpdUp_CDTimer and memory.Pilot_SpdUp_Active==false
+"""
+
+isLocked:if self.timeAlive<=memory.Pilot_SpdUp_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+isLockedAlt:if memory.Pilot_SpdUp_Active==true
+isLockedAltMessage:In Action
+isLockedAltMessage_zh:行动中
+
+alsoTriggerAction:"""
+Pilot_SpdUp_Step_1
+"""
+[hiddenAction_Pilot_SpdUp_Step_1]
+spawnEffects:Flash_1_N
+playSoundAtUnit:ROOT:Resource/Sound/SE/Action/Common/Action_8.ogg:0.5
+
+setUnitMemory:"""
+Pilot_SpdUp_Active=true,
+Pilot_SpdUp_ActiveTimer=self.timeAlive+${Pilot_SpdUp_ActiveTime}
+"""
+
+[hiddenAction_Pilot_SpdUp_CheckOver]
+autoTrigger:"""
+if memory.Pilot_SpdUp_Active==true 
+and self.timeAlive>memory.Pilot_SpdUp_ActiveTimer
+"""
+setUnitMemory:"""
+Pilot_SpdUp_Active=false,
+Pilot_SpdUp_CDTimer=self.timeAlive+${Pilot_SpdUp_CD}
+"""

@@ -1,0 +1,117 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory RFF_06:bool
+
+
+[hiddenAction_Pannel_Close_RFF_06]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:RFF_06=false
+
+
+
+
+[hiddenAction_AutoProduce_RFF_06]
+@copyFromSection:template_AutoProduce
+@define UnitID=RFF_06
+alsoTriggerAction:AutoProduce_RFF_06_Step2
+
+[hiddenAction_AutoProduce_RFF_06_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=2000
+@define Resource=2000
+alsoTriggerAction:AutoProduce_RFF_06_Random
+
+
+
+[hiddenAction_AutoProduce_RFF_06_Random]
+alsoTriggerAction:"""
+AutoProduce_RFF_06_Random_A,
+AutoProduce_RFF_06_Random_B
+"""
+[hiddenAction_AutoProduce_RFF_06_Random_A]
+requireConditional:"""
+if memory.randomProduce<=500
+"""
+alsoQueueAction:Produce_RFF_06_StandardSquad
+
+[hiddenAction_AutoProduce_RFF_06_Random_B]
+requireConditional:"""
+if memory.randomProduce>500 
+and memory.randomProduce<=1000
+"""
+alsoQueueAction:Produce_RFF_06_CannonSquad
+
+
+
+
+
+[action_Pannel_RFF_06]
+@copyFromSection:template_Pannel
+@define UnitID=RFF_06
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+
+[action_Produce_RFF_06_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=RFF_06
+@define Money=1500
+@define Resource=2000
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+buildSpeed:55s
+
+alsoQueueAction:"""
+Produce_RFF_06_StandardSquad_1,
+Produce_RFF_06_StandardSquad_2,
+Produce_RFF_06_StandardSquad_3
+"""
+[hiddenAction_Produce_RFF_06_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RFF_06*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_RFF_06_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+RFF_06*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_RFF_06_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+RFF_06*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+
+[action_Produce_RFF_06_CannonSquad]
+@copyFromSection:template_Produce
+@define UnitID=RFF_06
+text:Cannon Squad
+text_zh:加农炮小队
+@define Money=2100
+@define Resource=3200
+buildSpeed:70s
+alsoQueueAction:"""
+Produce_RFF_06_CannonSquad_1,
+Produce_RFF_06_CannonSquad_2,
+Produce_RFF_06_CannonSquad_3
+"""
+[hiddenAction_Produce_RFF_06_CannonSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RFF_06*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_RFF_06_CannonSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+RFF_06*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_RFF_06_CannonSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+RFF_06*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""

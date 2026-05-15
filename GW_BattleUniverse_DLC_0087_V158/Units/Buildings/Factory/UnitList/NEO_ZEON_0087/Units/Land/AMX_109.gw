@@ -1,0 +1,51 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+
+[hiddenAction_AutoProduce_AMX_109]
+@copyFromSection:template_AutoProduce
+@define UnitID=AMX_109
+alsoTriggerAction:AutoProduce_AMX_109_Step2
+
+[hiddenAction_AutoProduce_AMX_109_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=4500
+@define Resource=6000
+alsoQueueAction:Produce_AMX_109_StandardSquad
+
+
+
+[action_Produce_AMX_109_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=AMX_109
+@define Money=4500
+@define Resource=6000
+@define FactionVisible= (memory.Pannel_NEO_ZEON_0087_DontShow==false)
+buildSpeed:55s
+
+alsoQueueAction:"""
+Produce_AMX_109_StandardSquad_1,
+Produce_AMX_109_StandardSquad_2,
+Produce_AMX_109_StandardSquad_3
+"""
+[hiddenAction_Produce_AMX_109_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+AMX_109*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_AMX_109_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+AMX_109*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_AMX_109_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+AMX_109*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

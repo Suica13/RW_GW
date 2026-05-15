@@ -1,0 +1,20 @@
+[core]
+
+@memory AutoRepairCD:float
+
+[hiddenAction_AutoRepair]
+autoTrigger:"""
+if self.timeAlive>memory.AutoRepairCD 
+and self.hp>0 
+and self.hp<self.maxHp 
+and not parent.hasTags(includes='inBattle') 
+and self.attacking.hp<=0 
+"""
+setUnitMemory:AutoRepairCD=self.timeAlive+1
+sendMessageTo:self
+sendMessageWithTags:RecoverByOther
+sendMessageWithData:"""
+RecoverHpPer=0.0025,
+RecoverShieldPer=0.005,
+RecoverSkillPer=0.005
+"""

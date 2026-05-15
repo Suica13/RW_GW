@@ -1,0 +1,175 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Beam/Common/Beam_Fire_1_Pink.gw,
+ROOT:Resource/Image/Fx/Common/Common_Flash_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_Two_Handed_A.gw
+"""
+
+@memory EF_R4_BeamSniperRifle_CDTimer:float
+@global EF_R4_BeamSniperRifle_CD=3
+@global EF_R4_BeamSniperRifle_EN=35
+
+
+
+
+
+[decal_EF_R4_BeamSniperRifle_Idle]
+layer:beforeBody
+order:5.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Beam\Image\EF_R4_BeamSniperRifle.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:0.85
+xOffsetRelative: 0.5
+yOffsetRelative: 12
+dirOffset:0
+[decal_EF_R4_BeamSniperRifle_Attack]
+layer:beforeBody
+order:5.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Beam\Image\EF_R4_BeamSniperRifle.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:0.85
+xOffsetRelative: 0.5
+yOffsetRelative: 12
+dirOffset:0
+
+[decal_EF_R4_BeamSniperRifle_NotUsing]
+layer:beforeBody
+order:1
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Beam\Image\EF_R4_BeamSniperRifle.png
+isVisible:false
+basePositionFromLegEnd:arm1
+imageScale:0.75
+xOffsetRelative: 0
+yOffsetRelative: -7
+dirOffset:-90
+
+
+
+
+
+[turret_EF_R4_BeamSniperRifle]
+x:0
+y:0
+
+canShoot:false
+projectile:EF_R4_BeamSniperRifle_Projectile
+
+delay:0.2s
+canAttackMaxAngle:15
+barrelX:9
+barrelY:35
+limitingRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/BeamCannon_1.ogg
+shoot_sound_vol:0.6
+shoot_flame:Beam_Fire_1_Pink
+
+
+
+
+
+[projectile_EF_R4_BeamSniperRifle_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Target_BeamRifle_Pink*1
+(
+    addResources=
+    BeamDamage:6000 
+    |BeamAPDamage:2000
+    |DpDamage:350
+    |WeaponAccuracy=125
+    |PartBreakModifier=1
+    |CockpitBreakModifier=1
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=0.75
+    |AntiAqua=0.5
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+
+    |HeightChangeSpeed=2
+    |HeightHitRange=25
+    |ProjectileSpeed:125
+    |ProjectileSpread:1
+    |ProjectileLife:30
+)
+"""
+
+
+
+
+
+[hiddenAction_EF_R4_BeamSniperRifle_Trigger]
+alsoTriggerAction:EF_R4_BeamSniperRifle_Fire
+[hiddenAction_EF_R4_BeamSniperRifle_Fire]
+requireConditional:"""
+if self.timeAlive>memory.EF_R4_BeamSniperRifle_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15) 
+and self.resource.EN>0
+"""
+setUnitMemory:EF_R4_BeamSniperRifle_CDTimer=self.timeAlive+${EF_R4_BeamSniperRifle_CD}
+addResources:EN=-${EF_R4_BeamSniperRifle_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+EF_R4_BeamSniperRifle_SetWeaponIndex,
+PlayCommon_Shoot_Two_Handed_A_Step_1,
+EF_R4_BeamSniperRifle_B1_Step_1
+"""
+[hiddenAction_EF_R4_BeamSniperRifle_B1_Step_1]
+alsoQueueAction:"""
+EF_R4_BeamSniperRifle_Fire_Step_1,
+EF_R4_BeamSniperRifle_Fire_Step_2,
+EF_R4_BeamSniperRifle_Fire_Step_Final
+"""
+
+
+
+[hiddenAction_EF_R4_BeamSniperRifle_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_EF_R4_BeamSniperRifle_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.35s
+whenBuilding_cannotMove:true
+[hiddenAction_EF_R4_BeamSniperRifle_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+whenBuilding_cannotMove:true
+fireTurretXAtGround:EF_R4_BeamSniperRifle
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_EF_R4_BeamSniperRifle_Fire_Step_Final]
+buildSpeed:1.0s
+whenBuilding_cannotMove:true
+stopLastAnimation:true
+alsoTriggerAction:SetAttackingOff

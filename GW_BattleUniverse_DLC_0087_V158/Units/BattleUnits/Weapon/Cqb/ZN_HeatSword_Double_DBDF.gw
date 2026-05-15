@@ -1,0 +1,277 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Cqb/Common/Cqb_Fire_1_Yellow_R.gw,
+ROOT:Resource/Image/Fx/Weapon/Cqb/Common/Cqb_Fire_1_Yellow_L.gw,
+ROOT:Resource/Image/Fx/Weapon/Cqb/Common/Cqb_Fire_2_Yellow_R.gw,
+ROOT:Resource/Image/Fx/Weapon/Cqb/Common/Cqb_Fire_2_Yellow_L.gw,
+ROOT:Template/Unit/Animation/Cqb/Common_Melee_Double_B.gw,
+ROOT:Template/Unit/Animation/Cqb/Common_Melee_Double_F.gw
+"""
+
+@memory ZN_HeatSword_Double_DBDF_CDTimer:float
+@global ZN_HeatSword_Double_DBDF_CD=3.5
+
+
+#====================贴画====================#
+
+[decal_ZN_HeatSword_Double_DBDF]
+layer:beforeBody
+order:5.4
+onlyWhileAlive:true
+image:ROOT:Units/BattleUnits/Weapon/Cqb/Image/ZN_HeatSword_MS_08TX_Kai.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:1
+xOffsetRelative:3
+yOffsetRelative:26
+dirOffset:-15
+
+[decal_ZN_HeatSword_Double_DBDF_L]
+@copyFromSection:decal_ZN_HeatSword_Double_DBDF
+basePositionFromLegEnd:arm3
+imageScale:1
+imageScaleX:-1
+xOffsetRelative:-3
+yOffsetRelative:26
+dirOffset:15
+
+#========炮弹========#
+
+[turret_ZN_HeatSword_Double_DBDF]
+x:0
+y:0
+invisible:true
+#射击参数
+canShoot:false
+
+showRangeUIGuide:false
+projectile:ZN_HeatSword_Double_DBDF_DB_Projectile
+#实战参数
+delay:3s
+limitingMinRange:0
+limitingRange:0
+#枪管参数
+canAttackMaxAngle:60
+barrelX:0
+barrelY:0
+#后座力参数
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+#音效参数
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\HeatHawk_1.ogg
+shoot_sound_vol:0.5
+
+[projectile_ZN_HeatSword_Double_DBDF_DB_Projectile]
+#炮弹参数
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+#描画参数
+lightSize:0.75
+lightColor:#ff57e9
+explodeEffect:none
+#生成
+spawnUnit:"""
+Projectile_Saber_A*1
+(
+    addResources=
+    CqbDamage:2500
+    |CqbShellDamage:2500
+    |DpDamage:750
+    |WeaponAccuracy:125
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:0.25
+    |ProjectileAttackTimes:2
+)
+"""
+[projectile_ZN_HeatSword_Double_DBDF_DB_L_Projectile]
+@copyFromSection:projectile_ZN_HeatSword_Double_DBDF_DB_Projectile
+spawnUnit:"""
+Projectile_Saber_A_L*1
+(
+    addResources=
+    CqbDamage:2500
+    |CqbShellDamage:2500
+    |DpDamage:750
+    |WeaponAccuracy:125
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:0.25
+    |ProjectileAttackTimes:2
+)
+"""
+
+[projectile_ZN_HeatSword_Double_DBDF_DF_Projectile]
+@copyFromSection:projectile_ZN_HeatSword_Double_DBDF_DB_Projectile
+spawnUnit:"""
+Projectile_Saber_A*1
+(
+    addResources=
+    CqbDamage:2500
+    |CqbShellDamage:2500
+    |DpDamage:750
+    |WeaponAccuracy:125
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:0.25
+    |ProjectileAttackTimes:2
+)
+"""
+[projectile_ZN_HeatSword_Double_DBDF_DF_L_Projectile]
+@copyFromSection:projectile_ZN_HeatSword_Double_DBDF_DB_Projectile
+spawnUnit:"""
+Projectile_Saber_A_L*1
+(
+    addResources=
+    CqbDamage:2500
+    |CqbShellDamage:2500
+    |DpDamage:750
+    |WeaponAccuracy:125
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:0.25
+    |ProjectileAttackTimes:2
+)
+"""
+#====================逻辑====================#
+
+#========触发========#
+
+[hiddenAction_ZN_HeatSword_Double_DBDF_Trigger]
+alsoTriggerAction:ZN_HeatSword_Double_DBDF_Fire
+[hiddenAction_ZN_HeatSword_Double_DBDF_Fire]
+requireConditional:"""
+if self.timeAlive>memory.ZN_HeatSword_Double_DBDF_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) 
+and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50
+"""
+setUnitMemory:ZN_HeatSword_Double_DBDF_CDTimer=self.timeAlive+${ZN_HeatSword_Double_DBDF_CD}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Cqb,
+ZN_HeatSword_Double_DBDF_SetWeaponIndex,
+PlayCommon_Melee_Double_B_Step_1,
+ZN_HeatSword_Double_DBDF_Step_1
+"""
+[hiddenAction_ZN_HeatSword_Double_DBDF_Step_1]
+alsoQueueAction:"""
+ZN_HeatSword_Double_DBDF_Fire_Step_1,
+ZN_HeatSword_Double_DBDF_Fire_Step_2,
+ZN_HeatSword_Double_DBDF_Fire_Step_3,
+ZN_HeatSword_Double_DBDF_Fire_Step_4,
+ZN_HeatSword_Double_DBDF_Fire_Step_5,
+ZN_HeatSword_Double_DBDF_Fire_Step_6,
+ZN_HeatSword_Double_DBDF_Fire_Step_7,
+ZN_HeatSword_Double_DBDF_Fire_Step_Final
+"""
+
+#设置武器
+[hiddenAction_ZN_HeatSword_Double_DBDF_SetWeaponIndex]
+isVisible:false
+[hiddenAction_ZN_HeatSword_Double_DBDF_SetWeaponIndex_Step2]
+isVisible:false
+
+#格斗A
+[hiddenAction_ZN_HeatSword_Double_DBDF_Fire_Step_1]
+requireConditional:if ${cantAction}==false
+buildSpeed:0.6s
+[hiddenAction_ZN_HeatSword_Double_DBDF_Fire_Step_2]
+requireConditional:if ${cantAction}==false and memory.armRBreaked==false
+buildSpeed:0s
+fireTurretXAtGround:ZN_HeatSword_Double_DBDF
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+spawnEffects:Cqb_Fire_2_Yellow_R
+[hiddenAction_ZN_HeatSword_Double_DBDF_Fire_Step_3]
+requireConditional:if ${cantAction}==false and memory.armLBreaked==false
+buildSpeed:0s
+fireTurretXAtGround:ZN_HeatSword_Double_DBDF
+fireTurretXAtGround_withProjectile:ZN_HeatSword_Double_DBDF_DB_L_Projectile
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+spawnEffects:Cqb_Fire_2_Yellow_L
+
+[hiddenAction_ZN_HeatSword_Double_DBDF_Fire_Step_4]
+buildSpeed:0.4s
+alsoTriggerAction:PlayCommon_Melee_Double_F_Step_1
+[hiddenAction_ZN_HeatSword_Double_DBDF_Fire_Step_5]
+buildSpeed:0.3s
+[hiddenAction_ZN_HeatSword_Double_DBDF_Fire_Step_6]
+requireConditional:if ${cantAction}==false and memory.armRBreaked==false
+buildSpeed:0s
+fireTurretXAtGround:ZN_HeatSword_Double_DBDF
+fireTurretXAtGround_withProjectile:ZN_HeatSword_Double_DBDF_DF_Projectile
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+spawnEffects:Cqb_Fire_1_Yellow_R
+[hiddenAction_ZN_HeatSword_Double_DBDF_Fire_Step_7]
+requireConditional:if ${cantAction}==false and memory.armLBreaked==false
+buildSpeed:0s
+fireTurretXAtGround:ZN_HeatSword_Double_DBDF
+fireTurretXAtGround_withProjectile:ZN_HeatSword_Double_DBDF_DF_L_Projectile
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+spawnEffects:Cqb_Fire_1_Yellow_L
+
+[hiddenAction_ZN_HeatSword_Double_DBDF_Fire_Step_Final]
+buildSpeed:1.0s
+alsoTriggerAction:SetAttackingOff
+
+

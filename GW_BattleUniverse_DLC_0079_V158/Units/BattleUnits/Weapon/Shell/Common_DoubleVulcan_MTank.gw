@@ -1,0 +1,110 @@
+[core]
+dont_load:false
+copyFrom:"""
+"""
+
+@memory Common_DoubleVulcan_MTank_OnCD:bool
+@memory Common_DoubleVulcan_MTank_CDTimer:float
+@global Common_DoubleVulcan_MTank_CD=2
+@global Common_DoubleVulcan_MTank_EN=0.5
+
+@global Common_DoubleVulcan_MTank_Shoot=12
+[resource_Common_DoubleVulcan_MTank_ShootTimer]
+hidden:true
+
+
+
+
+
+
+
+
+[turret_Common_DoubleVulcan_MTank]
+x:0
+y:0
+
+canShoot:true
+canAttackCondition:"""
+if ${onAttacking}==false and ${cantAction}==false 
+"""
+showRangeUIGuide:false
+projectile:Common_DoubleVulcan_MTank_Projectile
+resourceUsage:Common_DoubleVulcan_MTank_ShootTimer=1,en=${Common_DoubleVulcan_MTank_EN}
+
+delay:0.1s
+canAttackMaxAngle:15
+limitingAngle:3
+barrelX:0
+barrelY:15
+turnSpeed:0
+
+aimOffsetSpread:0
+recoilOffset:0
+recoilOutTime:0
+recoilReturnTime:0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\MachineGun_2.ogg
+shoot_sound_vol:0.3
+shoot_flame:none
+
+[projectile_Common_DoubleVulcan_MTank_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Vulcan*1
+(
+    addResources=
+    ShellDamage:150
+    |DpDamage:5
+    |WeaponAccuracy=125
+    |PartBreakModifier=0.5
+    |CockpitBreakModifier=0.5
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=1
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=1
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=1.0
+    |AntiLand=1
+    |AntiSpace=1.0
+    |HeightChangeSpeed=2
+    |HeightHitRange=25
+    |ProjectileSpeed:85
+    |ProjectileSpread:4
+    |ProjectileLife:20
+)
+"""
+
+
+[hiddenAction_Common_DoubleVulcan_MTank_CDStart]
+autoTrigger:"""
+if memory.Common_DoubleVulcan_MTank_OnCD==false 
+and 
+(
+    (
+        self.resource.Common_DoubleVulcan_MTank_ShootTimer<=0 
+    ) 
+    or 
+    (
+        self.resource.Common_DoubleVulcan_MTank_ShootTimer<${Common_DoubleVulcan_MTank_Shoot} and not self.hasTags(includes='inBattle')
+    )
+)
+"""
+setUnitMemory:Common_DoubleVulcan_MTank_OnCD=true,Common_DoubleVulcan_MTank_CDTimer=self.timeAlive+${Common_DoubleVulcan_MTank_CD}
+
+[hiddenAction_Common_DoubleVulcan_MTank_CDEnd]
+autoTriggerOnEvent:created
+autoTrigger:if memory.Common_DoubleVulcan_MTank_OnCD==true and self.timeAlive>memory.Common_DoubleVulcan_MTank_CDTimer
+setUnitMemory:Common_DoubleVulcan_MTank_OnCD=false
+setResourcesWithLogic:Common_DoubleVulcan_MTank_ShootTimer=${Common_DoubleVulcan_MTank_Shoot}

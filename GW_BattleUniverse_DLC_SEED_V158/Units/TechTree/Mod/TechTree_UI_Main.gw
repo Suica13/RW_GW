@@ -1,0 +1,95 @@
+[core]
+copyFrom:"""
+ROOT:Template/UI/Common_UI.gw
+"""
+
+tags:TechTree_UI_Main
+name:TechTree_UI_Main
+
+showInEditor:false
+
+
+@memory pageCount:float
+@memory pageMax:float
+@memory autoTech:float
+
+[hiddenAction_Start_Get_AutoTech]
+autoTriggerOnEvent:created
+setUnitMemory:autoTech=customTarget1.readUnitMemory('autoTech',type='float')
+
+
+[hiddenAction_InitializeStats]
+
+
+
+[hiddenAction_Update]
+
+[hiddenAction_TryClosePage]
+sendMessageTo:self.attachment(slot="Page")
+sendMessageWithTags:ClosePage
+
+[hiddenAction_ClosePage]
+autoTriggerOnEvent:newMessage(withTag="ClosePage")
+sendMessageTo:parent
+sendMessageWithTags:ClosePage
+
+
+[hiddenAction_ShowTechTree]
+autoTriggerOnEvent:newMessage(withTag="ShowTechTree")
+setUnitMemory:"""
+pageCount=
+select
+(
+    memory.pageCount+1>memory.pageMax,
+    memory.pageMax,
+    select
+    (
+        memory.pageCount-1<0,
+        0,
+        memory.pageCount
+    )
+)
+"""
+
+[hiddenAction_GetNextPage]
+autoTriggerOnEvent:newMessage(withTag="NextPage")
+setUnitMemory:"""
+pageCount=
+select
+(
+    memory.pageCount+1>memory.pageMax or memory.pageCount+1>=customTarget1.customTarget1.readUnitMemory("techLimit",type="float"),
+    memory.pageMax,
+    memory.pageCount+1
+)
+"""
+alsoTriggerAction:ShowTechTree
+
+[hiddenAction_GetLastPage]
+autoTriggerOnEvent:newMessage(withTag="LastPage")
+setUnitMemory:"""
+pageCount=
+select
+(
+    memory.pageCount-1<0,
+    0,
+    memory.pageCount-1
+)
+"""
+alsoTriggerAction:ShowTechTree
+
+
+[attachment_Page]
+x:0
+y:0
+setDrawLayerOnBottom:false
+isVisible:true
+keepAliveWhenParentDies:false
+canBeAttackedAndDamaged:false
+isUnselectable:true
+canAttack:false
+showAllActionsFrom:false
+prioritizeParentsMainTarget:true
+smoothlyBlendPositionWhenExistingUnitAdded:false
+onConvertKeepExistingUnitInSameSlot:true
+onParentTeamChangeKeepCurrentTeam:false
+

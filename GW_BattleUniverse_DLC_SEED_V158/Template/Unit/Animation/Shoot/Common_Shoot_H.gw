@@ -1,0 +1,84 @@
+[core]
+dont_load:false
+
+[hiddenAction_PlayCommon_Shoot_H_Step_1]
+finishPlayingLastAnimation:true
+alsoTriggerAction:PlayCommon_Shoot_H_Step2
+[hiddenAction_PlayCommon_Shoot_H_Step2]
+playAnimation:Common_Shoot_H
+
+
+
+[animation_Common_Shoot_H]
+KeyframeTimeScale:1
+blendOut:0s
+
+arm19_0.0s: {x:0, y:-0.5,dir:0}
+arm19_0.25s: {x:0, y:-0.5,dir:0}
+
+arm20_0.0s: {x:0, y:-0.5,dir:0}
+arm20_0.25s: {x:0, y:-0.5,dir:0}
+
+arm1_0.0s: {x:0, y:0,dir:0}
+arm1_0.25s: {x:0, y:0,dir:0}
+
+arm2_0.0s: {x:0, y:-0.5,dir:0}
+arm2_0.25s: {x:0, y:-0.5,dir:0}
+
+arm3_0.0s: {x:0, y:0,dir:0}
+arm3_0.2s: {x:0, y:0,dir:-30}
+arm3_0.3s: {x:0, y:0,dir:-30}
+arm3_0.4s: {x:0, y:0,dir:-60}
+arm3_0.5s: {x:0, y:0,dir:-60}
+arm3_0.6s: {x:0, y:0,dir:-85}
+arm3_0.7s: {x:0, y:0,dir:-85}
+arm3_2.0s: {x:0, y:0,dir:-85}
+
+arm4_0.0s: {x:0, y:0,dir:0}
+arm4_0.2s: {x:0, y:0,dir:30}
+arm4_0.3s: {x:0, y:0,dir:30}
+arm4_0.4s: {x:0, y:0,dir:60}
+arm4_0.5s: {x:0, y:0,dir:60}
+arm4_0.6s: {x:0, y:0,dir:85}
+arm4_0.7s: {x:0, y:0,dir:85}
+arm4_2.0s: {x:0, y:0,dir:85}
+
+arm5_0.0s: {x:0, y:0,dir:0}
+arm5_0.2s: {x:0, y:0,dir:-15}
+arm5_0.3s: {x:0, y:0,dir:-15}
+arm5_0.4s: {x:0, y:0,dir:-30}
+arm5_0.5s: {x:0, y:0,dir:-30}
+arm5_0.6s: {x:0, y:0,dir:-45}
+arm5_0.7s: {x:0, y:0,dir:-45}
+arm5_2.0s: {x:0, y:0,dir:-45}
+
+arm6_0.0s: {x:0, y:0,dir:0}
+arm6_0.2s: {x:0, y:0,dir:15}
+arm6_0.3s: {x:0, y:0,dir:15}
+arm6_0.4s: {x:0, y:0,dir:30}
+arm6_0.5s: {x:0, y:0,dir:30}
+arm6_0.6s: {x:0, y:0,dir:45}
+arm6_0.7s: {x:0, y:0,dir:45}
+arm6_2.0s: {x:0, y:0,dir:45}
+
+arm10_0s: {x:0, y:0,dir:0}
+arm10_1s: {x:0, y:0,dir:0}
+
+arm11_0s: {x:0, y:0,dir:0}
+arm11_1s: {x:0, y:0,dir:0}
+
+
+arm12_0s: {x:0, y:0,dir:0}
+arm12_1s: {x:0, y:0,dir:0}
+
+leg17_0.0s: {x:-3, y:-6,dir:-8}
+leg17_0.25s: {x:-3, y:-6,dir:-8}
+
+leg18_0.0s: {x:-1, y:-3,dir:-5}
+leg18_0.25s: {x:-1, y:-3,dir:-5}
+
+leg19_0.0s: {x:3, y:8,dir:10}
+leg19_0.25s: {x:3, y:8,dir:10}
+
+leg20_0.0s: {x:2, y:3,dir:5}
+leg20_0.25s: {x:2, y:3,dir:5}

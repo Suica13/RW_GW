@@ -1,0 +1,115 @@
+[core]
+dont_load:true
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_Flash_1.gw
+"""
+
+@memory Common_FullBoost_Active:bool
+@memory Common_FullBoost_ActiveTimer:float
+@global Common_FullBoost_ActiveTime:12
+@memory Common_FullBoost_CDTimer:float
+@global Common_FullBoost_CD=90
+
+@memory Common_FullBoost_Speed:float
+@memory Common_FullBoost_Reaction:float
+@global Common_FullBoost_SpeedUp:1.20
+@global Common_FullBoost_ReactionUp:1.15
+
+
+
+
+[decal_Common_FullBoost_Boost]
+@copyFromSection:decal_Boost
+image:ROOT:\Resource\Image\Fx\Unit\Image\Boost_1.png
+
+
+
+
+
+
+
+[hiddenAction_Common_FullBoost_CheckSpeed]
+autoTrigger:true
+setUnitMemory:"""
+Common_FullBoost_Speed=select(memory.Common_FullBoost_Active==true,${Common_FullBoost_SpeedUp},1),
+Common_FullBoost_Reaction=select(memory.Common_FullBoost_Active==true,${Common_FullBoost_ReactionUp},1)
+"""
+
+[hiddenAction_MathExtraMoveSpeed]
+autoTrigger:true
+setUnitMemory:extraMoveSpeed=memory.Common_FullBoost_Speed
+[hiddenAction_MathExtraReactionLevel]
+autoTrigger:true
+setUnitMemory:extraReactionLevel=memory.Common_FullBoost_Reaction
+
+[action_Common_FullBoost_Trigger]
+pos:10
+text:"""
+FullBoost
+%{
+    select(memory.Common_FullBoost_Active==true,
+    str(int(memory.Common_FullBoost_ActiveTimer-self.timeAlive))+"s",
+    select(self.timeAlive<=memory.Common_FullBoost_CDTimer,str(int(memory.Common_FullBoost_CDTimer-self.timeAlive))+"s","OK"))
+}
+"""
+text_zh:"""
+全力推进 
+%{
+    select(memory.Common_FullBoost_Active==true,
+    str(int(memory.Common_FullBoost_ActiveTimer-self.timeAlive))+"秒",
+    select(self.timeAlive<=memory.Common_FullBoost_CDTimer,str(int(memory.Common_FullBoost_CDTimer-self.timeAlive))+"s","OK"))
+}
+"""
+text_KP:100
+
+description:Speed Up 20% And Reaction Up 15% in 12sec
+description_zh:12秒内速度提高20%与反应提高15%
+
+displayType:infoOnly
+
+price:EN=100
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+highPriorityQueue:true
+ai_isDisabled:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Skill/Boost.png
+isVisible:if self.parent.hp<=0  
+
+isGuiBlinking:"""
+if self.timeAlive>memory.Common_FullBoost_CDTimer and memory.Common_FullBoost_Active==false 
+"""
+
+isLocked:if self.timeAlive<=memory.Common_FullBoost_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+isLockedAlt:if memory.Common_FullBoost_Active==true
+isLockedAltMessage:In Action
+isLockedAltMessage_zh:行动中
+isLockedAlt2:if ${cantAction}==true or ${onSkill}==true 
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+alsoTriggerAction:"""
+Common_FullBoost_Step_1
+"""
+[hiddenAction_Common_FullBoost_Step_1]
+spawnEffects:Flash_1_N
+playSoundAtUnit:ROOT:Resource/Sound/SE/Action/Common/Action_8.ogg:0.5
+
+setUnitMemory:"""
+Common_FullBoost_Active=true,
+Common_FullBoost_ActiveTimer=self.timeAlive+${Common_FullBoost_ActiveTime}
+"""
+
+[hiddenAction_Common_FullBoost_CheckOver]
+autoTrigger:"""
+if memory.Common_FullBoost_Active==true 
+and self.timeAlive>memory.Common_FullBoost_ActiveTimer
+"""
+setUnitMemory:"""
+Common_FullBoost_Active=false,
+Common_FullBoost_CDTimer=self.timeAlive+${Common_FullBoost_CD}
+"""

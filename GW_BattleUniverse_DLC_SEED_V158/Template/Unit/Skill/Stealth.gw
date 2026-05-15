@@ -1,0 +1,12 @@
+[core]
+
+[hiddenAction_Check_Stealth]
+autoTrigger:true
+alsoTriggerAction:"""
+Check_Stealth_True
+"""
+[hiddenAction_Check_Stealth_True]
+requireConditional:"""
+if not self.hasTags(includes='Stealth')
+"""
+temporarilyAddTags:Stealth

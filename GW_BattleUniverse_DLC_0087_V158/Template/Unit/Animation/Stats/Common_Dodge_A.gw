@@ -1,0 +1,140 @@
+[core]
+dont_load:false
+
+
+[animation_Common_Dodge_L]
+KeyframeTimeScale:2
+blendIn:0s
+blendOut:0s
+
+#头部
+arm19_0.0s: {x:0, y:0,dir:0}
+arm19_0.1s: {x:-2, y:0,dir:10}
+arm19_0.3s: {x:-2, y:0,dir:10}
+
+arm20_0.0s: {x:0, y:0,dir:0}
+arm20_0.1s: {x:-1, y:0,dir:10}
+arm20_0.3s: {x:-1, y:0,dir:10}
+
+#跨部
+arm1_0.0s: {x:0, y:0,dir:0}
+arm1_0.1s: {x:-1, y:0,dir:10}
+arm1_0.3s: {x:-1, y:0,dir:10}
+#胸部
+arm2_0.0s: {x:0, y:0,dir:0}
+arm2_0.1s: {x:-2, y:0,dir:15}
+arm2_0.3s: {x:-2, y:0,dir:15}
+
+#左手
+arm3_0.0s: {x:0, y:0,dir:0}
+arm3_0.1s: {x:-2, y:1,dir:10}
+arm3_0.3s: {x:-2, y:1,dir:10}
+
+#右手
+arm4_0.0s: {x:0, y:0,dir:0}
+arm4_0.1s: {x:-2, y:-1,dir:-5}
+arm4_0.3s: {x:-2, y:-1,dir:-5}
+
+#左肩
+arm5_0.0s: {x:0, y:0,dir:0}
+arm5_0.1s: {x:-2, y:2,dir:20}
+arm5_0.3s: {x:-2, y:2,dir:20}
+
+#右肩
+arm6_0.0s: {x:0, y:0,dir:0}
+arm6_0.1s: {x:-2, y:-2,dir:5}
+arm6_0.3s: {x:-2, y:-2,dir:5}
+
+#左手武器
+arm10_0.0s: {x:0, y:0,dir:0}
+#右手武器
+arm11_0.0s: {x:0, y:0,dir:0}
+
+leg17_0.0s: {x:0, y: 0, dir: 0 }
+leg17_0.1s: {x:-2, y: -11, dir: -15 }
+leg17_0.3s: {x:-2, y: -11, dir: -15 }
+
+leg18_0.0s: {x:0, y: 0, dir: 0 }
+leg18_0.1s: {x:-2, y: -7.5, dir: -15 }
+leg18_0.3s: {x:-2, y: -7.5, dir: -15 }
+
+
+
+leg19_0.0s: {x:0, y: 0, dir: 0 }
+leg19_0.1s: {x:-2, y: -7.5, dir: -20 }
+leg19_0.3s: {x:-2, y: -7.5, dir: -20 }
+
+leg20_0.0s: {x:0, y: 0, dir: 0 }
+leg20_0.1s: {x:-3, y: -4, dir: -20 }
+leg20_0.3s: {x:-3, y: -4, dir: -20 }
+
+
+
+
+[animation_Common_Dodge_R]
+KeyframeTimeScale:2
+blendIn:0s
+blendOut:0s
+
+#头部
+arm19_0.0s: {x:0, y:0,dir:0}
+arm19_0.1s: {x:2, y:0,dir:-10}
+arm19_0.3s: {x:2, y:0,dir:-10}
+
+arm20_0.0s: {x:0, y:0,dir:0}
+arm20_0.1s: {x:1, y:0,dir:-10}
+arm20_0.3s: {x:1, y:0,dir:-10}
+
+#跨部
+arm1_0.0s: {x:0, y:0,dir:0}
+arm1_0.1s: {x:1, y:0,dir:-10}
+arm1_0.3s: {x:1, y:0,dir:-10}
+#胸部
+arm2_0.0s: {x:0, y:0,dir:0}
+arm2_0.1s: {x:2, y:0,dir:-15}
+arm2_0.3s: {x:2, y:0,dir:-15}
+
+#左手
+arm3_0.0s: {x:0, y:0,dir:0}
+arm3_0.1s: {x:2, y:-1,dir:5}
+arm3_0.3s: {x:2, y:-1,dir:5}
+
+#右手
+arm4_0.0s: {x:0, y:0,dir:0}
+arm4_0.1s: {x:2, y:1,dir:-10}
+arm4_0.3s: {x:2, y:1,dir:-10}
+
+#左肩
+arm5_0.0s: {x:0, y:0,dir:0}
+arm5_0.1s: {x:2, y:-2,dir:-5}
+arm5_0.3s: {x:2, y:-2,dir:-5}
+
+#右肩
+arm6_0.0s: {x:0, y:0,dir:0}
+arm6_0.1s: {x:2, y:2,dir:-20}
+arm6_0.3s: {x:2, y:2,dir:-20}
+
+#左手武器
+arm10_0.0s: {x:0, y:0,dir:0}
+#右手武器
+arm11_0.0s: {x:0, y:0,dir:0}
+
+
+
+leg17_0.0s: {x:0, y: 0, dir: 0 }
+leg17_0.1s: {x:-2, y: -7.5, dir: 20 }
+leg17_0.3s: {x:-2, y: -7.5, dir: 20 }
+
+leg18_0.0s: {x:0, y: 0, dir: 0 }
+leg18_0.1s: {x:-3, y: -4, dir: 20 }
+leg18_0.3s: {x:-3, y: -4, dir: 20 }
+
+
+
+leg19_0.0s: {x:0, y: 0, dir: 0 }
+leg19_0.1s: {x:-2, y: -11, dir: 15 }
+leg19_0.3s: {x:-2, y: -11, dir: 15 }
+
+leg20_0.0s: {x:0, y: 0, dir: 0 }
+leg20_0.1s: {x:-2, y: -7.5, dir: 15 }
+leg20_0.3s: {x:-2, y: -7.5, dir: 15 }

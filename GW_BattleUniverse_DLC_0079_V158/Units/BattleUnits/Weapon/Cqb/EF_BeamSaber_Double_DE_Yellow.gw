@@ -1,0 +1,238 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Cqb/Common/Cqb_Fire_1_Yellow_R.gw,
+ROOT:Resource/Image/Fx/Weapon/Cqb/Common/Cqb_Fire_1_Yellow_L.gw,
+ROOT:Template/Unit/Animation/Cqb/Common_Melee_Double_G.gw,
+ROOT:Template/Unit/Animation/Stats/Common_Pose_A.gw
+"""
+
+
+
+@memory EF_BeamSaber_Double_DE_Yellow_CDTimer:float
+@global EF_BeamSaber_Double_DE_Yellow_CD=3
+
+
+
+
+
+[decal_EF_BeamSaber_Double_DE_Yellow]
+layer:beforeBody
+order:5.4
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Cqb\Image\EF_BeamSaber_Yellow.png
+isVisible:false
+basePositionFromLegEnd:arm4
+total_frames:5
+frame:1
+imageScale:0.85
+xOffsetRelative:-1
+yOffsetRelative:22
+dirOffset:-16
+
+[decal_EF_BeamSaber_Double_DE_Yellow_L]
+@copyFromSection:decal_EF_BeamSaber_Double_DE_Yellow
+basePositionFromLegEnd:arm3
+imageScale:0.85
+imageScaleX:-1
+xOffsetRelative:1
+yOffsetRelative:22
+dirOffset:16
+
+
+
+[turret_EF_BeamSaber_Double_DE_Yellow]
+x:0
+y:0
+invisible:true
+
+canShoot:false
+
+showRangeUIGuide:false
+projectile:EF_BeamSaber_Double_DE_Yellow_Projectile
+
+delay:3s
+limitingMinRange:0
+limitingRange:0
+
+canAttackMaxAngle:60
+barrelX:0
+barrelY:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\BeamSaber_1.ogg
+shoot_sound_vol:0.5
+
+
+[projectile_EF_BeamSaber_Double_DE_Yellow_Projectile]
+#炮弹参数
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+#描画参数
+lightSize:0.75
+lightColor:#ff57e9
+explodeEffect:none
+#生成
+spawnUnit:"""
+Projectile_Saber_A*1
+(
+    addResources=
+    CqbDamage:1550
+    |CqbBeamDamage:1550
+    |DpDamage:350
+    |WeaponAccuracy:125
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=1.25
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:0.25
+    |ProjectileAttackTimes:1
+)
+"""
+[projectile_EF_BeamSaber_Double_DE_Yellow_Projectile_L]
+@copyFromSection:projectile_EF_BeamSaber_Double_DE_Yellow_Projectile
+spawnUnit:"""
+Projectile_Saber_A_L*1
+(
+    addResources=
+    CqbDamage:1550
+    |CqbBeamDamage:1550
+    |DpDamage:350
+    |WeaponAccuracy:125
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=1.25
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:0.25
+    |ProjectileAttackTimes:1
+)
+"""
+
+
+
+
+[hiddenAction_EF_BeamSaber_Double_DE_Yellow_SetWeaponIndex]
+isVisible:false
+
+[hiddenAction_EF_BeamSaber_Double_DE_Yellow_Fire_Step_1]
+requireConditional:if ${cantAction}==false
+buildSpeed:0.2s
+alsoTriggerAction:PlayCommon_Melee_Double_G_Step_1
+[hiddenAction_EF_BeamSaber_Double_DE_Yellow_Fire_Step_2]
+requireConditional:if ${cantAction}==false
+buildSpeed:0.2s
+[hiddenAction_EF_BeamSaber_Double_DE_Yellow_Fire_Step_3]
+requireConditional:if ${cantAction}==false and memory.armRBreaked==false
+buildSpeed:0s
+fireTurretXAtGround:EF_BeamSaber_Double_DE_Yellow
+fireTurretXAtGround_withProjectile:EF_BeamSaber_Double_DE_Yellow_Projectile
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+spawnEffects:Cqb_Fire_1_Yellow_R_S
+[hiddenAction_EF_BeamSaber_Double_DE_Yellow_Fire_Step_4]
+requireConditional:if ${cantAction}==false and memory.armLBreaked==false
+buildSpeed:0s
+fireTurretXAtGround:EF_BeamSaber_Double_DE_Yellow
+fireTurretXAtGround_withProjectile:EF_BeamSaber_Double_DE_Yellow_Projectile_L
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+spawnEffects:Cqb_Fire_1_Yellow_L_S
+[hiddenAction_EF_BeamSaber_Double_DE_Yellow_Fire_Step_Final]
+buildSpeed:1.0s
+alsoTriggerAction:SetAttackingOff
+
+
+[hiddenAction_EF_BeamSaber_Double_DE_Yellow_Fire_Step_Rotation]
+buildSpeed:0.02s
+setBodyRotation:self.dir-20
+
+
+[hiddenAction_EF_BeamSaber_Double_DE_Yellow_Trigger]
+alsoTriggerAction:EF_BeamSaber_Double_DE_Yellow_Fire
+[hiddenAction_EF_BeamSaber_Double_DE_Yellow_Fire]
+requireConditional:"""
+if self.timeAlive>memory.EF_BeamSaber_Double_DE_Yellow_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) 
+and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50
+"""
+setUnitMemory:EF_BeamSaber_Double_DE_Yellow_CDTimer=self.timeAlive+${EF_BeamSaber_Double_DE_Yellow_CD}
+
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Cqb,
+EF_BeamSaber_Double_DE_Yellow_SetWeaponIndex,
+EF_BeamSaber_Double_DE_Yellow_Step_1
+"""
+[hiddenAction_EF_BeamSaber_Double_DE_Yellow_Step_1]
+alsoQueueAction:"""
+EF_BeamSaber_Double_DE_Yellow_Fire_Step_1,
+EF_BeamSaber_Double_DE_Yellow_Fire_Step_2,
+
+SetAttackingCantTurnOn,
+
+EF_BeamSaber_Double_DE_Yellow_Fire_Step_Rotation,
+EF_BeamSaber_Double_DE_Yellow_Fire_Step_Rotation,
+EF_BeamSaber_Double_DE_Yellow_Fire_Step_Rotation,
+EF_BeamSaber_Double_DE_Yellow_Fire_Step_Rotation,
+EF_BeamSaber_Double_DE_Yellow_Fire_Step_Rotation,
+EF_BeamSaber_Double_DE_Yellow_Fire_Step_Rotation,
+
+EF_BeamSaber_Double_DE_Yellow_Fire_Step_3,
+EF_BeamSaber_Double_DE_Yellow_Fire_Step_4,
+
+EF_BeamSaber_Double_DE_Yellow_Fire_Step_Rotation,
+EF_BeamSaber_Double_DE_Yellow_Fire_Step_Rotation,
+EF_BeamSaber_Double_DE_Yellow_Fire_Step_Rotation,
+EF_BeamSaber_Double_DE_Yellow_Fire_Step_Rotation,
+EF_BeamSaber_Double_DE_Yellow_Fire_Step_Rotation,
+EF_BeamSaber_Double_DE_Yellow_Fire_Step_Rotation,
+
+
+PlayCommon_Pose_A_Step_1,
+EF_BeamSaber_Double_DE_Yellow_Fire_Step_3,
+EF_BeamSaber_Double_DE_Yellow_Fire_Step_4,
+
+EF_BeamSaber_Double_DE_Yellow_Fire_Step_Rotation,
+EF_BeamSaber_Double_DE_Yellow_Fire_Step_Rotation,
+EF_BeamSaber_Double_DE_Yellow_Fire_Step_Rotation,
+EF_BeamSaber_Double_DE_Yellow_Fire_Step_Rotation,
+EF_BeamSaber_Double_DE_Yellow_Fire_Step_Rotation,
+EF_BeamSaber_Double_DE_Yellow_Fire_Step_Rotation,
+
+
+EF_BeamSaber_Double_DE_Yellow_Fire_Step_3,
+EF_BeamSaber_Double_DE_Yellow_Fire_Step_4,
+
+
+SetAttackingCantTurnOff,
+
+EF_BeamSaber_Double_DE_Yellow_Fire_Step_Final
+"""

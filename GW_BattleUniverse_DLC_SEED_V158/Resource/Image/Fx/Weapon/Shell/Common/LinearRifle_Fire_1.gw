@@ -1,0 +1,45 @@
+[core]
+dont_load:false
+
+
+
+[effect_LinearRifle_Fire_1]
+life: 100
+
+xOffsetRelative: -1
+yOffsetRelative: 30
+hOffset: 0
+dirOffset: -90
+attachedToUnit: true
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+alpha:0.85
+scaleFrom: 0.5
+scaleTo:0.5
+image: ROOT:\Resource\Image\Fx\Weapon\Shell\Image\Railgun_Fire_1.png
+
+total_frames: 5
+animateFrameStart: 0
+animateFrameEnd: 4
+animateFrameSpeed: 0.1
+showInFog:true
+
+
+alsoEmitEffects:LinearRifle_Fire_1_FireLight
+
+
+
+[effect_LinearRifle_Fire_1_FireLight]
+image:ROOT:Resource/Image/Fx/Weapon/Common/Image/Common_FireLight_25_Normal.png
+priority:high
+yOffsetRelative:5
+life: 15
+scaleFrom: 2
+scaleTo: 1
+alpha:0.5
+alwayStartDirAtZero:true
+drawUnderUnits:false

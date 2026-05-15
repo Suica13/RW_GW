@@ -1,0 +1,77 @@
+[core]
+
+dont_load:true
+
+@memory buildDone:bool
+@memory buildCD:float
+@memory buildTimer:float
+@global buildTime=25
+
+
+[hiddenAction_Building_Start]
+autoTriggerOnEvent:created
+setUnitStats:hp=self.maxHp*0.1
+[hiddenAction_Building_In]
+autoTrigger:if memory.buildTimer<${buildTime} and self.timeAlive>memory.buildCD and memory.buildDone==false
+setUnitMemory:buildTimer=memory.buildTimer+1.5,buildCD=self.timeAlive+1
+setUnitStats:hp=self.hp+self.maxHp/${buildTime}*1.5
+[hiddenAction_Building_Done]
+autoTrigger:if memory.buildTimer>=${buildTime} and memory.buildDone==false
+setUnitMemory:buildDone=true,buildTimer=${buildTime}
+sendMessageTo:self
+sendMessageWithTags:BuildDone
+
+
+[hiddenAction_Building_GetDone]
+autoTriggerOnEvent:newMessage(withTag="BuildDone")
+
+
+
+
+[hiddenAction_Check_DetectEnemy]
+requireConditional:"""
+if self.numberOfUnitsInEnemyTeam(withTag="CanBeDetected",withinrange=${detectRange})>0 
+and self.numberOfUnitsInEnemyTeam(withTag="UnDetected",withinrange=${detectRange})>0 
+and memory.buildDone==true
+"""
+
+
+
+
+[action_DelSelf]
+isLocked:if memory.buildDone==false
+isLockedMessage:Building Not Done
+isLockedMessage_zh:还没有建造完成
+
+[decal_BuildBar_Self]
+layer:beforeUI
+order:2
+image:SHARED:white_pixel.png
+color:#267dff
+alpha:1
+imageScale:1
+imageScaleX:50*((memory.buildTimer/${buildTime}))
+imageScaleY:3
+xOffsetAbsolute:(25*((memory.buildTimer/${buildTime})))-25
+yOffsetAbsolute:35
+alwaysStartDirAtZero:true
+onlyOnNonPreview:true
+onlyWhileAlive:true
+onlyTeam:any
+isVisible:if memory.buildDone==false
+[decal_BuildBar_BackGround]
+layer:beforeUI
+order:1
+image:SHARED:white_pixel.png
+color:#000000
+alpha:1
+imageScale:1.05
+imageScaleX:50
+imageScaleY:5
+xOffsetAbsolute:0
+yOffsetAbsolute:35
+alwaysStartDirAtZero:true
+onlyOnNonPreview:true
+onlyWhileAlive:true
+onlyTeam:any
+isVisible:if memory.buildDone==false

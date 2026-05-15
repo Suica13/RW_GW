@@ -1,0 +1,59 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory RX_121_3C:bool
+
+
+[hiddenAction_Pannel_Close_RX_121_3C]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:RX_121_3C=false
+
+
+
+
+[hiddenAction_AutoProduce_RX_121_3C]
+@copyFromSection:template_AutoProduce
+@define UnitID=RX_121_3C
+alsoTriggerAction:AutoProduce_RX_121_3C_Step2
+
+[hiddenAction_AutoProduce_RX_121_3C_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=3750
+@define Resource=4250
+alsoTriggerAction:AutoProduce_RX_121_3C_Random
+
+
+
+[hiddenAction_AutoProduce_RX_121_3C_Random]
+alsoTriggerAction:"""
+AutoProduce_RX_121_3C_Random_A
+"""
+[hiddenAction_AutoProduce_RX_121_3C_Random_A]
+requireConditional:"""
+if true
+"""
+alsoQueueAction:Produce_RX_121_3C_StandardSquad
+
+
+
+
+[action_Produce_RX_121_3C_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=RX_121_3C
+@define Money=3750
+@define Resource=4250
+@define FactionVisible= (memory.Pannel_TITANS_0087_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+buildSpeed:45s
+
+alsoQueueAction:"""
+Produce_RX_121_3C_StandardSquad_1
+"""
+[hiddenAction_Produce_RX_121_3C_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RX_121_3C*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+

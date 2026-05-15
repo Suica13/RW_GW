@@ -1,0 +1,160 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Cqb/Common/Cqb_Fire_1_Yellow_R.gw,
+ROOT:Template\Unit\Animation\Cqb\Common_Melee_A.gw
+"""
+
+@memory TITANS_HeatHawkKai_A_CDTimer:float
+@global TITANS_HeatHawkKai_A_CD=3
+
+
+
+
+[decal_TITANS_HeatHawkKai_A]
+layer:beforeBody
+order:5.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Cqb\Image\TITANS_HeatHawkKai.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:0.85
+imageScaleX:-1
+xOffsetRelative:3
+yOffsetRelative:19
+dirOffset:0
+[decal_TITANS_HeatHawkKai_A_Step2]
+@copyFromSection:decal_TITANS_HeatHawkKai_A
+imageScale:0.85
+imageScaleX:1
+xOffsetRelative:12
+yOffsetRelative:18
+dirOffset:25
+isVisible:false
+
+
+
+[turret_TITANS_HeatHawkKai_A]
+x:0
+y:0
+invisible:true
+
+canShoot:false
+
+showRangeUIGuide:false
+projectile:TITANS_HeatHawkKai_A_Projectile
+
+delay:3s
+limitingMinRange:0
+limitingRange:0
+
+canAttackMaxAngle:60
+barrelX:0
+barrelY:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\HeatHawk_1.ogg
+shoot_sound_vol:0.5
+
+[projectile_TITANS_HeatHawkKai_A_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Saber_A*1
+(
+    addResources=
+    CqbDamage:2250
+    |CqbShellDamage:2250
+    |DpDamage:750
+    |WeaponAccuracy:125
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:0.25
+    |ProjectileAttackTimes:1
+)
+"""
+
+
+
+
+
+
+[hiddenAction_TITANS_HeatHawkKai_A_Trigger]
+alsoTriggerAction:TITANS_HeatHawkKai_A_Fire
+[hiddenAction_TITANS_HeatHawkKai_A_Fire]
+requireConditional:"""
+if self.timeAlive>memory.TITANS_HeatHawkKai_A_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) 
+and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50
+"""
+setUnitMemory:TITANS_HeatHawkKai_A_CDTimer=self.timeAlive+${TITANS_HeatHawkKai_A_CD}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Cqb,
+TITANS_HeatHawkKai_A_SetWeaponIndex,
+TITANS_HeatHawkKai_A_SetWeaponIndex_Step2,
+PlayCommon_Melee_A_Step_1,
+TITANS_HeatHawkKai_A_Step_1
+"""
+[hiddenAction_TITANS_HeatHawkKai_A_Step_1]
+alsoQueueAction:"""
+TITANS_HeatHawkKai_A_Fire_Step_1,
+TITANS_HeatHawkKai_A_Fire_Step_2,
+TITANS_HeatHawkKai_A_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_TITANS_HeatHawkKai_A_SetWeaponIndex]
+isVisible:false
+[hiddenAction_TITANS_HeatHawkKai_A_SetWeaponIndex_Step2]
+isVisible:false
+
+
+[hiddenAction_TITANS_HeatHawkKai_A_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.6s
+[hiddenAction_TITANS_HeatHawkKai_A_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:TITANS_HeatHawkKai_A
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+spawnEffects:Cqb_Fire_1_Yellow_R
+[hiddenAction_TITANS_HeatHawkKai_A_Fire_Step_Final]
+buildSpeed:1.4s
+alsoTriggerAction:"""
+SetAttackingOff,
+TITANS_HeatHawkKai_A_SetWeaponIndex
+"""

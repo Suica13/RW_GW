@@ -1,0 +1,15 @@
+[core]
+dont_load:false
+
+
+
+[effect_ABMirror_1]
+image:ROOT:Resource/Image/Fx/Weapon/Sp/Image/ABMirror_1.png
+priority:critical
+yOffsetRelative:0
+life: 60
+scaleFrom: 0.75
+scaleTo: 0.5
+alwayStartDirAtZero:true
+drawUnderUnits:true
+

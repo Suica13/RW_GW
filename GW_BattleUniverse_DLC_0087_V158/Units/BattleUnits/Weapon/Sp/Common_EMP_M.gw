@@ -1,0 +1,150 @@
+[core]
+dont_load:false
+copyFrom:"""
+"""
+
+@memory Common_EMP_M_CDTimer:float
+@global Common_EMP_M_CD=60
+@global Common_EMP_M_EN=80
+
+
+[turret_Common_EMP_M]
+x:0
+y:0
+
+canShoot:false
+projectile:Common_EMP_M_Projectile
+
+delay:0.2s
+canAttackMaxAngle:15
+limitingAngle:0
+limitingRange:1200
+barrelX:0
+barrelY:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Hit/Beam_Hit_3.ogg
+shoot_sound_vol:1.5
+shoot_flame:none
+
+
+
+
+[projectile_Common_EMP_M_Projectile]
+
+directDamage: 0
+life: 1
+explodeOnEndOfLife:true
+speed: 1
+instant:true
+invisible:true
+targetGround:true
+effectOnCreate:none
+explodeEffect:none
+drawUnderUnits:true
+image:none
+
+spawnUnit:"""
+Projectile_EMP_M*1
+(
+    addResources=
+    ShellDamage:2500
+    |DpDamage:250
+    |WeaponAccuracy=300
+    |PartBreakModifier=0.5
+    |CockpitBreakModifier=0.5
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=0.75
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=0.75
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=1
+    |AntiAir=1
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=3
+    |HeightHitRange=100
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileExplosionRange:175
+    |ProjectileLife:0
+
+    |StunDamage:3
+)
+"""
+
+
+
+[action_Common_EMP_M_Trigger]
+pos:10
+text:EMP[M] %{select(self.timeAlive<=memory.Common_EMP_M_CDTimer,str(int(memory.Common_EMP_M_CDTimer-self.timeAlive))+"s","OK")}
+text_zh:EMP[中] %{select(self.timeAlive<=memory.Common_EMP_M_CDTimer,str(int(memory.Common_EMP_M_CDTimer-self.timeAlive))+"秒","OK")}
+text_KP:100
+
+description:EMP Area
+description_zh:对周围敌人造成一次EMP打击,暂时瘫痪机能
+
+displayType:infoOnly
+
+price:EN=${Common_EMP_M_EN}
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+ai_isDisabled:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Action/MinovskyParticle_1.png
+highPriorityQueue:true
+
+isVisible:if self.parent.hp<=0 
+isGuiBlinking:"""
+if self.timeAlive>memory.Common_EMP_M_CDTimer 
+and ${cantAction}==false 
+and ${onSkill}==false
+"""
+
+isLocked:if self.timeAlive<=memory.Common_EMP_M_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+isLockedAlt2:if ${cantAction}==true or ${onSkill}==true
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+alsoTriggerAction:"""
+SetOnSkillOn,
+Common_EMP_M_SetWeaponIndex,
+Common_EMP_M_B1_Step_1
+"""
+[hiddenAction_Common_EMP_M_B1_Step_1]
+setUnitMemory:"""
+Common_EMP_M_CDTimer=self.timeAlive+${Common_EMP_M_CD}
+"""
+
+alsoQueueAction:"""
+Common_EMP_M_Fire_Step_1,
+Common_EMP_M_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_Common_EMP_M_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_Common_EMP_M_Fire_Step_1]
+buildSpeed:0s
+fireTurretXAtGround:Common_EMP_M
+fireTurretXAtGround_withTarget:self
+[hiddenAction_Common_EMP_M_Fire_Step_Final]
+buildSpeed:0s
+alsoTriggerAction:"""
+SetOnSkillOff
+"""
+

@@ -1,0 +1,28 @@
+[core]
+dont_load:false
+
+
+[effect_Boost_Start]
+image:ROOT:Resource/Image/Fx/Unit/Image/Boost_Start_1_Green.png
+priority:critical
+life: 60
+
+drawUnderUnits:false
+
+
+total_frames:4
+animateFrameStart: 0
+animateFrameEnd: 3
+animateFrameSpeed: 0.1
+
+xOffsetRelative:2
+yOffsetRelative:-30
+dirOffset: 0
+
+alpha:0.85
+
+scaleFrom: 1
+scaleTo: 0.75
+
+
+showInFog:false

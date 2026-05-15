@@ -1,0 +1,27 @@
+[core]
+dont_load:false
+
+[effect_Judgment_2]
+life: 200
+
+xOffsetRelative: 0
+yOffsetRelative: 0
+hOffset: 0
+dirOffset: 0
+attachedToUnit: false
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+alpha:0.85
+scaleFrom: 0.5
+scaleTo: 0.5
+image:ROOT:Resource/Image/Fx/Weapon/Sp/Image/Judgment_2.png
+
+total_frames: 10
+animateFrameStart: 0
+animateFrameEnd: 9
+animateFrameSpeed: 0.1
+showInFog:true

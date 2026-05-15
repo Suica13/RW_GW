@@ -1,0 +1,53 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+
+[hiddenAction_AutoProduce_MissileCar_CE]
+@copyFromSection:template_AutoProduce
+@define UnitID=MissileCar_CE
+alsoTriggerAction:AutoProduce_MissileCar_CE_Step2
+
+[hiddenAction_AutoProduce_MissileCar_CE_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=300
+@define Resource=400
+alsoQueueAction:Produce_MissileCar_CE_StandardSquad
+
+
+
+
+
+[action_Produce_MissileCar_CE_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=MissileCar_CE
+@define Money=300
+@define Resource=400
+@define FactionVisible= (memory.Pannel_OMNI_CE71_DontShow==false)
+buildSpeed:20s
+
+alsoQueueAction:"""
+Produce_MissileCar_CE_StandardSquad_1,
+Produce_MissileCar_CE_StandardSquad_2,
+Produce_MissileCar_CE_StandardSquad_3
+"""
+[hiddenAction_Produce_MissileCar_CE_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MissileCar_CE*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_MissileCar_CE_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+MissileCar_CE*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_MissileCar_CE_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+MissileCar_CE*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

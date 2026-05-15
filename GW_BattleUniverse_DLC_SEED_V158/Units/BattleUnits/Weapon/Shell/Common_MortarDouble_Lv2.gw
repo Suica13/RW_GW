@@ -1,0 +1,37 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Units/BattleUnits/Weapon/Shell/Common_MortarDouble.gw
+"""
+
+@global Common_MortarDouble_Range=1200
+
+
+[projectile_Common_MortarDouble_Projectile]
+spawnUnit:"""
+Projectile_MortarMarker_A*1
+(
+    offsetRandomXY=120,
+    addResources=
+    ShellDamage:3500
+    |DpDamage:275
+    |WeaponAccuracy=75
+    |PartBreakModifier=0.5
+    |CockpitBreakModifier=0.5
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiBuilding=2
+    |AntiAqua=0.75
+    |AntiAir=0.5 
+    |AntiLand=1
+    |AntiSpace=1
+
+    |ProjectileSpeed:25
+    |ProjectileSpread:25
+    |ProjectileExplosionRange:80
+    |ProjectileLife:200
+)
+"""
+
+
+

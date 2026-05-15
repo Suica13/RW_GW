@@ -1,0 +1,23 @@
+[core]
+dont_load:false
+
+@memory ChargeFrame:float
+
+
+[hiddenAction_UpdateChargeFrame]
+autoTrigger:true
+setUnitMemory:ChargeFrame=select(memory.ChargeFrame>=${decal_SB_Charge_1_Pink.total_frames}-0.1,0,memory.ChargeFrame+0.1)
+
+
+[decal_SB_Charge_1_Pink]
+layer:beforeUI
+order:10
+onlyWhileAlive:true 
+isVisible:false
+imageScale:0.5
+xOffsetRelative: 0
+yOffsetRelative: 0
+dirOffset:0
+total_frames:9
+frame:memory.ChargeFrame
+image:ROOT:Resource/Image/Fx/Weapon/Sp/Image/SB_Charge_1_Pink.png

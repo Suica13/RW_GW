@@ -1,0 +1,54 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+@memory MSN_01:bool
+
+
+[hiddenAction_Pannel_Close_MSN_01]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:MSN_01=false
+
+
+
+[hiddenAction_AutoProduce_MSN_01]
+@copyFromSection:template_AutoProduce
+@define UnitID=MSN_01
+alsoTriggerAction:AutoProduce_MSN_01_Step2
+
+[hiddenAction_AutoProduce_MSN_01_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=2550
+@define Resource=2550
+alsoTriggerAction:AutoProduce_MSN_01_Random
+
+
+
+[hiddenAction_AutoProduce_MSN_01_Random]
+alsoTriggerAction:"""
+AutoProduce_MSN_01_Random_A
+"""
+[hiddenAction_AutoProduce_MSN_01_Random_A]
+requireConditional:"""
+if memory.randomProduce<1000
+"""
+alsoQueueAction:Produce_MSN_01_StandardSquad
+
+
+[action_Produce_MSN_01_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=MSN_01
+@define Money=2550
+@define Resource=2550
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+buildSpeed:45s
+
+alsoQueueAction:"""
+Produce_MSN_01_StandardSquad_1
+"""
+[hiddenAction_Produce_MSN_01_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MSN_01*1(addResources=PilotType:3101|EquipmentIndex:0)
+"""

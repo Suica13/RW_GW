@@ -1,0 +1,164 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+@memory MS_06F2:bool
+
+
+[hiddenAction_Pannel_Close_MS_06F2]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:MS_06F2=false
+
+
+
+[hiddenAction_AutoProduce_MS_06F2]
+@copyFromSection:template_AutoProduce
+@define UnitID=MS_06F2
+alsoTriggerAction:AutoProduce_MS_06F2_Step2
+
+[hiddenAction_AutoProduce_MS_06F2_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=1500
+@define Resource=1500
+alsoTriggerAction:AutoProduce_MS_06F2_Random
+
+
+
+[hiddenAction_AutoProduce_MS_06F2_Random]
+alsoTriggerAction:"""
+AutoProduce_MS_06F2_Random_A,
+AutoProduce_MS_06F2_Random_B,
+AutoProduce_MS_06F2_Random_C
+"""
+[hiddenAction_AutoProduce_MS_06F2_Random_A]
+requireConditional:"""
+if memory.randomProduce<=500
+"""
+alsoQueueAction:Produce_MS_06F2_StandardSquad
+
+[hiddenAction_AutoProduce_MS_06F2_Random_B]
+requireConditional:"""
+if memory.randomProduce>500 
+and memory.randomProduce<=850
+"""
+alsoQueueAction:Produce_MS_06F2_BazookaSquad
+
+[hiddenAction_AutoProduce_MS_06F2_Random_C]
+requireConditional:"""
+if memory.randomProduce>850
+"""
+alsoQueueAction:Produce_MS_06F2_AntiAirSquad
+
+
+
+
+[action_Pannel_MS_06F2]
+@copyFromSection:template_Pannel
+@define UnitID=MS_06F2
+@define FactionVisible= (memory.Pannel_NEO_ZEON_0087_DontShow==false)
+
+
+[action_Produce_MS_06F2_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=MS_06F2
+@define Money=1500
+@define Resource=1600
+@define FactionVisible= (memory.Pannel_NEO_ZEON_0087_DontShow==false)
+buildSpeed:50s
+
+alsoQueueAction:"""
+Produce_MS_06F2_StandardSquad_1,
+Produce_MS_06F2_StandardSquad_2,
+Produce_MS_06F2_StandardSquad_3
+"""
+[hiddenAction_Produce_MS_06F2_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_06F2*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_MS_06F2_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_06F2*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_MS_06F2_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+MS_06F2*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+
+
+
+[action_Produce_MS_06F2_BazookaSquad]
+@copyFromSection:template_Produce
+@define UnitID=MS_06F2
+@define Money=1500
+@define Resource=2200
+@define FactionVisible= (memory.Pannel_NEO_ZEON_0087_DontShow==false)
+buildSpeed:50s
+
+text:Bazooka Squad
+text_zh:火箭筒小队
+
+alsoQueueAction:"""
+Produce_MS_06F2_BazookaSquad_1,
+Produce_MS_06F2_BazookaSquad_2,
+Produce_MS_06F2_BazookaSquad_3
+"""
+[hiddenAction_Produce_MS_06F2_BazookaSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_06F2*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_MS_06F2_BazookaSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_06F2*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_MS_06F2_BazookaSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+MS_06F2*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+
+
+
+[action_Produce_MS_06F2_AntiAirSquad]
+@copyFromSection:template_Produce
+@define UnitID=MS_06F2
+@define Money=1500
+@define Resource=1600
+@define FactionVisible= (memory.Pannel_NEO_ZEON_0087_DontShow==false)
+buildSpeed:50s
+
+text:AntiAir Squad
+text_zh:对空小队
+
+alsoQueueAction:"""
+Produce_MS_06F2_AntiAirSquad_1,
+Produce_MS_06F2_AntiAirSquad_2,
+Produce_MS_06F2_AntiAirSquad_3
+"""
+[hiddenAction_Produce_MS_06F2_AntiAirSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_06F2*1(addResources=PilotType:1101|EquipmentIndex:2)
+"""
+[hiddenAction_Produce_MS_06F2_AntiAirSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_06F2*1(addResources=PilotType:1101|EquipmentIndex:2)
+"""
+[hiddenAction_Produce_MS_06F2_AntiAirSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+MS_06F2*1(addResources=PilotType:1101|EquipmentIndex:2)
+"""

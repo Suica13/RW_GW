@@ -1,0 +1,157 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory RGM_79SP2:bool
+
+
+[hiddenAction_Pannel_Close_RGM_79SP2]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:RGM_79SP2=false
+
+
+
+
+[hiddenAction_AutoProduce_RGM_79SP2]
+@copyFromSection:template_AutoProduce
+@define UnitID=RGM_79SP2
+alsoTriggerAction:AutoProduce_RGM_79SP2_Step2
+
+[hiddenAction_AutoProduce_RGM_79SP2_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=4500
+@define Resource=5000
+alsoTriggerAction:AutoProduce_RGM_79SP2_Random
+
+
+
+[hiddenAction_AutoProduce_RGM_79SP2_Random]
+alsoTriggerAction:"""
+AutoProduce_RGM_79SP2_Random_A,
+AutoProduce_RGM_79SP2_Random_B
+"""
+[hiddenAction_AutoProduce_RGM_79SP2_Random_A]
+requireConditional:"""
+if memory.randomProduce<=500
+"""
+alsoQueueAction:Produce_RGM_79SP2_StandardSquad
+
+[hiddenAction_AutoProduce_RGM_79SP2_Random_B]
+requireConditional:"""
+if memory.randomProduce>500 
+and memory.randomProduce<=850
+"""
+alsoQueueAction:Produce_RGM_79SP2_BazookaSquad
+
+
+
+
+
+[action_Pannel_RGM_79SP2]
+@copyFromSection:template_Pannel
+@define UnitID=RGM_79SP2
+@define FactionVisible= (memory.Pannel_TITANS_0087_DontShow==false)
+
+[action_Produce_RGM_79SP2_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=RGM_79SP2
+@define Money=4000
+@define Resource=5000
+@define FactionVisible= (memory.Pannel_TITANS_0087_DontShow==false)
+buildSpeed:60s
+
+alsoQueueAction:"""
+Produce_RGM_79SP2_StandardSquad_1,
+Produce_RGM_79SP2_StandardSquad_2,
+Produce_RGM_79SP2_StandardSquad_3
+"""
+[hiddenAction_Produce_RGM_79SP2_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RGM_79SP2*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_RGM_79SP2_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+RGM_79SP2*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_RGM_79SP2_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+RGM_79SP2*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+
+
+[action_Produce_RGM_79SP2_BeamSniperSquad]
+@copyFromSection:template_Produce
+@define UnitID=RGM_79SP2
+@define Money=4300
+@define Resource=5900
+@define FactionVisible= (memory.Pannel_TITANS_0087_DontShow==false)
+buildSpeed:60s
+
+text:BeamSniper Squad
+text_zh:光束狙击步枪小队
+
+alsoQueueAction:"""
+Produce_RGM_79SP2_BeamSniperSquad_1,
+Produce_RGM_79SP2_BeamSniperSquad_2,
+Produce_RGM_79SP2_BeamSniperSquad_3
+"""
+[hiddenAction_Produce_RGM_79SP2_BeamSniperSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RGM_79SP2*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_RGM_79SP2_BeamSniperSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+RGM_79SP2*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_RGM_79SP2_BeamSniperSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+RGM_79SP2*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+
+
+[action_Produce_RGM_79SP2_BazookaSquad]
+@copyFromSection:template_Produce
+@define UnitID=RGM_79SP2
+@define Money=3100
+@define Resource=4100
+@define FactionVisible= (memory.Pannel_TITANS_0087_DontShow==false)
+buildSpeed:60s
+
+text:Bazooka Squad
+text_zh:火箭筒小队
+
+alsoQueueAction:"""
+Produce_RGM_79SP2_BazookaSquad_1,
+Produce_RGM_79SP2_BazookaSquad_2,
+Produce_RGM_79SP2_BazookaSquad_3
+"""
+[hiddenAction_Produce_RGM_79SP2_BazookaSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RGM_79SP2*1(addResources=PilotType:1101|EquipmentIndex:2)
+"""
+[hiddenAction_Produce_RGM_79SP2_BazookaSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+RGM_79SP2*1(addResources=PilotType:1101|EquipmentIndex:2)
+"""
+[hiddenAction_Produce_RGM_79SP2_BazookaSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+RGM_79SP2*1(addResources=PilotType:1101|EquipmentIndex:2)
+"""

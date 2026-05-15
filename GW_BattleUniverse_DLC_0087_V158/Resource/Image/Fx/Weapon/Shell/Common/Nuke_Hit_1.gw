@@ -1,0 +1,30 @@
+[core]
+dont_load:false
+
+
+
+[effect_Nuke_Hit_1]
+life: 1000
+
+xOffsetRelative: -1
+yOffsetRelative: 10
+hOffset: 0
+dirOffset: -90
+attachedToUnit: false
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+alpha:0.85
+scaleFrom: 6.0
+scaleTo: 10.0
+image: ROOT:Resource/Image/Fx/Weapon/Shell/Image/Nuke_Hit_1.png
+alsoPlaySound:ROOT:\Resource\Sound\SE\Weapon\Hit\NukeWeapon_Hit_1.ogg:1
+
+total_frames: 50
+animateFrameStart: 0
+animateFrameEnd: 49
+animateFrameSpeed: 0.15
+showInFog:true

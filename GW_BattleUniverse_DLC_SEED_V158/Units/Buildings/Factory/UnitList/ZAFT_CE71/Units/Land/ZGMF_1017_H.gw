@@ -1,0 +1,57 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+@memory ZGMF_1017_H:bool
+
+
+[hiddenAction_Pannel_Close_ZGMF_1017_H]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:ZGMF_1017_H=false
+
+
+
+[hiddenAction_AutoProduce_ZGMF_1017_H]
+@copyFromSection:template_AutoProduce
+@define UnitID=ZGMF_1017_H
+alsoTriggerAction:AutoProduce_ZGMF_1017_H_Step2
+
+[hiddenAction_AutoProduce_ZGMF_1017_H_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=1400
+@define Resource=3200
+alsoQueueAction:Produce_ZGMF_1017_H
+
+
+
+
+[action_Produce_ZGMF_1017_H]
+@copyFromSection:template_Produce_Fast
+@define UnitID=ZGMF_1017_H
+@define Money=1400
+@define Resource=3200
+@define FactionVisible= (memory.Pannel_ZAFT_CE71_DontShow==false)
+buildSpeed:65s
+
+alsoQueueAction:"""
+Produce_ZGMF_1017_H_StandardSquad_1,
+Produce_ZGMF_1017_H_StandardSquad_2,
+Produce_ZGMF_1017_H_StandardSquad_3
+"""
+[hiddenAction_Produce_ZGMF_1017_H_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+ZGMF_1017_H*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_ZGMF_1017_H_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+ZGMF_1017_H*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_ZGMF_1017_H_StandardSquad_3]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+ZGMF_1017_H*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

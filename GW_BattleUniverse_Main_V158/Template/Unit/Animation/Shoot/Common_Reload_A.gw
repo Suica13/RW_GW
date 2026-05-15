@@ -1,0 +1,51 @@
+[core]
+dont_load:false
+
+[hiddenAction_PlayCommon_Reload_A_Step_1]
+buildSpeed:0s
+finishPlayingLastAnimation:true
+alsoTriggerAction:PlayCommon_Reload_A_Step2
+[hiddenAction_PlayCommon_Reload_A_Step2]
+buildSpeed:0s
+playAnimation:Common_Reload_A
+
+
+[animation_Common_Reload_A]
+KeyframeTimeScale:0.75
+blendOut:0s
+
+arm19_0.0s: {x:0, y:-0.5,dir:0}
+arm19_1.0s: {x:0, y:-0.5,dir:0}
+
+arm20_0.0s: {x:0, y:-0.5,dir:0}
+arm20_1.0s: {x:0, y:-0.5,dir:0}
+
+arm1_0.0s: {x:0, y:0,dir:0}
+arm1_1.0s: {x:0, y:0,dir:0}
+
+arm2_0.0s: {x:0, y:-0.5,dir:-30}
+arm2_1.0s: {x:0, y:-0.5,dir:-30}
+
+arm3_0.0s: {x:0, y:-3,dir:0}
+arm3_0.5s: {x:0, y:-4,dir:25}
+arm3_1.0s: {x:0, y:-2,dir:0}
+
+arm4_0.0s: {x:0, y:2,dir:0}
+arm4_0.5s: {x:0, y:3,dir:-60}
+arm4_1.0s: {x:0, y:2,dir:0}
+
+arm5_0.0s: {x:0, y:-4.5,dir:-30}
+arm5_1.0s: {x:0, y:-4.5,dir:-30}
+
+arm6_0.0s: {x:-0.5, y:3,dir:-5}
+arm6_1.0s: {x:-0.5, y:3,dir:-5}
+
+
+arm10_0.0s: {x:0, y:-3,dir:0}
+arm10_0.5s: {x:0, y:-4,dir:25}
+arm10_1.0s: {x:0, y:-2,dir:0}
+
+
+arm12_0.0s: {x:0, y:-3,dir:0}
+arm12_0.5s: {x:0, y:-4,dir:25}
+arm12_1.0s: {x:0, y:-2,dir:0}

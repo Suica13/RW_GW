@@ -1,0 +1,56 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory GAT_01D:bool
+
+
+[hiddenAction_Pannel_Close_GAT_01D]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:GAT_01D=false
+
+
+
+
+[hiddenAction_AutoProduce_GAT_01D]
+@copyFromSection:template_AutoProduce
+@define UnitID=GAT_01D
+alsoTriggerAction:AutoProduce_GAT_01D_Step2
+
+[hiddenAction_AutoProduce_GAT_01D_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=2750
+@define Resource=3750
+alsoQueueAction:Produce_GAT_01D_StandardSquad
+
+[action_Produce_GAT_01D_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=GAT_01D
+@define Money=2750
+@define Resource=3750
+@define FactionVisible= (memory.Pannel_OMNI_CE71_DontShow==false)
+buildSpeed:55s
+
+alsoQueueAction:"""
+Produce_GAT_01D_StandardSquad_1,
+Produce_GAT_01D_StandardSquad_2,
+Produce_GAT_01D_StandardSquad_3
+"""
+[hiddenAction_Produce_GAT_01D_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+GAT_01D*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_GAT_01D_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+GAT_01D*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_GAT_01D_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+GAT_01D*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

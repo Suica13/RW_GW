@@ -1,0 +1,119 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+@memory MS_09R_Stutzer:bool
+
+
+[hiddenAction_Pannel_Close_MS_09R_Stutzer]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:MS_09R_Stutzer=false
+
+
+
+[hiddenAction_AutoProduce_MS_09R_Stutzer]
+@copyFromSection:template_AutoProduce
+@define UnitID=MS_09R_Stutzer
+alsoTriggerAction:AutoProduce_MS_09R_Stutzer_Step2
+
+[hiddenAction_AutoProduce_MS_09R_Stutzer_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=2500
+@define Resource=3100
+alsoTriggerAction:AutoProduce_MS_09R_Stutzer_Random
+
+
+
+[hiddenAction_AutoProduce_MS_09R_Stutzer_Random]
+alsoTriggerAction:"""
+AutoProduce_MS_09R_Stutzer_Random_A,
+AutoProduce_MS_09R_Stutzer_Random_B
+"""
+[hiddenAction_AutoProduce_MS_09R_Stutzer_Random_A]
+requireConditional:"""
+if memory.randomProduce<500
+"""
+alsoQueueAction:Produce_MS_09R_Stutzer_StandardSquad
+
+[hiddenAction_AutoProduce_MS_09R_Stutzer_Random_B]
+requireConditional:"""
+if memory.randomProduce>500
+"""
+alsoQueueAction:Produce_MS_09R_Stutzer_MGSquad
+
+
+
+
+[action_Pannel_MS_09R_Stutzer]
+@copyFromSection:template_Pannel
+@define UnitID=MS_09R_Stutzer
+@define FactionVisible= (memory.Pannel_NEO_ZEON_0087_DontShow==false)
+
+
+[action_Produce_MS_09R_Stutzer_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=MS_09R_Stutzer
+@define Money=2500
+@define Resource=3800
+@define FactionVisible= (memory.Pannel_NEO_ZEON_0087_DontShow==false)
+buildSpeed:60s
+
+alsoQueueAction:"""
+Produce_MS_09R_Stutzer_StandardSquad_1,
+Produce_MS_09R_Stutzer_StandardSquad_2,
+Produce_MS_09R_Stutzer_StandardSquad_3
+"""
+[hiddenAction_Produce_MS_09R_Stutzer_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_09R_Stutzer*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_MS_09R_Stutzer_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_09R_Stutzer*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_MS_09R_Stutzer_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+MS_09R_Stutzer*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+
+
+
+[action_Produce_MS_09R_Stutzer_MGSquad]
+@copyFromSection:template_Produce
+@define UnitID=MS_09R_Stutzer
+@define Money=2500
+@define Resource=3200
+@define FactionVisible= (memory.Pannel_NEO_ZEON_0087_DontShow==false)
+buildSpeed:60s
+
+text:MG Squad
+text_zh:机枪小队
+
+alsoQueueAction:"""
+Produce_MS_09R_Stutzer_MGSquad_1,
+Produce_MS_09R_Stutzer_MGSquad_2,
+Produce_MS_09R_Stutzer_MGSquad_3
+"""
+[hiddenAction_Produce_MS_09R_Stutzer_MGSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_09R_Stutzer*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_MS_09R_Stutzer_MGSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_09R_Stutzer*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_MS_09R_Stutzer_MGSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+MS_09R_Stutzer*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""

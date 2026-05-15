@@ -1,0 +1,134 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Beam/Common/Beam_Fire_1_Yellow.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_A.gw
+"""
+
+
+@memory Common_ArmBSG_Yellow_CDTimer:float
+@global Common_ArmBSG_Yellow_CD=2.5
+@global Common_ArmBSG_Yellow_EN=25
+
+
+
+[turret_Common_ArmBSG_Yellow]
+x:0
+y:0
+
+canShoot:false
+projectile:Common_ArmBSG_Yellow_Projectile
+
+delay:0.1s
+limitingRange:0
+
+canAttackMaxAngle:15
+barrelX:14
+barrelY:10
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/BeamGun_1.ogg
+shoot_sound_vol:0.5
+shoot_flame:Beam_Fire_1_Yellow
+
+
+
+[projectile_Common_ArmBSG_Yellow_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_BeamShotGun_Yellow*8
+(
+    offsetRandomDir=9,
+    addResources=
+    BeamDamage:1000
+    |DpDamage:100
+    |WeaponAccuracy=90
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=1.0
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=1 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=2
+    |HeightHitRange=20
+    |ProjectileSpeed:55
+    |ProjectileSpread:2
+    |ProjectileLife:12
+)
+"""
+
+
+
+
+
+
+
+[hiddenAction_Common_ArmBSG_Yellow_Trigger]
+alsoTriggerAction:Common_ArmBSG_Yellow_Fire
+[hiddenAction_Common_ArmBSG_Yellow_Fire]
+requireConditional:"""
+if self.timeAlive>memory.Common_ArmBSG_Yellow_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false 
+and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)  
+and self.resource.EN>0
+"""
+setUnitMemory:Common_ArmBSG_Yellow_CDTimer=self.timeAlive+${Common_ArmBSG_Yellow_CD}
+addResources:EN=-${Common_ArmBSG_Yellow_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+Common_ArmBSG_Yellow_SetWeaponIndex,
+Common_ArmBSG_Yellow_B1_Step_1
+"""
+[hiddenAction_Common_ArmBSG_Yellow_B1_Step_1]
+alsoQueueAction:"""
+Common_ArmBSG_Yellow_Fire_Step_1,
+Common_ArmBSG_Yellow_Fire_Step_2,
+Common_ArmBSG_Yellow_Fire_Step_Final
+"""
+
+
+
+
+
+[hiddenAction_Common_ArmBSG_Yellow_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_Common_ArmBSG_Yellow_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.15s
+[hiddenAction_Common_ArmBSG_Yellow_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:Common_ArmBSG_Yellow
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+alsoTriggerAction:PlayCommon_Shoot_A_Step_1
+[hiddenAction_Common_ArmBSG_Yellow_Fire_Step_Final]
+buildSpeed:0.3s
+alsoTriggerAction:SetAttackingOff
+
+

@@ -1,0 +1,96 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory RGM_79DO:bool
+
+
+[hiddenAction_Pannel_Close_RGM_79DO]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:RGM_79DO=false
+
+
+
+
+[hiddenAction_AutoProduce_RGM_79DO]
+@copyFromSection:template_AutoProduce
+@define UnitID=RGM_79DO
+alsoTriggerAction:AutoProduce_RGM_79DO_Step2
+
+[hiddenAction_AutoProduce_RGM_79DO_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=1500
+@define Resource=1800
+alsoTriggerAction:AutoProduce_RGM_79DO_Random
+
+
+
+[hiddenAction_AutoProduce_RGM_79DO_Random]
+alsoTriggerAction:"""
+AutoProduce_RGM_79DO_Random_A,
+AutoProduce_RGM_79DO_Random_B
+"""
+[hiddenAction_AutoProduce_RGM_79DO_Random_A]
+requireConditional:"""
+if memory.randomProduce<=500
+"""
+alsoQueueAction:Produce_RGM_79DO_StandardSquad
+
+[hiddenAction_AutoProduce_RGM_79DO_Random_B]
+requireConditional:"""
+if memory.randomProduce>500 
+and memory.randomProduce<=1000
+"""
+alsoQueueAction:Produce_RGM_79DO_BazookaSquad
+
+
+
+[action_Pannel_RGM_79DO]
+@copyFromSection:template_Pannel
+@define UnitID=RGM_79DO
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+
+[action_Produce_RGM_79DO_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=RGM_79DO
+@define Money=1400
+@define Resource=1800
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+buildSpeed:40s
+
+text:BR
+text_zh:光束步枪
+
+alsoQueueAction:"""
+Produce_RGM_79DO_StandardSquad_1
+"""
+[hiddenAction_Produce_RGM_79DO_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RGM_79DO*1(addResources=PilotType:1101|EquipmentIndex:0|EquipmentIndex2:0)
+"""
+
+
+[action_Produce_RGM_79DO_BazookaSquad]
+@copyFromSection:template_Produce
+@define UnitID=RGM_79DO
+@define Money=1200
+@define Resource=1600
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+buildSpeed:40s
+
+text:Bazooka
+text_zh:火箭筒
+
+alsoQueueAction:"""
+Produce_RGM_79DO_BazookaSquad_1
+"""
+[hiddenAction_Produce_RGM_79DO_BazookaSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RGM_79DO*1(addResources=PilotType:1101|EquipmentIndex:1|EquipmentIndex2:1)
+"""
+

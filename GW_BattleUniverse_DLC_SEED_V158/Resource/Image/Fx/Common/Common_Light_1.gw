@@ -1,0 +1,47 @@
+[core]
+dont_load:false
+
+
+
+[effect_Light_25]
+image:ROOT:\Resource\Image\Fx\Common\Image\Light_25.png
+priority:critical
+yOffsetRelative:0
+life: 30
+scaleFrom: 1.5
+scaleTo: 1.5
+alwayStartDirAtZero:true
+drawUnderUnits:false
+
+
+[effect_Light_50]
+image:ROOT:\Resource\Image\Fx\Common\Image\Light_50.png
+priority:critical
+yOffsetRelative:0
+life: 30
+scaleFrom: 1.5
+scaleTo: 1.5
+alwayStartDirAtZero:true
+drawUnderUnits:false
+
+
+[effect_Light_75]
+image:ROOT:\Resource\Image\Fx\Common\Image\Light_50.png
+priority:critical
+yOffsetRelative:0
+life: 30
+scaleFrom: 2.5
+scaleTo: 2.5
+alwayStartDirAtZero:true
+drawUnderUnits:false
+
+
+[effect_Light_100]
+image:ROOT:\Resource\Image\Fx\Common\Image\Light_50.png
+priority:critical
+yOffsetRelative:0
+life: 30
+scaleFrom: 3
+scaleTo: 3
+alwayStartDirAtZero:true
+drawUnderUnits:false

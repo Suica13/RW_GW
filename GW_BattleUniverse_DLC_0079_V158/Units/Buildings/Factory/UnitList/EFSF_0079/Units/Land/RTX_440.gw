@@ -1,0 +1,57 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory RTX_440:bool
+
+
+[hiddenAction_Pannel_Close_RTX_440]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:RTX_440=false
+
+
+
+
+[hiddenAction_AutoProduce_RTX_440]
+@copyFromSection:template_AutoProduce
+@define UnitID=RTX_440
+alsoTriggerAction:AutoProduce_RTX_440_Step2
+
+[hiddenAction_AutoProduce_RTX_440_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=1200
+@define Resource=1250
+alsoTriggerAction:AutoProduce_RTX_440_Random
+
+
+
+[hiddenAction_AutoProduce_RTX_440_Random]
+alsoTriggerAction:"""
+AutoProduce_RTX_440_Random_A
+"""
+[hiddenAction_AutoProduce_RTX_440_Random_A]
+requireConditional:"""
+if memory.randomProduce<=500
+"""
+alsoQueueAction:Produce_RTX_440_StandardSquad
+
+
+
+[action_Produce_RTX_440_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=RTX_440
+@define Money=1200
+@define Resource=1250
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+buildSpeed:35s
+
+alsoQueueAction:"""
+Produce_RTX_440_StandardSquad_1
+"""
+[hiddenAction_Produce_RTX_440_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RTX_440*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

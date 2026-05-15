@@ -1,0 +1,39 @@
+[core]
+dont_load:false
+
+
+[effect_Story_Stage_1]
+image:ROOT:Resource/Image/System/Index/M1.png
+priority:critical
+life: 300
+
+drawUnderUnits:false
+
+xOffsetRelative:0
+yOffsetRelative:0
+dirOffset: 0
+
+alpha:1
+
+scaleFrom: 1
+scaleTo: 0.75
+
+showInFog:true
+
+[effect_Story_Stage_2]
+image:ROOT:Resource/Image/System/Index/M2.png
+priority:critical
+life: 300
+
+drawUnderUnits:false
+
+xOffsetRelative:0
+yOffsetRelative:0
+dirOffset: 0
+
+alpha:1
+
+scaleFrom: 1
+scaleTo: 0.75
+
+showInFog:true

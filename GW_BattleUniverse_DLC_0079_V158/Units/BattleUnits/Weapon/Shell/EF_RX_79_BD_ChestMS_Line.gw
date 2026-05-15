@@ -1,0 +1,207 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Cannon_Shoot_A.gw
+"""
+
+
+@memory EF_RX_79_BD_ChestMS_Line_CDTimer:float
+@global EF_RX_79_BD_ChestMS_Line_CD=12
+@global EF_RX_79_BD_ChestMS_Line_EN=55
+
+
+
+@memory EF_RX_79_BD_ChestMS_Line_Unit_R:unit
+@memory EF_RX_79_BD_ChestMS_Line_Unit_L:unit
+
+[hiddenAction_Get_Spawn_EF_RX_79_BD_ChestMS_Line_L]
+autoTriggerOnEvent:newMessage(withTag="MSSpawn_EF_RX_79_BD_ChestMS_Line")
+requireConditional:if memory.EF_RX_79_BD_ChestMS_Line_Unit_R.hp>0
+setUnitMemory:EF_RX_79_BD_ChestMS_Line_Unit_L=eventData("unitInfo",type="unit")
+[hiddenAction_Get_Spawn_EF_RX_79_BD_ChestMS_Line_R]
+autoTriggerOnEvent:newMessage(withTag="MSSpawn_EF_RX_79_BD_ChestMS_Line")
+requireConditional:if memory.EF_RX_79_BD_ChestMS_Line_Unit_R.hp<=0
+setUnitMemory:EF_RX_79_BD_ChestMS_Line_Unit_R=eventData("unitInfo",type="unit")
+
+
+[hiddenAction_Get_Cut_EF_RX_79_BD_ChestMS_Line_L]
+autoTriggerOnEvent:newMessage(withTag="MSCut_EF_RX_79_BD_ChestMS_Line")
+requireConditional:if eventData("unitInfo",type="unit")==memory.EF_RX_79_BD_ChestMS_Line_Unit_L
+setUnitMemory:EF_RX_79_BD_ChestMS_Line_Unit_L=null
+[hiddenAction_Get_Cut_EF_RX_79_BD_ChestMS_Line_R]
+autoTriggerOnEvent:newMessage(withTag="MSCut_EF_RX_79_BD_ChestMS_Line")
+requireConditional:if eventData("unitInfo",type="unit")==memory.EF_RX_79_BD_ChestMS_Line_Unit_R
+setUnitMemory:EF_RX_79_BD_ChestMS_Line_Unit_R=null
+
+
+
+#====================贴画====================#
+
+[decal_DrawLineTo_EF_RX_79_BD_ChestMS_Line_Unit_L]
+layer:beforeBody
+order:4.5
+alpha:1
+basePositionFromLegEnd:arm2
+drawLineTo:memory.EF_RX_79_BD_ChestMS_Line_Unit_L
+color:#333333
+imageScale:1
+lineWidth:5
+xOffsetRelative: -5
+yOffsetRelative: 6
+onlyOnNonPreview:true
+isVisible:if memory.EF_RX_79_BD_ChestMS_Line_Unit_L.hp>0
+onlyWhileAlive:true
+
+[decal_DrawLineTo_EF_RX_79_BD_ChestMS_Line_Unit_R]
+layer:beforeBody
+order:4.5
+alpha:1
+basePositionFromLegEnd:arm2
+drawLineTo:memory.EF_RX_79_BD_ChestMS_Line_Unit_R
+color:#333333
+imageScale:1
+lineWidth:5
+xOffsetRelative: 5
+yOffsetRelative: 6
+onlyOnNonPreview:true
+isVisible:if memory.EF_RX_79_BD_ChestMS_Line_Unit_R.hp>0
+onlyWhileAlive:true
+
+
+
+
+[turret_EF_RX_79_BD_ChestMS_Line]
+x:0
+y:0
+
+canShoot:false
+projectile:EF_RX_79_BD_ChestMS_Line_Projectile
+
+delay:0.15s
+limitingRange:0
+
+canAttackMaxAngle:15
+barrelX:-5
+barrelY:-6
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\Missile_1.ogg
+shoot_sound_vol:0.25
+shoot_flame:BZ_Fire_1_S
+[turret_EF_RX_79_BD_ChestMS_Line_R]
+@copyFromSection:turret_EF_RX_79_BD_ChestMS_Line
+barrelX:5
+
+
+
+[projectile_EF_RX_79_BD_ChestMS_Line_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_MS_Line_EF_RX_79_BD_ChestMS_Line*1
+(
+    addResources=
+    ShellDamage:4000
+    |DpDamage:350
+    |WeaponAccuracy=85
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=1.0
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiBuilding=1.5
+    |AntiAqua=0.75
+    |AntiAir=1
+    |AntiLand=1
+    |AntiSpace=1
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |HeightChangeSpeed=2
+    |HeightHitRange=20
+    |ProjectileSpeed:20
+    |ProjectileTurnspeed:1.5
+    |ProjectileSpread:0
+    |ProjectileExplosionRange:40
+    |ProjectileLife:50
+)
+"""
+
+
+
+
+
+
+
+[hiddenAction_EF_RX_79_BD_ChestMS_Line_Trigger]
+alsoTriggerAction:EF_RX_79_BD_ChestMS_Line_Fire
+[hiddenAction_EF_RX_79_BD_ChestMS_Line_Fire]
+requireConditional:"""
+if self.timeAlive>memory.EF_RX_79_BD_ChestMS_Line_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false 
+and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)  
+and self.resource.EN>0
+"""
+setUnitMemory:EF_RX_79_BD_ChestMS_Line_CDTimer=self.timeAlive+${EF_RX_79_BD_ChestMS_Line_CD}
+addResources:EN=-${EF_RX_79_BD_ChestMS_Line_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+EF_RX_79_BD_ChestMS_Line_SetWeaponIndex,
+EF_RX_79_BD_ChestMS_Line_B2_Step_1
+"""
+[hiddenAction_EF_RX_79_BD_ChestMS_Line_B2_Step_1]
+alsoQueueAction:"""
+EF_RX_79_BD_ChestMS_Line_Fire_Step_1,
+EF_RX_79_BD_ChestMS_Line_Fire_Step_2,
+EF_RX_79_BD_ChestMS_Line_Fire_Step_Final
+"""
+
+
+
+
+
+[hiddenAction_EF_RX_79_BD_ChestMS_Line_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_EF_RX_79_BD_ChestMS_Line_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.3s
+alsoTriggerAction:PlayCommon_Cannon_Shoot_A_Step_1
+[hiddenAction_EF_RX_79_BD_ChestMS_Line_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:EF_RX_79_BD_ChestMS_Line
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+alsoTriggerAction:EF_RX_79_BD_ChestMS_Line_Fire_Step_Sub
+
+[hiddenAction_EF_RX_79_BD_ChestMS_Line_Fire_Step_Sub]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:EF_RX_79_BD_ChestMS_Line_R
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+
+[hiddenAction_EF_RX_79_BD_ChestMS_Line_Fire_Step_Final]
+buildSpeed:0.3s
+alsoTriggerAction:SetAttackingOff
+
+

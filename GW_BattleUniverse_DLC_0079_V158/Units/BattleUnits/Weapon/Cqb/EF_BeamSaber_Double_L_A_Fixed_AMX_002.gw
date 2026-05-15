@@ -1,0 +1,196 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Cqb/Common/Cqb_Fire_1_Yellow_L.gw,
+ROOT:Resource/Image/Fx/Weapon/Cqb/Common/Cqb_Fire_1_Yellow_R.gw,
+ROOT:Template\Unit\Animation\Cqb\Common_Melee_Double_A_Fixed.gw
+"""
+
+@memory EF_BeamSaber_Double_L_A_Fixed_AMX_002_CDTimer:float
+@global EF_BeamSaber_Double_L_A_Fixed_AMX_002_CD=3
+
+
+
+[decal_EF_BeamSaber_Double_L_A_Fixed_AMX_002]
+layer:beforeBody
+order:4
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Cqb\Image\EF_BeamSaber_Yellow.png
+isVisible:false
+basePositionFromLegEnd:arm4
+total_frames:5
+frame:1
+imageScale:1.25
+imageScaleY:1.35
+xOffsetRelative:11
+yOffsetRelative:55
+dirOffset:11
+
+[decal_EF_BeamSaber_Double_L_A_Fixed_AMX_002_L]
+@copyFromSection:decal_EF_BeamSaber_Double_L_A_Fixed_AMX_002
+basePositionFromLegEnd:arm3
+imageScaleX:-1.0
+xOffsetRelative:-11
+dirOffset:-11
+
+
+
+[turret_EF_BeamSaber_Double_L_A_Fixed_AMX_002]
+x:0
+y:0
+invisible:true
+
+canShoot:false
+
+showRangeUIGuide:false
+projectile:EF_BeamSaber_Double_L_A_Fixed_AMX_002_Projectile
+
+delay:3s
+limitingMinRange:0
+limitingRange:0
+
+canAttackMaxAngle:60
+barrelX:0
+barrelY:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/Fist_1.ogg
+shoot_sound_vol:0.5
+
+[projectile_EF_BeamSaber_Double_L_A_Fixed_AMX_002_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Saber_L_A*1
+(
+    addResources=
+    CqbDamage:6000
+    |CqbBeamDamage:6000
+    |DpDamage:1000
+    |WeaponAccuracy:100
+    |PartBreakModifier=1.35
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.35
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.35
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:1.5
+    |ProjectileAttackTimes:5
+)
+"""
+[projectile_EF_BeamSaber_Double_L_A_Fixed_AMX_002_L_Projectile]
+@copyFromSection:projectile_EF_BeamSaber_Double_L_A_Fixed_AMX_002_Projectile
+spawnUnit:"""
+Projectile_Saber_L_A_L*1
+(
+    addResources=
+    CqbDamage:6000
+    |CqbBeamDamage:6000
+    |DpDamage:1000
+    |WeaponAccuracy:100
+    |PartBreakModifier=1.35
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.35
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.35
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:1.5
+    |ProjectileAttackTimes:5
+)
+"""
+
+
+
+
+
+
+[hiddenAction_EF_BeamSaber_Double_L_A_Fixed_AMX_002_Trigger]
+alsoTriggerAction:EF_BeamSaber_Double_L_A_Fixed_AMX_002_Fire
+[hiddenAction_EF_BeamSaber_Double_L_A_Fixed_AMX_002_Fire]
+requireConditional:"""
+if self.timeAlive>memory.EF_BeamSaber_Double_L_A_Fixed_AMX_002_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) 
+and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50
+"""
+setUnitMemory:EF_BeamSaber_Double_L_A_Fixed_AMX_002_CDTimer=self.timeAlive+${EF_BeamSaber_Double_L_A_Fixed_AMX_002_CD}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Cqb,
+EF_BeamSaber_Double_L_A_Fixed_AMX_002_SetWeaponIndex,
+PlayCommon_Melee_Double_A_Fixed_Step_1,
+EF_BeamSaber_Double_L_A_Fixed_AMX_002_Step_1
+"""
+[hiddenAction_EF_BeamSaber_Double_L_A_Fixed_AMX_002_Step_1]
+alsoQueueAction:"""
+EF_BeamSaber_Double_L_A_Fixed_AMX_002_Fire_Step_1,
+EF_BeamSaber_Double_L_A_Fixed_AMX_002_Fire_Step_2,
+EF_BeamSaber_Double_L_A_Fixed_AMX_002_Fire_Step_3,
+EF_BeamSaber_Double_L_A_Fixed_AMX_002_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_EF_BeamSaber_Double_L_A_Fixed_AMX_002_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_EF_BeamSaber_Double_L_A_Fixed_AMX_002_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.6s
+[hiddenAction_EF_BeamSaber_Double_L_A_Fixed_AMX_002_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false
+"""
+buildSpeed:0s
+fireTurretXAtGround:EF_BeamSaber_Double_L_A_Fixed_AMX_002
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+spawnEffects:Cqb_Fire_1_Yellow_R
+[hiddenAction_EF_BeamSaber_Double_L_A_Fixed_AMX_002_Fire_Step_3]
+requireConditional:"""
+if ${cantAction}==false
+"""
+buildSpeed:0s
+fireTurretXAtGround:EF_BeamSaber_Double_L_A_Fixed_AMX_002
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+fireTurretXAtGround_withProjectile:EF_BeamSaber_Double_L_A_Fixed_AMX_002_L_Projectile
+spawnEffects:Cqb_Fire_1_Yellow_L
+[hiddenAction_EF_BeamSaber_Double_L_A_Fixed_AMX_002_Fire_Step_Final]
+buildSpeed:1.4s
+alsoTriggerAction:SetAttackingOff
+

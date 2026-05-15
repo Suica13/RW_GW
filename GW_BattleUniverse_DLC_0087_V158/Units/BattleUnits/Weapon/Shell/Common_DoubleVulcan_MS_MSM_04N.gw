@@ -1,0 +1,117 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/MG_Fire_1.gw
+"""
+
+@memory Common_DoubleVulcan_MS_MSM_04N_OnCD:bool
+@memory Common_DoubleVulcan_MS_MSM_04N_CDTimer:float
+@global Common_DoubleVulcan_MS_MSM_04N_CD=3
+
+@global Common_DoubleVulcan_MS_MSM_04N_Shoot=20
+[resource_Common_DoubleVulcan_MS_MSM_04N_ShootTimer]
+hidden:true
+
+
+
+
+
+
+
+
+
+[turret_Common_DoubleVulcan_MS_MSM_04N]
+x:0
+y:0
+
+canShoot:true
+canAttackCondition:"""
+if ${cantAction}==false 
+and memory.headBreaked==false 
+"""
+showRangeUIGuide:false
+projectile:Common_DoubleVulcan_MS_MSM_04N_Projectile
+resourceUsage:Common_DoubleVulcan_MS_MSM_04N_ShootTimer=1
+
+delay:0.1s
+limitingRange:1200
+limitingAngle:3
+
+canAttackMaxAngle:15
+barrelX:5
+barrelY:-5
+barrelOffsetX_onOddShots:-11
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/Vulcan_1.ogg
+shoot_sound_vol:0.2
+shoot_flame:MG_Fire_1_S
+
+
+
+[projectile_Common_DoubleVulcan_MS_MSM_04N_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Vulcan*1
+(
+    addResources=
+    ShellDamage:175
+    |DpDamage:15
+    |WeaponAccuracy=100
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=0.5
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=1
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=1
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=1.25 
+    |AntiLand=1
+    |AntiSpace=1 
+    |HeightChangeSpeed=3
+    |HeightHitRange=25
+    |ProjectileSpeed:100
+    |ProjectileSpread:6
+    |ProjectileLife:20
+)
+"""
+
+
+
+[hiddenAction_Common_DoubleVulcan_MS_MSM_04N_CDStart]
+autoTrigger:"""
+if memory.Common_DoubleVulcan_MS_MSM_04N_OnCD==false 
+and 
+(
+    (
+        self.resource.Common_DoubleVulcan_MS_MSM_04N_ShootTimer<=0 
+    ) 
+    or 
+    (
+        self.resource.Common_DoubleVulcan_MS_MSM_04N_ShootTimer<${Common_DoubleVulcan_MS_MSM_04N_Shoot} and not self.hasTags(includes='inBattle')
+    )
+)
+"""
+setUnitMemory:Common_DoubleVulcan_MS_MSM_04N_OnCD=true,Common_DoubleVulcan_MS_MSM_04N_CDTimer=self.timeAlive+${Common_DoubleVulcan_MS_MSM_04N_CD}
+
+[hiddenAction_Common_DoubleVulcan_MS_MSM_04N_CDEnd]
+autoTriggerOnEvent:created
+autoTrigger:if memory.Common_DoubleVulcan_MS_MSM_04N_OnCD==true and self.timeAlive>memory.Common_DoubleVulcan_MS_MSM_04N_CDTimer
+setUnitMemory:Common_DoubleVulcan_MS_MSM_04N_OnCD=false
+setResourcesWithLogic:Common_DoubleVulcan_MS_MSM_04N_ShootTimer=${Common_DoubleVulcan_MS_MSM_04N_Shoot}

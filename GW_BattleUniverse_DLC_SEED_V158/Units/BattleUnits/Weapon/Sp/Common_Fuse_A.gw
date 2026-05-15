@@ -1,0 +1,163 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_Flash_1.gw,
+ROOT:Template/Unit/Skill/FuseUnit_A.gw
+"""
+
+
+@memory Common_Fuse_A_AimTarget:unit
+@memory Common_Fuse_A_CDTimer:float
+@global Common_Fuse_A_CD=5
+
+
+
+[decal_Common_Fuse_A_Range]
+layer: inactive
+order:0
+onlyTeam:own
+alpha:1
+image:ROOT:Resource/Image/Ring/Ring150_Action.png
+imageScale:1
+basePosition:self
+alwaysStartDirAtZero:true
+onlyWhileAlive:true
+isVisible:if true
+
+
+
+
+
+[turret_Common_Fuse_A]
+x:0
+y:0
+
+canShoot:false
+projectile:Common_Fuse_A_Projectile
+
+delay:0.3s
+canAttackMaxAngle:360
+limitingAngle:0
+limitingRange:150
+barrelX:0
+barrelY:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:none
+shoot_sound_vol:0
+shoot_flame:none
+
+
+
+[projectile_Common_Fuse_A_Projectile]
+
+directDamage: 0
+life: 1
+explodeOnEndOfLife:true
+speed: 0
+instant:true
+
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Fuse_A_Marker
+"""
+
+
+
+[action_Common_Fuse_A_Trigger]
+pos:10
+text:Fuse %{select(self.timeAlive<=memory.Common_Fuse_A_CDTimer,str(int(memory.Common_Fuse_A_CDTimer-self.timeAlive))+"s","OK")}
+text_zh:组合 %{select(self.timeAlive<=memory.Common_Fuse_A_CDTimer,str(int(memory.Common_Fuse_A_CDTimer-self.timeAlive))+"秒","OK")}
+text_KP:100
+
+displayType:infoOnly
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+onlyOneUnitAtATime:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Mortar_1.png
+highPriorityQueue:true
+
+onlyOneUnitAtATime:true
+
+isVisible:if self.parent.hp<=0  
+
+isGuiBlinking:"""
+if self.timeAlive>memory.Common_Fuse_A_CDTimer
+"""
+
+isLocked:if self.timeAlive<=memory.Common_Fuse_A_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+isLockedAlt2:if ${cantAction}==true  or ${onSkill}==true or ${allowAI}==true
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+fireTurretXAtGround:Common_Fuse_A
+fireTurretXAtGround_count:0
+fireTurretXAtGround_showGuideDecals:Common_Fuse_A_Range
+
+alsoTriggerAction:"""
+SetOnSkillOn,
+Common_Fuse_A_SetWeaponIndex,
+Common_Fuse_A_B1_Step_1
+"""
+clearAllWaypoints:true
+[hiddenAction_Common_Fuse_A_B1_Step_1]
+spawnEffects:Flash_1_N
+setUnitMemory:"""
+Common_Fuse_A_AimTarget=thisActionTarget,
+Common_Fuse_A_CDTimer=self.timeAlive+${Common_Fuse_A_CD}
+"""
+
+alsoQueueAction:"""
+Common_Fuse_A_Fire_Step_1,
+
+Common_Fuse_A_Fire_Step_2,
+
+Common_Fuse_A_Fire_Step_Final
+"""
+
+
+
+[hiddenAction_Common_Fuse_A_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_Common_Fuse_A_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.1s
+whenBuilding_cannotMove:true
+[hiddenAction_Common_Fuse_A_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+whenBuilding_cannotMove:true
+fireTurretXAtGround:Common_Fuse_A
+fireTurretXAtGround_withTarget:memory.Common_Fuse_A_AimTarget
+[hiddenAction_Common_Fuse_A_Fire_Step_Final]
+buildSpeed:0.1s
+whenBuilding_cannotMove:true
+finishPlayingLastAnimation:true
+alsoTriggerAction:"""
+SetOnSkillOff
+"""
+clearAllWaypoints:true
+
+[hiddenAction_Common_Fuse_A_GetInfo]
+requireConditional:if eventData("fuseTarget",type="unit").tags(includes="CanFuse")
+autoTriggerOnEvent:newMessage(withTag="FuseInfo_A")
+sendMessageTo:eventData("fuseTarget",type="unit")
+sendMessageWithTags:FuseInfo_B
+alsoTriggerAction:FuseUnit_A

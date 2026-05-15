@@ -1,0 +1,158 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_A_L.gw
+"""
+
+@memory ZN_MS_15B_ShieldRocket_CDTimer:float
+@global ZN_MS_15B_ShieldRocket_CD=6
+@global ZN_MS_15B_ShieldRocket_EN=45
+
+
+
+
+
+
+
+
+
+[turret_ZN_MS_15B_ShieldRocket]
+x:0
+y:0
+
+canShoot:false
+projectile:ZN_MS_15B_ShieldRocket_Projectile
+
+delay:0.075s
+limitingRange:0
+
+canAttackMaxAngle:15
+barrelX:-20
+barrelY:12
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\Missile_1.ogg
+shoot_sound_vol:0.25
+shoot_flame:BZ_Fire_1_S
+[turret_ZN_MS_15B_ShieldRocket_L]
+@copyFromSection:turret_ZN_MS_15B_ShieldRocket
+barrelX:-7.5
+barrelY:12.5
+
+
+
+[projectile_ZN_MS_15B_ShieldRocket_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Bazooka_S*1
+(
+    addResources=
+    ShellDamage:2000
+    |DpDamage:125
+    |WeaponAccuracy=85
+    |PartBreakModifier=0.75
+    |CockpitBreakModifier=2.35
+    |PilotDamageModifier=2.35
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.5  
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=2
+    |HeightHitRange=20
+    |ProjectileSpeed:60
+    |ProjectileSpread:3
+    |ProjectileExplosionRange:30
+    |ProjectileLife:20
+)
+"""
+
+
+
+
+
+
+
+[hiddenAction_ZN_MS_15B_ShieldRocket_Trigger]
+alsoTriggerAction:ZN_MS_15B_ShieldRocket_Fire
+[hiddenAction_ZN_MS_15B_ShieldRocket_Fire]
+requireConditional:"""
+if self.timeAlive>memory.ZN_MS_15B_ShieldRocket_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false 
+and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)  
+and self.resource.EN>0
+"""
+setUnitMemory:ZN_MS_15B_ShieldRocket_CDTimer=self.timeAlive+${ZN_MS_15B_ShieldRocket_CD}
+addResources:EN=-${ZN_MS_15B_ShieldRocket_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+ZN_MS_15B_ShieldRocket_SetWeaponIndex,
+ZN_MS_15B_ShieldRocket_B4_Step_1
+"""
+[hiddenAction_ZN_MS_15B_ShieldRocket_B4_Step_1]
+alsoQueueAction:"""
+ZN_MS_15B_ShieldRocket_Fire_Step_1,
+ZN_MS_15B_ShieldRocket_Fire_Step_2,
+ZN_MS_15B_ShieldRocket_Fire_Step_4,
+ZN_MS_15B_ShieldRocket_Fire_Step_3,
+ZN_MS_15B_ShieldRocket_Fire_Step_4,
+ZN_MS_15B_ShieldRocket_Fire_Step_Final
+"""
+
+
+
+
+
+[hiddenAction_ZN_MS_15B_ShieldRocket_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_ZN_MS_15B_ShieldRocket_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.3s
+alsoTriggerAction:PlayCommon_Shoot_A_L_Step_1
+[hiddenAction_ZN_MS_15B_ShieldRocket_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:ZN_MS_15B_ShieldRocket
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_ZN_MS_15B_ShieldRocket_Fire_Step_3]
+@copyFromSection:hiddenAction_ZN_MS_15B_ShieldRocket_Fire_Step_2
+buildSpeed:${turret_ZN_MS_15B_ShieldRocket.delay}
+
+[hiddenAction_ZN_MS_15B_ShieldRocket_Fire_Step_4]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:${turret_ZN_MS_15B_ShieldRocket.delay}
+fireTurretXAtGround:ZN_MS_15B_ShieldRocket_L
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+
+[hiddenAction_ZN_MS_15B_ShieldRocket_Fire_Step_Final]
+buildSpeed:0.3s
+alsoTriggerAction:SetAttackingOff
+
+

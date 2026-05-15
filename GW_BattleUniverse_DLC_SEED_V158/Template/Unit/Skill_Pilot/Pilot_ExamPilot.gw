@@ -1,0 +1,33 @@
+[core]
+dont_load:true
+
+
+[action_Pilot_ExamPilot_Trigger]
+pos:10
+text:"""
+EXAM Pilot
+"""
+text_zh:"""
+EXAM驾驶员
+"""
+text_KP:100
+
+description:Does not take damage from EXAM system
+description_zh:几乎不会受到EXAM系统的伤害
+
+displayType:infoOnly
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+highPriorityQueue:true
+ai_isDisabled:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Skill/EXAM.png
+
+isVisible:if not self.hasTags(includes='inHangar')
+
+
+[hiddenAction_Pilot_ExamPilot_AddTag]
+autoTrigger:if not self.hasTags(includes='EXAM_Pilot')
+temporarilyAddTags:EXAM_Pilot

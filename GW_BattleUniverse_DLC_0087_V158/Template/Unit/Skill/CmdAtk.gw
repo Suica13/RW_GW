@@ -1,0 +1,83 @@
+
+[core]
+
+dont_load:false
+
+@memory cmdAtkActive:bool
+@memory cmdAtkRange:float
+@global cmdAtkRangeExtra=0
+
+@memory cmdAtkEffectFrame:float
+
+[hiddenAction_UpdatecmdAtkEffectFrame]
+autoTriggerOnEvent:newMessage(withTag="UpdateSub")
+setUnitMemory:cmdAtkEffectFrame=select(memory.cmdAtkEffectFrame>=7-1,0,memory.cmdAtkEffectFrame+1)
+
+
+[hiddenAction_Check_CmdAtk]
+autoTrigger:true
+alsoTriggerAction:"""
+Check_CmdAtkActive,
+Check_CmdAtkRange
+"""
+[hiddenAction_Check_CmdAtkActive]
+setUnitMemory:"""
+cmdAtkActive=select
+(
+    memory.pilotUnit.readUnitMemory("pilotLeadershipSkill",type="float")>=50,
+    true,
+    false
+)
+"""
+[hiddenAction_Check_CmdAtkRange]
+setUnitMemory:"""
+cmdAtkRange=100+2*memory.pilotUnit.readUnitMemory("pilotLeadershipSkill",type="float")+${cmdAtkRangeExtra}
+"""
+
+
+[hiddenAction_cmdAtk_CheckNearAlly_Unit]
+autoTrigger:if memory.cmdAtkActive==true and not self.hasTags(includes='inHangar')
+takeResources_includeUnitsWithinRange_team:ally
+takeResources_includeUnitsWithinRange:1000
+takeResources_excludeUnitsWithoutTags:BattleUnitCore
+takeResources_maxUnits:300
+takeResources_searchOnly:true
+takeResources_triggerActionForEach:cmdAtk_CheckNearAlly_Unit_Step2
+[hiddenAction_cmdAtk_CheckNearAlly_Unit_Step2]
+requireConditional:"""
+if distanceBetween(self, thisActionTarget)<=memory.cmdAtkRange 
+and thisActionTarget.parent!=self 
+"""
+sendMessageTo:thisActionTarget
+sendMessageWithTags:CmdBUFF
+sendMessageWithData:"""
+cmdAtkTimer=3,
+cmdAtkPower=1+(memory.pilotUnit.readUnitMemory("pilotLeadershipSkill",type="float")*0.001)
+"""
+
+
+
+[decal_cmdAtkEffect]
+layer:shadow
+order:0
+image:ROOT:Resource/Image/Fx/Unit/Image/cmdAtk_1.png
+alpha:0.75
+color:#ff482b
+total_frames:7
+frame:memory.cmdAtkEffectFrame
+imageScale:memory.cmdAtkRange/150
+onlyOnNonPreview:true
+onlyWhileAlive:true
+isVisible:if memory.hideUI==0 and memory.cmdAtkActive==true
+onlyWhenSelectedByAnyPlayer:true
+[decal_cmdAtk_Range]
+layer: shadow
+order:0
+alpha:0.35
+onlyTeam:ally
+image:ROOT:Resource/Image/Ring/Ring150_CmdAtk.png
+imageScale:memory.cmdAtkRange/150
+alwaysStartDirAtZero:true
+onlyWhileAlive:true
+isVisible:if memory.hideUI==0 and memory.cmdAtkActive==true
+onlyWhenSelectedByAnyPlayer:true

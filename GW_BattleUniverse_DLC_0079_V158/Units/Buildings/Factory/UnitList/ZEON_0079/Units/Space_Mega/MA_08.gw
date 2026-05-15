@@ -1,0 +1,38 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+
+[hiddenAction_AutoProduce_MA_08]
+@copyFromSection:template_AutoProduce
+@define UnitID=MA_08
+alsoTriggerAction:AutoProduce_MA_08_Step2
+
+[hiddenAction_AutoProduce_MA_08_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=7000
+@define Resource=7000
+alsoQueueAction:Produce_MA_08
+
+
+
+[action_Produce_MA_08]
+@copyFromSection:template_Produce_Fast
+@define UnitID=MA_08
+@define Money=7000
+@define Resource=7000
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+buildSpeed:75s
+
+alsoQueueAction:"""
+Produce_MA_08_1
+"""
+[hiddenAction_Produce_MA_08_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MA_08*1(addResources=PilotType:2101|EquipmentIndex:0)
+"""

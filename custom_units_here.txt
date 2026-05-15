@@ -1,0 +1,4 @@
+
+Game's units are at:
+assets/units/
+assets/builtin_mods/

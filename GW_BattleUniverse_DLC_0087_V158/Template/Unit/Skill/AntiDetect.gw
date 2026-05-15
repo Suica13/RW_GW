@@ -1,0 +1,13 @@
+[core]
+
+
+[hiddenAction_Check_AntiDetect]
+autoTrigger:true
+alsoTriggerAction:"""
+Check_AntiDetect_True
+"""
+[hiddenAction_Check_AntiDetect_True]
+requireConditional:"""
+if not self.hasTags(includes='AntiDetect')
+"""
+temporarilyAddTags:AntiDetect

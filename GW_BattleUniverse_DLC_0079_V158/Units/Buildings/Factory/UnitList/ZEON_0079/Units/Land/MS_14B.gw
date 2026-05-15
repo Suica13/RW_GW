@@ -1,0 +1,152 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+@memory MS_14B:bool
+
+
+[hiddenAction_Pannel_Close_MS_14B]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:MS_14B=false
+
+
+
+[hiddenAction_AutoProduce_MS_14B]
+@copyFromSection:template_AutoProduce
+@define UnitID=MS_14B
+alsoTriggerAction:AutoProduce_MS_14B_Step2
+
+[hiddenAction_AutoProduce_MS_14B_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=3850
+@define Resource=5650
+alsoTriggerAction:AutoProduce_MS_14B_Random
+
+
+
+[hiddenAction_AutoProduce_MS_14B_Random]
+alsoTriggerAction:"""
+AutoProduce_MS_14B_Random_A,
+AutoProduce_MS_14B_Random_B
+"""
+[hiddenAction_AutoProduce_MS_14B_Random_A]
+requireConditional:"""
+if memory.randomProduce<500
+"""
+alsoQueueAction:Produce_MS_14B_StandardSquad
+
+[hiddenAction_AutoProduce_MS_14B_Random_B]
+requireConditional:"""
+if memory.randomProduce>500
+"""
+alsoQueueAction:Produce_MS_14B_BazookaSquad
+
+
+
+
+[action_Pannel_MS_14B]
+@copyFromSection:template_Pannel
+@define UnitID=MS_14B
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+
+
+[action_Produce_MS_14B_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=MS_14B
+@define Money=3850
+@define Resource=5650
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:75s
+
+alsoQueueAction:"""
+Produce_MS_14B_StandardSquad_1,
+Produce_MS_14B_StandardSquad_2,
+Produce_MS_14B_StandardSquad_3
+"""
+[hiddenAction_Produce_MS_14B_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_14B*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_MS_14B_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_14B*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_MS_14B_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+MS_14B*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+
+[action_Produce_MS_14B_BazookaSquad]
+@copyFromSection:template_Produce
+@define UnitID=MS_14B
+@define Money=3250
+@define Resource=5050
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:75s
+
+text:Bazooka Squad
+text_zh:火箭筒小队
+
+alsoQueueAction:"""
+Produce_MS_14B_BazookaSquad_1,
+Produce_MS_14B_BazookaSquad_2,
+Produce_MS_14B_BazookaSquad_3
+"""
+[hiddenAction_Produce_MS_14B_BazookaSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_14B*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_MS_14B_BazookaSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_14B*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_MS_14B_BazookaSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+MS_14B*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+
+[action_Produce_MS_14B_MGSquad]
+@copyFromSection:template_Produce
+@define UnitID=MS_14B
+@define Money=3250
+@define Resource=4450
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:75s
+
+text:MG Squad
+text_zh:机枪小队
+
+alsoQueueAction:"""
+Produce_MS_14B_MGSquad_1,
+Produce_MS_14B_MGSquad_2,
+Produce_MS_14B_MGSquad_3
+"""
+[hiddenAction_Produce_MS_14B_MGSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_14B*1(addResources=PilotType:1101|EquipmentIndex:2)
+"""
+[hiddenAction_Produce_MS_14B_MGSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_14B*1(addResources=PilotType:1101|EquipmentIndex:2)
+"""
+[hiddenAction_Produce_MS_14B_MGSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+MS_14B*1(addResources=PilotType:1101|EquipmentIndex:2)
+"""

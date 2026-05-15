@@ -1,0 +1,37 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+
+[hiddenAction_AutoProduce_GwadanClass]
+@copyFromSection:template_AutoProduce
+@define UnitID=GwadanClass
+alsoTriggerAction:AutoProduce_GwadanClass_Step2
+
+[hiddenAction_AutoProduce_GwadanClass_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=16500
+@define Resource=30000
+alsoQueueAction:Produce_GwadanClass
+
+
+
+[action_Produce_GwadanClass]
+@copyFromSection:template_Produce_Fast
+@define UnitID=GwadanClass
+@define Money=16500
+@define Resource=30000
+@define FactionVisible= (memory.Pannel_NEO_ZEON_0087_DontShow==false)
+buildSpeed:90s
+
+alsoQueueAction:"""
+Produce_GwadanClass_1
+"""
+[hiddenAction_Produce_GwadanClass_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+GwadanClass*1(addResources=PilotType:2101|EquipmentIndex:0)
+"""

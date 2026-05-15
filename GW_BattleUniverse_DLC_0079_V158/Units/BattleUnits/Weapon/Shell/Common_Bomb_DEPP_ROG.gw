@@ -1,0 +1,139 @@
+[core]
+dont_load:true
+copyFrom:"""
+
+"""
+@memory Common_Bomb_DEPP_ROG_CDTimer:float
+@global Common_Bomb_DEPP_ROG_CD=6
+@global Common_Bomb_DEPP_ROG_EN=90
+
+
+
+
+
+[turret_Common_Bomb_DEPP_ROG]
+x:0
+y:0
+
+canShoot:false
+showRangeUIGuide:false
+projectile:Common_Bomb_DEPP_ROG_Projectile
+
+delay:0.2s
+limitingRange:1200
+limitingAngle:15
+
+canAttackMaxAngle:15
+barrelX:1
+barrelY:6
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/Bomb_1.ogg
+shoot_sound_vol:0.15
+shoot_flame:none
+[turret_Common_Bomb_DEPP_ROG_L]
+@copyFromSection:turret_Common_Bomb_DEPP_ROG
+barrelX:-1
+
+
+
+[projectile_Common_Bomb_DEPP_ROG_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Bomb*1
+(
+    addResources=
+    ShellDamage:1500
+    |DpDamage:100
+    |WeaponAccuracy=85
+    |PartBreakModifier=0.5
+    |CockpitBreakModifier=0.5
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=0.75
+    |AntiAqua=0.5
+    |AntiAir=0.25 
+    |AntiLand=1
+    |AntiSpace=1
+
+    |HeightHitRange=20
+    |ProjectileSpeed:1
+    |ProjectileSpread:5
+    |ProjectileExplosionRange:80
+    |ProjectileLife:8
+)
+"""
+
+
+[hiddenAction_Common_Bomb_DEPP_ROG_Trigger]
+alsoTriggerAction:Common_Bomb_DEPP_ROG_Fire
+[hiddenAction_Common_Bomb_DEPP_ROG_Fire]
+requireConditional:"""
+if self.timeAlive>memory.Common_Bomb_DEPP_ROG_CDTimer and ${onAttacking}==false and ${cantAction}==false and ${onSkill}==false  
+and self.attacking.hp>0 
+and self.resource.EN>0
+"""
+setUnitMemory:Common_Bomb_DEPP_ROG_CDTimer=self.timeAlive+${Common_Bomb_DEPP_ROG_CD} 
+addResources:EN=-${Common_Bomb_DEPP_ROG_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+Common_Bomb_DEPP_ROG_SetWeaponIndex,
+Common_Bomb_DEPP_ROG_B8_Step_1
+"""
+[hiddenAction_Common_Bomb_DEPP_ROG_B8_Step_1]
+alsoQueueAction:"""
+Common_Bomb_DEPP_ROG_Fire_Step_1,
+Common_Bomb_DEPP_ROG_Fire_Step_2,
+Common_Bomb_DEPP_ROG_Fire_Step_3,
+Common_Bomb_DEPP_ROG_Fire_Step_3,
+Common_Bomb_DEPP_ROG_Fire_Step_3,
+Common_Bomb_DEPP_ROG_Fire_Step_3,
+Common_Bomb_DEPP_ROG_Fire_Step_3,
+Common_Bomb_DEPP_ROG_Fire_Step_3,
+Common_Bomb_DEPP_ROG_Fire_Step_3,
+Common_Bomb_DEPP_ROG_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_Common_Bomb_DEPP_ROG_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_Common_Bomb_DEPP_ROG_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+[hiddenAction_Common_Bomb_DEPP_ROG_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:Common_Bomb_DEPP_ROG
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_Common_Bomb_DEPP_ROG_Fire_Step_3]
+@copyFromSection:hiddenAction_Common_Bomb_DEPP_ROG_Fire_Step_2
+buildSpeed:${turret_Common_Bomb_DEPP_ROG.delay}
+[hiddenAction_Common_Bomb_DEPP_ROG_Fire_Step_Final]
+buildSpeed:0.3s
+alsoTriggerAction:SetAttackingOff

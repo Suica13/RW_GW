@@ -1,0 +1,177 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Cqb/Common/Cqb_Fire_1_White_L.gw,
+ROOT:Resource/Image/Fx/Weapon/Cqb/Common/Cqb_Fire_1_White_R.gw,
+ROOT:Template\Unit\Animation\Cqb\Common_Melee_Double_A_Fixed.gw
+"""
+
+@memory Common_Cqb_Double_L_A_Fixed_MA_04X_CDTimer:float
+@global Common_Cqb_Double_L_A_Fixed_MA_04X_CD=3
+
+
+
+
+
+
+[turret_Common_Cqb_Double_L_A_Fixed_MA_04X]
+x:0
+y:0
+invisible:true
+
+canShoot:false
+
+showRangeUIGuide:false
+projectile:Common_Cqb_Double_L_A_Fixed_MA_04X_Projectile
+
+delay:3s
+limitingMinRange:0
+limitingRange:0
+
+canAttackMaxAngle:60
+barrelX:0
+barrelY:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/Fist_1.ogg
+shoot_sound_vol:0.5
+
+[projectile_Common_Cqb_Double_L_A_Fixed_MA_04X_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Saber_L_A*1
+(
+    addResources=
+    CqbDamage:5000
+    |CqbShellDamage:5000
+    |DpDamage:700
+    |WeaponAccuracy:125
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=0.5
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:0.5
+    |ProjectileAttackTimes:2
+)
+"""
+[projectile_Common_Cqb_Double_L_A_Fixed_MA_04X_L_Projectile]
+@copyFromSection:projectile_Common_Cqb_Double_L_A_Fixed_MA_04X_Projectile
+spawnUnit:"""
+Projectile_Saber_L_A_L*1
+(
+    addResources=
+    CqbDamage:5000
+    |CqbShellDamage:5000
+    |DpDamage:700
+    |WeaponAccuracy:125
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=0.5
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:0.5
+    |ProjectileAttackTimes:2
+)
+"""
+
+
+
+
+[animation_Common_Melee_Double_A_Fixed]
+KeyframeTimeScale:0.35
+
+
+
+[hiddenAction_Common_Cqb_Double_L_A_Fixed_MA_04X_Trigger]
+alsoTriggerAction:Common_Cqb_Double_L_A_Fixed_MA_04X_Fire
+[hiddenAction_Common_Cqb_Double_L_A_Fixed_MA_04X_Fire]
+requireConditional:"""
+if self.timeAlive>memory.Common_Cqb_Double_L_A_Fixed_MA_04X_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) 
+and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50
+"""
+setUnitMemory:Common_Cqb_Double_L_A_Fixed_MA_04X_CDTimer=self.timeAlive+${Common_Cqb_Double_L_A_Fixed_MA_04X_CD}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Cqb,
+Common_Cqb_Double_L_A_Fixed_MA_04X_SetWeaponIndex,
+PlayCommon_Melee_Double_A_Fixed_Step_1,
+Common_Cqb_Double_L_A_Fixed_MA_04X_Step_1
+"""
+[hiddenAction_Common_Cqb_Double_L_A_Fixed_MA_04X_Step_1]
+alsoQueueAction:"""
+Common_Cqb_Double_L_A_Fixed_MA_04X_Fire_Step_1,
+Common_Cqb_Double_L_A_Fixed_MA_04X_Fire_Step_2,
+Common_Cqb_Double_L_A_Fixed_MA_04X_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_Common_Cqb_Double_L_A_Fixed_MA_04X_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_Common_Cqb_Double_L_A_Fixed_MA_04X_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.42s
+[hiddenAction_Common_Cqb_Double_L_A_Fixed_MA_04X_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false and memory.armRBreaked==false
+"""
+buildSpeed:0s
+fireTurretXAtGround:Common_Cqb_Double_L_A_Fixed_MA_04X
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+spawnEffects:Cqb_Fire_1_White_R
+[hiddenAction_Common_Cqb_Double_L_A_Fixed_MA_04X_Fire_Step_3]
+requireConditional:"""
+if ${cantAction}==false and memory.armLBreaked==false
+"""
+buildSpeed:0s
+fireTurretXAtGround:Common_Cqb_Double_L_A_Fixed_MA_04X
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+fireTurretXAtGround_withProjectile:Common_Cqb_Double_L_A_Fixed_MA_04X_L_Projectile
+spawnEffects:Cqb_Fire_1_White_L
+[hiddenAction_Common_Cqb_Double_L_A_Fixed_MA_04X_Fire_Step_Final]
+buildSpeed:1.4s
+alsoTriggerAction:SetAttackingOff
+

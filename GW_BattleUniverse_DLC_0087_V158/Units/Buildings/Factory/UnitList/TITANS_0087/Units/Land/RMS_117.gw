@@ -1,0 +1,51 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+
+[hiddenAction_AutoProduce_RMS_117]
+@copyFromSection:template_AutoProduce
+@define UnitID=RMS_117
+alsoTriggerAction:AutoProduce_RMS_117_Step2
+
+[hiddenAction_AutoProduce_RMS_117_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=4500
+@define Resource=5750
+alsoQueueAction:Produce_RMS_117_StandardSquad
+
+
+
+[action_Produce_RMS_117_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=RMS_117
+@define Money=4500
+@define Resource=5750
+@define FactionVisible= (memory.Pannel_TITANS_0087_DontShow==false)
+buildSpeed:60s
+
+alsoQueueAction:"""
+Produce_RMS_117_StandardSquad_1,
+Produce_RMS_117_StandardSquad_2,
+Produce_RMS_117_StandardSquad_3
+"""
+[hiddenAction_Produce_RMS_117_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RMS_117*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_RMS_117_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+RMS_117*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_RMS_117_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+RMS_117*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

@@ -1,0 +1,49 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+[hiddenAction_AutoProduce_FatUncle]
+@copyFromSection:template_AutoProduce
+@define UnitID=FatUncle
+alsoTriggerAction:AutoProduce_FatUncle_Step2
+
+[hiddenAction_AutoProduce_FatUncle_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=500
+@define Resource=1000
+alsoQueueAction:Produce_FatUncle_StandardSquad
+
+
+
+[action_Produce_FatUncle_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=FatUncle
+@define Money=500
+@define Resource=1000
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+buildSpeed:25s
+
+isVisible:"""
+if memory.buildDone==true 
+and
+( 
+    (
+        self.globalTeamTags(includes='Unlock_${UnitID}')  
+        and not self.globalTeamTags(includes='Unlock_FatUncleKai') 
+    ) 
+    or self.queueSize(withActionTag="${UnitID}")>0
+)
+"""
+
+alsoQueueAction:"""
+Produce_FatUncle_StandardSquad_1
+"""
+[hiddenAction_Produce_FatUncle_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+FatUncle*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

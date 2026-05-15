@@ -1,0 +1,99 @@
+[core]
+dont_load:true
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_Flash_1.gw
+"""
+
+@memory Pilot_AtkShootUp_Active:bool
+@memory Pilot_AtkShootUp_ActiveTimer:float
+@global Pilot_AtkShootUp_ActiveTime:15
+@memory Pilot_AtkShootUp_CDTimer:float
+@global Pilot_AtkShootUp_CD=90
+
+@memory Pilot_AtkShootUp_AtkShoot:float
+@global Pilot_AtkShootUp_AtkShootUp:1.35
+
+
+
+
+
+[hiddenAction_Pilot_AtkShootUp_Check]
+autoTrigger:true
+setUnitMemory:"""
+Pilot_AtkShootUp_AtkShoot=select(memory.Pilot_AtkShootUp_Active==true,${Pilot_AtkShootUp_AtkShootUp},1)
+"""
+
+[hiddenAction_Check_UnitBuffRule_AtkShoot]
+setUnitMemory:pilotBuffRuleAtkShootModifier=1*memory.Pilot_AtkShootUp_AtkShoot
+
+[action_Pilot_AtkShootUp_Trigger]
+pos:10
+text:"""
+ShootDamageUp 
+%{
+    select(memory.Pilot_AtkShootUp_Active==true,
+    str(int(memory.Pilot_AtkShootUp_ActiveTimer-self.timeAlive))+"s",
+    select(self.timeAlive<=memory.Pilot_AtkShootUp_CDTimer,"CD:" + str(int(memory.Pilot_AtkShootUp_CDTimer-self.timeAlive))+"s","OK"))
+}
+"""
+text_zh:"""
+射击伤害上升 
+%{
+    select(memory.Pilot_AtkShootUp_Active==true,
+    str(int(memory.Pilot_AtkShootUp_ActiveTimer-self.timeAlive))+"秒",
+    select(self.timeAlive<=memory.Pilot_AtkShootUp_CDTimer,"冷却中:" + str(int(memory.Pilot_AtkShootUp_CDTimer-self.timeAlive))+"秒","OK"))
+}
+"""
+text_KP:100
+
+description:ShootDamage Up 35% in 15sec
+description_zh:15秒内射击伤害提高35%
+
+displayType:infoOnly
+
+price:EN=100
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+highPriorityQueue:true
+ai_isDisabled:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Skill/Pilot_AtkUp_Shoot.png
+
+isVisible:if not self.hasTags(includes='inHangar')
+
+
+
+isGuiBlinking:"""
+if self.timeAlive>memory.Pilot_AtkShootUp_CDTimer and memory.Pilot_AtkShootUp_Active==false
+"""
+
+isLocked:if self.timeAlive<=memory.Pilot_AtkShootUp_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+isLockedAlt:if memory.Pilot_AtkShootUp_Active==true
+isLockedAltMessage:In Action
+isLockedAltMessage_zh:行动中
+
+alsoTriggerAction:"""
+Pilot_AtkShootUp_Step_1
+"""
+[hiddenAction_Pilot_AtkShootUp_Step_1]
+spawnEffects:Flash_1_N
+playSoundAtUnit:ROOT:Resource/Sound/SE/Action/Common/Action_8.ogg:0.5
+
+setUnitMemory:"""
+Pilot_AtkShootUp_Active=true,
+Pilot_AtkShootUp_ActiveTimer=self.timeAlive+${Pilot_AtkShootUp_ActiveTime}
+"""
+
+[hiddenAction_Pilot_AtkShootUp_CheckOver]
+autoTrigger:"""
+if memory.Pilot_AtkShootUp_Active==true 
+and self.timeAlive>memory.Pilot_AtkShootUp_ActiveTimer
+"""
+setUnitMemory:"""
+Pilot_AtkShootUp_Active=false,
+Pilot_AtkShootUp_CDTimer=self.timeAlive+${Pilot_AtkShootUp_CD}
+"""

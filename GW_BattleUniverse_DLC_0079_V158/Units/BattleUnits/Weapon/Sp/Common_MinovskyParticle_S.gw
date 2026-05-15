@@ -1,0 +1,187 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Sp/Common/EMP_Hit_2.gw
+"""
+
+@memory Common_MinovskyParticle_S_CDTimer:float
+@global Common_MinovskyParticle_S_CD=180
+
+
+[turret_Common_MinovskyParticle_S]
+x:0
+y:0
+
+canShoot:false
+projectile:Common_MinovskyParticle_S_Projectile
+
+delay:0.2s
+canAttackMaxAngle:15
+limitingAngle:0
+limitingRange:1200
+barrelX:0
+barrelY:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Action/Skill/Detect_3.ogg
+shoot_sound_vol:1.0
+shoot_flame:EMP_Hit_2
+
+
+
+
+[projectile_Common_MinovskyParticle_S_Projectile]
+
+directDamage: 0
+life: 1
+explodeOnEndOfLife:true
+speed: 1
+instant:true
+invisible:true
+targetGround:true
+effectOnCreate:none
+explodeEffect:none
+drawUnderUnits:true
+image:none
+
+spawnUnit:"""
+MinovskyParticleArea_Fixed*1
+(   
+    offsetX=0,
+    offsetY=0,
+    addResources=
+    ProjectileExplosionRange:450
+    |ProjectileLife:30
+),
+MinovskyParticleArea_Fixed*1
+(   
+    offsetX=225,
+    offsetY=225,
+    addResources=
+    ProjectileExplosionRange:450
+    |ProjectileLife:30
+),
+MinovskyParticleArea_Fixed*1
+(   
+    offsetX=-225,
+    offsetY=225,
+    addResources=
+    ProjectileExplosionRange:450
+    |ProjectileLife:30
+),
+MinovskyParticleArea_Fixed*1
+(   
+    offsetX=225,
+    offsetY=-225,
+    addResources=
+    ProjectileExplosionRange:450
+    |ProjectileLife:30
+),
+MinovskyParticleArea_Fixed*1
+(   
+    offsetX=-225,
+    offsetY=-225,
+    addResources=
+    ProjectileExplosionRange:450
+    |ProjectileLife:30
+)
+"""
+
+
+
+[action_Common_MinovskyParticle_S_Trigger]
+pos:10
+text:MinovskyParticle[S] %{select(self.timeAlive<=memory.Common_MinovskyParticle_S_CDTimer,str(int(memory.Common_MinovskyParticle_S_CDTimer-self.timeAlive))+"s","OK")}
+text_zh:米诺夫斯基粒子散布[小] %{select(self.timeAlive<=memory.Common_MinovskyParticle_S_CDTimer,str(int(memory.Common_MinovskyParticle_S_CDTimer-self.timeAlive))+"秒","OK")}
+text_KP:100
+
+description:AreaAlly:\nReaction+15%(MS+30%)\nAntiDetect+200m\nShootDef Up\n45s
+description_zh:范围友军:\n反应+15%(MS+30%)\n反侦测+200m\n射击抗性上升\n持续45秒
+
+displayType:infoOnly
+
+price:EN=300
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+ai_isDisabled:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Action/MinovskyParticle_1.png
+highPriorityQueue:true
+
+isVisible:if self.parent.hp<=0 
+isGuiBlinking:"""
+if self.timeAlive>memory.Common_MinovskyParticle_S_CDTimer 
+and ${cantAction}==false 
+and ${onSkill}==false
+"""
+
+isLocked:if self.timeAlive<=memory.Common_MinovskyParticle_S_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+isLockedAlt2:if ${cantAction}==true or ${onSkill}==true
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+alsoTriggerAction:"""
+SetOnSkillOn,
+Common_MinovskyParticle_S_SetWeaponIndex,
+Common_MinovskyParticle_S_B1_Step_1
+"""
+[hiddenAction_Common_MinovskyParticle_S_B1_Step_1]
+setUnitMemory:"""
+Common_MinovskyParticle_S_CDTimer=self.timeAlive+${Common_MinovskyParticle_S_CD}
+"""
+
+alsoQueueAction:"""
+Common_MinovskyParticle_S_Fire_Step_1,
+Common_MinovskyParticle_S_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_Common_MinovskyParticle_S_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_Common_MinovskyParticle_S_Fire_Step_1]
+buildSpeed:0s
+fireTurretXAtGround:Common_MinovskyParticle_S
+fireTurretXAtGround_withTarget:self
+[hiddenAction_Common_MinovskyParticle_S_Fire_Step_Final]
+buildSpeed:0s
+alsoTriggerAction:"""
+SetOnSkillOff,
+Common_MinovskyParticle_S_Send_CV_Ally,
+Common_MinovskyParticle_S_Send_CV_Enemy
+"""
+
+
+[hiddenAction_Common_MinovskyParticle_S_Send_CV_Ally]
+takeResources_includeUnitsWithinRange:10000
+takeResources_includeUnitsWithinRange_team:ally
+takeResources_excludeUnitsWithoutTags:HQ
+takeResources_searchOnly:true
+takeResources_maxUnits:300
+takeResources_triggerActionForEach:Common_MinovskyParticle_S_Send_CV_Ally_Step2
+[hiddenAction_Common_MinovskyParticle_S_Send_CV_Ally_Step2]
+sendMessageTo:thisActionTarget.readUnitMemory("cvMarker",type="unit").readUnitMemory('cvUnit',type='unit')
+sendMessageWithTags:Play_AllyJamming
+
+[hiddenAction_Common_MinovskyParticle_S_Send_CV_Enemy]
+requireConditional:if not self.tags(includes='UnDetected')
+takeResources_includeUnitsWithinRange:10000
+takeResources_includeUnitsWithinRange_team:enemy
+takeResources_excludeUnitsWithoutTags:HQ
+takeResources_searchOnly:true
+takeResources_maxUnits:300
+takeResources_triggerActionForEach:Common_MinovskyParticle_S_Send_CV_Enemy_Step2
+[hiddenAction_Common_MinovskyParticle_S_Send_CV_Enemy_Step2]
+sendMessageTo:thisActionTarget.readUnitMemory("cvMarker",type="unit").readUnitMemory('cvUnit',type='unit')
+sendMessageWithTags:Play_EnemyJamming

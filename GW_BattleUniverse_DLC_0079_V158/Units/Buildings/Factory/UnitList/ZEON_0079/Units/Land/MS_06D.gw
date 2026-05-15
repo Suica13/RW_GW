@@ -1,0 +1,113 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+@memory MS_06D:bool
+
+
+[hiddenAction_Pannel_Close_MS_06D]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:MS_06D=false
+
+
+
+[hiddenAction_AutoProduce_MS_06D]
+@copyFromSection:template_AutoProduce
+@define UnitID=MS_06D
+alsoTriggerAction:AutoProduce_MS_06D_Step2
+
+[hiddenAction_AutoProduce_MS_06D_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=1500
+@define Resource=2250
+alsoTriggerAction:AutoProduce_MS_06D_Random
+
+[hiddenAction_AutoProduce_MS_06D_Random]
+alsoTriggerAction:"""
+AutoProduce_MS_06D_Random_A,
+AutoProduce_MS_06D_Random_B
+"""
+[hiddenAction_AutoProduce_MS_06D_Random_A]
+requireConditional:if memory.randomProduce<=750
+alsoQueueAction:Produce_MS_06D_StandardSquad
+
+[hiddenAction_AutoProduce_MS_06D_Random_B]
+requireConditional:if memory.randomProduce>750
+alsoQueueAction:Produce_MS_06D_BigGunSquad
+
+
+
+
+[action_Pannel_MS_06D]
+@copyFromSection:template_Pannel
+@define UnitID=MS_06D
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+
+
+[action_Produce_MS_06D_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=MS_06D
+@define Money=1500
+@define Resource=2250
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:55s
+
+alsoQueueAction:"""
+Produce_MS_06D_StandardSquad_1,
+Produce_MS_06D_StandardSquad_2,
+Produce_MS_06D_StandardSquad_3
+"""
+[hiddenAction_Produce_MS_06D_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_06D*1(addResources=PilotType:1001|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_MS_06D_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_06D*1(addResources=PilotType:1001|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_MS_06D_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+MS_06D*1(addResources=PilotType:1001|EquipmentIndex:0)
+"""
+
+
+
+[action_Produce_MS_06D_BigGunSquad]
+@copyFromSection:template_Produce
+@define UnitID=MS_06D
+@define Money=1500
+@define Resource=2850
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:55s
+
+text:BigGun Squad
+text_zh:大枪小队
+
+alsoQueueAction:"""
+Produce_MS_06D_BigGunSquad_1,
+Produce_MS_06D_BigGunSquad_2,
+Produce_MS_06D_BigGunSquad_3
+"""
+[hiddenAction_Produce_MS_06D_BigGunSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_06D*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_MS_06D_BigGunSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_06D*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_MS_06D_BigGunSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+MS_06D*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""

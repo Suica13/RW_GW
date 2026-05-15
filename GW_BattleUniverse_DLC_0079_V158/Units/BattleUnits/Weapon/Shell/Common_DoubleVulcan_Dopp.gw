@@ -1,0 +1,144 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/MG_Fire_1.gw
+"""
+
+
+@memory Common_DoubleVulcan_Dopp_CDTimer:float
+@global Common_DoubleVulcan_Dopp_CD=1.5
+@global Common_DoubleVulcan_Dopp_EN=10
+
+
+
+
+
+[turret_Common_DoubleVulcan_Dopp]
+x:0
+y:0
+
+canShoot:false
+showRangeUIGuide:false
+projectile:Common_DoubleVulcan_Dopp_Projectile
+
+delay:0.075s
+limitingRange:1200
+limitingAngle:15
+
+canAttackMaxAngle:15
+barrelX:3
+barrelY:4
+barrelOffsetX_onOddShots:-6
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/Vulcan_1.ogg
+shoot_sound_vol:0.15
+shoot_flame:MG_Fire_1_S
+[turret_Common_DoubleVulcan_Dopp_L]
+@copyFromSection:turret_Common_DoubleVulcan_Dopp
+barrelX:-1
+
+
+
+[projectile_Common_DoubleVulcan_Dopp_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Vulcan*1
+(
+    addResources=
+    ShellDamage:200
+    |DpDamage:10
+    |WeaponAccuracy=100
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=0.5
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=1.5
+    |AntiLand=1.25
+    |AntiSpace=1.0 
+    |HeightChangeSpeed=2.0
+    |HeightHitRange=25
+    |ProjectileSpeed:100
+    |ProjectileSpread:6
+    |ProjectileLife:8
+)
+"""
+
+
+[hiddenAction_Common_DoubleVulcan_Dopp_Trigger]
+alsoTriggerAction:Common_DoubleVulcan_Dopp_Fire
+[hiddenAction_Common_DoubleVulcan_Dopp_Fire]
+requireConditional:"""
+if self.timeAlive>memory.Common_DoubleVulcan_Dopp_CDTimer and ${onAttacking}==false and ${cantAction}==false and ${onSkill}==false  
+and not (directionBetween(self, self.attacking) < self.dir-25 or directionBetween(self, self.attacking) > self.dir+25)  
+and self.resource.EN>0
+"""
+setUnitMemory:Common_DoubleVulcan_Dopp_CDTimer=self.timeAlive+${Common_DoubleVulcan_Dopp_CD} 
+addResources:EN=-${Common_DoubleVulcan_Dopp_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+Common_DoubleVulcan_Dopp_SetWeaponIndex,
+Common_DoubleVulcan_Dopp_B8_Step_1
+"""
+[hiddenAction_Common_DoubleVulcan_Dopp_B8_Step_1]
+alsoQueueAction:"""
+Common_DoubleVulcan_Dopp_Fire_Step_1,
+Common_DoubleVulcan_Dopp_Fire_Step_2,
+Common_DoubleVulcan_Dopp_Fire_Step_3,
+Common_DoubleVulcan_Dopp_Fire_Step_4,
+Common_DoubleVulcan_Dopp_Fire_Step_3,
+Common_DoubleVulcan_Dopp_Fire_Step_4,
+Common_DoubleVulcan_Dopp_Fire_Step_3,
+Common_DoubleVulcan_Dopp_Fire_Step_4,
+Common_DoubleVulcan_Dopp_Fire_Step_3,
+Common_DoubleVulcan_Dopp_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_Common_DoubleVulcan_Dopp_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_Common_DoubleVulcan_Dopp_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+[hiddenAction_Common_DoubleVulcan_Dopp_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:Common_DoubleVulcan_Dopp
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_Common_DoubleVulcan_Dopp_Fire_Step_3]
+@copyFromSection:hiddenAction_Common_DoubleVulcan_Dopp_Fire_Step_2
+buildSpeed:${turret_Common_DoubleVulcan_Dopp.delay}
+[hiddenAction_Common_DoubleVulcan_Dopp_Fire_Step_4]
+@copyFromSection:hiddenAction_Common_DoubleVulcan_Dopp_Fire_Step_3
+fireTurretXAtGround:Common_DoubleVulcan_Dopp_L
+[hiddenAction_Common_DoubleVulcan_Dopp_Fire_Step_Final]
+buildSpeed:0.1s
+alsoTriggerAction:SetAttackingOff

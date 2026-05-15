@@ -1,0 +1,119 @@
+[core]
+copyFrom:"""
+ROOT:Template/Building/Skill/CanBeDetectedAndDetect.ini
+"""
+
+price: 5000
+mass: 50000
+
+tags:Building
+
+disableAllUnitCollisions:true
+ignoreInUnitCapCalculation:true
+
+buildSpeed: 1s
+radius: 5
+fogOfWarSightRange:0
+
+isBuilding:true
+
+footprint: 0,0,0,0
+constructionFootprint: 0,0,0,0
+buildingToFootprintOffsetX:10
+buildingToFootprintOffsetY:10
+
+
+hideScorchMark:true
+numBitsOnDeath:0
+effectOnDeath:none
+
+@memory coreUnit:unit
+
+@memory finalShootLevel:float
+@memory finalCqbLevel:float
+@memory finalAccuracyLevel:float
+
+@memory finalBeamDef:float
+@memory finalShellDef:float
+@memory finalCqbDef:float
+
+@memory finalBeamDefPlus:float
+@memory finalShellDefPlus:float
+@memory finalCqbDefPlus:float
+
+@memory extraBuildingDef:float
+@memory extraBuildingAtk:float
+
+@memory lastDamageBy:unit
+
+
+[hiddenAction_SetCoreUnit]
+autoTriggerOnEvent:created
+setUnitMemory:coreUnit=self
+
+[hiddenAction_InitializeStats]
+autoTriggerOnEvent:created
+isVisible:false
+
+
+
+[hiddenAction_Update]
+
+
+[hiddenAction_TookDamage]
+autoTriggerOnEvent:newMessage(withTag="Damage")
+setUnitStats:hp=self.hp-eventData(name="Damage",type="float")
+setUnitMemory:lastDamageBy=eventData(name="LastDamageBy",type="unit")
+
+[hiddenAction_Start_Get_TileMode]
+autoTriggerOnEvent:created
+setResourcesWithLogic:tileMode=customTarget1.resource().TileMode
+
+[hiddenAction_Get_TileMode]
+autoTriggerOnEvent:newMessage(withTag="Setting_TileMode")
+setResourcesWithLogic:tileMode=eventData('tileMode',type='float')
+
+
+
+
+
+[hiddenAction_InitializeStats]
+autoTriggerOnEvent:created
+setUnitMemory:finalDetectRange=${core.fogOfWarSightRange}*18
+
+
+[hiddenAction_Get_SLChangeFaction]
+autoTriggerOnEvent:newMessage(withTag="SLChangeFaction")
+switchToTeam:eventData('TeamID',type="float")
+
+
+
+
+
+
+
+
+[graphics]
+image:SHARED:blank.png
+showHealthBar:false
+disableLowHpFire:true
+disableLowHpSmoke:true
+showQueueBar:false
+
+[attack]
+canAttack:false
+
+
+[movement]
+movementType: Building
+moveSpeed:0
+maxTurnSpeed:0
+targetHeight:1
+targetHeightDrift:0
+
+
+
+[ai]
+useAsTransport:false
+useAsBuilder: false
+

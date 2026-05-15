@@ -1,0 +1,32 @@
+[core]
+dont_load:false
+
+[effect_GN_StealthField_1]
+life: 400
+
+xOffsetRelative: 0
+yOffsetRelative: -40
+hOffset: 0
+dirOffset: 180
+attachedToUnit: true
+
+drawUnderUnits:true
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+alpha:0.85
+scaleFrom: 1.0
+scaleTo: 1.5
+image:ROOT:Resource/Image/Fx/Weapon/Sp/Image/GN_StealthField_1.png
+alsoPlaySound:ROOT:Resource/Sound/SE/Action/System/Trans_AM_1.ogg:1.25
+
+fadeInTime:20
+
+total_frames: 10
+animateFrameStart: 0
+animateFrameEnd: 9
+animateFrameSpeed: 0.035
+showInFog:true

@@ -1,0 +1,791 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.0" orientation="orthogonal" renderorder="right-down" width="240" height="150" tilewidth="20" tileheight="20" infinite="0" nextlayerid="11" nextobjectid="394">
+ <tileset firstgid="1" name="misc_1" tilewidth="10" tileheight="10" tilecount="100" columns="10" tilerendersize="grid">
+  <properties>
+   <property name="embedded_png" value="   iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAAAXNSR0IArs4c6QAAAJVJREFUeJzt18ENgzAMBVAHMSgLME0WyKbpBSRIUYvUCl/eO1o+RPmylZSI6HFPudnHD+aIiNbrx6alrI8chi2Q3Xjx34Li/6ax0HoVRKK3QMg1j4V9bZmSHJcrizyXK6v16mWV5BTIcTpMSo4SPoYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA97ASPXGRN9HxT8AAAAAElFTkSuQmCC"/>
+  </properties>
+  <image source="mapKit/misc_1.png" width="100" height="100"/>
+  <tile id="0">
+   <properties>
+    <property name="res_pool" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="101" name="teamKit_1" tilewidth="10" tileheight="10" tilecount="38" columns="2" tilerendersize="grid">
+  <image source="mapKit/teamKit_1.png" width="20" height="190"/>
+  <tile id="0">
+   <properties>
+    <property name="team" value="0"/>
+    <property name="unit" value="commandCenter"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="team" value="1"/>
+    <property name="unit" value="commandCenter"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="team" value="2"/>
+    <property name="unit" value="commandCenter"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="team" value="3"/>
+    <property name="unit" value="commandCenter"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="team" value="4"/>
+    <property name="unit" value="commandCenter"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="team" value="5"/>
+    <property name="unit" value="commandCenter"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="team" value="6"/>
+    <property name="unit" value="commandCenter"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="team" value="7"/>
+    <property name="unit" value="commandCenter"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="team" value="8"/>
+    <property name="unit" value="commandCenter"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="team" value="9"/>
+    <property name="unit" value="commandCenter"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="team" value="10"/>
+    <property name="unit" value="commandCenter"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="team" value="11"/>
+    <property name="unit" value="commandCenter"/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="team" value="12"/>
+    <property name="unit" value="commandCenter"/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="team" value="13"/>
+    <property name="unit" value="commandCenter"/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="team" value="14"/>
+    <property name="unit" value="commandCenter"/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="team" value="15"/>
+    <property name="unit" value="commandCenter"/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="team" value="16"/>
+    <property name="unit" value="commandCenter"/>
+   </properties>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="team" value="17"/>
+    <property name="unit" value="commandCenter"/>
+   </properties>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="team" value="18"/>
+    <property name="unit" value="commandCenter"/>
+   </properties>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="team" value="19"/>
+    <property name="unit" value="commandCenter"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="139" name="tile_3" tilewidth="10" tileheight="10" tilecount="400" columns="20" tilerendersize="grid">
+  <properties>
+   <property name="embedded_png" value="   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"/>
+  </properties>
+  <image source="mapKit/tile_3.png" width="200" height="200"/>
+ </tileset>
+ <layer id="1" name="Ground" width="240" height="150" offsetx="-0.00479798" offsety="0">
+  <data encoding="base64" compression="gzip">
+   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
+  </data>
+ </layer>
+ <layer id="2" name="Items" width="240" height="150">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3dMQqAMAxA0XhYBQW9/+guOFlJm753gPLb7kkEAAAAAAAAzGnJDuBX/hcAAAAAAAAAAAAAAAAAAAAAAAAAAIBZ7NkBAAAAlGYXDAAAAAAAAAAAAAAAAPDmyA4AAAAAAAAAAADgE3OoAQAAAAAAAAAAAAAAAAAAAADG03p2zNb4vJH0Noent54KvCkAQMSaHQAAAAAAAAAAAAAAAAAAAAAAAAAAAABQjJ0YAAAAAAAAAAAAAABQ15UdAAAAAAAAAAAAAAAAAACUdGYHPNjFVFul/610FwAAAAAAAAAAAAAAAAAAmMUN9mD4hIAyAgA=
+  </data>
+ </layer>
+ <layer id="4" name="set" width="240" height="150" visible="0">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3BgQAAAADDoPlTH+ECVQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAN8tNIwOAMgIA
+  </data>
+ </layer>
+ <objectgroup id="5" name="Triggers"/>
+ <objectgroup id="10" name="UnitObjects">
+  <object id="274" name="House_HK_6 (t:-1)" x="280" y="400" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_6"/>
+   </properties>
+  </object>
+  <object id="275" name="House_HK_1 (t:-1)" x="1400" y="1700" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_1"/>
+   </properties>
+  </object>
+  <object id="276" name="House_HK_1 (t:-1)" x="1400" y="1880" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_1"/>
+   </properties>
+  </object>
+  <object id="277" name="House_HK_2 (t:-1)" x="1400" y="2320" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_2"/>
+   </properties>
+  </object>
+  <object id="278" name="House_HK_6 (t:-1)" x="1380" y="2920" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_6"/>
+   </properties>
+  </object>
+  <object id="279" name="House_HK_6 (t:-1)" x="1540" y="2920" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_6"/>
+   </properties>
+  </object>
+  <object id="280" name="House_HK_6 (t:-1)" x="1700" y="2920" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_6"/>
+   </properties>
+  </object>
+  <object id="281" name="House_HK_7 (t:-1)" x="2160" y="2900" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_7"/>
+   </properties>
+  </object>
+  <object id="282" name="House_HK_7 (t:-1)" x="2320" y="2900" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_7"/>
+   </properties>
+  </object>
+  <object id="283" name="House_HK_7 (t:-1)" x="280" y="2900" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_7"/>
+   </properties>
+  </object>
+  <object id="284" name="House_HK_7 (t:-1)" x="100" y="2900" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_7"/>
+   </properties>
+  </object>
+  <object id="285" name="House_HK_6 (t:-1)" x="280" y="2320" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_6"/>
+   </properties>
+  </object>
+  <object id="286" name="House_HK_7 (t:-1)" x="100" y="2300" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_7"/>
+   </properties>
+  </object>
+  <object id="287" name="House_HK_3 (t:-1)" x="1760" y="1700" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_3"/>
+   </properties>
+  </object>
+  <object id="288" name="House_HK_4 (t:-1)" x="1760" y="1880" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_4"/>
+   </properties>
+  </object>
+  <object id="289" name="House_HK_3 (t:-1)" x="940" y="780" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_3"/>
+   </properties>
+  </object>
+  <object id="290" name="House_HK_3 (t:-1)" x="740" y="780" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_3"/>
+   </properties>
+  </object>
+  <object id="291" name="House_HK_5 (t:-1)" x="740" y="400" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_5"/>
+   </properties>
+  </object>
+  <object id="292" name="House_HK_5 (t:-1)" x="940" y="400" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_5"/>
+   </properties>
+  </object>
+  <object id="293" name="House_HK_1 (t:-1)" x="1420" y="400" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_1"/>
+   </properties>
+  </object>
+  <object id="294" name="House_HK_2 (t:-1)" x="1780" y="400" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_2"/>
+   </properties>
+  </object>
+  <object id="295" name="House_HK_1 (t:-1)" x="1600" y="400" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_1"/>
+   </properties>
+  </object>
+  <object id="296" name="House_HK_5 (t:-1)" x="2160" y="400" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_5"/>
+   </properties>
+  </object>
+  <object id="297" name="House_HK_6 (t:-1)" x="280" y="1440" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_6"/>
+   </properties>
+  </object>
+  <object id="298" name="House_HK_6 (t:-1)" x="280" y="1860" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_6"/>
+   </properties>
+  </object>
+  <object id="299" name="House_HK_6 (t:-1)" x="740" y="940" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_6"/>
+   </properties>
+  </object>
+  <object id="300" name="House_HK_6 (t:-1)" x="940" y="940" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_6"/>
+   </properties>
+  </object>
+  <object id="301" name="House_HK_4 (t:-1)" x="740" y="2320" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_4"/>
+   </properties>
+  </object>
+  <object id="302" name="House_HK_3 (t:-1)" x="940" y="2320" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_3"/>
+   </properties>
+  </object>
+  <object id="303" name="House_HK_3 (t:-1)" x="1400" y="1340" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_3"/>
+   </properties>
+  </object>
+  <object id="304" name="House_HK_5 (t:-1)" x="1400" y="940" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_5"/>
+   </properties>
+  </object>
+  <object id="305" name="House_HK_5 (t:-1)" x="1820" y="940" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_5"/>
+   </properties>
+  </object>
+  <object id="306" name="House_HK_1 (t:-1)" x="280" y="760" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_1"/>
+   </properties>
+  </object>
+  <object id="307" name="House_HK_1 (t:-1)" x="100" y="760" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_1"/>
+   </properties>
+  </object>
+  <object id="308" name="House_HK_6 (t:-1)" x="280" y="920" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_6"/>
+   </properties>
+  </object>
+  <object id="309" name="House_HK_6 (t:-1)" x="100" y="920" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_6"/>
+   </properties>
+  </object>
+  <object id="310" name="House_HK_3 (t:-1)" x="80" y="380" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_3"/>
+   </properties>
+  </object>
+  <object id="311" name="House_HK_5 (t:-1)" x="80" y="1820" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_5"/>
+   </properties>
+  </object>
+  <object id="312" name="House_HK_4 (t:-1)" x="80" y="1420" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_4"/>
+   </properties>
+  </object>
+  <object id="313" name="House_HK_7 (t:-1)" x="2400" y="400" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_7"/>
+   </properties>
+  </object>
+  <object id="314" name="House_HK_5 (t:-1)" x="2660" y="400" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_5"/>
+   </properties>
+  </object>
+  <object id="315" name="House_HK_5 (t:-1)" x="3160" y="400" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_5"/>
+   </properties>
+  </object>
+  <object id="316" name="House_HK_5 (t:-1)" x="3360" y="400" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_5"/>
+   </properties>
+  </object>
+  <object id="317" name="House_HK_1 (t:-1)" x="3840" y="400" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_1"/>
+   </properties>
+  </object>
+  <object id="318" name="House_HK_1 (t:-1)" x="4020" y="400" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_1"/>
+   </properties>
+  </object>
+  <object id="319" name="House_HK_2 (t:-1)" x="4200" y="400" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_2"/>
+   </properties>
+  </object>
+  <object id="320" name="House_HK_5 (t:-1)" x="4580" y="400" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_5"/>
+   </properties>
+  </object>
+  <object id="321" name="House_HK_7 (t:-1)" x="4740" y="420" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_7"/>
+   </properties>
+  </object>
+  <object id="322" name="House_HK_5 (t:-1)" x="4720" y="1340" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_5"/>
+   </properties>
+  </object>
+  <object id="323" name="House_HK_2 (t:-1)" x="4560" y="1360" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_2"/>
+   </properties>
+  </object>
+  <object id="324" name="House_HK_4 (t:-1)" x="4640" y="1700" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_4"/>
+   </properties>
+  </object>
+  <object id="325" name="House_HK_4 (t:-1)" x="4640" y="1880" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_4"/>
+   </properties>
+  </object>
+  <object id="326" name="House_HK_1 (t:-1)" x="4740" y="2900" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_1"/>
+   </properties>
+  </object>
+  <object id="327" name="House_HK_6 (t:-1)" x="4580" y="2920" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_6"/>
+   </properties>
+  </object>
+  <object id="328" name="House_HK_7 (t:-1)" x="2520" y="2900" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_7"/>
+   </properties>
+  </object>
+  <object id="329" name="House_HK_7 (t:-1)" x="2700" y="2900" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_7"/>
+   </properties>
+  </object>
+  <object id="330" name="House_HK_5 (t:-1)" x="1760" y="2300" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_5"/>
+   </properties>
+  </object>
+  <object id="331" name="House_HK_6 (t:-1)" x="4120" y="2920" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_6"/>
+   </properties>
+  </object>
+  <object id="332" name="House_HK_6 (t:-1)" x="3960" y="2920" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_6"/>
+   </properties>
+  </object>
+  <object id="333" name="House_HK_6 (t:-1)" x="3800" y="2920" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_6"/>
+   </properties>
+  </object>
+  <object id="334" name="House_HK_4 (t:-1)" x="3360" y="2320" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_4"/>
+   </properties>
+  </object>
+  <object id="335" name="House_HK_3 (t:-1)" x="3160" y="2320" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_3"/>
+   </properties>
+  </object>
+  <object id="336" name="House_HK_2 (t:-1)" x="2520" y="2300" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_2"/>
+   </properties>
+  </object>
+  <object id="337" name="House_HK_1 (t:-1)" x="2700" y="2300" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_1"/>
+   </properties>
+  </object>
+  <object id="338" name="House_HK_4 (t:-1)" x="2600" y="1720" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_4"/>
+   </properties>
+  </object>
+  <object id="339" name="House_HK_4 (t:-1)" x="2220" y="1720" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_4"/>
+   </properties>
+  </object>
+  <object id="340" name="House_HK_6 (t:-1)" x="2600" y="1880" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_6"/>
+   </properties>
+  </object>
+  <object id="341" name="House_HK_6 (t:-1)" x="2220" y="1880" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_6"/>
+   </properties>
+  </object>
+  <object id="342" name="House_HK_2 (t:-1)" x="3820" y="2320" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_2"/>
+   </properties>
+  </object>
+  <object id="343" name="House_HK_3 (t:-1)" x="4180" y="1700" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_3"/>
+   </properties>
+  </object>
+  <object id="344" name="House_HK_3 (t:-1)" x="4180" y="1880" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_3"/>
+   </properties>
+  </object>
+  <object id="345" name="House_HK_7 (t:-1)" x="3820" y="1700" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_7"/>
+   </properties>
+  </object>
+  <object id="346" name="House_HK_7 (t:-1)" x="3820" y="1880" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_7"/>
+   </properties>
+  </object>
+  <object id="347" name="House_HK_4 (t:-1)" x="1840" y="1340" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_4"/>
+   </properties>
+  </object>
+  <object id="348" name="House_HK_3 (t:-1)" x="2220" y="1340" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_3"/>
+   </properties>
+  </object>
+  <object id="349" name="House_HK_4 (t:-1)" x="2620" y="1340" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_4"/>
+   </properties>
+  </object>
+  <object id="350" name="House_HK_7 (t:-1)" x="2520" y="920" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_7"/>
+   </properties>
+  </object>
+  <object id="351" name="House_HK_7 (t:-1)" x="2700" y="920" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_7"/>
+   </properties>
+  </object>
+  <object id="352" name="House_HK_5 (t:-1)" x="3820" y="940" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_5"/>
+   </properties>
+  </object>
+  <object id="353" name="House_HK_5 (t:-1)" x="4240" y="940" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_5"/>
+   </properties>
+  </object>
+  <object id="354" name="House_HK_4 (t:-1)" x="4240" y="1340" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_4"/>
+   </properties>
+  </object>
+  <object id="355" name="House_HK_3 (t:-1)" x="3820" y="1340" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_3"/>
+   </properties>
+  </object>
+  <object id="356" name="House_HK_5 (t:-1)" x="4200" y="2300" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_5"/>
+   </properties>
+  </object>
+  <object id="357" name="House_HK_3 (t:-1)" x="3360" y="780" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_3"/>
+   </properties>
+  </object>
+  <object id="358" name="House_HK_4 (t:-1)" x="3160" y="780" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_4"/>
+   </properties>
+  </object>
+  <object id="359" name="House_HK_6 (t:-1)" x="3360" y="940" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_6"/>
+   </properties>
+  </object>
+  <object id="360" name="House_HK_6 (t:-1)" x="3160" y="940" width="20" height="20" rotation="-90">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="House_HK_6"/>
+   </properties>
+  </object>
+  <object id="376" name="Woods_1_C (t:-1)" x="2090" y="890" width="40" height="40" rotation="-31.216">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="Woods_1_C"/>
+   </properties>
+  </object>
+  <object id="377" name="Woods_1_C (t:-1)" x="2290" y="910" width="40" height="40" rotation="73.87">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="Woods_1_C"/>
+   </properties>
+  </object>
+  <object id="378" name="Woods_1_E (t:-1)" x="2170" y="1010" width="40" height="40" rotation="107.58">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="Woods_1_E"/>
+   </properties>
+  </object>
+  <object id="379" name="Woods_1_F (t:-1)" x="3390" y="1410" width="40" height="40" rotation="251.15">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="Woods_1_F"/>
+   </properties>
+  </object>
+  <object id="380" name="Woods_1_C (t:-1)" x="3110" y="1430" width="40" height="40" rotation="175.812">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="Woods_1_C"/>
+   </properties>
+  </object>
+  <object id="381" name="Woods_1_A (t:-1)" x="3090" y="1690" width="40" height="40" rotation="60.376">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="Woods_1_A"/>
+   </properties>
+  </object>
+  <object id="382" name="Woods_1_C (t:-1)" x="3370" y="1710" width="40" height="40" rotation="-22.718">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="Woods_1_C"/>
+   </properties>
+  </object>
+  <object id="383" name="Woods_1_D (t:-1)" x="2090" y="2270" width="40" height="40" rotation="69.97">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="Woods_1_D"/>
+   </properties>
+  </object>
+  <object id="384" name="Woods_1_A (t:-1)" x="2290" y="2270" width="40" height="40" rotation="-65.284">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="Woods_1_A"/>
+   </properties>
+  </object>
+  <object id="385" name="Woods_1_B (t:-1)" x="2170" y="2350" width="40" height="40" rotation="17.538">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="Woods_1_B"/>
+   </properties>
+  </object>
+  <object id="386" name="Woods_1_C (t:-1)" x="650" y="1390" width="40" height="40" rotation="-19.482">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="Woods_1_C"/>
+   </properties>
+  </object>
+  <object id="387" name="Woods_1_B (t:-1)" x="990" y="1390" width="40" height="40" rotation="101.178">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="Woods_1_B"/>
+   </properties>
+  </object>
+  <object id="388" name="Woods_1_D (t:-1)" x="650" y="1690" width="40" height="40" rotation="-14.756">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="Woods_1_D"/>
+   </properties>
+  </object>
+  <object id="389" name="Woods_1_F (t:-1)" x="950" y="1690" width="40" height="40" rotation="159.37">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="Woods_1_F"/>
+   </properties>
+  </object>
+  <object id="390" name="Woods_1_A (t:-1)" x="710" y="2950" width="40" height="40" rotation="6.94">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="Woods_1_A"/>
+   </properties>
+  </object>
+  <object id="391" name="Woods_1_A (t:-1)" x="930" y="2950" width="40" height="40" rotation="150.946">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="Woods_1_A"/>
+   </properties>
+  </object>
+  <object id="392" name="Woods_1_D (t:-1)" x="3130" y="2930" width="40" height="40" rotation="262.094">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="Woods_1_D"/>
+   </properties>
+  </object>
+  <object id="393" name="Woods_1_B (t:-1)" x="3330" y="2930" width="40" height="40" rotation="-39.654">
+   <properties>
+    <property name="team" value="-1"/>
+    <property name="unit" value="Woods_1_B"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

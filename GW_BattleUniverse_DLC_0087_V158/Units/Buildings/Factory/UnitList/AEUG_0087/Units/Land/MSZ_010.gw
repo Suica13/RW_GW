@@ -1,0 +1,49 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+[hiddenAction_AutoProduce_MSZ_010]
+@copyFromSection:template_AutoProduce
+@define UnitID=MSZ_010
+alsoTriggerAction:AutoProduce_MSZ_010_Step2
+
+[hiddenAction_AutoProduce_MSZ_010_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=14500
+@define Resource=17500
+alsoTriggerAction:AutoProduce_MSZ_010_Random
+
+
+
+[hiddenAction_AutoProduce_MSZ_010_Random]
+alsoTriggerAction:"""
+AutoProduce_MSZ_010_Random_A
+"""
+[hiddenAction_AutoProduce_MSZ_010_Random_A]
+requireConditional:"""
+if true
+"""
+alsoQueueAction:Produce_MSZ_010_StandardSquad
+
+
+
+
+[action_Produce_MSZ_010_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=MSZ_010
+@define Money=14500
+@define Resource=17500
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+buildSpeed:70s
+
+alsoQueueAction:"""
+Produce_MSZ_010_StandardSquad_1
+"""
+[hiddenAction_Produce_MSZ_010_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MSZ_010*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+

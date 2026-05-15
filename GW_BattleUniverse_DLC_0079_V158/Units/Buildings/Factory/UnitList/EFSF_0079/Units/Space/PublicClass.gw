@@ -1,0 +1,120 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory PublicClass:bool
+
+
+[hiddenAction_Pannel_Close_PublicClass]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:PublicClass=false
+
+
+
+
+[hiddenAction_AutoProduce_PublicClass]
+@copyFromSection:template_AutoProduce
+@define UnitID=PublicClass
+alsoTriggerAction:AutoProduce_PublicClass_Step2
+
+[hiddenAction_AutoProduce_PublicClass_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=650
+@define Resource=1200
+alsoTriggerAction:AutoProduce_PublicClass_Random
+
+
+
+[hiddenAction_AutoProduce_PublicClass_Random]
+alsoTriggerAction:"""
+AutoProduce_PublicClass_Random_A,
+AutoProduce_PublicClass_Random_B
+"""
+[hiddenAction_AutoProduce_PublicClass_Random_A]
+requireConditional:"""
+if memory.randomProduce<=500
+"""
+alsoQueueAction:Produce_PublicClass_StandardSquad
+
+[hiddenAction_AutoProduce_PublicClass_Random_B]
+requireConditional:"""
+if memory.randomProduce>500
+"""
+alsoQueueAction:Produce_PublicClass_BazookaSquad
+
+
+
+[action_Pannel_PublicClass]
+@copyFromSection:template_Pannel
+@define UnitID=PublicClass
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+@define OtherVisible= (true)
+
+[action_Produce_PublicClass_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=PublicClass
+@define Money=600
+@define Resource=1200
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+@define OtherVisible= (true)
+buildSpeed:35s
+
+alsoQueueAction:"""
+Produce_PublicClass_StandardSquad_1,
+Produce_PublicClass_StandardSquad_2,
+Produce_PublicClass_StandardSquad_3
+"""
+[hiddenAction_Produce_PublicClass_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+PublicClass*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_PublicClass_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+PublicClass*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_PublicClass_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+PublicClass*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+
+[action_Produce_PublicClass_BazookaSquad]
+@copyFromSection:template_Produce
+@define UnitID=PublicClass
+@define Money=600
+@define Resource=1800
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+@define OtherVisible= (true)
+buildSpeed:35s
+
+text:BeamDiffusionMS Squad
+text_zh:光束扰乱膜飞弹小队
+
+alsoQueueAction:"""
+Produce_PublicClass_BazookaSquad_1,
+Produce_PublicClass_BazookaSquad_2,
+Produce_PublicClass_BazookaSquad_3
+"""
+[hiddenAction_Produce_PublicClass_BazookaSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+PublicClass*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_PublicClass_BazookaSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+PublicClass*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_PublicClass_BazookaSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+PublicClass*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""

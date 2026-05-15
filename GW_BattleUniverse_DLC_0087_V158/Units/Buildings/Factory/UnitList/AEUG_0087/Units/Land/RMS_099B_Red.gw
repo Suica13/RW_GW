@@ -1,0 +1,120 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+@memory RMS_099B_Red:bool
+
+
+[hiddenAction_Pannel_Close_RMS_099B_Red]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:RMS_099B_Red=false
+
+
+
+
+[hiddenAction_AutoProduce_RMS_099B_Red]
+@copyFromSection:template_AutoProduce
+@define UnitID=RMS_099B_Red
+alsoTriggerAction:AutoProduce_RMS_099B_Red_Step2
+
+[hiddenAction_AutoProduce_RMS_099B_Red_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=6500
+@define Resource=9000
+alsoTriggerAction:AutoProduce_RMS_099B_Red_Random
+
+
+
+[hiddenAction_AutoProduce_RMS_099B_Red_Random]
+alsoTriggerAction:"""
+AutoProduce_RMS_099B_Red_Random_A,
+AutoProduce_RMS_099B_Red_Random_B
+"""
+[hiddenAction_AutoProduce_RMS_099B_Red_Random_A]
+requireConditional:"""
+if memory.randomProduce<=500
+"""
+alsoQueueAction:Produce_RMS_099B_Red_StandardSquad
+
+[hiddenAction_AutoProduce_RMS_099B_Red_Random_B]
+requireConditional:"""
+if memory.randomProduce>500 
+and memory.randomProduce<=850
+"""
+alsoQueueAction:Produce_RMS_099B_Red_BazookaSGSquad
+
+
+
+
+[action_Pannel_RMS_099B_Red]
+@copyFromSection:template_Pannel
+@define UnitID=RMS_099B_Red
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+
+[action_Produce_RMS_099B_Red_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=RMS_099B_Red
+@define Money=7500
+@define Resource=9000
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+buildSpeed:60s
+
+alsoQueueAction:"""
+Produce_RMS_099B_Red_StandardSquad_1,
+Produce_RMS_099B_Red_StandardSquad_2,
+Produce_RMS_099B_Red_StandardSquad_3
+"""
+[hiddenAction_Produce_RMS_099B_Red_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RMS_099B_Red*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_RMS_099B_Red_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+RMS_099B_Red*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_RMS_099B_Red_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+RMS_099B_Red*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+
+[action_Produce_RMS_099B_Red_BazookaSGSquad]
+@copyFromSection:template_Produce
+@define UnitID=RMS_099B_Red
+@define Money=7500
+@define Resource=9000
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+buildSpeed:60s
+
+text:Bazooka[SG] Squad
+text_zh:火箭筒[SG]小队
+
+alsoQueueAction:"""
+Produce_RMS_099B_Red_BazookaSGSquad_1,
+Produce_RMS_099B_Red_BazookaSGSquad_2,
+Produce_RMS_099B_Red_BazookaSGSquad_3
+"""
+[hiddenAction_Produce_RMS_099B_Red_BazookaSGSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RMS_099B_Red*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_RMS_099B_Red_BazookaSGSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+RMS_099B_Red*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_RMS_099B_Red_BazookaSGSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+RMS_099B_Red*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""

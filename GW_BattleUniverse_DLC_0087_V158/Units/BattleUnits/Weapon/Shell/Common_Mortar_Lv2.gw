@@ -1,0 +1,36 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Units/BattleUnits/Weapon/Shell/Common_Mortar.gw
+"""
+
+@global Common_Mortar_Range=1200
+
+[projectile_Common_Mortar_Projectile]
+spawnUnit:"""
+Projectile_MortarMarker_A*1
+(
+    offsetRandomXY=100,
+    addResources=
+    ShellDamage:7000
+    |DpDamage:550
+    |WeaponAccuracy=65
+    |PartBreakModifier=0.5
+    |CockpitBreakModifier=0.5
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiBuilding=2
+    |AntiAqua=0.75
+    |AntiAir=0.5 
+    |AntiLand=1
+    |AntiSpace=1
+
+    |ProjectileSpeed:25
+    |ProjectileSpread:25
+    |ProjectileExplosionRange:80
+    |ProjectileLife:200
+)
+"""
+
+
+

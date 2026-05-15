@@ -1,0 +1,28 @@
+[core]
+dont_load:false
+
+
+[effect_Beam_Charge_2_Yellow]
+life: 100
+
+xOffsetRelative: 8
+yOffsetRelative: 35
+hOffset: 0
+dirOffset: 0
+attachedToUnit: true
+
+priority:critical
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+scaleFrom: 0.5
+scaleTo: 0.5
+image: ROOT:Resource/Image/Fx/Weapon/Beam/Charge/Image/Beam_Charge_2_Yellow.png
+
+total_frames: 12
+animateFrameStart: 0
+animateFrameEnd: 11
+animateFrameSpeed: 0.2
+showInFog:true
+

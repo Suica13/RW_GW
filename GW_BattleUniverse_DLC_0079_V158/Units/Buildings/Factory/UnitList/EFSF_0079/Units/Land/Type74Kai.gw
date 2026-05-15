@@ -1,0 +1,50 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+[hiddenAction_AutoProduce_Type74Kai]
+@copyFromSection:template_AutoProduce
+@define UnitID=Type74Kai
+alsoTriggerAction:AutoProduce_Type74Kai_Step2
+
+[hiddenAction_AutoProduce_Type74Kai_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=450
+@define Resource=900
+alsoQueueAction:Produce_Type74Kai_StandardSquad
+
+
+
+[action_Produce_Type74Kai_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=Type74Kai
+@define Money=450
+@define Resource=900
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+buildSpeed:25s
+
+alsoQueueAction:"""
+Produce_Type74Kai_StandardSquad_1,
+Produce_Type74Kai_StandardSquad_2,
+Produce_Type74Kai_StandardSquad_3
+"""
+[hiddenAction_Produce_Type74Kai_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+Type74Kai*1(addResources=PilotType:1001|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_Type74Kai_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+Type74Kai*1(addResources=PilotType:1001|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_Type74Kai_StandardSquad_3]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+Type74Kai*1(addResources=PilotType:1001|EquipmentIndex:0)
+"""

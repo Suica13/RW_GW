@@ -1,0 +1,265 @@
+[core]
+
+
+name:CV_HQ
+
+tags:CVUnit
+
+showOnMinimap:false
+showOnMinimapToEnemies:false
+price: 5000
+maxHp: 600
+mass: 50000
+
+disableAllUnitCollisions:true
+
+buildSpeed: 0.001
+radius: 10
+fogOfWarSightRange:0
+
+isUnselectable:true
+canNotBeGivenOrdersByPlayer:false
+canNotBeDamaged:true
+
+disableDeathOnZeroHp:true
+
+showInEditor:false
+autoTriggerCooldownTime:0.1s
+
+@memory priorityIndex:float
+@memory priorityCDTimer:float
+
+[action_Info]
+pos:1
+text: Now:${core.displayText}
+text_zh: 当前:${core.displayText_zh}
+
+highPriorityQueue:false
+allowMultipleInQueue: false
+alwaysSinglePress：true
+ai_isDisabled:true
+displayType:action
+iconImage:ROOT:Resource/Image/Icon/CV_1.png
+
+buildSpeed:0s
+isVisible:"""
+true
+"""
+[action_DeleteSelf]
+pos:2
+text: Delete
+text_zh: 撤去
+
+highPriorityQueue:false
+allowMultipleInQueue: false
+alwaysSinglePress：true
+ai_isDisabled:true
+displayType:action
+iconImage:ROOT:Resource/Image/Units/Button/Misc/Exit_1.png
+
+buildSpeed:0s
+isVisible:"""
+true
+"""
+deleteSelf:true
+
+
+
+
+
+
+[hiddenAction_Check_PriorityCDTimer]
+autoTrigger:true
+requireConditional:if memory.priorityIndex>0 and self.timeAlive>memory.priorityCDTimer
+setUnitMemory:priorityIndex=0
+
+
+
+
+[hiddenAction_Get_Play_PickUp]
+autoTriggerOnEvent:newMessage(withTag="Play_PickUp")
+playSoundToPlayer:"""
+
+"""
+
+[hiddenAction_Get_Play_SelectUnit]
+autoTriggerOnEvent:newMessage(withTag="Play_SelectUnit")
+showQuickWarLogToPlayer:Please Select Units
+showQuickWarLogToPlayer_zh:请选择出击机体
+
+[hiddenAction_Get_Play_WaitStart]
+autoTriggerOnEvent:newMessage(withTag="Play_WaitStart")
+showQuickWarLogToPlayer:Please Wait Game Start
+showQuickWarLogToPlayer_zh:请等待游戏开始
+
+[hiddenAction_Get_Play_SelectCom]
+autoTriggerOnEvent:newMessage(withTag="Play_SelectCom")
+showQuickWarLogToPlayer:Please Select Your Team's Commander
+showQuickWarLogToPlayer_zh:请投票选择我军指挥官
+
+[hiddenAction_Get_Play_GameStart]
+autoTriggerOnEvent:newMessage(withTag="Play_GameStart")
+playSoundToPlayer:"""
+
+"""
+showQuickWarLogToPlayer:Game Start
+showQuickWarLogToPlayer_zh:游戏开始
+
+[hiddenAction_Get_Play_Win]
+autoTriggerOnEvent:newMessage(withTag="Play_Win")
+
+[hiddenAction_Get_Play_Lose]
+autoTriggerOnEvent:newMessage(withTag="Play_Lose")
+
+[hiddenAction_Get_Play_BaseUnderAttack]
+autoTriggerOnEvent:newMessage(withTag="Play_BaseUnderAttack")
+showQuickWarLogToPlayer:Base Under Attack
+showQuickWarLogToPlayer_zh:基地遭到攻击
+alsoTriggerAction:Get_Play_BaseUnderAttack_Step2
+setUnitMemory:priorityIndex=1000,priorityCDTimer=self.timeAlive+7
+requireConditional:if memory.priorityIndex<1000
+[hiddenAction_Get_Play_BaseUnderAttack_Step2]
+playSoundToPlayer:ROOT:Resource/Sound/SE/Environment/Warning_4.ogg:1.25
+
+[hiddenAction_Get_Play_AllyACE]
+autoTriggerOnEvent:newMessage(withTag="Play_AllyACE")
+showQuickWarLogToPlayer:Ally ACE get into the battle
+showQuickWarLogToPlayer_zh:我军ACE抵达战场
+alsoTriggerAction:Get_Play_AllyACE_Step2
+[hiddenAction_Get_Play_AllyACE_Step2]
+setUnitMemory:priorityIndex=500,priorityCDTimer=self.timeAlive+7
+requireConditional:if memory.priorityIndex<500
+
+[hiddenAction_Get_Play_EnemyACE]
+autoTriggerOnEvent:newMessage(withTag="Play_EnemyACE")
+showQuickWarLogToPlayer:Enemy ACE get into the battle
+showQuickWarLogToPlayer_zh:侦测到敌军ACE
+alsoTriggerAction:Get_Play_EnemyACE_Step2
+[hiddenAction_Get_Play_EnemyACE_Step2]
+setUnitMemory:priorityIndex=500,priorityCDTimer=self.timeAlive+7
+requireConditional:if memory.priorityIndex<500
+
+[hiddenAction_Get_Play_AllyForce]
+autoTriggerOnEvent:newMessage(withTag="Play_AllyForce")
+showQuickWarLogToPlayer:Ally Units get into the battle
+showQuickWarLogToPlayer_zh:我军援军抵达战场
+alsoTriggerAction:Get_Play_AllyForce_Step2
+[hiddenAction_Get_Play_AllyForce_Step2]
+setUnitMemory:priorityIndex=350,priorityCDTimer=self.timeAlive+7
+requireConditional:if memory.priorityIndex<350
+
+[hiddenAction_Get_Play_EnemyForce]
+autoTriggerOnEvent:newMessage(withTag="Play_EnemyForce")
+showQuickWarLogToPlayer:Enemy Units get into the battle
+showQuickWarLogToPlayer_zh:侦测到敌军援军
+alsoTriggerAction:Get_Play_EnemyForce_Step2
+[hiddenAction_Get_Play_EnemyForce_Step2]
+setUnitMemory:priorityIndex=350,priorityCDTimer=self.timeAlive+7
+requireConditional:if memory.priorityIndex<350
+
+[hiddenAction_Get_Play_AllyCover]
+autoTriggerOnEvent:newMessage(withTag="Play_AllyCover")
+showQuickWarLogToPlayer:Ally Cover Arrived
+showQuickWarLogToPlayer_zh:我军援护已发动
+alsoTriggerAction:Get_Play_AllyCover_Step2
+[hiddenAction_Get_Play_AllyCover_Step2]
+setUnitMemory:priorityIndex=300,priorityCDTimer=self.timeAlive+7
+requireConditional:if memory.priorityIndex<300
+
+[hiddenAction_Get_Play_EnemyCover]
+autoTriggerOnEvent:newMessage(withTag="Play_EnemyCover")
+showQuickWarLogToPlayer:Enemy Cover Arrived
+showQuickWarLogToPlayer_zh:侦测到敌军援护
+alsoTriggerAction:Get_Play_EnemyCover_Step2
+[hiddenAction_Get_Play_EnemyCover_Step2]
+setUnitMemory:priorityIndex=300,priorityCDTimer=self.timeAlive+7
+requireConditional:if memory.priorityIndex<300
+
+[hiddenAction_Get_Play_AllySupplyUnit]
+autoTriggerOnEvent:newMessage(withTag="Play_AllySupplyUnit")
+showQuickWarLogToPlayer:Ally SupplyUnit Arrived
+showQuickWarLogToPlayer_zh:我军补给机已到达
+alsoTriggerAction:Get_Play_AllySupplyUnit_Step2
+[hiddenAction_Get_Play_AllySupplyUnit_Step2]
+setUnitMemory:priorityIndex=250,priorityCDTimer=self.timeAlive+7
+requireConditional:if memory.priorityIndex<250
+
+[hiddenAction_Get_Play_EnemySupplyUnit]
+autoTriggerOnEvent:newMessage(withTag="Play_EnemySupplyUnit")
+showQuickWarLogToPlayer:Enemy SupplyUnit Arrived
+showQuickWarLogToPlayer_zh:已发现敌军补给机
+alsoTriggerAction:Get_Play_EnemySupplyUnit_Step2
+[hiddenAction_Get_Play_EnemySupplyUnit_Step2]
+setUnitMemory:priorityIndex=250,priorityCDTimer=self.timeAlive+7
+requireConditional:if memory.priorityIndex<250
+
+[hiddenAction_Get_Play_AllyJamming]
+autoTriggerOnEvent:newMessage(withTag="Play_AllyJamming")
+showQuickWarLogToPlayer:Ally Send Jamming
+showQuickWarLogToPlayer_zh:我军开始了干扰
+alsoTriggerAction:Get_Play_AllyJamming_Step2
+[hiddenAction_Get_Play_AllyJamming_Step2]
+setUnitMemory:priorityIndex=150,priorityCDTimer=self.timeAlive+7
+requireConditional:if memory.priorityIndex<150
+
+[hiddenAction_Get_Play_EnemyJamming]
+autoTriggerOnEvent:newMessage(withTag="Play_EnemyJamming")
+showQuickWarLogToPlayer:Enemy Send Jamming
+showQuickWarLogToPlayer_zh:侦测到敌军干扰
+alsoTriggerAction:Get_Play_EnemyJamming_Step2
+[hiddenAction_Get_Play_EnemyJamming_Step2]
+setUnitMemory:priorityIndex=150,priorityCDTimer=self.timeAlive+7
+requireConditional:if memory.priorityIndex<150
+
+[turret_Main_Turret]
+x:0
+y:0
+canShoot:false
+projectile:Main_Turret
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+shoot_flame:none
+
+[projectile_Main_Turret]
+
+directDamage: 0
+life: 1
+explodeOnEndOfLife:true
+speed: 100
+instant:true
+
+explodeEffect:none
+
+
+
+
+[graphics]
+image:SHARED:blank.png
+
+icon_zoomed_out_neverShow:true
+showHealthBar:false
+showQueueBar:false
+
+disableLowHpFire:true
+disableLowHpSmoke:true
+isVisibleToEnemies:false
+
+[attack]
+canAttack:false
+
+
+[movement]
+movementType: Air
+moveSpeed:0
+maxTurnSpeed:0
+targetHeight:100
+targetHeightDrift:1
+
+
+
+[ai]
+useAsTransport:false
+useAsBuilder: false
+

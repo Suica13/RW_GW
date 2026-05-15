@@ -1,0 +1,38 @@
+[core]
+@memory hoverFrame:float
+
+
+[movement]
+moveAccelerationSpeed: 0.06
+moveDecelerationSpeed: 0.03
+
+
+[decal_Hover]
+layer:beforeBody
+order:0
+isVisible:"""
+if (self.speed>0.1) 
+and ${cantAction}==false 
+and parent.hp<=0 
+and memory.moveMode==1 
+and self.resource.tileMode==0 
+and memory.flyUnit==0 
+and memory.BattleUnitCore.readUnitMemory(name="tileType", type="float")!=2 
+and memory.BattleUnitCore.readUnitMemory(name="tileMode", type="float")!=1 
+"""
+onlyWhileAlive:true
+image:ROOT:Resource/Image/Fx/Unit/Image/HoverMove_1.png
+total_frames:6
+frame:memory.hoverFrame
+basePositionFromLegEnd:arm1
+xOffsetRelative: 0
+yOffsetRelative: -5
+imageScale:0.35
+alpha:0.5
+
+[hiddenAction_UpdateBurning_HoverFrame]
+autoTriggerOnEvent:newMessage(withTag="UpdateSub")
+setUnitMemory:hoverFrame=select(memory.hoverFrame>=${decal_Hover.total_frames}-1,0,memory.hoverFrame+1)
+
+
+

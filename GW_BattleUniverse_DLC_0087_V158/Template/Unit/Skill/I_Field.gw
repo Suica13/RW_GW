@@ -1,0 +1,188 @@
+[core]
+copyFrom:"""
+ROOT:Resource/Image/Fx/Unit/I_Field_2.gw
+"""
+
+@memory I_FieldHpMax:float
+@memory I_FieldHp:float
+@memory I_FieldRecoverSpeed:float
+@memory I_FieldActive:bool
+@memory I_FieldLevel:float
+@memory I_FieldEffectTimer:Float
+
+@global I_FieldHpMax=60000
+@global I_FieldRecoverSpeed=500
+@global I_FieldLevel=0.9
+
+[hiddenAction_StartSetI_Field]
+autoTriggerOnEvent:newMessage(withTag="UnitTurretSpawn")
+setUnitMemory:"""
+I_FieldHpMax=${I_FieldHpMax},
+I_FieldRecoverSpeed=${I_FieldRecoverSpeed},
+I_FieldLevel=${I_FieldLevel}
+"""
+alsoTriggerAction:"""
+ResetI_Field
+"""
+[hiddenAction_ResetI_Field]
+requireConditional:if self.timeAlive<=1
+setUnitMemory:I_FieldHp=memory.I_FieldHpMax
+
+[hiddenAction_I_Field_Get_RecoverByOther]
+autoTriggerOnEvent:newMessage(withTag="RecoverByOther")
+setUnitMemory:"""
+I_FieldHp=select
+(
+    memory.I_FieldHp
+    +0.5*eventData("RecoverSkill",type="float")
+    +memory.I_FieldHpMax*eventData("RecoverSkillPer",type="float")>memory.I_FieldHpMax,
+    memory.I_FieldHpMax,
+    memory.I_FieldHp
+    +0.5*eventData("RecoverSkill",type="float")
+    +memory.I_FieldHpMax*eventData("RecoverSkillPer",type="float")
+)
+"""
+[hiddenAction_RecoverI_Field]
+autoTrigger:true
+setUnitMemory:"""
+I_FieldHp=select
+(
+    memory.I_FieldHp<memory.I_FieldHpMax,
+    memory.I_FieldHp+1*memory.I_FieldRecoverSpeed*self.Resource.BulletSpeed,
+    memory.I_FieldHpMax
+)
+"""
+
+[hiddenAction_I_Field_Check_Limit]
+autoTrigger:true
+setUnitMemory:"""
+I_FieldHp=select
+(
+    memory.I_FieldHp>memory.I_FieldHpMax,
+    memory.I_FieldHpMax,
+    select
+    (
+        memory.I_FieldHp<-memory.I_FieldHpMax*0.25,
+        -memory.I_FieldHpMax*0.25,
+        memory.I_FieldHp
+    )
+)
+"""
+
+
+
+[hiddenAction_ActiveI_Field]
+autoTrigger:true
+setUnitMemory:"""
+I_FieldActive=select(memory.I_FieldHP>0,true,false)
+"""
+
+[hiddenAction_TookDamage_I_Field_Damage]
+autoTriggerOnEvent:newMessage(withTag="I_Field_Damage")
+setUnitMemory:I_FieldHp=memory.I_FieldHp-eventData('Damage',type='float')
+alsoTriggerAction:TookDamage_I_Field_SpawnEffect
+[hiddenAction_TookDamage_I_Field_SpawnEffect]
+requireConditional:if self.timeAlive>memory.I_FieldEffectTimer
+setUnitMemory:I_FieldEffectTimer=self.timeAlive+1
+spawnEffects:I_Field_2
+
+[attachment_DamageChecker_I_Field_Slot_0]
+x:0
+y:20
+isVisible:true
+keepAliveWhenParentDies:false
+canBeAttackedAndDamaged:false
+isUnselectable:true
+showMiniHp:true
+canAttack:false
+showAllActionsFrom:true
+prioritizeParentsMainTarget:true
+smoothlyBlendPositionWhenExistingUnitAdded:true
+onConvertKeepExistingUnitInSameSlot:true
+onParentTeamChangeKeepCurrentTeam:false
+[hiddenAction_attachment_DamageChecker_I_Field_Slot_0]
+autoTriggerOnEvent:newMessage(withTag="UnitTurretSpawn")
+attachments_addNewUnits:DamageChecker_I_Field
+attachments_onlyOnSlots:DamageChecker_I_Field_Slot_0
+
+
+
+
+
+[decal_I_FieldIcon]
+layer:beforeUI
+order:8
+image:ROOT:Resource/Image/Units/Button/Skill/I_Field.png
+onlyTeam:own
+alpha:1
+imageScale:0.2
+xOffsetAbsolute:-22
+yOffsetAbsolute:42
+alwaysStartDirAtZero:true
+onlyOnNonPreview:true
+isVisible:if memory.I_FieldActive==true and memory.hideUI==0
+onlyWhileAlive:true
+[decal_I_FieldHp]
+layer:beforeUI
+order:8
+image:SHARED:white_pixel.png
+onlyTeam:own
+color:#07f8ff
+alpha:1
+imageScale:1
+imageScaleX:30*((memory.I_FieldHp/memory.I_FieldHpMax))
+imageScaleY:1.5
+xOffsetAbsolute:(15*((memory.I_FieldHp/memory.I_FieldHpMax)))-15
+yOffsetAbsolute:42
+alwaysStartDirAtZero:true
+onlyOnNonPreview:true
+isVisible:if (memory.I_FieldHp/memory.I_FieldHpMax)>=0.25 and memory.I_FieldActive==true and memory.hideUI==0
+onlyWhileAlive:true
+[decal_I_FieldHp_25]
+layer:beforeUI
+order:8
+image:SHARED:white_pixel.png
+onlyTeam:own
+color:#ff0b07
+alpha:1
+imageScale:1
+imageScaleX:30*((memory.I_FieldHp/memory.I_FieldHpMax))
+imageScaleY:1.5
+xOffsetAbsolute:(15*((memory.I_FieldHp/memory.I_FieldHpMax)))-15
+yOffsetAbsolute:42
+alwaysStartDirAtZero:true
+onlyOnNonPreview:true
+isVisible:if (memory.I_FieldHp/memory.I_FieldHpMax)<0.25 and memory.I_FieldActive==true and memory.hideUI==0
+onlyWhileAlive:true
+[decal_I_FieldHpBackground]
+layer:beforeUI
+order:7
+image:SHARED:white_pixel.png
+onlyTeam:own
+color:#000000
+alpha:1
+imageScale:1
+imageScaleX:30+1
+imageScaleY:3
+xOffsetAbsolute:(15)-15
+yOffsetAbsolute:42
+alwaysStartDirAtZero:true
+onlyOnNonPreview:true
+isVisible:if memory.I_FieldActive==true and memory.hideUI==0
+onlyWhileAlive:true
+
+
+[decal_I_FieldIcon_Enemy]
+@copyFromSection:decal_I_FieldIcon
+onlyTeam:enemy
+isVisible:if memory.I_FieldActive==true and memory.hideUI==0 and memory.BattleUnitCore.readUnitMemory('showStatsToEnemy',type='bool')==true
+[decal_I_FieldHp_Enemy]
+@copyFromSection:decal_I_FieldHp
+onlyTeam:enemy
+color:#ff0b07
+isVisible:if memory.I_FieldActive==true and memory.hideUI==0 and memory.BattleUnitCore.readUnitMemory('showStatsToEnemy',type='bool')==true
+[decal_I_FieldHpBackground_Enemy]
+@copyFromSection:decal_I_FieldHpBackground
+onlyTeam:enemy
+isVisible:if memory.I_FieldActive==true and memory.hideUI==0 and memory.BattleUnitCore.readUnitMemory('showStatsToEnemy',type='bool')==true
+

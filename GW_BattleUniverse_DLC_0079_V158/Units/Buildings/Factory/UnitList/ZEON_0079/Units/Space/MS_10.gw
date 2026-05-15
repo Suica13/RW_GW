@@ -1,0 +1,157 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+@memory MS_10:bool
+
+
+[hiddenAction_Pannel_Close_MS_10]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:MS_10=false
+
+
+
+[hiddenAction_AutoProduce_MS_10]
+@copyFromSection:template_AutoProduce
+@define UnitID=MS_10
+alsoTriggerAction:AutoProduce_MS_10_Step2
+
+[hiddenAction_AutoProduce_MS_10_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=2500
+@define Resource=3400
+alsoTriggerAction:AutoProduce_MS_10_Random
+
+
+
+[hiddenAction_AutoProduce_MS_10_Random]
+alsoTriggerAction:"""
+AutoProduce_MS_10_Random_A,
+AutoProduce_MS_10_Random_B
+"""
+[hiddenAction_AutoProduce_MS_10_Random_A]
+requireConditional:"""
+if memory.randomProduce<500
+"""
+alsoQueueAction:Produce_MS_10_StandardSquad
+
+[hiddenAction_AutoProduce_MS_10_Random_B]
+requireConditional:"""
+if memory.randomProduce>500
+"""
+alsoQueueAction:Produce_MS_10_BeamBazookaSquad
+
+
+
+
+[action_Pannel_MS_10]
+@copyFromSection:template_Pannel
+@define UnitID=MS_10
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+
+
+[action_Produce_MS_10_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=MS_10
+@define Money=2500
+@define Resource=3200
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:60s
+
+alsoQueueAction:"""
+Produce_MS_10_StandardSquad_1,
+Produce_MS_10_StandardSquad_2,
+Produce_MS_10_StandardSquad_3
+"""
+[hiddenAction_Produce_MS_10_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_10*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_MS_10_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_10*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_MS_10_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+MS_10*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+
+
+[action_Produce_MS_10_BeamBazookaSquad]
+@copyFromSection:template_Produce
+@define UnitID=MS_10
+@define Money=3700
+@define Resource=5000
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:60s
+
+text:BeamBazooka Squad
+text_zh:光束火箭筒小队
+
+alsoQueueAction:"""
+Produce_MS_10_BeamBazookaSquad_1,
+Produce_MS_10_BeamBazookaSquad_2,
+Produce_MS_10_BeamBazookaSquad_3
+"""
+[hiddenAction_Produce_MS_10_BeamBazookaSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_10*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_MS_10_BeamBazookaSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_10*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_MS_10_BeamBazookaSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+MS_10*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+
+
+
+
+
+[action_Produce_MS_10_AMSSquad]
+@copyFromSection:template_Produce
+@define UnitID=MS_10
+@define Money=3700
+@define Resource=5000
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:60s
+
+text:AMS Squad
+text_zh:对舰小队
+
+alsoQueueAction:"""
+Produce_MS_10_AMSSquad_1,
+Produce_MS_10_AMSSquad_2,
+Produce_MS_10_AMSSquad_3
+"""
+[hiddenAction_Produce_MS_10_AMSSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_10*1(addResources=PilotType:1101|EquipmentIndex:2)
+"""
+[hiddenAction_Produce_MS_10_AMSSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_10*1(addResources=PilotType:1101|EquipmentIndex:2)
+"""
+[hiddenAction_Produce_MS_10_AMSSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+MS_10*1(addResources=PilotType:1101|EquipmentIndex:2)
+"""

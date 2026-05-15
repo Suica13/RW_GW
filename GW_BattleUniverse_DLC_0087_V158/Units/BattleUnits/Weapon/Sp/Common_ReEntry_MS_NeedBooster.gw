@@ -1,0 +1,358 @@
+[core]
+dont_load:true
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_SpeedLine_1.gw
+"""
+
+@memory Common_ReEntry_MS_NeedBooster_Active:bool
+@memory Common_ReEntry_MS_NeedBooster_CanBeTargetUnit:bool
+@memory Common_ReEntry_MS_NeedBooster_AimTarget:unit
+@memory Common_ReEntry_MS_NeedBooster_StartPoint:unit
+@memory Common_ReEntry_MS_NeedBooster_ActiveTimer:float
+@global Common_ReEntry_MS_NeedBooster_ActiveTime:90
+@global Common_ReEntry_MS_NeedBooster_Range:16000
+
+
+
+@memory cantReEntry:bool
+
+
+[hiddenAction_Check_cantReEntry]
+autoTrigger:true
+setUnitMemory:"""
+cantReEntry=select
+(
+    memory.headBreaked==true 
+    or memory.backpackBreaked==true 
+    or memory.armLBreaked==true 
+    or memory.armRBreaked==true 
+    or memory.legLBreaked==true 
+    or memory.legRBreaked==true,
+    true,
+    false
+)
+"""
+
+
+[decal_Common_ReEntry_MS_NeedBooster_Range]
+layer: inactive
+order:0
+onlyTeam:own
+alpha:1
+image:ROOT:Resource/Image/Ring/Ring150_Action.png
+imageScale:${Common_ReEntry_MS_NeedBooster_Range}/150
+basePosition:self
+alwaysStartDirAtZero:true
+onlyWhileAlive:true
+isVisible:if true
+[decal_Common_ReEntry_MS_NeedBooster_BotEffect]
+layer:beforeUI
+order:10
+onlyWhileAlive:true
+image:ROOT:Resource/Image/Fx/Weapon/Sp/Image/Dash_Orange_1.png
+imageScale:1
+alpha:0.5
+xOffsetRelative:0
+yOffsetRelative:-5
+dirOffset:0
+isVisible:"""
+if 
+(
+    memory.Common_ReEntry_MS_NeedBooster_CanBeTargetUnit==false and memory.Common_ReEntry_MS_NeedBooster_Active==true
+)
+"""
+
+[decal_Common_ReEntry_MS_NeedBooster_SpeedLine_1]
+@copyFromSection:decal_SpeedLine_1
+isVisible:"""
+if 
+(
+    memory.Common_ReEntry_MS_NeedBooster_Active==true
+)
+"""
+imageScale:1
+[decal_Boost]
+@define skillRules=(memory.Common_ReEntry_MS_NeedBooster_Active==true)
+
+[hiddenAction_Check_Common_ReEntry_MS_NeedBooster_CanBeTargetUnit]
+autoTrigger:true
+setUnitMemory:"""
+Common_ReEntry_MS_NeedBooster_CanBeTargetUnit=select
+(
+    memory.Common_ReEntry_MS_NeedBooster_Active==false,
+    true,
+    select
+    (
+        distanceBetween(self, memory.Common_ReEntry_MS_NeedBooster_AimTarget)<=1500 or distanceBetween(self,memory.Common_ReEntry_MS_NeedBooster_StartPoint)<=1500,
+        true,
+        false
+    )
+)
+"""
+[hiddenAction_Check_CanBeTargetUnit_Tags]
+autoTrigger:true
+alsoTriggerAction:"""
+Check_CanBeTargetUnit_Tags_T,
+Check_CanBeTargetUnit_Tags_F
+"""
+
+[hiddenAction_Check_CanBeTargetUnit_Tags_T]
+requireConditional:if memory.Common_ReEntry_MS_NeedBooster_CanBeTargetUnit==true and not self.tags(includes='CanBeTargetUnit')
+temporarilyAddTags:CanBeTargetUnit
+
+[hiddenAction_Check_CanBeTargetUnit_Tags_F]
+requireConditional:if memory.Common_ReEntry_MS_NeedBooster_CanBeTargetUnit==false and self.tags(includes='CanBeTargetUnit')
+temporarilyRemoveTags:CanBeTargetUnit
+
+
+[hiddenAction_Check_ReEntry_Tags]
+autoTrigger:true
+alsoTriggerAction:"""
+Check_ReEntry_Tags_T,
+Check_ReEntry_Tags_F
+"""
+
+[hiddenAction_Check_ReEntry_Tags_T]
+requireConditional:if memory.Common_ReEntry_MS_NeedBooster_Active==true and not self.tags(includes='ReEntry')
+temporarilyAddTags:ReEntry
+
+[hiddenAction_Check_ReEntry_Tags_F]
+requireConditional:if memory.Common_ReEntry_MS_NeedBooster_Active==false and self.tags(includes='ReEntry')
+temporarilyRemoveTags:ReEntry
+
+
+[turret_Common_ReEntry_MS_NeedBooster]
+x:0
+y:0
+invisible:true
+
+canShoot:false
+
+showRangeUIGuide:false
+projectile:Common_ReEntry_MS_NeedBooster_Projectile
+
+delay:3s
+canAttackMaxAngle:360
+limitingAngle:360
+limitingRange:${Common_ReEntry_MS_NeedBooster_Range}
+limitingMinRange:3000
+
+barrelX:0
+barrelY:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/Fist_2.ogg
+shoot_sound_vol:0
+
+[projectile_Common_ReEntry_MS_NeedBooster_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+
+
+
+
+
+[action_Common_ReEntry_MS_NeedBooster_Trigger]
+pos:10
+text:"""
+ReEntry Space
+"""
+
+text_zh:"""
+打上宇宙
+"""
+text_KP:100
+
+displayType:infoOnly
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+
+addActionCooldownTime:1s
+
+onlyOneUnitAtATime:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Skill/FastBoost.png
+isVisible:if self.parent.hp<=0 and self.resource().TileMode==0 and self.resource().AutoTileMode==1
+highPriorityQueue:true
+
+
+
+isGuiBlinking:"""
+if true
+"""
+
+
+isLocked:if self.resource.EquipmentIndex!=1
+isLockedMessage:Need Equip Booster
+isLockedMessage_zh:需要加装推进器
+isLockedAlt2:if ${cantAction}==true or ${onSkill}==true or ${allowAI}==true or memory.cantReEntry==true
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+fireTurretXAtGround:Common_ReEntry_MS_NeedBooster
+fireTurretXAtGround_count:0
+fireTurretXAtGround_showGuideDecals:Common_ReEntry_MS_NeedBooster_Range
+
+alsoTriggerAction:"""
+Common_ReEntry_MS_NeedBooster_Step_1
+"""
+[hiddenAction_Common_ReEntry_MS_NeedBooster_Step_1]
+
+setUnitMemory:"""
+Common_ReEntry_MS_NeedBooster_StartPoint=self.getOffsetRelative(),
+Common_ReEntry_MS_NeedBooster_AimTarget=select(${allowAI}==true,memory.Common_ReEntry_MS_NeedBooster_AimTarget,thisActionTarget),
+Common_ReEntry_MS_NeedBooster_ActiveTimer=self.timeAlive+${Common_ReEntry_MS_NeedBooster_ActiveTime}
+"""
+playSoundAtUnit:ROOT:Resource/Sound/SE/Unit/Dodge_1.ogg:1.0
+
+alsoTriggerAction:"""
+SetOnSkillOn_Common_ReEntry_MS_NeedBooster,
+SetAttackingCantTurnOn,
+SetAttackingCantAimOn,
+Common_ReEntry_MS_NeedBooster_SetWeaponIndex
+"""
+
+alsoQueueAction:"""
+Common_ReEntry_MS_NeedBooster_Fire_Step_1,
+Common_ReEntry_MS_NeedBooster_Fire_Step_2
+"""
+clearAllWaypoints:true
+
+
+
+
+
+[hiddenAction_SetOnSkillOn_Common_ReEntry_MS_NeedBooster]
+@copyFromSection:hiddenAction_SetOnSkillOn
+sendMessageWithData:"""
+skillMoveSpeedBuff=1,
+skillTurnSpeedBuff=1,
+skillSuperArmor=1.0
+"""
+
+
+
+
+
+
+[hiddenAction_Common_ReEntry_MS_NeedBooster_SetWeaponIndex]
+buildSpeed:0s
+isVisible:false
+
+
+
+[hiddenAction_Common_ReEntry_MS_NeedBooster_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.0s
+clearAllWaypoints:true
+
+fireTurretXAtGround:Common_ReEntry_MS_NeedBooster
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+
+setUnitMemory:Common_ReEntry_MS_NeedBooster_Active=true
+setBodyRotation:directionBetween(self,memory.Common_ReEntry_MS_NeedBooster_AimTarget)
+whenBuilding_cannotMove:true
+[hiddenAction_Common_ReEntry_MS_NeedBooster_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+whenBuilding_cannotMove:true
+
+
+[hiddenAction_Common_ReEntry_MS_NeedBooster_Fire_Step_Active]
+autoTrigger:if memory.Common_ReEntry_MS_NeedBooster_Active==true
+alsoTriggerAction:"""
+Common_ReEntry_MS_NeedBooster_Fire_Step_Forward_CD,
+Common_ReEntry_MS_NeedBooster_Fire_Step_CheckStop
+"""
+
+
+[hiddenAction_Common_ReEntry_MS_NeedBooster_Fire_Step_Forward_CD]
+requireConditional:"""
+if self.queueSize(withActionTag='Common_ReEntry_MS_NeedBooster_Move')<30
+"""
+buildSpeed:0s
+alsoQueueAction:"""
+Common_ReEntry_MS_NeedBooster_Fire_Step_Forward,
+Common_ReEntry_MS_NeedBooster_Fire_Step_Forward,
+Common_ReEntry_MS_NeedBooster_Fire_Step_Forward,
+Common_ReEntry_MS_NeedBooster_Fire_Step_Forward,
+Common_ReEntry_MS_NeedBooster_Fire_Step_Forward,
+
+Common_ReEntry_MS_NeedBooster_Fire_Step_Forward,
+Common_ReEntry_MS_NeedBooster_Fire_Step_Forward,
+Common_ReEntry_MS_NeedBooster_Fire_Step_Forward,
+Common_ReEntry_MS_NeedBooster_Fire_Step_Forward,
+Common_ReEntry_MS_NeedBooster_Fire_Step_Forward,
+
+Common_ReEntry_MS_NeedBooster_Fire_Step_Forward,
+Common_ReEntry_MS_NeedBooster_Fire_Step_Forward,
+Common_ReEntry_MS_NeedBooster_Fire_Step_Forward,
+Common_ReEntry_MS_NeedBooster_Fire_Step_Forward,
+Common_ReEntry_MS_NeedBooster_Fire_Step_Forward
+"""
+
+
+[hiddenAction_Common_ReEntry_MS_NeedBooster_Fire_Step_Forward]
+tags:Common_ReEntry_MS_NeedBooster_Move
+buildSpeed:0.02s
+teleportTo:"""
+self.getOffsetRelative
+(
+    y = 4 * self.resource.bulletSpeed *
+        select(
+            memory.Common_ReEntry_MS_NeedBooster_CanBeTargetUnit==false,
+            (distanceBetween(self, memory.Common_ReEntry_MS_NeedBooster_AimTarget) / 2000),
+            1
+        )
+)
+"""
+setBodyRotation:directionBetween(self,memory.Common_ReEntry_MS_NeedBooster_AimTarget)
+whenBuilding_cannotMove:true
+
+[hiddenAction_Common_ReEntry_MS_NeedBooster_Fire_Step_CheckStop]
+requireConditional:"""
+if 
+(
+    not self.getOffsetRelative(y=20).getAsMarker().isInMap() 
+    or self.getOffsetRelative(y=20).getAsMarker().numberOfUnitsInAllTeams(withTag="BlockLand",greaterThan=0,withinrange=20) 
+    or distanceBetween(self, memory.Common_ReEntry_MS_NeedBooster_AimTarget)<=80
+) 
+or self.timeAlive>memory.Common_ReEntry_MS_NeedBooster_ActiveTimer
+"""
+alsoTriggerAction:"""
+Common_ReEntry_MS_NeedBooster_Fire_Step_Final
+"""
+
+[hiddenAction_Common_ReEntry_MS_NeedBooster_Fire_Step_Final]
+buildSpeed:0s
+whenBuilding_cannotMove:true
+clearAllWaypoints:true
+setUnitMemory:Common_ReEntry_MS_NeedBooster_Active=false
+alsoTriggerAction:"""
+SetOnSkillOff,
+SetOnSkillOn,
+SetAttackingCantAimOff,
+SetAttackingCantTurnOff,
+Common_ReEntry_MS_NeedBooster_Fire_Step_Final_Extra
+"""
+[hiddenAction_Common_ReEntry_MS_NeedBooster_Fire_Step_Final_Extra]
+setResourcesWithLogic:EquipmentIndex=0

@@ -1,0 +1,25 @@
+[core]
+dont_load:true
+copyFrom:"""
+ROOT:Units/BattleUnits/Weapon/Sp/Common_Dash_Attack.gw
+"""
+
+
+[action_Common_Dash_Attack_Trigger]
+alsoTriggerAction:"""
+SetOnSkillOn,
+Common_Dash_Attack_SetWeaponIndex,
+Common_Dash_Attack_Step_1
+"""
+
+[hiddenAction_Common_Dash_Attack_Fire_Step_CheckStop]
+requireConditional:"""
+if 
+(
+    not self.getOffsetRelative(y=20).getAsMarker().isInMap() 
+    or self.getOffsetRelative(y=20).getAsMarker().numberOfUnitsInAllTeams(withTag="BlockLand",greaterThan=0,withinrange=20) 
+    or not self.getOffsetRelative(y=20).getAsMarker().isOverLiquid()
+    or ${cantAction}==true 
+) 
+or self.timeAlive>memory.Common_Dash_Attack_ActiveTimer
+"""

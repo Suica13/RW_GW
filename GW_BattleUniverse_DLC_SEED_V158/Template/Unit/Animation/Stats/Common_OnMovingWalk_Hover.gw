@@ -1,0 +1,19 @@
+[core]
+dont_load:false
+
+
+[animation_OnMoving]
+KeyframeTimeScale:10
+blendIn:0s
+blendOut:1s
+arm1_0.0s:{y:-1.5,dir:0}
+
+leg17_0.0s: {x:-1,y: -8, dir: 0 }
+leg18_0.0s: {x:-1,y: -8, dir: 0 }
+
+leg19_0.0s: {x:1,y: 2, dir: 0 }
+leg19_0.25s: {x:1,y: 2, dir: 0 }
+
+leg20_0.0s: {x:1,y: 2, dir: 0 }
+leg20_0.25s: {x:1,y: 2, dir: 0 }
+

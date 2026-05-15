@@ -1,0 +1,121 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory RGM_79D:bool
+
+
+[hiddenAction_Pannel_Close_RGM_79D]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:RGM_79D=false
+
+
+
+
+[hiddenAction_AutoProduce_RGM_79D]
+@copyFromSection:template_AutoProduce
+@define UnitID=RGM_79D
+alsoTriggerAction:AutoProduce_RGM_79D_Step2
+
+[hiddenAction_AutoProduce_RGM_79D_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=1750
+@define Resource=3250
+alsoTriggerAction:AutoProduce_RGM_79D_Random
+
+
+
+[hiddenAction_AutoProduce_RGM_79D_Random]
+alsoTriggerAction:"""
+AutoProduce_RGM_79D_Random_A,
+AutoProduce_RGM_79D_Random_B
+"""
+[hiddenAction_AutoProduce_RGM_79D_Random_A]
+requireConditional:"""
+if memory.randomProduce<=500
+"""
+alsoQueueAction:Produce_RGM_79D_StandardSquad
+
+[hiddenAction_AutoProduce_RGM_79D_Random_B]
+requireConditional:"""
+if memory.randomProduce>500 
+and memory.randomProduce<=1000
+"""
+alsoQueueAction:Produce_RGM_79D_BazookaSquad
+
+
+
+
+
+
+[action_Pannel_RGM_79D]
+@copyFromSection:template_Pannel
+@define UnitID=RGM_79D
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+
+[action_Produce_RGM_79D_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=RGM_79D
+@define Money=1750
+@define Resource=3000
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+buildSpeed:55s
+
+alsoQueueAction:"""
+Produce_RGM_79D_StandardSquad_1,
+Produce_RGM_79D_StandardSquad_2,
+Produce_RGM_79D_StandardSquad_3
+"""
+[hiddenAction_Produce_RGM_79D_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RGM_79D*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_RGM_79D_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+RGM_79D*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_RGM_79D_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+RGM_79D*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+
+[action_Produce_RGM_79D_BazookaSquad]
+@copyFromSection:template_Produce
+@define UnitID=RGM_79D
+@define Money=1750
+@define Resource=3000
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+buildSpeed:55s
+
+text:Bazooka Squad
+text_zh:火箭筒小队
+
+alsoQueueAction:"""
+Produce_RGM_79D_BazookaSquad_1,
+Produce_RGM_79D_BazookaSquad_2,
+Produce_RGM_79D_BazookaSquad_3
+"""
+[hiddenAction_Produce_RGM_79D_BazookaSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RGM_79D*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_RGM_79D_BazookaSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+RGM_79D*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_RGM_79D_BazookaSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+RGM_79D*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""

@@ -1,0 +1,153 @@
+[core]
+dont_load:true
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_Flash_1.gw
+"""
+
+@memory Common_OverBoost_Active:bool
+@memory Common_OverBoost_ActiveTimer:float
+@global Common_OverBoost_ActiveTime:12
+@memory Common_OverBoost_CDTimer:float
+@global Common_OverBoost_CD=90
+
+@memory Common_OverBoost_Speed:float
+@global Common_OverBoost_SpeedUp:1.50
+
+
+
+
+[decal_Common_OverBoost_Boost]
+@copyFromSection:decal_Boost
+order:4.2
+image:ROOT:Resource/Image/Fx/Unit/Image/Boost_1_Red.png
+
+isVisible:"""
+if self.speed>0.1 
+and parent.hp<=0 
+and memory.moveMode==1 
+and distanceBetween(self.getOffsetRelative(x=0,y=0.1),activeWaypointTarget)<=distanceBetween(self,activeWaypointTarget) 
+and memory.Common_OverBoost_Active==true
+"""
+[decal_Common_OverBoost_BoostReversing]
+@copyFromSection:decal_BoostReversing
+order:4.2
+image:ROOT:Resource/Image/Fx/Unit/Image/BoostReversing_1_Red.png
+
+isVisible:"""
+if self.speed>0.1 
+and 
+(
+    parent.hp<=0 
+    or 
+    (parent.hp<=0 and self.height>10)
+)
+and 
+(
+    (
+        memory.moveMode==1 
+        and distanceBetween(self.getOffsetRelative(x=0,y=0.1),activeWaypointTarget)>distanceBetween(self,activeWaypointTarget) 
+    ) 
+    or 
+    (self.resource().TileMode==1 and memory.moveMode==0)
+) 
+and memory.Common_OverBoost_Active==true
+"""
+
+
+
+[hiddenAction_Common_OverBoost_CheckBurned]
+autoTrigger:if memory.Common_OverBoost_Active==true
+sendMessageTo:memory.battleUnitCore
+sendMessageWithTags:DeBuff
+sendMessageWithData:"""
+burnedDamage=2
+"""
+
+
+[hiddenAction_Common_OverBoost_CheckSpeed]
+autoTrigger:true
+setUnitMemory:Common_OverBoost_Speed=select(memory.Common_OverBoost_Active==true,${Common_OverBoost_SpeedUp},1)
+
+
+[hiddenAction_MathExtraMoveSpeed]
+autoTrigger:true
+setUnitMemory:extraMoveSpeed=memory.Common_OverBoost_Speed
+[hiddenAction_MathExtraReactionLevel]
+autoTrigger:true
+setUnitMemory:extraReactionLevel=memory.Common_OverBoost_Speed
+
+[action_Common_OverBoost_Trigger]
+pos:10
+text:"""
+OverBoost
+%{
+    select(memory.Common_OverBoost_Active==true,
+    str(int(memory.Common_OverBoost_ActiveTimer-self.timeAlive))+"s",
+    select(self.timeAlive<=memory.Common_OverBoost_CDTimer,str(int(memory.Common_OverBoost_CDTimer-self.timeAlive))+"s","OK"))
+}
+"""
+text_zh:"""
+超限喷射 
+%{
+    select(memory.Common_OverBoost_Active==true,
+    str(int(memory.Common_OverBoost_ActiveTimer-self.timeAlive))+"秒",
+    select(self.timeAlive<=memory.Common_OverBoost_CDTimer,str(int(memory.Common_OverBoost_CDTimer-self.timeAlive))+"s","OK"))
+}
+"""
+text_KP:100
+
+description:Speed And Reaction Up 50% in 12sec,but continuously burns the unit  
+description_zh:12秒内提高50%速度与反应,但不断灼烧自机
+
+displayType:infoOnly
+
+price:EN=100
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+highPriorityQueue:true
+ai_isDisabled:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Skill/Boost.png
+isVisible:if self.parent.hp<=0  
+
+
+
+
+isGuiBlinking:"""
+if self.timeAlive>memory.Common_OverBoost_CDTimer and memory.Common_OverBoost_Active==false 
+and memory.backpackBreaked==false
+"""
+
+isLocked:if self.timeAlive<=memory.Common_OverBoost_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+isLockedAlt:if memory.Common_OverBoost_Active==true
+isLockedAltMessage:In Action
+isLockedAltMessage_zh:行动中
+isLockedAlt2:if ${cantAction}==true or ${onSkill}==true or memory.backpackBreaked==true
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+alsoTriggerAction:"""
+Common_OverBoost_Step_1
+"""
+[hiddenAction_Common_OverBoost_Step_1]
+spawnEffects:Flash_1_N
+playSoundAtUnit:ROOT:Resource/Sound/SE/Action/Common/Action_8.ogg:0.5
+
+setUnitMemory:"""
+Common_OverBoost_Active=true,
+Common_OverBoost_ActiveTimer=self.timeAlive+${Common_OverBoost_ActiveTime}
+"""
+
+[hiddenAction_Common_OverBoost_CheckOver]
+autoTrigger:"""
+if memory.Common_OverBoost_Active==true 
+and self.timeAlive>memory.Common_OverBoost_ActiveTimer
+"""
+setUnitMemory:"""
+Common_OverBoost_Active=false,
+Common_OverBoost_CDTimer=self.timeAlive+${Common_OverBoost_CD}
+"""

@@ -1,0 +1,97 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory MS_11S:bool
+
+
+[hiddenAction_Pannel_Close_MS_11S]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:MS_11S=false
+
+
+
+
+[hiddenAction_AutoProduce_MS_11S]
+@copyFromSection:template_AutoProduce
+@define UnitID=MS_11S
+alsoTriggerAction:AutoProduce_MS_11S_Step2
+
+[hiddenAction_AutoProduce_MS_11S_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=950
+@define Resource=1050
+alsoTriggerAction:AutoProduce_MS_11S_Random
+
+
+
+[hiddenAction_AutoProduce_MS_11S_Random]
+alsoTriggerAction:"""
+AutoProduce_MS_11S_Random_A,
+AutoProduce_MS_11S_Random_B
+"""
+[hiddenAction_AutoProduce_MS_11S_Random_A]
+requireConditional:"""
+if memory.randomProduce<=500
+"""
+alsoQueueAction:Produce_MS_11_StandardSquad
+
+[hiddenAction_AutoProduce_MS_11S_Random_B]
+requireConditional:"""
+if memory.randomProduce>500 
+"""
+alsoQueueAction:Produce_MS_11_BeamRifleSquad
+
+
+
+
+
+
+[action_Pannel_MS_11S]
+@copyFromSection:template_Pannel
+@define UnitID=MS_11S
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+
+[action_Produce_MS_11S_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=MS_11S
+@define Money=950
+@define Resource=1050
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:35s
+
+text:MG
+text_zh:机枪
+
+alsoQueueAction:"""
+Produce_MS_11S_StandardSquad_1
+"""
+[hiddenAction_Produce_MS_11S_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_11S*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+
+
+[action_Produce_MS_11S_BeamRifleSquad]
+@copyFromSection:template_Produce
+@define UnitID=MS_11S
+@define Money=1150
+@define Resource=1550
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:35s
+
+text:BeamRifle
+text_zh:光束步枪
+
+alsoQueueAction:"""
+Produce_MS_11S_BeamRifleSquad_1
+"""
+[hiddenAction_Produce_MS_11S_BeamRifleSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_11S*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""

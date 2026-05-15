@@ -1,0 +1,108 @@
+[core]
+exit_x:0
+exit_y:0
+exit_moveAwayAmount:0
+
+
+[template_Tech_Awake]
+autoTriggerOnEvent:created
+@define TechID=Test
+setUnitMemory:"""
+${TechID}_Time=99,
+${TechID}_Money=9999,
+${TechID}_Resource=9999,
+${TechID}_TechPoint=9999
+"""
+[template_Tech_Start]
+@define TechID=Test
+autoTriggerOnEvent:newMessage(withTag="${TechID}_Start")
+setUnitMemory:"""
+${TechID}_Switch=true,
+${TechID}_Timer=self.timeAlive+memory.${TechID}_Time
+"""
+setResourcesWithLogic:"""
+Money=select(self.isControlledByAI(),self.resource.Money,self.resource.money-memory.${TechID}_Money),
+Resource=select(self.isControlledByAI(),self.resource.Resource,self.resource.Resource-memory.${TechID}_Resource)
+"""
+[template_Tech_Stop]
+@define TechID=Test
+autoTriggerOnEvent:newMessage(withTag="${TechID}_Stop")
+requireConditional:if memory.${TechID}_Switch==true
+setUnitMemory:"""
+${TechID}_Switch=false
+"""
+setResourcesWithLogic:"""
+Money=select(self.isControlledByAI(),self.resource.Money,self.resource.money+memory.${TechID}_Money),
+Resource=select(self.isControlledByAI(),self.resource.Resource,self.resource.Resource+memory.${TechID}_Resource)
+"""
+[template_Tech_Done]
+@define TechID=Test
+@define FactionTags=A
+autoTriggerOnEvent:newMessage(withTag="Unlock_${TechID}")
+autoTrigger:"""
+if 
+(
+    memory.${TechID}_Switch==true 
+    and self.timeAlive>memory.${TechID}_Timer 
+) 
+or 
+(
+    memory.autoTech==1 
+    and self.resource.TechPoint>memory.${TechID}_TechPoint 
+    and self.globalTeamTags(includes='${FactionTags}')
+)
+"""
+requireConditional:"""
+if not self.globalTeamTags(includes='${TechID}')
+"""
+setUnitMemory:"""
+${TechID}_Switch=select(eventData("byOther",type="float")==1,memory.${TechID}_Switch,false)
+"""
+alsoTriggerAction:"""
+Tech_Done_CV,
+${TechID}_UnlockUnit,
+${TechID}_NotByOther,
+${TechID}_SendAlly
+"""
+playSoundToPlayer:ROOT:Resource/Sound/SE/System/Event/ResearchCompleted_1.ogg:0.75
+[template_Tech_UnlockUnit]
+requireConditional:"""
+if not self.globalTeamTags(includes='${TechID}')
+"""
+addGlobalTeamTags:${TechID}
+isVisible:false
+[template_Tech_NotByOther]
+requireConditional:if eventData("byOther",type="float")==0 and memory.autoTech==0
+isVisible:false
+
+#produceUnits:
+
+[template_Tech_SendAlly]
+@define TechID=Test
+requireConditional:if eventData("byOther",type="float")==0 and customTarget1.customTarget1.readUnitMemory("TechShare",type="float")==1 and memory.autoTech==0
+isVisible:false
+takeResources_includeUnitsWithinRange:99999
+takeResources_includeUnitsWithinRange_team:ally
+takeResources_excludeUnitsWithoutTags:TechTree_UI_Main
+takeResources_searchOnly:true
+takeResources_maxUnits:300
+takeResources_triggerActionForEach:${TechID}_SendAlly_Step2,${TechID}_SendAlly_Step3
+[template_Tech_SendAlly_Step2]
+@define TechID=Test
+sendMessageTo:thisActionTarget
+sendMessageWithTags:${TechID}_Stop
+sendMessageWithData:"""
+byOther=1
+"""
+[template_Tech_SendAlly_Step3]
+@define TechID=Test
+sendMessageTo:thisActionTarget
+sendMessageWithTags:Unlock_${TechID}
+sendMessageWithData:"""
+byOther=1
+"""
+
+
+[hiddenAction_Tech_Done_CV]
+sendMessageTo:parent.parent.readUnitMemory("cvMarker",type="unit")
+sendMessageWithTags:TechDone

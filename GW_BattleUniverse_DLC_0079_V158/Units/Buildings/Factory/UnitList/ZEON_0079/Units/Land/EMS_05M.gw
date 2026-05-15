@@ -1,0 +1,51 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+
+[hiddenAction_AutoProduce_EMS_05M]
+@copyFromSection:template_AutoProduce
+@define UnitID=EMS_05M
+alsoTriggerAction:AutoProduce_EMS_05M_Step2
+
+[hiddenAction_AutoProduce_EMS_05M_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=1000
+@define Resource=1500
+alsoQueueAction:Produce_EMS_05M_StandardSquad
+
+
+
+[action_Produce_EMS_05M_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=EMS_05M
+@define Money=1000
+@define Resource=1500
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:30s
+
+alsoQueueAction:"""
+Produce_EMS_05M_StandardSquad_1,
+Produce_EMS_05M_StandardSquad_2,
+Produce_EMS_05M_StandardSquad_3
+"""
+[hiddenAction_Produce_EMS_05M_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+EMS_05M*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_EMS_05M_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+EMS_05M*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_EMS_05M_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+EMS_05M*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

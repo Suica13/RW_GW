@@ -1,0 +1,174 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Resource/Image/Fx/Common/Common_Flash_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_Two_Handed_A.gw
+"""
+
+@memory ZN_135mmAntiShipSniper_CDTimer:float
+@global ZN_135mmAntiShipSniper_CD=7.5
+@global ZN_135mmAntiShipSniper_EN=45
+
+
+
+
+
+[decal_ZN_135mmAntiShipSniper_Idle]
+layer:beforeBody
+order:5.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Shell\Image\ZN_135mmAntiShipSniper.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:0.9
+xOffsetRelative: -7
+yOffsetRelative: 12
+dirOffset:-85
+[decal_ZN_135mmAntiShipSniper_Attack]
+layer:beforeBody
+order:5.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Shell\Image\ZN_135mmAntiShipSniper.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:0.9
+xOffsetRelative: 3
+yOffsetRelative: 20
+dirOffset:0
+
+[decal_ZN_135mmAntiShipSniper_NotUsing]
+layer:beforeBody
+order:1
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Shell\Image\ZN_135mmAntiShipSniper.png
+isVisible:false
+basePositionFromLegEnd:arm1
+imageScale:0.8
+xOffsetRelative: 6
+yOffsetRelative: -7
+dirOffset:-90
+
+
+
+
+
+[turret_ZN_135mmAntiShipSniper]
+x:0
+y:0
+
+canShoot:false
+projectile:ZN_135mmAntiShipSniper_Projectile
+
+delay:0.2s
+canAttackMaxAngle:15
+barrelX:14
+barrelY:35
+limitingRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/ShellSniper.ogg
+shoot_sound_vol:0.6
+shoot_flame:BZ_Fire_1_S
+
+
+
+
+
+[projectile_ZN_135mmAntiShipSniper_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Target_RailShell*1
+(
+    addResources=
+    ShellDamage:9000
+    |DpDamage:500
+    |WeaponAccuracy=150
+    |PartBreakModifier=1
+    |CockpitBreakModifier=1
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=0.75
+    |AntiAqua=0.5
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+
+    |HeightChangeSpeed=2
+    |HeightHitRange=25
+    |ProjectileSpeed:100
+    |ProjectileSpread:1
+    |ProjectileLife:30
+)
+"""
+
+
+
+
+
+[hiddenAction_ZN_135mmAntiShipSniper_Trigger]
+alsoTriggerAction:ZN_135mmAntiShipSniper_Fire
+[hiddenAction_ZN_135mmAntiShipSniper_Fire]
+requireConditional:"""
+if self.timeAlive>memory.ZN_135mmAntiShipSniper_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15) 
+and self.resource.EN>0
+"""
+setUnitMemory:ZN_135mmAntiShipSniper_CDTimer=self.timeAlive+${ZN_135mmAntiShipSniper_CD}
+addResources:EN=-${ZN_135mmAntiShipSniper_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+ZN_135mmAntiShipSniper_SetWeaponIndex,
+PlayCommon_Shoot_Two_Handed_A_Step_1,
+ZN_135mmAntiShipSniper_B1_Step_1
+"""
+[hiddenAction_ZN_135mmAntiShipSniper_B1_Step_1]
+alsoQueueAction:"""
+ZN_135mmAntiShipSniper_Fire_Step_1,
+ZN_135mmAntiShipSniper_Fire_Step_2,
+ZN_135mmAntiShipSniper_Fire_Step_Final
+"""
+
+
+
+[hiddenAction_ZN_135mmAntiShipSniper_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_ZN_135mmAntiShipSniper_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.35s
+whenBuilding_cannotMove:true
+[hiddenAction_ZN_135mmAntiShipSniper_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+whenBuilding_cannotMove:true
+fireTurretXAtGround:ZN_135mmAntiShipSniper
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_ZN_135mmAntiShipSniper_Fire_Step_Final]
+buildSpeed:1.0s
+whenBuilding_cannotMove:true
+stopLastAnimation:true
+alsoTriggerAction:SetAttackingOff

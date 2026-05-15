@@ -1,0 +1,80 @@
+[core]
+dont_load:true
+copyFrom:"""
+Common_ReEntry.gw,
+Common_ReEntry_FromSpace.gw
+"""
+
+
+[decal_Common_ReEntry_BotEffect]
+layer:beforeUI
+order:10
+onlyWhileAlive:true
+image:ROOT:Resource/Image/Fx/Weapon/Sp/Image/Dash_Orange_1.png
+imageScale:4.5
+alpha:0.5
+xOffsetRelative:0
+yOffsetRelative:-10
+dirOffset:0
+isVisible:"""
+if 
+(
+    (memory.Common_ReEntry_CanBeTargetUnit==false and memory.Common_ReEntry_Active==true) 
+    or 
+    (memory.Common_ReEntry_FromSpace_CanBeTargetUnit==false and memory.Common_ReEntry_FromSpace_Active==true) 
+)
+"""
+[decal_Common_ReEntry_FromSpace_BotEffect]
+isVisible:false
+
+[decal_Common_ReEntry_SpeedLine_1]
+@copyFromSection:decal_SpeedLine_1
+isVisible:"""
+if 
+(
+    memory.Common_ReEntry_Active==true 
+    or 
+    memory.Common_ReEntry_FromSpace_Active==true
+)
+"""
+imageScale:1
+[decal_Boost]
+@define skillRules=(memory.Common_ReEntry_Active==true or memory.Common_ReEntry_FromSpace_Active==true)
+
+[decal_Common_ReEntry_FromSpace_SpeedLine_1]
+isVisible:false
+
+[hiddenAction_Check_CanBeTargetUnit_Tags_T]
+requireConditional:if (memory.Common_ReEntry_CanBeTargetUnit==true or memory.Common_ReEntry_FromSpace_CanBeTargetUnit==true) and not self.tags(includes='CanBeTargetUnit')
+temporarilyAddTags:CanBeTargetUnit
+
+[hiddenAction_Check_CanBeTargetUnit_Tags_F]
+requireConditional:if (memory.Common_ReEntry_CanBeTargetUnit==false and memory.Common_ReEntry_FromSpace_CanBeTargetUnit==false) and self.tags(includes='CanBeTargetUnit')
+temporarilyRemoveTags:CanBeTargetUnit
+
+
+[hiddenAction_Check_ReEntry_Tags_T]
+requireConditional:if (memory.Common_ReEntry_Active==true or memory.Common_ReEntry_FromSpace_Active==true) and not self.tags(includes='ReEntry')
+temporarilyAddTags:ReEntry
+
+[hiddenAction_Check_ReEntry_Tags_F]
+requireConditional:if (memory.Common_ReEntry_Active==false and memory.Common_ReEntry_FromSpace_Active==false) and self.tags(includes='ReEntry')
+temporarilyRemoveTags:ReEntry
+
+
+[hiddenAction_Common_ReEntry_Step_1]
+setUnitMemory:"""
+Common_ReEntry_StartPoint=self.getOffsetRelative(),
+Common_ReEntry_AimTarget=select(${allowAI}==true,memory.Common_ReEntry_AimTarget,thisActionTarget),
+Common_ReEntry_ActiveTimer=self.timeAlive+${Common_ReEntry_ActiveTime},
+Common_ReEntry_CDTimer=self.timeAlive+${Common_ReEntry_CD},
+Common_ReEntry_FromSpace_CDTimer=self.timeAlive+${Common_ReEntry_FromSpace_CD}
+"""
+[hiddenAction_Common_ReEntry_FromSpace_Step_1]
+setUnitMemory:"""
+Common_ReEntry_FromSpace_StartPoint=self.getOffsetRelative(),
+Common_ReEntry_FromSpace_AimTarget=select(${allowAI}==true,memory.Common_ReEntry_FromSpace_AimTarget,thisActionTarget),
+Common_ReEntry_FromSpace_ActiveTimer=self.timeAlive+${Common_ReEntry_FromSpace_ActiveTime},
+Common_ReEntry_FromSpace_CDTimer=self.timeAlive+${Common_ReEntry_FromSpace_CD},
+Common_ReEntry_CDTimer=self.timeAlive+${Common_ReEntry_CD}
+"""

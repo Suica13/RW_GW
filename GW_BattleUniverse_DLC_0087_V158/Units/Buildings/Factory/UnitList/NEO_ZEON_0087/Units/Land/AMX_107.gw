@@ -1,0 +1,54 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory AMX_107:bool
+
+
+[hiddenAction_Pannel_Close_AMX_107]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:AMX_107=false
+
+
+
+
+[hiddenAction_AutoProduce_AMX_107]
+@copyFromSection:template_AutoProduce
+@define UnitID=AMX_107
+alsoTriggerAction:AutoProduce_AMX_107_Step2
+
+[hiddenAction_AutoProduce_AMX_107_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=7500
+@define Resource=9000
+alsoTriggerAction:AutoProduce_AMX_107_Random
+
+
+
+[hiddenAction_AutoProduce_AMX_107_Random]
+alsoTriggerAction:"""
+AutoProduce_AMX_107_Random_A
+"""
+[hiddenAction_AutoProduce_AMX_107_Random_A]
+alsoQueueAction:Produce_AMX_107_StandardSquad
+
+
+
+[action_Produce_AMX_107_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=AMX_107
+@define Money=7500
+@define Resource=9000
+@define FactionVisible= (memory.Pannel_NEO_ZEON_0087_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+buildSpeed:60s
+
+alsoQueueAction:"""
+Produce_AMX_107_StandardSquad_1
+"""
+[hiddenAction_Produce_AMX_107_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+AMX_107*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

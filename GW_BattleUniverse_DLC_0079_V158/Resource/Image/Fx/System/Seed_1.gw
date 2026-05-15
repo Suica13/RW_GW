@@ -1,0 +1,21 @@
+[core]
+dont_load:false
+
+
+#
+[effect_Seed_1]
+image:ROOT:Resource/Image/Fx/System/Image/Seed_1.png
+attachedToUnit:true
+life:600
+priority:critical
+liveAfterAttachedDies:true
+alwayStartDirAtZero:true
+yOffsetAbsolute:-40
+scaleFrom:0.5
+scaleTo:0.5
+alpha:1
+total_frames:7
+animateFrameStart: 0
+animateFrameEnd: 6
+animateFrameSpeed: 0.1
+showInFog:true

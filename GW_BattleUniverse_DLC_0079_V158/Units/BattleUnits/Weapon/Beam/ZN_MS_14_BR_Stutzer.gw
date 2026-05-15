@@ -1,0 +1,128 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Beam/Common/Beam_Fire_1_Yellow.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Cannon_Shoot_A.gw
+"""
+
+@memory ZN_MS_14_BR_Stutzer_CDTimer:float
+@global ZN_MS_14_BR_Stutzer_CD=8
+@global ZN_MS_14_BR_Stutzer_EN=40
+
+
+
+
+[turret_ZN_MS_14_BR_Stutzer]
+x:0
+y:0
+
+canShoot:false
+projectile:ZN_MS_14_BR_Stutzer_Projectile
+
+delay:0.2s
+canAttackMaxAngle:15
+barrelX:5
+barrelY:15
+limitingRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\BeamRifle_1.ogg
+shoot_sound_vol:0.6
+shoot_flame:Beam_Fire_1_Yellow
+
+
+
+[projectile_ZN_MS_14_BR_Stutzer_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_BeamRifle_Yellow*1
+(
+    addResources=
+    BeamDamage:7000
+    |DpDamage:250
+    |WeaponAccuracy=75
+    |PartBreakModifier=1
+    |CockpitBreakModifier=1
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.5
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=2
+    |HeightHitRange=25
+    |ProjectileSpeed:85
+    |ProjectileSpread:1
+    |ProjectileLife:30
+)
+"""
+
+
+
+
+
+[hiddenAction_ZN_MS_14_BR_Stutzer_Trigger]
+alsoTriggerAction:ZN_MS_14_BR_Stutzer_Fire
+[hiddenAction_ZN_MS_14_BR_Stutzer_Fire]
+requireConditional:"""
+if self.timeAlive>memory.ZN_MS_14_BR_Stutzer_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15) 
+and self.resource.EN>0
+"""
+setUnitMemory:ZN_MS_14_BR_Stutzer_CDTimer=self.timeAlive+${ZN_MS_14_BR_Stutzer_CD}
+addResources:EN=-${ZN_MS_14_BR_Stutzer_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+ZN_MS_14_BR_Stutzer_SetWeaponIndex,
+PlayCommon_Cannon_Shoot_A_Step_1,
+ZN_MS_14_BR_Stutzer_B1_Step_1
+"""
+[hiddenAction_ZN_MS_14_BR_Stutzer_B1_Step_1]
+alsoQueueAction:"""
+ZN_MS_14_BR_Stutzer_Fire_Step_1,
+ZN_MS_14_BR_Stutzer_Fire_Step_2,
+ZN_MS_14_BR_Stutzer_Fire_Step_Final
+"""
+
+
+
+[hiddenAction_ZN_MS_14_BR_Stutzer_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_ZN_MS_14_BR_Stutzer_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.25s
+[hiddenAction_ZN_MS_14_BR_Stutzer_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:ZN_MS_14_BR_Stutzer
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_ZN_MS_14_BR_Stutzer_Fire_Step_Final]
+buildSpeed:0.25s
+alsoTriggerAction:SetAttackingOff
+

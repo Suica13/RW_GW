@@ -1,0 +1,37 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+
+[hiddenAction_AutoProduce_ZanzibarClassKai]
+@copyFromSection:template_AutoProduce
+@define UnitID=ZanzibarClassKai
+alsoTriggerAction:AutoProduce_ZanzibarClassKai_Step2
+
+[hiddenAction_AutoProduce_ZanzibarClassKai_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=8000
+@define Resource=15000
+alsoQueueAction:Produce_ZanzibarClassKai
+
+
+
+[action_Produce_ZanzibarClassKai]
+@copyFromSection:template_Produce_Fast
+@define UnitID=ZanzibarClassKai
+@define Money=8000
+@define Resource=15000
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:80s
+
+alsoQueueAction:"""
+Produce_ZanzibarClassKai_1
+"""
+[hiddenAction_Produce_ZanzibarClassKai_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+ZanzibarClassKai*1(addResources=PilotType:2101|EquipmentIndex:0)
+"""

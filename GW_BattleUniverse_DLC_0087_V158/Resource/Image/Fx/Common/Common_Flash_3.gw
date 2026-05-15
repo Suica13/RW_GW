@@ -1,0 +1,56 @@
+[core]
+dont_load:false
+
+
+
+[effect_Flash_3_N]
+image:ROOT:\Resource\Image\Fx\Common\Image\Flash_3.png
+priority:critical
+yOffsetRelative:0
+life: 60
+scaleFrom: 1
+scaleTo: 1
+alwayStartDirAtZero:true
+drawUnderUnits:false
+
+
+[effect_Flash_3_S]
+image:ROOT:\Resource\Image\Fx\Common\Image\Flash_3.png
+priority:critical
+yOffsetRelative:0
+life: 60
+scaleFrom: 0.5
+scaleTo: 0.5
+alwayStartDirAtZero:true
+drawUnderUnits:false
+
+[effect_Flash_3_XS]
+image:ROOT:\Resource\Image\Fx\Common\Image\Flash_3.png
+priority:critical
+yOffsetRelative:0
+life: 60
+scaleFrom: 0.25
+scaleTo: 0.25
+alwayStartDirAtZero:true
+drawUnderUnits:false
+
+[effect_Flash_3_L]
+image:ROOT:\Resource\Image\Fx\Common\Image\Flash_3.png
+priority:critical
+yOffsetRelative:0
+life: 60
+scaleFrom: 1.5
+scaleTo: 1.5
+alwayStartDirAtZero:true
+drawUnderUnits:false
+
+
+[effect_Flash_3_XL]
+image:ROOT:\Resource\Image\Fx\Common\Image\Flash_3.png
+priority:critical
+yOffsetRelative:0
+life: 60
+scaleFrom: 2
+scaleTo: 2
+alwayStartDirAtZero:true
+drawUnderUnits:false

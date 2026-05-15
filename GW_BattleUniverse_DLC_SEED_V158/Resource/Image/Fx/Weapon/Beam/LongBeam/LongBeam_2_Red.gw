@@ -1,0 +1,56 @@
+[core]
+dont_load:false
+
+
+[effect_LongBeam_2_Red]
+life: 500
+
+xOffsetRelative: 10
+yOffsetRelative: 400
+hOffset: 0
+dirOffset: -90
+attachedToUnit: true
+
+
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+scaleFrom: 1
+scaleTo: 1
+image: ROOT:Resource/Image/Fx/Weapon/Beam/LongBeam/Image/LongBeam_2_Red.png
+
+total_frames: 19
+animateFrameStart: 0
+animateFrameEnd: 18
+animateFrameSpeed: 0.15
+showInFog:true
+
+
+
+[effect_LongBeam_Hit_1]
+life: 100
+
+xOffsetRelative: 2
+yOffsetRelative: -20
+hOffset: 0
+dirOffset: -90
+attachedToUnit: true
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+alpha:0.85
+scaleFrom: 1.25
+scaleTo:1.25
+image: ROOT:Resource/Image/Fx/Weapon/Beam/HighMegaCannon/Image/HighMegaCannon_Hit_1.png
+
+total_frames: 11
+animateFrameStart: 0
+animateFrameEnd: 4
+animateFrameSpeed: 0.3
+showInFog:true

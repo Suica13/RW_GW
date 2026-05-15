@@ -1,0 +1,122 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+@memory MS_08TX:bool
+
+
+[hiddenAction_Pannel_Close_MS_08TX]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:MS_08TX=false
+
+
+
+[hiddenAction_AutoProduce_MS_08TX]
+@copyFromSection:template_AutoProduce
+@define UnitID=MS_08TX
+alsoTriggerAction:AutoProduce_MS_08TX_Step2
+
+[hiddenAction_AutoProduce_MS_08TX_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=950
+@define Resource=1550
+alsoTriggerAction:AutoProduce_MS_08TX_Random
+
+
+
+[hiddenAction_AutoProduce_MS_08TX_Random]
+alsoTriggerAction:"""
+AutoProduce_MS_08TX_Random_A,
+AutoProduce_MS_08TX_Random_B,
+AutoProduce_MS_08TX_Random_C
+"""
+[hiddenAction_AutoProduce_MS_08TX_Random_A]
+requireConditional:"""
+if memory.randomProduce<=500
+"""
+alsoQueueAction:Produce_MS_08TX_StandardSquad
+
+[hiddenAction_AutoProduce_MS_08TX_Random_B]
+requireConditional:"""
+if memory.randomProduce>500 
+and memory.randomProduce<=750   
+"""
+alsoQueueAction:Produce_MS_08TX_MGSquad
+
+[hiddenAction_AutoProduce_MS_08TX_Random_C]
+requireConditional:"""
+if memory.randomProduce>750 
+"""
+alsoQueueAction:Produce_MS_08TX_BazookaSquad
+
+
+
+
+[action_Pannel_MS_08TX]
+@copyFromSection:template_Pannel
+@define UnitID=MS_08TX
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+
+
+[action_Produce_MS_08TX_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=MS_08TX
+@define Money=1250
+@define Resource=1550
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:40s
+
+text:SG
+text_zh:霰弹枪
+
+alsoQueueAction:"""
+Produce_MS_08TX_StandardSquad_1
+"""
+[hiddenAction_Produce_MS_08TX_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_08TX*1(addResources=PilotType:1001|EquipmentIndex:0)
+"""
+
+[action_Produce_MS_08TX_MGSquad]
+@copyFromSection:template_Produce
+@define UnitID=MS_08TX
+@define Money=1250
+@define Resource=1550
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:40s
+
+text:MG
+text_zh:机枪
+
+alsoQueueAction:"""
+Produce_MS_08TX_MGSquad_1
+"""
+[hiddenAction_Produce_MS_08TX_MGSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_08TX*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+
+[action_Produce_MS_08TX_BazookaSquad]
+@copyFromSection:template_Produce
+@define UnitID=MS_08TX
+@define Money=1250
+@define Resource=1750
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:40s
+
+text:Bazooka
+text_zh:火箭筒
+
+alsoQueueAction:"""
+Produce_MS_08TX_BazookaSquad_1
+"""
+[hiddenAction_Produce_MS_08TX_BazookaSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_08TX*1(addResources=PilotType:1101|EquipmentIndex:2)
+"""

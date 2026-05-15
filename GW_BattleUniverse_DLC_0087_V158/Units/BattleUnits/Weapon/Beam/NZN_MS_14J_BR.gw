@@ -1,0 +1,216 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Resource/Image/Fx/Weapon/Beam/Common/Beam_Fire_1_Yellow.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_A.gw
+"""
+
+@memory NZN_MS_14J_BR_CDTimer:float
+@global NZN_MS_14J_BR_CD=2
+@global NZN_MS_14J_BR_EN=50
+
+
+
+
+
+[decal_NZN_MS_14J_BR]
+layer:beforeBody
+order:4.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Beam\Image\NZN_MS_14J_BR.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:1.0
+xOffsetRelative: 4
+yOffsetRelative: 14
+dirOffset:0
+[decal_NZN_MS_14J_BR_NotUsing]
+@copyFromSection:decal_NZN_MS_14J_BR
+isVisible:false
+order:3
+basePositionFromLegEnd:arm1
+imageScale:1.0
+xOffsetRelative:4
+yOffsetRelative:-10
+dirOffset:-90
+
+
+
+
+
+
+
+[turret_NZN_MS_14J_BR]
+x:0
+y:0
+
+canShoot:false
+projectile:NZN_MS_14J_BR_Projectile
+
+delay:0.2s
+canAttackMaxAngle:15
+barrelX:13
+barrelY:25
+limitingRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\BeamRifle_3.ogg
+shoot_sound_vol:0.6
+shoot_flame:Beam_Fire_1_Yellow
+[turret_NZN_MS_14J_BR_GL]
+@copyFromSection:turret_NZN_MS_14J_BR
+barrelX:13
+barrelY:25
+projectile:NZN_MS_14J_BR_GL_Projectile
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\Missile_1.ogg
+shoot_sound_vol:0.4
+shoot_flame:BZ_Fire_1_S
+
+
+
+[projectile_NZN_MS_14J_BR_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_BeamRifle_Yellow*1
+(
+    addResources=
+    BeamDamage:7500
+    |DpDamage:250
+    |WeaponAccuracy=90
+    |PartBreakModifier=1
+    |CockpitBreakModifier=1
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=2
+    |HeightHitRange=25
+    |ProjectileSpeed:90
+    |ProjectileSpread:1
+    |ProjectileLife:30
+)
+"""
+
+[projectile_NZN_MS_14J_BR_GL_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Bazooka_S*1
+(
+    addResources=
+    ShellDamage:3500
+    |DpDamage:200
+    |WeaponAccuracy=90
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75
+    |AntiLand=1 
+    |AntiSpace=1 
+    |HeightChangeSpeed=2
+    |HeightHitRange=20
+    |ProjectileSpeed:85
+    |ProjectileSpread:2
+    |ProjectileExplosionRange:35
+    |ProjectileLife:25
+)
+"""
+
+
+
+
+[hiddenAction_NZN_MS_14J_BR_Trigger]
+alsoTriggerAction:NZN_MS_14J_BR_Fire
+[hiddenAction_NZN_MS_14J_BR_Fire]
+requireConditional:"""
+if self.timeAlive>memory.NZN_MS_14J_BR_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  
+and self.resource.EN>0
+"""
+setUnitMemory:NZN_MS_14J_BR_CDTimer=self.timeAlive+${NZN_MS_14J_BR_CD}
+addResources:EN=-${NZN_MS_14J_BR_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+NZN_MS_14J_BR_SetWeaponIndex,
+PlayCommon_Shoot_A_Step_1,
+NZN_MS_14J_BR_B1_Step_1
+"""
+[hiddenAction_NZN_MS_14J_BR_B1_Step_1]
+alsoQueueAction:"""
+NZN_MS_14J_BR_Fire_Step_1,
+NZN_MS_14J_BR_Fire_Step_2,
+NZN_MS_14J_BR_Fire_Step_3,
+NZN_MS_14J_BR_Fire_Step_Final
+"""
+
+
+
+[hiddenAction_NZN_MS_14J_BR_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_NZN_MS_14J_BR_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.25s
+[hiddenAction_NZN_MS_14J_BR_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:NZN_MS_14J_BR
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_NZN_MS_14J_BR_Fire_Step_3]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.15s
+fireTurretXAtGround:NZN_MS_14J_BR_GL
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+
+
+[hiddenAction_NZN_MS_14J_BR_Fire_Step_Final]
+buildSpeed:0.25s
+alsoTriggerAction:SetAttackingOff
+

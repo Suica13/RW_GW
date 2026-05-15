@@ -1,0 +1,57 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory Skiure:bool
+
+
+[hiddenAction_Pannel_Close_Skiure]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:Skiure=false
+
+
+
+
+[hiddenAction_AutoProduce_Skiure]
+@copyFromSection:template_AutoProduce
+@define UnitID=Skiure
+alsoTriggerAction:AutoProduce_Skiure_Step2
+
+[hiddenAction_AutoProduce_Skiure_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=2000
+@define Resource=2500
+alsoTriggerAction:AutoProduce_Skiure_Random
+
+
+
+[hiddenAction_AutoProduce_Skiure_Random]
+alsoTriggerAction:"""
+AutoProduce_Skiure_Random_A
+"""
+[hiddenAction_AutoProduce_Skiure_Random_A]
+requireConditional:"""
+if true
+"""
+alsoQueueAction:Produce_Skiure_StandardSquad
+
+
+
+[action_Produce_Skiure_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=Skiure
+@define Money=2000
+@define Resource=2500
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+buildSpeed:45s
+
+alsoQueueAction:"""
+Produce_Skiure_StandardSquad_1
+"""
+[hiddenAction_Produce_Skiure_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+Skiure*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

@@ -1,0 +1,50 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+[hiddenAction_AutoProduce_Army_Squad_ZEON_0079_N_G_A]
+@copyFromSection:template_AutoProduce
+@define UnitID=Army_Squad_ZEON_0079_N_G_A
+alsoTriggerAction:AutoProduce_Army_Squad_ZEON_0079_N_G_A_Step2
+
+[hiddenAction_AutoProduce_Army_Squad_ZEON_0079_N_G_A_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=150
+@define Resource=200
+alsoQueueAction:Produce_Army_Squad_ZEON_0079_N_G_A_StandardSquad
+
+
+
+[action_Produce_Army_Squad_ZEON_0079_N_G_A_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=Army_Squad_ZEON_0079_N_G_A
+@define Money=150
+@define Resource=200
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:20s
+
+alsoQueueAction:"""
+Produce_Army_Squad_ZEON_0079_N_G_A_StandardSquad_1,
+Produce_Army_Squad_ZEON_0079_N_G_A_StandardSquad_2,
+Produce_Army_Squad_ZEON_0079_N_G_A_StandardSquad_3
+"""
+[hiddenAction_Produce_Army_Squad_ZEON_0079_N_G_A_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+Army_Squad_ZEON_0079_N_G_A*1(addResources=PilotType:2001|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_Army_Squad_ZEON_0079_N_G_A_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+Army_Squad_ZEON_0079_N_G_A*1(addResources=PilotType:2001|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_Army_Squad_ZEON_0079_N_G_A_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+Army_Squad_ZEON_0079_N_G_A*1(addResources=PilotType:2001|EquipmentIndex:0)
+"""

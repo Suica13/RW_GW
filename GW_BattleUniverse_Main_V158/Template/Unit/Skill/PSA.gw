@@ -1,0 +1,324 @@
+[core]
+copyFrom:"""
+"""
+
+@memory PSAHpMax:float
+@memory PSAHp:float
+@memory PSAActive:bool
+@memory PSALevel:float
+@memory PSAEffectTimer:Float
+
+@memory PSASwitchBool:bool
+@memory PSASwitchCD:float
+
+@global PSAHpMax=15000
+@global PSALevel=0.80
+
+[hiddenAction_StartSetPSA]
+autoTriggerOnEvent:newMessage(withTag="UnitTurretSpawn")
+setUnitMemory:"""
+PSAHpMax=${PSAHpMax},
+PSALevel=${PSALevel}
+"""
+alsoTriggerAction:"""
+ResetPSA
+"""
+[hiddenAction_ResetPSA]
+requireConditional:if self.timeAlive<=1
+setUnitMemory:"""
+PSASwitchBool=true,
+PSAHp=memory.PSAHpMax
+"""
+[hiddenAction_PSA_Get_RecoverByOther]
+autoTriggerOnEvent:newMessage(withTag="RecoverByOther")
+setUnitMemory:"""
+PSAHp=select
+(
+    memory.PSAHp
+    +0.5*eventData("RecoverSkill",type="float")
+    +memory.PSAHpMax*eventData("RecoverSkillPer",type="float")>memory.PSAHpMax,
+    memory.PSAHpMax,
+    memory.PSAHp
+    +0.5*eventData("RecoverSkill",type="float")
+    +memory.PSAHpMax*eventData("RecoverSkillPer",type="float")
+)
+"""
+
+[hiddenAction_PSA_Check_Limit]
+autoTrigger:true
+setUnitMemory:"""
+PSAHp=select
+(
+    memory.PSAHp>memory.PSAHpMax,
+    memory.PSAHpMax,
+    select
+    (
+        memory.PSAHp<0,
+        0,
+        memory.PSAHp
+    )
+)
+"""
+
+
+
+[hiddenAction_ActivePSA]
+autoTrigger:true
+setUnitMemory:"""
+PSAActive=
+select
+(
+    memory.PSAHP>0 and memory.PSASwitchBool==true,
+    true,
+    false
+)
+"""
+
+[hiddenAction_TookDamage_PSA_Damage]
+autoTriggerOnEvent:newMessage(withTag="PSA_Damage")
+requireConditional:if memory.PSAActive==true
+setUnitMemory:PSAHp=memory.PSAHp-eventData('Damage',type='float')
+setResourcesWithLogic:en=self.resource().en-((eventData('Damage',type='float')+1)/memory.PSAHpMax*memory.enMax*0.2)
+
+[decal_PSAIcon]
+layer:beforeUI
+order:8
+image:ROOT:Resource/Image/Units/Button/Skill/PSA.png
+onlyTeam:own
+alpha:1
+imageScale:0.2
+xOffsetAbsolute:-22
+yOffsetAbsolute:42
+alwaysStartDirAtZero:true
+onlyOnNonPreview:true
+isVisible:if memory.PSAActive==true and memory.hideUI==0
+onlyWhileAlive:true
+[decal_PSAHp]
+layer:beforeUI
+order:8
+image:SHARED:white_pixel.png
+onlyTeam:own
+color:#07f8ff
+alpha:1
+imageScale:1
+imageScaleX:30*((memory.PSAHp/memory.PSAHpMax))
+imageScaleY:1.5
+xOffsetAbsolute:(15*((memory.PSAHp/memory.PSAHpMax)))-15
+yOffsetAbsolute:42
+alwaysStartDirAtZero:true
+onlyOnNonPreview:true
+isVisible:if (memory.PSAHp/memory.PSAHpMax)>=0.25 and memory.PSAActive==true and memory.hideUI==0
+onlyWhileAlive:true
+[decal_PSAHp_25]
+layer:beforeUI
+order:8
+image:SHARED:white_pixel.png
+onlyTeam:own
+color:#ff0b07
+alpha:1
+imageScale:1
+imageScaleX:30*((memory.PSAHp/memory.PSAHpMax))
+imageScaleY:1.5
+xOffsetAbsolute:(15*((memory.PSAHp/memory.PSAHpMax)))-15
+yOffsetAbsolute:42
+alwaysStartDirAtZero:true
+onlyOnNonPreview:true
+isVisible:if (memory.PSAHp/memory.PSAHpMax)<0.25 and memory.PSAActive==true and memory.hideUI==0
+onlyWhileAlive:true
+[decal_PSAHpBackground]
+layer:beforeUI
+order:7
+image:SHARED:white_pixel.png
+onlyTeam:own
+color:#000000
+alpha:1
+imageScale:1
+imageScaleX:30+1
+imageScaleY:3
+xOffsetAbsolute:(15)-15
+yOffsetAbsolute:42
+alwaysStartDirAtZero:true
+onlyOnNonPreview:true
+isVisible:if memory.PSAActive==true and memory.hideUI==0
+onlyWhileAlive:true
+
+
+[decal_PSAIcon_Enemy]
+@copyFromSection:decal_PSAIcon
+onlyTeam:enemy
+isVisible:if memory.PSAActive==true and memory.hideUI==0 and memory.BattleUnitCore.readUnitMemory('showStatsToEnemy',type='bool')==true
+[decal_PSAHp_Enemy]
+@copyFromSection:decal_PSAHp
+onlyTeam:enemy
+color:#ff0b07
+isVisible:if memory.PSAActive==true and memory.hideUI==0 and memory.BattleUnitCore.readUnitMemory('showStatsToEnemy',type='bool')==true
+[decal_PSAHpBackground_Enemy]
+@copyFromSection:decal_PSAHpBackground
+onlyTeam:enemy
+isVisible:if memory.PSAActive==true and memory.hideUI==0 and memory.BattleUnitCore.readUnitMemory('showStatsToEnemy',type='bool')==true
+
+
+[hiddenAction_attachment_DamageCheckerCore]
+autoTriggerOnEvent:newMessage(withTag="UnitTurretSpawn")
+attachments_addNewUnits:DamageChecker_PSA
+attachments_onlyOnSlots:DamageCheckerCore
+
+
+
+
+
+
+[action_PSA_SwitchON]
+autoTrigger:"""
+if self.isControlledByAI()==true 
+and memory.close==false 
+and not self.hasTags(includes='inHangar') 
+and ${cantAction}==false 
+and self.timeAlive>memory.PSASwitchCD 
+and memory.PSAHP>0 
+and memory.PSASwitchBool==false  
+"""
+
+pos:1
+
+buildSpeed:0s
+tags:Upgrade
+
+highPriorityQueue:true
+allowMultipleInQueue:false
+canPlayerCancel:true
+alwaysSinglePress:true
+ai_isDisabled:true
+extraLagHidingInUI:true
+
+displayType:infoOnly
+
+text:SwitchON PSA
+text_zh:开启 PS装甲
+
+isVisible:if memory.close==false and memory.PSASwitchBool==false and not self.hasTags(includes='inHangar')
+
+iconImage:ROOT:Resource/Image/Units/Button/Action/Guard_On.png
+playSoundToPlayer:ROOT:Resource/Sound/SE/Action/Common/Action_5.ogg
+
+spawnEffects:Light_50
+
+isGuiBlinking:true
+
+isLockedAlt:if self.timeAlive<memory.PSASwitchCD
+isLockedAltMessage:In Cooldown[%{memory.PSASwitchCD-self.timeAlive}s]
+isLockedAltMessage_zh:冷却中[%{memory.PSASwitchCD-self.timeAlive}s]
+isLockedAlt2:if ${cantAction}==true or ${onSkill}==true or parent.hp>0
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+
+setUnitMemory:"""
+PSASwitchBool=true,
+PSASwitchCD=self.timeAlive+3
+"""
+[action_PSA_SwitchOFF]
+@copyFromSection:action_PSA_SwitchON
+autoTrigger:false
+
+text:SwitchOFF PSA
+text_zh:关闭 PS装甲
+
+isVisible:if memory.close==false and memory.PSASwitchBool==true and not self.hasTags(includes='inHangar')
+iconImage:ROOT:Resource/Image/Units/Button/Action/Guard_Off.png
+
+isGuiBlinking:false
+
+setUnitMemory:"""
+PSASwitchBool=false,
+PSASwitchCD=self.timeAlive+3
+"""
+
+
+[decal_Crotch]
+isVisible:if memory.PSAActive==false
+
+[decal_Body]
+isVisible:if memory.PSAActive==false
+
+[decal_ArmL]
+isVisible:if memory.armLBreaked==false and memory.PSAActive==false
+
+[decal_ArmR]
+isVisible:if memory.armRBreaked==false and memory.PSAActive==false
+
+[decal_ShoulderL]
+isVisible:if memory.armLBreaked==false and memory.PSAActive==false
+
+[decal_ShoulderR]
+isVisible:if memory.armRBreaked==false and memory.PSAActive==false
+
+[decal_Head]
+isVisible:if memory.headBreaked==false and memory.close==false and memory.PSAActive==false
+
+[decal_Head_Close]
+isVisible:if memory.headBreaked==false and memory.close==true and memory.PSAActive==false
+
+[decal_LeftFoot]
+isVisible:if memory.legLBreaked==false and memory.PSAActive==false
+
+[decal_LeftLeg]
+isVisible:if memory.legLBreaked==false and memory.PSAActive==false
+
+[decal_RightFoot]
+isVisible:if memory.legRBreaked==false and memory.PSAActive==false
+
+[decal_RightLeg]
+isVisible:if memory.legRBreaked==false and memory.PSAActive==false
+
+
+
+
+
+[decal_Crotch_PS]
+@copyFromSection:decal_Crotch
+isVisible:if memory.PSAActive==true
+
+[decal_Body_PS]
+@copyFromSection:decal_Body
+isVisible:if memory.PSAActive==true
+
+[decal_ArmL_PS]
+@copyFromSection:decal_ArmL
+isVisible:if memory.armLBreaked==false and memory.PSAActive==true
+
+[decal_ArmR_PS]
+@copyFromSection:decal_ArmR
+isVisible:if memory.armRBreaked==false and memory.PSAActive==true
+
+[decal_ShoulderL_PS]
+@copyFromSection:decal_ShoulderL
+isVisible:if memory.armLBreaked==false and memory.PSAActive==true
+
+[decal_ShoulderR_PS]
+@copyFromSection:decal_ShoulderR
+isVisible:if memory.armRBreaked==false and memory.PSAActive==true
+
+[decal_Head_PS]
+@copyFromSection:decal_Head
+isVisible:if memory.headBreaked==false and memory.close==false and memory.PSAActive==true
+
+[decal_Head_Close_PS]
+@copyFromSection:decal_Head_Close
+isVisible:if memory.headBreaked==false and memory.close==true and memory.PSAActive==true
+
+[decal_LeftFoot_PS]
+@copyFromSection:decal_LeftFoot
+isVisible:if memory.legLBreaked==false and memory.PSAActive==true
+
+[decal_LeftLeg_PS]
+@copyFromSection:decal_LeftLeg
+isVisible:if memory.legLBreaked==false and memory.PSAActive==true
+
+[decal_RightFoot_PS]
+@copyFromSection:decal_RightFoot
+isVisible:if memory.legLBreaked==false and memory.PSAActive==true
+
+[decal_RightLeg_PS]
+@copyFromSection:decal_RightLeg
+isVisible:if memory.legLBreaked==false and memory.PSAActive==true

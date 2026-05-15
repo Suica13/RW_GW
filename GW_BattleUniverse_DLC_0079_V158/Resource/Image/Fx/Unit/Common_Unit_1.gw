@@ -1,0 +1,103 @@
+[core]
+dont_load:false
+copyFrom:ROOT:Resource/Image/Fx/Common/Common_Explosion_1.gw
+
+
+[effect_ChangeHeight_1]
+life: 140
+
+xOffsetRelative: 0
+yOffsetRelative: 0
+
+
+drawUnderUnits:true
+attachedToUnit: false
+priority:high
+atmospheric:false
+ySpeedRelative:0
+delayedStartTimer:0
+fadeOut: false
+image:ROOT:\Resource\Image\Fx\Unit\Image\ChangeHeight_1.png
+
+dirOffset:90
+total_frames: 5
+animateFrameStart: 0
+animateFrameEnd: 4
+animateFrameSpeed:0.15
+
+alpha:0.85
+scaleFrom:0.55
+scaleTo:0.45
+alsoPlaySound:ROOT:Resource/Sound/SE/Unit/Fly_1.ogg
+showInFog:true
+
+[effect_StartLight_1]
+image:ROOT:\Resource\Image\Fx\Common\Image\Light_25.png
+priority:critical
+yOffsetRelative:0
+life: 30
+scaleFrom: 1.5
+scaleTo: 1.5
+alpha:0.5
+alwayStartDirAtZero:true
+drawUnderUnits:false
+
+[effect_Daze_1]
+image:ROOT:\Resource\Image\Fx\Unit\Image\Daze_1.png
+attachedToUnit:true
+life:300
+priority:high
+liveAfterAttachedDies:true
+dirOffsetRandom:180
+scaleFrom:0.75
+scaleTo:0.75
+alpha:0.5
+total_frames:5
+animateFrameStart: 0
+animateFrameEnd: 4
+animateFrameSpeed: 0.2
+alsoPlaySound:ROOT:\Resource\Sound\SE\Unit\Daze_1.ogg:0.35
+showInFog:true
+
+[effect_Stagger_1]
+image:ROOT:\Resource\Image\Fx\Unit\Image\Stagger_1.png
+attachedToUnit:true
+life:300
+priority:high
+liveAfterAttachedDies:true
+dirOffsetRandom:180
+scaleFrom:0.75
+scaleTo:0.75
+alpha:0.5
+total_frames:6
+animateFrameStart: 0
+animateFrameEnd: 5
+animateFrameSpeed: 0.2
+alsoPlaySound:ROOT:\Resource\Sound\SE\Unit\Stagger_1.ogg:0.5
+showInFog:true
+
+[effect_PartsBreaked]
+life: 100
+
+xOffsetRelativeRandom: 5
+yOffsetRelativeRandom: 15
+hOffset: 0
+dirOffset: -90
+attachedToUnit: false
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+alpha:0.75
+scaleFrom: 0.5
+scaleTo: 0.35
+image: ROOT:\Resource\Image\Fx\Weapon\Shell\Image\Explosion_Hit_1.png
+alsoPlaySound:ROOT:Resource/Sound/SE/Weapon/Hit/Explosion_Hit_1.ogg:0.35,ROOT:Resource/Sound/SE/Weapon/Hit/Explosion_Hit_2.ogg:0.35
+
+total_frames: 5
+animateFrameStart: 0
+animateFrameEnd: 4
+animateFrameSpeed: 0.15
+showInFog:true

@@ -1,0 +1,97 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory EMS_10F:bool
+
+
+[hiddenAction_Pannel_Close_EMS_10F]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:EMS_10F=false
+
+
+
+
+[hiddenAction_AutoProduce_EMS_10F]
+@copyFromSection:template_AutoProduce
+@define UnitID=EMS_10F
+alsoTriggerAction:AutoProduce_EMS_10F_Step2
+
+[hiddenAction_AutoProduce_EMS_10F_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=1650
+@define Resource=1750
+alsoTriggerAction:AutoProduce_EMS_10F_Random
+
+
+
+[hiddenAction_AutoProduce_EMS_10F_Random]
+alsoTriggerAction:"""
+AutoProduce_EMS_10F_Random_A,
+AutoProduce_EMS_10F_Random_B
+"""
+[hiddenAction_AutoProduce_EMS_10F_Random_A]
+requireConditional:"""
+if memory.randomProduce<=500
+"""
+alsoQueueAction:Produce_EMS_10F_StandardSquad
+
+[hiddenAction_AutoProduce_EMS_10F_Random_B]
+requireConditional:"""
+if memory.randomProduce>500
+"""
+alsoQueueAction:Produce_EMS_10F_SniperSquad
+
+
+
+
+
+[action_Pannel_EMS_10F]
+@copyFromSection:template_Pannel
+@define UnitID=EMS_10F
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+
+[action_Produce_EMS_10F_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=EMS_10F
+@define Money=1650
+@define Resource=1750
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:40s
+
+text:Bazooka
+text_zh:火箭筒
+
+alsoQueueAction:"""
+Produce_EMS_10F_StandardSquad_1
+"""
+[hiddenAction_Produce_EMS_10F_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+EMS_10F*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+
+
+
+[action_Produce_EMS_10F_SniperSquad]
+@copyFromSection:template_Produce
+@define UnitID=EMS_10F
+@define Money=1950
+@define Resource=2050
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:40s
+
+text:Sniper
+text_zh:狙击步枪
+
+alsoQueueAction:"""
+Produce_EMS_10F_SniperSquad_1
+"""
+[hiddenAction_Produce_EMS_10F_SniperSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+EMS_10F*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""

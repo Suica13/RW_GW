@@ -1,0 +1,51 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+
+[hiddenAction_AutoProduce_Ballute]
+@copyFromSection:template_AutoProduce
+@define UnitID=Ballute
+alsoTriggerAction:AutoProduce_Ballute_Step2
+
+[hiddenAction_AutoProduce_Ballute_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=500
+@define Resource=1000
+alsoQueueAction:Produce_Ballute_StandardSquad
+
+
+
+[action_Produce_Ballute_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=Ballute
+@define Money=500
+@define Resource=1000
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+buildSpeed:30s
+
+alsoQueueAction:"""
+Produce_Ballute_StandardSquad_1,
+Produce_Ballute_StandardSquad_2,
+Produce_Ballute_StandardSquad_3
+"""
+[hiddenAction_Produce_Ballute_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+Ballute*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_Ballute_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+Ballute*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_Ballute_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+Ballute*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

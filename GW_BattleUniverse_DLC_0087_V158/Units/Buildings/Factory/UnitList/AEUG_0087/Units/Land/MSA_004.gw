@@ -1,0 +1,199 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory MSA_004:bool
+
+
+[hiddenAction_Pannel_Close_MSA_004]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:MSA_004=false
+
+
+
+
+[hiddenAction_AutoProduce_MSA_004]
+@copyFromSection:template_AutoProduce
+@define UnitID=MSA_004
+alsoTriggerAction:AutoProduce_MSA_004_Step2
+
+[hiddenAction_AutoProduce_MSA_004_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=4500
+@define Resource=5200
+alsoTriggerAction:AutoProduce_MSA_004_Random
+
+
+
+[hiddenAction_AutoProduce_MSA_004_Random]
+alsoTriggerAction:"""
+AutoProduce_MSA_004_Random_A,
+AutoProduce_MSA_004_Random_B,
+AutoProduce_MSA_004_Random_C
+"""
+[hiddenAction_AutoProduce_MSA_004_Random_A]
+requireConditional:"""
+if memory.randomProduce<=500
+"""
+alsoQueueAction:Produce_MSA_004_StandardSquad
+
+[hiddenAction_AutoProduce_MSA_004_Random_B]
+requireConditional:"""
+if memory.randomProduce>500 
+and memory.randomProduce<=850
+"""
+alsoQueueAction:Produce_MSA_004_MGSquad
+
+[hiddenAction_AutoProduce_MSA_004_Random_C]
+requireConditional:"""
+if memory.randomProduce>850
+"""
+alsoQueueAction:Produce_MSA_004_BazookaSquad
+
+
+
+
+
+[action_Pannel_MSA_004]
+@copyFromSection:template_Pannel
+@define UnitID=MSA_004
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+
+[action_Produce_MSA_004_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=MSA_004
+@define Money=4500
+@define Resource=5200
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+buildSpeed:60s
+
+alsoQueueAction:"""
+Produce_MSA_004_StandardSquad_1,
+Produce_MSA_004_StandardSquad_2,
+Produce_MSA_004_StandardSquad_3
+"""
+[hiddenAction_Produce_MSA_004_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MSA_004*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_MSA_004_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+MSA_004*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_MSA_004_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+MSA_004*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+
+[action_Produce_MSA_004_MGSquad]
+@copyFromSection:template_Produce
+@define UnitID=MSA_004
+@define Money=3900
+@define Resource=4000
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+buildSpeed:60s
+
+text:MG Squad
+text_zh:机枪小队
+
+alsoQueueAction:"""
+Produce_MSA_004_MGSquad_1,
+Produce_MSA_004_MGSquad_2,
+Produce_MSA_004_MGSquad_3
+"""
+[hiddenAction_Produce_MSA_004_MGSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MSA_004*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_MSA_004_MGSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+MSA_004*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_MSA_004_MGSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+MSA_004*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+
+
+[action_Produce_MSA_004_BazookaSquad]
+@copyFromSection:template_Produce
+@define UnitID=MSA_004
+@define Money=3900
+@define Resource=4600
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+buildSpeed:60s
+
+text:Bazooka Squad
+text_zh:火箭筒小队
+
+alsoQueueAction:"""
+Produce_MSA_004_BazookaSquad_1,
+Produce_MSA_004_BazookaSquad_2,
+Produce_MSA_004_BazookaSquad_3
+"""
+[hiddenAction_Produce_MSA_004_BazookaSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MSA_004*1(addResources=PilotType:1101|EquipmentIndex:2)
+"""
+[hiddenAction_Produce_MSA_004_BazookaSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+MSA_004*1(addResources=PilotType:1101|EquipmentIndex:2)
+"""
+[hiddenAction_Produce_MSA_004_BazookaSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+MSA_004*1(addResources=PilotType:1101|EquipmentIndex:2)
+"""
+
+
+[action_Produce_MSA_004_CannonSquad]
+@copyFromSection:template_Produce
+@define UnitID=MSA_004
+@define Money=3900
+@define Resource=5200
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+buildSpeed:60s
+
+text:Cannon Squad
+text_zh:加农炮小队
+
+alsoQueueAction:"""
+Produce_MSA_004_CannonSquad_1,
+Produce_MSA_004_CannonSquad_2,
+Produce_MSA_004_CannonSquad_3
+"""
+[hiddenAction_Produce_MSA_004_CannonSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MSA_004*1(addResources=PilotType:1101|EquipmentIndex:3)
+"""
+[hiddenAction_Produce_MSA_004_CannonSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+MSA_004*1(addResources=PilotType:1101|EquipmentIndex:3)
+"""
+[hiddenAction_Produce_MSA_004_CannonSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+MSA_004*1(addResources=PilotType:1101|EquipmentIndex:3)
+"""

@@ -1,0 +1,13 @@
+[core]
+dont_load:true
+copyFrom:"""
+ROOT:Units/BattleUnits/Weapon/Sp/Common_Dash_Attack.gw
+"""
+
+
+[action_Common_Dash_Attack_Trigger]
+alsoTriggerAction:"""
+SetOnSkillOn,
+Common_Dash_Attack_SetWeaponIndex,
+Common_Dash_Attack_Step_1
+"""

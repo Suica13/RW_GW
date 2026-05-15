@@ -1,0 +1,83 @@
+[core]
+dont_load:false
+
+
+
+[effect_Beam_Hit_1_Pink]
+life: 100
+
+yOffsetRelative: 10
+
+alsoPlaySound:ROOT:\Resource\Sound\SE\Weapon\Hit\Beam_Hit_1.ogg:0.25
+
+attachedToUnit: false
+priority:high
+atmospheric:false
+ySpeedRelative:0.75
+delayedStartTimer:0
+fadeOut: false
+image:ROOT:Resource/Image/Fx/Weapon/Beam/Common/Image/Beam_Hit_1_Pink.png
+
+total_frames: 6
+animateFrameStart: 0
+animateFrameEnd: 5
+animateFrameSpeed:0.2
+
+alpha:0.75
+scaleFrom:0.85
+scaleTo:0.85
+showInFog:true
+
+[effect_Beam_Hit_1_S_Pink]
+life: 100
+
+yOffsetRelative: 10
+
+alsoPlaySound:ROOT:\Resource\Sound\SE\Weapon\Hit\Beam_Hit_1.ogg:0.15
+
+attachedToUnit: false
+priority:high
+atmospheric:false
+ySpeedRelative:0.75
+delayedStartTimer:0
+fadeOut: false
+image:ROOT:Resource/Image/Fx/Weapon/Beam/Common/Image/Beam_Hit_1_Pink.png
+
+total_frames: 6
+animateFrameStart: 0
+animateFrameEnd: 5
+animateFrameSpeed:0.2
+
+alpha:0.75
+scaleFrom:0.35
+scaleTo:0.35
+showInFog:true
+
+
+
+[effect_Beam_Hit_1_L_Pink]
+life: 100
+
+yOffsetRelative: 10
+
+alsoPlaySound:ROOT:\Resource\Sound\SE\Weapon\Hit\Beam_Hit_1.ogg:0.15
+
+attachedToUnit: false
+priority:high
+atmospheric:false
+ySpeedRelative:0.75
+delayedStartTimer:0
+fadeOut: false
+image:ROOT:Resource/Image/Fx/Weapon/Beam/Common/Image/Beam_Hit_1_Pink.png
+
+total_frames: 6
+animateFrameStart: 0
+animateFrameEnd: 5
+animateFrameSpeed:0.2
+
+alpha:0.75
+scaleFrom:1.25
+scaleTo:1.25
+showInFog:true
+
+

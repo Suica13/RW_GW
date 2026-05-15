@@ -1,0 +1,50 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+[hiddenAction_AutoProduce_DonEscargot]
+@copyFromSection:template_AutoProduce
+@define UnitID=DonEscargot
+alsoTriggerAction:AutoProduce_DonEscargot_Step2
+
+[hiddenAction_AutoProduce_DonEscargot_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=450
+@define Resource=850
+alsoQueueAction:Produce_DonEscargot_StandardSquad
+
+
+
+[action_Produce_DonEscargot_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=DonEscargot
+@define Money=600
+@define Resource=1350
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+buildSpeed:35s
+
+alsoQueueAction:"""
+Produce_DonEscargot_StandardSquad_1,
+Produce_DonEscargot_StandardSquad_2,
+Produce_DonEscargot_StandardSquad_3
+"""
+[hiddenAction_Produce_DonEscargot_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+DonEscargot*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_DonEscargot_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+DonEscargot*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_DonEscargot_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+DonEscargot*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

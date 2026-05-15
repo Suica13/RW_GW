@@ -1,0 +1,403 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_Flash_1.gw,
+ROOT:Resource/Image/Fx/Weapon/Beam/Common/Beam_Fire_1_Yellow.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Cannon_Shoot_A.gw
+"""
+
+@memory ZN_MSM_10_HighBeamRifle_AimTarget:unit
+@memory ZN_MSM_10_HighBeamRifle_CDTimer:float
+@global ZN_MSM_10_HighBeamRifle_CD=90
+@global ZN_MSM_10_HighBeamRifle_EN=150
+
+@memory ZN_MSM_10_HighBeamRifle_ChargeEffect_1:unit
+@memory ZN_MSM_10_HighBeamRifle_BulletEffect_1:unit
+
+
+[decal_ZN_MSM_10_HighBeamRifle_Range]
+layer: inactive
+order:0
+onlyTeam:own
+alpha:1
+image:ROOT:Resource/Image/Ring/Ring150_Action.png
+imageScale:3.5
+basePosition:self
+alwaysStartDirAtZero:true
+onlyWhileAlive:true
+isVisible:if true
+
+
+
+
+
+[turret_ZN_MSM_10_HighBeamRifle]
+x:0
+y:0
+
+canShoot:false
+projectile:ZN_MSM_10_HighBeamRifle_Projectile
+
+delay:0.2s
+canAttackMaxAngle:15
+barrelX:0
+barrelY:0
+limitingAngle:0
+limitingRange:500
+limitingMinRange:300
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\BeamCannon_2.ogg
+shoot_sound_vol:0
+shoot_flame:none
+
+
+
+[projectile_ZN_MSM_10_HighBeamRifle_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_AP_BeamRifle_Yellow_Alpha0*1
+(
+    addResources=
+    BeamDamage:4000
+    |DpDamage:125
+    |WeaponAccuracy=100
+    |PartBreakModifier=1
+    |CockpitBreakModifier=1
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=1.0
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=2
+    |HeightHitRange=25
+    |ProjectileSpeed:70
+    |ProjectileSpread:1
+    |ProjectileLife:8
+
+    |ProjectileAttackTimes:7
+    |ProjectileAttackTimesDamageModifier:0.5
+
+    |EquipmentIndex=2
+    |EquipmentIndex2=525
+    |SubEquipmentIndex=1
+)
+"""
+
+
+
+
+[attachment_ZN_MSM_10_HighBeamRifle_ChargeEffect_1]
+x:0
+y:-5
+isVisible:true
+keepAliveWhenParentDies:false
+canBeAttackedAndDamaged:false
+isUnselectable:true
+canAttack:false
+showAllActionsFrom:true
+onConvertKeepExistingUnitInSameSlot:true
+idleDir:0
+resetRotationWhenNotAttacking:true
+
+[hiddenAction_ZN_MSM_10_HighBeamRifle_ChargeEffect_1_AwakeSet]
+autoTriggerOnEvent:created
+alsoTriggerAction:"""
+ZN_MSM_10_HighBeamRifle_ChargeEffect_1_StartSet
+"""
+attachments_addNewUnits:Beam_Charge_1_EffectUnit
+attachments_onlyOnSlots:ZN_MSM_10_HighBeamRifle_ChargeEffect_1
+
+[hiddenAction_ZN_MSM_10_HighBeamRifle_ChargeEffect_1_StartSet]
+setUnitMemory:ZN_MSM_10_HighBeamRifle_ChargeEffect_1=self.attachment(slot='ZN_MSM_10_HighBeamRifle_ChargeEffect_1')
+alsoTriggerAction:"""
+ZN_MSM_10_HighBeamRifle_ChargeEffect_1_SetColor,
+ZN_MSM_10_HighBeamRifle_ChargeEffect_1_SetSpeed
+"""
+
+[hiddenAction_ZN_MSM_10_HighBeamRifle_ChargeEffect_1_SetColor]
+sendMessageTo:memory.ZN_MSM_10_HighBeamRifle_ChargeEffect_1
+sendMessageWithTags:SetColor_Yellow
+[hiddenAction_ZN_MSM_10_HighBeamRifle_ChargeEffect_1_SetSpeed]
+sendMessageTo:memory.ZN_MSM_10_HighBeamRifle_ChargeEffect_1
+sendMessageWithTags:SetSpeed
+sendMessageWithData:Speed=5
+
+[hiddenAction_ZN_MSM_10_HighBeamRifle_Fire_Step_ChargeEffect_1]
+requireConditional:if ${cantAction}==false
+buildSpeed:0s
+sendMessageTo:memory.ZN_MSM_10_HighBeamRifle_ChargeEffect_1
+sendMessageWithTags:PlayOneTime
+playSoundAtUnit:ROOT:Resource/Sound/SE/Weapon/Fire/BeamCharge_1.ogg:2.0
+
+
+[attachment_ZN_MSM_10_HighBeamRifle_BulletEffect_1]
+x:0
+y:-5
+isVisible:true
+keepAliveWhenParentDies:false
+canBeAttackedAndDamaged:false
+isUnselectable:true
+canAttack:false
+showAllActionsFrom:true
+onConvertKeepExistingUnitInSameSlot:true
+idleDir:0
+resetRotationWhenNotAttacking:true
+
+[hiddenAction_ZN_MSM_10_HighBeamRifle_BulletEffect_1_AwakeSet]
+autoTriggerOnEvent:created
+alsoTriggerAction:"""
+ZN_MSM_10_HighBeamRifle_BulletEffect_1_StartSet
+"""
+attachments_addNewUnits:HighBeamRifle_1_Fast_EffectUnit
+attachments_onlyOnSlots:ZN_MSM_10_HighBeamRifle_BulletEffect_1
+
+[hiddenAction_ZN_MSM_10_HighBeamRifle_BulletEffect_1_StartSet]
+setUnitMemory:ZN_MSM_10_HighBeamRifle_BulletEffect_1=self.attachment(slot='ZN_MSM_10_HighBeamRifle_BulletEffect_1')
+alsoTriggerAction:"""
+ZN_MSM_10_HighBeamRifle_BulletEffect_1_SetColor,
+ZN_MSM_10_HighBeamRifle_BulletEffect_1_SetSpeed
+"""
+
+[hiddenAction_ZN_MSM_10_HighBeamRifle_BulletEffect_1_SetColor]
+sendMessageTo:memory.ZN_MSM_10_HighBeamRifle_BulletEffect_1
+sendMessageWithTags:SetColor_Yellow
+[hiddenAction_ZN_MSM_10_HighBeamRifle_BulletEffect_1_SetSpeed]
+sendMessageTo:memory.ZN_MSM_10_HighBeamRifle_BulletEffect_1
+sendMessageWithTags:SetSpeed
+sendMessageWithData:Speed=5
+
+[hiddenAction_ZN_MSM_10_HighBeamRifle_Fire_Step_BulletEffect_1]
+requireConditional:if ${cantAction}==false
+buildSpeed:0s
+sendMessageTo:memory.ZN_MSM_10_HighBeamRifle_BulletEffect_1
+sendMessageWithTags:PlayOneTime
+
+[hiddenAction_ZN_MSM_10_HighBeamRifle_BulletEffect_1_StopPlay]
+buildSpeed:0s
+sendMessageTo:memory.ZN_MSM_10_HighBeamRifle_BulletEffect_1
+sendMessageWithTags:StopPlay
+
+
+
+
+
+[hiddenAction_ZN_MSM_10_HighBeamRifle_Trigger_ByAI]
+autoTrigger:"""
+if ${allowAI}==true 
+and ${cantAction}==false 
+and ${onSkill}==false 
+and memory.close==false 
+and self.timeAlive>memory.ZN_MSM_10_HighBeamRifle_CDTimer 
+and self.parent.hp<=0  
+and self.resource.EN>${ZN_MSM_10_HighBeamRifle_EN} 
+and memory.ZN_MSM_10_HighBeamRifle_AimTarget.hp>0 
+and memory.ZN_MSM_10_HighBeamRifle_AimTarget.teamID>=0 
+and not memory.ZN_MSM_10_HighBeamRifle_AimTarget.tags(includes='UnDetected') 
+"""
+alsoTriggerAction:ZN_MSM_10_HighBeamRifle_Trigger
+
+
+
+[hiddenAction_ZN_MSM_10_HighBeamRifle_FindTarget]
+autoTrigger:if ${allowAI}==true and ${onSkill}==false 
+takeResources_includeUnitsWithinRange:1000
+takeResources_includeUnitsWithinRange_team:enemy
+takeResources_excludeUnitsWithoutTags:CanBeDetected
+takeResources_searchOnly:true
+takeResources_maxUnits:30
+takeResources_triggerActionForEach:ZN_MSM_10_HighBeamRifle_FindTarget_Step2
+[hiddenAction_ZN_MSM_10_HighBeamRifle_FindTarget_Step2]
+requireConditional:"""
+if not thisActionTarget.tags(includes='UnDetected') 
+"""
+setUnitMemory:ZN_MSM_10_HighBeamRifle_AimTarget=thisActionTarget
+
+
+
+[action_ZN_MSM_10_HighBeamRifle_Trigger]
+pos:10
+text:HighBeamRifle %{select(self.timeAlive<=memory.ZN_MSM_10_HighBeamRifle_CDTimer,str(int(memory.ZN_MSM_10_HighBeamRifle_CDTimer-self.timeAlive))+"s","OK")}
+text_zh:声子增幅炮 %{select(self.timeAlive<=memory.ZN_MSM_10_HighBeamRifle_CDTimer,str(int(memory.ZN_MSM_10_HighBeamRifle_CDTimer-self.timeAlive))+"秒","OK")}
+text_KP:100
+
+displayType:infoOnly
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamCannon_1.png
+highPriorityQueue:true
+
+price:EN=${ZN_MSM_10_HighBeamRifle_EN}
+
+onlyOneUnitAtATime:true
+
+isVisible:if self.parent.hp<=0  
+
+isGuiBlinking:"""
+if self.timeAlive>memory.ZN_MSM_10_HighBeamRifle_CDTimer
+"""
+
+
+
+isLocked:if self.timeAlive<=memory.ZN_MSM_10_HighBeamRifle_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+isLockedAlt2:if ${cantAction}==true or ${onSkill}==true or ${allowAI}==true
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+fireTurretXAtGround:ZN_MSM_10_HighBeamRifle
+fireTurretXAtGround_count:0
+fireTurretXAtGround_showGuideDecals:ZN_MSM_10_HighBeamRifle_Range
+
+clearAllWaypoints:true
+
+
+alsoTriggerAction:"""
+SetAttackingOn,
+SetOnSkillOn,
+ZN_MSM_10_HighBeamRifle_SetWeaponIndex,
+ZN_MSM_10_HighBeamRifle_B1_Step_1,
+ZN_MSM_10_HighBeamRifle_B1_Step_1_AI
+"""
+[hiddenAction_ZN_MSM_10_HighBeamRifle_B1_Step_1]
+requireConditional:if ${allowAI}==false
+setUnitMemory:"""
+ZN_MSM_10_HighBeamRifle_AimTarget=memory.ZN_MSM_10_HighBeamRifle_AimTarget.getOffsetRelative(),
+ZN_MSM_10_HighBeamRifle_CDTimer=self.timeAlive+${ZN_MSM_10_HighBeamRifle_CD}
+"""
+
+alsoQueueAction:"""
+SetAttackingCantAimOn,
+ZN_MSM_10_HighBeamRifle_Fire_Step_ChargeEffect_1,
+ZN_MSM_10_HighBeamRifle_Fire_Step_1,
+ZN_MSM_10_HighBeamRifle_Fire_Step_BulletEffect_1,
+
+ZN_MSM_10_HighBeamRifle_Fire_Step_2,
+ZN_MSM_10_HighBeamRifle_Fire_Step_2,
+ZN_MSM_10_HighBeamRifle_Fire_Step_2,
+ZN_MSM_10_HighBeamRifle_Fire_Step_2,
+ZN_MSM_10_HighBeamRifle_Fire_Step_2,
+ZN_MSM_10_HighBeamRifle_Fire_Step_2,
+
+ZN_MSM_10_HighBeamRifle_Fire_Step_2,
+ZN_MSM_10_HighBeamRifle_Fire_Step_2,
+ZN_MSM_10_HighBeamRifle_Fire_Step_2,
+ZN_MSM_10_HighBeamRifle_Fire_Step_2,
+ZN_MSM_10_HighBeamRifle_Fire_Step_2,
+ZN_MSM_10_HighBeamRifle_Fire_Step_2,
+ZN_MSM_10_HighBeamRifle_Fire_Step_Final,
+ZN_MSM_10_HighBeamRifle_BulletEffect_1_StopPlay
+"""
+
+
+
+
+[hiddenAction_ZN_MSM_10_HighBeamRifle_B1_Step_1_AI]
+requireConditional:if ${allowAI}==true
+setUnitMemory:"""
+ZN_MSM_10_HighBeamRifle_AimTarget=memory.ZN_MSM_10_HighBeamRifle_AimTarget.getOffsetRelative(),
+ZN_MSM_10_HighBeamRifle_CDTimer=self.timeAlive+${ZN_MSM_10_HighBeamRifle_CD}
+"""
+setBodyRotation:directionBetween(self,memory.ZN_MSM_10_HighBeamRifle_AimTarget)
+
+alsoTriggerAction:"""
+SetAttackingCantTurnOn
+"""
+
+alsoQueueAction:"""
+SetAttackingCantAimOn,
+ZN_MSM_10_HighBeamRifle_Fire_Step_ChargeEffect_1,
+ZN_MSM_10_HighBeamRifle_Fire_Step_1_AI,
+ZN_MSM_10_HighBeamRifle_Fire_Step_BulletEffect_1,
+ZN_MSM_10_HighBeamRifle_Fire_Step_2,
+ZN_MSM_10_HighBeamRifle_Fire_Step_2,
+ZN_MSM_10_HighBeamRifle_Fire_Step_2,
+ZN_MSM_10_HighBeamRifle_Fire_Step_2,
+ZN_MSM_10_HighBeamRifle_Fire_Step_2,
+
+ZN_MSM_10_HighBeamRifle_Fire_Step_2,
+ZN_MSM_10_HighBeamRifle_Fire_Step_2,
+ZN_MSM_10_HighBeamRifle_Fire_Step_2,
+ZN_MSM_10_HighBeamRifle_Fire_Step_2,
+ZN_MSM_10_HighBeamRifle_Fire_Step_2,
+ZN_MSM_10_HighBeamRifle_Fire_Step_Final,
+ZN_MSM_10_HighBeamRifle_BulletEffect_1_StopPlay
+"""
+
+
+
+
+
+
+
+
+[hiddenAction_ZN_MSM_10_HighBeamRifle_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_ZN_MSM_10_HighBeamRifle_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.75s
+spawnEffects:Flash_1_L
+
+stopLastAnimation:true
+fireTurretXAtGround:ZN_MSM_10_HighBeamRifle
+fireTurretXAtGround_count:0
+fireTurretXAtGround_withTarget:memory.ZN_MSM_10_HighBeamRifle_AimTarget
+
+whenBuilding_cannotMove:true
+whenBuilding_rotateTo_aimAtActionTarget:true
+whenBuilding_rotateTo_waitTillRotated:true
+[hiddenAction_ZN_MSM_10_HighBeamRifle_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.1s
+whenBuilding_cannotMove:true
+fireTurretXAtGround:ZN_MSM_10_HighBeamRifle
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+
+[hiddenAction_ZN_MSM_10_HighBeamRifle_Fire_Step_Final]
+buildSpeed:1.5s
+whenBuilding_cannotMove:true
+alsoTriggerAction:"""
+SetAttackingOff,
+SetOnSkillOff,
+SetAttackingCantAimOff,
+SetAttackingCantTurnOff
+"""
+
+
+[hiddenAction_ZN_MSM_10_HighBeamRifle_Fire_Step_1_AI]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.75s
+spawnEffects:Flash_1_L
+whenBuilding_cannotMove:true

@@ -1,0 +1,50 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+[hiddenAction_AutoProduce_Dodai2]
+@copyFromSection:template_AutoProduce
+@define UnitID=Dodai2
+alsoTriggerAction:AutoProduce_Dodai2_Step2
+
+[hiddenAction_AutoProduce_Dodai2_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=450
+@define Resource=900
+alsoQueueAction:Produce_Dodai2_StandardSquad
+
+
+
+[action_Produce_Dodai2_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=Dodai2
+@define Money=450
+@define Resource=900
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:35s
+
+alsoQueueAction:"""
+Produce_Dodai2_StandardSquad_1,
+Produce_Dodai2_StandardSquad_2,
+Produce_Dodai2_StandardSquad_3
+"""
+[hiddenAction_Produce_Dodai2_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+Dodai2*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_Dodai2_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+Dodai2*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_Dodai2_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+Dodai2*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

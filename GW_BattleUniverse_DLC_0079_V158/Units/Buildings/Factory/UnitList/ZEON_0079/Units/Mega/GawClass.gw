@@ -1,0 +1,37 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+
+[hiddenAction_AutoProduce_GawClass]
+@copyFromSection:template_AutoProduce
+@define UnitID=GawClass
+alsoTriggerAction:AutoProduce_GawClass_Step2
+
+[hiddenAction_AutoProduce_GawClass_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=2500
+@define Resource=3500
+alsoQueueAction:Produce_GawClass
+
+
+
+[action_Produce_GawClass]
+@copyFromSection:template_Produce_Fast
+@define UnitID=GawClass
+@define Money=2500
+@define Resource=3500
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:50s
+
+alsoQueueAction:"""
+Produce_GawClass_1
+"""
+[hiddenAction_Produce_GawClass_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+GawClass*1(addResources=PilotType:2001|EquipmentIndex:0)
+"""

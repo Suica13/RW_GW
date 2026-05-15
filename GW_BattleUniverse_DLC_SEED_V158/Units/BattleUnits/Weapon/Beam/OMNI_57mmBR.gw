@@ -1,0 +1,216 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Resource/Image/Fx/Weapon/Beam/Common/Beam_Fire_1_Green.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_A.gw
+"""
+
+@memory OMNI_57mmBR_CDTimer:float
+@global OMNI_57mmBR_CD=2
+@global OMNI_57mmBR_EN=40
+
+
+
+
+
+[decal_OMNI_57mmBR]
+layer:beforeBody
+order:5.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Beam\Image\OMNI_57mmBR.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:0.85
+xOffsetRelative: 1
+yOffsetRelative: 14
+dirOffset:0
+
+[decal_OMNI_57mmBR_NotUsing]
+@copyFromSection:decal_OMNI_57mmBR
+isVisible:false
+order:3
+basePositionFromLegEnd:arm1
+imageScale:0.75
+xOffsetRelative:0
+yOffsetRelative:-5
+dirOffset:-90
+
+
+
+
+
+
+
+[turret_OMNI_57mmBR]
+x:0
+y:0
+
+canShoot:false
+projectile:OMNI_57mmBR_Projectile
+
+delay:0.2s
+canAttackMaxAngle:15
+barrelX:10
+barrelY:23
+limitingRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/BeamRifle_2.ogg
+shoot_sound_vol:0.6
+shoot_flame:Beam_Fire_1_Green
+[turret_OMNI_57mmBR_GL]
+@copyFromSection:turret_OMNI_57mmBR
+barrelX:10
+barrelY:23
+projectile:OMNI_57mmBR_GL_Projectile
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\Missile_1.ogg
+shoot_sound_vol:0.4
+shoot_flame:BZ_Fire_1_S
+
+
+
+
+[projectile_OMNI_57mmBR_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_BeamRifle_Green*1
+(
+    addResources=
+    BeamDamage:6000
+    |DpDamage:200
+    |WeaponAccuracy=90
+    |PartBreakModifier=1
+    |CockpitBreakModifier=1
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.5
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=2
+    |HeightHitRange=25
+    |ProjectileSpeed:80
+    |ProjectileSpread:1
+    |ProjectileLife:30
+)
+"""
+
+[projectile_OMNI_57mmBR_GL_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Bazooka_S*1
+(
+    addResources=
+    ShellDamage:1500
+    |DpDamage:100
+    |WeaponAccuracy=85
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75
+    |AntiLand=1 
+    |HeightChangeSpeed=2
+    |HeightHitRange=20
+    |ProjectileSpeed:55
+    |ProjectileSpread:2
+    |ProjectileExplosionRange:35
+    |ProjectileLife:25
+)
+"""
+
+
+
+
+
+[hiddenAction_OMNI_57mmBR_Trigger]
+alsoTriggerAction:OMNI_57mmBR_Fire
+[hiddenAction_OMNI_57mmBR_Fire]
+requireConditional:"""
+if self.timeAlive>memory.OMNI_57mmBR_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15) 
+and self.resource.EN>0
+"""
+setUnitMemory:OMNI_57mmBR_CDTimer=self.timeAlive+${OMNI_57mmBR_CD}
+addResources:EN=-${OMNI_57mmBR_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+OMNI_57mmBR_SetWeaponIndex,
+PlayCommon_Shoot_A_Step_1,
+OMNI_57mmBR_B1_Step_1
+"""
+[hiddenAction_OMNI_57mmBR_B1_Step_1]
+alsoQueueAction:"""
+OMNI_57mmBR_Fire_Step_1,
+OMNI_57mmBR_Fire_Step_2,
+OMNI_57mmBR_Fire_Step_3,
+OMNI_57mmBR_Fire_Step_Final
+"""
+
+
+
+[hiddenAction_OMNI_57mmBR_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_OMNI_57mmBR_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.25s
+[hiddenAction_OMNI_57mmBR_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:OMNI_57mmBR
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_OMNI_57mmBR_Fire_Step_3]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.25s
+fireTurretXAtGround:OMNI_57mmBR_GL
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_OMNI_57mmBR_Fire_Step_Final]
+buildSpeed:0.25s
+alsoTriggerAction:SetAttackingOff
+

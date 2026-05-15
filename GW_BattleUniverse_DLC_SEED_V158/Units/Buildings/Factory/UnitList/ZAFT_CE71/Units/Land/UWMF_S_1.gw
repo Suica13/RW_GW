@@ -1,0 +1,64 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+@memory UWMF_S_1:bool
+
+
+[hiddenAction_Pannel_Close_UWMF_S_1]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:UWMF_S_1=false
+
+
+
+[hiddenAction_AutoProduce_UWMF_S_1]
+@copyFromSection:template_AutoProduce
+@define UnitID=UWMF_S_1
+alsoTriggerAction:AutoProduce_UWMF_S_1_Step2
+
+[hiddenAction_AutoProduce_UWMF_S_1_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=800
+@define Resource=1800
+alsoQueueAction:Produce_UWMF_S_1_StandardSquad
+
+
+
+
+[action_Pannel_UWMF_S_1]
+@copyFromSection:template_Pannel
+@define UnitID=UWMF_S_1
+@define FactionVisible= (memory.Pannel_ZAFT_CE71_DontShow==false)
+
+
+[action_Produce_UWMF_S_1_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=UWMF_S_1
+@define Money=800
+@define Resource=1800
+@define FactionVisible= (memory.Pannel_ZAFT_CE71_DontShow==false)
+buildSpeed:60s
+
+alsoQueueAction:"""
+Produce_UWMF_S_1_StandardSquad_1,
+Produce_UWMF_S_1_StandardSquad_2,
+Produce_UWMF_S_1_StandardSquad_3
+"""
+[hiddenAction_Produce_UWMF_S_1_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+UWMF_S_1*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_UWMF_S_1_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+UWMF_S_1*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_UWMF_S_1_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+UWMF_S_1*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+

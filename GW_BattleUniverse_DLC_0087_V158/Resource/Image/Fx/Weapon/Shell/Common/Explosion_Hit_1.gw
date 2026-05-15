@@ -1,0 +1,53 @@
+[core]
+dont_load:false
+
+[effect_Explosion_Hit_1]
+life: 100
+
+xOffsetRelative: -1
+yOffsetRelative: 10
+hOffset: 0
+dirOffset: -90
+attachedToUnit: false
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+alpha:0.85
+scaleFrom: 1.35
+scaleTo: 1.35
+image: ROOT:\Resource\Image\Fx\Weapon\Shell\Image\Explosion_Hit_1.png
+alsoPlaySound:ROOT:\Resource\Sound\SE\Weapon\Hit\Explosion_Hit_1.ogg:0.35
+
+total_frames: 5
+animateFrameStart: 0
+animateFrameEnd: 4
+animateFrameSpeed: 0.15
+showInFog:true
+
+[effect_Explosion_Hit_1_L]
+@copyFromSection:effect_Explosion_Hit_1
+scaleFrom: 1.85
+scaleTo: 1.85
+
+[effect_Explosion_Hit_1_XL]
+@copyFromSection:effect_Explosion_Hit_1
+xOffsetRelative: -1
+yOffsetRelative: 0
+scaleFrom: 2.75
+scaleTo: 2.75
+
+
+
+[effect_Explosion_Hit_1_S]
+@copyFromSection:effect_Explosion_Hit_1
+scaleFrom: 0.75
+scaleTo: 0.75
+
+[effect_Explosion_Hit_1_XS]
+@copyFromSection:effect_Explosion_Hit_1
+scaleFrom: 0.5
+scaleTo: 0.5
+

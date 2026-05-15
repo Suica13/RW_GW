@@ -1,0 +1,64 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+@memory MS_06M:bool
+
+
+[hiddenAction_Pannel_Close_MS_06M]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:MS_06M=false
+
+
+
+[hiddenAction_AutoProduce_MS_06M]
+@copyFromSection:template_AutoProduce
+@define UnitID=MS_06M
+alsoTriggerAction:AutoProduce_MS_06M_Step2
+
+[hiddenAction_AutoProduce_MS_06M_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=800
+@define Resource=1800
+alsoQueueAction:Produce_MS_06M_StandardSquad
+
+
+
+
+[action_Pannel_MS_06M]
+@copyFromSection:template_Pannel
+@define UnitID=MS_06M
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+
+
+[action_Produce_MS_06M_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=MS_06M
+@define Money=800
+@define Resource=1800
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:50s
+
+alsoQueueAction:"""
+Produce_MS_06M_StandardSquad_1,
+Produce_MS_06M_StandardSquad_2,
+Produce_MS_06M_StandardSquad_3
+"""
+[hiddenAction_Produce_MS_06M_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_06M*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_MS_06M_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_06M*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_MS_06M_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+MS_06M*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+

@@ -1,0 +1,33 @@
+[core]
+dont_load:false
+
+
+
+[effect_ExplosiveReactiveArmor_1]
+life: 100
+
+xOffsetRelative: 0
+yOffsetRelative: 0
+
+xOffsetRelativeRandom:10
+yOffsetRelativeRandom:10
+
+hOffset: 0
+dirOffset: -90
+attachedToUnit: false
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+alpha:0.55
+scaleFrom: 0.25
+scaleTo: 0.25
+image: ROOT:\Resource\Image\Fx\Weapon\Shell\Image\Hit_Explosion_1.png
+
+total_frames: 5
+animateFrameStart: 0
+animateFrameEnd: 4
+animateFrameSpeed: 0.1
+showInFog:true

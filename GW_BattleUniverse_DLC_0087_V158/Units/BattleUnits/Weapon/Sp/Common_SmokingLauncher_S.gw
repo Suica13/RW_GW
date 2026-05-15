@@ -1,0 +1,135 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Cannon_Shoot_A.gw
+"""
+
+@memory Common_SmokingLauncher_S_CDTimer:float
+@global Common_SmokingLauncher_S_CD=90
+
+
+[turret_Common_SmokingLauncher_S]
+x:0
+y:0
+
+canShoot:false
+projectile:Common_SmokingLauncher_S_Projectile
+
+delay:0.2s
+canAttackMaxAngle:15
+limitingAngle:0
+limitingRange:1200
+barrelX:0
+barrelY:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/Smoke_1.ogg
+shoot_sound_vol:1.0
+shoot_flame:BZ_Fire_1_S
+
+
+
+
+[projectile_Common_SmokingLauncher_S_Projectile]
+
+directDamage: 0
+life: 1
+explodeOnEndOfLife:true
+speed: 1
+instant:true
+invisible:true
+targetGround:true
+effectOnCreate:none
+explodeEffect:none
+drawUnderUnits:true
+image:none
+
+spawnUnit:"""
+SmokingArea_Fixed*1
+(   
+    offsetRandomDir=360,
+    offsetX=0,
+    offsetY=0,
+    addResources=
+    ProjectileExplosionRange:100
+    |ProjectileLife:20
+)
+"""
+
+
+
+[action_Common_SmokingLauncher_S_Trigger]
+pos:10
+text:SmokingLauncher[Self][S] %{select(self.timeAlive<=memory.Common_SmokingLauncher_S_CDTimer,str(int(memory.Common_SmokingLauncher_S_CDTimer-self.timeAlive))+"s","OK")}
+text_zh:烟雾弹发射器[自机][小] %{select(self.timeAlive<=memory.Common_SmokingLauncher_S_CDTimer,str(int(memory.Common_SmokingLauncher_S_CDTimer-self.timeAlive))+"秒","OK")}
+text_KP:100
+
+description:AreaAlly:\nReaction+15%\nAntiDetect+200m\nShootDef Up\n15s
+description_zh:范围友军:\n反应+15%\n反侦测+200m\n射击抗性上升\持续15秒
+
+displayType:infoOnly
+
+price:EN=75
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+ai_isDisabled:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Grenade_3.png
+highPriorityQueue:true
+
+isVisible:if self.parent.hp<=0 
+isGuiBlinking:"""
+if self.timeAlive>memory.Common_SmokingLauncher_S_CDTimer 
+and ${cantAction}==false 
+and ${onSkill}==false
+"""
+
+isLocked:if self.timeAlive<=memory.Common_SmokingLauncher_S_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+isLockedAlt2:if ${cantAction}==true or ${onSkill}==true
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+alsoTriggerAction:"""
+SetOnSkillOn,
+Common_SmokingLauncher_S_SetWeaponIndex,
+Common_SmokingLauncher_S_B1_Step_1,
+PlayCommon_Cannon_Shoot_A_Step_1
+"""
+[hiddenAction_Common_SmokingLauncher_S_B1_Step_1]
+setUnitMemory:"""
+Common_SmokingLauncher_S_CDTimer=self.timeAlive+${Common_SmokingLauncher_S_CD}
+"""
+
+alsoQueueAction:"""
+Common_SmokingLauncher_S_Fire_Step_1,
+Common_SmokingLauncher_S_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_Common_SmokingLauncher_S_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_Common_SmokingLauncher_S_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.25s
+fireTurretXAtGround:Common_SmokingLauncher_S
+fireTurretXAtGround_withTarget:self
+[hiddenAction_Common_SmokingLauncher_S_Fire_Step_Final]
+buildSpeed:0s
+alsoTriggerAction:"""
+SetOnSkillOff
+"""

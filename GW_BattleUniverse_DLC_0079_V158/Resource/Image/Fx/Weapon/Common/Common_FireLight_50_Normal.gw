@@ -1,0 +1,16 @@
+[core]
+dont_load:false
+
+
+
+[effect_Common_FireLight_50_Normal]
+image:ROOT:Resource/Image/Fx/Weapon/Common/Image/Common_FireLight_25_Normal.png
+priority:high
+yOffsetRelative:0
+life: 15
+scaleFrom: 4
+scaleTo: 2
+alpha:0.5
+alwayStartDirAtZero:true
+drawUnderUnits:false
+

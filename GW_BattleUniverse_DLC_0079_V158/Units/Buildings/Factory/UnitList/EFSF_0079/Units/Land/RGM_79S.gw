@@ -1,0 +1,70 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory RGM_79S:bool
+
+
+[hiddenAction_Pannel_Close_RGM_79S]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:RGM_79S=false
+
+
+
+
+[hiddenAction_AutoProduce_RGM_79S]
+@copyFromSection:template_AutoProduce
+@define UnitID=RGM_79S
+alsoTriggerAction:AutoProduce_RGM_79S_Step2
+
+[hiddenAction_AutoProduce_RGM_79S_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=4000
+@define Resource=5500
+alsoTriggerAction:AutoProduce_RGM_79S_Random
+
+
+
+[hiddenAction_AutoProduce_RGM_79S_Random]
+alsoTriggerAction:"""
+AutoProduce_RGM_79S_Random_A
+"""
+[hiddenAction_AutoProduce_RGM_79S_Random_A]
+requireConditional:"""
+if memory.randomProduce<=1000
+"""
+alsoQueueAction:Produce_RGM_79S_StandardSquad
+
+
+
+[action_Produce_RGM_79S_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=RGM_79S
+@define Money=4000
+@define Resource=5500
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+buildSpeed:65s
+
+alsoQueueAction:"""
+Produce_RGM_79S_StandardSquad_1,
+Produce_RGM_79S_StandardSquad_2,
+Produce_RGM_79S_StandardSquad_3
+"""
+[hiddenAction_Produce_RGM_79S_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RGM_79S*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_RGM_79S_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+RGM_79S*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_RGM_79S_StandardSquad_3]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+RGM_79S*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

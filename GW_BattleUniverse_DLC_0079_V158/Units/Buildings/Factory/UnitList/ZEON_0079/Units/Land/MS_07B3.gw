@@ -1,0 +1,45 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+@memory MS_07B3:bool
+
+
+[hiddenAction_Pannel_Close_MS_07B3]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:MS_07B3=false
+
+
+
+[hiddenAction_AutoProduce_MS_07B3]
+@copyFromSection:template_AutoProduce
+@define UnitID=MS_07B3
+alsoTriggerAction:AutoProduce_MS_07B3_Step2
+
+[hiddenAction_AutoProduce_MS_07B3_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=750
+@define Resource=1350
+alsoQueueAction:Produce_MS_07B3
+
+
+
+
+[action_Produce_MS_07B3]
+@copyFromSection:template_Produce_Fast
+@define UnitID=MS_07B3
+@define Money=900
+@define Resource=1350
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+buildSpeed:35s
+
+alsoQueueAction:"""
+Produce_MS_07B3_StandardSquad_1
+"""
+[hiddenAction_Produce_MS_07B3_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_07B3*1(addResources=PilotType:1001|EquipmentIndex:0)
+"""
+

@@ -1,0 +1,50 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+[hiddenAction_AutoProduce_FFB_7Bst]
+@copyFromSection:template_AutoProduce
+@define UnitID=FFB_7Bst
+alsoTriggerAction:AutoProduce_FFB_7Bst_Step2
+
+[hiddenAction_AutoProduce_FFB_7Bst_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=500
+@define Resource=800
+alsoQueueAction:Produce_FFB_7Bst_StandardSquad
+
+
+
+[action_Produce_FFB_7Bst_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=FFB_7Bst
+@define Money=750
+@define Resource=1750
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+buildSpeed:35s
+
+alsoQueueAction:"""
+Produce_FFB_7Bst_StandardSquad_1,
+Produce_FFB_7Bst_StandardSquad_2,
+Produce_FFB_7Bst_StandardSquad_3
+"""
+[hiddenAction_Produce_FFB_7Bst_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+FFB_7Bst*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_FFB_7Bst_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+FFB_7Bst*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_FFB_7Bst_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+FFB_7Bst*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

@@ -1,0 +1,22 @@
+[core]
+dont_load:false
+
+@memory trailFrame:float
+
+
+[hiddenAction_UpdateTrailFrame]
+autoTrigger:true
+setUnitMemory:trailFrame=select(memory.trailFrame>=${decal_GN_Trail_1_Orange.total_frames}-0.1,0,memory.trailFrame+0.1)
+
+[decal_GN_Trail_1_Orange]
+layer:beforeUI
+order:6.1
+onlyWhileAlive:true 
+isVisible:true
+imageScale:0.25
+xOffsetRelative: 0
+yOffsetRelative: -15
+dirOffset:0
+total_frames:4
+frame:memory.trailFrame
+image: ROOT:\Resource\Image\Fx\Weapon\Shell\Image\GN_Trail_1_Orange.png

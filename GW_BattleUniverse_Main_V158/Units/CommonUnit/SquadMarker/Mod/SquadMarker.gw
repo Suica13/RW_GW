@@ -1,0 +1,656 @@
+
+[core]
+dont_load:true
+
+tags:SquadMarker
+name: SquadMarker
+displayText:SquadMarker
+displayText_zh:小队标记
+
+showOnMinimap:false
+price: 5000
+maxHp: 99999
+mass: 50000
+armour:60
+
+
+techLevel: 1
+buildSpeed: 0.001
+radius: 60
+displayRadius:60
+
+isUnselectable:false
+
+showInEditor:true
+disableAllUnitCollisions:true
+
+fogOfWarSightRange:0
+
+canNotBeDamaged:true
+
+autoTriggerCooldownTime:0.1s
+
+@memory formationType:float
+
+@memory unitMarker1:unit
+@memory unitMarker2:unit
+@memory unitMarker3:unit
+
+@memory unit1:unit
+@memory unit2:unit
+@memory unit3:unit
+
+@memory attackMode:float
+@memory attackTargetMode:float
+@memory attackRuleMode:float
+@memory moveMode:float
+
+
+@global canJoinRange=150
+
+
+[hiddenAction_Awake]
+autoTriggerOnEvent:created
+alsoTriggerAction:"""
+Start
+"""
+
+[hiddenAction_Start]
+alsoTriggerAction:"""
+
+"""
+setUnitMemory:moveMode=1
+
+[hiddenAction_Update]
+autoTrigger:true
+alsoTriggerAction:"""
+Check_Unit1,
+Set_Formation_A,
+Set_Formation_B
+"""
+
+
+[hiddenAction_Check_Unit1]
+requireConditional:if memory.unit1.hp<=0
+setUnitMemory:"""
+unit1=memory.unit2,
+unit2=memory.unit3
+"""
+
+[hiddenAction_Set_Formation_A]
+requireConditional:if memory.formationType==0
+setUnitMemory:"""
+unitMarker1=self.getOffsetRelative(x=0,y=35),
+unitMarker2=self.getOffsetRelative(x=60,y=-25),
+unitMarker3=self.getOffsetRelative(x=-60,y=-25)
+"""
+[hiddenAction_Set_Formation_B]
+requireConditional:if memory.formationType==1
+setUnitMemory:"""
+unitMarker1=self.getOffsetRelative(x=0,y=-25),
+unitMarker2=self.getOffsetRelative(x=60,y=35),
+unitMarker3=self.getOffsetRelative(x=-60,y=35)
+"""
+
+
+
+
+
+
+[hiddenAction_Start_RangeJoinSquad]
+autoTriggerOnEvent:created
+setUnitMemory:unit1=select(customTarget1.hasTags(includes='CanJoinSquadUnit'),customTarget1,null)
+sendMessageTo:customTarget1
+sendMessageWithTags:Squad_UnitJoin_Accept
+sendMessageWithData:"""
+unitInfo=self
+"""
+alsoTriggerAction:Send_Squad_UnitJoin
+
+
+
+
+[action_Squad_Invite]
+pos:1
+
+buildSpeed:0s
+addActionCooldownTime:10
+
+highPriorityQueue:true
+allowMultipleInQueue:false
+canPlayerCancel:true
+alwaysSinglePress:true
+ai_isDisabled:true
+extraLagHidingInUI:true
+onlyOneUnitAtATime:true
+
+displayType:infoOnly
+
+text:Invite Units Join Squad
+text_zh:邀请单位加入
+
+iconImage:ROOT:Resource/Image/Units/Button/Misc/Squad_Join_1.png
+
+isVisible:if true
+isLocked:"""
+if memory.unit1.hp>0 
+and memory.unit2.hp>0 
+and memory.unit3.hp>0
+"""
+isLockedMessage:Full
+isLockedMessage_zh:已满
+
+alsoTriggerAction:Send_Squad_UnitJoin
+
+[action_Squad_Delself]
+pos:2
+
+buildSpeed:1s
+
+highPriorityQueue:true
+allowMultipleInQueue:false
+canPlayerCancel:true
+alwaysSinglePress:true
+ai_isDisabled:true
+extraLagHidingInUI:true
+onlyOneUnitAtATime:true
+
+displayType:infoOnly
+
+text:Disband
+text_zh:解散
+
+iconImage:ROOT:Resource/Image/Units/Button/Misc/Exit_1.png
+
+isVisible:if true
+
+deleteSelf:true
+
+
+[hiddenAction_Send_Squad_UnitJoin]
+takeResources_includeUnitsWithinRange:${canJoinRange}
+takeResources_includeUnitsWithinRange_team:own
+takeResources_excludeUnitsWithoutTags:CanJoinSquadUnit
+takeResources_searchOnly:true
+takeResources_maxUnits:30
+takeResources_triggerActionForEach:Send_Squad_UnitJoin_Step2
+[hiddenAction_Send_Squad_UnitJoin_Step2]
+sendMessageTo:thisActionTarget
+sendMessageWithTags:Squad_UnitJoin
+sendMessageWithData:unitInfo=self
+
+
+[hiddenAction_Get_Squad_UnitJoin_Fallback]
+autoTriggerOnEvent:newMessage(withTag="Squad_UnitJoin_Fallback")
+alsoTriggerAction:"""
+Get_Squad_UnitJoin_Fallback_Unit1,
+Get_Squad_UnitJoin_Fallback_Unit2,
+Get_Squad_UnitJoin_Fallback_Unit3
+"""
+[hiddenAction_Get_Squad_UnitJoin_Fallback_Unit1]
+requireConditional:"""
+if memory.unit1.hp<=0 
+and 
+(
+    eventData("unitInfo",type="unit") != memory.unit2 
+    and 
+    eventData("unitInfo",type="unit") != memory.unit3
+)
+"""
+setUnitMemory:unit1=eventData("unitInfo",type="unit")
+alsoTriggerAction:Send_Squad_UnitJoin_Accept
+[hiddenAction_Get_Squad_UnitJoin_Fallback_Unit2]
+requireConditional:"""
+if memory.unit2.hp<=0 
+and 
+(
+    eventData("unitInfo",type="unit") != memory.unit1 
+    and 
+    eventData("unitInfo",type="unit") != memory.unit3
+)
+"""
+setUnitMemory:unit2=eventData("unitInfo",type="unit")
+alsoTriggerAction:Send_Squad_UnitJoin_Accept
+[hiddenAction_Get_Squad_UnitJoin_Fallback_Unit3]
+requireConditional:"""
+if memory.unit3.hp<=0 
+and 
+(
+    eventData("unitInfo",type="unit") != memory.unit1 
+    and 
+    eventData("unitInfo",type="unit") != memory.unit2
+)
+"""
+setUnitMemory:unit3=eventData("unitInfo",type="unit")
+alsoTriggerAction:Send_Squad_UnitJoin_Accept
+[hiddenAction_Send_Squad_UnitJoin_Accept]
+sendMessageTo:eventData("unitInfo",type="unit")
+sendMessageWithTags:Squad_UnitJoin_Accept
+sendMessageWithData:"""
+unitInfo=self
+"""
+
+
+
+[hiddenAction_Get_Squad_UnitExit]
+autoTriggerOnEvent:newMessage(withTag="Squad_UnitExit")
+alsoTriggerAction:"""
+Get_Squad_UnitExit_Unit1,
+Get_Squad_UnitExit_Unit2,
+Get_Squad_UnitExit_Unit3
+"""
+[hiddenAction_Get_Squad_UnitExit_Unit1]
+requireConditional:if memory.unit1==eventData("unitInfo",type="unit")
+setUnitMemory:unit1=null
+[hiddenAction_Get_Squad_UnitExit_Unit2]
+requireConditional:if memory.unit2==eventData("unitInfo",type="unit")
+setUnitMemory:unit2=null
+[hiddenAction_Get_Squad_UnitExit_Unit3]
+requireConditional:if memory.unit3==eventData("unitInfo",type="unit")
+setUnitMemory:unit3=null
+
+
+
+[hiddenAction_Check_SquadUnit_Pos_SendMarker]
+autoTrigger:true
+alsoTriggerAction:"""
+Check_SquadUnit_Pos_SendMarker_1,
+Check_SquadUnit_Pos_SendMarker_2,
+Check_SquadUnit_Pos_SendMarker_3
+"""
+
+[hiddenAction_Check_SquadUnit_Pos_SendMarker_1]
+requireConditional:if memory.unit1.hp>0
+sendMessageTo:memory.unit1
+sendMessageWithTags:Squad_UnitMarker
+sendMessageWithData:"""
+unitInfo=memory.unitMarker1
+"""
+[hiddenAction_Check_SquadUnit_Pos_SendMarker_2]
+requireConditional:if memory.unit2.hp>0
+sendMessageTo:memory.unit2
+sendMessageWithTags:Squad_UnitMarker
+sendMessageWithData:"""
+unitInfo=memory.unitMarker2
+"""
+[hiddenAction_Check_SquadUnit_Pos_SendMarker_3]
+requireConditional:if memory.unit3.hp>0
+sendMessageTo:memory.unit3
+sendMessageWithTags:Squad_UnitMarker
+sendMessageWithData:"""
+unitInfo=memory.unitMarker3
+"""
+
+[hiddenAction_DeleteSelf]
+autoTrigger:"""
+if self.timeAlive>1 
+and memory.unit1.hp<=0 
+and memory.unit2.hp<=0 
+and memory.unit3.hp<=0
+"""
+deleteSelf:true
+
+
+
+
+
+
+
+
+
+[action_Squad_Formation_A]
+pos:3
+
+buildSpeed:0s
+addActionCooldownTime:10
+
+highPriorityQueue:true
+allowMultipleInQueue:false
+canPlayerCancel:true
+alwaysSinglePress:true
+ai_isDisabled:true
+extraLagHidingInUI:true
+onlyOneUnitAtATime:true
+
+displayType:infoOnly
+
+text:Formation A
+text_zh:阵型 A
+
+iconImage:ROOT:Resource/Image/Units/Button/Misc/Squad_Formation_1.png
+
+isVisible:if true
+isLocked:"""
+if memory.formationType==0
+"""
+isLockedMessage:Now Formation
+isLockedMessage_zh:当前阵型
+
+setUnitMemory:formationType=0
+
+[action_Squad_Formation_B]
+@copyFromSection:action_Squad_Formation_A
+pos:4
+text:Formation B
+text_zh:阵型 B
+isLocked:"""
+if memory.formationType==1
+"""
+setUnitMemory:formationType=1
+
+
+
+
+
+
+
+
+
+
+
+
+
+[action_ChangeAttackTargetMode_Mix]
+pos:991
+buildSpeed:0s
+
+
+highPriorityQueue:true
+allowMultipleInQueue:false
+canPlayerCancel:true
+alwaysSinglePress:true
+ai_isDisabled:true
+extraLagHidingInUI:true
+
+displayType:action
+
+text:TargetType:Mix
+text_zh:目标类型:混合
+
+iconImage:ROOT:Resource/Image/Units/Button/Misc/TargetType_Mix.png
+
+isVisible:if memory.attackTargetMode==0
+setUnitMemory:attackTargetMode=1
+alsoTriggerAction:Send_Squad_UpdateAttackRule
+[action_ChangeAttackTargetMode_Land]
+@copyFromSection:action_ChangeAttackTargetMode_Mix
+
+text:TargetType:Land
+text_zh:目标类型:陆军
+
+iconImage:ROOT:Resource/Image/Units/Button/Misc/TargetType_Land.png
+
+isVisible:if memory.attackTargetMode==1
+setUnitMemory:attackTargetMode=2
+[action_ChangeAttackTargetMode_Air]
+@copyFromSection:action_ChangeAttackTargetMode_Mix
+
+text:TargetType:Air
+text_zh:目标类型:空军
+
+iconImage:ROOT:Resource/Image/Units/Button/Misc/TargetType_Air.png
+
+isVisible:if memory.attackTargetMode==2
+setUnitMemory:attackTargetMode=0
+
+
+
+
+
+
+[action_ChangeAttackRuleMode_Free]
+pos:992
+buildSpeed:0s
+
+
+highPriorityQueue:true
+allowMultipleInQueue:false
+canPlayerCancel:true
+alwaysSinglePress:true
+ai_isDisabled:true
+extraLagHidingInUI:true
+
+displayType:action
+
+text:FireRule:Free
+text_zh:攻击规则:开火
+
+iconImage:ROOT:Resource/Image/Units/Button/Misc/AttackRuleMode_1.png
+
+isVisible:if memory.attackRuleMode==0
+setUnitMemory:attackRuleMode=2
+alsoTriggerAction:Send_Squad_UpdateAttackRule
+[action_ChangeAttackRuleMode_Pursue]
+@copyFromSection:action_ChangeAttackRuleMode_Free
+
+text:FireRule:Pursue
+text_zh:攻击规则:追击
+
+iconImage:ROOT:Resource/Image/Units/Button/Misc/AttackRuleMode_2.png
+
+isVisible:if memory.attackRuleMode==1
+setUnitMemory:attackRuleMode=2
+[action_ChangeAttackRuleMode_Hold]
+@copyFromSection:action_ChangeAttackRuleMode_Free
+
+text:FireRule:Hold
+text_zh:攻击规则:停火
+
+iconImage:ROOT:Resource/Image/Units/Button/Misc/AttackRuleMode_3.png
+
+isVisible:if memory.attackRuleMode==2
+setUnitMemory:attackRuleMode=0
+
+
+
+
+
+[action_Set_AttackMode_Shoot]
+buildSpeed:0s
+pos:993
+
+text:AttackMode:Shoot
+text_zh:攻击模式:射击
+
+addActionCooldownTime:0
+highPriorityQueue:true
+
+displayType:action
+isVisible:if memory.attackMode==0
+
+setUnitMemory:attackMode=1
+
+iconImage:ROOT:Resource/Image/Units/Button/Misc/ShootMode_1.png
+alsoTriggerAction:Send_Squad_UpdateAttackRule
+[action_Set_AttackMode_Cqb]
+buildSpeed:0s
+pos:993
+
+text:AttackMode:Cqb
+text_zh:攻击模式:格斗
+
+addActionCooldownTime:0
+highPriorityQueue:true
+
+displayType:action
+isVisible:if memory.attackMode==1
+
+setUnitMemory:attackMode=0
+
+iconImage:ROOT:Resource/Image/Units/Button/Misc/CqbMode_1.png
+alsoTriggerAction:Send_Squad_UpdateAttackRule
+
+
+
+
+[action_ChangeMoveMode_T]
+pos:994
+buildSpeed:0s
+
+
+highPriorityQueue:true
+allowMultipleInQueue:false
+canPlayerCancel:true
+alwaysSinglePress:true
+ai_isDisabled:true
+extraLagHidingInUI:true
+
+displayType:action
+
+text:MoveSpeed:Normal
+text_zh:移动模式:常时
+
+isVisible:if memory.moveMode==0
+
+iconImage:ROOT:Resource/Image/Units/Button/Action/Walk_1.png
+
+setUnitMemory:moveMode=1
+alsoTriggerAction:Send_Squad_UpdateAttackRule
+
+[action_ChangeMoveMode_F]
+@copyFromSection:action_ChangeMoveMode_T
+
+text:MoveSpeed:Contact
+text_zh:移动模式:战时
+
+isVisible:if memory.moveMode==1
+
+iconImage:ROOT:Resource/Image/Units/Button/Action/Boost_1.png
+
+setUnitMemory:moveMode=0
+
+
+[hiddenAction_Send_Squad_UpdateAttackRule]
+alsoTriggerAction:"""
+Send_Squad_UpdateAttackRule_Unit1,
+Send_Squad_UpdateAttackRule_Unit2,
+Send_Squad_UpdateAttackRule_Unit3
+"""
+[hiddenAction_Send_Squad_UpdateAttackRule_Unit1]
+sendMessageTo:memory.unit1
+sendMessageWithTags:Squad_UpdateAttackRule
+sendMessageWithData:"""
+attackMode=memory.attackMode,
+attackTargetMode=memory.attackTargetMode,
+attackRuleMode=memory.attackRuleMode,
+moveMode=memory.moveMode
+"""
+[hiddenAction_Send_Squad_UpdateAttackRule_Unit2]
+@copyFromSection:hiddenAction_Send_Squad_UpdateAttackRule_Unit1
+sendMessageTo:memory.unit2
+[hiddenAction_Send_Squad_UpdateAttackRule_Unit3]
+@copyFromSection:hiddenAction_Send_Squad_UpdateAttackRule_Unit1
+sendMessageTo:memory.unit3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[decal_Squad_Marker_Core_Self]
+layer:shadow
+order:2
+onlyWhileAlive:true
+onlyTeam:own
+image:ROOT:Resource/Image/Squad/Squad_Marker_Core_Self.png
+isVisible:true
+imageScale:0.45
+xOffsetRelative:0
+yOffsetRelative:0
+alwaysStartDirAtZero:true
+[decal_Squad_Marker_Core_Ally]
+@copyFromSection:decal_Squad_Marker_Core_Self
+onlyTeam:allynotown
+image:ROOT:Resource/Image/Squad/Squad_Marker_Core_Ally.png
+[decal_Squad_Marker_Core_Enemy]
+@copyFromSection:decal_Squad_Marker_Core_Self
+onlyTeam:enemy
+image:ROOT:Resource/Image/Squad/Squad_Marker_Core_Enemy.png
+
+
+[decal_Squad_Marker_Self]
+layer:shadow
+order:1
+onlyWhileAlive:true
+onlyTeam:own
+image:ROOT:Resource/Image/Squad/Squad_Marker_Self.png
+isVisible:true
+imageScale:1
+alpha:0.75
+xOffsetRelative:0
+yOffsetRelative:0
+alwaysStartDirAtZero:true
+[decal_Squad_Marker_Ally]
+@copyFromSection:decal_Squad_Marker_Self
+onlyTeam:allynotown
+image:ROOT:Resource/Image/Squad/Squad_Marker_Ally.png
+[decal_Squad_Marker_Enemy]
+@copyFromSection:decal_Squad_Marker_Self
+onlyTeam:enemy
+image:ROOT:Resource/Image/Squad/Squad_Marker_Enemy.png
+
+
+
+
+
+
+
+
+
+
+
+[graphics]
+total_frames: 1
+icon_build:ROOT:Resource/Image/Squad/Squad_Marker_Core_Self.png
+
+image:        SHARED:blank.png
+image_back:   NONE
+image_wreak:  NONE
+
+image_shadow: NONE
+shadowOffsetX:1
+shadowOffsetY:1
+
+showQueueBar:false
+drawLayer:wreaks
+
+[attack]
+canAttack:true
+canAttackFlyingUnits:true
+canAttackLandUnits:true
+canAttackUnderwaterUnits:true
+canAttackNotTouchingWaterUnits:true
+canOnlyAttackUnitsWithTags:CanBeTargetUnit,CanBeTargetUnitSpace,DamageAbleParts
+canOnlyAttackUnitsWithoutTags:UnDetected
+
+[movement]
+movementType: AIR
+moveSpeed: 10
+moveAccelerationSpeed: 3
+moveDecelerationSpeed: 3
+
+maxTurnSpeed: 10
+turnAcceleration: 3
+
+heightChangeRate:10
+targetHeightDrift:0
+targetHeight:0
+
+moveIgnoringBody:true
+joinsGroupFormations:true
+
+
+[ai]
+useAsTransport:false

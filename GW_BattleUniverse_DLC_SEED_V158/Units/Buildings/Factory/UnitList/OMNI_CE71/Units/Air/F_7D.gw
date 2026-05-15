@@ -1,0 +1,50 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+[hiddenAction_AutoProduce_F_7D]
+@copyFromSection:template_AutoProduce
+@define UnitID=F_7D
+alsoTriggerAction:AutoProduce_F_7D_Step2
+
+[hiddenAction_AutoProduce_F_7D_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=300
+@define Resource=700
+alsoQueueAction:Produce_F_7D_StandardSquad
+
+
+
+[action_Produce_F_7D_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=F_7D
+@define Money=500
+@define Resource=850
+@define FactionVisible= (memory.Pannel_OMNI_CE71_DontShow==false)
+buildSpeed:25s
+
+alsoQueueAction:"""
+Produce_F_7D_StandardSquad_1,
+Produce_F_7D_StandardSquad_2,
+Produce_F_7D_StandardSquad_3
+"""
+[hiddenAction_Produce_F_7D_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+F_7D*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_F_7D_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+F_7D*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_F_7D_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+F_7D*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

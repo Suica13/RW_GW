@@ -1,0 +1,37 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+
+[hiddenAction_AutoProduce_BigTrayClass]
+@copyFromSection:template_AutoProduce
+@define UnitID=BigTrayClass
+alsoTriggerAction:AutoProduce_BigTrayClass_Step2
+
+[hiddenAction_AutoProduce_BigTrayClass_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=3000
+@define Resource=6000
+alsoQueueAction:Produce_BigTrayClass
+
+
+
+[action_Produce_BigTrayClass]
+@copyFromSection:template_Produce_Fast
+@define UnitID=BigTrayClass
+@define Money=3000
+@define Resource=6000
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+buildSpeed:50s
+
+alsoQueueAction:"""
+Produce_BigTrayClass_1
+"""
+[hiddenAction_Produce_BigTrayClass_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+BigTrayClass*1(addResources=PilotType:2001|EquipmentIndex:0)
+"""

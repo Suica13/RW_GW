@@ -1,0 +1,21 @@
+[core]
+dont_load:false
+
+
+#
+[effect_System_HADES_1]
+image:ROOT:Resource/Image/Fx/System/Image/System_HADES.png
+attachedToUnit:true
+life:600
+priority:critical
+liveAfterAttachedDies:true
+alwayStartDirAtZero:true
+yOffsetAbsolute:0
+scaleFrom:0.5
+scaleTo:0.5
+alpha:1
+total_frames:14
+animateFrameStart: 0
+animateFrameEnd: 13
+animateFrameSpeed: 0.125
+showInFog:true

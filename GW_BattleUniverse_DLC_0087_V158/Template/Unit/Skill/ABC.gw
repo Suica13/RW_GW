@@ -1,0 +1,158 @@
+[core]
+copyFrom:"""
+ROOT:Resource/Image/Fx/Unit/ABC_1.gw
+"""
+
+@memory ABCHpMax:float
+@memory ABCHp:float
+@memory ABCActive:bool
+@memory ABCLevel:float
+@memory ABCEffectTimer:Float
+
+@global ABCHpMax=15000
+@global ABCLevel=0.6
+
+[hiddenAction_StartSetABC]
+autoTriggerOnEvent:newMessage(withTag="UnitTurretSpawn")
+setUnitMemory:"""
+ABCHpMax=${ABCHpMax},
+ABCLevel=${ABCLevel}
+"""
+alsoTriggerAction:"""
+ResetABC
+"""
+[hiddenAction_ResetABC]
+requireConditional:if self.timeAlive<=1
+setUnitMemory:ABCHp=memory.ABCHpMax
+
+[hiddenAction_ABC_Get_RecoverByOther]
+autoTriggerOnEvent:newMessage(withTag="RecoverByOther")
+setUnitMemory:"""
+ABCHp=select
+(
+    memory.ABCHp
+    +0.5*eventData("RecoverSkill",type="float")
+    +memory.ABCHpMax*eventData("RecoverSkillPer",type="float")>memory.ABCHpMax,
+    memory.ABCHpMax,
+    memory.ABCHp
+    +0.5*eventData("RecoverSkill",type="float")
+    +memory.ABCHpMax*eventData("RecoverSkillPer",type="float")
+)
+"""
+
+[hiddenAction_ABC_Check_Limit]
+autoTrigger:true
+setUnitMemory:"""
+ABCHp=select
+(
+    memory.ABCHp>memory.ABCHpMax,
+    memory.ABCHpMax,
+    select
+    (
+        memory.ABCHp<0,
+        0,
+        memory.ABCHp
+    )
+)
+"""
+
+
+
+[hiddenAction_ActiveABC]
+autoTrigger:true
+setUnitMemory:"""
+ABCActive=select(memory.ABCHP>0,true,false)
+"""
+
+[hiddenAction_TookDamage_ABC_Damage]
+autoTriggerOnEvent:newMessage(withTag="ABC_Damage")
+setUnitMemory:ABCHp=memory.ABCHp-eventData('Damage',type='float')
+alsoTriggerAction:TookDamage_ABC_SpawnEffect
+[hiddenAction_TookDamage_ABC_SpawnEffect]
+requireConditional:if self.timeAlive>memory.ABCEffectTimer and memory.ABCHp>0
+setUnitMemory:ABCEffectTimer=self.timeAlive+1
+spawnEffects:ABC_1
+
+
+[decal_ABCIcon]
+layer:beforeUI
+order:8
+image:ROOT:Resource/Image/Units/Button/Skill/ABC.png
+onlyTeam:own
+alpha:1
+imageScale:0.2
+xOffsetAbsolute:-22
+yOffsetAbsolute:42
+alwaysStartDirAtZero:true
+onlyOnNonPreview:true
+isVisible:if memory.ABCActive==true and memory.hideUI==0
+onlyWhileAlive:true
+[decal_ABCHp]
+layer:beforeUI
+order:8
+image:SHARED:white_pixel.png
+onlyTeam:own
+color:#07f8ff
+alpha:1
+imageScale:1
+imageScaleX:30*((memory.ABCHp/memory.ABCHpMax))
+imageScaleY:1.5
+xOffsetAbsolute:(15*((memory.ABCHp/memory.ABCHpMax)))-15
+yOffsetAbsolute:42
+alwaysStartDirAtZero:true
+onlyOnNonPreview:true
+isVisible:if (memory.ABCHp/memory.ABCHpMax)>=0.25 and memory.ABCActive==true and memory.hideUI==0
+onlyWhileAlive:true
+[decal_ABCHp_25]
+layer:beforeUI
+order:8
+image:SHARED:white_pixel.png
+onlyTeam:own
+color:#ff0b07
+alpha:1
+imageScale:1
+imageScaleX:30*((memory.ABCHp/memory.ABCHpMax))
+imageScaleY:1.5
+xOffsetAbsolute:(15*((memory.ABCHp/memory.ABCHpMax)))-15
+yOffsetAbsolute:42
+alwaysStartDirAtZero:true
+onlyOnNonPreview:true
+isVisible:if (memory.ABCHp/memory.ABCHpMax)<0.25 and memory.ABCActive==true and memory.hideUI==0
+onlyWhileAlive:true
+[decal_ABCHpBackground]
+layer:beforeUI
+order:7
+image:SHARED:white_pixel.png
+onlyTeam:own
+color:#000000
+alpha:1
+imageScale:1
+imageScaleX:30+1
+imageScaleY:3
+xOffsetAbsolute:(15)-15
+yOffsetAbsolute:42
+alwaysStartDirAtZero:true
+onlyOnNonPreview:true
+isVisible:if memory.ABCActive==true and memory.hideUI==0
+onlyWhileAlive:true
+
+
+[decal_ABCIcon_Enemy]
+@copyFromSection:decal_ABCIcon
+onlyTeam:enemy
+isVisible:if memory.ABCActive==true and memory.hideUI==0 and memory.BattleUnitCore.readUnitMemory('showStatsToEnemy',type='bool')==true
+[decal_ABCHp_Enemy]
+@copyFromSection:decal_ABCHp
+onlyTeam:enemy
+color:#ff0b07
+isVisible:if memory.ABCActive==true and memory.hideUI==0 and memory.BattleUnitCore.readUnitMemory('showStatsToEnemy',type='bool')==true
+[decal_ABCHpBackground_Enemy]
+@copyFromSection:decal_ABCHpBackground
+onlyTeam:enemy
+isVisible:if memory.ABCActive==true and memory.hideUI==0 and memory.BattleUnitCore.readUnitMemory('showStatsToEnemy',type='bool')==true
+
+
+[hiddenAction_attachment_DamageCheckerCore]
+autoTriggerOnEvent:newMessage(withTag="UnitTurretSpawn")
+attachments_addNewUnits:DamageChecker_ABC
+attachments_onlyOnSlots:DamageCheckerCore

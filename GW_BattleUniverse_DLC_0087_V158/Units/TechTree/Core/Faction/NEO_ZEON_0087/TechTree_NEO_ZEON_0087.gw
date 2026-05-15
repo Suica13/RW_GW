@@ -1,0 +1,19 @@
+
+
+[action_ShowTechTree_NEO_ZEON_0087]
+@copyFromSection:template_ShowTechTree
+text:NEO ZEON[0087]
+text_zh:新吉翁[0087]
+iconImage:ROOT:Resource/Image/Icon/Faction_NEO_ZEON_0087_2.png
+isVisible:if self.attachment(slot="NEO_ZEON_0087").hp>0 and memory.showTechTree==false and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_BaseTech')
+
+isLocked:"""
+if not self.globalTeamTags(includes='Tech_NEO_ZEON_0087_BaseTech')
+"""
+
+sendMessageTo:self.attachment(slot="NEO_ZEON_0087")
+
+
+[attachment_NEO_ZEON_0087]
+@copyFromSection:template_TechTree_Main
+onCreateSpawnUnitOf:TechTree_UI_Main_NEO_ZEON_0087

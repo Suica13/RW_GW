@@ -1,0 +1,51 @@
+[core]
+dont_load:false
+
+
+
+[effect_Light_25_Blue]
+color:#61edff
+image:ROOT:\Resource\Image\Fx\Common\Image\Light_25.png
+priority:critical
+yOffsetRelative:0
+life: 30
+scaleFrom: 1.5
+scaleTo: 1.5
+alwayStartDirAtZero:true
+drawUnderUnits:false
+
+
+[effect_Light_50_Blue]
+color:#61edff
+image:ROOT:\Resource\Image\Fx\Common\Image\Light_50.png
+priority:critical
+yOffsetRelative:0
+life: 30
+scaleFrom: 1.5
+scaleTo: 1.5
+alwayStartDirAtZero:true
+drawUnderUnits:false
+
+
+[effect_Light_75_Blue]
+color:#61edff
+image:ROOT:\Resource\Image\Fx\Common\Image\Light_50.png
+priority:critical
+yOffsetRelative:0
+life: 30
+scaleFrom: 2.5
+scaleTo: 2.5
+alwayStartDirAtZero:true
+drawUnderUnits:false
+
+
+[effect_Light_100_Blue]
+color:#61edff
+image:ROOT:\Resource\Image\Fx\Common\Image\Light_50.png
+priority:critical
+yOffsetRelative:0
+life: 30
+scaleFrom: 3
+scaleTo: 3
+alwayStartDirAtZero:true
+drawUnderUnits:false

@@ -1,0 +1,103 @@
+[core]
+dont_load:false
+
+@memory supplyPointCD:float
+@memory supplyPointActive:bool
+@memory supplyPointRange:float
+@global supplyPointRangeExtra=0
+@global supplyPointHpExtra=1
+@global supplyPointEnExtra=1
+@global supplyPointShieldExtra=1
+@global supplyPointSkillExtra=1
+
+
+[hiddenAction_Supply_Check]
+autoTrigger:true
+alsoTriggerAction:"""
+Supply_Range,
+Supply_Active,
+Supply_Timer,
+Supply_CheckTags
+"""
+
+[hiddenAction_Supply_Range]
+setUnitMemory:"""
+supplyPointRange=200+${supplyPointRangeExtra}
+"""
+
+[hiddenAction_Supply_Active]
+setUnitMemory:"""
+supplyPointActive=select(memory.pilotUnit.hp>0 and self.speed<=0.25,true,false)
+"""
+[hiddenAction_Supply_CheckTags]
+alsoTriggerAction:"""
+Supply_CheckTags_T,
+Supply_CheckTags_F
+"""
+
+[hiddenAction_Supply_CheckTags_T]
+requireConditional:if memory.supplyPointActive==true and not self.tags(includes='SupplyPoint')
+temporarilyAddTags:SupplyPoint
+[hiddenAction_Supply_CheckTags_F]
+requireConditional:if memory.supplyPointActive==false and self.tags(includes='SupplyPoint')
+temporarilyRemoveTags:SupplyPoint
+
+[hiddenAction_Supply_Timer]
+requireConditional:if self.timeAlive>memory.supplyPointCD and memory.supplyPointActive==true
+setUnitMemory:supplyPointCD=self.timeAlive+1
+alsoTriggerAction:"""
+Supply_Unit
+"""
+[hiddenAction_Supply_Unit]
+takeResources_includeUnitsWithinRange:1000
+takeResources_includeUnitsWithinRange_team:ally
+takeResources_excludeUnitsWithoutTags:CanSupplyUnit
+takeResources_searchOnly:true
+takeResources_maxUnits:400
+takeResources_triggerActionForEach:Supply_Unit_HP,Supply_Unit_EN,Supply_Unit_Other
+[hiddenAction_Supply_Unit_HP]
+requireConditional:"""
+if not thisActionTarget.tags(includes='inBattle') and thisActionTarget.parent!=self and thisActionTarget!=self and thisActionTarget.parent.parent!=self 
+and distanceBetween(self, thisActionTarget)<=memory.supplyPointRange and thisActionTarget.hp>0
+"""
+sendMessageTo:thisActionTarget
+sendMessageWithTags:RecoverByOther
+sendMessageWithData:"""
+RecoverHpPer=0.025*${supplyPointHpExtra}
+"""
+[hiddenAction_Supply_Unit_EN]
+requireConditional:"""
+if thisActionTarget.parent!=self and thisActionTarget!=self and thisActionTarget.parent.parent!=self 
+and distanceBetween(self, thisActionTarget)<=memory.supplyPointRange and thisActionTarget.hp>0
+"""
+sendMessageTo:thisActionTarget
+sendMessageWithTags:RecoverByOther
+sendMessageWithData:"""
+RecoverEnPer=0.075*${supplyPointEnExtra}*select(thisActionTarget.tags(includes='inBattle'),0.5,1)
+"""
+[hiddenAction_Supply_Unit_Other]
+requireConditional:"""
+if not thisActionTarget.tags(includes='inBattle') and thisActionTarget.parent!=self and thisActionTarget!=self and thisActionTarget.parent.parent!=self 
+and distanceBetween(self, thisActionTarget)<=memory.supplyPointRange and thisActionTarget.hp>0
+"""
+sendMessageTo:thisActionTarget
+sendMessageWithTags:RecoverByOther
+sendMessageWithData:"""
+RecoverShieldPer=0.05*${supplyPointShieldExtra},
+RecoverSkillPer=0.05*${supplyPointSkillExtra}
+"""
+
+[decal_SupplyRange_Ally]
+layer:shadow
+order:-1
+onlyTeam:ally
+image:ROOT:Resource/Image/Ring/Ring150_Blue.png
+imageScale:memory.supplyPointRange/150
+alpha:0.35
+alwaysStartDirAtZero:true
+onlyWhenSelectedByAnyPlayer:true
+onlyOnNonPreview:true
+isVisible:"""
+if self.teamId>=0 and memory.supplyPointActive==true
+"""
+onlyWhileAlive:true

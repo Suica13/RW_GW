@@ -1,0 +1,47 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+[hiddenAction_AutoProduce_AGX_04A1]
+@copyFromSection:template_AutoProduce
+@define UnitID=AGX_04A1
+alsoTriggerAction:AutoProduce_AGX_04A1_Step2
+
+[hiddenAction_AutoProduce_AGX_04A1_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=4500
+@define Resource=5500
+alsoTriggerAction:AutoProduce_AGX_04A1_Random
+
+
+
+[hiddenAction_AutoProduce_AGX_04A1_Random]
+alsoTriggerAction:"""
+AutoProduce_AGX_04A1_Random_A
+"""
+[hiddenAction_AutoProduce_AGX_04A1_Random_A]
+alsoQueueAction:Produce_AGX_04A1_StandardSquad
+
+
+
+
+[action_Produce_AGX_04A1_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=AGX_04A1
+@define Money=4500
+@define Resource=5500
+@define FactionVisible= (memory.Pannel_NEO_ZEON_0087_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+buildSpeed:60s
+
+
+alsoQueueAction:"""
+Produce_AGX_04A1_StandardSquad_1
+"""
+[hiddenAction_Produce_AGX_04A1_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+AGX_04A1*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

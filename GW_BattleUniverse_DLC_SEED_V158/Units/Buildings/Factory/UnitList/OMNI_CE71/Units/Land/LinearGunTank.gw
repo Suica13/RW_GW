@@ -1,0 +1,51 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+[hiddenAction_AutoProduce_LinearGunTank]
+@copyFromSection:template_AutoProduce
+@define UnitID=LinearGunTank
+alsoTriggerAction:AutoProduce_LinearGunTank_Step2
+
+[hiddenAction_AutoProduce_LinearGunTank_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=250
+@define Resource=500
+alsoQueueAction:Produce_LinearGunTank_StandardSquad
+
+
+
+
+
+[action_Produce_LinearGunTank_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=LinearGunTank
+@define Money=400
+@define Resource=800
+@define FactionVisible= (memory.Pannel_OMNI_CE71_DontShow==false)
+buildSpeed:25s
+
+alsoQueueAction:"""
+Produce_LinearGunTank_StandardSquad_1,
+Produce_LinearGunTank_StandardSquad_2,
+Produce_LinearGunTank_StandardSquad_3
+"""
+[hiddenAction_Produce_LinearGunTank_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+LinearGunTank*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_LinearGunTank_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+LinearGunTank*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_LinearGunTank_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+LinearGunTank*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

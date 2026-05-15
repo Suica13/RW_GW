@@ -1,0 +1,80 @@
+[core]
+copyFrom:"""
+ROOT:Units/BattleUnits/Pilot/0079/ACE/Pilot_ID_List_0079.gw,
+ROOT:Units/Buildings/Beacon_ACE/UnitList/Mod/UnitTemplate.ini
+"""
+
+@memory Pilot_EFSF_0079_N_ACE_TAM:bool
+@memory Pilot_EFSF_0079_N_ACE_TAM_Timer:float
+
+
+[hiddenAction_AutoProduce_Pilot_EFSF_0079_N_ACE_TAM]
+@copyFromSection:template_AutoProduce
+@define UnitID=Pilot_EFSF_0079_N_ACE_TAM
+alsoTriggerAction:"""
+Pilot_EFSF_0079_N_ACE_TAM_Produce_Switch_G,
+Pilot_EFSF_0079_N_ACE_TAM_Produce_Switch_S
+"""
+
+[action_Pilot_EFSF_0079_N_ACE_TAM_Produce_Switch_G]
+@copyFromSection:template_Produce_Switch
+@define UnitID=Pilot_EFSF_0079_N_ACE_TAM
+@define Money=8000
+@define Resource=4000
+@define Time=30
+@define TileMode=0
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+@define OtherVisible= (true)
+
+[action_Pilot_EFSF_0079_N_ACE_TAM_Produce_Switch_S]
+@copyFromSection:template_Produce_Switch
+@define UnitID=Pilot_EFSF_0079_N_ACE_TAM
+@define Money=8000
+@define Resource=4000
+@define Time=30
+@define TileMode=1
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+@define OtherVisible= (true)
+
+[hiddenAction_Pilot_EFSF_0079_N_ACE_TAM_Produce_Payback]
+@copyFromSection:template_Produce_Payback
+@define UnitID=Pilot_EFSF_0079_N_ACE_TAM
+@define Money_G=8000
+@define Resource_G=4000
+@define Money_S=8000
+@define Resource_S=4000
+
+[hiddenAction_Pilot_EFSF_0079_N_ACE_TAM_Produce_T_G]
+@copyFromSection:template_Produce_T_G
+@define UnitID=Pilot_EFSF_0079_N_ACE_TAM
+produceUnits:"""
+BigTrayClass*1(addResources=PilotType:${Pilot_EFSF_0079_N_ACE_TAM}|EquipmentIndex:0)
+"""
+
+[hiddenAction_Pilot_EFSF_0079_N_ACE_TAM_Produce_T_S]
+@copyFromSection:template_Produce_T_S
+@define UnitID=Pilot_EFSF_0079_N_ACE_TAM
+produceUnits:"""
+MagellanClass_Green*1(addResources=PilotType:${Pilot_EFSF_0079_N_ACE_TAM}|EquipmentIndex:0)
+"""
+
+
+
+[hiddenAction_Pilot_EFSF_0079_N_ACE_TAM_Produce_Check]
+@copyFromSection:template_Produce_Check
+@define UnitID=Pilot_EFSF_0079_N_ACE_TAM
+alsoTriggerAction:"""
+Pilot_EFSF_0079_N_ACE_TAM_Produce_F,
+Pilot_EFSF_0079_N_ACE_TAM_Produce_T_G,
+Pilot_EFSF_0079_N_ACE_TAM_Produce_T_S
+"""
+
+[action_Pilot_EFSF_0079_N_ACE_TAM_Produce_Switch_ON]
+@copyFromSection:template_Produce_Switch_ON
+@define UnitID=Pilot_EFSF_0079_N_ACE_TAM
+alsoTriggerAction:Pilot_EFSF_0079_N_ACE_TAM_Produce_Payback
+
+[hiddenAction_Pilot_EFSF_0079_N_ACE_TAM_Produce_F]
+@copyFromSection:template_Produce_F
+@define UnitID=Pilot_EFSF_0079_N_ACE_TAM
+alsoTriggerAction:Pilot_EFSF_0079_N_ACE_TAM_Produce_Payback

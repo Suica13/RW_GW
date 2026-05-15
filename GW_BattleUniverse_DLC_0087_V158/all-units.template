@@ -1,0 +1,451 @@
+[core]
+
+
+
+
+
+[global_resource_WarLevel]
+displayName: WarLevel
+displayName_zh: 激烈度
+displayColor:#ff6e26
+displayWhenZero:true
+displayRoundedDown:true
+displayPos:0
+includeInStats:true
+valueInStats:1
+iconImage:ROOT:Resource/Image/System/Resources/WarLevel.png
+appendResourceInHUD:MoralPoint
+[global_resource_MoralPoint]
+displayName: MoralPoint
+displayName_zh: 道德值
+displayColor:#ff6e26
+displayWhenZero:true
+displayRoundedDown:true
+displayPos:0
+includeInStats:true
+valueInStats:1
+iconImage:ROOT:Resource/Image/System/Resources/MoralPoint.png
+hidden:true
+
+[global_resource_Money]
+displayName: Money
+displayName_zh: 资金
+displayColor:#fcdb03
+displayWhenZero:true
+displayRoundedDown:true
+displayPos:4
+includeInStats:true
+valueInStats:1
+iconImage:ROOT:Resource/Image/System/Resources/Money.png
+appendResourceInHUD:MoneyGen
+[global_resource_MoneyGen]
+displayName: /Gen
+displayName_zh: /增长
+displayColor:#fcdb03
+displayWhenZero:true
+#displayRoundedDown:true
+displayPos:4
+includeInStats:true
+hidden:true
+valueInStats:1
+
+[global_resource_Resource]
+displayName: Resource
+displayName_zh: 物资
+displayColor:#fcdb03
+displayWhenZero:true
+displayRoundedDown:true
+displayPos:4
+includeInStats:true
+valueInStats:1
+iconImage:ROOT:Resource/Image/System/Resources/Resource.png
+appendResourceInHUD:ResourceGen
+[global_resource_ResourceGen]
+displayName: /Gen
+displayName_zh: /增长
+displayColor:#fcdb03
+displayWhenZero:true
+#displayRoundedDown:true
+displayPos:4
+includeInStats:true
+hidden:true
+valueInStats:1
+
+
+
+[global_resource_TechPoint]
+displayName: Tech
+displayName_zh: 科技
+displayColor:#fcdb03
+displayWhenZero:true
+displayRoundedDown:true
+displayPos:5
+includeInStats:true
+valueInStats:1
+iconImage:ROOT:Resource/Image/System/Resources/TechPoint.png
+appendResourceInHUD:TechPointGen
+[global_resource_TechPointGen]
+displayName: /Gen
+displayName_zh: /增长
+displayColor:#fcdb03
+displayWhenZero:true
+#displayRoundedDown:true
+displayPos:5
+includeInStats:true
+hidden:true
+valueInStats:1
+
+
+[global_resource_Mp]
+displayName: Mp
+displayName_zh: 战力
+displayColor:#26ffbe
+displayWhenZero:true
+displayRoundedDown:true
+displayPos:6
+includeInStats:true
+valueInStats:1
+iconImage:ROOT:Resource/Image/System/Resources/MP.png
+appendResourceInHUD:MpMax
+[global_resource_MpMax]
+displayName: /Max
+displayName_zh: /上限
+displayColor:#26ffbe
+displayWhenZero:true
+displayRoundedDown:true
+displayPos:6
+includeInStats:true
+hidden:true
+valueInStats:1
+
+
+
+[global_resource_WeatherIndex]
+displayName: WeatherIndex
+displayName_zh: WeatherIndex
+hidden:true
+
+[global_resource_TimeOfDayIndex]
+displayName: TimeOfDayIndex
+displayName_zh: TimeOfDayIndex
+hidden:true
+
+[global_resource_SLNum]
+displayName: SLNum
+displayName_zh: SLNum
+hidden:true
+
+[global_resource_BulletSpeed]
+displayName: BulletSpeed
+displayName_zh: BulletSpeed
+hidden:true
+
+[global_resource_FactionIndex]
+displayName: FactionIndex
+displayName_zh: FactionIndex
+hidden:true
+
+[global_resource_SandBoxMode]
+displayName: SandBoxMode
+displayName_zh: SandBoxMode
+hidden:true
+
+[global_resource_AIHard]
+displayName: AIHard
+displayName_zh: AIHard
+hidden:true
+
+[global_resource_GameStart]
+displayName: GameStart
+displayName_zh: GameStart
+hidden:true
+
+[global_resource_ForceHideUI]
+displayName: ForceHideUI
+displayName_zh: ForceHideUI
+hidden:true
+
+
+[global_resource_DedicatedMap]
+displayName: DedicatedMap
+displayName_zh: DedicatedMap
+hidden:true
+
+
+[global_resource_AutoTileMode]
+displayName: AutoTileMode
+displayName_zh: AutoTileMode
+hidden:true
+
+[resource_TileMode]
+displayName: TileMode
+displayName_zh: TileMode
+hidden:true
+
+[resource_EN]
+displayName: EN
+displayName_zh: 能量
+hidden:true
+
+[resource_PilotCustom]
+displayName:PilotCustom
+displayName_zh: 驾驶员客制
+hidden:true
+[resource_PilotType]
+displayName:PilotType
+displayName_zh: 驾驶员类型
+hidden:true
+[resource_PilotLevel]
+displayName:PilotLevel
+displayName_zh: 驾驶员等级
+hidden:true
+[resource_PilotCustomType]
+displayName:PilotCustomType
+displayName_zh: 驾驶员自定义类型
+hidden:true
+
+[resource_CantDodge]
+displayName: CantDodge
+displayName_zh: 不可回避
+hidden:true
+
+[resource_WeaponAccuracy]
+displayName: WeaponAccuracy
+displayName_zh: 武器准度
+hidden:true
+
+[resource_AntiLand]
+displayName: AntiLand
+displayName_zh: 对地
+hidden:true
+
+[resource_AntiSpace]
+displayName: AntiSpace
+displayName_zh: 对宇
+hidden:true
+
+[resource_AntiAir]
+displayName: AntiAir
+displayName_zh: 对空
+hidden:true
+
+[resource_AntiAqua]
+displayName: AntiAqua
+displayName_zh: 对水
+hidden:true
+
+[resource_AntiBuilding]
+displayName: AntiBuilding
+displayName_zh: 对建筑
+hidden:true
+
+[resource_HeightChangeSpeed]
+displayName: HeightChangeSpeed
+displayName_zh: 高度改变速率
+hidden:true
+
+[resource_HeightHitRange]
+displayName: HeightHitRange
+displayName_zh: 高度命中范围
+hidden:true
+
+[resource_DpDamage]
+displayName: DpDamage
+displayName_zh: 倒地累积值伤害
+hidden:true
+
+[resource_ShellDamage]
+displayName: ShellDamage
+displayName_zh: 实弹伤害
+hidden:true
+
+[resource_ShellAPDamage]
+displayName: ShellAPDamage
+displayName_zh: 实弹贯通伤害
+hidden:true
+
+[resource_BeamDamage]
+displayName: BeamDamage
+displayName_zh: 光束伤害
+hidden:true
+
+[resource_BeamAPDamage]
+displayName: BeamAPDamage
+displayName_zh: 光束贯通伤害
+hidden:true
+
+[resource_CqbDamage]
+displayName: CqbDamage
+displayName_zh: Cqb伤害
+hidden:true
+
+[resource_CqbApDamage]
+displayName: CqbApDamage
+displayName_zh: Cqb贯通伤害
+hidden:true
+
+[resource_CqbShellDamage]
+displayName: CqbShellDamage
+displayName_zh: Cqb实弹伤害
+hidden:true
+
+[resource_CqbBeamDamage]
+displayName: CqbBeamDamage
+displayName_zh: Cqb光束伤害
+hidden:true
+
+[resource_BurnedDamage]
+displayName: BurnedDamage
+displayName_zh: 火焰伤害
+hidden:true
+
+[resource_StunDamage]
+displayName: StunDamage
+displayName_zh: 眩晕伤害
+hidden:true
+
+[resource_TrueDamage]
+displayName: TrueDamage
+displayName_zh: 真实伤害
+hidden:true
+
+[resource_AtkDownDamage]
+displayName: AtkDownDamage
+displayName_zh: 攻击力下降伤害
+hidden:true
+
+[resource_DefDownDamage]
+displayName: DefDownDamage
+displayName_zh: 防御力下降伤害
+hidden:true
+
+[resource_SpeedDownDamage]
+displayName: SpeedDownDamage
+displayName_zh: 减速伤害
+hidden:true
+
+[resource_JammingDamage]
+displayName: JammingDamage
+displayName_zh: 干扰伤害
+hidden:true
+
+[resource_PartBreakModifier]
+displayName: PartBreakModifier
+displayName_zh: 部件破坏系数
+hidden:true
+
+[resource_CockpitBreakModifier]
+displayName: CockpitBreakModifier
+displayName_zh: 驾驶仓贯穿系数
+hidden:true
+
+[resource_PilotDamageModifier]
+displayName: PilotDamageModifier
+displayName_zh: 驾驶员伤害系数
+hidden:true
+
+[resource_PilotTrueDamage]
+displayName: PilotTrueDamage
+displayName_zh: 驾驶员真实伤害
+hidden:true
+
+[resource_AntiSizeLargeDamage]
+displayName: AntiSizeLargeDamage
+displayName_zh: 对大型伤害系数
+hidden:true
+
+[resource_AntiSizeSmallDamage]
+displayName: AntiSizeSmallDamage
+displayName_zh: 对小型伤害系数
+hidden:true
+
+[resource_AntiSizeLargeAccuracy]
+displayName: AntiSizeLargeAccuracy
+displayName_zh: 对大型伤害准度
+hidden:true
+
+[resource_AntiSizeSmallAccuracy]
+displayName: AntiSizeSmallAccuracy
+displayName_zh: 对小型伤害准度
+hidden:true
+
+
+
+[resource_ProjectileSpeed]
+displayName: ProjectileSpeed
+displayName_zh: 弹射物速度
+hidden:true
+
+[resource_ProjectileSpread]
+displayName: ProjectileSpread
+displayName_zh: 弹射物散布
+hidden:true
+
+[resource_ProjectileTurnspeed]
+displayName: ProjectileTurnspeed
+displayName_zh: 弹射物旋转速度
+hidden:true
+
+[resource_ProjectileAttackTimes]
+displayName: ProjectileAttackTimes
+displayName_zh: 弹射物攻击次数
+hidden:true
+
+[resource_ProjectileAttackTimesDamageModifier]
+displayName: ProjectileAttackTimesDamageModifier
+displayName_zh: 弹射物攻击次数伤害修改
+hidden:true
+
+[resource_ProjectileLife]
+displayName: ProjectileLife
+displayName_zh: 弹射物存在时间
+hidden:true
+
+[resource_ProjectileExplosionRange]
+displayName: ProjectileExplosionRange
+displayName_zh: 弹射物爆炸范围
+hidden:true
+
+
+
+[resource_ProjectileBlastRange]
+displayName: ProjectileBlastRange
+displayName_zh: 弹射物爆风范围
+hidden:true
+[resource_ProjectileBlastDamageModifier]
+displayName: ProjectileBlastDamageModifier
+displayName_zh: 弹射物爆风伤害比
+hidden:true
+[resource_ProjectileBlastDpModifier]
+displayName: ProjectileBlastDpModifier
+displayName_zh: 弹射物爆风DP比
+hidden:true
+
+
+[resource_StartAction]
+hidden:true
+
+[resource_SkinIndex]
+displayName: SkinIndex
+displayName_zh: 皮肤序号
+
+[resource_SubSkinIndex]
+displayName: SubSkinIndex
+displayName_zh: 次皮肤序号
+
+[resource_EquipmentIndex]
+displayName: EquipmentIndex
+displayName_zh: 装备序号
+[resource_EquipmentIndex2]
+displayName: EquipmentIndex2
+displayName_zh: 装备序号2
+[resource_EquipmentIndex3]
+displayName: EquipmentIndex3
+displayName_zh: 装备序号3
+
+[resource_SubEquipmentIndex]
+displayName: SubEquipmentIndex
+displayName_zh: Sub装备序号
+[resource_SubEquipmentIndex2]
+displayName: SubEquipmentIndex2
+displayName_zh: Sub装备序号2

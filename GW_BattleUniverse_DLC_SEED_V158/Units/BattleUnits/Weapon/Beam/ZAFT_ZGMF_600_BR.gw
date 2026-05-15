@@ -1,0 +1,157 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Beam/Common/Beam_Fire_1_Green.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_A.gw
+"""
+
+@memory ZAFT_ZGMF_600_BR_CDTimer:float
+@global ZAFT_ZGMF_600_BR_CD=2.0
+@global ZAFT_ZGMF_600_BR_EN=40
+
+
+
+
+
+[decal_ZAFT_ZGMF_600_BR]
+layer:beforeBody
+order:5.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Beam\Image\ZAFT_ZGMF_600_BR.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:0.75
+xOffsetRelative: 2.5
+yOffsetRelative: 16
+dirOffset:0
+[decal_ZAFT_ZGMF_600_BR_NotUsing]
+@copyFromSection:decal_ZAFT_ZGMF_600_BR
+isVisible:false
+order:3
+basePositionFromLegEnd:arm1
+imageScale:0.65
+imageScaleX:-1
+xOffsetRelative:5
+yOffsetRelative:-6.5
+dirOffset:-90
+
+
+
+
+
+
+
+[turret_ZAFT_ZGMF_600_BR]
+x:0
+y:0
+
+canShoot:false
+projectile:ZAFT_ZGMF_600_BR_Projectile
+
+delay:0.2s
+canAttackMaxAngle:15
+barrelX:9
+barrelY:25
+limitingRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/BeamRifle_2.ogg
+shoot_sound_vol:0.6
+shoot_flame:Beam_Fire_1_Green
+
+
+
+[projectile_ZAFT_ZGMF_600_BR_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_BeamRifle_Green*1
+(
+    addResources=
+    BeamDamage:7500
+    |DpDamage:250
+    |WeaponAccuracy=90
+    |PartBreakModifier=1
+    |CockpitBreakModifier=1
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.5
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=2
+    |HeightHitRange=25
+    |ProjectileSpeed:85
+    |ProjectileSpread:1
+    |ProjectileLife:30
+)
+"""
+
+
+
+
+
+[hiddenAction_ZAFT_ZGMF_600_BR_Trigger]
+alsoTriggerAction:ZAFT_ZGMF_600_BR_Fire
+[hiddenAction_ZAFT_ZGMF_600_BR_Fire]
+requireConditional:"""
+if self.timeAlive>memory.ZAFT_ZGMF_600_BR_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  
+and self.resource.EN>0
+"""
+setUnitMemory:ZAFT_ZGMF_600_BR_CDTimer=self.timeAlive+${ZAFT_ZGMF_600_BR_CD}
+addResources:EN=-${ZAFT_ZGMF_600_BR_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+ZAFT_ZGMF_600_BR_SetWeaponIndex,
+PlayCommon_Shoot_A_Step_1,
+ZAFT_ZGMF_600_BR_B1_Step_1
+"""
+[hiddenAction_ZAFT_ZGMF_600_BR_B1_Step_1]
+alsoQueueAction:"""
+ZAFT_ZGMF_600_BR_Fire_Step_1,
+ZAFT_ZGMF_600_BR_Fire_Step_2,
+ZAFT_ZGMF_600_BR_Fire_Step_Final
+"""
+
+
+
+[hiddenAction_ZAFT_ZGMF_600_BR_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_ZAFT_ZGMF_600_BR_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.25s
+[hiddenAction_ZAFT_ZGMF_600_BR_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:ZAFT_ZGMF_600_BR
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_ZAFT_ZGMF_600_BR_Fire_Step_Final]
+buildSpeed:0.25s
+alsoTriggerAction:SetAttackingOff
+

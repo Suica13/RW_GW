@@ -1,0 +1,139 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Cqb/Common/Cqb_Fire_2_White_R.gw,
+ROOT:Template/Unit/Animation/Sp/Common_Throw_A.gw
+"""
+
+@memory Common_Grenade_D_CDTimer:float
+@global Common_Grenade_D_CD=12
+@global Common_Grenade_D_EN=40
+
+
+
+
+
+
+
+
+[turret_Common_Grenade_D]
+x:0
+y:0
+
+canShoot:false
+projectile:Common_Grenade_D_Projectile
+
+delay:0.3s
+canAttackMaxAngle:15
+limitingAngle:0
+barrelX:7
+barrelY:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/Throw_1.ogg
+shoot_sound_vol:0.6
+shoot_flame:Cqb_Fire_2_White_R_S
+
+
+
+[projectile_Common_Grenade_D_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Grenade_D*1
+(
+    addResources=
+    ShellDamage:4500
+    |DpDamage:450
+    |WeaponAccuracy=75
+    |PartBreakModifier=0.5
+    |CockpitBreakModifier=0.5
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=0.75
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=0.75
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1.5
+    |AntiAqua=0.75
+    |AntiAir=0.5 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=0.5
+    |HeightHitRange=10
+    |ProjectileSpeed:35
+    |ProjectileSpread:5
+    |ProjectileExplosionRange:55
+    |ProjectileLife:70
+)
+"""
+
+
+
+
+
+
+
+
+[hiddenAction_Common_Grenade_D_Trigger]
+alsoTriggerAction:Common_Grenade_D_Fire
+[hiddenAction_Common_Grenade_D_Fire]
+requireConditional:"""
+if self.timeAlive>memory.Common_Grenade_D_CDTimer and ${onAttacking}==false and ${cantAction}==false and ${onSkill}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15) 
+and self.resource.EN>0
+"""
+setUnitMemory:Common_Grenade_D_CDTimer=self.timeAlive+${Common_Grenade_D_CD}
+addResources:EN=-${Common_Grenade_D_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+Common_Grenade_D_SetWeaponIndex,
+PlayCommon_Throw_A_Step_1,
+Common_Grenade_D_B1_Step_1
+"""
+[hiddenAction_Common_Grenade_D_B1_Step_1]
+alsoQueueAction:"""
+Common_Grenade_D_Fire_Step_1,
+Common_Grenade_D_Fire_Step_2,
+Common_Grenade_D_Fire_Step_Final
+"""
+
+
+
+
+
+
+[hiddenAction_Common_Grenade_D_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_Common_Grenade_D_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.35s
+[hiddenAction_Common_Grenade_D_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:Common_Grenade_D
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_Common_Grenade_D_Fire_Step_Final]
+buildSpeed:0.35s
+alsoTriggerAction:SetAttackingOff
+
+

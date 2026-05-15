@@ -1,0 +1,37 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+
+[hiddenAction_AutoProduce_JotunheimClass]
+@copyFromSection:template_AutoProduce
+@define UnitID=JotunheimClass
+alsoTriggerAction:AutoProduce_JotunheimClass_Step2
+
+[hiddenAction_AutoProduce_JotunheimClass_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=2000
+@define Resource=5500
+alsoQueueAction:Produce_JotunheimClass
+
+
+
+[action_Produce_JotunheimClass]
+@copyFromSection:template_Produce_Fast
+@define UnitID=JotunheimClass
+@define Money=2000
+@define Resource=5500
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:60s
+
+alsoQueueAction:"""
+Produce_JotunheimClass_1
+"""
+[hiddenAction_Produce_JotunheimClass_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+JotunheimClass*1(addResources=PilotType:2101|EquipmentIndex:0)
+"""

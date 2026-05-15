@@ -1,0 +1,51 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+
+[hiddenAction_AutoProduce_RGC_83]
+@copyFromSection:template_AutoProduce
+@define UnitID=RGC_83
+alsoTriggerAction:AutoProduce_RGC_83_Step2
+
+[hiddenAction_AutoProduce_RGC_83_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=4250
+@define Resource=5750
+alsoQueueAction:Produce_RGC_83_StandardSquad
+
+
+
+[action_Produce_RGC_83_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=RGC_83
+@define Money=4250
+@define Resource=5750
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+buildSpeed:65s
+
+alsoQueueAction:"""
+Produce_RGC_83_StandardSquad_1,
+Produce_RGC_83_StandardSquad_2,
+Produce_RGC_83_StandardSquad_3
+"""
+[hiddenAction_Produce_RGC_83_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RGC_83*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_RGC_83_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+RGC_83*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_RGC_83_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+RGC_83*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

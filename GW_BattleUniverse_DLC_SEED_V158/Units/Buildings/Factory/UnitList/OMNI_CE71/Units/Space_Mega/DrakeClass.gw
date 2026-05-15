@@ -1,0 +1,37 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+
+[hiddenAction_AutoProduce_DrakeClass]
+@copyFromSection:template_AutoProduce
+@define UnitID=DrakeClass
+alsoTriggerAction:AutoProduce_DrakeClass_Step2
+
+[hiddenAction_AutoProduce_DrakeClass_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=2000
+@define Resource=3500
+alsoQueueAction:Produce_DrakeClass
+
+
+
+[action_Produce_DrakeClass]
+@copyFromSection:template_Produce_Fast
+@define UnitID=DrakeClass
+@define Money=2000
+@define Resource=3500
+@define FactionVisible= (memory.Pannel_OMNI_CE71_DontShow==false)
+buildSpeed:45s
+
+alsoQueueAction:"""
+Produce_DrakeClass_1
+"""
+[hiddenAction_Produce_DrakeClass_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+DrakeClass*1(addResources=PilotType:2101|EquipmentIndex:0)
+"""

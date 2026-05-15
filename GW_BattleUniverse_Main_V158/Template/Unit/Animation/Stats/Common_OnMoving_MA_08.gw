@@ -1,0 +1,49 @@
+[core]
+dont_load:false
+
+
+
+[animation_OnMoving]
+KeyframeTimeScale:1
+
+arm1_0.0s: {y: 1.0 }
+
+arm2_0.0s: {y: -0.5 }
+
+arm19_0.0s: {y:-0.5,dir:0}
+arm20_0.0s: {y:-0.5,dir:0}
+
+leg17_0.0s: {x:-1,y: 7, dir: -8 }
+leg17_0.25s: {x:-1 ,y: 7, dir: -8 }
+
+leg18_0.0s: {x:-1 ,y: 4, dir: -8 }
+leg18_0.25s: {x:-1 ,y: 4, dir: -8 }
+
+leg19_0.0s: {x:-1 ,y: 3, dir: 12 }
+leg19_0.25s: {x:-1 ,y: 3, dir: 12 }
+
+leg20_0.0s: {x:-1 ,y: 2, dir: 12 }
+leg20_0.25s: {x:-1 ,y: 2, dir: 12 }
+
+
+[animation_OnMovingReversing]
+KeyframeTimeScale:1
+
+arm1_0.0s: {y: 1.0 }
+
+arm2_0.0s: {y: -0.5 }
+
+arm19_0.0s: {y:-0.5,dir:0}
+arm20_0.0s: {y:-0.5,dir:0}
+
+leg17_0.0s: {x:-1,y: 7, dir: -8 }
+leg17_0.25s: {x:-1 ,y: 7, dir: -8 }
+
+leg18_0.0s: {x:-1 ,y: 4, dir: -8 }
+leg18_0.25s: {x:-1 ,y: 4, dir: -8 }
+
+leg19_0.0s: {x:-1 ,y: 3, dir: 12 }
+leg19_0.25s: {x:-1 ,y: 3, dir: 12 }
+
+leg20_0.0s: {x:-1 ,y: 2, dir: 12 }
+leg20_0.25s: {x:-1 ,y: 2, dir: 12 }

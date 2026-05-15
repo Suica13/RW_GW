@@ -1,0 +1,68 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+@memory MS_06F_Sniper:bool
+
+
+[hiddenAction_Pannel_Close_MS_06F_Sniper]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:MS_06F_Sniper=false
+
+
+
+[hiddenAction_AutoProduce_MS_06F_Sniper]
+@copyFromSection:template_AutoProduce
+@define UnitID=MS_06F_Sniper
+alsoTriggerAction:AutoProduce_MS_06F_Sniper_Step2
+
+[hiddenAction_AutoProduce_MS_06F_Sniper_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=3700
+@define Resource=4300
+alsoTriggerAction:AutoProduce_MS_06F_Sniper_Random
+
+
+
+[hiddenAction_AutoProduce_MS_06F_Sniper_Random]
+alsoTriggerAction:"""
+AutoProduce_MS_06F_Sniper_Random_A
+"""
+[hiddenAction_AutoProduce_MS_06F_Sniper_Random_A]
+requireConditional:"""
+if memory.randomProduce<1000
+"""
+alsoQueueAction:Produce_MS_06F_Sniper_StandardSquad
+
+
+
+[action_Produce_MS_06F_Sniper_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=MS_06F_Sniper
+@define Money=3700
+@define Resource=4300
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:60s
+
+alsoQueueAction:"""
+Produce_MS_06F_Sniper_StandardSquad_1,
+Produce_MS_06F_Sniper_StandardSquad_2,
+Produce_MS_06F_Sniper_StandardSquad_3
+"""
+[hiddenAction_Produce_MS_06F_Sniper_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_06F_Sniper*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_MS_06F_Sniper_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_06F_Sniper*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_MS_06F_Sniper_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+MS_06F_Sniper*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

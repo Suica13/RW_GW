@@ -1,0 +1,100 @@
+[core]
+dont_load:true
+
+copyFrom:"""
+ROOT:Units/BattleUnits/Weapon/Funnel/Mod/Funnel.gw
+"""
+
+
+@memory nowTarget:unit
+
+@memory moveCD:float
+@memory goBack:bool
+
+@global lifeTime=25
+
+@memory turnTimer:float
+@global turnTimerMax=15
+
+
+
+
+
+
+[hiddenAction_Send_FunnelSpawn]
+autoTriggerOnEvent:created
+sendMessageTo:customTarget1
+sendMessageWithTags:FunnelSpawn
+sendMessageWithData:unitInfo=self
+
+[hiddenAction_FunnelUpdate]
+autoTrigger:true
+alsoTriggerAction:"""
+FindTarget,
+Move
+"""
+
+[hiddenAction_FindTarget]
+setUnitMemory:nowTarget=customTarget1.attacking
+
+
+[hiddenAction_Move]
+alsoTriggerAction:"""
+Move_CloseCustomTarget1
+"""
+
+
+[hiddenAction_Move_CloseCustomTarget1]
+requireConditional:if not self.hasActiveWaypoint(type='move') and self.timeAlive>memory.moveCD and memory.goBack==false
+addWaypoint_type:move
+addWaypoint_prepend:true
+clearAllWaypoints:true
+addWaypoint_target_fromReference:customTarget1.getOffsetRelative(x=rnd(-150,150),y=rnd(-150,150)+35)
+setUnitMemory:moveCD=self.timeAlive+rnd(1,2),turnTimer=memory.turnTimer+1
+
+
+
+[hiddenAction_TimerOut]
+autoTrigger:if (self.timeAlive>=${lifeTime} or memory.turnTimer>=${turnTimerMax} or self.resource().EN<=0) and memory.goBack==false
+setUnitMemory:goBack=true
+clearAllWaypoints:true
+
+[hiddenAction_TryGoBack]
+autoTrigger:if memory.goBack==true 
+addWaypoint_target_fromReference:customTarget1
+addWaypoint_type:touchTarget
+
+
+[hiddenAction_TryDelSelWhenEnd]
+autoTrigger:if memory.goBack==true and distanceBetween(self,customTarget1)<60
+alsoTriggerAction:TimerOutDel
+
+
+[hiddenAction_TimerOutDel]
+autoTrigger:"""
+if 
+(
+    (
+        (self.hp>0 and customTarget1.hp>0) 
+        and memory.goBack==true 
+        and distanceBetween(self,customTarget1)>=60 
+        and self.timeAlive>${lifeTime}*2
+    ) 
+    or 
+    self.timeAlive>${lifeTime}*4
+)
+"""
+spawnEffects:Light_50
+deleteSelf:true
+
+
+[hiddenAction_Die]
+autoTrigger:if self.timeAlive<${lifeTime} and (self.hp<=0 or customTarget1.hp<=0) and memory.goBack==false and memory.onDie==false
+
+
+
+
+
+
+
+

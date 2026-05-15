@@ -1,0 +1,20 @@
+[core]
+dont_load:true
+copyFrom:"""
+ROOT:Units/BattleUnits/Weapon/Sp/Common_Dash.gw
+"""
+
+
+
+[hiddenAction_Common_Dash_Fire_Step_CheckStop]
+requireConditional:"""
+if 
+(
+    not self.getOffsetRelative(y=20).getAsMarker().isInMap() 
+    or self.getOffsetRelative(y=20).getAsMarker().numberOfUnitsInAllTeams(withTag="BlockLand",greaterThan=0,withinrange=20) 
+    or self.getOffsetRelative(y=20).getAsMarker().isOverLiquid() 
+    or ${cantAction}==true 
+) 
+or distanceBetween(self,memory.Common_Dash_AimTarget)<=50 
+or self.timeAlive>memory.Common_Dash_ActiveTimer
+"""

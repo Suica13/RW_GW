@@ -1,0 +1,165 @@
+[core]
+dont_load:true
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Sp/Common/EMP_Hit_2.gw
+"""
+
+@memory Common_DetectArea_Switch:bool
+@memory Common_DetectArea_CDTimer:float
+@global Common_DetectArea_CD=5
+@global Common_DetectArea_Range=900
+@global Common_DetectArea_EN=15
+
+
+
+
+[decal_Common_DetectArea_Range]
+layer: inactive
+order:0
+onlyTeam:own
+alpha:1
+image:ROOT:Resource/Image/Ring/Ring150_Action.png
+imageScale:900/150
+basePosition:self
+alwaysStartDirAtZero:true
+onlyWhileAlive:true
+isVisible:if true
+
+
+
+
+[turret_Common_DetectArea]
+x:0
+y:0
+canShoot:false
+projectile:Common_DetectArea_Projectile
+limitingRange:900
+canAttackMaxAngle:0
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+shoot_flame:none
+
+
+
+[projectile_Common_DetectArea_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+
+
+
+
+
+[hiddenAction_Common_DetectArea_Trigger_ByAI]
+autoTrigger:"""
+if ${allowAI}==true 
+and ${cantAction}==false  
+and memory.Common_DetectArea_Switch==false 
+and self.resource.en>${Common_DetectArea_EN} 
+and not self.hasTags(includes='inHangar')
+"""
+alsoTriggerAction:Common_DetectArea_Trigger
+
+[action_Common_DetectArea_Trigger]
+pos:10
+text:DetectArea %{select(memory.Common_DetectArea_Switch==true,"OFF","ON")}
+text_zh:侦测区域 %{select(memory.Common_DetectArea_Switch==true,"开启中","关闭中")}
+text_KP:100
+
+displayType:infoOnly
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+
+isGuiBlinking:"""
+if memory.Common_DetectArea_Switch==true  
+"""
+
+onlyOneUnitAtATime:true
+
+
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/EWAC_1.png
+isVisible:if not self.hasTags(includes='inHangar')
+highPriorityQueue:true
+
+
+
+setUnitMemory:Common_DetectArea_Switch=select(memory.Common_DetectArea_Switch==false,true,false)
+
+
+[hiddenAction_Common_DetectArea_On]
+autoTrigger:"""
+if memory.Common_DetectArea_Switch==true 
+and self.timeAlive>memory.Common_DetectArea_CDTimer 
+and self.resource.en>${Common_DetectArea_EN} 
+and not self.hasTags(includes='inHangar') 
+and ${cantAction}==false 
+"""
+
+
+setResourcesWithLogic:en=self.resource.en-${Common_DetectArea_EN}
+
+fireTurretXAtGround:Common_DetectArea
+fireTurretXAtGround_showGuideDecals:Common_DetectArea_Range
+
+alsoTriggerAction:"""
+Common_DetectArea_SetWeaponIndex,
+Common_DetectArea_Step_1
+"""
+
+[hiddenAction_Common_DetectArea_Step_1]
+
+setUnitMemory:"""
+Common_DetectArea_CDTimer=self.timeAlive+${Common_DetectArea_CD}
+"""
+
+alsoQueueAction:"""
+Common_DetectArea_Fire_Step_1,
+Common_DetectArea_Fire_Step_2
+"""
+setResourcesWithLogic:en=self.resource.en-${Common_DetectArea_EN}
+
+
+[hiddenAction_Common_DetectArea_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_Common_DetectArea_Fire_Step_1]
+buildSpeed:0.0s
+spawnEffects:EMP_Hit_2
+playSoundAtUnit:ROOT:Resource/Sound/SE/Action/Skill/Detect_1.ogg
+
+[hiddenAction_Common_DetectArea_Fire_Step_2]
+buildSpeed:0.0s
+takeResources_includeUnitsWithinRange:${Common_DetectArea_Range}
+takeResources_includeUnitsWithinRange_team:enemy
+takeResources_excludeUnitsWithoutTags:Unit
+takeResources_searchOnly:true
+takeResources_maxUnits:200
+takeResources_triggerActionForEach:Common_DetectArea_Fire_Step_2_B
+
+[hiddenAction_Common_DetectArea_Fire_Step_2_B]
+requireConditional:"""
+if thisActionTarget.numberOfUnitsInAllyNotOwnTeam(withTag="DetectMarker",lessThan=1,withinrange=50) 
+and thisActionTarget.numberOfUnitsInTeam(withTag="DetectMarker",lessThan=1,withinrange=50) 
+and distanceBetween(self,thisActionTarget)+thisActionTarget.readUnitMemory("finalAntiDetectRange",type="float")<${Common_DetectArea_Range}
+*select(self.height>=0 and thisActionTarget.height<0,0.5,1)
+*select(self.height<=0 and thisActionTarget.height>0,0.5,1)
+*select(thisActionTarget.tags(includes='AntiDetect'),0.5,1)
+"""
+sendMessageTo:thisActionTarget
+sendMessageWithTags:Detected
+sendMessageWithData:"""
+unitInfo=self,
+SpawnMarker=true
+"""

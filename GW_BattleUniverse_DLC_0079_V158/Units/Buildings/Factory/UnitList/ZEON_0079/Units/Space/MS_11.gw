@@ -1,0 +1,121 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory MS_11:bool
+
+
+[hiddenAction_Pannel_Close_MS_11]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:MS_11=false
+
+
+
+
+[hiddenAction_AutoProduce_MS_11]
+@copyFromSection:template_AutoProduce
+@define UnitID=MS_11
+alsoTriggerAction:AutoProduce_MS_11_Step2
+
+[hiddenAction_AutoProduce_MS_11_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=2500
+@define Resource=3500
+alsoTriggerAction:AutoProduce_MS_11_Random
+
+
+
+[hiddenAction_AutoProduce_MS_11_Random]
+alsoTriggerAction:"""
+AutoProduce_MS_11_Random_A,
+AutoProduce_MS_11_Random_B
+"""
+[hiddenAction_AutoProduce_MS_11_Random_A]
+requireConditional:"""
+if memory.randomProduce<=500
+"""
+alsoQueueAction:Produce_MS_11_StandardSquad
+
+[hiddenAction_AutoProduce_MS_11_Random_B]
+requireConditional:"""
+if memory.randomProduce>500 
+and memory.randomProduce<=850
+"""
+alsoQueueAction:Produce_MS_11_BeamRifleSquad
+
+
+
+
+
+[action_Pannel_MS_11]
+@copyFromSection:template_Pannel
+@define UnitID=MS_11
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+
+[action_Produce_MS_11_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=MS_11
+@define Money=2500
+@define Resource=3050
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:65s
+
+alsoQueueAction:"""
+Produce_MS_11_StandardSquad_1,
+Produce_MS_11_StandardSquad_2,
+Produce_MS_11_StandardSquad_3
+"""
+[hiddenAction_Produce_MS_11_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_11*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_MS_11_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_11*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_MS_11_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+MS_11*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+
+
+[action_Produce_MS_11_BeamRifleSquad]
+@copyFromSection:template_Produce
+@define UnitID=MS_11
+@define Money=2650
+@define Resource=3650
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:65s
+
+text:BeamRifle Squad
+text_zh:光束步枪小队
+
+alsoQueueAction:"""
+Produce_MS_11_BeamRifleSquad_1,
+Produce_MS_11_BeamRifleSquad_2,
+Produce_MS_11_BeamRifleSquad_3
+"""
+[hiddenAction_Produce_MS_11_BeamRifleSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_11*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_MS_11_BeamRifleSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_11*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_MS_11_BeamRifleSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+MS_11*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""

@@ -1,0 +1,58 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory YMS_16M:bool
+
+
+[hiddenAction_Pannel_Close_YMS_16M]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:YMS_16M=false
+
+
+
+
+[hiddenAction_AutoProduce_YMS_16M]
+@copyFromSection:template_AutoProduce
+@define UnitID=YMS_16M
+alsoTriggerAction:AutoProduce_YMS_16M_Step2
+
+[hiddenAction_AutoProduce_YMS_16M_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=3200
+@define Resource=3500
+alsoTriggerAction:AutoProduce_YMS_16M_Random
+
+
+
+[hiddenAction_AutoProduce_YMS_16M_Random]
+alsoTriggerAction:"""
+AutoProduce_YMS_16M_Random_A
+"""
+[hiddenAction_AutoProduce_YMS_16M_Random_A]
+requireConditional:"""
+if memory.randomProduce<=1000
+"""
+alsoQueueAction:Produce_YMS_16M_StandardSquad
+
+
+
+
+[action_Produce_YMS_16M_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=YMS_16M
+@define Money=3200
+@define Resource=3500
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+buildSpeed:50s
+
+alsoQueueAction:"""
+Produce_YMS_16M_StandardSquad_1
+"""
+[hiddenAction_Produce_YMS_16M_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+YMS_16M*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

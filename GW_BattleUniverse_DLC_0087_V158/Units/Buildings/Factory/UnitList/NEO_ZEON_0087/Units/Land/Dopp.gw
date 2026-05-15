@@ -1,0 +1,50 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+[hiddenAction_AutoProduce_Dopp]
+@copyFromSection:template_AutoProduce
+@define UnitID=Dopp
+alsoTriggerAction:AutoProduce_Dopp_Step2
+
+[hiddenAction_AutoProduce_Dopp_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=450
+@define Resource=900
+alsoQueueAction:Produce_Dopp_StandardSquad
+
+
+
+[action_Produce_Dopp_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=Dopp
+@define Money=450
+@define Resource=900
+@define FactionVisible= (memory.Pannel_NEO_ZEON_0087_DontShow==false)
+buildSpeed:45s
+
+alsoQueueAction:"""
+Produce_Dopp_StandardSquad_1,
+Produce_Dopp_StandardSquad_2,
+Produce_Dopp_StandardSquad_3
+"""
+[hiddenAction_Produce_Dopp_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+Dopp*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_Dopp_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+Dopp*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_Dopp_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+Dopp*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

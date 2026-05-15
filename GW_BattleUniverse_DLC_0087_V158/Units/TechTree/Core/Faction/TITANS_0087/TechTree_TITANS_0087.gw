@@ -1,0 +1,19 @@
+
+
+[action_ShowTechTree_TITANS_0087]
+@copyFromSection:template_ShowTechTree
+text:TITANS[0087]
+text_zh:提坦斯[0087]
+iconImage:ROOT:Resource/Image/Icon/Faction_TITANS_0087_2.png
+isVisible:if self.attachment(slot="TITANS_0087").hp>0 and memory.showTechTree==false and self.globalTeamTags(includes='Tech_TITANS_0087_BaseTech')
+
+isLocked:"""
+if not self.globalTeamTags(includes='Tech_TITANS_0087_BaseTech')
+"""
+
+sendMessageTo:self.attachment(slot="TITANS_0087")
+
+
+[attachment_TITANS_0087]
+@copyFromSection:template_TechTree_Main
+onCreateSpawnUnitOf:TechTree_UI_Main_TITANS_0087

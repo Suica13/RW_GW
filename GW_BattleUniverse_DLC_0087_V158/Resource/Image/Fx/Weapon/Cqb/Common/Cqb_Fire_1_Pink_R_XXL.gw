@@ -1,0 +1,29 @@
+[core]
+dont_load:false
+
+
+
+[effect_Cqb_Fire_1_Pink_R_XXL]
+life: 160
+
+xOffsetRelative: 7.5
+yOffsetRelative: 22
+
+attachedToUnit: true
+priority:high
+atmospheric:false
+ySpeedRelative:0.35
+delayedStartTimer:0
+fadeOut: false
+image: ROOT:\Resource\Image\Fx\Weapon\Cqb\Image\Cqb_Fire_1_Pink_R.png
+
+dirOffset:90
+total_frames: 9
+animateFrameStart: 0
+animateFrameEnd: 8
+animateFrameSpeed:0.3
+
+alpha:1
+scaleFrom:3
+scaleTo:2
+showInFog:true

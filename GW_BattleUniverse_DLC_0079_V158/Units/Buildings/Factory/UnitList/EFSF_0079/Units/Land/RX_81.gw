@@ -1,0 +1,256 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory RX_81:bool
+
+
+[hiddenAction_Pannel_Close_RX_81]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:RX_81=false
+
+
+
+
+[hiddenAction_AutoProduce_RX_81]
+@copyFromSection:template_AutoProduce
+@define UnitID=RX_81
+alsoTriggerAction:AutoProduce_RX_81_Step2
+
+[hiddenAction_AutoProduce_RX_81_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=5750
+@define Resource=8000
+alsoTriggerAction:AutoProduce_RX_81_Random
+
+
+
+[hiddenAction_AutoProduce_RX_81_Random]
+alsoTriggerAction:"""
+AutoProduce_RX_81_Random_A,
+AutoProduce_RX_81_Random_B,
+AutoProduce_RX_81_Random_C
+"""
+[hiddenAction_AutoProduce_RX_81_Random_A]
+requireConditional:"""
+if memory.randomProduce<=500
+"""
+alsoQueueAction:Produce_RX_81_STSquad
+
+[hiddenAction_AutoProduce_RX_81_Random_B]
+requireConditional:"""
+if memory.randomProduce>500 
+and memory.randomProduce<=850
+"""
+alsoQueueAction:Produce_RX_81_LASquad
+
+[hiddenAction_AutoProduce_RX_81_Random_C]
+requireConditional:"""
+if memory.randomProduce>850
+"""
+alsoQueueAction:Produce_RX_81_ASSquad
+
+
+
+
+
+[action_Pannel_RX_81]
+@copyFromSection:template_Pannel
+@define UnitID=RX_81
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+
+[action_Produce_RX_81_STSquad]
+@copyFromSection:template_Produce
+@define UnitID=RX_81
+@define Money=5500
+@define Resource=6000
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+@define OtherVisible= (self.globalTeamTags(includes='Unlock_RX_81ST'))
+
+isLocked:if not self.globalTeamTags(includes='Unlock_RX_81ST') 
+
+buildSpeed:60s
+
+unitShownInUI:RX_81ST
+text:Standard Armor Squad
+text_zh:标准装甲型小队
+
+alsoQueueAction:"""
+Produce_RX_81_STSquad_1,
+Produce_RX_81_STSquad_2,
+Produce_RX_81_STSquad_3
+"""
+[hiddenAction_Produce_RX_81_STSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RX_81ST*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_RX_81_STSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+RX_81ST*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_RX_81_STSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+RX_81ST*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+
+[action_Produce_RX_81_LASquad]
+@copyFromSection:template_Produce
+@define UnitID=RX_81
+@define Money=5500
+@define Resource=6000
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+@define OtherVisible= (self.globalTeamTags(includes='Unlock_RX_81LA'))
+
+isLocked:if not self.globalTeamTags(includes='Unlock_RX_81LA') 
+
+buildSpeed:60s
+
+unitShownInUI:RX_81LA
+text:Light Armor Squad
+text_zh:轻装甲型小队
+
+alsoQueueAction:"""
+Produce_RX_81_LASquad_1,
+Produce_RX_81_LASquad_2,
+Produce_RX_81_LASquad_3
+"""
+[hiddenAction_Produce_RX_81_LASquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RX_81LA*1(addResources=PilotType:1101|EquipmentIndex:2)
+"""
+[hiddenAction_Produce_RX_81_LASquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+RX_81LA*1(addResources=PilotType:1101|EquipmentIndex:2)
+"""
+[hiddenAction_Produce_RX_81_LASquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+RX_81LA*1(addResources=PilotType:1101|EquipmentIndex:2)
+"""
+
+[action_Produce_RX_81_ASSquad]
+@copyFromSection:template_Produce
+@define UnitID=RX_81
+@define Money=6250
+@define Resource=6750
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+@define OtherVisible= (self.globalTeamTags(includes='Unlock_RX_81AS'))
+
+isLocked:if not self.globalTeamTags(includes='Unlock_RX_81AS') 
+
+buildSpeed:60s
+
+unitShownInUI:RX_81AS
+text:Assault Armor Squad
+text_zh:突击装甲型小队
+
+alsoQueueAction:"""
+Produce_RX_81_ASSquad_1,
+Produce_RX_81_ASSquad_2,
+Produce_RX_81_ASSquad_3
+"""
+[hiddenAction_Produce_RX_81_ASSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RX_81AS*1(addResources=PilotType:1101|EquipmentIndex:3)
+"""
+[hiddenAction_Produce_RX_81_ASSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+RX_81AS*1(addResources=PilotType:1101|EquipmentIndex:3)
+"""
+[hiddenAction_Produce_RX_81_ASSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+RX_81AS*1(addResources=PilotType:1101|EquipmentIndex:3)
+"""
+
+[action_Produce_RX_81_FCSquad]
+@copyFromSection:template_Produce
+@define UnitID=RX_81
+@define Money=7000
+@define Resource=7500
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+@define OtherVisible= (self.globalTeamTags(includes='Unlock_RX_81FC'))
+
+isLocked:if not self.globalTeamTags(includes='Unlock_RX_81FC') 
+
+buildSpeed:60s
+
+unitShownInUI:RX_81FC
+text:FullCustom Squad
+text_zh:完全特装型小队
+
+alsoQueueAction:"""
+Produce_RX_81_FCSquad_1,
+Produce_RX_81_FCSquad_2,
+Produce_RX_81_FCSquad_3
+"""
+[hiddenAction_Produce_RX_81_FCSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RX_81FC*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_RX_81_FCSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+RX_81FC*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_RX_81_FCSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+RX_81FC*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+
+
+[action_Produce_RX_81_NSquad]
+@copyFromSection:template_Produce
+@define UnitID=RX_81
+@define Money=4750
+@define Resource=4750
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+buildSpeed:60s
+
+text:Base Type Squad
+text_zh:基础型小队
+
+alsoQueueAction:"""
+Produce_RX_81_NSquad_1,
+Produce_RX_81_NSquad_2,
+Produce_RX_81_NSquad_3
+"""
+[hiddenAction_Produce_RX_81_NSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RX_81*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_RX_81_NSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+RX_81*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_RX_81_NSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+RX_81*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

@@ -1,0 +1,240 @@
+[core]
+
+@memory onOpticalCamouflage:bool
+
+@memory cantOpticalCamouflage:bool
+
+
+[hiddenAction_Check_CantOpticalCamouflage]
+autoTrigger:true
+setUnitMemory:"""
+cantOpticalCamouflage=select
+(
+    memory.headBreaked==true 
+    or memory.backpackBreaked==true 
+    or memory.armLBreaked==true 
+    or memory.armRBreaked==true 
+    or memory.legLBreaked==true 
+    or memory.legRBreaked==true,
+    true,
+    false
+)
+"""
+
+
+[hiddenAction_Set_Skill_OpticalCamouflage]
+autoTriggerOnEvent:newMessage(withTag="UnitTurretSpawn")
+
+
+[hiddenAction_OpticalCamouflagActive]
+setUnitMemory:onOpticalCamouflage=true
+spawnEffects:OpticalCamouflage_In
+
+[hiddenAction_ClearOpticalCamouflageWhenAction]
+autoTrigger:if ${onAttacking}==true and memory.onOpticalCamouflage==true
+alsoTriggerAction:ClearOpticalCamouflage
+
+[hiddenAction_ClearOpticalCamouflageWhenTookDamage]
+autoTriggerOnEvent:newMessage(withTag="Damage")
+requireConditional:if eventData("Damage",type="float")>self.maxHp*0.015 and memory.onOpticalCamouflage==true
+alsoTriggerAction:ClearOpticalCamouflage
+
+[hiddenAction_ClearOpticalCamouflage]
+autoTrigger:"""
+if memory.onOpticalCamouflage==true 
+and 
+( 
+    memory.BattleUnitCore.readUnitMemory('jammingTimer',type='float')>0 
+    or 
+    self.resource().en<=0 
+    or 
+    memory.cantOpticalCamouflage==true
+)
+"""
+setUnitMemory:"""
+onOpticalCamouflage=false
+"""
+spawnEffects:OpticalCamouflage_Out
+
+[hiddenAction_OpticalCamouflag_Check]
+autoTrigger:if memory.onOpticalCamouflage==true
+setResourcesWithLogic:en=self.resource().en-1
+
+[effect_OpticalCamouflage_In]
+life:60
+attachedToUnit:true
+drawType:displacement
+scaleFrom:2
+scaleTo:5
+alpha:0.5
+alsoPlaySound:ROOT:Resource/Sound/SE/Action/Common/Action_2.ogg:0.5
+
+[effect_OpticalCamouflage_Out]
+life:40
+attachedToUnit:true
+drawType:displacement
+scaleFrom:5
+scaleTo:2
+alpha:0.5
+alsoPlaySound:ROOT:Resource/Sound/SE/Action/Common/Action_2.ogg:0.5
+
+
+
+[decal_OpticalCamouflageIcon]
+layer:beforeBody
+order:8
+image:ROOT:Resource/Image/Units/Button/Skill/OpticalCamouflage.png
+onlyTeam:own
+alpha:1
+imageScale:0.2
+xOffsetAbsolute:-22
+yOffsetAbsolute:42
+alwaysStartDirAtZero:true
+onlyOnNonPreview:true
+isVisible:if memory.hideUI==0 and memory.onOpticalCamouflage==true
+onlyWhileAlive:true
+
+
+
+
+
+
+
+[action_Skill_OpticalCamouflage_ON_Trigger]
+pos:10
+text:OpticalCamouflage[ON]
+text_zh:光学迷彩[ON]
+text_KP:0
+
+displayType:infoOnly
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+addActionCooldownTime:5s
+
+iconImage:ROOT:Resource/Image/Units/Button/Skill/OpticalCamouflage.png
+isVisible:if memory.onOpticalCamouflage==false and self.parent.hp<=0  
+requireConditional:if ${cantAction}==false
+
+highPriorityQueue:true
+
+isLockedAlt:if memory.onOpticalCamouflage==true
+isLockedAltMessage:In Action
+isLockedAltMessage_zh:行动中
+isLockedAlt2:if ${cantAction}==true or ${onSkill}==true or memory.cantOpticalCamouflage==true
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+alsoTriggerAction:"""
+Skill_OpticalCamouflage_SetWeaponIndex,
+OpticalCamouflagActive
+"""
+[action_Skill_OpticalCamouflage_OFF_Trigger]
+pos:10
+text:OpticalCamouflage[OFF]
+text_zh:光学迷彩[OFF]
+text_KP:0
+
+displayType:infoOnly
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+addActionCooldownTime:5s
+
+iconImage:ROOT:Resource/Image/Units/Button/Skill/OpticalCamouflage.png
+isVisible:if memory.onOpticalCamouflage==true and self.parent.hp<=0  
+requireConditional:if ${cantAction}==false
+
+highPriorityQueue:true
+
+isLockedAlt2:if ${cantAction}==true or ${onSkill}==true or memory.cantOpticalCamouflage==true
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+alsoTriggerAction:"""
+ClearOpticalCamouflage
+"""
+
+[hiddenAction_Skill_OpticalCamouflage_SetWeaponIndex]
+isVisible:false
+
+
+
+
+
+
+
+
+[core]
+
+
+@memory opticalCamouflageAntiDetectRangeNow:float
+@global opticalCamouflageAntiDetectRange=200
+
+@memory extraAntiDetectRange:float
+
+
+[hiddenAction_OpticalCamouflage_CheckAntiDetectRange]
+autoTrigger:true
+setUnitMemory:"""
+opticalCamouflageAntiDetectRangeNow=select(memory.onOpticalCamouflage==true,${opticalCamouflageAntiDetectRange},0)
+"""
+
+[hiddenAction_MathExtraAntiDetectRange]
+autoTrigger:true
+setUnitMemory:"""
+extraAntiDetectRange=memory.opticalCamouflageAntiDetectRangeNow
+"""
+
+[hiddenAction_Check_AntiDetect]
+autoTrigger:true
+alsoTriggerAction:"""
+Check_AntiDetect_True,
+Check_AntiDetect_False
+"""
+[hiddenAction_Check_AntiDetect_True]
+requireConditional:"""
+if not self.hasTags(includes='AntiDetect') 
+and 
+(
+    memory.onOpticalCamouflage==true
+)
+"""
+temporarilyAddTags:AntiDetect
+[hiddenAction_Check_AntiDetect_False]
+requireConditional:"""
+if self.hasTags(includes='AntiDetect') 
+and 
+(
+    memory.onOpticalCamouflage==false
+)
+"""
+temporarilyAddTags:AntiDetect
+
+
+[hiddenAction_Check_Stealth]
+autoTrigger:true
+alsoTriggerAction:"""
+Check_Stealth_True,
+Check_Stealth_False
+"""
+[hiddenAction_Check_Stealth_True]
+requireConditional:"""
+if not self.hasTags(includes='Stealth') 
+and 
+(
+    memory.onOpticalCamouflage==true
+)
+"""
+temporarilyAddTags:Stealth
+[hiddenAction_Check_Stealth_False]
+requireConditional:"""
+if self.hasTags(includes='Stealth') 
+and 
+(
+    memory.onOpticalCamouflage==false
+)
+"""
+temporarilyRemoveTags:Stealth

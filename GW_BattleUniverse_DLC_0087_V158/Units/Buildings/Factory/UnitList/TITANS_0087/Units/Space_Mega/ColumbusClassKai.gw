@@ -1,0 +1,36 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+[hiddenAction_AutoProduce_ColumbusClassKai]
+@copyFromSection:template_AutoProduce
+@define UnitID=ColumbusClassKai
+alsoTriggerAction:AutoProduce_ColumbusClassKai_Step2
+
+[hiddenAction_AutoProduce_ColumbusClassKai_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=1000
+@define Resource=2000
+alsoQueueAction:Produce_ColumbusClassKai_StandardSquad
+
+
+
+[action_Produce_ColumbusClassKai_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=ColumbusClassKai
+@define Money=1000
+@define Resource=2000
+@define FactionVisible= (memory.Pannel_TITANS_0087_DontShow==false)
+buildSpeed:35s
+
+alsoQueueAction:"""
+Produce_ColumbusClassKai_StandardSquad_1
+"""
+[hiddenAction_Produce_ColumbusClassKai_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+ColumbusClassKai*1(addResources=PilotType:2101|EquipmentIndex:0)
+"""

@@ -1,0 +1,84 @@
+[core]
+copyFrom:"""
+ROOT:Units/BattleUnits/Pilot/0079/ACE/Pilot_ID_List_0079.gw,
+ROOT:Units/Buildings/Beacon_ACE/UnitList/Mod/UnitTemplate.ini
+"""
+
+@memory Pilot_ZEON_0079_N_ACE_ANG:bool
+@memory Pilot_ZEON_0079_N_ACE_ANG_Timer:float
+
+
+[hiddenAction_AutoProduce_Pilot_ZEON_0079_N_ACE_ANG]
+@copyFromSection:template_AutoProduce
+@define UnitID=Pilot_ZEON_0079_N_ACE_ANG
+alsoTriggerAction:"""
+Pilot_ZEON_0079_N_ACE_ANG_Produce_Switch_G,
+Pilot_ZEON_0079_N_ACE_ANG_Produce_Switch_S
+"""
+
+[action_Pilot_ZEON_0079_N_ACE_ANG_Produce_Switch_G]
+@copyFromSection:template_Produce_Switch
+@define UnitID=Pilot_ZEON_0079_N_ACE_ANG
+@define Money=6000
+@define Resource=3000
+@define MoralPoint=500
+@define Time=30
+@define TileMode=0
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+@define OtherVisible= (true)
+
+[action_Pilot_ZEON_0079_N_ACE_ANG_Produce_Switch_S]
+@copyFromSection:template_Produce_Switch
+@define UnitID=Pilot_ZEON_0079_N_ACE_ANG
+@define Money=6000
+@define Resource=3000
+@define MoralPoint=500
+@define Time=30
+@define TileMode=1
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+@define OtherVisible= (true)
+
+[hiddenAction_Pilot_ZEON_0079_N_ACE_ANG_Produce_Payback]
+@copyFromSection:template_Produce_Payback
+@define UnitID=Pilot_ZEON_0079_N_ACE_ANG
+@define Money_G=6000
+@define Resource_G=3000
+@define MoralPoint_G=500
+@define Money_S=6000
+@define Resource_S=3000
+@define MoralPoint_S=500
+
+[hiddenAction_Pilot_ZEON_0079_N_ACE_ANG_Produce_T_G]
+@copyFromSection:template_Produce_T_G
+@define UnitID=Pilot_ZEON_0079_N_ACE_ANG
+produceUnits:"""
+RX_78GP02A*1(addResources=PilotType:${Pilot_ZEON_0079_N_ACE_ANG}|EquipmentIndex:1)
+"""
+
+[hiddenAction_Pilot_ZEON_0079_N_ACE_ANG_Produce_T_S]
+@copyFromSection:template_Produce_T_S
+@define UnitID=Pilot_ZEON_0079_N_ACE_ANG
+produceUnits:"""
+RX_78GP02A*1(addResources=PilotType:${Pilot_ZEON_0079_N_ACE_ANG}|EquipmentIndex:1)
+"""
+
+
+
+[hiddenAction_Pilot_ZEON_0079_N_ACE_ANG_Produce_Check]
+@copyFromSection:template_Produce_Check
+@define UnitID=Pilot_ZEON_0079_N_ACE_ANG
+alsoTriggerAction:"""
+Pilot_ZEON_0079_N_ACE_ANG_Produce_F,
+Pilot_ZEON_0079_N_ACE_ANG_Produce_T_G,
+Pilot_ZEON_0079_N_ACE_ANG_Produce_T_S
+"""
+
+[action_Pilot_ZEON_0079_N_ACE_ANG_Produce_Switch_ON]
+@copyFromSection:template_Produce_Switch_ON
+@define UnitID=Pilot_ZEON_0079_N_ACE_ANG
+alsoTriggerAction:Pilot_ZEON_0079_N_ACE_ANG_Produce_Payback
+
+[hiddenAction_Pilot_ZEON_0079_N_ACE_ANG_Produce_F]
+@copyFromSection:template_Produce_F
+@define UnitID=Pilot_ZEON_0079_N_ACE_ANG
+alsoTriggerAction:Pilot_ZEON_0079_N_ACE_ANG_Produce_Payback

@@ -1,0 +1,157 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw
+"""
+
+@memory EF_PublicClass_BeamDiffusionMS_CDTimer:float
+@global EF_PublicClass_BeamDiffusionMS_CD=180
+@global EF_PublicClass_BeamDiffusionMS_EN=150
+
+
+
+
+
+[turret_EF_PublicClass_BeamDiffusionMS]
+x:0
+y:0
+
+canShoot:false
+showRangeUIGuide:false
+projectile:EF_PublicClass_BeamDiffusionMS_Projectile
+
+delay:0.2s
+limitingRange:600
+limitingAngle:15
+
+canAttackMaxAngle:15
+barrelX:0
+barrelY:20
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\Missile_1.ogg
+shoot_sound_vol:0.15
+shoot_flame:BZ_Fire_1_S
+
+
+
+[projectile_EF_PublicClass_BeamDiffusionMS_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_EF_PublicClass_BeamDiffusionMS_BeamDiffusionArea*1
+(
+    addResources=
+    ShellDamage:1500
+    |DpDamage:150
+    |WeaponAccuracy=85
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=0.5
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.5
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.5
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1.5
+    |AntiAqua=0.75
+    |AntiAir=0.75
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange=20
+    |HeightChangeSpeed=2
+    |ProjectileSpeed:20
+    |ProjectileSpread:10
+    |ProjectileExplosionRange:55
+    |ProjectileLife:25
+)
+"""
+
+
+[action_EF_PublicClass_BeamDiffusionMS_Trigger]
+pos:10
+text:BeamDiffusionMS %{select(self.timeAlive<=memory.EF_PublicClass_BeamDiffusionMS_CDTimer,str(int(memory.EF_PublicClass_BeamDiffusionMS_CDTimer-self.timeAlive))+"s","OK")}
+text_zh:光束扰乱膜飞弹 %{select(self.timeAlive<=memory.EF_PublicClass_BeamDiffusionMS_CDTimer,str(int(memory.EF_PublicClass_BeamDiffusionMS_CDTimer-self.timeAlive))+"秒","OK")}
+text_KP:100
+
+displayType:infoOnly
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/EMP_1.png
+highPriorityQueue:true
+
+price:EN=${EF_PublicClass_BeamDiffusionMS_EN}
+
+
+isVisible:if self.parent.hp<=0  
+
+isGuiBlinking:"""
+if self.timeAlive>memory.EF_PublicClass_BeamDiffusionMS_CDTimer
+"""
+
+isLocked:if self.timeAlive<=memory.EF_PublicClass_BeamDiffusionMS_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+isLockedAlt2:if ${cantAction}==true or ${onSkill}==true or ${allowAI}==true
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+setUnitMemory:EF_PublicClass_BeamDiffusionMS_CDTimer=self.timeAlive+${EF_PublicClass_BeamDiffusionMS_CD}
+alsoTriggerAction:EF_PublicClass_BeamDiffusionMS_Fire
+[hiddenAction_EF_PublicClass_BeamDiffusionMS_Fire]
+setUnitMemory:EF_PublicClass_BeamDiffusionMS_CDTimer=self.timeAlive+${EF_PublicClass_BeamDiffusionMS_CD} 
+addResourcesWithLogic:EN=-select(self.isControlledByAI(),${EF_PublicClass_BeamDiffusionMS_EN},0)
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+EF_PublicClass_BeamDiffusionMS_SetWeaponIndex,
+EF_PublicClass_BeamDiffusionMS_B2_Step_1
+"""
+[hiddenAction_EF_PublicClass_BeamDiffusionMS_B2_Step_1]
+alsoQueueAction:"""
+EF_PublicClass_BeamDiffusionMS_Fire_Step_1,
+EF_PublicClass_BeamDiffusionMS_Fire_Step_2,
+EF_PublicClass_BeamDiffusionMS_Fire_Step_3,
+EF_PublicClass_BeamDiffusionMS_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_EF_PublicClass_BeamDiffusionMS_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_EF_PublicClass_BeamDiffusionMS_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+[hiddenAction_EF_PublicClass_BeamDiffusionMS_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:EF_PublicClass_BeamDiffusionMS
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_EF_PublicClass_BeamDiffusionMS_Fire_Step_3]
+@copyFromSection:hiddenAction_EF_PublicClass_BeamDiffusionMS_Fire_Step_2
+buildSpeed:${turret_EF_PublicClass_BeamDiffusionMS.delay}
+[hiddenAction_EF_PublicClass_BeamDiffusionMS_Fire_Step_Final]
+buildSpeed:0.3s
+alsoTriggerAction:SetAttackingOff

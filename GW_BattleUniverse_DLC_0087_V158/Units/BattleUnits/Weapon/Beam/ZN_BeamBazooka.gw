@@ -1,0 +1,165 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Beam/Common/Beam_Fire_1_Yellow.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_A.gw
+"""
+
+@memory ZN_BeamBazooka_CDTimer:float
+@global ZN_BeamBazooka_CD=10
+@global ZN_BeamBazooka_EN=120
+
+
+
+
+
+[decal_ZN_BeamBazooka]
+layer:beforeBody
+order:6.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Beam\Image\ZN_BeamBazooka.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:1.0
+xOffsetRelative: 4
+yOffsetRelative: 14
+dirOffset:0
+[decal_ZN_BeamBazooka_NotUsing]
+@copyFromSection:decal_ZN_BeamBazooka
+order:0
+basePositionFromLegEnd:arm1
+imageScale:0.85
+imageScaleY:-1
+xOffsetRelative:-1
+yOffsetRelative:-9
+dirOffset:90
+
+
+
+
+
+
+[turret_ZN_BeamBazooka]
+x:0
+y:0
+
+canShoot:false
+projectile:ZN_BeamBazooka_Projectile
+
+delay:0.3s
+canAttackMaxAngle:15
+barrelX:12
+barrelY:22
+limitingRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/BeamCannon_2.ogg
+shoot_sound_vol:0.5
+shoot_flame:Beam_Fire_1_Yellow
+
+
+
+[projectile_ZN_BeamBazooka_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_BeamCannon_Yellow*1
+(
+    addResources=
+    BeamDamage:9000
+    |BeamAPDamage:4500
+    |DpDamage:500
+    |WeaponAccuracy=75
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1.5
+    |HeightChangeSpeed=2
+    |HeightHitRange=20
+    |ProjectileSpeed:55
+    |ProjectileSpread:1
+    |ProjectileExplosionRange:40
+    |ProjectileLife:35
+
+    |ProjectileBlastRange:60
+    |ProjectileBlastDamageModifier:0.20
+    |ProjectileBlastDpModifier:1
+)
+"""
+
+
+
+
+
+
+
+
+[hiddenAction_ZN_BeamBazooka_Trigger]
+alsoTriggerAction:ZN_BeamBazooka_Fire
+[hiddenAction_ZN_BeamBazooka_Fire]
+requireConditional:"""
+if self.timeAlive>memory.ZN_BeamBazooka_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  
+and self.resource.EN>0
+"""
+setUnitMemory:ZN_BeamBazooka_CDTimer=self.timeAlive+${ZN_BeamBazooka_CD}
+addResources:EN=-${ZN_BeamBazooka_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+ZN_BeamBazooka_SetWeaponIndex,
+PlayCommon_Shoot_A_Step_1,
+ZN_BeamBazooka_B1_Step_1
+"""
+[hiddenAction_ZN_BeamBazooka_B1_Step_1]
+alsoQueueAction:"""
+ZN_BeamBazooka_Fire_Step_1,
+ZN_BeamBazooka_Fire_Step_2,
+ZN_BeamBazooka_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_ZN_BeamBazooka_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_ZN_BeamBazooka_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.45s
+[hiddenAction_ZN_BeamBazooka_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:ZN_BeamBazooka
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_ZN_BeamBazooka_Fire_Step_Final]
+buildSpeed:0.45s
+alsoTriggerAction:SetAttackingOff
+
+

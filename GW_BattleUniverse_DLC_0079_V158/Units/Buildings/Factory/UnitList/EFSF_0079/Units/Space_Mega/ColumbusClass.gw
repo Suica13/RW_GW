@@ -1,0 +1,36 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+[hiddenAction_AutoProduce_ColumbusClass]
+@copyFromSection:template_AutoProduce
+@define UnitID=ColumbusClass
+alsoTriggerAction:AutoProduce_ColumbusClass_Step2
+
+[hiddenAction_AutoProduce_ColumbusClass_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=750
+@define Resource=1750
+alsoQueueAction:Produce_ColumbusClass_StandardSquad
+
+
+
+[action_Produce_ColumbusClass_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=ColumbusClass
+@define Money=750
+@define Resource=1750
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+buildSpeed:35s
+
+alsoQueueAction:"""
+Produce_ColumbusClass_StandardSquad_1
+"""
+[hiddenAction_Produce_ColumbusClass_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+ColumbusClass*1(addResources=PilotType:2101|EquipmentIndex:0)
+"""

@@ -1,0 +1,125 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory RX_178_AEUG_FlyingArmor:bool
+
+
+[hiddenAction_Pannel_Close_RX_178_AEUG_FlyingArmor]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:RX_178_AEUG_FlyingArmor=false
+
+
+
+
+[hiddenAction_AutoProduce_RX_178_AEUG_FlyingArmor]
+@copyFromSection:template_AutoProduce
+@define UnitID=RX_178_AEUG_FlyingArmor
+alsoTriggerAction:AutoProduce_RX_178_AEUG_FlyingArmor_Step2
+
+[hiddenAction_AutoProduce_RX_178_AEUG_FlyingArmor_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=3500
+@define Resource=4250
+alsoTriggerAction:AutoProduce_RX_178_AEUG_FlyingArmor_Random
+
+
+
+[hiddenAction_AutoProduce_RX_178_AEUG_FlyingArmor_Random]
+alsoTriggerAction:"""
+AutoProduce_RX_178_AEUG_FlyingArmor_Random_A,
+AutoProduce_RX_178_AEUG_FlyingArmor_Random_B,
+AutoProduce_RX_178_AEUG_FlyingArmor_Random_C
+"""
+[hiddenAction_AutoProduce_RX_178_AEUG_FlyingArmor_Random_A]
+requireConditional:"""
+if memory.randomProduce<=500
+"""
+alsoQueueAction:Produce_RX_178_AEUG_FlyingArmor_StandardSquad
+
+[hiddenAction_AutoProduce_RX_178_AEUG_FlyingArmor_Random_B]
+requireConditional:"""
+if memory.randomProduce>500 
+and memory.randomProduce<=750
+"""
+alsoQueueAction:Produce_RX_178_AEUG_FlyingArmor_BazookaSquad
+
+[hiddenAction_AutoProduce_RX_178_AEUG_FlyingArmor_Random_C]
+requireConditional:"""
+if memory.randomProduce>750
+"""
+alsoQueueAction:Produce_RX_178_AEUG_FlyingArmor_BazookaSGSquad
+
+
+
+
+[action_Pannel_RX_178_AEUG_FlyingArmor]
+@copyFromSection:template_Pannel
+@define UnitID=RX_178_AEUG_FlyingArmor
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+
+[action_Produce_RX_178_AEUG_FlyingArmor_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=RX_178_AEUG_FlyingArmor
+@define Money=3500
+@define Resource=4250
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+buildSpeed:55s
+
+text:BR
+text_zh:光束步枪
+
+alsoQueueAction:"""
+Produce_RX_178_AEUG_FlyingArmor_StandardSquad_1
+"""
+[hiddenAction_Produce_RX_178_AEUG_FlyingArmor_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RX_178_AEUG_FlyingArmor*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+
+
+[action_Produce_RX_178_AEUG_FlyingArmor_BazookaSquad]
+@copyFromSection:template_Produce
+@define UnitID=RX_178_AEUG_FlyingArmor
+@define Money=3200
+@define Resource=3950
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+buildSpeed:55s
+
+text:Bazooka
+text_zh:火箭筒
+
+alsoQueueAction:"""
+Produce_RX_178_AEUG_FlyingArmor_BazookaSquad_1
+"""
+[hiddenAction_Produce_RX_178_AEUG_FlyingArmor_BazookaSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RX_178_AEUG_FlyingArmor*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+
+
+[action_Produce_RX_178_AEUG_FlyingArmor_BazookaSGSquad]
+@copyFromSection:template_Produce
+@define UnitID=RX_178_AEUG_FlyingArmor
+@define Money=3200
+@define Resource=3950
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+buildSpeed:55s
+
+text:Bazooka[SG]
+text_zh:火箭筒[SG]
+
+alsoQueueAction:"""
+Produce_RX_178_AEUG_FlyingArmor_BazookaSGSquad_1
+"""
+[hiddenAction_Produce_RX_178_AEUG_FlyingArmor_BazookaSGSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RX_178_AEUG_FlyingArmor*1(addResources=PilotType:1101|EquipmentIndex:2)
+"""

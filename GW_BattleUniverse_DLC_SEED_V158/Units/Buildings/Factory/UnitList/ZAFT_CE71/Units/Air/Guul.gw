@@ -1,0 +1,50 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+[hiddenAction_AutoProduce_Guul]
+@copyFromSection:template_AutoProduce
+@define UnitID=Guul
+alsoTriggerAction:AutoProduce_Guul_Step2
+
+[hiddenAction_AutoProduce_Guul_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=550
+@define Resource=1000
+alsoQueueAction:Produce_Guul_StandardSquad
+
+
+
+[action_Produce_Guul_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=Guul
+@define Money=550
+@define Resource=1000
+@define FactionVisible= (memory.Pannel_ZAFT_CE71_DontShow==false)
+buildSpeed:50s
+
+alsoQueueAction:"""
+Produce_Guul_StandardSquad_1,
+Produce_Guul_StandardSquad_2,
+Produce_Guul_StandardSquad_3
+"""
+[hiddenAction_Produce_Guul_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+Guul*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_Guul_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+Guul*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_Guul_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+Guul*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

@@ -1,0 +1,558 @@
+[core]
+dont_load:true
+
+copyFrom:"""
+ROOT:Template/Unit/Skill/CanBeDetectedAndDetect_Funnel.ini,
+ROOT:Resource/Image/Fx/Common/Common_Explosion_1_S.gw,
+ROOT:Resource/Image/Fx/Common/Common_Light_1.gw
+"""
+
+maxHp:10000
+armour:0
+armourMinDamageToKeep:0
+mass: 100
+
+price:1000
+
+disableDeathOnZeroHp:true
+
+tags:Funnel
+
+disableAllUnitCollisions:false
+showOnMinimap:false
+
+buildSpeed: 1s
+radius: 10
+fogOfWarSightRange:0
+
+hideScorchMark:true
+numBitsOnDeath:0
+effectOnDeath:none
+
+isUnselectable:true
+canNotBeGivenOrdersByPlayer:true
+canNotBeDirectlyAttacked:false
+
+showInEditor:false
+
+autoTriggerCooldownTime:0.1s
+
+@memory coreUnit:unit
+
+@memory enMax:float
+
+@memory limitLevel:float
+
+@memory awakeningLevel:float
+
+@memory baseShootLevel:float
+@memory baseCqbLevel:float
+@memory baseAccuracyLevel:float
+@memory baseReactionLevel:float
+
+@memory baseBeamDef:float
+@memory baseShellDef:float
+@memory baseCqbDef:float
+
+@memory baseBeamDefPlus:float
+@memory baseShellDefPlus:float
+@memory baseCqbDefPlus:float
+
+@memory baseMoveSpeed:float
+@memory baseTurnSpeed:float
+
+@memory baseHeight:float
+@memory baseAttackRange:float
+@memory baseFogOfWarSightRange:float
+@memory baseDetectRange:float
+@memory baseAntiDetectRange:float
+
+
+@memory finalShootLevel:float
+@memory finalCqbLevel:float
+@memory finalAccuracyLevel:float
+@memory finalReactionLevel:float
+
+@memory finalBeamDef:float
+@memory finalShellDef:float
+@memory finalCqbDef:float
+
+@memory finalBeamDefPlus:float
+@memory finalShellDefPlus:float
+@memory finalCqbDefPlus:float
+
+@memory finalMoveSpeed:float
+@memory finalTurnSpeed:float
+
+@memory finalHeight:float
+@memory finalAttackRange:float
+@memory finalFogOfWarSightRange:float
+@memory finalDetectRange:float
+@memory finalAntiDetectRange:float
+
+
+@memory extraBuildingDef:float
+@memory extraBuildingAtk:float
+
+
+@memory lastDamageBy:unit
+
+@memory attackRuleMode:float
+@memory attacker:unit
+@memory close:bool
+
+
+@memory boostFrame:float
+@memory burnedFrame:float
+@memory lowHpFrame:float
+@memory stunFrame:float
+
+@memory BattleUnitCore:unit
+
+@memory onDie:bool
+@memory dieTimer:float
+@memory onAttacking:bool
+
+@global onAttackingCantAim=false
+@global extraAttackConditionFly=true
+@global extraAttackConditionLand=true
+@global extraAttackConditionUnder=true
+@global extraAttackConditionWater=true
+
+@global attackConditionFly=true
+@global attackConditionLand=true
+@global attackConditionUnder=true
+@global attackConditionWater=true
+
+
+[hiddenAction_SetCoreUnit]
+autoTriggerOnEvent:created
+setUnitMemory:"""
+coreUnit=self,
+BattleUnitCore=customTarget1.readUnitMemory("BattleUnitCore",type="unit"),
+attacker=customTarget1
+"""
+
+
+[hiddenAction_Start]
+autoTriggerOnEvent:created
+alsoTriggerAction:"""
+InitializeCommonStatsFirstBefore,
+InitializeStats,
+InitializeCommonStatsFirstAfter,
+Send_UnitTurretSpawn
+"""
+[hiddenAction_Send_UnitTurretSpawn]
+sendMessageTo:self
+sendMessageWithTags:UnitTurretSpawn
+
+
+
+[hiddenAction_InitializeCommonStatsFirstBefore]
+isVisible:false 
+
+[hiddenAction_InitializeCommonStatsFirstAfter]
+isVisible:false 
+setResourcesWithLogic:EN=memory.enMax
+
+[hiddenAction_InitializeStats]
+setUnitMemory:"""
+
+
+baseAttackRange=350,
+baseFogOfWarSightRange=10,
+baseDetectRange=${core.fogOfWarSightRange}*18,
+baseAntiDetectRange=0,
+
+enMax=300,
+
+baseShootLevel=100,
+baseCqbLevel=100,
+
+baseAccuracyLevel=100,
+baseReactionLevel=100,
+
+baseBeamDef=0,
+baseShellDef=0,
+baseCqbDef=0,
+
+baseBeamDefPlus=0,
+baseShellDefPlus=0,
+baseCqbDefPlus=0,
+
+extraBuildingDef=1,
+extraBuildingAtk=1,
+
+baseMoveSpeed=1.5,
+baseTurnSpeed=1,
+
+baseHeight=10
+"""
+
+
+[hiddenAction_Update]
+autoTrigger:true
+alsoTriggerAction:"""
+GetStats,
+TryAttack,
+UpdateFrame
+"""
+
+[hiddenAction_GetStats]
+setUnitMemory:"""
+attackRuleMode=customTarget1.readUnitMemory("attackRuleMode",type="float"),
+close=customTarget1.readUnitMemory("close",type="bool"),
+
+limitLevel=customTarget1.readUnitMemory("limitLevel",type="float"),
+awakeningLevel=select
+(
+    memory.limitLevel>=customTarget1.readUnitMemory("pilotUnit",type="unit").readUnitMemory("pilotAwakeningSkill",type="float"),
+    memory.limitLevel,
+    customTarget1.readUnitMemory("pilotUnit",type="unit").readUnitMemory("pilotAwakeningSkill",type="float")
+),
+
+finalAttackRange=memory.baseAttackRange,
+finalFogOfWarSightRange=memory.baseFogOfWarSightRange,
+finalDetectRange=memory.baseDetectRange,
+finalAntiDetectRange=memory.baseAntiDetectRange,
+
+finalShootLevel=memory.baseShootLevel*(1+(memory.awakeningLevel-100)*0.0025),
+finalCqbLevel=memory.baseCqbLevel*(1+(memory.awakeningLevel-100)*0.0025),
+
+finalAccuracyLevel=memory.baseAccuracyLevel*(1+(memory.awakeningLevel-100)*0.0025),
+finalReactionLevel=memory.baseReactionLevel*(1+(memory.awakeningLevel-100)*0.0025),
+
+finalBeamDef=memory.baseBeamDef,
+finalShellDef=memory.baseShellDef,
+finalCqbDef=memory.baseCqbDef,
+
+finalBeamDefPlus=memory.baseBeamDefPlus*1,
+finalShellDefPlus=memory.baseShellDefPlus*1,
+finalCqbDefPlus=memory.baseCqbDefPlus*1,
+
+extraBuildingDef=1,
+extraBuildingAtk=1,
+
+finalMoveSpeed=memory.baseMoveSpeed*(1+(memory.awakeningLevel-100)*0.0025),
+finalTurnSpeed=memory.baseTurnSpeed*(1+(memory.awakeningLevel-100)*0.0025),
+
+finalHeight=10
+"""
+setUnitStats:"""
+moveSpeed=memory.finalMoveSpeed,
+maxTurnSpeed=memory.finalTurnSpeed,
+targetHeight=memory.finalHeight,
+maxAttackRange=memory.finalAttackRange,
+fogOfWarSightRange=memory.finalFogOfWarSightRange,
+armour=
+(
+    memory.finalBeamDefPlus/3+memory.finalBeamDef*1+
+    memory.finalShellDefPlus/3+memory.finalShellDef*1+
+    memory.finalCqbDefPlus/3+memory.finalCqbDef*1
+)/5
+"""
+setResourcesWithLogic:"""
+EN=select(self.resource().EN>memory.enMax,memory.enMax,select(self.resource().EN>0,self.resource().EN,0))
+"""
+
+[hiddenAction_TryAttack]
+requireConditional:if self.attacking.hp>0
+sendMessageTo:self
+sendMessageWithTags:Attack
+
+
+
+[hiddenAction_TookDamage]
+autoTriggerOnEvent:newMessage(withTag="Damage")
+setUnitStats:hp=self.hp-eventData(name="Damage",type="float")
+setUnitMemory:lastDamageBy=eventData(name="LastDamageBy",type="unit")
+
+[hiddenAction_Start_Get_TileMode]
+autoTriggerOnEvent:created
+setResourcesWithLogic:tileMode=customTarget1.resource().TileMode
+
+[hiddenAction_Get_TileMode]
+autoTriggerOnEvent:newMessage(withTag="Setting_TileMode")
+setResourcesWithLogic:tileMode=eventData('tileMode',type='float')
+
+
+
+
+[hiddenAction_Die]
+autoTrigger:"""
+if self.hp<=0 and memory.onDie==false
+"""
+setUnitMemory:"""
+onDie=true,dieTimer=self.timeAlive+0.2
+"""
+[hiddenAction_DieReal]
+autoTrigger:if memory.onDie==true and self.timeAlive>memory.dieTimer
+spawnEffects:Explosion_Ground_1
+deleteSelf:true
+
+
+
+[hiddenAction_SendEnemyTryAttack_Shoot]
+buildSpeed:0s
+sendMessageTo:self.attacking.readUnitMemory(name='BattleUnitCore',type='unit')
+sendMessageWithTags:EnemyTryAttack_Shoot
+sendMessageWithData:UnitInfo=self
+[hiddenAction_SendEnemyTryAttack_Cqb]
+buildSpeed:0s
+sendMessageTo:self.attacking.readUnitMemory(name='BattleUnitCore',type='unit')
+sendMessageWithTags:EnemyTryAttack_Cqb
+sendMessageWithData:UnitInfo=self
+
+
+
+
+[hiddenAction_SetAttackingOn]
+setUnitMemory:onAttacking=true
+[hiddenAction_SetAttackingOff]
+setUnitMemory:onAttacking=false
+
+
+
+
+
+[attachment_DamageCheckerCore]
+x:0
+y:0
+isVisible:true
+keepAliveWhenParentDies:false
+canBeAttackedAndDamaged:false
+isUnselectable:true
+canAttack:false
+showAllActionsFrom:true
+prioritizeParentsMainTarget:true
+smoothlyBlendPositionWhenExistingUnitAdded:true
+onConvertKeepExistingUnitInSameSlot:true
+onParentTeamChangeKeepCurrentTeam:false
+[hiddenAction_attachment_DamageCheckerCore]
+autoTriggerOnEvent:newMessage(withTag="UnitTurretSpawn")
+attachments_addNewUnits:DamageChecker_Funnel
+attachments_onlyOnSlots:DamageCheckerCore
+
+
+
+[turret_1]
+x: 0
+y: 0
+
+barrelX:0
+barrelY:0
+
+invisible:true
+
+limitingAngle:360
+aimOffsetSpread:0
+
+
+shoot_flame:none
+canShoot:false
+projectile:1
+
+limitingRange:5000
+[projectile_1]
+
+directDamage: 0
+life: 1
+explodeOnEndOfLife:true
+speed: 1
+instant:true
+invisible:true
+targetGround:true
+effectOnCreate:none
+explodeEffect:none
+drawUnderUnits:true
+image:none
+
+
+
+[graphics]
+image:SHARED:blank.png
+image_wreak:SHARED:blank.png
+image_shadow:auto
+image_shield:SHARED:blank.png
+icon_zoomed_out_neverShow:true
+shadowOffsetX:0
+shadowOffsetY:0
+
+total_frames:1
+
+showHealthBar:false
+showEnergyBar:false
+showShieldBar:false
+
+showQueueBar:false
+showShotDelayBar:false
+showTransportBar:false
+drawLayer:ground2
+
+disableLowHpFire:true
+disableLowHpSmoke:true
+
+imageScale:1
+turretImageScale:1
+
+
+
+[hiddenAction_UpdateFrame]
+alsoTriggerAction:"""
+UpdateBoostFrame
+"""
+
+[hiddenAction_UpdateBoostFrame]
+setUnitMemory:boostFrame=select(memory.boostFrame>=${decal_Boost.total_frames}-0.5,0,memory.boostFrame+0.5)
+
+
+
+[decal_Boost]
+layer:beforeBody
+order:4.1
+isVisible:"""
+if true
+"""
+onlyWhileAlive:true
+onlyOnNonPreview:true
+image:ROOT:\Resource\Image\Fx\Unit\Image\Boost_1.png
+total_frames:3
+frame:memory.boostFrame
+xOffsetRelative: -2.5
+yOffsetRelative:-9
+dirOffset:0
+imageScale:1
+imageScaleY:1.25
+alpha:0.75
+
+
+
+[decal_Body]
+layer:beforeBody
+order:5
+onlyWhileAlive:true
+isVisible:"""
+if true
+"""
+
+
+
+
+[effect_breakedBody_A]
+attachedToUnit:false
+image:${decal_Body.image}
+life:3000
+hOffset:10
+physics:true
+physicsGravity:0.5
+priority:high
+liveAfterAttachedDies:true
+dirOffsetRandom:180
+drawUnderUnits:true
+color:#bda89d
+alpha:1
+xSpeedRelativeRandom:2
+ySpeedRelativeRandom:2
+dirSpeedRandom:1
+scaleFrom:0.75
+scaleTo:0.5
+createWhenOverLiquid:false
+
+
+
+
+[effect_breakedBody_B]
+attachedToUnit:false
+image:${decal_Body.image}
+life:2000
+priority:high
+liveAfterAttachedDies:true
+dirOffsetRandom:360
+drawUnderUnits:true
+color:#FFFFFF
+alpha:1
+hOffset:0
+xSpeedRelativeRandom:0.5
+ySpeedRelativeRandom:0.5
+dirSpeedRandom:5
+scaleFrom:0.65
+scaleTo:0.45
+createWhenOverLiquid:true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[attack]
+canAttack:true
+canAttackFlyingUnits:if ${onAttackingCantAim}==false and ${attackConditionFly} and ${extraAttackConditionFly} and memory.attackRuleMode!=2
+canAttackLandUnits:if ${onAttackingCantAim}==false and ${attackConditionLand} and ${extraAttackConditionLand} and memory.attackRuleMode!=2
+canAttackUnderwaterUnits:if ${onAttackingCantAim}==false and ${attackConditionUnder} and ${extraAttackConditionUnder} and memory.attackRuleMode!=2
+canAttackNotTouchingWaterUnits:if ${onAttackingCantAim}==false and ${attackConditionWater} and ${extraAttackConditionWater} and memory.attackRuleMode!=2
+canOnlyAttackUnitsWithTags:CanBeTargetUnit,CanBeTargetUnitSpace,DamageAbleParts
+canOnlyAttackUnitsWithoutTags:UnDetected
+
+isFixedFiring:true
+isMelee:false
+
+disablePassiveTargeting:false
+
+turretMultiTargeting:false
+
+turretRotateWithBody:true
+
+showRangeUIGuide:true
+
+
+[movement]
+
+movementType: AIR
+moveSpeed: 1
+maxTurnSpeed: 1
+
+moveAccelerationSpeed: 3
+moveDecelerationSpeed: 0.5
+reverseSpeedPercentage:0.0
+
+turnAcceleration: 8
+
+heightChangeRate:1.5
+targetHeightDrift:0.5
+targetHeight:10
+
+moveSlidingMode:true
+moveSlidingDir:360
+moveIgnoringBody:true
+
+joinsGroupFormations:true
+
+[graphics]
+drawLayer:air
+
+
+
+
+
+
+[ai]
+useAsBuilder:false
+useAsTransport:false
+useAsAttacker:false

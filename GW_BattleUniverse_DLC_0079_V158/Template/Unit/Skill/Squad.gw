@@ -1,0 +1,172 @@
+[core]
+dont_load:false
+
+@memory squadMarker:unit
+@memory squadUnitMarker:unit
+
+
+[hiddenAction_Check_SquadMarker]
+autoTrigger:true
+alsoTriggerAction:"""
+Check_SquadMarker_Alive,
+Check_SquadMarker_T,
+Check_SquadMarker_F
+"""
+[hiddenAction_Check_SquadMarker_T]
+requireConditional:"""
+if not self.hasTags(includes='CanJoinSquadUnit') and memory.squadMarker.hp<=0
+"""
+temporarilyAddTags:CanJoinSquadUnit
+[hiddenAction_Check_SquadMarker_F]
+requireConditional:"""
+if self.hasTags(includes='CanJoinSquadUnit') and memory.squadMarker.hp>0
+"""
+temporarilyRemoveTags:CanJoinSquadUnit
+
+
+[hiddenAction_Check_SquadMarker_Alive]
+requireConditional:"""
+if 
+(
+    memory.squadMarker!=null 
+    and 
+    memory.squadMarker.hp<=0 
+)
+or 
+(
+    memory.squadMarker.hp>0 
+    and 
+    self.parent.hp>0
+)
+"""
+alsoTriggerAction:Squad_Exit
+
+
+
+[action_Squad_Create]
+pos:1003
+
+buildSpeed:0s
+addActionCooldownTime:10
+
+highPriorityQueue:true
+allowMultipleInQueue:false
+canPlayerCancel:true
+alwaysSinglePress:true
+ai_isDisabled:true
+extraLagHidingInUI:true
+onlyOneUnitAtATime:true
+
+displayType:infoOnly
+
+text:Create Squad
+text_zh:创建小队
+
+iconImage:ROOT:Resource/Image/Units/Button/Misc/Squad_Join_1.png
+
+isVisible:if memory.squadMarker.hp<=0 and not self.hasTags(includes='inHangar')
+
+spawnUnits:SquadMarker
+
+
+[action_Squad_Exit]
+pos:1003
+
+buildSpeed:0s
+addActionCooldownTime:10
+
+highPriorityQueue:true
+allowMultipleInQueue:false
+canPlayerCancel:true
+alwaysSinglePress:true
+ai_isDisabled:true
+extraLagHidingInUI:true
+
+displayType:infoOnly
+
+text:Exit Squad
+text_zh:离开小队
+
+iconImage:ROOT:Resource/Image/Units/Button/Misc/Exit_1.png
+
+isVisible:if memory.squadMarker.hp>0 and not self.hasTags(includes='inHangar')
+
+sendMessageTo:memory.squadMarker
+sendMessageWithTags:Squad_UnitExit
+sendMessageWithData:unitInfo=self
+alsoTriggerAction:Squad_Exit_Step2
+[hiddenAction_Squad_Exit_Step2]
+setUnitMemory:"""
+squadMarker=null,
+squadUnitMarker=null
+"""
+
+
+[hiddenAction_Get_Squad_UnitJoin]
+autoTriggerOnEvent:newMessage(withTag="Squad_UnitJoin")
+requireConditional:if memory.squadMarker.hp<=0
+alsoTriggerAction:Get_Squad_UnitJoin_Step2
+[hiddenAction_Get_Squad_UnitJoin_Step2]
+sendMessageTo:eventData("unitInfo",type="unit")
+sendMessageWithTags:Squad_UnitJoin_Fallback
+sendMessageWithData:unitInfo=self
+
+[hiddenAction_Get_Squad_UnitJoin_Accept]
+autoTriggerOnEvent:newMessage(withTag="Squad_UnitJoin_Accept")
+setUnitMemory:"""
+squadMarker=eventData("unitInfo",type="unit")
+"""
+
+
+
+
+[hiddenAction_Get_Squad_UnitMarker]
+autoTriggerOnEvent:newMessage(withTag="Squad_UnitMarker")
+setUnitMemory:"""
+squadUnitMarker=eventData("unitInfo",type="unit")
+"""
+
+[hiddenAction_Get_Squad_UpdateAttackRule]
+autoTriggerOnEvent:newMessage(withTag="Squad_UpdateAttackRule")
+setUnitMemory:"""
+attackMode=eventData("attackMode",type="float"),
+attackTargetMode=eventData("attackTargetMode",type="float"),
+attackRuleMode=eventData("attackRuleMode",type="float"),
+moveMode=eventData("moveMode",type="float")
+"""
+
+
+[hiddenAction_Squad_Movement_Follow]
+autoTrigger:"""
+if 
+(
+    memory.squadMarker.hp>0 
+    and not self.hasActiveWaypoint(type="loadInto") 
+    and 
+    (
+        memory.attackMode==0 
+        or 
+        (
+            memory.attackMode==1 
+            and 
+            self.attacking.hp<=0
+        ) 
+    ) 
+    and 
+    select
+    (
+        not self.hasTags(includes='inBattle'),
+        distanceBetween(self, memory.squadUnitMarker)>40,
+        select
+        (
+            memory.attackMode==1,
+            distanceBetween(self, memory.squadUnitMarker)>memory.finalAttackRange,
+            distanceBetween(self, memory.squadUnitMarker)>150
+        )
+    )
+) 
+"""
+clearAllWaypoints:true
+addWaypoint_prepend:true
+addWaypoint_target_fromReference:memory.squadUnitMarker
+addWaypoint_type:move

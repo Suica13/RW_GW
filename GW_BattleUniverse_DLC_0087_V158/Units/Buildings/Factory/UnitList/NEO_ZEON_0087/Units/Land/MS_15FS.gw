@@ -1,0 +1,54 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+@memory MS_15FS:bool
+
+
+[hiddenAction_Pannel_Close_MS_15FS]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:MS_15FS=false
+
+
+
+[hiddenAction_AutoProduce_MS_15FS]
+@copyFromSection:template_AutoProduce
+@define UnitID=MS_15FS
+alsoTriggerAction:AutoProduce_MS_15FS_Step2
+
+[hiddenAction_AutoProduce_MS_15FS_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=1950
+@define Resource=2550
+alsoTriggerAction:AutoProduce_MS_15FS_Random
+
+
+
+[hiddenAction_AutoProduce_MS_15FS_Random]
+alsoTriggerAction:"""
+AutoProduce_MS_15FS_Random_A
+"""
+[hiddenAction_AutoProduce_MS_15FS_Random_A]
+requireConditional:"""
+if memory.randomProduce<1000
+"""
+alsoQueueAction:Produce_MS_15FS_StandardSquad
+
+
+[action_Produce_MS_15FS_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=MS_15FS
+@define Money=1950
+@define Resource=2550
+@define FactionVisible= (memory.Pannel_NEO_ZEON_0087_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+buildSpeed:40s
+
+alsoQueueAction:"""
+Produce_MS_15FS_StandardSquad_1
+"""
+[hiddenAction_Produce_MS_15FS_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_15FS*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

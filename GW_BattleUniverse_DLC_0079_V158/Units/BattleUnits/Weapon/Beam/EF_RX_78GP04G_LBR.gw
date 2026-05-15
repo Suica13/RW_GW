@@ -1,0 +1,160 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Beam/Common/Beam_Fire_1_Pink.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_Two_Handed_A.gw
+"""
+
+@memory EF_RX_78GP04G_LBR_CDTimer:float
+@global EF_RX_78GP04G_LBR_CD=10
+@global EF_RX_78GP04G_LBR_EN=75
+
+
+
+
+
+[decal_EF_RX_78GP04G_LBR]
+layer:beforeBody
+order:4.5
+onlyWhileAlive:true
+image:ROOT:Units/BattleUnits/Weapon/Beam/Image/EF_RX_78GP04G_LBR.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:1.0
+xOffsetRelative: 0
+yOffsetRelative: 20
+dirOffset:0
+[decal_EF_RX_78GP04G_LBR_NotUsing]
+@copyFromSection:decal_EF_RX_78GP04G_LBR
+isVisible:false
+order:3
+basePositionFromLegEnd:arm1
+imageScale:0.85
+xOffsetRelative:2
+yOffsetRelative:-9
+dirOffset:-90
+
+
+
+
+
+
+
+
+[turret_EF_RX_78GP04G_LBR]
+x:0
+y:0
+
+canShoot:false
+projectile:EF_RX_78GP04G_LBR_Projectile
+
+delay:0.2s
+canAttackMaxAngle:15
+barrelX:9
+barrelY:38
+limitingRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\BeamRifle_1.ogg
+shoot_sound_vol:0.6
+shoot_flame:Beam_Fire_1_Pink
+
+
+
+[projectile_EF_RX_78GP04G_LBR_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_AP_BeamRifle_Pink*1
+(
+    addResources=
+    BeamDamage:14500
+    |DpDamage:450
+    |WeaponAccuracy=100
+    |PartBreakModifier=1
+    |CockpitBreakModifier=1
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.5
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=2
+    |HeightHitRange=25
+    |ProjectileSpeed:100
+    |ProjectileSpread:1
+    |ProjectileLife:25
+
+    |ProjectileAttackTimes:2
+    |ProjectileAttackTimesDamageModifier:0.5
+)
+"""
+
+
+
+
+
+[hiddenAction_EF_RX_78GP04G_LBR_Trigger]
+alsoTriggerAction:EF_RX_78GP04G_LBR_Fire
+[hiddenAction_EF_RX_78GP04G_LBR_Fire]
+requireConditional:"""
+if self.timeAlive>memory.EF_RX_78GP04G_LBR_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15) 
+and self.resource.EN>0
+"""
+setUnitMemory:EF_RX_78GP04G_LBR_CDTimer=self.timeAlive+${EF_RX_78GP04G_LBR_CD}
+addResources:EN=-${EF_RX_78GP04G_LBR_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+EF_RX_78GP04G_LBR_SetWeaponIndex,
+PlayCommon_Shoot_Two_Handed_A_Step_1,
+EF_RX_78GP04G_LBR_B1_Step_1
+"""
+[hiddenAction_EF_RX_78GP04G_LBR_B1_Step_1]
+alsoQueueAction:"""
+EF_RX_78GP04G_LBR_Fire_Step_1,
+EF_RX_78GP04G_LBR_Fire_Step_2,
+EF_RX_78GP04G_LBR_Fire_Step_Final
+"""
+
+
+
+[hiddenAction_EF_RX_78GP04G_LBR_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_EF_RX_78GP04G_LBR_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.25s
+[hiddenAction_EF_RX_78GP04G_LBR_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:EF_RX_78GP04G_LBR
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_EF_RX_78GP04G_LBR_Fire_Step_Final]
+buildSpeed:0.25s
+alsoTriggerAction:SetAttackingOff
+

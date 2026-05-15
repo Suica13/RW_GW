@@ -1,0 +1,27 @@
+[core]
+dont_load:false
+
+[effect_Beam_Exp_1_Yellow]
+life: 150
+
+yOffsetRelative: 0
+
+alsoPlaySound:ROOT:Resource/Sound/SE/Weapon/Hit/Beam_Hit_2.ogg:0.85
+
+attachedToUnit: false
+priority:high
+atmospheric:false
+ySpeedRelative:1
+delayedStartTimer:0
+fadeOut: false
+image:ROOT:Resource/Image/Fx/Weapon/Beam/Common/Image/Beam_Exp_1_Yellow.png
+
+total_frames: 4
+animateFrameStart: 0
+animateFrameEnd: 3 
+animateFrameSpeed:0.135
+
+alpha:0.85
+scaleFrom:1.5
+scaleTo:2
+showInFog:true

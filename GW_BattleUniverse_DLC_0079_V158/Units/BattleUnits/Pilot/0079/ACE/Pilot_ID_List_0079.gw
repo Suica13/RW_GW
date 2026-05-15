@@ -1,0 +1,88 @@
+[core]
+
+#=====================================EFSF=====================================
+#=====================================EFSF=====================================
+#=====================================EFSF=====================================
+
+#阿姆罗·雷
+@global Pilot_EFSF_0079_N_ACE_AMR=11001
+#布莱特·诺亚
+@global Pilot_EFSF_0079_N_ACE_BRT=11002
+#克里斯蒂娜·麦肯吉
+@global Pilot_EFSF_0079_N_ACE_CRS=11003
+#弗特·罗姆菲洛
+@global Pilot_EFSF_0079_N_ACE_FOT=11004
+#鲁斯·克塞尔
+@global Pilot_EFSF_0079_N_ACE_RUT=11005
+#凯·西汀
+@global Pilot_EFSF_0079_N_ACE_KSD=11006
+#史列加·罗
+@global Pilot_EFSF_0079_N_ACE_SLG=11007
+#约翰·亚伯拉罕·雷比尔
+@global Pilot_EFSF_0079_N_ACE_RVL=11008
+#天田士郎
+@global Pilot_EFSF_0079_N_ACE_SHR=11009
+#加岛勇
+@global Pilot_EFSF_0079_N_ACE_YUU=11010
+#提安姆
+@global Pilot_EFSF_0079_N_ACE_TAM=11011
+#华肯
+@global Pilot_EFSF_0079_N_ACE_WAK=11012
+#雪拉·玛斯
+@global Pilot_EFSF_0079_N_ACE_SYA=11013
+#哈曼·杨德里
+@global Pilot_EFSF_0079_N_ACE_YDR=11014
+#吉斯汀·隆伯德
+@global Pilot_EFSF_0079_N_ACE_JST=11015
+#浦木宏
+@global Pilot_EFSF_0079_N_ACE_KOU=11016
+
+
+
+
+#=====================================ZEON=====================================
+#=====================================ZEON=====================================
+#=====================================ZEON=====================================
+
+#夏亚·阿兹纳布尔
+@global Pilot_ZEON_0079_N_ACE_CHA=12001
+#多兹鲁·扎比
+@global Pilot_ZEON_0079_N_ACE_DZL=12002
+#卡尔马·扎比
+@global Pilot_ZEON_0079_N_ACE_GRM=12003
+#阿卡汉纳
+@global Pilot_ZEON_0079_N_ACE_AKHN=12004
+#基连·扎比
+@global Pilot_ZEON_0079_N_ACE_GRN=12005
+#拉拉·辛
+@global Pilot_ZEON_0079_N_ACE_LLS=12006
+#马·克贝
+@global Pilot_ZEON_0079_N_ACE_MQV=12007
+#诺利斯·巴卡德
+@global Pilot_ZEON_0079_N_ACE_NRS=12008
+#基尼亚斯·萨哈林
+@global Pilot_ZEON_0079_N_ACE_GNS=12009
+#爱娜·萨哈林
+@global Pilot_ZEON_0079_N_ACE_ANS=12010
+#尼姆巴斯·舒特森
+@global Pilot_ZEON_0079_N_ACE_NMBS=12011
+#兰巴·拉尔
+@global Pilot_ZEON_0079_N_ACE_RBR=12012
+#米海尔·卡明斯基
+@global Pilot_ZEON_0079_N_ACE_KMSK=12013
+#巴纳德·瓦兹曼
+@global Pilot_ZEON_0079_N_ACE_BNI=12014
+#基西莉亚·扎比
+@global Pilot_ZEON_0079_N_ACE_KCA=12015
+#强尼·莱汀
+@global Pilot_ZEON_0079_N_ACE_JON=12016
+#松永真
+@global Pilot_ZEON_0079_N_ACE_MSG=12017
+#阿纳贝尔·卡多
+@global Pilot_ZEON_0079_N_ACE_ANG=12018
+#西玛·卡拉豪
+@global Pilot_ZEON_0079_N_ACE_CIA=12019
+
+
+
+

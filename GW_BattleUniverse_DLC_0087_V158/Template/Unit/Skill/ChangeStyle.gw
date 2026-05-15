@@ -1,0 +1,70 @@
+[core]
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_Light_1.gw
+"""
+dont_load:false
+
+
+[action_ChangeStyleB]
+pos:1
+
+buildSpeed:1s
+tags:Upgrade
+
+highPriorityQueue:true
+allowMultipleInQueue:false
+canPlayerCancel:true
+alwaysSinglePress:true
+ai_isDisabled:true
+extraLagHidingInUI:true
+
+displayType:Upgrade
+
+text:ChangeStyle To B
+text_zh:切换姿态 B
+
+isVisible:if memory.close==false and memory.styleIndex!=98 and not self.hasTags(includes='inHangar')
+
+iconImage:ROOT:Resource/Image/Units/Button/Action/Transform_1.png
+
+spawnEffects:Light_50
+
+isLockedAlt2:if ${cantAction}==true or ${onSkill}==true
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+#convertTo:
+convertTo_keepCurrentTags:true
+convertTo_keepCurrentFields:"""
+selfRegenRate,
+shieldRegen,
+maxEnergy,
+armour,
+mass,
+movespeed,
+maxTurnSpeed,
+maxAttackRange,
+nanoRange,
+fogOfWarSightRange,
+nanoFactorySpeed,
+targetHeight
+"""
+
+setUnitMemory:styleIndex=98
+
+
+whenBuilding_triggerAction:SetAttackingOff
+alsoTriggerAction:Send_TryClearQueued,Send_TryTransform
+
+[action_ChangeStyleA]
+@copyFromSection:action_ChangeStyleB
+
+text:ChangeStyle To A
+text_zh:切换姿态 A
+
+isVisible:if memory.close==false and memory.styleIndex!=0 and not self.hasTags(includes='inHangar')
+iconImage:ROOT:Resource/Image/Units/Button/Action/Transform_2.png
+
+#convertTo:
+
+setUnitMemory:styleIndex=0

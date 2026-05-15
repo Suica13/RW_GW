@@ -1,0 +1,183 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/MG_Fire_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_Two_Handed_A.gw
+"""
+
+
+@memory ZN_YMS_18_LMG_CDTimer:float
+@global ZN_YMS_18_LMG_CD=3
+@global ZN_YMS_18_LMG_EN=40
+
+
+
+
+
+[decal_ZN_YMS_18_LMG]
+layer:beforeBody
+order:4.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Shell\Image\ZN_YMS_18_LMG.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:1.0
+xOffsetRelative: 3
+yOffsetRelative: 17
+dirOffset:0
+[decal_ZN_YMS_18_LMG_NotUsing]
+@copyFromSection:decal_ZN_YMS_18_LMG
+isVisible:false
+order:3
+basePositionFromLegEnd:arm1
+imageScale:0.85
+xOffsetRelative:-1
+yOffsetRelative:-10
+dirOffset:-90
+
+
+
+
+
+
+
+[turret_ZN_YMS_18_LMG]
+x:0
+y:0
+
+canShoot:false
+projectile:ZN_YMS_18_LMG_Projectile
+
+delay:0.075s
+limitingRange:0
+
+canAttackMaxAngle:15
+barrelX:13
+barrelY:42
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\MachineGun_1.ogg
+shoot_sound_vol:0.3
+shoot_flame:MG_Fire_1
+
+
+
+[projectile_ZN_YMS_18_LMG_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_MG*2
+(
+    offsetRandomXY=5,
+    offsetDir=2.5,
+    offsetRandomDir=7.5,
+    addResources=
+    ShellDamage:850
+    |ShellAPDamage:250
+    |DpDamage:25
+    |WeaponAccuracy=100
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=1.0
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=1
+    |AntiLand=1
+    |AntiSpace=1.0
+    |HeightChangeSpeed=2.0
+    |HeightHitRange=20
+    |ProjectileSpeed:75
+    |ProjectileSpread:3
+    |ProjectileLife:25
+)
+"""
+
+
+
+
+
+
+
+[hiddenAction_ZN_YMS_18_LMG_Trigger]
+alsoTriggerAction:ZN_YMS_18_LMG_Fire
+[hiddenAction_ZN_YMS_18_LMG_Fire]
+requireConditional:"""
+if self.timeAlive>memory.ZN_YMS_18_LMG_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false 
+and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)  
+and self.resource.EN>0
+"""
+setUnitMemory:ZN_YMS_18_LMG_CDTimer=self.timeAlive+${ZN_YMS_18_LMG_CD}
+addResources:EN=-${ZN_YMS_18_LMG_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+ZN_YMS_18_LMG_SetWeaponIndex,
+ZN_YMS_18_LMG_B15_Step_1
+"""
+[hiddenAction_ZN_YMS_18_LMG_B15_Step_1]
+alsoQueueAction:"""
+ZN_YMS_18_LMG_Fire_Step_1,
+ZN_YMS_18_LMG_Fire_Step_2,
+ZN_YMS_18_LMG_Fire_Step_3,
+ZN_YMS_18_LMG_Fire_Step_3,
+ZN_YMS_18_LMG_Fire_Step_3,
+ZN_YMS_18_LMG_Fire_Step_3,
+ZN_YMS_18_LMG_Fire_Step_3,
+ZN_YMS_18_LMG_Fire_Step_3,
+ZN_YMS_18_LMG_Fire_Step_3,
+ZN_YMS_18_LMG_Fire_Step_3,
+ZN_YMS_18_LMG_Fire_Step_3,
+ZN_YMS_18_LMG_Fire_Step_3,
+ZN_YMS_18_LMG_Fire_Step_3,
+ZN_YMS_18_LMG_Fire_Step_3,
+ZN_YMS_18_LMG_Fire_Step_3,
+ZN_YMS_18_LMG_Fire_Step_3,
+ZN_YMS_18_LMG_Fire_Step_Final
+"""
+
+
+
+
+
+[hiddenAction_ZN_YMS_18_LMG_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_ZN_YMS_18_LMG_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.3s
+[hiddenAction_ZN_YMS_18_LMG_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:ZN_YMS_18_LMG
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+alsoTriggerAction:PlayCommon_Shoot_Two_Handed_A_Step_1
+[hiddenAction_ZN_YMS_18_LMG_Fire_Step_3]
+@copyFromSection:hiddenAction_ZN_YMS_18_LMG_Fire_Step_2
+buildSpeed:${turret_ZN_YMS_18_LMG.delay}
+[hiddenAction_ZN_YMS_18_LMG_Fire_Step_Final]
+buildSpeed:0.45s
+alsoTriggerAction:SetAttackingOff
+
+

@@ -1,0 +1,51 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+
+[hiddenAction_AutoProduce_MTank_Eins]
+@copyFromSection:template_AutoProduce
+@define UnitID=MTank_Eins
+alsoTriggerAction:AutoProduce_MTank_Eins_Step2
+
+[hiddenAction_AutoProduce_MTank_Eins_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=300
+@define Resource=650
+alsoQueueAction:Produce_MTank_Eins_StandardSquad
+
+
+
+[action_Produce_MTank_Eins_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=MTank_Eins
+@define Money=300
+@define Resource=650
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:25s
+
+alsoQueueAction:"""
+Produce_MTank_Eins_StandardSquad_1,
+Produce_MTank_Eins_StandardSquad_2,
+Produce_MTank_Eins_StandardSquad_3
+"""
+[hiddenAction_Produce_MTank_Eins_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MTank_Eins*1(addResources=PilotType:1001|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_MTank_Eins_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+MTank_Eins*1(addResources=PilotType:1001|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_MTank_Eins_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+MTank_Eins*1(addResources=PilotType:1001|EquipmentIndex:0)
+"""

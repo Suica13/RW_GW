@@ -1,0 +1,155 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Beam/Common/Beam_Fire_1_Yellow.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_A.gw
+"""
+
+@memory NZN_AMX_008_BeamCannon_CDTimer:float
+@global NZN_AMX_008_BeamCannon_CD=3
+@global NZN_AMX_008_BeamCannon_EN=100
+
+
+
+
+
+[decal_NZN_AMX_008_BeamCannon]
+layer:beforeBody
+order:5.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Beam\Image\NZN_AMX_008_BeamCannon.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:1.0
+xOffsetRelative: 2
+yOffsetRelative: 12
+dirOffset:0
+
+
+
+
+
+[turret_NZN_AMX_008_BeamCannon]
+x:0
+y:0
+
+canShoot:false
+projectile:NZN_AMX_008_BeamCannon_Projectile
+
+delay:0.3s
+canAttackMaxAngle:15
+barrelX:10
+barrelY:22
+limitingRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/BeamCannon_2.ogg
+shoot_sound_vol:0.5
+shoot_flame:Beam_Fire_1_Yellow
+
+
+
+[projectile_NZN_AMX_008_BeamCannon_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_BeamCannon_Yellow*1
+(
+    addResources=
+    BeamDamage:9000
+    |BeamAPDamage:4500
+    |DpDamage:350
+    |WeaponAccuracy=75
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1.5
+    |HeightChangeSpeed=2
+    |HeightHitRange=20
+    |ProjectileSpeed:55
+    |ProjectileSpread:1
+    |ProjectileExplosionRange:40
+    |ProjectileLife:35
+
+    |ProjectileBlastRange:60
+    |ProjectileBlastDamageModifier:0.20
+    |ProjectileBlastDpModifier:1
+)
+"""
+
+
+
+
+
+
+
+
+[hiddenAction_NZN_AMX_008_BeamCannon_Trigger]
+alsoTriggerAction:NZN_AMX_008_BeamCannon_Fire
+[hiddenAction_NZN_AMX_008_BeamCannon_Fire]
+requireConditional:"""
+if self.timeAlive>memory.NZN_AMX_008_BeamCannon_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  
+and self.resource.EN>0
+"""
+setUnitMemory:NZN_AMX_008_BeamCannon_CDTimer=self.timeAlive+${NZN_AMX_008_BeamCannon_CD}
+addResources:EN=-${NZN_AMX_008_BeamCannon_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+NZN_AMX_008_BeamCannon_SetWeaponIndex,
+PlayCommon_Shoot_A_Step_1,
+NZN_AMX_008_BeamCannon_B1_Step_1
+"""
+[hiddenAction_NZN_AMX_008_BeamCannon_B1_Step_1]
+alsoQueueAction:"""
+NZN_AMX_008_BeamCannon_Fire_Step_1,
+NZN_AMX_008_BeamCannon_Fire_Step_2,
+NZN_AMX_008_BeamCannon_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_NZN_AMX_008_BeamCannon_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_NZN_AMX_008_BeamCannon_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.45s
+[hiddenAction_NZN_AMX_008_BeamCannon_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:NZN_AMX_008_BeamCannon
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_NZN_AMX_008_BeamCannon_Fire_Step_Final]
+buildSpeed:0.45s
+alsoTriggerAction:SetAttackingOff
+
+

@@ -1,0 +1,23 @@
+[core]
+dont_load:false
+
+@memory spawnTrailEffectCD_Beam_TrailLine_1_S_Blue:float
+
+
+[effect_Beam_TrailLine_1_S_Blue]
+priority:low
+life: 5
+alpha: 0.35
+attachedToUnit: false
+image: ROOT:Resource/Image/Fx/Weapon/Beam/Common/Image/Beam_TrailLine_1_S_Blue.png
+scaleFrom:1.0
+scaleTo:0.9
+fadeOut: true
+fadeInTime: 5
+yOffsetRelative:0
+
+
+[hiddenAction_SpawnTrailEffect_Beam_TrailLine_1_S_Blue]
+autoTrigger:if self.timeAlive>memory.spawnTrailEffectCD_Beam_TrailLine_1_S_Blue
+setUnitMemory:spawnTrailEffectCD_Beam_TrailLine_1_S_Blue=self.timeAlive+0.02
+spawnEffects:Beam_TrailLine_1_S_Blue

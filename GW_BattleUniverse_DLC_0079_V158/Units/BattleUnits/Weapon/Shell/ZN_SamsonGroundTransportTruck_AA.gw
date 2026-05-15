@@ -1,0 +1,130 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/MG_Fire_1.gw
+"""
+
+@memory ZN_SamsonGroundTransportTruck_AA_OnCD:bool
+@memory ZN_SamsonGroundTransportTruck_AA_CDTimer:float
+@global ZN_SamsonGroundTransportTruck_AA_CD=3
+@global ZN_SamsonGroundTransportTruck_AA_EN=0.5
+
+@global ZN_SamsonGroundTransportTruck_AA_Shoot=20
+[resource_ZN_SamsonGroundTransportTruck_AA_ShootTimer]
+hidden:true
+
+
+
+[decal_ZN_SamsonGroundTransportTruck_AA_L]
+layer:beforeBody
+order:5
+isVisible:if true
+onlyWhileAlive:true
+image:ROOT:Units/BattleUnits/SamsonGroundTransportTruck/Image/SamsonGroundTransportTruck_Turret_MG_1.png
+imageScale:0.65
+basePositionFromTurret:ZN_SamsonGroundTransportTruck_AA_L
+[decal_ZN_SamsonGroundTransportTruck_AA_R]
+@copyFromSection:decal_ZN_SamsonGroundTransportTruck_AA_L
+basePositionFromTurret:ZN_SamsonGroundTransportTruck_AA_R
+
+
+
+[turret_ZN_SamsonGroundTransportTruck_AA_L]
+x:2.5
+y:16.5
+
+canShoot:true
+canAttackCondition:"""
+if ${onAttacking}==false and ${cantAction}==false 
+"""
+showRangeUIGuide:false
+projectile:ZN_SamsonGroundTransportTruck_AA_Projectile
+resourceUsage:ZN_SamsonGroundTransportTruck_AA_ShootTimer=1,en=${ZN_SamsonGroundTransportTruck_AA_EN}
+
+delay:0.1s
+canAttackMaxAngle:3
+barrelX:0
+barrelY:3
+turnSpeed:2.5
+
+aimOffsetSpread:0
+recoilOffset:0
+recoilOutTime:0
+recoilReturnTime:0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\MachineGun_2.ogg
+shoot_sound_vol:0.3
+shoot_flame:MG_Fire_1
+
+idleSweepAngle:15
+idleSweepAddRandomAngle:10
+idleSweepDelay:240
+idleSweepAddRandomDelay:120
+idleSweepSpeed:0.25
+idleSweepCondition:if memory.close==false
+[turret_ZN_SamsonGroundTransportTruck_AA_R]
+@copyFromSection:turret_ZN_SamsonGroundTransportTruck_AA_L
+x:-2.5
+
+
+[projectile_ZN_SamsonGroundTransportTruck_AA_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Vulcan*1
+(
+    addResources=
+    ShellDamage:40
+    |DpDamage:1.5
+    |WeaponAccuracy=100
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=0.5
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=2
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=2.0
+    |HeightHitRange=25
+    |ProjectileSpeed:100
+    |ProjectileSpread:6
+    |ProjectileLife:8
+)
+"""
+
+
+[hiddenAction_ZN_SamsonGroundTransportTruck_AA_CDStart]
+autoTrigger:"""
+if memory.ZN_SamsonGroundTransportTruck_AA_OnCD==false 
+and 
+(
+    (
+        self.resource.ZN_SamsonGroundTransportTruck_AA_ShootTimer<=0 
+    ) 
+    or 
+    (
+        self.resource.ZN_SamsonGroundTransportTruck_AA_ShootTimer<${ZN_SamsonGroundTransportTruck_AA_Shoot} and not self.hasTags(includes='inBattle')
+    )
+)
+"""
+setUnitMemory:ZN_SamsonGroundTransportTruck_AA_OnCD=true,ZN_SamsonGroundTransportTruck_AA_CDTimer=self.timeAlive+${ZN_SamsonGroundTransportTruck_AA_CD}
+
+[hiddenAction_ZN_SamsonGroundTransportTruck_AA_CDEnd]
+autoTriggerOnEvent:created
+autoTrigger:if memory.ZN_SamsonGroundTransportTruck_AA_OnCD==true and self.timeAlive>memory.ZN_SamsonGroundTransportTruck_AA_CDTimer
+setUnitMemory:ZN_SamsonGroundTransportTruck_AA_OnCD=false
+setResourcesWithLogic:ZN_SamsonGroundTransportTruck_AA_ShootTimer=${ZN_SamsonGroundTransportTruck_AA_Shoot}

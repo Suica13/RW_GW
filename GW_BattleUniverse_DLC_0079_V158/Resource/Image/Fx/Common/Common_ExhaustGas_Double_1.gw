@@ -1,0 +1,27 @@
+[core]
+dont_load:false
+
+
+
+#排气特效
+[effect_Effect_ExhaustGas_Double_1]
+life: 100
+
+xOffsetRelative: 0
+yOffsetRelative: 10
+dirOffset: -90
+attachedToUnit: true
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+scaleFrom: 0.5
+scaleTo: 0.5
+image: ROOT:Resource/Image/Fx/Common/Image/Effect_ExhaustGas_Double_1.png
+
+total_frames: 6
+animateFrameStart: 0
+animateFrameEnd: 5
+animateFrameSpeed: 0.1

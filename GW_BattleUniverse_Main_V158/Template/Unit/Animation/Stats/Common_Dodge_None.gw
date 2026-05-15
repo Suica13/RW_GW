@@ -1,0 +1,16 @@
+[core]
+dont_load:false
+
+
+[animation_Common_Dodge_L]
+KeyframeTimeScale:2
+blendIn:0s
+blendOut:0s
+
+
+
+
+[animation_Common_Dodge_R]
+KeyframeTimeScale:2
+blendIn:0s
+blendOut:0s

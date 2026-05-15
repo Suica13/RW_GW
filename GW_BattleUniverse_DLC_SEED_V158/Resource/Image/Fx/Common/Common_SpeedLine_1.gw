@@ -1,0 +1,23 @@
+[core]
+dont_load:false
+
+@memory SpeedLineFrame:float
+
+
+[hiddenAction_UpdateSpeedLineFrame]
+autoTrigger:true
+setUnitMemory:SpeedLineFrame=select(memory.SpeedLineFrame>=${decal_SpeedLine_1.total_frames}-1,0,memory.SpeedLineFrame+1)
+
+
+[decal_SpeedLine_1]
+layer:beforeUI
+order:10
+onlyWhileAlive:true 
+isVisible:false
+imageScale:0.5
+xOffsetRelative: 0
+yOffsetRelative: 0
+dirOffset:0
+total_frames:15
+frame:memory.SpeedLineFrame
+image:ROOT:\Resource\Image\Fx\Common\Image\SpeedLine_1.png

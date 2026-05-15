@@ -1,0 +1,214 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Cqb/Common/Cqb_Fire_2_White_R.gw,
+ROOT:Resource/Image/Fx/Weapon/Cqb/Common/Cqb_Fire_1_White_L.gw,
+ROOT:Template\Unit\Animation\Cqb\Common_Melee_B.gw,
+ROOT:Template\Unit\Animation\Cqb\Common_Melee_F.gw
+"""
+
+@memory ZAFT_ZGMF_1017_SB_BF_CDTimer:float
+@global ZAFT_ZGMF_1017_SB_BF_CD=3.5
+
+
+
+[decal_ZAFT_ZGMF_1017_SB_BF]
+layer:beforeBody
+order:4.5
+onlyWhileAlive:true
+image:ROOT:Units/BattleUnits/Weapon/Cqb/Image/ZAFT_ZGMF_1017_SB.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:1
+imageScaleX:-1
+xOffsetRelative:1
+yOffsetRelative:23
+dirOffset:-15
+
+
+
+[turret_ZAFT_ZGMF_1017_SB_BF_B]
+x:0
+y:0
+invisible:true
+
+canShoot:false
+
+showRangeUIGuide:false
+projectile:ZAFT_ZGMF_1017_SB_BF_B_Projectile
+
+delay:3s
+limitingMinRange:0
+limitingRange:0
+
+canAttackMaxAngle:60
+barrelX:0
+barrelY:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\HeatHawk_1.ogg
+shoot_sound_vol:0.5
+
+[projectile_ZAFT_ZGMF_1017_SB_BF_B_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Saber_B*1
+(
+    addResources=
+    CqbDamage:2500
+    |CqbShellDamage:2500
+    |DpDamage:750
+    |WeaponAccuracy:125
+    |PartBreakModifier=0.75
+    |CockpitBreakModifier=1.25
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:0.25
+    |ProjectileAttackTimes:1
+)
+"""
+[projectile_ZAFT_ZGMF_1017_SB_BF_F_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Saber_A_L*1
+(
+    addResources=
+    CqbDamage:2500
+    |CqbShellDamage:2500
+    |DpDamage:500
+    |WeaponAccuracy:125
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1 
+    |AntiSpace=1 
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:0.25
+    |ProjectileAttackTimes:1
+)
+"""
+
+
+
+
+
+
+
+[hiddenAction_ZAFT_ZGMF_1017_SB_BF_Trigger]
+alsoTriggerAction:ZAFT_ZGMF_1017_SB_BF_Fire
+[hiddenAction_ZAFT_ZGMF_1017_SB_BF_Fire]
+requireConditional:"""
+if self.timeAlive>memory.ZAFT_ZGMF_1017_SB_BF_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) 
+and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50
+"""
+setUnitMemory:ZAFT_ZGMF_1017_SB_BF_CDTimer=self.timeAlive+${ZAFT_ZGMF_1017_SB_BF_CD}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Cqb,
+ZAFT_ZGMF_1017_SB_BF_SetWeaponIndex,
+PlayCommon_Melee_B_Step_1,
+ZAFT_ZGMF_1017_SB_BF_Step_1
+"""
+[hiddenAction_ZAFT_ZGMF_1017_SB_BF_Step_1]
+alsoQueueAction:"""
+ZAFT_ZGMF_1017_SB_BF_Fire_Step_1,
+ZAFT_ZGMF_1017_SB_BF_Fire_Step_2,
+ZAFT_ZGMF_1017_SB_BF_Fire_Step_3,
+ZAFT_ZGMF_1017_SB_BF_Fire_Step_4,
+ZAFT_ZGMF_1017_SB_BF_Fire_Step_5,
+ZAFT_ZGMF_1017_SB_BF_Fire_Step_Final
+"""
+
+
+
+
+
+
+
+[hiddenAction_ZAFT_ZGMF_1017_SB_BF_SetWeaponIndex]
+isVisible:false
+
+[hiddenAction_ZAFT_ZGMF_1017_SB_BF_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.4s
+[hiddenAction_ZAFT_ZGMF_1017_SB_BF_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:ZAFT_ZGMF_1017_SB_BF_B
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+spawnEffects:Cqb_Fire_2_White_R
+[hiddenAction_ZAFT_ZGMF_1017_SB_BF_Fire_Step_3]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.6s
+alsoTriggerAction:PlayCommon_Melee_F_Step_1
+[hiddenAction_ZAFT_ZGMF_1017_SB_BF_Fire_Step_4]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.3s
+[hiddenAction_ZAFT_ZGMF_1017_SB_BF_Fire_Step_5]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:ZAFT_ZGMF_1017_SB_BF_B
+fireTurretXAtGround_withProjectile:ZAFT_ZGMF_1017_SB_BF_F_Projectile
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+spawnEffects:Cqb_Fire_1_White_L
+[hiddenAction_ZAFT_ZGMF_1017_SB_BF_Fire_Step_Final]
+buildSpeed:1.4s
+alsoTriggerAction:SetAttackingOff
+

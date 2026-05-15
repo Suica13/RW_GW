@@ -1,0 +1,340 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Cqb/Common/Cqb_Fire_1_Pink_R.gw,
+ROOT:Resource/Image/Fx/Weapon/Cqb/Common/Cqb_Fire_1_Pink_L.gw,
+ROOT:Template\Unit\Animation\Cqb\Common_Melee_A.gw,
+ROOT:Template\Unit\Animation\Cqb\Common_Melee_A_L.gw,
+ROOT:Template/Unit/Animation/Cqb/Common_Melee_Double_G.gw,
+ROOT:Template/Unit/Animation/Stats/Common_Pose_A.gw
+"""
+
+
+
+@memory EF_BeamDagger_Double_AALDE_CDTimer:float
+@global EF_BeamDagger_Double_AALDE_CD=3
+
+
+
+
+
+[decal_EF_BeamDagger_Double_AALDE]
+layer:beforeBody
+order:5.4
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Cqb\Image\EF_BeamDagger.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:1
+xOffsetRelative:6
+yOffsetRelative:22
+dirOffset:0
+
+[decal_EF_BeamDagger_Double_AALDE_L]
+@copyFromSection:decal_EF_BeamDagger_Double_AALDE
+basePositionFromLegEnd:arm3
+imageScale:1
+imageScaleX:-1
+xOffsetRelative:-6
+yOffsetRelative:22
+dirOffset:0
+
+
+
+[turret_EF_BeamDagger_Double_AALDE]
+x:0
+y:0
+invisible:true
+
+canShoot:false
+
+showRangeUIGuide:false
+projectile:EF_BeamDagger_Double_AALDE_A_Projectile
+
+delay:3s
+limitingMinRange:0
+limitingRange:0
+
+canAttackMaxAngle:60
+barrelX:0
+barrelY:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\BeamSaber_1.ogg
+shoot_sound_vol:0.5
+
+[projectile_EF_BeamDagger_Double_AALDE_A_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Saber_A*1
+(
+    addResources=
+    CqbDamage:1750
+    |CqbBeamDamage:1750
+    |DpDamage:750
+    |WeaponAccuracy:125
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=1.25
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:0.25
+    |ProjectileAttackTimes:1
+)
+"""
+
+[projectile_EF_BeamDagger_Double_AALDE_AL_Projectile]
+@copyFromSection:projectile_EF_BeamDagger_Double_AALDE_A_Projectile
+spawnUnit:"""
+Projectile_Saber_A_L*1
+(
+    addResources=
+    CqbDamage:1750
+    |CqbBeamDamage:1750
+    |DpDamage:750
+    |WeaponAccuracy:125
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=1.25
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:0.25
+    |ProjectileAttackTimes:1
+)
+"""
+
+[projectile_EF_BeamDagger_Double_AALDE_DE_Projectile]
+@copyFromSection:projectile_EF_BeamDagger_Double_AALDE_A_Projectile
+spawnUnit:"""
+Projectile_Saber_A*1
+(
+    addResources=
+    CqbDamage:1750
+    |CqbBeamDamage:1750
+    |DpDamage:500
+    |WeaponAccuracy:125
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=1.25
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:0.25
+    |ProjectileAttackTimes:1
+)
+"""
+[projectile_EF_BeamDagger_Double_AALDE_DE_Projectile_L]
+@copyFromSection:projectile_EF_BeamDagger_Double_AALDE_DE_Projectile
+spawnUnit:"""
+Projectile_Saber_A_L*1
+(
+    addResources=
+    CqbDamage:1250
+    |CqbBeamDamage:1250
+    |DpDamage:350
+    |WeaponAccuracy:125
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=1.25
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:0.25
+    |ProjectileAttackTimes:1
+)
+"""
+
+
+
+
+[hiddenAction_EF_BeamDagger_Double_AALDE_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_EF_BeamDagger_Double_AALDE_Fire_Step_1]
+requireConditional:if ${cantAction}==false
+buildSpeed:0s
+alsoTriggerAction:PlayCommon_Melee_A_Step_1
+[hiddenAction_EF_BeamDagger_Double_AALDE_Fire_Step_2]
+requireConditional:if ${cantAction}==false and memory.armRBreaked==false
+buildSpeed:0.2s
+fireTurretXAtGround:EF_BeamDagger_Double_AALDE
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+fireTurretXAtGround_withProjectile:EF_BeamDagger_Double_AALDE_A_Projectile
+spawnEffects:Cqb_Fire_1_Pink_R_S
+
+[hiddenAction_EF_BeamDagger_Double_AALDE_Fire_Step_3]
+requireConditional:if ${cantAction}==false
+buildSpeed:0.2s
+[hiddenAction_EF_BeamDagger_Double_AALDE_Fire_Step_4]
+requireConditional:if ${cantAction}==false and memory.armLBreaked==false
+buildSpeed:0.0s
+alsoTriggerAction:PlayCommon_Melee_A_L_Step_1
+[hiddenAction_EF_BeamDagger_Double_AALDE_Fire_Step_5]
+requireConditional:if ${cantAction}==false and memory.armLBreaked==false
+buildSpeed:0.2s
+fireTurretXAtGround:EF_BeamDagger_Double_AALDE
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+fireTurretXAtGround_withProjectile:EF_BeamDagger_Double_AALDE_AL_Projectile
+spawnEffects:Cqb_Fire_1_Pink_L_S
+[hiddenAction_EF_BeamDagger_Double_AALDE_Fire_Step_6]
+requireConditional:if ${cantAction}==false
+buildSpeed:0.35s
+[hiddenAction_EF_BeamDagger_Double_AALDE_Fire_Step_7]
+requireConditional:if ${cantAction}==false
+buildSpeed:0.0s
+alsoTriggerAction:PlayCommon_Melee_Double_G_Step_1
+[hiddenAction_EF_BeamDagger_Double_AALDE_Fire_Step_8]
+requireConditional:if ${cantAction}==false and memory.armRBreaked==false
+buildSpeed:0s
+fireTurretXAtGround:EF_BeamDagger_Double_AALDE
+fireTurretXAtGround_withProjectile:EF_BeamDagger_Double_AALDE_DE_Projectile
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+spawnEffects:Cqb_Fire_1_Pink_R_S
+[hiddenAction_EF_BeamDagger_Double_AALDE_Fire_Step_9]
+requireConditional:if ${cantAction}==false and memory.armLBreaked==false
+buildSpeed:0s
+fireTurretXAtGround:EF_BeamDagger_Double_AALDE
+fireTurretXAtGround_withProjectile:EF_BeamDagger_Double_AALDE_DE_Projectile_L
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+spawnEffects:Cqb_Fire_1_Pink_L_S
+[hiddenAction_EF_BeamDagger_Double_AALDE_Fire_Step_Final]
+buildSpeed:1.0s
+alsoTriggerAction:SetAttackingOff
+
+
+[hiddenAction_EF_BeamDagger_Double_AALDE_Fire_Step_Rotation]
+buildSpeed:0.02s
+setBodyRotation:self.dir-20
+
+[animation_Common_Melee_A]
+KeyframeTimeScale:0.2
+
+[animation_Common_Melee_A_L]
+KeyframeTimeScale:0.2
+
+
+
+[hiddenAction_EF_BeamDagger_Double_AALDE_Trigger]
+alsoTriggerAction:EF_BeamDagger_Double_AALDE_Fire
+[hiddenAction_EF_BeamDagger_Double_AALDE_Fire]
+requireConditional:"""
+if self.timeAlive>memory.EF_BeamDagger_Double_AALDE_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) 
+and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50
+"""
+setUnitMemory:EF_BeamDagger_Double_AALDE_CDTimer=self.timeAlive+${EF_BeamDagger_Double_AALDE_CD}
+
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Cqb,
+EF_BeamDagger_Double_AALDE_SetWeaponIndex,
+EF_BeamDagger_Double_AALDE_Step_1
+"""
+[hiddenAction_EF_BeamDagger_Double_AALDE_Step_1]
+alsoQueueAction:"""
+EF_BeamDagger_Double_AALDE_Fire_Step_1,
+EF_BeamDagger_Double_AALDE_Fire_Step_2,
+EF_BeamDagger_Double_AALDE_Fire_Step_3,
+EF_BeamDagger_Double_AALDE_Fire_Step_4,
+EF_BeamDagger_Double_AALDE_Fire_Step_5,
+EF_BeamDagger_Double_AALDE_Fire_Step_6,
+EF_BeamDagger_Double_AALDE_Fire_Step_8,
+
+EF_BeamDagger_Double_AALDE_Fire_Step_7,
+
+SetAttackingCantTurnOn,
+
+EF_BeamDagger_Double_AALDE_Fire_Step_Rotation,
+EF_BeamDagger_Double_AALDE_Fire_Step_Rotation,
+EF_BeamDagger_Double_AALDE_Fire_Step_Rotation,
+EF_BeamDagger_Double_AALDE_Fire_Step_Rotation,
+EF_BeamDagger_Double_AALDE_Fire_Step_Rotation,
+EF_BeamDagger_Double_AALDE_Fire_Step_Rotation,
+
+EF_BeamDagger_Double_AALDE_Fire_Step_8,
+EF_BeamDagger_Double_AALDE_Fire_Step_9,
+
+EF_BeamDagger_Double_AALDE_Fire_Step_Rotation,
+EF_BeamDagger_Double_AALDE_Fire_Step_Rotation,
+EF_BeamDagger_Double_AALDE_Fire_Step_Rotation,
+EF_BeamDagger_Double_AALDE_Fire_Step_Rotation,
+EF_BeamDagger_Double_AALDE_Fire_Step_Rotation,
+EF_BeamDagger_Double_AALDE_Fire_Step_Rotation,
+
+
+PlayCommon_Pose_A_Step_1,
+EF_BeamDagger_Double_AALDE_Fire_Step_8,
+EF_BeamDagger_Double_AALDE_Fire_Step_9,
+
+EF_BeamDagger_Double_AALDE_Fire_Step_Rotation,
+EF_BeamDagger_Double_AALDE_Fire_Step_Rotation,
+EF_BeamDagger_Double_AALDE_Fire_Step_Rotation,
+EF_BeamDagger_Double_AALDE_Fire_Step_Rotation,
+EF_BeamDagger_Double_AALDE_Fire_Step_Rotation,
+EF_BeamDagger_Double_AALDE_Fire_Step_Rotation,
+
+
+EF_BeamDagger_Double_AALDE_Fire_Step_8,
+EF_BeamDagger_Double_AALDE_Fire_Step_9,
+
+
+SetAttackingCantTurnOff,
+
+EF_BeamDagger_Double_AALDE_Fire_Step_Final
+"""

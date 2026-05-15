@@ -1,0 +1,107 @@
+[core]
+dont_load:false
+
+[hiddenAction_PlayCommon_Pose_E_Step_1]
+buildSpeed:0s
+requireConditional:if ${cantAction}==false
+stopLastAnimation:true
+alsoTriggerAction:PlayCommon_Pose_E_Step_2
+[hiddenAction_PlayCommon_Pose_E_Step_2]
+requireConditional:if ${cantAction}==false
+playAnimation:Common_Pose_E
+
+
+
+[animation_Common_Pose_E]
+KeyframeTimeScale:2.5
+blendIn:0.2s
+blendOut:0.5s
+
+arm19_0.0s: {x:0, y:-1,dir:0}
+arm19_1.0s: {x:0, y:-1,dir:0}
+arm19_1.5s: {x:0, y:-1,dir:0}
+arm19_2.0s: {x:0, y:0,dir:0}
+
+arm20_0.0s: {x:0, y:-1,dir:0}
+arm20_1.0s: {x:0, y:-1,dir:0}
+arm20_1.5s: {x:0, y:-1,dir:0}
+arm20_2.0s: {x:0, y:0,dir:0}
+
+arm1_0.0s: {x:0, y:5,dir:0}
+arm1_1.0s: {x:0, y:5,dir:0}
+arm1_1.5s: {x:0, y:5,dir:0}
+arm1_2.0s: {x:0, y:0,dir:0}
+
+arm2_0.0s: {x:0, y:0,dir:0}
+arm2_1.0s: {x:0, y:0,dir:0}
+arm2_1.5s: {x:0, y:0,dir:0}
+arm2_2.0s: {x:0, y:0,dir:0}
+
+arm3_0.0s: {x:-2, y:5,dir:-65}
+arm3_1.0s: {x:-2, y:5,dir:-65}
+arm3_1.5s: {x:-2, y:5,dir:-65}
+arm3_2.0s: {x:0, y:0,dir:0}
+
+arm4_0.0s: {x:2, y:5,dir:65}
+arm4_1.0s: {x:2, y:5,dir:65}
+arm4_1.5s: {x:2, y:5,dir:65}
+arm4_2.0s: {x:0, y:0,dir:0}
+
+
+arm5_0.0s: {x:0, y:1,dir:-10}
+arm5_1.0s: {x:0, y:1,dir:-10}
+arm5_1.5s: {x:0, y:1,dir:-10}
+arm5_2.0s: {x:0, y:0,dir:0}
+
+
+arm6_0.0s: {x:0, y:1,dir:10}
+arm6_1.0s: {x:0, y:1,dir:10}
+arm6_1.5s: {x:0, y:1,dir:10}
+arm6_2.0s: {x:0, y:0,dir:0}
+
+
+arm10_0.0s: {x:-6, y:10,dir:-65}
+arm10_1.0s: {x:-6, y:10,dir:-65}
+arm10_1.5s: {x:-6, y:10,dir:-65}
+arm10_2.0s: {x:0, y:0,dir:0}
+
+
+arm11_0.0s: {x:6, y:10,dir:65}
+arm11_1.0s: {x:6, y:10,dir:65}
+arm11_1.5s: {x:6, y:10,dir:65}
+arm11_2.0s: {x:0, y:0,dir:0}
+
+
+
+arm12_0.0s: {x:0, y:0,dir:0}
+arm12_1.0s: {x:0, y:0,dir:0}
+arm12_1.5s: {x:0, y:0,dir:0}
+arm12_2.0s: {x:0, y:0,dir:0}
+
+arm13_0.0s: {x:0, y:0,dir:0}
+arm13_1.0s: {x:0, y:0,dir:0}
+arm13_1.5s: {x:0, y:0,dir:0}
+arm13_2.0s: {x:0, y:0,dir:0}
+
+
+
+leg17_0.0s: {X:-3, y: 12, dir: -25 }
+leg17_1.0s: {X:-3, y: 12, dir: -25 }
+leg17_1.5s: {X:-3, y: 12, dir: -25 }
+leg17_2.0s: {X:0, y: 0, dir: 0 }
+
+leg18_0.0s: {X:-2, y: 10, dir: -20 }
+leg18_1.0s: {X:-2, y: 10, dir: -20 }
+leg18_1.5s: {X:-2, y: 10, dir: -20 }
+leg18_2.0s: {X:0, y: 0, dir: 0 }
+
+
+leg19_0.0s: {x:3, y: 12, dir: 25 }
+leg19_1.0s: {x:3, y: 12, dir: 25 }
+leg19_1.5s: {X:3, y: 12, dir: 25 }
+leg19_2.0s: {X:0, y: 0, dir: 0 }
+
+leg20_0.0s: {x:2, y: 10, dir: 20 }
+leg20_1.0s: {x:2, y: 10, dir: 20 }
+leg20_1.5s: {x:2, y: 10, dir: 20 }
+leg20_2.0s: {x:0, y: 0, dir: 0 }

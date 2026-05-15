@@ -1,0 +1,19 @@
+
+
+[action_ShowTechTree_ZEON_0079]
+@copyFromSection:template_ShowTechTree
+text:ZEON[0079]
+text_zh:吉翁公国军[0079]
+iconImage:ROOT:Resource/Image/Icon/Faction_ZEON_0079_2.png
+isVisible:if self.attachment(slot="ZEON_0079").hp>0 and memory.showTechTree==false and self.globalTeamTags(includes='Tech_ZEON_0079_BaseTech')
+
+isLocked:"""
+if not self.globalTeamTags(includes='Tech_ZEON_0079_BaseTech')
+"""
+
+sendMessageTo:self.attachment(slot="ZEON_0079")
+
+
+[attachment_ZEON_0079]
+@copyFromSection:template_TechTree_Main
+onCreateSpawnUnitOf:TechTree_UI_Main_ZEON_0079

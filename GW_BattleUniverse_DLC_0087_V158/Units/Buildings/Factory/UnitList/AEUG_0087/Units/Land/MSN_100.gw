@@ -1,0 +1,125 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory MSN_100:bool
+
+
+[hiddenAction_Pannel_Close_MSN_100]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:MSN_100=false
+
+
+
+
+[hiddenAction_AutoProduce_MSN_100]
+@copyFromSection:template_AutoProduce
+@define UnitID=MSN_100
+alsoTriggerAction:AutoProduce_MSN_100_Step2
+
+[hiddenAction_AutoProduce_MSN_100_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=5200
+@define Resource=6300
+alsoTriggerAction:AutoProduce_MSN_100_Random
+
+
+
+[hiddenAction_AutoProduce_MSN_100_Random]
+alsoTriggerAction:"""
+AutoProduce_MSN_100_Random_A,
+AutoProduce_MSN_100_Random_B,
+AutoProduce_MSN_100_Random_C
+"""
+[hiddenAction_AutoProduce_MSN_100_Random_A]
+requireConditional:"""
+if memory.randomProduce<=500
+"""
+alsoQueueAction:Produce_MSN_100_StandardSquad
+
+[hiddenAction_AutoProduce_MSN_100_Random_B]
+requireConditional:"""
+if memory.randomProduce>500 
+and memory.randomProduce<=750
+"""
+alsoQueueAction:Produce_MSN_100_BazookaSquad
+
+[hiddenAction_AutoProduce_MSN_100_Random_C]
+requireConditional:"""
+if memory.randomProduce>750
+"""
+alsoQueueAction:Produce_MSN_100_BazookaSGSquad
+
+
+
+
+[action_Pannel_MSN_100]
+@copyFromSection:template_Pannel
+@define UnitID=MSN_100
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+
+[action_Produce_MSN_100_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=MSN_100
+@define Money=5200
+@define Resource=6500
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+buildSpeed:55s
+
+text:BR
+text_zh:光束步枪
+
+alsoQueueAction:"""
+Produce_MSN_100_StandardSquad_1
+"""
+[hiddenAction_Produce_MSN_100_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MSN_100*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+
+
+[action_Produce_MSN_100_BazookaSquad]
+@copyFromSection:template_Produce
+@define UnitID=MSN_100
+@define Money=5000
+@define Resource=6300
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+buildSpeed:55s
+
+text:Bazooka
+text_zh:火箭筒
+
+alsoQueueAction:"""
+Produce_MSN_100_BazookaSquad_1
+"""
+[hiddenAction_Produce_MSN_100_BazookaSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MSN_100*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+
+
+[action_Produce_MSN_100_BazookaSGSquad]
+@copyFromSection:template_Produce
+@define UnitID=MSN_100
+@define Money=5000
+@define Resource=6300
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+buildSpeed:55s
+
+text:Bazooka[SG]
+text_zh:火箭筒[SG]
+
+alsoQueueAction:"""
+Produce_MSN_100_BazookaSGSquad_1
+"""
+[hiddenAction_Produce_MSN_100_BazookaSGSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MSN_100*1(addResources=PilotType:1101|EquipmentIndex:2)
+"""

@@ -1,0 +1,164 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_A.gw
+"""
+
+@memory EF_RX_81AS_Shotgun_CDTimer:float
+@global EF_RX_81AS_Shotgun_CD=3.5
+@global EF_RX_81AS_Shotgun_EN=40
+
+
+
+
+
+[decal_EF_RX_81AS_Shotgun]
+layer:beforeBody
+order:5.5
+onlyWhileAlive:true
+image:ROOT:Units/BattleUnits/Weapon/Shell/Image/EF_RX_81AS_Shotgun.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:1.25
+xOffsetRelative: 2
+yOffsetRelative: 14
+dirOffset:0
+[decal_EF_RX_81AS_Shotgun_NotUsing]
+@copyFromSection:decal_EF_RX_81AS_Shotgun
+isVisible:false
+order:3
+basePositionFromLegEnd:arm1
+imageScaleX:-1
+imageScale:1.0
+xOffsetRelative:1
+yOffsetRelative:-9
+dirOffset:-90
+
+
+
+
+
+
+
+
+[turret_EF_RX_81AS_Shotgun]
+x:0
+y:0
+
+canShoot:false
+projectile:EF_RX_81AS_Shotgun_Projectile
+
+delay:0.2s
+canAttackMaxAngle:15
+barrelX:9
+barrelY:20
+limitingRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/ShellShotGun_1.ogg
+shoot_sound_vol:0.5
+shoot_flame:BZ_Fire_1_S
+
+
+
+[projectile_EF_RX_81AS_Shotgun_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_ShellShotGun*6
+(
+    offsetRandomDir=5,
+    addResources=
+    ShellDamage:450
+    |ShellAPDamage:450
+    |DpDamage:80
+    |WeaponAccuracy=95
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=1.0
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.0
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.0
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=1 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=2
+    |HeightHitRange=20
+    |ProjectileSpeed:55
+    |ProjectileSpread:2
+    |ProjectileLife:12
+)
+"""
+
+
+
+
+
+[hiddenAction_EF_RX_81AS_Shotgun_Trigger]
+alsoTriggerAction:EF_RX_81AS_Shotgun_Fire
+[hiddenAction_EF_RX_81AS_Shotgun_Fire]
+requireConditional:"""
+if self.timeAlive>memory.EF_RX_81AS_Shotgun_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15) 
+and self.resource.EN>0
+"""
+setUnitMemory:EF_RX_81AS_Shotgun_CDTimer=self.timeAlive+${EF_RX_81AS_Shotgun_CD}
+addResources:EN=-${EF_RX_81AS_Shotgun_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+EF_RX_81AS_Shotgun_SetWeaponIndex,
+PlayCommon_Shoot_A_Step_1,
+EF_RX_81AS_Shotgun_B2_Step_1
+"""
+[hiddenAction_EF_RX_81AS_Shotgun_B2_Step_1]
+alsoQueueAction:"""
+EF_RX_81AS_Shotgun_Fire_Step_1,
+EF_RX_81AS_Shotgun_Fire_Step_2,
+EF_RX_81AS_Shotgun_Fire_Step_3,
+EF_RX_81AS_Shotgun_Fire_Step_Final
+"""
+
+
+
+[hiddenAction_EF_RX_81AS_Shotgun_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_EF_RX_81AS_Shotgun_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.25s
+[hiddenAction_EF_RX_81AS_Shotgun_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:EF_RX_81AS_Shotgun
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_EF_RX_81AS_Shotgun_Fire_Step_3]
+@copyFromSection:hiddenAction_EF_RX_81AS_Shotgun_Fire_Step_2
+buildSpeed:${turret_EF_RX_81AS_Shotgun.delay}
+[hiddenAction_EF_RX_81AS_Shotgun_Fire_Step_Final]
+buildSpeed:0.25s
+alsoTriggerAction:SetAttackingOff
+

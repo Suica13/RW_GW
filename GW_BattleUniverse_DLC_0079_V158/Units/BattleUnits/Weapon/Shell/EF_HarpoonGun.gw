@@ -1,0 +1,199 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_Two_Handed_A.gw
+"""
+
+@memory EF_HarpoonGun_CDTimer:float
+@global EF_HarpoonGun_CD=5
+@global EF_HarpoonGun_EN=25
+
+
+
+
+
+[decal_EF_HarpoonGun]
+layer:beforeBody
+order:5.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Shell\Image\EF_HarpoonGun.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:0.75
+xOffsetRelative: 1
+yOffsetRelative: 5.5
+dirOffset:0
+[decal_EF_HarpoonGun_Harpoon_1]
+@copyFromSection:decal_EF_HarpoonGun
+image:ROOT:Resource/Image/Bullet/Shell/Harpoon_1.png
+imageScale:0.65
+xOffsetRelative: 2.5
+yOffsetRelative: 31
+[decal_EF_HarpoonGun_Harpoon_2]
+@copyFromSection:decal_EF_HarpoonGun
+imageScale:0.65
+xOffsetRelative: -0.5
+yOffsetRelative: 31
+image:ROOT:Resource/Image/Bullet/Shell/Harpoon_1.png
+
+
+[decal_EF_HarpoonGun_NotUsing]
+layer:beforeBody
+order:3.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Shell\Image\EF_HarpoonGun.png
+isVisible:false
+basePositionFromLegEnd:arm1
+imageScale:0.65
+xOffsetRelative: 13
+yOffsetRelative: -8
+dirOffset:-90
+[decal_EF_HarpoonGun_Harpoon_1_NotUsing]
+@copyFromSection:decal_EF_HarpoonGun_NotUsing
+image:ROOT:Resource/Image/Bullet/Shell/Harpoon_1.png
+imageScale:0.55
+xOffsetRelative: -7
+yOffsetRelative: -7
+[decal_EF_HarpoonGun_Harpoon_2_NotUsing]
+@copyFromSection:decal_EF_HarpoonGun_NotUsing
+imageScale:0.55
+xOffsetRelative: -7
+yOffsetRelative: -9
+image:ROOT:Resource/Image/Bullet/Shell/Harpoon_1.png
+
+
+
+
+
+[turret_EF_HarpoonGun]
+x:0
+y:0
+
+canShoot:false
+projectile:EF_HarpoonGun_Projectile
+
+delay:0.3s
+canAttackMaxAngle:15
+barrelX:10
+barrelY:5
+limitingRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/Missile_1.ogg
+shoot_sound_vol:0.4
+shoot_flame:BZ_Fire_1
+
+
+
+[projectile_EF_HarpoonGun_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Bazooka_Target_Harpoon*1
+(
+    addResources=
+    ShellDamage:4500
+    |DpDamage:375
+    |WeaponAccuracy=100
+    |PartBreakModifier=0.75
+    |CockpitBreakModifier=1.25
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=0.5
+    |AntiAqua=2.5
+    |AntiAir=0.5 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=2
+    |HeightHitRange=25
+    |ProjectileSpeed:60
+    |ProjectileSpread:0
+    |ProjectileExplosionRange:35
+    |ProjectileLife:30
+)
+"""
+
+
+
+
+
+
+
+
+[hiddenAction_EF_HarpoonGun_Trigger]
+alsoTriggerAction:EF_HarpoonGun_Fire
+[hiddenAction_EF_HarpoonGun_Fire]
+requireConditional:"""
+if self.timeAlive>memory.EF_HarpoonGun_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15) 
+and self.resource.EN>0
+"""
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+EF_HarpoonGun_SetWeaponIndex,
+PlayCommon_Shoot_Two_Handed_A_Step_1,
+EF_HarpoonGun_B2_Step_1
+"""
+[hiddenAction_EF_HarpoonGun_B2_Step_1]
+alsoQueueAction:"""
+EF_HarpoonGun_Fire_Step_1,
+EF_HarpoonGun_Fire_Step_2,
+EF_HarpoonGun_Fire_Step_3,
+EF_HarpoonGun_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_EF_HarpoonGun_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_EF_HarpoonGun_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.35s
+whenBuilding_cannotMove:true
+setUnitMemory:EF_HarpoonGun_CDTimer=self.timeAlive+${EF_HarpoonGun_CD}
+addResources:EN=-${EF_HarpoonGun_EN}
+[hiddenAction_EF_HarpoonGun_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+whenBuilding_cannotMove:true
+fireTurretXAtGround:EF_HarpoonGun
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_EF_HarpoonGun_Fire_Step_3]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.1s
+whenBuilding_cannotMove:true
+fireTurretXAtGround:EF_HarpoonGun
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_EF_HarpoonGun_Fire_Step_Final]
+buildSpeed:0.3s
+whenBuilding_cannotMove:true
+alsoTriggerAction:SetAttackingOff
+
+

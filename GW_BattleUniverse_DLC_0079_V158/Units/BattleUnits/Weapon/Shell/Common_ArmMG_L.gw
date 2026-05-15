@@ -1,0 +1,145 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/MG_Fire_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_A_L.gw
+"""
+
+
+@memory Common_ArmMG_L_CDTimer:float
+@global Common_ArmMG_L_CD=3
+@global Common_ArmMG_L_EN=20
+
+
+
+[turret_Common_ArmMG_L]
+x:0
+y:0
+
+canShoot:false
+projectile:Common_ArmMG_L_Projectile
+
+delay:0.075s
+limitingRange:0
+
+canAttackMaxAngle:15
+barrelX:-12
+barrelY:12
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\MachineGun_1.ogg
+shoot_sound_vol:0.3
+shoot_flame:MG_Fire_1
+
+
+
+[projectile_Common_ArmMG_L_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_MG*1
+(
+    addResources=
+    ShellDamage:575
+    |DpDamage:30
+    |WeaponAccuracy=100
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=1.0
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=1
+    |AntiLand=1
+    |AntiSpace=1.0
+    |HeightChangeSpeed=2.0
+    |HeightHitRange=20
+    |ProjectileSpeed:75
+    |ProjectileSpread:5
+    |ProjectileLife:25
+)
+"""
+
+
+
+
+
+
+
+[hiddenAction_Common_ArmMG_L_Trigger]
+alsoTriggerAction:Common_ArmMG_L_Fire
+[hiddenAction_Common_ArmMG_L_Fire]
+requireConditional:"""
+if self.timeAlive>memory.Common_ArmMG_L_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false 
+and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)  
+and self.resource.EN>0
+"""
+setUnitMemory:Common_ArmMG_L_CDTimer=self.timeAlive+${Common_ArmMG_L_CD}
+addResources:EN=-${Common_ArmMG_L_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+Common_ArmMG_L_SetWeaponIndex,
+Common_ArmMG_L_B9_Step_1
+"""
+[hiddenAction_Common_ArmMG_L_B9_Step_1]
+alsoQueueAction:"""
+Common_ArmMG_L_Fire_Step_1,
+Common_ArmMG_L_Fire_Step_2,
+Common_ArmMG_L_Fire_Step_3,
+Common_ArmMG_L_Fire_Step_3,
+Common_ArmMG_L_Fire_Step_3,
+Common_ArmMG_L_Fire_Step_3,
+Common_ArmMG_L_Fire_Step_3,
+Common_ArmMG_L_Fire_Step_3,
+Common_ArmMG_L_Fire_Step_3,
+Common_ArmMG_L_Fire_Step_3,
+Common_ArmMG_L_Fire_Step_Final
+"""
+
+
+
+
+
+[hiddenAction_Common_ArmMG_L_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_Common_ArmMG_L_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.1s
+[hiddenAction_Common_ArmMG_L_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:Common_ArmMG_L
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+alsoTriggerAction:PlayCommon_Shoot_A_L_Step_1
+[hiddenAction_Common_ArmMG_L_Fire_Step_3]
+@copyFromSection:hiddenAction_Common_ArmMG_L_Fire_Step_2
+buildSpeed:${turret_Common_ArmMG_L.delay}
+alsoTriggerAction:PlayCommon_Shoot_A_FA_Step_1
+[hiddenAction_Common_ArmMG_L_Fire_Step_Final]
+buildSpeed:0.3s
+alsoTriggerAction:SetAttackingOff
+
+

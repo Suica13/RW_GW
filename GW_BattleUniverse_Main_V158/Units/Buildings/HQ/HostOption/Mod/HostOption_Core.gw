@@ -1,0 +1,157 @@
+[core]
+copyFrom:"""
+ROOT:Template/UI/Common_UI.gw
+"""
+
+tags:HostOption_Core
+name:HostOption_Core
+
+showInEditor:false
+
+canNotBeDirectlyAttacked:true
+
+
+@memory gameMainMode:float
+@memory gameSubMode:float
+@memory stageIndex:float
+@memory resStart:float
+@memory mpStart:float
+@memory techStart:float
+@memory resX:float
+@memory mpX:float
+@memory techX:float
+@memory autoTech:float
+@memory techLimit:float
+@memory techShare:float
+@memory allowACEUnit:float
+@memory allowPMCUnit:float
+
+
+@memory nowStageUIPage:float
+@memory nowStageUIPageMax:float
+
+
+@memory GM:unit
+[hiddenAction_FindGM]
+autoTrigger:if memory.GM.hp<= 0
+takeResources_includeUnitsWithinRange:99999
+takeResources_includeUnitsWithinRange_team:any
+takeResources_excludeUnitsWithoutTags:GameManager
+takeResources_searchOnly:true
+takeResources_maxUnits:1
+takeResources_triggerActionForEach:FindGM_Step2
+[hiddenAction_FindGM_Step2]
+setUnitMemory:GM=thisActionTarget
+
+
+[hiddenAction_InitializeStats]
+alsoTriggerAction:"""
+Start_Set_Tech
+"""
+[hiddenAction_Start_Set_Tech]
+isVisible:false
+
+[hiddenAction_Update]
+
+
+
+[hiddenAction_Get_PrintMessage]
+autoTriggerOnEvent:newMessage(withTag="PrintMessage")
+showMessageToPlayer:"""
+%{eventData("message",type="string")}
+"""
+showMessageToPlayer_zh:"""
+%{eventData("message_zh",type="string")}
+"""
+playSoundToPlayer:ROOT:Resource/Sound/SE/System/Button/Info_1.ogg:
+
+
+[hiddenAction_BackToMenuPage]
+autoTriggerOnEvent:newMessage(withTag="BackToMenuPage")
+alsoTriggerAction:"""
+DeleteMain,
+AddMain_Menu
+"""
+[hiddenAction_DeleteMain]
+attachments_onlyOnSlots:Main
+attachments_deleteNumUnits:1
+
+
+[hiddenAction_AddMain_Menu]
+autoTriggerOnEvent:created
+attachments_onlyOnSlots:Main
+attachments_addNewUnits:HostOption_Main_Menu
+setUnitMemory:"""
+nowStageUIPage=0,
+nowStageUIPageMax=1,
+gameMainMode=0,
+gameSubMode=0,
+stageIndex=0,
+resStart=6000,
+mpStart=60,
+techStart=0,
+resX=1,
+mpX=1,
+techX=1,
+autoTech=0,
+techShare=1,
+techLimit=3,
+allowACEUnit=1,
+allowPMCUnit=1
+"""
+
+
+
+
+[hiddenAction_Get_Change_ResX]
+autoTriggerOnEvent:newMessage(withTag="Change_ResX")
+setUnitMemory:resX=eventData("ResX",type="float")
+
+[hiddenAction_Get_Change_TechX]
+autoTriggerOnEvent:newMessage(withTag="Change_TechX")
+setUnitMemory:techX=eventData("TechX",type="float")
+
+[hiddenAction_Get_Change_MpX]
+autoTriggerOnEvent:newMessage(withTag="Change_MpX")
+setUnitMemory:mpX=eventData("MpX",type="float")
+
+[hiddenAction_Get_Change_AutoTech]
+autoTriggerOnEvent:newMessage(withTag="Change_AutoTech")
+setUnitMemory:autoTech=eventData("AutoTech",type="float")
+
+[hiddenAction_Get_Change_TechShare]
+autoTriggerOnEvent:newMessage(withTag="Change_TechShare")
+setUnitMemory:techShare=eventData("TechShare",type="float")
+
+[hiddenAction_Get_Change_TechLimit]
+autoTriggerOnEvent:newMessage(withTag="Change_TechLimit")
+setUnitMemory:techLimit=eventData("TechLimit",type="float")
+
+[hiddenAction_Get_Change_AllowPMCUnit]
+autoTriggerOnEvent:newMessage(withTag="Change_AllowPMCUnit")
+setUnitMemory:allowPMCUnit=eventData("AllowPMCUnit",type="float")
+
+[hiddenAction_Get_Change_AllowACEUnit]
+autoTriggerOnEvent:newMessage(withTag="Change_AllowACEUnit")
+setUnitMemory:allowACEUnit=eventData("AllowACEUnit",type="float")
+
+
+
+
+
+[attachment_Main]
+x:0
+y:55
+setDrawLayerOnBottom:false
+isVisible:true
+keepAliveWhenParentDies:false
+canBeAttackedAndDamaged:false
+isUnselectable:true
+canAttack:false
+showAllActionsFrom:false
+prioritizeParentsMainTarget:true
+smoothlyBlendPositionWhenExistingUnitAdded:false
+onConvertKeepExistingUnitInSameSlot:true
+onParentTeamChangeKeepCurrentTeam:false
+
+

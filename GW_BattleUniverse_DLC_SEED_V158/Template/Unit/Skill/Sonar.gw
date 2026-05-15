@@ -1,0 +1,8 @@
+[core]
+dont_load:false
+
+
+[hiddenAction_StartSetSonar]
+autoTriggerOnEvent:newMessage(withTag="UnitTurretSpawn")
+temporarilyAddTags:Sonar
+

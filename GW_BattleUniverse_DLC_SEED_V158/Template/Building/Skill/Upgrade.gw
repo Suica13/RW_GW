@@ -1,0 +1,70 @@
+[core]
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_Light_1.gw
+"""
+dont_load:false
+
+
+
+[template_Upgrade]
+@define UnitID=Refinery_Common_T1
+@define CustomRule=(true)
+@define AutoCustomRule=(false)
+@define Money=0
+@define Resource=0
+
+tags:Upgrade
+addActionCooldownTime:0
+buildSpeed:10s
+
+pos:10
+
+text:Upgrade To
+text_zh:升级至
+textAddUnitName:${UnitID}
+unitShownInUI:${UnitID}
+descriptionAddFromUnit:${UnitID}
+
+isGuiBlinking:true
+displayType:infoOnly
+
+isVisible:if ${CustomRule} and self.globalTeamTags(includes='Unlock_${UnitID}') 
+
+highPriorityQueue:false
+refundAllQueuedItems:true
+allowMultipleInQueue:false
+alwaysSinglePress:true
+ai_isDisabled:true
+refundAllQueuedItems:true
+
+isLocked:if not self.globalTeamTags(includes='Unlock_${UnitID}') 
+isLockedMessage:Locked
+isLockedMessage_zh:未解锁
+isLockedAlt:if memory.buildDone==false
+isLockedAltMessage:Not Build Done
+isLockedAltMessage_zh:还没有建造完成
+
+price:"""
+Money=${Money},
+Resource=${Resource}
+"""
+
+spawnEffects:Light_50
+playSoundAtUnit:ROOT:Resource/Sound/SE/System/Event/Upgrade_1.ogg:0.5
+
+convertTo:${UnitID}
+convertTo_keepCurrentTags:true
+convertTo_keepCurrentFields:"""
+selfRegenRate,
+shieldRegen,
+maxEnergy,
+armour,
+mass,
+movespeed,
+maxTurnSpeed,
+maxAttackRange,
+nanoRange,
+fogOfWarSightRange,
+nanoFactorySpeed,
+targetHeight
+"""

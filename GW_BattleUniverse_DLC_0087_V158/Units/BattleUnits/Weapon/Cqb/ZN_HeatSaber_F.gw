@@ -1,0 +1,148 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Cqb/Common/Cqb_Fire_1_Yellow_L.gw,
+ROOT:Template\Unit\Animation\Cqb\Common_Melee_F.gw
+"""
+
+@memory ZN_HeatSaber_F_CDTimer:float
+@global ZN_HeatSaber_F_CD=3.5
+
+
+
+
+[decal_ZN_HeatSaber_F]
+layer:beforeBody
+order:5.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Cqb\Image\ZN_HeatSaber.png
+isVisible:false
+basePositionFromLegEnd:arm4
+total_frames:2
+frame:1
+imageScale:1
+xOffsetRelative:3
+yOffsetRelative:30
+dirOffset:-15
+
+
+
+[turret_ZN_HeatSaber_F]
+x:0
+y:0
+invisible:true
+
+canShoot:false
+
+showRangeUIGuide:false
+projectile:ZN_HeatSaber_F_Projectile
+
+delay:3s
+limitingMinRange:0
+limitingRange:0
+
+canAttackMaxAngle:60
+barrelX:0
+barrelY:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\BeamSaber_1.ogg
+shoot_sound_vol:0.5
+
+[projectile_ZN_HeatSaber_F_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Saber_A*1
+(
+    addResources=
+    CqbDamage:2500
+    |CqbShellDamage:2500
+    |DpDamage:750
+    |WeaponAccuracy:125
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:0.25
+    |ProjectileAttackTimes:2
+)
+"""
+
+
+
+
+
+
+[hiddenAction_ZN_HeatSaber_F_Trigger]
+alsoTriggerAction:ZN_HeatSaber_F_Fire
+[hiddenAction_ZN_HeatSaber_F_Fire]
+requireConditional:"""
+if self.timeAlive>memory.ZN_HeatSaber_F_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) 
+and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50
+"""
+setUnitMemory:ZN_HeatSaber_F_CDTimer=self.timeAlive+${ZN_HeatSaber_F_CD}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Cqb,
+ZN_HeatSaber_F_SetWeaponIndex,
+PlayCommon_Melee_F_Step_1,
+ZN_HeatSaber_F_Step_1
+"""
+[hiddenAction_ZN_HeatSaber_F_Step_1]
+alsoQueueAction:"""
+ZN_HeatSaber_F_Fire_Step_1,
+ZN_HeatSaber_F_Fire_Step_2,
+ZN_HeatSaber_F_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_ZN_HeatSaber_F_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_ZN_HeatSaber_F_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.3s
+[hiddenAction_ZN_HeatSaber_F_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:ZN_HeatSaber_F
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+spawnEffects:Cqb_Fire_1_Yellow_L
+[hiddenAction_ZN_HeatSaber_F_Fire_Step_Final]
+buildSpeed:1.4s
+alsoTriggerAction:SetAttackingOff
+

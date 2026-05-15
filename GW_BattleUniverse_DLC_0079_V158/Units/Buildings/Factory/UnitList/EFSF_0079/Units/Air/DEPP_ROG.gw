@@ -1,0 +1,50 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+[hiddenAction_AutoProduce_DEPP_ROG]
+@copyFromSection:template_AutoProduce
+@define UnitID=DEPP_ROG
+alsoTriggerAction:AutoProduce_DEPP_ROG_Step2
+
+[hiddenAction_AutoProduce_DEPP_ROG_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=400
+@define Resource=800
+alsoQueueAction:Produce_DEPP_ROG_StandardSquad
+
+
+
+[action_Produce_DEPP_ROG_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=DEPP_ROG
+@define Money=1000
+@define Resource=1750
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+buildSpeed:45s
+
+alsoQueueAction:"""
+Produce_DEPP_ROG_StandardSquad_1,
+Produce_DEPP_ROG_StandardSquad_2,
+Produce_DEPP_ROG_StandardSquad_3
+"""
+[hiddenAction_Produce_DEPP_ROG_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+DEPP_ROG*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_DEPP_ROG_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+DEPP_ROG*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_DEPP_ROG_StandardSquad_3]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+DEPP_ROG*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

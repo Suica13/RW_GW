@@ -1,0 +1,246 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_Flash_1.gw,
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Cannon_Shoot_A.gw
+"""
+
+
+@memory Common_Mortar_AimTarget:unit
+@memory Common_Mortar_CDTimer:float
+@global Common_Mortar_CD=120
+@global Common_Mortar_EN=150
+
+@global Common_Mortar_Range=1200
+
+[decal_Common_Mortar_Range]
+layer: inactive
+order:0
+onlyTeam:own
+alpha:1
+image:ROOT:Resource/Image/Ring/Ring150_Action.png
+imageScale:${Common_Mortar_Range}/150
+basePosition:self
+alwaysStartDirAtZero:true
+onlyWhileAlive:true
+isVisible:if true
+
+
+
+
+
+[turret_Common_Mortar]
+x:0
+y:0
+
+canShoot:false
+projectile:Common_Mortar_Projectile
+
+delay:0.3s
+canAttackMaxAngle:15
+limitingAngle:0
+limitingRange:${Common_Mortar_Range}
+limitingMinRange:300
+barrelX:7
+barrelY:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\ShellCannon_1.ogg
+shoot_sound_vol:0.6
+shoot_flame:BZ_Fire_1
+
+
+
+[projectile_Common_Mortar_Projectile]
+
+directDamage: 0
+life: 1
+explodeOnEndOfLife:true
+speed: 0
+instant:true
+
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_MortarMarker_A*1
+(
+    offsetRandomXY=100,
+    addResources=
+    ShellDamage:5000
+    |DpDamage:400
+    |WeaponAccuracy=65
+    |PartBreakModifier=0.5
+    |CockpitBreakModifier=0.5
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiBuilding=2
+    |AntiAqua=0.75
+    |AntiAir=0.5 
+    |AntiLand=1
+    |AntiSpace=1
+
+    |ProjectileSpeed:25
+    |ProjectileSpread:25
+    |ProjectileExplosionRange:80
+    |ProjectileLife:200
+)
+"""
+
+
+
+
+
+
+
+
+[hiddenAction_Common_Mortar_Trigger_ByAI]
+autoTrigger:"""
+if ${allowAI}==true 
+and ${cantAction}==false 
+and ${onSkill}==false 
+and memory.close==false 
+and self.resource.EN>${Common_Mortar_EN} 
+and self.timeAlive>memory.Common_Mortar_CDTimer 
+and self.resource.TileMode==0 
+and self.parent.hp<=0  
+and memory.Common_Mortar_AimTarget.hp>0 
+and memory.Common_Mortar_AimTarget.teamID>=0 
+and not memory.Common_Mortar_AimTarget.tags(includes='UnDetected') 
+and distanceBetween(self, memory.Common_Mortar_AimTarget)>=300 
+"""
+alsoTriggerAction:Common_Mortar_Trigger
+
+
+[hiddenAction_Common_Mortar_FindTarget]
+autoTrigger:if ${allowAI}==true 
+takeResources_includeUnitsWithinRange:1000
+takeResources_includeUnitsWithinRange_team:enemy
+takeResources_excludeUnitsWithoutTags:CanBeDetected
+takeResources_searchOnly:true
+takeResources_maxUnits:30
+takeResources_triggerActionForEach:Common_Mortar_FindTarget_Step2
+[hiddenAction_Common_Mortar_FindTarget_Step2]
+requireConditional:"""
+if not thisActionTarget.tags(includes='UnDetected') 
+"""
+setUnitMemory:Common_Mortar_AimTarget=thisActionTarget
+
+
+[action_Common_Mortar_Trigger]
+pos:10
+text:Mortar %{select(self.timeAlive<=memory.Common_Mortar_CDTimer,str(int(memory.Common_Mortar_CDTimer-self.timeAlive))+"s","OK")}
+text_zh:迫击炮 %{select(self.timeAlive<=memory.Common_Mortar_CDTimer,str(int(memory.Common_Mortar_CDTimer-self.timeAlive))+"秒","OK")}
+text_KP:100
+
+displayType:infoOnly
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Mortar_1.png
+highPriorityQueue:true
+
+price:EN=${Common_Mortar_EN}
+
+onlyOneUnitAtATime:true
+
+isVisible:if self.parent.hp<=0  
+
+isGuiBlinking:"""
+if self.timeAlive>memory.Common_Mortar_CDTimer
+"""
+
+isLocked:if self.timeAlive<=memory.Common_Mortar_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+isLockedAlt:if self.resource.TileMode==1
+isLockedAltMessage:In Space
+isLockedAltMessage_zh:宇宙无法使用
+isLockedAlt2:if ${cantAction}==true  or ${onSkill}==true or ${allowAI}==true
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+fireTurretXAtGround:Common_Mortar
+fireTurretXAtGround_count:0
+fireTurretXAtGround_showGuideDecals:Common_Mortar_Range
+
+alsoTriggerAction:"""
+SetOnSkillOn,
+PlayCommon_Cannon_Shoot_A_Step_1,
+Common_Mortar_SetWeaponIndex,
+Common_Mortar_B3_Step_1
+"""
+clearAllWaypoints:true
+[hiddenAction_Common_Mortar_B3_Step_1]
+spawnEffects:Flash_1_N
+setUnitMemory:"""
+Common_Mortar_AimTarget=select(${allowAI}==true,memory.Common_Mortar_AimTarget,thisActionTarget),
+Common_Mortar_CDTimer=self.timeAlive+${Common_Mortar_CD}
+"""
+
+alsoQueueAction:"""
+Common_Mortar_Fire_Step_1,
+
+Common_Mortar_Fire_Step_2,
+Common_Mortar_Fire_Step_3,
+Common_Mortar_Fire_Step_4,
+
+Common_Mortar_Fire_Step_2,
+Common_Mortar_Fire_Step_3,
+Common_Mortar_Fire_Step_4,
+
+Common_Mortar_Fire_Step_2,
+Common_Mortar_Fire_Step_3,
+Common_Mortar_Fire_Step_4,
+
+Common_Mortar_Fire_Step_Final
+"""
+
+
+
+[hiddenAction_Common_Mortar_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_Common_Mortar_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:1.0s
+whenBuilding_cannotMove:true
+[hiddenAction_Common_Mortar_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.75s
+whenBuilding_cannotMove:true
+alsoTriggerAction:PlayCommon_Cannon_Shoot_A_Step_1
+[hiddenAction_Common_Mortar_Fire_Step_3]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.5s
+whenBuilding_cannotMove:true
+[hiddenAction_Common_Mortar_Fire_Step_4]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+whenBuilding_cannotMove:true
+fireTurretXAtGround:Common_Mortar
+fireTurretXAtGround_withTarget:memory.Common_Mortar_AimTarget
+[hiddenAction_Common_Mortar_Fire_Step_Final]
+buildSpeed:2.0s
+whenBuilding_cannotMove:true
+finishPlayingLastAnimation:true
+alsoTriggerAction:"""
+SetOnSkillOff
+"""
+clearAllWaypoints:true

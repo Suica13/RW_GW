@@ -1,0 +1,22 @@
+[core]
+dont_load:false
+
+
+#
+[effect_System_BiosensorMaxPower_1]
+image:ROOT:Resource/Image/Fx/System/Image/System_BiosensorMaxPower_1.png
+attachedToUnit:true
+life:600
+priority:critical
+liveAfterAttachedDies:true
+xOffsetRelative:0
+yOffsetRelative:5
+dirOffset:180
+scaleFrom:0.5
+scaleTo:0.5
+alpha:1
+total_frames:9
+animateFrameStart: 0
+animateFrameEnd: 8
+animateFrameSpeed: 0.125
+showInFog:true

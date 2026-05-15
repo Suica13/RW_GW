@@ -1,0 +1,152 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+@memory MP_02A:bool
+
+
+[hiddenAction_Pannel_Close_MP_02A]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:MP_02A=false
+
+
+
+[hiddenAction_AutoProduce_MP_02A]
+@copyFromSection:template_AutoProduce
+@define UnitID=MP_02A
+alsoTriggerAction:AutoProduce_MP_02A_Step2
+
+[hiddenAction_AutoProduce_MP_02A_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=500
+@define Resource=1000
+alsoTriggerAction:AutoProduce_MP_02A_Random
+
+[hiddenAction_AutoProduce_MP_02A_Random]
+alsoTriggerAction:"""
+AutoProduce_MP_02A_Random_A,
+AutoProduce_MP_02A_Random_B
+"""
+[hiddenAction_AutoProduce_MP_02A_Random_A]
+requireConditional:if memory.randomProduce<=750
+alsoQueueAction:Produce_MP_02A_StandardSquad
+
+[hiddenAction_AutoProduce_MP_02A_Random_B]
+requireConditional:if memory.randomProduce>750
+alsoQueueAction:Produce_MP_02A_BazookaSquad
+
+
+
+
+[action_Pannel_MP_02A]
+@copyFromSection:template_Pannel
+@define UnitID=MP_02A
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+@define OtherVisible= (not self.globalTeamTags(includes='Unlock_MP_02A2'))
+
+
+[action_Produce_MP_02A_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=MP_02A
+@define Money=500
+@define Resource=1000
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:30s
+
+alsoQueueAction:"""
+Produce_MP_02A_StandardSquad_1,
+Produce_MP_02A_StandardSquad_2,
+Produce_MP_02A_StandardSquad_3
+"""
+[hiddenAction_Produce_MP_02A_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MP_02A*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_MP_02A_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+MP_02A*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_MP_02A_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+MP_02A*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+
+
+
+[action_Produce_MP_02A_BazookaSquad]
+@copyFromSection:template_Produce
+@define UnitID=MP_02A
+@define Money=500
+@define Resource=1600
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:30s
+
+text:Bazooka Squad
+text_zh:火箭筒小队
+
+alsoQueueAction:"""
+Produce_MP_02A_BazookaSquad_1,
+Produce_MP_02A_BazookaSquad_2,
+Produce_MP_02A_BazookaSquad_3
+"""
+[hiddenAction_Produce_MP_02A_BazookaSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MP_02A*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_MP_02A_BazookaSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+MP_02A*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_MP_02A_BazookaSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+MP_02A*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+
+
+[action_Produce_MP_02A_MSSquad]
+@copyFromSection:template_Produce
+@define UnitID=MP_02A
+@define Money=500
+@define Resource=1600
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:30s
+
+text:MS Squad
+text_zh:导弹小队
+
+alsoQueueAction:"""
+Produce_MP_02A_MSSquad_1,
+Produce_MP_02A_MSSquad_2,
+Produce_MP_02A_MSSquad_3
+"""
+[hiddenAction_Produce_MP_02A_MSSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MP_02A*1(addResources=PilotType:1101|EquipmentIndex:2)
+"""
+[hiddenAction_Produce_MP_02A_MSSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+MP_02A*1(addResources=PilotType:1101|EquipmentIndex:2)
+"""
+[hiddenAction_Produce_MP_02A_MSSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+MP_02A*1(addResources=PilotType:1101|EquipmentIndex:2)
+"""

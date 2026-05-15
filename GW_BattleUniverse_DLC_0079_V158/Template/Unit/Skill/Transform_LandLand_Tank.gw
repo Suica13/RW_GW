@@ -1,0 +1,106 @@
+[core]
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_Light_1.gw
+"""
+dont_load:false
+
+
+@memory changeTransform_LandLand_TankCD:float
+
+
+@memory cantTransform:bool
+
+
+[hiddenAction_Check_CantTransform]
+autoTrigger:true
+setUnitMemory:"""
+cantTransform=select
+(
+    memory.headBreaked==true 
+    or memory.backpackBreaked==true 
+    or memory.armLBreaked==true 
+    or memory.armRBreaked==true 
+    or memory.legLBreaked==true 
+    or memory.legRBreaked==true,
+    true,
+    false
+)
+"""
+
+[action_Transform_LandLand_TankB]
+
+pos:1
+
+buildSpeed:0s
+tags:Upgrade
+
+highPriorityQueue:true
+allowMultipleInQueue:false
+canPlayerCancel:true
+alwaysSinglePress:true
+ai_isDisabled:true
+extraLagHidingInUI:true
+
+displayType:Upgrade
+
+text:SwitchToStyle B
+text_zh:切换到形态 B
+
+isVisible:if memory.close==false and memory.styleIndex!=95 and memory.styleIndex!=100 and not self.hasTags(includes='inHangar')
+
+iconImage:ROOT:Resource/Image/Units/Button/Action/Transform_1.png
+playSoundToPlayer:ROOT:Resource/Sound/SE/Action/Common/Transform_3.ogg
+
+spawnEffects:Light_50
+
+isGuiBlinking:true
+
+isLocked:if memory.cantTransform==true
+isLockedMessage:Need Repair
+isLockedMessage_zh:需要修理
+isLockedAlt:if self.timeAlive<memory.changeTransform_LandLand_TankCD
+isLockedAltMessage:In Cooldown[%{memory.changeTransform_LandLand_TankCD-self.timeAlive}s]
+isLockedAltMessage_zh:冷却中[%{memory.changeTransform_LandLand_TankCD-self.timeAlive}s]
+isLockedAlt2:if ${cantAction}==true or ${onSkill}==true or parent.hp>0
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+#convertTo:
+convertTo_keepCurrentTags:true
+convertTo_keepCurrentFields:"""
+selfRegenRate,
+shieldRegen,
+maxEnergy,
+armour,
+mass,
+movespeed,
+maxTurnSpeed,
+maxAttackRange,
+nanoRange,
+fogOfWarSightRange,
+nanoFactorySpeed,
+targetHeight
+"""
+
+setUnitMemory:styleIndex=95
+
+
+whenBuilding_triggerAction:SetAttackingOff
+alsoTriggerAction:Send_UnitTurretRemove,Transform_LandLand_TankCD,Send_TryClearQueued,Send_TryTransform
+
+[action_Transform_LandLand_TankA]
+@copyFromSection:action_Transform_LandLand_TankB
+
+text:SwitchToStyle A
+text_zh:切换到形态 A
+
+isVisible:if memory.close==false and memory.styleIndex!=0 and not self.hasTags(includes='inHangar')
+iconImage:ROOT:Resource/Image/Units/Button/Action/Transform_2.png
+
+#convertTo:
+
+setUnitMemory:styleIndex=0
+
+
+[hiddenAction_Transform_LandLand_TankCD]
+setUnitMemory:changeTransform_LandLand_TankCD=self.timeAlive+3

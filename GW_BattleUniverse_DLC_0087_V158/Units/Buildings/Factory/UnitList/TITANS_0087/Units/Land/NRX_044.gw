@@ -1,0 +1,51 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+
+[hiddenAction_AutoProduce_NRX_044]
+@copyFromSection:template_AutoProduce
+@define UnitID=NRX_044
+alsoTriggerAction:AutoProduce_NRX_044_Step2
+
+[hiddenAction_AutoProduce_NRX_044_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=6500
+@define Resource=8500
+alsoQueueAction:Produce_NRX_044_StandardSquad
+
+
+
+[action_Produce_NRX_044_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=NRX_044
+@define Money=6500
+@define Resource=8500
+@define FactionVisible= (memory.Pannel_TITANS_0087_DontShow==false)
+buildSpeed:60s
+
+alsoQueueAction:"""
+Produce_NRX_044_StandardSquad_1,
+Produce_NRX_044_StandardSquad_2,
+Produce_NRX_044_StandardSquad_3
+"""
+[hiddenAction_Produce_NRX_044_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+NRX_044*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_NRX_044_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+NRX_044*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_NRX_044_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+NRX_044*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

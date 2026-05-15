@@ -1,0 +1,60 @@
+[core]
+dont_load:false
+
+[effect_BZ_ShotGunMode_1]
+life: 100
+
+xOffsetRelative: 0
+yOffsetRelative: 50
+
+ySpeedRelative:1
+
+hOffset: 0
+dirOffset: 0
+attachedToUnit: false
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+alpha:1
+scaleFrom: 1.5
+scaleTo: 1.5
+image: ROOT:\Resource\Image\Fx\Weapon\Shell\Image\BZ_ShotGunMode_1.png
+alsoPlaySound:ROOT:\Resource\Sound\SE\Weapon\Hit\Explosion_Hit_1.ogg:0.35
+
+total_frames: 6
+animateFrameStart: 0
+animateFrameEnd: 5
+animateFrameSpeed: 0.2
+showInFog:true
+alsoEmitEffects:BZ_ShotGunMode_Fire_1_FireLight
+
+[effect_BZ_ShotGunMode_1_S]
+@copyFromSection:effect_BZ_ShotGunMode_1
+scaleFrom: 1.0
+scaleTo: 1.0
+alsoEmitEffects:BZ_ShotGunMode_Fire_1_S_FireLight
+
+
+
+
+[effect_BZ_ShotGunMode_Fire_1_FireLight]
+image:ROOT:Resource/Image/Fx/Weapon/Common/Image/Common_FireLight_25_Normal.png
+priority:high
+yOffsetRelative:15
+life: 15
+scaleFrom: 4
+scaleTo: 2
+alpha:0.5
+alwayStartDirAtZero:true
+drawUnderUnits:false
+
+
+
+[effect_BZ_ShotGunMode_Fire_1_S_FireLight]
+@copyFromSection:effect_BZ_ShotGunMode_Fire_1_FireLight
+scaleFrom: 2
+scaleTo: 1
+yOffsetRelative:5

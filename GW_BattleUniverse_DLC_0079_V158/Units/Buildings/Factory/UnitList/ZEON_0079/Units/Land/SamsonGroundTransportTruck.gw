@@ -1,0 +1,41 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+[hiddenAction_AutoProduce_SamsonGroundTransportTruck]
+@copyFromSection:template_AutoProduce
+@define UnitID=SamsonGroundTransportTruck
+alsoTriggerAction:AutoProduce_SamsonGroundTransportTruck_Step2
+
+[hiddenAction_AutoProduce_SamsonGroundTransportTruck_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=300
+@define Resource=500
+alsoQueueAction:Produce_SamsonGroundTransportTruck_StandardSquad
+
+
+
+[action_Produce_SamsonGroundTransportTruck_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=SamsonGroundTransportTruck
+@define Money=300
+@define Resource=500
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:30s
+
+alsoQueueAction:"""
+Produce_SamsonGroundTransportTruck_StandardSquad_1,
+Produce_SamsonGroundTransportTruck_StandardSquad_2
+"""
+[hiddenAction_Produce_SamsonGroundTransportTruck_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+SamsonGroundTransportTruck*1(addResources=PilotType:1001|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_SamsonGroundTransportTruck_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+SamsonGroundTransportTruck*1(addResources=PilotType:1001|EquipmentIndex:0)
+"""

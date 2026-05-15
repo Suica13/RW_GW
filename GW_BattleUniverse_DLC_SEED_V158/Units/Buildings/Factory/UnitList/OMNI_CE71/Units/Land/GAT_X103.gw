@@ -1,0 +1,45 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory GAT_X103:bool
+
+
+[hiddenAction_Pannel_Close_GAT_X103]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:GAT_X103=false
+
+
+
+
+[hiddenAction_AutoProduce_GAT_X103]
+@copyFromSection:template_AutoProduce
+@define UnitID=GAT_X103
+alsoTriggerAction:AutoProduce_GAT_X103_Step2
+
+[hiddenAction_AutoProduce_GAT_X103_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=3250
+@define Resource=4250
+alsoQueueAction:Produce_GAT_X103_StandardSquad
+
+
+
+[action_Produce_GAT_X103_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=GAT_X103
+@define Money=3250
+@define Resource=4250
+@define FactionVisible= (memory.Pannel_OMNI_CE71_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+buildSpeed:45s
+
+alsoQueueAction:"""
+Produce_GAT_X103_StandardSquad_1
+"""
+[hiddenAction_Produce_GAT_X103_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+GAT_X103*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

@@ -1,0 +1,52 @@
+[core]
+dont_load:false
+
+[effect_EMP_Hit_2]
+life: 100
+
+xOffsetRelative: 0
+yOffsetRelative: 0
+hOffset: 0
+dirOffset: -90
+attachedToUnit: false
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+alpha:0.5
+scaleFrom: 0.5
+scaleTo: 5
+image: ROOT:Resource/Image/Fx/Weapon/Sp/Image/EMP_Hit_2.png
+
+total_frames: 6
+animateFrameStart: 0
+animateFrameEnd: 5
+animateFrameSpeed: 0.15
+
+
+[effect_EMP_Hit_2_S]
+life: 100
+
+xOffsetRelative: 0
+yOffsetRelative: 0
+hOffset: 0
+dirOffset: -90
+attachedToUnit: false
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+alpha:0.5
+scaleFrom: 0.25
+scaleTo: 2.5
+image: ROOT:Resource/Image/Fx/Weapon/Sp/Image/EMP_Hit_2.png
+
+total_frames: 6
+animateFrameStart: 0
+animateFrameEnd: 5
+animateFrameSpeed: 0.15
+

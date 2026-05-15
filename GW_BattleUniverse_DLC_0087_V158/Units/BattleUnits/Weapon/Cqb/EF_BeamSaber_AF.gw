@@ -1,0 +1,212 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Cqb/Common/Cqb_Fire_1_Pink_R.gw,
+ROOT:Resource/Image/Fx/Weapon/Cqb/Common/Cqb_Fire_1_Pink_L.gw,
+ROOT:Template\Unit\Animation\Cqb\Common_Melee_A.gw,
+ROOT:Template\Unit\Animation\Cqb\Common_Melee_F.gw
+"""
+
+@memory EF_BeamSaber_AF_CDTimer:float
+@global EF_BeamSaber_AF_CD=3.5
+
+
+
+[decal_EF_BeamSaber_AF]
+layer:beforeBody
+order:5.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Cqb\Image\EF_BeamSaber.png
+isVisible:false
+basePositionFromLegEnd:arm11
+total_frames:5
+frame:1
+imageScale:0.85
+xOffsetRelative:6
+yOffsetRelative:22
+dirOffset:-16
+
+
+
+[turret_EF_BeamSaber_AF_A]
+x:0
+y:0
+invisible:true
+
+canShoot:false
+
+showRangeUIGuide:false
+projectile:EF_BeamSaber_AF_A_Projectile
+
+delay:3s
+limitingMinRange:0
+limitingRange:0
+
+canAttackMaxAngle:60
+barrelX:0
+barrelY:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\BeamSaber_1.ogg
+shoot_sound_vol:0.5
+
+[projectile_EF_BeamSaber_AF_A_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Saber_A*1
+(
+    addResources=
+    CqbDamage:2500
+    |CqbBeamDamage:2500
+    |DpDamage:750
+    |WeaponAccuracy:125
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:0.25
+    |ProjectileAttackTimes:2
+)
+"""
+[projectile_EF_BeamSaber_AF_F_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Saber_A_L*1
+(
+    addResources=
+    CqbDamage:2500
+    |CqbBeamDamage:2500
+    |DpDamage:500
+    |WeaponAccuracy:125
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:0.25
+    |ProjectileAttackTimes:1
+)
+"""
+
+
+
+
+
+
+
+[hiddenAction_EF_BeamSaber_AF_Trigger]
+alsoTriggerAction:EF_BeamSaber_AF_Fire
+[hiddenAction_EF_BeamSaber_AF_Fire]
+requireConditional:"""
+if self.timeAlive>memory.EF_BeamSaber_AF_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) 
+and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50
+"""
+setUnitMemory:EF_BeamSaber_AF_CDTimer=self.timeAlive+${EF_BeamSaber_AF_CD}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Cqb,
+EF_BeamSaber_AF_A_SetWeaponIndex,
+PlayCommon_Melee_A_Step_1,
+EF_BeamSaber_AF_Step_1
+"""
+[hiddenAction_EF_BeamSaber_AF_Step_1]
+alsoQueueAction:"""
+EF_BeamSaber_AF_Fire_Step_1,
+EF_BeamSaber_AF_Fire_Step_2,
+EF_BeamSaber_AF_Fire_Step_3,
+EF_BeamSaber_AF_Fire_Step_4,
+EF_BeamSaber_AF_Fire_Step_5,
+EF_BeamSaber_AF_Fire_Step_Final
+"""
+
+
+
+
+
+
+
+[hiddenAction_EF_BeamSaber_AF_A_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_EF_BeamSaber_AF_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.6s
+[hiddenAction_EF_BeamSaber_AF_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:EF_BeamSaber_AF_A
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+spawnEffects:Cqb_Fire_1_Pink_R
+[hiddenAction_EF_BeamSaber_AF_Fire_Step_3]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.6s
+alsoTriggerAction:PlayCommon_Melee_F_Step_1
+[hiddenAction_EF_BeamSaber_AF_Fire_Step_4]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.3s
+[hiddenAction_EF_BeamSaber_AF_Fire_Step_5]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:EF_BeamSaber_AF_A
+fireTurretXAtGround_withProjectile:EF_BeamSaber_AF_F_Projectile
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+spawnEffects:Cqb_Fire_1_Pink_L
+[hiddenAction_EF_BeamSaber_AF_Fire_Step_Final]
+buildSpeed:1.4s
+alsoTriggerAction:SetAttackingOff
+

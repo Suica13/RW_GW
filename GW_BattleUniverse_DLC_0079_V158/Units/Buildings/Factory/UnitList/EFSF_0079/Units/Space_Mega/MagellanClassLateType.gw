@@ -1,0 +1,37 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+
+[hiddenAction_AutoProduce_MagellanClassLateType]
+@copyFromSection:template_AutoProduce
+@define UnitID=MagellanClassLateType
+alsoTriggerAction:AutoProduce_MagellanClassLateType_Step2
+
+[hiddenAction_AutoProduce_MagellanClassLateType_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=5000
+@define Resource=11000
+alsoQueueAction:Produce_MagellanClassLateType
+
+
+
+[action_Produce_MagellanClassLateType]
+@copyFromSection:template_Produce_Fast
+@define UnitID=MagellanClassLateType
+@define Money=5000
+@define Resource=11000
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+buildSpeed:70s
+
+alsoQueueAction:"""
+Produce_MagellanClassLateType_1
+"""
+[hiddenAction_Produce_MagellanClassLateType_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MagellanClassLateType*1(addResources=PilotType:2101|EquipmentIndex:0)
+"""

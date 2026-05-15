@@ -1,0 +1,54 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory AMA_01X:bool
+
+
+[hiddenAction_Pannel_Close_AMA_01X]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:AMA_01X=false
+
+
+
+
+[hiddenAction_AutoProduce_AMA_01X]
+@copyFromSection:template_AutoProduce
+@define UnitID=AMA_01X
+alsoTriggerAction:AutoProduce_AMA_01X_Step2
+
+[hiddenAction_AutoProduce_AMA_01X_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=5000
+@define Resource=6500
+alsoTriggerAction:AutoProduce_AMA_01X_Random
+
+
+
+[hiddenAction_AutoProduce_AMA_01X_Random]
+alsoTriggerAction:"""
+AutoProduce_AMA_01X_Random_A
+"""
+[hiddenAction_AutoProduce_AMA_01X_Random_A]
+alsoQueueAction:Produce_AMA_01X_StandardSquad
+
+
+
+[action_Produce_AMA_01X_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=AMA_01X
+@define Money=5000
+@define Resource=6500
+@define FactionVisible= (memory.Pannel_NEO_ZEON_0087_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+buildSpeed:65s
+
+alsoQueueAction:"""
+Produce_AMA_01X_StandardSquad_1
+"""
+[hiddenAction_Produce_AMA_01X_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+AMA_01X*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

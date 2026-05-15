@@ -1,0 +1,57 @@
+[core]
+dont_load:false
+
+[effect_Cqb_Fire_2_Orange_R]
+life: 150
+
+xOffsetRelative: 13.5
+yOffsetRelative: 8
+
+attachedToUnit: true
+priority:high
+atmospheric:false
+ySpeedRelative:0.35
+delayedStartTimer:0
+fadeOut: false
+image: ROOT:\Resource\Image\Fx\Weapon\Cqb\Image\Cqb_Fire_2_Orange.png
+
+dirOffset:90
+total_frames: 6
+animateFrameStart: 0
+animateFrameEnd: 5
+animateFrameSpeed:0.25
+
+alpha:0.85
+scaleFrom:0.45
+scaleTo:0.25
+showInFog:true
+
+[effect_Cqb_Fire_2_Orange_R_L]
+life: 150
+
+xOffsetRelative: 11
+yOffsetRelative: 5
+
+attachedToUnit: true
+priority:high
+atmospheric:false
+ySpeedRelative:0.35
+delayedStartTimer:0
+fadeOut: false
+image: ROOT:\Resource\Image\Fx\Weapon\Cqb\Image\Cqb_Fire_2_Orange.png
+
+dirOffset:90
+total_frames: 6
+animateFrameStart: 0
+animateFrameEnd: 5
+animateFrameSpeed:0.25
+
+alpha:0.85
+scaleFrom:0.65
+scaleTo:0.35
+showInFog:true
+
+[effect_Cqb_Fire_2_Orange_R_S]
+@copyFromSection:effect_Cqb_Fire_2_Orange_R
+scaleFrom:0.25
+scaleTo:0.15

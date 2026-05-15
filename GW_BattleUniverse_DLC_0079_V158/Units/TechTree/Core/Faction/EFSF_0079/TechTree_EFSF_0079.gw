@@ -1,0 +1,19 @@
+
+
+[action_ShowTechTree_EFSF_0079]
+@copyFromSection:template_ShowTechTree
+text:EFSF[0079]
+text_zh:地球联邦军[0079]
+iconImage:ROOT:Resource/Image/Icon/Faction_EFSF_0079_2.png
+isVisible:if self.attachment(slot="EFSF_0079").hp>0 and memory.showTechTree==false and self.globalTeamTags(includes='Tech_EFSF_0079_BaseTech')
+
+isLocked:"""
+if not self.globalTeamTags(includes='Tech_EFSF_0079_BaseTech')
+"""
+
+sendMessageTo:self.attachment(slot="EFSF_0079")
+
+
+[attachment_EFSF_0079]
+@copyFromSection:template_TechTree_Main
+onCreateSpawnUnitOf:TechTree_UI_Main_EFSF_0079

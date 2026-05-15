@@ -1,0 +1,31 @@
+[core]
+@memory FlyHoverFrame:float
+
+
+[movement]
+moveAccelerationSpeed: 0.025
+moveDecelerationSpeed: 0.01
+
+
+[decal_FlyHover]
+layer:beforeBody
+order:0
+isVisible:"""
+if self.height>1
+"""
+onlyWhileAlive:true
+image:ROOT:Resource/Image/Fx/Unit/Image/Boost_FlyHover_1.png
+total_frames:10
+frame:memory.FlyHoverFrame
+basePositionFromLegEnd:arm1
+xOffsetRelative: 0
+yOffsetRelative: 0
+imageScale:1.75
+alpha:0.35
+
+[hiddenAction_UpdateFlyHoverFrame]
+autoTrigger:true
+setUnitMemory:FlyHoverFrame=select(memory.FlyHoverFrame>10,1,memory.FlyHoverFrame+1)
+
+
+

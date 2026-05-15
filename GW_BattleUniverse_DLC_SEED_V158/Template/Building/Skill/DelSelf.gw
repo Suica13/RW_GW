@@ -1,0 +1,30 @@
+[core]
+
+[action_DelSelf]
+pos:5
+
+buildSpeed:5s
+
+highPriorityQueue:true
+allowMultipleInQueue: true
+ai_isDisabled:true
+
+text: Delete Self
+text_zh: 拆除
+description:Lost 25% Resource
+description_zh:将损失25%成本
+
+iconImage:ROOT:Resource/Image/Units/Button/Misc/Delself.png
+displayType:action
+isVisible:true
+
+setResourcesWithLogic:"""
+Money=self.resource.Money+${Money}*self.hp/self.maxHp*0.75,
+
+Resource=self.resource.Resource+${Resource}*self.hp/self.maxHp*0.75
+"""
+alsoTriggerAction:DelSelf_Step2
+[hiddenAction_DelSelf_Step2]
+setResourcesWithLogic:"""
+hp=0
+"""

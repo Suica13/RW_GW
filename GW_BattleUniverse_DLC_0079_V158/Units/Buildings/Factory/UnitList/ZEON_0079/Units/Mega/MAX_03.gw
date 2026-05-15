@@ -1,0 +1,38 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+
+[hiddenAction_AutoProduce_MAX_03]
+@copyFromSection:template_AutoProduce
+@define UnitID=MAX_03
+alsoTriggerAction:AutoProduce_MAX_03_Step2
+
+[hiddenAction_AutoProduce_MAX_03_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=2500
+@define Resource=3000
+alsoQueueAction:Produce_MAX_03
+
+
+
+[action_Produce_MAX_03]
+@copyFromSection:template_Produce_Fast
+@define UnitID=MAX_03
+@define Money=2500
+@define Resource=3000
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+buildSpeed:50s
+
+alsoQueueAction:"""
+Produce_MAX_03_1
+"""
+[hiddenAction_Produce_MAX_03_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MAX_03*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

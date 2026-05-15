@@ -1,0 +1,26 @@
+[core]
+dont_load:false
+
+
+
+[effect_ChangeHeight_1]
+image:ROOT:Resource/Image/Fx/Unit/Image/ChangeHeight_1.png
+priority:critical
+yOffsetAbsolute:0
+life: 60
+
+alwayStartDirAtZero:true
+drawUnderUnits:true
+
+total_frames:5
+animateFrameStart: 0
+animateFrameEnd: 4
+animateFrameSpeed: 0.2
+
+yOffsetRelative:-5
+
+scaleFrom: 1
+scaleTo: 0.75
+
+alsoPlaySound:ROOT:Resource/Sound/SE/Unit/Fly_1.ogg:0.75
+showInFog:true

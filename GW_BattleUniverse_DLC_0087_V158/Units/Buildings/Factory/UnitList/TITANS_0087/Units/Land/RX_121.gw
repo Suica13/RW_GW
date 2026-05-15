@@ -1,0 +1,125 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory RX_121:bool
+
+
+[hiddenAction_Pannel_Close_RX_121]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:RX_121=false
+
+
+
+
+[hiddenAction_AutoProduce_RX_121]
+@copyFromSection:template_AutoProduce
+@define UnitID=RX_121
+alsoTriggerAction:AutoProduce_RX_121_Step2
+
+[hiddenAction_AutoProduce_RX_121_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=2000
+@define Resource=2000
+alsoTriggerAction:AutoProduce_RX_121_Random
+
+
+
+[hiddenAction_AutoProduce_RX_121_Random]
+alsoTriggerAction:"""
+AutoProduce_RX_121_Random_A,
+AutoProduce_RX_121_Random_B,
+AutoProduce_RX_121_Random_C
+"""
+[hiddenAction_AutoProduce_RX_121_Random_A]
+requireConditional:"""
+if memory.randomProduce<=500
+"""
+alsoQueueAction:Produce_RX_121_StandardSquad
+
+[hiddenAction_AutoProduce_RX_121_Random_B]
+requireConditional:"""
+if memory.randomProduce>500 
+and memory.randomProduce<=750
+"""
+alsoQueueAction:Produce_RX_121_BazookaSquad
+
+[hiddenAction_AutoProduce_RX_121_Random_C]
+requireConditional:"""
+if memory.randomProduce>750
+"""
+alsoQueueAction:Produce_RX_121_RFSquad
+
+
+
+
+[action_Pannel_RX_121]
+@copyFromSection:template_Pannel
+@define UnitID=RX_121
+@define FactionVisible= (memory.Pannel_TITANS_0087_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+
+[action_Produce_RX_121_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=RX_121
+@define Money=2000
+@define Resource=2000
+@define FactionVisible= (memory.Pannel_TITANS_0087_DontShow==false)
+buildSpeed:40s
+
+text:BR
+text_zh:光束步枪
+
+alsoQueueAction:"""
+Produce_RX_121_StandardSquad_1
+"""
+[hiddenAction_Produce_RX_121_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RX_121*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+
+
+[action_Produce_RX_121_BazookaSquad]
+@copyFromSection:template_Produce
+@define UnitID=RX_121
+@define Money=1700
+@define Resource=1700
+@define FactionVisible= (memory.Pannel_TITANS_0087_DontShow==false)
+buildSpeed:40s
+
+text:Bazooka
+text_zh:火箭筒
+
+alsoQueueAction:"""
+Produce_RX_121_BazookaSquad_1
+"""
+[hiddenAction_Produce_RX_121_BazookaSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RX_121*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+
+
+[action_Produce_RX_121_RFSquad]
+@copyFromSection:template_Produce
+@define UnitID=RX_121
+@define Money=1700
+@define Resource=1700
+@define FactionVisible= (memory.Pannel_TITANS_0087_DontShow==false)
+buildSpeed:40s
+
+text:RF
+text_zh:步枪
+
+alsoQueueAction:"""
+Produce_RX_121_RFSquad_1
+"""
+[hiddenAction_Produce_RX_121_RFSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RX_121*1(addResources=PilotType:1101|EquipmentIndex:2)
+"""

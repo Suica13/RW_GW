@@ -1,0 +1,83 @@
+
+[core]
+
+dont_load:false
+
+@memory cmdDefActive:bool
+@memory cmdDefRange:float
+@global cmdDefRangeExtra=0
+
+@memory cmdDefEffectFrame:float
+
+[hiddenAction_UpdatecmdDefEffectFrame]
+autoTriggerOnEvent:newMessage(withTag="UpdateSub")
+setUnitMemory:cmdDefEffectFrame=select(memory.cmdDefEffectFrame>=7-1,0,memory.cmdDefEffectFrame+1)
+
+
+[hiddenAction_Check_CmdDef]
+autoTrigger:true
+alsoTriggerAction:"""
+Check_CmdDefActive,
+Check_CmdDefRange
+"""
+[hiddenAction_Check_CmdDefActive]
+setUnitMemory:"""
+cmdDefActive=select
+(
+    memory.pilotUnit.readUnitMemory("pilotLeadershipSkill",type="float")>=50,
+    true,
+    false
+)
+"""
+[hiddenAction_Check_CmdDefRange]
+setUnitMemory:"""
+cmdDefRange=100+2*memory.pilotUnit.readUnitMemory("pilotLeadershipSkill",type="float")+${cmdDefRangeExtra}
+"""
+
+
+[hiddenAction_cmdDef_CheckNearAlly_Unit]
+autoTrigger:if memory.cmdDefActive==true and not self.hasTags(includes='inHangar')
+takeResources_includeUnitsWithinRange_team:ally
+takeResources_includeUnitsWithinRange:1000
+takeResources_excludeUnitsWithoutTags:BattleUnitCore
+takeResources_maxUnits:300
+takeResources_searchOnly:true
+takeResources_triggerActionForEach:cmdDef_CheckNearAlly_Unit_Step2
+[hiddenAction_cmdDef_CheckNearAlly_Unit_Step2]
+requireConditional:"""
+if distanceBetween(self, thisActionTarget)<=memory.cmdDefRange 
+and thisActionTarget.parent!=self 
+"""
+sendMessageTo:thisActionTarget
+sendMessageWithTags:CmdBUFF
+sendMessageWithData:"""
+cmdDefTimer=3,
+cmdDefPower=1+(memory.pilotUnit.readUnitMemory("pilotLeadershipSkill",type="float")*0.001)
+"""
+
+
+
+[decal_cmdDefEffect]
+layer:shadow
+order:0
+image:ROOT:Resource/Image/Fx/Unit/Image/cmdDef_1.png
+alpha:0.75
+color:#2b83ff
+total_frames:7
+frame:memory.cmdDefEffectFrame
+imageScale:memory.cmdDefRange/150
+onlyOnNonPreview:true
+onlyWhileAlive:true
+isVisible:if memory.hideUI==0 and memory.cmdDefActive==true
+onlyWhenSelectedByAnyPlayer:true
+[decal_cmdDef_Range]
+layer: shadow
+order:0
+alpha:0.35
+onlyTeam:ally
+image:ROOT:Resource/Image/Ring/Ring150_CmdDef.png
+imageScale:memory.cmdDefRange/150
+alwaysStartDirAtZero:true
+onlyWhileAlive:true
+isVisible:if memory.hideUI==0 and memory.cmdDefActive==true
+onlyWhenSelectedByAnyPlayer:true

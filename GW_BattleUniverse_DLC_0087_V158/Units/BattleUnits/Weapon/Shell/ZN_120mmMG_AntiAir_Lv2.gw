@@ -1,0 +1,38 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Units/BattleUnits/Weapon/Shell/ZN_120mmMG_AntiAir.gw
+"""
+
+
+[projectile_ZN_120mmMG_AntiAir_Projectile]
+spawnUnit:"""
+Projectile_Bazooka_S_Target*1
+(
+    addResources=
+    ShellDamage:1000
+    |DpDamage:55
+    |WeaponAccuracy=90
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiAqua=0.75
+    |AntiAir=2.5 
+    |AntiLand=1
+    |AntiSpace=1
+    |AntiSizeLargeDamage=0.75
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=0.75
+    |HeightChangeSpeed=2.25
+    |HeightHitRange=25
+    |ProjectileSpeed:95
+    |ProjectileSpread:0
+    |ProjectileExplosionRange:40
+    |ProjectileLife:35
+)
+"""
+
+

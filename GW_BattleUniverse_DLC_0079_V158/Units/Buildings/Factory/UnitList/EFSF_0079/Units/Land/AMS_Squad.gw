@@ -1,0 +1,50 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+[hiddenAction_AutoProduce_AMS_Squad]
+@copyFromSection:template_AutoProduce
+@define UnitID=AMS_Squad
+alsoTriggerAction:AutoProduce_AMS_Squad_Step2
+
+[hiddenAction_AutoProduce_AMS_Squad_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=250
+@define Resource=250
+alsoQueueAction:Produce_AMS_Squad_StandardSquad
+
+
+
+[action_Produce_AMS_Squad_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=AMS_Squad
+@define Money=250
+@define Resource=250
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+
+buildSpeed:20s
+alsoQueueAction:"""
+Produce_AMS_Squad_StandardSquad_1,
+Produce_AMS_Squad_StandardSquad_2,
+Produce_AMS_Squad_StandardSquad_3
+"""
+[hiddenAction_Produce_AMS_Squad_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+AMS_Squad*1(addResources=PilotType:1001|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_AMS_Squad_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+AMS_Squad*1(addResources=PilotType:1001|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_AMS_Squad_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+AMS_Squad*1(addResources=PilotType:1001|EquipmentIndex:0)
+"""

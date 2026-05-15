@@ -1,0 +1,27 @@
+[core]
+dont_load:false
+
+
+[effect_Trail_GN_1_S]
+life: 800
+
+xOffsetRelative: 0
+yOffsetRelative: -15
+hOffset: 0
+attachedToUnit: true
+liveAfterAttachedDies:false
+priority:high
+
+delayedStartTimer:0
+fadeOut: false
+alpha:1
+scaleFrom: 0.35
+scaleTo:0.35
+image: ROOT:Resource/Image/Fx/Weapon/Beam/Trail/Image/Trail_GN_1.png
+
+animateFrameLooping:true
+total_frames: 2
+animateFrameStart: 0
+animateFrameEnd: 1
+animateFrameSpeed: 0.15
+showInFog:true

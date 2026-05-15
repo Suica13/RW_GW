@@ -1,0 +1,116 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory RX_80PR:bool
+
+
+[hiddenAction_Pannel_Close_RX_80PR]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:RX_80PR=false
+
+
+
+
+[hiddenAction_AutoProduce_RX_80PR]
+@copyFromSection:template_AutoProduce
+@define UnitID=RX_80PR
+alsoTriggerAction:AutoProduce_RX_80PR_Step2
+
+[hiddenAction_AutoProduce_RX_80PR_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=2200
+@define Resource=3350
+alsoTriggerAction:AutoProduce_RX_80PR_Random
+
+
+
+[hiddenAction_AutoProduce_RX_80PR_Random]
+alsoTriggerAction:"""
+AutoProduce_RX_80PR_Random_A,
+AutoProduce_RX_80PR_Random_B
+"""
+[hiddenAction_AutoProduce_RX_80PR_Random_A]
+requireConditional:"""
+if memory.randomProduce<=500
+"""
+alsoQueueAction:Produce_RX_80PR_StandardSquad
+
+[hiddenAction_AutoProduce_RX_80PR_Random_B]
+requireConditional:"""
+if memory.randomProduce>500 
+and memory.randomProduce<=1000
+"""
+alsoQueueAction:Produce_RX_80PR_BeamRifleSquad
+
+
+
+[action_Pannel_RX_80PR]
+@copyFromSection:template_Pannel
+@define UnitID=RX_80PR
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+
+[action_Produce_RX_80PR_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=RX_80PR
+@define Money=2200
+@define Resource=3350
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+buildSpeed:45s
+
+text:MG
+text_zh:机枪
+
+alsoQueueAction:"""
+Produce_RX_80PR_StandardSquad_1
+"""
+[hiddenAction_Produce_RX_80PR_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RX_80PR*1(addResources=PilotType:3101|EquipmentIndex:0)
+"""
+
+[action_Produce_RX_80PR_BazookaSquad]
+@copyFromSection:template_Produce
+@define UnitID=RX_80PR
+@define Money=2200
+@define Resource=3550
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+buildSpeed:45s
+
+text:BZ
+text_zh:火箭筒
+
+alsoQueueAction:"""
+Produce_RX_80PR_BazookaSquad_1
+"""
+[hiddenAction_Produce_RX_80PR_BazookaSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RX_80PR*1(addResources=PilotType:3101|EquipmentIndex:1)
+"""
+
+[action_Produce_RX_80PR_BeamRifleSquad]
+@copyFromSection:template_Produce
+@define UnitID=RX_80PR
+@define Money=2400
+@define Resource=3750
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+buildSpeed:45s
+
+text:BR
+text_zh:光束步枪
+
+alsoQueueAction:"""
+Produce_RX_80PR_BeamRifleSquad_1
+"""
+[hiddenAction_Produce_RX_80PR_BeamRifleSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RX_80PR*1(addResources=PilotType:3101|EquipmentIndex:2)
+"""
+

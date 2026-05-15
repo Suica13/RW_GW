@@ -1,0 +1,37 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+
+[hiddenAction_AutoProduce_MRX_009]
+@copyFromSection:template_AutoProduce
+@define UnitID=MRX_009
+alsoTriggerAction:AutoProduce_MRX_009_Step2
+
+[hiddenAction_AutoProduce_MRX_009_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=15000
+@define Resource=15000
+alsoQueueAction:Produce_MRX_009
+
+
+
+[action_Produce_MRX_009]
+@copyFromSection:template_Produce_Fast
+@define UnitID=MRX_009
+@define Money=15000
+@define Resource=15000
+@define FactionVisible= (memory.Pannel_TITANS_0087_DontShow==false)
+buildSpeed:80s
+
+alsoQueueAction:"""
+Produce_MRX_009_1
+"""
+[hiddenAction_Produce_MRX_009_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MRX_009*1(addResources=PilotType:3101|EquipmentIndex:0)
+"""

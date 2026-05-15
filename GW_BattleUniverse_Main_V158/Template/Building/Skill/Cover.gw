@@ -1,0 +1,91 @@
+
+[core]
+
+dont_load:false
+
+@memory coverActive:bool
+@global coverRange=50
+@global coverSpeed=1
+@global coverShootDef=0
+@global coverAntiDetect=0
+@global coverReaction=0
+
+
+[hiddenAction_Check_cover]
+autoTrigger:true
+alsoTriggerAction:"""
+Check_coverActive
+"""
+[hiddenAction_Check_coverActive]
+setUnitMemory:"""
+coverActive=true
+"""
+
+
+[hiddenAction_cover_CheckNearUnit]
+autoTrigger:if memory.coverActive==true and ${coverRange}>0
+takeResources_includeUnitsWithinRange_team:any
+takeResources_includeUnitsWithinRange:200
+takeResources_excludeUnitsWithoutTags:BattleUnitCore
+takeResources_maxUnits:200
+takeResources_searchOnly:true
+takeResources_triggerActionForEach:cover_CheckNearUnit_Step2
+[hiddenAction_cover_CheckNearUnit_Step2]
+requireConditional:"""
+if distanceBetween(self, thisActionTarget)<=${coverRange}
+"""
+alsoTriggerAction:cover_CheckNearUnit_Step3
+[hiddenAction_cover_CheckNearUnit_Step3]
+requireConditional:"""
+if thisActionTarget.height<=5
+"""
+sendMessageTo:thisActionTarget
+sendMessageWithTags:CoverBUFF
+sendMessageWithData:"""
+coverTimer=1.25,
+coverSpeed=${coverSpeed},
+coverShootDef=${coverShootDef},
+coverAntiDetect=${coverAntiDetect},
+coverReaction=${coverReaction}
+"""
+[hiddenAction_cover_CheckNearUnit_ByOther]
+@copyFromSection:hiddenAction_cover_CheckNearUnit_Step3
+autoTriggerOnEvent:newMessage(withTag="CoverTarget")
+requireConditional:if memory.coverActive==true
+sendMessageTo:eventData("Unit",type="unit")
+sendMessageWithTags:CoverBUFF
+sendMessageWithData:"""
+coverTimer=1.25,
+coverSpeed=${coverSpeed},
+coverShootDef=${coverShootDef},
+coverAntiDetect=${coverAntiDetect},
+coverReaction=${coverReaction}
+"""
+
+
+[action_ShowCoverInfo]
+isVisible:true
+
+pos:999
+
+text:Cover Info
+text_zh:掩体信息
+
+displayType:infoOnly
+buildSpeed:0s
+
+isAlsoViewableByAllies:true
+isAlsoViewableByEnemies:true
+
+description:"""
+SpeedUp:%{${coverSpeed}*100}%
+\nShootDef:%{${coverShootDef}}
+\nAntiDetect:%{${coverAntiDetect}}
+\nReactionUp:%{${coverReaction}}
+"""
+description_zh:"""
+速度影响:%{${coverSpeed}*100}%
+\n射击抗性:%{${coverShootDef}}
+\n反侦测:%{${coverAntiDetect}}
+\n反应加成:%{${coverReaction}}
+"""

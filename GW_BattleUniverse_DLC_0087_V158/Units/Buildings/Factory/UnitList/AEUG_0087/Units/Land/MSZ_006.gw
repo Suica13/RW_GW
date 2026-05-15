@@ -1,0 +1,98 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory MSZ_006:bool
+
+
+[hiddenAction_Pannel_Close_MSZ_006]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:MSZ_006=false
+
+
+
+
+[hiddenAction_AutoProduce_MSZ_006]
+@copyFromSection:template_AutoProduce
+@define UnitID=MSZ_006
+alsoTriggerAction:AutoProduce_MSZ_006_Step2
+
+[hiddenAction_AutoProduce_MSZ_006_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=8500
+@define Resource=9000
+alsoTriggerAction:AutoProduce_MSZ_006_Random
+
+
+
+[hiddenAction_AutoProduce_MSZ_006_Random]
+alsoTriggerAction:"""
+AutoProduce_MSZ_006_Random_A,
+AutoProduce_MSZ_006_Random_B
+"""
+[hiddenAction_AutoProduce_MSZ_006_Random_A]
+requireConditional:"""
+if memory.randomProduce<=500
+"""
+alsoQueueAction:Produce_MSZ_006_StandardSquad
+
+[hiddenAction_AutoProduce_MSZ_006_Random_B]
+requireConditional:"""
+if memory.randomProduce>500 
+and memory.randomProduce<=1000
+"""
+alsoQueueAction:Produce_MSZ_006_HMLSquad
+
+
+
+
+
+[action_Pannel_MSZ_006]
+@copyFromSection:template_Pannel
+@define UnitID=MSZ_006
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+
+[action_Produce_MSZ_006_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=MSZ_006
+@define Money=8500
+@define Resource=9000
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+buildSpeed:60s
+
+text:BR
+text_zh:光束步枪
+
+alsoQueueAction:"""
+Produce_MSZ_006_StandardSquad_1
+"""
+[hiddenAction_Produce_MSZ_006_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MSZ_006*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+
+
+[action_Produce_MSZ_006_HMLSquad]
+@copyFromSection:template_Produce
+@define UnitID=MSZ_006
+@define Money=8700
+@define Resource=9400
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+buildSpeed:60s
+
+text:HML
+text_zh:米加粒子发射器
+
+alsoQueueAction:"""
+Produce_MSZ_006_HMLSquad_1
+"""
+[hiddenAction_Produce_MSZ_006_HMLSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MSZ_006*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+

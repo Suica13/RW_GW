@@ -1,0 +1,58 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory MS_08TX_Kai:bool
+
+
+[hiddenAction_Pannel_Close_MS_08TX_Kai]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:MS_08TX_Kai=false
+
+
+
+
+[hiddenAction_AutoProduce_MS_08TX_Kai]
+@copyFromSection:template_AutoProduce
+@define UnitID=MS_08TX_Kai
+alsoTriggerAction:AutoProduce_MS_08TX_Kai_Step2
+
+[hiddenAction_AutoProduce_MS_08TX_Kai_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=2000
+@define Resource=2000
+alsoTriggerAction:AutoProduce_MS_08TX_Kai_Random
+
+
+
+[hiddenAction_AutoProduce_MS_08TX_Kai_Random]
+alsoTriggerAction:"""
+AutoProduce_MS_08TX_Kai_Random_A
+"""
+[hiddenAction_AutoProduce_MS_08TX_Kai_Random_A]
+requireConditional:"""
+if true
+"""
+alsoQueueAction:Produce_MS_08TX_Kai_StandardSquad
+
+
+
+[action_Produce_MS_08TX_Kai_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=MS_08TX_Kai
+@define Money=2000
+@define Resource=2000
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+buildSpeed:45s
+
+alsoQueueAction:"""
+Produce_MS_08TX_Kai_StandardSquad_1
+"""
+[hiddenAction_Produce_MS_08TX_Kai_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MS_08TX_Kai*1(addResources=PilotType:3101|EquipmentIndex:0)
+"""
+

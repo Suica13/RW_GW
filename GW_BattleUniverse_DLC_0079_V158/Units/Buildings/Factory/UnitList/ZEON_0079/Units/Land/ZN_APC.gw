@@ -1,0 +1,52 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+[hiddenAction_AutoProduce_ZN_APC]
+@copyFromSection:template_AutoProduce
+@define UnitID=ZN_APC
+alsoTriggerAction:AutoProduce_ZN_APC_Step2
+
+[hiddenAction_AutoProduce_ZN_APC_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=150
+@define Resource=300
+alsoQueueAction:Produce_ZN_APC_StandardSquad
+
+
+
+
+[action_Produce_ZN_APC_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=ZN_APC
+@define Money=150
+@define Resource=300
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+@define OtherVisible= (not self.globalTeamTags(includes='Unlock_ZN_APC_WithMS'))
+buildSpeed:20s
+
+alsoQueueAction:"""
+Produce_ZN_APC_StandardSquad_1,
+Produce_ZN_APC_StandardSquad_2,
+Produce_ZN_APC_StandardSquad_3
+"""
+[hiddenAction_Produce_ZN_APC_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+ZN_APC*1(addResources=PilotType:1001|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_ZN_APC_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+ZN_APC*1(addResources=PilotType:1001|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_ZN_APC_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+ZN_APC*1(addResources=PilotType:1001|EquipmentIndex:0)
+"""

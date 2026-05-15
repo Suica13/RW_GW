@@ -1,0 +1,287 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Cqb/Common/Cqb_Fire_1_Yellow_R.gw,
+ROOT:Resource/Image/Fx/Weapon/Cqb/Common/Cqb_Fire_1_Yellow_L.gw,
+ROOT:Resource/Image/Fx/Weapon/Cqb/Common/Cqb_Fire_2_Yellow_R.gw,
+ROOT:Resource/Image/Fx/Weapon/Cqb/Common/Cqb_Fire_2_Yellow_L.gw,
+ROOT:Template\Unit\Animation\Cqb\Common_Melee_B.gw,
+ROOT:Template\Unit\Animation\Cqb\Common_Melee_B_L.gw,
+ROOT:Template/Unit/Animation/Cqb/Common_Melee_Double_F.gw
+"""
+
+@memory Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_CDTimer:float
+@global Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_CD=3.5
+
+
+#====================贴画====================#
+
+[decal_Common_ArmBeamSaber_Large_Double_BBLDF_Yellow]
+layer:beforeBody
+order:5.4
+onlyWhileAlive:true
+image:ROOT:Units/BattleUnits/Weapon/Cqb/Image/Common_ArmBeamSaber_Yellow.png
+isVisible:false
+basePositionFromLegEnd:arm4
+total_frames:5
+frame:1
+imageScale:1.0
+imageScaleY:1.35
+xOffsetRelative:8
+yOffsetRelative:30
+dirOffset:-16
+
+[decal_Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_L]
+@copyFromSection:decal_Common_ArmBeamSaber_Large_Double_BBLDF_Yellow
+basePositionFromLegEnd:arm3
+imageScale:1.0
+imageScaleX:-1
+imageScaleY:1.35
+xOffsetRelative:-8
+yOffsetRelative:30
+dirOffset:16
+
+#========炮弹========#
+
+[turret_Common_ArmBeamSaber_Large_Double_BBLDF_Yellow]
+x:0
+y:0
+invisible:true
+#射击参数
+canShoot:false
+
+showRangeUIGuide:false
+projectile:Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_B_Projectile
+#实战参数
+delay:3s
+limitingMinRange:0
+limitingRange:0
+#枪管参数
+canAttackMaxAngle:60
+barrelX:0
+barrelY:0
+#后座力参数
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+#音效参数
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\BeamSaber_1.ogg
+shoot_sound_vol:0.5
+
+[projectile_Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_B_Projectile]
+#炮弹参数
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+#描画参数
+lightSize:0.75
+lightColor:#ff57e9
+explodeEffect:none
+#生成
+spawnUnit:"""
+Projectile_Saber_L_B*1
+(
+    addResources=
+    CqbDamage:3250
+    |CqbBeamDamage:3250
+    |DpDamage:850
+    |WeaponAccuracy:125
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:0.25
+    |ProjectileAttackTimes:3
+)
+"""
+[projectile_Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_BL_Projectile]
+@copyFromSection:projectile_Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_B_Projectile
+spawnUnit:"""
+Projectile_Saber_L_B_L*1
+(
+    addResources=
+    CqbDamage:3250
+    |CqbBeamDamage:3250
+    |DpDamage:850
+    |WeaponAccuracy:125
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:0.25
+    |ProjectileAttackTimes:3
+)
+"""
+[projectile_Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_DF_Projectile]
+@copyFromSection:projectile_Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_B_Projectile
+spawnUnit:"""
+Projectile_Saber_L_A*1
+(
+    addResources=
+    CqbDamage:3250
+    |CqbBeamDamage:3250
+    |DpDamage:850
+    |WeaponAccuracy:125
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:0.25
+    |ProjectileAttackTimes:3
+)
+"""
+[projectile_Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_DF_L_Projectile]
+@copyFromSection:projectile_Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_B_Projectile
+spawnUnit:"""
+Projectile_Saber_L_A_L*1
+(
+    addResources=
+    CqbDamage:3250
+    |CqbBeamDamage:3250
+    |DpDamage:850
+    |WeaponAccuracy:125
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:0.25
+    |ProjectileAttackTimes:3
+)
+"""
+#====================逻辑====================#
+
+#========触发========#
+
+[hiddenAction_Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_Trigger]
+alsoTriggerAction:Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_Fire
+[hiddenAction_Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_Fire]
+requireConditional:"""
+if self.timeAlive>memory.Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) 
+and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50
+"""
+setUnitMemory:Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_CDTimer=self.timeAlive+${Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_CD}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Cqb,
+Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_SetWeaponIndex,
+PlayCommon_Melee_B_Step_1,
+Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_Step_1
+"""
+[hiddenAction_Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_Step_1]
+alsoQueueAction:"""
+Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_Fire_Step_1,
+Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_Fire_Step_2,
+Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_Fire_Step_3,
+Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_Fire_Step_4,
+Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_Fire_Step_5,
+Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_Fire_Step_6,
+Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_Fire_Step_7,
+Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_Fire_Step_8,
+Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_Fire_Step_9,
+Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_Fire_Step_Final
+"""
+
+#设置武器
+[hiddenAction_Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_SetWeaponIndex]
+isVisible:false
+
+#格斗A
+[hiddenAction_Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_Fire_Step_1]
+requireConditional:if ${cantAction}==false
+buildSpeed:0.4s
+[hiddenAction_Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_Fire_Step_2]
+requireConditional:if ${cantAction}==false and self.readUnitMemory("armRBreaked",type="bool")==false
+buildSpeed:0s
+fireTurretXAtGround:Common_ArmBeamSaber_Large_Double_BBLDF_Yellow
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+spawnEffects:Cqb_Fire_2_Yellow_R_L
+
+[hiddenAction_Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_Fire_Step_3]
+buildSpeed:0.5s
+alsoTriggerAction:PlayCommon_Melee_B_L_Step_1
+[hiddenAction_Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_Fire_Step_4]
+buildSpeed:0.4s
+[hiddenAction_Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_Fire_Step_5]
+requireConditional:if ${cantAction}==false and self.readUnitMemory("armLBreaked",type="bool")==false
+buildSpeed:0s
+fireTurretXAtGround:Common_ArmBeamSaber_Large_Double_BBLDF_Yellow
+fireTurretXAtGround_withProjectile:Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_BL_Projectile
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+spawnEffects:Cqb_Fire_2_Yellow_L_L
+
+[hiddenAction_Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_Fire_Step_6]
+buildSpeed:0.4s
+alsoTriggerAction:PlayCommon_Melee_Double_F_Step_1
+[hiddenAction_Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_Fire_Step_7]
+buildSpeed:0.3s
+[hiddenAction_Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_Fire_Step_8]
+requireConditional:if ${cantAction}==false and self.readUnitMemory("armRBreaked",type="bool")==false
+buildSpeed:0s
+fireTurretXAtGround:Common_ArmBeamSaber_Large_Double_BBLDF_Yellow
+fireTurretXAtGround_withProjectile:Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_DF_Projectile
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+spawnEffects:Cqb_Fire_1_Yellow_R_L
+[hiddenAction_Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_Fire_Step_9]
+requireConditional:if ${cantAction}==false and self.readUnitMemory("armLBreaked",type="bool")==false
+buildSpeed:0s
+fireTurretXAtGround:Common_ArmBeamSaber_Large_Double_BBLDF_Yellow
+fireTurretXAtGround_withProjectile:Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_DF_L_Projectile
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+spawnEffects:Cqb_Fire_1_Yellow_L_L
+
+[hiddenAction_Common_ArmBeamSaber_Large_Double_BBLDF_Yellow_Fire_Step_Final]
+buildSpeed:1.0s
+alsoTriggerAction:SetAttackingOff
+
+

@@ -1,0 +1,68 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory AMX_107M:bool
+
+
+[hiddenAction_Pannel_Close_AMX_107M]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:AMX_107M=false
+
+
+
+
+[hiddenAction_AutoProduce_AMX_107M]
+@copyFromSection:template_AutoProduce
+@define UnitID=AMX_107M
+alsoTriggerAction:AutoProduce_AMX_107M_Step2
+
+[hiddenAction_AutoProduce_AMX_107M_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=15000
+@define Resource=18000
+alsoTriggerAction:AutoProduce_AMX_107M_Random
+
+
+
+[hiddenAction_AutoProduce_AMX_107M_Random]
+alsoTriggerAction:"""
+AutoProduce_AMX_107M_Random_A
+"""
+[hiddenAction_AutoProduce_AMX_107M_Random_A]
+alsoQueueAction:Produce_AMX_107M_StandardSquad
+
+
+
+[action_Produce_AMX_107M_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=AMX_107M
+@define Money=15000
+@define Resource=18000
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+buildSpeed:80s
+
+alsoQueueAction:"""
+Produce_AMX_107M_StandardSquad_1,
+Produce_AMX_107M_StandardSquad_2,
+Produce_AMX_107M_StandardSquad_3
+"""
+[hiddenAction_Produce_AMX_107M_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+AMX_107M*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_AMX_107M_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+AMX_107M*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_AMX_107M_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+AMX_107M*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+

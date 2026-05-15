@@ -1,0 +1,19 @@
+
+
+[action_ShowTechTree_ZAFT_CE71]
+@copyFromSection:template_ShowTechTree
+text:ZAFT[CE71]
+text_zh:扎夫特军[CE71]
+iconImage:ROOT:Resource/Image/Icon/Faction_ZAFT_CE71_2.png
+isVisible:if self.attachment(slot="ZAFT_CE71").hp>0 and memory.showTechTree==false and self.globalTeamTags(includes='Tech_ZAFT_CE71_BaseTech')
+
+isLocked:"""
+if not self.globalTeamTags(includes='Tech_ZAFT_CE71_BaseTech')
+"""
+
+sendMessageTo:self.attachment(slot="ZAFT_CE71")
+
+
+[attachment_ZAFT_CE71]
+@copyFromSection:template_TechTree_Main
+onCreateSpawnUnitOf:TechTree_UI_Main_ZAFT_CE71

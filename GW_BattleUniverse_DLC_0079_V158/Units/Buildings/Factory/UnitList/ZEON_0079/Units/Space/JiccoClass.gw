@@ -1,0 +1,50 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+[hiddenAction_AutoProduce_JiccoClass]
+@copyFromSection:template_AutoProduce
+@define UnitID=JiccoClass
+alsoTriggerAction:AutoProduce_JiccoClass_Step2
+
+[hiddenAction_AutoProduce_JiccoClass_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=400
+@define Resource=600
+alsoQueueAction:Produce_JiccoClass_StandardSquad
+
+
+
+[action_Produce_JiccoClass_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=JiccoClass
+@define Money=500
+@define Resource=800
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:30s
+
+alsoQueueAction:"""
+Produce_JiccoClass_StandardSquad_1,
+Produce_JiccoClass_StandardSquad_2,
+Produce_JiccoClass_StandardSquad_3
+"""
+[hiddenAction_Produce_JiccoClass_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+JiccoClass*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_JiccoClass_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+JiccoClass*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_JiccoClass_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+JiccoClass*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

@@ -1,0 +1,6 @@
+[core]
+
+
+[hiddenAction_FullBooster]
+autoTrigger:true
+setUnitMemory:backSpeed=0.85

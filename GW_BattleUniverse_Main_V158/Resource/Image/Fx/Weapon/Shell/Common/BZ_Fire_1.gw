@@ -1,0 +1,71 @@
+[core]
+dont_load:false
+
+
+[effect_BZ_Fire_1]
+life: 100
+
+xOffsetRelative: -2.5
+yOffsetRelative: 20
+hOffset: 0
+dirOffset: -90
+
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+alpha:0.85
+scaleFrom: 1.25
+scaleTo: 1.25
+image: ROOT:\Resource\Image\Fx\Weapon\Shell\Image\BZ_Fire_1.png
+
+total_frames: 5
+animateFrameStart: 0
+animateFrameEnd: 4
+animateFrameSpeed: 0.1
+showInFog:true
+alsoEmitEffects:BZ_Fire_1_FireLight
+
+[effect_BZ_Fire_1_S]
+@copyFromSection:effect_BZ_Fire_1
+
+yOffsetRelative: 15
+
+scaleFrom: 0.75
+scaleTo: 0.75
+alsoEmitEffects:BZ_Fire_1_S_FireLight
+
+[effect_BZ_Fire_1_XS]
+@copyFromSection:effect_BZ_Fire_1
+
+yOffsetRelative: 10
+
+scaleFrom: 0.5
+scaleTo: 0.5
+alsoEmitEffects:BZ_Fire_1_XS_FireLight
+
+
+[effect_BZ_Fire_1_FireLight]
+image:ROOT:Resource/Image/Fx/Weapon/Common/Image/Common_FireLight_25_Normal.png
+priority:high
+yOffsetRelative:15
+life: 15
+scaleFrom: 4
+scaleTo: 2
+alpha:0.5
+alwayStartDirAtZero:true
+drawUnderUnits:false
+
+[effect_BZ_Fire_1_S_FireLight]
+@copyFromSection:effect_BZ_Fire_1_FireLight
+scaleFrom: 2
+scaleTo: 1
+yOffsetRelative:5
+
+[effect_BZ_Fire_1_XS_FireLight]
+@copyFromSection:effect_BZ_Fire_1_FireLight
+scaleFrom: 1
+scaleTo: 0.5
+yOffsetRelative:2.5

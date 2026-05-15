@@ -1,0 +1,22 @@
+[core]
+dont_load:false
+
+
+#
+[effect_Awakening_1]
+image:ROOT:Resource/Image/Fx/Unit/Image/Awakening_1.png
+attachedToUnit:true
+life:300
+ySpeedRelative:0
+priority:high
+liveAfterAttachedDies:true
+dirOffsetRandom:180
+scaleFrom:1.25
+scaleTo:1.0
+alpha:0.85
+dirSpeed:0.5
+total_frames:7
+animateFrameStart: 0
+animateFrameEnd: 6
+animateFrameSpeed: 0.15
+showInFog:true

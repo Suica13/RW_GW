@@ -1,0 +1,51 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+
+[hiddenAction_AutoProduce_RMV_1]
+@copyFromSection:template_AutoProduce
+@define UnitID=RMV_1
+alsoTriggerAction:AutoProduce_RMV_1_Step2
+
+[hiddenAction_AutoProduce_RMV_1_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=1500
+@define Resource=1750
+alsoQueueAction:Produce_RMV_1_StandardSquad
+
+
+
+[action_Produce_RMV_1_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=RMV_1
+@define Money=1500
+@define Resource=1750
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+buildSpeed:60s
+
+alsoQueueAction:"""
+Produce_RMV_1_StandardSquad_1,
+Produce_RMV_1_StandardSquad_2,
+Produce_RMV_1_StandardSquad_3
+"""
+[hiddenAction_Produce_RMV_1_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RMV_1*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_RMV_1_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+RMV_1*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_RMV_1_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+RMV_1*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

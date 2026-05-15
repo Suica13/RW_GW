@@ -1,0 +1,58 @@
+[core]
+dont_load:false
+
+
+[effect_Beam_Fire_1_Orange]
+life: 100
+
+xOffsetRelative: 0
+yOffsetRelative: 25
+hOffset: 0
+dirOffset: -90
+attachedToUnit: true
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+scaleFrom: 0.6
+scaleTo: 0.6
+image:ROOT:Resource/Image/Fx/Weapon/Beam/Common/Image/Beam_Fire_1_Orange.png
+
+alpha:0.85
+total_frames: 5
+animateFrameStart: 0
+animateFrameEnd: 4
+animateFrameSpeed: 0.2
+showInFog:true
+
+alsoEmitEffects:Beam_Fire_1_Orange_FireLight
+
+[effect_Beam_Fire_1_Orange_S]
+@copyFromSection:effect_Beam_Fire_1_Orange
+xOffsetRelative: 0
+yOffsetRelative: 25
+scaleFrom: 0.3
+scaleTo: 0.3
+
+alsoEmitEffects:Beam_Fire_1_S_Orange_FireLight
+
+
+
+[effect_Beam_Fire_1_Orange_FireLight]
+image:ROOT:Resource/Image/Fx/Weapon/Common/Image/Common_FireLight_25_Orange.png
+priority:high
+yOffsetRelative:5
+life: 15
+scaleFrom: 2
+scaleTo: 1
+alpha:0.5
+alwayStartDirAtZero:true
+drawUnderUnits:false
+
+[effect_Beam_Fire_1_S_Orange_FireLight]
+@copyFromSection:effect_Beam_Fire_1_Orange_FireLight
+scaleFrom: 1
+scaleTo: 0.5
+yOffsetRelative:15

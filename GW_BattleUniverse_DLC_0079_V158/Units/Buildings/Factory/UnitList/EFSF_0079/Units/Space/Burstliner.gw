@@ -1,0 +1,57 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory Burstliner:bool
+
+
+[hiddenAction_Pannel_Close_Burstliner]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:Burstliner=false
+
+
+
+
+[hiddenAction_AutoProduce_Burstliner]
+@copyFromSection:template_AutoProduce
+@define UnitID=Burstliner
+alsoTriggerAction:AutoProduce_Burstliner_Step2
+
+[hiddenAction_AutoProduce_Burstliner_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=2500
+@define Resource=3000
+alsoTriggerAction:AutoProduce_Burstliner_Random
+
+
+
+[hiddenAction_AutoProduce_Burstliner_Random]
+alsoTriggerAction:"""
+AutoProduce_Burstliner_Random_A
+"""
+[hiddenAction_AutoProduce_Burstliner_Random_A]
+requireConditional:"""
+if true
+"""
+alsoQueueAction:Produce_Burstliner_StandardSquad
+
+
+
+[action_Produce_Burstliner_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=Burstliner
+@define Money=2500
+@define Resource=3000
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+buildSpeed:45s
+
+alsoQueueAction:"""
+Produce_Burstliner_StandardSquad_1
+"""
+[hiddenAction_Produce_Burstliner_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+Burstliner*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

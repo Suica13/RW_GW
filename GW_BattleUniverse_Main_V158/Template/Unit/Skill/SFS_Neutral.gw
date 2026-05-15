@@ -1,0 +1,17 @@
+[core]
+copyFrom:ROOT:Template/Unit/Skill/SFS.gw
+
+
+[hiddenAction_attachment_SFS01]
+attachments_addNewUnits:SFS_Neutral_X1
+
+
+[hiddenAction_ChangeTeamToNeutralWhenNoTransportingUnit]
+autoTrigger:if self.timeAlive>0.1
+switchToTeam:select(self.attachment(slot="SFS01").transportingCount>0,self.attachment(slot="SFS01").teamID,-1)
+
+
+[hiddenAction_Add_SFS_Neutral_Tag]
+autoTriggerOnEvent:created
+autoTrigger:if not self.tags(includes='SFS_Neutral')
+temporarilyAddTags:SFS_Neutral

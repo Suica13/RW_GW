@@ -1,0 +1,50 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+[hiddenAction_AutoProduce_EF_Heli]
+@copyFromSection:template_AutoProduce
+@define UnitID=EF_Heli
+alsoTriggerAction:AutoProduce_EF_Heli_Step2
+
+[hiddenAction_AutoProduce_EF_Heli_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=300
+@define Resource=650
+alsoQueueAction:Produce_EF_Heli_StandardSquad
+
+
+
+[action_Produce_EF_Heli_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=EF_Heli
+@define Money=400
+@define Resource=650
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+buildSpeed:20s
+
+alsoQueueAction:"""
+Produce_EF_Heli_StandardSquad_1,
+Produce_EF_Heli_StandardSquad_2,
+Produce_EF_Heli_StandardSquad_3
+"""
+[hiddenAction_Produce_EF_Heli_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+EF_Heli*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_EF_Heli_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+EF_Heli*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_EF_Heli_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+EF_Heli*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

@@ -1,0 +1,30 @@
+[core]
+
+[hiddenAction_Check_Stealth]
+autoTrigger:true
+alsoTriggerAction:"""
+Check_Stealth_True,
+Check_Stealth_False
+"""
+[hiddenAction_Check_Stealth_True]
+requireConditional:"""
+if not self.hasTags(includes='Stealth') 
+and 
+(
+    self.resource.TileMode==0 
+    and memory.tileType==2 
+    and self.height<1
+)
+"""
+temporarilyAddTags:Stealth
+[hiddenAction_Check_Stealth_False]
+requireConditional:"""
+if self.hasTags(includes='Stealth') 
+and 
+(
+    self.resource.TileMode!=0 
+    or memory.tileType!=2 
+    or self.height>=1
+)
+"""
+temporarilyRemoveTags:Stealth

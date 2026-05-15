@@ -1,0 +1,19 @@
+
+
+[action_ShowTechTree_AEUG_0087]
+@copyFromSection:template_ShowTechTree
+text:AEUG[0087]
+text_zh:奥古[0087]
+iconImage:ROOT:Resource/Image/Icon/Faction_AEUG_0087_2.png
+isVisible:if self.attachment(slot="AEUG_0087").hp>0 and memory.showTechTree==false and self.globalTeamTags(includes='Tech_AEUG_0087_BaseTech')
+
+isLocked:"""
+if not self.globalTeamTags(includes='Tech_AEUG_0087_BaseTech')
+"""
+
+sendMessageTo:self.attachment(slot="AEUG_0087")
+
+
+[attachment_AEUG_0087]
+@copyFromSection:template_TechTree_Main
+onCreateSpawnUnitOf:TechTree_UI_Main_AEUG_0087

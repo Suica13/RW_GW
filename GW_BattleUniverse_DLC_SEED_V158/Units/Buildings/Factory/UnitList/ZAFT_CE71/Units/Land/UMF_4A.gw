@@ -1,0 +1,64 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+@memory UMF_4A:bool
+
+
+[hiddenAction_Pannel_Close_UMF_4A]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:UMF_4A=false
+
+
+
+[hiddenAction_AutoProduce_UMF_4A]
+@copyFromSection:template_AutoProduce
+@define UnitID=UMF_4A
+alsoTriggerAction:AutoProduce_UMF_4A_Step2
+
+[hiddenAction_AutoProduce_UMF_4A_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=1750
+@define Resource=2200
+alsoQueueAction:Produce_UMF_4A_StandardSquad
+
+
+
+
+[action_Pannel_UMF_4A]
+@copyFromSection:template_Pannel
+@define UnitID=UMF_4A
+@define FactionVisible= (memory.Pannel_ZAFT_CE71_DontShow==false)
+
+
+[action_Produce_UMF_4A_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=UMF_4A
+@define Money=1750
+@define Resource=2200
+@define FactionVisible= (memory.Pannel_ZAFT_CE71_DontShow==false)
+buildSpeed:65s
+
+alsoQueueAction:"""
+Produce_UMF_4A_StandardSquad_1,
+Produce_UMF_4A_StandardSquad_2,
+Produce_UMF_4A_StandardSquad_3
+"""
+[hiddenAction_Produce_UMF_4A_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+UMF_4A*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_UMF_4A_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+UMF_4A*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_UMF_4A_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+UMF_4A*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+

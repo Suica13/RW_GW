@@ -1,0 +1,164 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Cannon_Shoot_A.gw
+"""
+
+
+@memory EF_RGM_86R_Nouvel_SMS_CDTimer:float
+@global EF_RGM_86R_Nouvel_SMS_CD=4
+@global EF_RGM_86R_Nouvel_SMS_EN=60
+
+
+
+
+
+
+
+
+
+
+[turret_EF_RGM_86R_Nouvel_SMS]
+x:0
+y:0
+
+canShoot:false
+projectile:EF_RGM_86R_Nouvel_SMS_Projectile
+
+delay:0.05s
+limitingRange:0
+
+canAttackMaxAngle:15
+barrelX:15
+barrelY:-20
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\Missile_1.ogg
+shoot_sound_vol:0.25
+shoot_flame:BZ_Fire_1_S
+[turret_EF_RGM_86R_Nouvel_SMS_L]
+@copyFromSection:turret_EF_RGM_86R_Nouvel_SMS
+barrelX:-15
+
+
+
+[projectile_EF_RGM_86R_Nouvel_SMS_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_MS*1
+(
+    addResources=
+    ShellDamage:2750
+    |DpDamage:75
+    |WeaponAccuracy=90
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=1.0
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=1
+    |AntiLand=1
+    |AntiSpace=1.0
+    |HeightHitRange=20
+    |HeightChangeSpeed=2
+    |ProjectileSpeed:45
+    |ProjectileTurnspeed:1.5
+    |ProjectileSpread:0
+    |ProjectileExplosionRange:35
+    |ProjectileLife:30
+
+    |EquipmentIndex:1
+    |EquipmentIndex2:150
+)
+"""
+
+
+
+
+
+
+
+[hiddenAction_EF_RGM_86R_Nouvel_SMS_Trigger]
+alsoTriggerAction:EF_RGM_86R_Nouvel_SMS_Fire
+[hiddenAction_EF_RGM_86R_Nouvel_SMS_Fire]
+requireConditional:"""
+if self.timeAlive>memory.EF_RGM_86R_Nouvel_SMS_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false 
+and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)  
+and self.resource.EN>0
+"""
+setUnitMemory:EF_RGM_86R_Nouvel_SMS_CDTimer=self.timeAlive+${EF_RGM_86R_Nouvel_SMS_CD}
+addResources:EN=-${EF_RGM_86R_Nouvel_SMS_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+EF_RGM_86R_Nouvel_SMS_SetWeaponIndex,
+EF_RGM_86R_Nouvel_SMS_B8_Step_1
+"""
+[hiddenAction_EF_RGM_86R_Nouvel_SMS_B8_Step_1]
+alsoQueueAction:"""
+EF_RGM_86R_Nouvel_SMS_Fire_Step_1,
+EF_RGM_86R_Nouvel_SMS_Fire_Step_2,
+EF_RGM_86R_Nouvel_SMS_Fire_Step_3,
+EF_RGM_86R_Nouvel_SMS_Fire_Step_3,
+EF_RGM_86R_Nouvel_SMS_Fire_Step_3,
+EF_RGM_86R_Nouvel_SMS_Fire_Step_Final
+"""
+
+
+
+
+
+[hiddenAction_EF_RGM_86R_Nouvel_SMS_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_EF_RGM_86R_Nouvel_SMS_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.3s
+alsoTriggerAction:PlayCommon_Cannon_Shoot_A_Step_1
+[hiddenAction_EF_RGM_86R_Nouvel_SMS_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false and memory.armRBreaked==false
+"""
+buildSpeed:0s
+fireTurretXAtGround:EF_RGM_86R_Nouvel_SMS
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+alsoTriggerAction:EF_RGM_86R_Nouvel_SMS_Fire_Step_Sub
+[hiddenAction_EF_RGM_86R_Nouvel_SMS_Fire_Step_3]
+@copyFromSection:hiddenAction_EF_RGM_86R_Nouvel_SMS_Fire_Step_2
+buildSpeed:${turret_EF_RGM_86R_Nouvel_SMS.delay}
+
+[hiddenAction_EF_RGM_86R_Nouvel_SMS_Fire_Step_Sub]
+requireConditional:"""
+if ${cantAction}==false and memory.armLBreaked==false
+"""
+buildSpeed:0s
+fireTurretXAtGround:EF_RGM_86R_Nouvel_SMS_L
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+
+[hiddenAction_EF_RGM_86R_Nouvel_SMS_Fire_Step_Final]
+buildSpeed:0.3s
+alsoTriggerAction:SetAttackingOff
+
+

@@ -1,0 +1,45 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+@memory ZGMF_LRR704B:bool
+
+
+[hiddenAction_Pannel_Close_ZGMF_LRR704B]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:ZGMF_LRR704B=false
+
+
+
+[hiddenAction_AutoProduce_ZGMF_LRR704B]
+@copyFromSection:template_AutoProduce
+@define UnitID=ZGMF_LRR704B
+alsoTriggerAction:AutoProduce_ZGMF_LRR704B_Step2
+
+[hiddenAction_AutoProduce_ZGMF_LRR704B_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=850
+@define Resource=1250
+alsoQueueAction:Produce_ZGMF_LRR704B
+
+
+
+
+[action_Produce_ZGMF_LRR704B]
+@copyFromSection:template_Produce_Fast
+@define UnitID=ZGMF_LRR704B
+@define Money=850
+@define Resource=1250
+@define FactionVisible= (memory.Pannel_ZAFT_CE71_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+buildSpeed:45s
+
+alsoQueueAction:"""
+Produce_ZGMF_LRR704B_StandardSquad_1
+"""
+[hiddenAction_Produce_ZGMF_LRR704B_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+ZGMF_LRR704B*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+

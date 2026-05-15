@@ -1,0 +1,119 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+@memory YMS_09J:bool
+
+
+[hiddenAction_Pannel_Close_YMS_09J]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:YMS_09J=false
+
+
+
+[hiddenAction_AutoProduce_YMS_09J]
+@copyFromSection:template_AutoProduce
+@define UnitID=YMS_09J
+alsoTriggerAction:AutoProduce_YMS_09J_Step2
+
+[hiddenAction_AutoProduce_YMS_09J_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=3000
+@define Resource=4400
+alsoTriggerAction:AutoProduce_YMS_09J_Random
+
+
+
+[hiddenAction_AutoProduce_YMS_09J_Random]
+alsoTriggerAction:"""
+AutoProduce_YMS_09J_Random_A,
+AutoProduce_YMS_09J_Random_B
+"""
+[hiddenAction_AutoProduce_YMS_09J_Random_A]
+requireConditional:"""
+if memory.randomProduce<500
+"""
+alsoQueueAction:Produce_YMS_09J_StandardSquad
+
+[hiddenAction_AutoProduce_YMS_09J_Random_B]
+requireConditional:"""
+if memory.randomProduce>500
+"""
+alsoQueueAction:Produce_YMS_09J_MGSquad
+
+
+
+
+[action_Pannel_YMS_09J]
+@copyFromSection:template_Pannel
+@define UnitID=YMS_09J
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+
+
+[action_Produce_YMS_09J_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=YMS_09J
+@define Money=3200
+@define Resource=4400
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:60s
+
+alsoQueueAction:"""
+Produce_YMS_09J_StandardSquad_1,
+Produce_YMS_09J_StandardSquad_2,
+Produce_YMS_09J_StandardSquad_3
+"""
+[hiddenAction_Produce_YMS_09J_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+YMS_09J*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_YMS_09J_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+YMS_09J*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_YMS_09J_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+YMS_09J*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+
+
+
+[action_Produce_YMS_09J_MGSquad]
+@copyFromSection:template_Produce
+@define UnitID=YMS_09J
+@define Money=3200
+@define Resource=4000
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+buildSpeed:65s
+
+text:MG Squad
+text_zh:机枪小队
+
+alsoQueueAction:"""
+Produce_YMS_09J_MGSquad_1,
+Produce_YMS_09J_MGSquad_2,
+Produce_YMS_09J_MGSquad_3
+"""
+[hiddenAction_Produce_YMS_09J_MGSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+YMS_09J*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_YMS_09J_MGSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+YMS_09J*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_YMS_09J_MGSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+YMS_09J*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""

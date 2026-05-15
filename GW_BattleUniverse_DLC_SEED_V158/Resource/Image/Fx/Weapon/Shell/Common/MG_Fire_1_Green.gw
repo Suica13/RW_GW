@@ -1,0 +1,61 @@
+[core]
+dont_load:false
+
+
+[effect_MG_Fire_1_Green]
+life: 100
+
+xOffsetRelative: 0
+yOffsetRelative: 20
+hOffset: 0
+dirOffset: -90
+attachedToUnit: true
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+scaleFrom: 0.75
+scaleTo: 0.75
+image: ROOT:\Resource\Image\Fx\Weapon\Shell\Image\MG_Fire_1_Green.png
+
+total_frames: 2
+animateFrameStart: 0
+animateFrameEnd: 1
+animateFrameSpeed: 0.3
+
+showInFog:true
+alsoEmitEffects:MG_Fire_1_Green_FireLight
+
+[effect_MG_Fire_1_Green_S]
+@copyFromSection:effect_MG_Fire_1_Green
+
+xOffsetRelative: 0.5
+yOffsetRelative: 7.5
+
+scaleFrom: 0.35
+scaleTo: 0.35
+
+alsoEmitEffects:MG_Fire_1_S_Green_FireLight
+
+
+
+
+
+[effect_MG_Fire_1_Green_FireLight]
+image:ROOT:Resource/Image/Fx/Weapon/Common/Image/Common_FireLight_25_Green.png
+priority:high
+yOffsetRelative:5
+life: 15
+scaleFrom: 2
+scaleTo: 1
+alpha:0.5
+alwayStartDirAtZero:true
+drawUnderUnits:false
+
+[effect_MG_Fire_1_S_Green_FireLight]
+@copyFromSection:effect_MG_Fire_1_FireLight
+scaleFrom: 1
+scaleTo: 0.5
+yOffsetRelative:2.5

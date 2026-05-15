@@ -1,0 +1,59 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory NRX_055:bool
+
+
+[hiddenAction_Pannel_Close_NRX_055]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:NRX_055=false
+
+
+
+
+[hiddenAction_AutoProduce_NRX_055]
+@copyFromSection:template_AutoProduce
+@define UnitID=NRX_055
+alsoTriggerAction:AutoProduce_NRX_055_Step2
+
+[hiddenAction_AutoProduce_NRX_055_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=5500
+@define Resource=5500
+alsoTriggerAction:AutoProduce_NRX_055_Random
+
+
+
+[hiddenAction_AutoProduce_NRX_055_Random]
+alsoTriggerAction:"""
+AutoProduce_NRX_055_Random_A
+"""
+[hiddenAction_AutoProduce_NRX_055_Random_A]
+requireConditional:"""
+if true
+"""
+alsoQueueAction:Produce_NRX_055_StandardSquad
+
+
+
+
+[action_Produce_NRX_055_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=NRX_055
+@define Money=5500
+@define Resource=5500
+@define FactionVisible= (memory.Pannel_TITANS_0087_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+buildSpeed:60s
+
+alsoQueueAction:"""
+Produce_NRX_055_StandardSquad_1
+"""
+[hiddenAction_Produce_NRX_055_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+NRX_055*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+

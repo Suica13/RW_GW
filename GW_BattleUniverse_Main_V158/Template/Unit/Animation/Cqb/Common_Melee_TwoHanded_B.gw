@@ -1,0 +1,111 @@
+[core]
+dont_load:false
+
+[hiddenAction_PlayCommon_Melee_TwoHanded_B_Step_1]
+requireConditional:if ${cantAction}==false
+stopLastAnimation:true
+alsoTriggerAction:PlayCommon_Melee_TwoHanded_B_Step_2
+[hiddenAction_PlayCommon_Melee_TwoHanded_B_Step_2]
+playAnimation:Common_Melee_TwoHanded_B
+
+
+
+[animation_Common_Melee_TwoHanded_B]
+KeyframeTimeScale:0.5
+blendOut:0s
+
+arm19_0.5s: {x:0, y:-2,dir:15}
+arm19_1.0s: {x:0, y:-2,dir:15}
+arm19_1.15s: {x:0, y:5,dir:0}
+arm19_3.0s: {x:0, y:5,dir:0}
+arm19_4.0s: {x:0, y:0,dir:0}
+
+arm20_0.5s: {x:0, y:-2,dir:15}
+arm20_1.0s: {x:0, y:-2,dir:15}
+arm20_1.15s: {x:0, y:5,dir:0}
+arm20_3.0s: {x:0, y:5,dir:0}
+arm20_4.0s: {x:0, y:0,dir:0}
+
+
+arm1_0.5s: {x:0, y:-1,dir:60}
+arm1_1.0s: {x:0, y:-1,dir:60}
+arm1_1.15s: {x:0, y:2,dir:15}
+arm1_3.0s: {x:0, y:2,dir:15}
+arm1_4.0s: {x:0, y:0,dir:0}
+
+
+arm2_0.5s: {x:0, y:-2,dir:60}
+arm2_1.0s: {x:0, y:-2,dir:60}
+arm2_1.15s: {x:0, y:5,dir:15}
+arm2_3.0s: {x:0, y:5,dir:15}
+arm2_4.0s: {x:0, y:0,dir:0}
+
+arm3_0.5s: {x:2, y:4,dir:65}
+arm3_1.0s: {x:2, y:4,dir:65}
+arm3_1.15s: {x:3, y:10,dir:45}
+arm3_3.0s: {x:3, y:10,dir:45}
+arm3_4.0s: {x:0, y:0,dir:0}
+
+arm5_0.5s: {x:2, y:5,dir:65}
+arm5_1.0s: {x:2, y:5,dir:65}
+arm5_1.15s: {x:1, y:7,dir:35}
+arm5_3.0s: {x:1, y:7,dir:35}
+arm5_4.0s: {x:0, y:0,dir:0}
+
+arm4_0.5s: {x:-3, y:-8,dir:0}
+arm4_1.0s: {x:-3, y:-8,dir:0}
+arm4_1.15s: {x:-1, y:10,dir:0}
+arm4_3.0s: {x:-1, y:10,dir:0}
+arm4_4.0s: {x:0, y:0,dir:0}
+
+arm6_0.5s: {x:-3, y:-8,dir:0}
+arm6_1.0s: {x:-3, y:-8,dir:0}
+arm6_1.15s: {x:-1, y:8,dir:0}
+arm6_3.0s: {x:-1, y:8,dir:0}
+arm6_4.0s: {x:0, y:0,dir:0}
+
+
+arm12_0.5s: {x:2, y:4,dir:25}
+arm12_1.0s: {x:2, y:4,dir:25}
+arm12_1.15s: {x:3, y:-6.0,dir:-35}
+arm12_3.0s: {x:3, y:-6.0,dir:-35}
+arm12_4.0s: {x:0, y:0,dir:0}
+
+arm10_0.5s: {x:2, y:4,dir:25}
+arm10_1.0s: {x:2, y:4,dir:25}
+arm10_1.15s: {x:3, y:-6.0,dir:-35}
+arm10_3.0s: {x:3, y:-6.0,dir:-35}
+arm10_4.0s: {x:0, y:0,dir:0}
+
+
+arm11_0.5s: {x:-2, y:-4,dir:0}
+arm11_1.0s: {x:-2, y:-4,dir:0}
+arm11_1.15s: {x:0, y:10,dir:0}
+arm11_3.0s: {x:0, y:10,dir:0}
+arm11_4.0s: {x:0, y:0,dir:0}
+
+
+
+leg17_0.5s: {y: 2, dir: -4 }
+leg17_1.0s: {y: 2, dir: -4 }
+leg17_1.15s: {y: -2, dir: -4 }
+leg17_3.0s: {y: -2, dir: -4 }
+leg17_4.0s: {y: 0, dir: 0 }
+
+leg18_0.5s: {y: 2, dir: -4 }
+leg18_1.0s: {y: 2, dir: -4 }
+leg18_1.15s: {y: -2, dir: -4 }
+leg18_3.0s: {y: -2, dir: -4 }
+leg18_4.0s: {y: 0, dir: 0 }
+
+leg19_0.5s: {y: -2, dir: 4 }
+leg19_1.0s: {y: -2, dir: 4 }
+leg19_1.15s: {y: 5, dir: 4 }
+leg19_3.0s: {y: 5, dir: 4 }
+leg19_4.0s: {y: 0, dir: 0 }
+
+leg20_0.5s: {y: -2, dir: 4 }
+leg20_1.0s: {y: -2, dir: 4 }
+leg20_1.15s: {y: 5, dir: 4 }
+leg20_3.0s: {y: 5, dir: 4 }
+leg20_4.0s: {y: 0, dir: 0 }

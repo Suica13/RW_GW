@@ -1,0 +1,50 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+[hiddenAction_AutoProduce_FF_X_II]
+@copyFromSection:template_AutoProduce
+@define UnitID=FF_X_II
+alsoTriggerAction:AutoProduce_FF_X_II_Step2
+
+[hiddenAction_AutoProduce_FF_X_II_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=750
+@define Resource=1500
+alsoQueueAction:Produce_FF_X_II_StandardSquad
+
+
+
+[action_Produce_FF_X_II_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=FF_X_II
+@define Money=750
+@define Resource=1500
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+buildSpeed:35s
+
+alsoQueueAction:"""
+Produce_FF_X_II_StandardSquad_1,
+Produce_FF_X_II_StandardSquad_2,
+Produce_FF_X_II_StandardSquad_3
+"""
+[hiddenAction_Produce_FF_X_II_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+FF_X_II*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_FF_X_II_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+FF_X_II*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_FF_X_II_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+FF_X_II*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

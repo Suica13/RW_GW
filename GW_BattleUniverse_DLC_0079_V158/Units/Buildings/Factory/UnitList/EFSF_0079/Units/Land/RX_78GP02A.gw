@@ -1,0 +1,65 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory RX_78GP02A:bool
+
+
+[hiddenAction_Pannel_Close_RX_78GP02A]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:RX_78GP02A=false
+
+
+
+
+[hiddenAction_AutoProduce_RX_78GP02A]
+@copyFromSection:template_AutoProduce
+@define UnitID=RX_78GP02A
+alsoTriggerAction:AutoProduce_RX_78GP02A_Step2
+
+[hiddenAction_AutoProduce_RX_78GP02A_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=4750
+@define Resource=6250
+alsoTriggerAction:AutoProduce_RX_78GP02A_Random
+
+
+
+[hiddenAction_AutoProduce_RX_78GP02A_Random]
+alsoTriggerAction:"""
+AutoProduce_RX_78GP02A_Random_A
+"""
+[hiddenAction_AutoProduce_RX_78GP02A_Random_A]
+requireConditional:"""
+if memory.randomProduce<=500
+"""
+alsoQueueAction:Produce_RX_78GP02A_StandardSquad
+
+
+
+[action_Pannel_RX_78GP02A]
+@copyFromSection:template_Pannel
+@define UnitID=RX_78GP02A
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+
+[action_Produce_RX_78GP02A_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=RX_78GP02A
+@define Money=4750
+@define Resource=6250
+@define FactionVisible= (memory.Pannel_EFSF_0079_DontShow==false)
+buildSpeed:60s
+
+text:MRLS
+text_zh:多管导弹发射器
+
+alsoQueueAction:"""
+Produce_RX_78GP02A_StandardSquad_1
+"""
+[hiddenAction_Produce_RX_78GP02A_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RX_78GP02A*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

@@ -1,0 +1,38 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+
+[hiddenAction_AutoProduce_MAN_03]
+@copyFromSection:template_AutoProduce
+@define UnitID=MAN_03
+alsoTriggerAction:AutoProduce_MAN_03_Step2
+
+[hiddenAction_AutoProduce_MAN_03_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=4500
+@define Resource=5500
+alsoQueueAction:Produce_MAN_03
+
+
+
+[action_Produce_MAN_03]
+@copyFromSection:template_Produce_Fast
+@define UnitID=MAN_03
+@define Money=4500
+@define Resource=5500
+@define FactionVisible= (memory.Pannel_ZEON_0079_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+buildSpeed:70s
+
+alsoQueueAction:"""
+Produce_MAN_03_1
+"""
+[hiddenAction_Produce_MAN_03_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MAN_03*1(addResources=PilotType:3101|EquipmentIndex:0)
+"""

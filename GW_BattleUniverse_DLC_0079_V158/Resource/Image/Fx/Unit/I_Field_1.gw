@@ -1,0 +1,21 @@
+[core]
+dont_load:false
+
+
+#
+[effect_I_Field_1]
+image:ROOT:Resource/Image/Fx/Unit/Image/I_Field_1.png
+attachedToUnit:true
+life:200
+ySpeedRelative:-0.2
+priority:high
+liveAfterAttachedDies:true
+dirOffsetRandom:180
+scaleFrom:1.5
+scaleTo:1.0
+alpha:0.5
+total_frames:3
+animateFrameStart: 0
+animateFrameEnd: 2
+animateFrameSpeed: 0.1
+showInFog:true

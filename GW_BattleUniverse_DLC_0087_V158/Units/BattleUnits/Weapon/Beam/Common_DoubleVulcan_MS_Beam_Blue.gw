@@ -1,0 +1,125 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Beam/Common/Beam_Fire_1_Blue.gw
+"""
+
+@memory Common_DoubleVulcan_MS_Beam_Blue_OnCD:bool
+@memory Common_DoubleVulcan_MS_Beam_Blue_CDTimer:float
+@global Common_DoubleVulcan_MS_Beam_Blue_CD=4
+
+@global Common_DoubleVulcan_MS_Beam_Blue_Shoot=16
+[resource_Common_DoubleVulcan_MS_Beam_Blue_ShootTimer]
+hidden:true
+
+
+
+
+
+
+
+
+
+[turret_Common_DoubleVulcan_MS_Beam_Blue]
+x:0
+y:0
+
+canShoot:true
+canAttackCondition:"""
+if ${cantAction}==false 
+and distanceBetween(self,self.attacking)<=500 
+and memory.headBreaked==false 
+and 
+(
+    attacking.tags(includes='Aircraft') 
+    or attacking.tags(includes='Tank') 
+    or attacking.tags(includes='Pilot') 
+    or memory.attackMode==1
+)
+"""
+showRangeUIGuide:false
+projectile:Common_DoubleVulcan_MS_Beam_Blue_Projectile
+resourceUsage:Common_DoubleVulcan_MS_Beam_Blue_ShootTimer=1
+
+delay:0.1s
+limitingRange:1200
+limitingAngle:3
+
+canAttackMaxAngle:15
+barrelX:3
+barrelY:0
+barrelOffsetX_onOddShots:-6
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/BeamGun_1.ogg
+shoot_sound_vol:0.3
+shoot_flame:Beam_Fire_1_Blue_S
+
+
+
+[projectile_Common_DoubleVulcan_MS_Beam_Blue_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Vulcan_Beam_Blue*1
+(
+    addResources=
+    BeamDamage:175
+    |DpDamage:12
+    |WeaponAccuracy=100
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=0.5
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=1
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=1
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=1.5 
+    |AntiLand=1
+    |AntiSpace=1 
+    |HeightChangeSpeed=3
+    |HeightHitRange=25
+    |ProjectileSpeed:90
+    |ProjectileSpread:6
+    |ProjectileLife:20
+)
+"""
+
+
+
+[hiddenAction_Common_DoubleVulcan_MS_Beam_Blue_CDStart]
+autoTrigger:"""
+if memory.Common_DoubleVulcan_MS_Beam_Blue_OnCD==false 
+and 
+(
+    (
+        self.resource.Common_DoubleVulcan_MS_Beam_Blue_ShootTimer<=0 
+    ) 
+    or 
+    (
+        self.resource.Common_DoubleVulcan_MS_Beam_Blue_ShootTimer<${Common_DoubleVulcan_MS_Beam_Blue_Shoot} and not self.hasTags(includes='inBattle')
+    )
+)
+"""
+setUnitMemory:Common_DoubleVulcan_MS_Beam_Blue_OnCD=true,Common_DoubleVulcan_MS_Beam_Blue_CDTimer=self.timeAlive+${Common_DoubleVulcan_MS_Beam_Blue_CD}
+
+[hiddenAction_Common_DoubleVulcan_MS_Beam_Blue_CDEnd]
+autoTriggerOnEvent:created
+autoTrigger:if memory.Common_DoubleVulcan_MS_Beam_Blue_OnCD==true and self.timeAlive>memory.Common_DoubleVulcan_MS_Beam_Blue_CDTimer
+setUnitMemory:Common_DoubleVulcan_MS_Beam_Blue_OnCD=false
+setResourcesWithLogic:Common_DoubleVulcan_MS_Beam_Blue_ShootTimer=${Common_DoubleVulcan_MS_Beam_Blue_Shoot}
