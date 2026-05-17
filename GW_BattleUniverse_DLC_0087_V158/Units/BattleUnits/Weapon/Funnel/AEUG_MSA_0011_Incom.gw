@@ -1,0 +1,193 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Cannon_Shoot_A.gw
+"""
+
+@memory AEUG_MSA_0011_Incom_CDTimer:float
+@memory AEUG_MSA_0011_Incom_Units:unit[]
+@global AEUG_MSA_0011_Incom_CD=18
+@global AEUG_MSA_0011_Incom_EN=100
+@global AEUG_MSA_0011_Incom_PilotAwakeningSkill=75
+
+[hiddenAction_Get_FunnelSpawn_AEUG_MSA_0011_Incom]
+autoTriggerOnEvent:newMessage(withTag="FunnelSpawn_AEUG_MSA_0011_Incom")
+setUnitMemory:AEUG_MSA_0011_Incom_Units[0]=eventData("unitInfo",type="unit")
+
+
+[decal_DrawLineTo_AEUG_MSA_0011_Incom_Unit_HasLink_0]
+layer:beforeBody
+order:3
+alpha:0.75
+basePositionFromLegEnd:arm1
+drawLineTo:memory.AEUG_MSA_0011_Incom_Units[0].readUnitMemory("Incom_LinkUnits",type="unit[]")[0]
+color:#333333
+imageScale:0.75
+lineWidth:1
+xOffsetRelative: 0
+yOffsetRelative: 0
+onlyOnNonPreview:true
+isVisible:if memory.AEUG_MSA_0011_Incom_Units[0].hp>0
+onlyWhileAlive:true
+
+[decal_DrawLineTo_AEUG_MSA_0011_Incom_Unit_NoLink_0]
+layer:beforeBody
+order:3
+alpha:0.75
+basePositionFromLegEnd:arm1
+drawLineTo:memory.AEUG_MSA_0011_Incom_Units[0]
+color:#333333
+imageScale:0.75
+lineWidth:1
+xOffsetRelative: 0
+yOffsetRelative: 0
+onlyOnNonPreview:true
+isVisible:if memory.AEUG_MSA_0011_Incom_Units[0].hp>0 and memory.AEUG_MSA_0011_Incom_Units[0].readUnitMemory("Incom_LinkUnits",type="unit[]").size<=0
+onlyWhileAlive:true
+
+
+
+
+
+
+[turret_AEUG_MSA_0011_Incom]
+x:0
+y:0
+
+canShoot:false
+projectile:AEUG_MSA_0011_Incom_Projectile
+
+delay:0.2s
+canAttackMaxAngle:15
+limitingAngle:0
+limitingRange:1200
+barrelX:0
+barrelY:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Action/Common/Transform_1.ogg
+shoot_sound_vol:1.0
+shoot_flame:BZ_Fire_1_S
+
+
+[projectile_AEUG_MSA_0011_Incom_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+MSA_0011_Incom*1
+"""
+
+
+
+[hiddenAction_AEUG_MSA_0011_Incom_Trigger_ByAI]
+autoTrigger:"""
+if ${allowAI}==true 
+and ${cantAction}==false 
+and ${onSkill}==false 
+and memory.close==false 
+and self.resource.EN>${AEUG_MSA_0011_Incom_EN} 
+and self.timeAlive>memory.AEUG_MSA_0011_Incom_CDTimer 
+and self.parent.hp<=0  
+and self.attacking.hp>0 
+and memory.pilotUnit.readUnitMemory("pilotAwakeningSkillFinal",type="float")>=${AEUG_MSA_0011_Incom_PilotAwakeningSkill} 
+and memory.backpackBreaked==false
+"""
+setResourcesWithLogic:EN=self.resource().EN-${AEUG_MSA_0011_Incom_EN}
+alsoTriggerAction:AEUG_MSA_0011_Incom_Trigger
+
+[action_AEUG_MSA_0011_Incom_Trigger]
+pos:10
+text:Incom[LockOn] %{select(self.timeAlive<=memory.AEUG_MSA_0011_Incom_CDTimer,str(int(memory.AEUG_MSA_0011_Incom_CDTimer-self.timeAlive))+"s","OK")}
+text_zh:线控炮[锁定] %{select(self.timeAlive<=memory.AEUG_MSA_0011_Incom_CDTimer,str(int(memory.AEUG_MSA_0011_Incom_CDTimer-self.timeAlive))+"秒","OK")}
+text_KP:100
+
+displayType:infoOnly
+
+price:EN=${AEUG_MSA_0011_Incom_EN} 
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+ai_isDisabled:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Incom_3.png
+highPriorityQueue:true
+
+isVisible:if self.parent.hp<=0 
+isGuiBlinking:"""
+if self.timeAlive>memory.AEUG_MSA_0011_Incom_CDTimer 
+and ${cantAction}==false 
+and ${onSkill}==false 
+and memory.backpackBreaked==false
+"""
+
+isLocked:if self.timeAlive<=memory.AEUG_MSA_0011_Incom_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+
+isLockedAlt2:"""
+if 
+(
+    ${cantAction}==true or ${onSkill}==true or ${allowAI}==true 
+)
+or 
+(
+    memory.AEUG_MSA_0011_Incom_Units[0].hp>0 
+) 
+or 
+(
+    memory.backpackBreaked==true
+)
+"""
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+alsoTriggerAction:"""
+SetOnSkillOn,
+AEUG_MSA_0011_Incom_SetWeaponIndex,
+AEUG_MSA_0011_Incom_B1_Step_1,
+PlayCommon_Cannon_Shoot_A_Step_1
+"""
+[hiddenAction_AEUG_MSA_0011_Incom_B1_Step_1]
+setUnitMemory:"""
+AEUG_MSA_0011_Incom_CDTimer=self.timeAlive+${AEUG_MSA_0011_Incom_CD}
+"""
+shrinkArrays:AEUG_MSA_0011_Incom_Units
+alsoQueueAction:"""
+AEUG_MSA_0011_Incom_Fire_Step_1,
+AEUG_MSA_0011_Incom_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_AEUG_MSA_0011_Incom_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_AEUG_MSA_0011_Incom_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false and memory.armLBreaked==false
+"""
+buildSpeed:0.25s
+fireTurretXAtGround:AEUG_MSA_0011_Incom
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_AEUG_MSA_0011_Incom_Fire_Step_Final]
+buildSpeed:0s
+alsoTriggerAction:"""
+SetOnSkillOff
+"""

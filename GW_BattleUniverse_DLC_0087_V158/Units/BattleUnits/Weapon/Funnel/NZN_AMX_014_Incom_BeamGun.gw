@@ -49,7 +49,7 @@ spawnUnit:"""
 Projectile_BeamGun_Yellow*1
 (
     addResources=
-    BeamDamage:3500
+    BeamDamage:4000
     |DpDamage:60
     |WeaponAccuracy=90
     |PartBreakModifier=1
