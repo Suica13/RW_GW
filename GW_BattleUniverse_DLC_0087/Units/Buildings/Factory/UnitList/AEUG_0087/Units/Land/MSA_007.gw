@@ -1,0 +1,51 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+
+
+
+[hiddenAction_AutoProduce_MSA_007]
+@copyFromSection:template_AutoProduce
+@define UnitID=MSA_007
+alsoTriggerAction:AutoProduce_MSA_007_Step2
+
+[hiddenAction_AutoProduce_MSA_007_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=9000
+@define Resource=9000
+alsoQueueAction:Produce_MSA_007_StandardSquad
+
+
+
+[action_Produce_MSA_007_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=MSA_007
+@define Money=9000
+@define Resource=9000
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+buildSpeed:60s
+
+alsoQueueAction:"""
+Produce_MSA_007_StandardSquad_1,
+Produce_MSA_007_StandardSquad_2,
+Produce_MSA_007_StandardSquad_3
+"""
+[hiddenAction_Produce_MSA_007_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MSA_007*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_MSA_007_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+MSA_007*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_MSA_007_StandardSquad_3]
+buildSpeed:1.0s 
+highPriorityQueue:true
+produceUnits:"""
+MSA_007*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""

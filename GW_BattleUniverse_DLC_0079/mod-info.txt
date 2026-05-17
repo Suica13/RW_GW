@@ -1,0 +1,14 @@
+[mod]
+title: GW_BattleUniverse_DLC_0079_V159
+description:\n高达战争_战争宇宙_0079内容包\nBy恐龙再健身房\n机动战士高达系列为主题的同人模组\n重新评估前线的玩法后制作的史诗战场模拟器
+
+minVersion: 1.15p11
+
+tags: units,building,DLC_pack
+
+thumbnail: mod-thumbnail.png
+
+[music]
+sourceFolder:Resource/Music/
+whenUsingUnitsFromThisMod_playExclusively: true
+addToNormalPlaylist:true

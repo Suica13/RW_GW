@@ -1,0 +1,49 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+[hiddenAction_AutoProduce_MSA_0011_Ext]
+@copyFromSection:template_AutoProduce
+@define UnitID=MSA_0011_Ext
+alsoTriggerAction:AutoProduce_MSA_0011_Ext_Step2
+
+[hiddenAction_AutoProduce_MSA_0011_Ext_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=17500
+@define Resource=20000
+alsoTriggerAction:AutoProduce_MSA_0011_Ext_Random
+
+
+
+[hiddenAction_AutoProduce_MSA_0011_Ext_Random]
+alsoTriggerAction:"""
+AutoProduce_MSA_0011_Ext_Random_A
+"""
+[hiddenAction_AutoProduce_MSA_0011_Ext_Random_A]
+requireConditional:"""
+if true
+"""
+alsoQueueAction:Produce_MSA_0011_Ext_StandardSquad
+
+
+
+
+[action_Produce_MSA_0011_Ext_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=MSA_0011_Ext
+@define Money=17500
+@define Resource=20000
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+buildSpeed:70s
+
+alsoQueueAction:"""
+Produce_MSA_0011_Ext_StandardSquad_1
+"""
+[hiddenAction_Produce_MSA_0011_Ext_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MSA_0011_Ext*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+

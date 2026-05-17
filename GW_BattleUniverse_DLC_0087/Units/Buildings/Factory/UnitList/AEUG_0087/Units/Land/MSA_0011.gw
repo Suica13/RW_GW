@@ -1,0 +1,98 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory MSA_0011:bool
+
+
+[hiddenAction_Pannel_Close_MSA_0011]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:MSA_0011=false
+
+
+
+
+[hiddenAction_AutoProduce_MSA_0011]
+@copyFromSection:template_AutoProduce
+@define UnitID=MSA_0011
+alsoTriggerAction:AutoProduce_MSA_0011_Step2
+
+[hiddenAction_AutoProduce_MSA_0011_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=14000
+@define Resource=16000
+alsoTriggerAction:AutoProduce_MSA_0011_Random
+
+
+
+[hiddenAction_AutoProduce_MSA_0011_Random]
+alsoTriggerAction:"""
+AutoProduce_MSA_0011_Random_A,
+AutoProduce_MSA_0011_Random_B
+"""
+[hiddenAction_AutoProduce_MSA_0011_Random_A]
+requireConditional:"""
+if memory.randomProduce<=500
+"""
+alsoQueueAction:Produce_MSA_0011_StandardSquad
+
+[hiddenAction_AutoProduce_MSA_0011_Random_B]
+requireConditional:"""
+if memory.randomProduce>500 
+and memory.randomProduce<=1000
+"""
+alsoQueueAction:Produce_MSA_0011_BMGSquad
+
+
+
+
+
+[action_Pannel_MSA_0011]
+@copyFromSection:template_Pannel
+@define UnitID=MSA_0011
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+
+[action_Produce_MSA_0011_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=MSA_0011
+@define Money=14500
+@define Resource=16500
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+buildSpeed:60s
+
+text:BR
+text_zh:光束步枪
+
+alsoQueueAction:"""
+Produce_MSA_0011_StandardSquad_1
+"""
+[hiddenAction_Produce_MSA_0011_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MSA_0011*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+
+
+[action_Produce_MSA_0011_BMGSquad]
+@copyFromSection:template_Produce
+@define UnitID=MSA_0011
+@define Money=14500
+@define Resource=16500
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+buildSpeed:60s
+
+text:BMG
+text_zh:光束机枪
+
+alsoQueueAction:"""
+Produce_MSA_0011_BMGSquad_1
+"""
+[hiddenAction_Produce_MSA_0011_BMGSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+MSA_0011*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+
