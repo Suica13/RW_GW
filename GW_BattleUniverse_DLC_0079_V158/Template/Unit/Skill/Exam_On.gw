@@ -8,6 +8,9 @@ ROOT:Resource/Image/Fx/Common/Common_Light_1_Red.gw
 dont_load:true
 showInEditor:false
 
+@memory EXAM_CD:float
+@memory EXAM_Timer:float
+
 [decal_Boost]
 image:ROOT:\Resource\Image\Fx\Unit\Image\Boost_1_Red.png
 [decal_BoostReversing]
@@ -17,8 +20,8 @@ image:ROOT:Resource/Image/Fx/Unit/Image/BoostReversing_1_Red.png
 pos:10
 buildSpeed:0s
 
-text:[==EXAM System==]
-text_zh:[==EXAM系统==]
+text:[EXAM System:%{memory.EXAM_Timer-self.timeAlive}s]
+text_zh:[EXAM系统:%{memory.EXAM_Timer-self.timeAlive}s]
 
 isGuiBlinking:true
 
@@ -73,7 +76,7 @@ autoTrigger:"""
 if 
 select
 (
-    memory.pilotUnit.hp<=0 or memory.headBreaked==true,
+    memory.pilotUnit.hp<=0 or memory.headBreaked==true or self.timeAlive>=memory.EXAM_Timer,
     true,
     select
     (
@@ -122,6 +125,8 @@ switchToTeam:-1
 [hiddenAction_EXAMEnd_Transform]
 sendMessageTo:self.attachment(slot='BattleUnitCore')
 sendMessageWithTags:Transform
+
+setUnitMemory:EXAM_CD=self.timeAlive+90
 
 #convertTo:
 convertTo_keepCurrentTags:true
