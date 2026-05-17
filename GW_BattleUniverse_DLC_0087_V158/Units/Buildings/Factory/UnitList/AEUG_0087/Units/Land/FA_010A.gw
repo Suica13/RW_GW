@@ -1,0 +1,49 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+[hiddenAction_AutoProduce_FA_010A]
+@copyFromSection:template_AutoProduce
+@define UnitID=FA_010A
+alsoTriggerAction:AutoProduce_FA_010A_Step2
+
+[hiddenAction_AutoProduce_FA_010A_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=12500
+@define Resource=12500
+alsoTriggerAction:AutoProduce_FA_010A_Random
+
+
+
+[hiddenAction_AutoProduce_FA_010A_Random]
+alsoTriggerAction:"""
+AutoProduce_FA_010A_Random_A
+"""
+[hiddenAction_AutoProduce_FA_010A_Random_A]
+requireConditional:"""
+if true
+"""
+alsoQueueAction:Produce_FA_010A_StandardSquad
+
+
+
+
+[action_Produce_FA_010A_StandardSquad]
+@copyFromSection:template_Produce_Fast
+@define UnitID=FA_010A
+@define Money=12500
+@define Resource=12500
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
+buildSpeed:65s
+
+alsoQueueAction:"""
+Produce_FA_010A_StandardSquad_1
+"""
+[hiddenAction_Produce_FA_010A_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+FA_010A*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+

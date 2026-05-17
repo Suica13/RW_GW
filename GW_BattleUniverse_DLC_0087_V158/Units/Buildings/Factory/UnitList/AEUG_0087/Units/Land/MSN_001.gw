@@ -31,7 +31,7 @@ alsoQueueAction:Produce_MSN_001_StandardSquad
 @define Resource=10000
 @define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
 iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
-buildSpeed:80s
+buildSpeed:75s
 
 alsoQueueAction:"""
 Produce_MSN_001_StandardSquad_1
