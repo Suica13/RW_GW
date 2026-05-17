@@ -214,14 +214,14 @@ isVisible:false
 
 [hiddenAction_NZN_AMX_014_Incom_Fire_Step_1]
 requireConditional:"""
-if ${cantAction}==false and memory.armLBreaked==false
+if ${cantAction}==false and memory.backpackBreaked==false
 """
 buildSpeed:0.25s
 fireTurretXAtGround:NZN_AMX_014_Incom
 fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
 [hiddenAction_NZN_AMX_014_Incom_Fire_Step_2]
 requireConditional:"""
-if ${cantAction}==false and memory.armRBreaked==false
+if ${cantAction}==false and memory.backpackBreaked==false
 """
 buildSpeed:0.05s
 fireTurretXAtGround:NZN_AMX_014_Incom_R

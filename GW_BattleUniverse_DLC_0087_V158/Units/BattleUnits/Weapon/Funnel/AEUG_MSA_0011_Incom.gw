@@ -104,7 +104,7 @@ and self.timeAlive>memory.AEUG_MSA_0011_Incom_CDTimer
 and self.parent.hp<=0  
 and self.attacking.hp>0 
 and memory.pilotUnit.readUnitMemory("pilotAwakeningSkillFinal",type="float")>=${AEUG_MSA_0011_Incom_PilotAwakeningSkill} 
-and memory.backpackBreaked==false
+and memory.headBreaked==false
 """
 setResourcesWithLogic:EN=self.resource().EN-${AEUG_MSA_0011_Incom_EN}
 alsoTriggerAction:AEUG_MSA_0011_Incom_Trigger
@@ -132,7 +132,7 @@ isGuiBlinking:"""
 if self.timeAlive>memory.AEUG_MSA_0011_Incom_CDTimer 
 and ${cantAction}==false 
 and ${onSkill}==false 
-and memory.backpackBreaked==false
+and memory.headBreaked==false
 """
 
 isLocked:if self.timeAlive<=memory.AEUG_MSA_0011_Incom_CDTimer
@@ -150,7 +150,7 @@ or
 ) 
 or 
 (
-    memory.backpackBreaked==true
+    memory.headBreaked==true
 )
 """
 isLockedAlt2Message:Cant Action
@@ -181,7 +181,7 @@ isVisible:false
 
 [hiddenAction_AEUG_MSA_0011_Incom_Fire_Step_1]
 requireConditional:"""
-if ${cantAction}==false and memory.armLBreaked==false
+if ${cantAction}==false and memory.headBreaked==false
 """
 buildSpeed:0.25s
 fireTurretXAtGround:AEUG_MSA_0011_Incom
