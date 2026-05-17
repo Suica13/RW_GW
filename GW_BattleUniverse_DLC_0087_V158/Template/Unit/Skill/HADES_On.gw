@@ -8,6 +8,9 @@ ROOT:Resource/Image/Fx/Common/Common_Light_1_Red.gw
 dont_load:true
 showInEditor:false
 
+@memory HADES_CD:float
+@memory HADES_Timer:float
+
 [decal_Boost]
 image:ROOT:\Resource\Image\Fx\Unit\Image\Boost_1_Red.png
 [decal_BoostReversing]
@@ -17,8 +20,8 @@ image:ROOT:Resource/Image/Fx/Unit/Image/BoostReversing_1_Red.png
 pos:10
 buildSpeed:0s
 
-text:[==HADES System==]
-text_zh:[==HADES系统==]
+text:[HADES System:%{memory.HADES_Timer-self.timeAlive}s]
+text_zh:[HADES系统:%{memory.HADES_Timer-self.timeAlive}s]
 
 isGuiBlinking:true
 
@@ -69,7 +72,7 @@ switchToTeam:-2
 [hiddenAction_HADESTimer_CheckEnd]
 autoTrigger:"""
 if 
-memory.pilotUnit.hp<=0 or memory.headBreaked==true or self.hp<=self.maxHp*0.15 
+(memory.pilotUnit.hp<=0 or memory.headBreaked==true or self.hp<=self.maxHp*0.15 or self.timeAlive>=memory.HADES_Timer) 
 and self.hp>0
 """
 alsoTriggerAction:HADESEnd_Stun,HADESEnd_KillPilot,HADESEnd_Transform
@@ -99,6 +102,8 @@ switchToTeam:-1
 [hiddenAction_HADESEnd_Transform]
 sendMessageTo:self.attachment(slot='BattleUnitCore')
 sendMessageWithTags:Transform
+
+setUnitMemory:HADES_CD=self.timeAlive+90
 
 #convertTo:
 convertTo_keepCurrentTags:true

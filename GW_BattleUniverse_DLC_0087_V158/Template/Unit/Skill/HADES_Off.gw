@@ -4,7 +4,8 @@ ROOT:Template/Unit/Animation/Sp/Common_System_A.gw,
 ROOT:Resource/Image/Fx/System/System_HADES_1.gw,
 ROOT:Resource/Image/Fx/Common/Common_Light_1_Red.gw
 """
-@memory HADESCD:float
+@memory HADES_CD:float
+@memory HADES_Timer:float
 
 [action_HADES]
 pos:10
@@ -14,7 +15,7 @@ if
 (
     (${allowAI}==true and self.attacking.hp>0 and self.hp>self.maxHp*0.75)
 ) 
-and self.timeAlive>memory.HADESCD 
+and self.timeAlive>memory.HADES_CD 
 and memory.headBreaked==false
 """
 requireConditional:"""
@@ -27,6 +28,9 @@ isLockedMessage_zh:现在不能行动
 isLockedAlt:if self.hp<self.maxHp*0.35
 isLockedAltMessage:Need 35% Hp
 isLockedAltMessage_zh:需要至少35%耐久
+isLockedAlt2:if self.timeAlive<=memory.HADES_CD 
+isLockedAlt2Message:CD:%{memory.HADES_CD  -self.timeAlive}s
+isLockedAlt2Message_zh:冷却:%{memory.HADES_CD  -self.timeAlive}s
 
 text:HADES System StandBy
 text_zh:HADES系统 发动
@@ -59,16 +63,18 @@ stopLastAnimation:true
 
 spawnEffects:System_HADES_1,Light_50_Red
 
-alsoTriggerAction:PlayCommon_System_A_Step_1,HADESCD,HADESStart
+alsoTriggerAction:PlayCommon_System_A_Step_1,HADES_CD,HADESStart
 
 
-[hiddenAction_HADESCD]
-setUnitMemory:HADESCD=self.timeAlive+3
+[hiddenAction_HADES_CD]
+setUnitMemory:HADES_CD=self.timeAlive+3
 
 [hiddenAction_HADESStart]
 sendMessageTo:self.attachment(slot='BattleUnitCore')
 sendMessageWithTags:Transform
 
+
+setUnitMemory:HADES_Timer=self.timeAlive+30
 
 #convertTo:
 convertTo_keepCurrentTags:true

@@ -5,7 +5,8 @@ ROOT:Resource/Image/Fx/System/System_EXAM_1.gw,
 ROOT:Resource/Image/Fx/Common/Common_Light_1_Red.gw
 """
 
-@memory EXAMCD:float
+@memory EXAM_CD:float
+@memory EXAM_Timer:float
 
 [action_EXAM]
 pos:10
@@ -19,7 +20,7 @@ if
     or 
     (${allowAI}==true and self.attacking.hp>0 and self.hp>self.maxHp*0.75)
 ) 
-and self.timeAlive>memory.EXAMCD 
+and self.timeAlive>memory.EXAM_CD 
 and memory.headBreaked==false
 """
 requireConditional:"""
@@ -32,6 +33,9 @@ isLockedMessage_zh:现在不能行动
 isLockedAlt:if self.hp<self.maxHp*0.35
 isLockedAltMessage:Need 35% Hp
 isLockedAltMessage_zh:需要至少35%耐久
+isLockedAlt2:if self.timeAlive<=memory.EXAM_CD 
+isLockedAlt2Message:CD:%{memory.EXAM_CD  -self.timeAlive}s
+isLockedAlt2Message_zh:冷却:%{memory.EXAM_CD  -self.timeAlive}s
 
 text:EXAM System StandBy
 text_zh:EXAM系统 发动
@@ -66,14 +70,16 @@ stopLastAnimation:true
 
 spawnEffects:System_EXAM_1,Light_50_Red
 
-alsoTriggerAction:PlayCommon_System_A_Step_1,EXAMCD,EXAMStart
+alsoTriggerAction:PlayCommon_System_A_Step_1,EXAM_CD,EXAMStart
 
-[hiddenAction_EXAMCD]
-setUnitMemory:EXAMCD=self.timeAlive+3
+[hiddenAction_EXAM_CD]
+setUnitMemory:EXAM_CD=self.timeAlive+3
 
 [hiddenAction_EXAMStart]
 sendMessageTo:self.attachment(slot='BattleUnitCore')
 sendMessageWithTags:Transform
+
+setUnitMemory:EXAM_Timer=self.timeAlive+30
 
 
 #convertTo:
