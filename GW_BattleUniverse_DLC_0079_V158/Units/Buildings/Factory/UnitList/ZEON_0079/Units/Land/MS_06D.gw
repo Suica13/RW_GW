@@ -97,7 +97,7 @@ Produce_MS_06D_BigGunSquad_3
 buildSpeed:0.0s
 highPriorityQueue:true
 produceUnits:"""
-MS_06D*1(addResources=PilotType:1101|EquipmentIndex:0)
+MS_06D*1(addResources=PilotType:1101|EquipmentIndex:1)
 """
 [hiddenAction_Produce_MS_06D_BigGunSquad_2]
 buildSpeed:1.0s

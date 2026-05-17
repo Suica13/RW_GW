@@ -29,7 +29,7 @@ displayType:infoOnly
 ai_isDisabled:true
 spawnEffects:Light_75_NotAttached
 playSoundAtUnit:ROOT:Resource/Sound/SE/Action/Common/Transform_4.ogg:0.6
-
+highPriorityQueue:true
 
 setUnitMemory:"""
 exitUnitBool=true,

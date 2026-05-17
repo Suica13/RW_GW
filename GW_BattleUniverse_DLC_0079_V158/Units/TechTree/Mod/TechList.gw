@@ -72,7 +72,7 @@ if not self.globalTeamTags(includes='${TechID}')
 addGlobalTeamTags:${TechID}
 isVisible:false
 [template_Tech_NotByOther]
-requireConditional:if eventData("byOther",type="float")==0 and memory.autoTech==0
+requireConditional:if eventData("byOther",type="float")==0 
 isVisible:false
 
 #produceUnits:
