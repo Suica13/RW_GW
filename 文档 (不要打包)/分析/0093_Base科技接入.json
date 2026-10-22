@@ -1,0 +1,316 @@
+{
+  "factions": {
+    "0093_EFSF": [
+      "RGM_86R_0093_EFSF",
+      "SalamisClassKai_0093_EFSF"
+    ],
+    "0093_NZN": [
+      "AMX_101_0093_NZN",
+      "MusaiClassFinalType_0093_NZN"
+    ]
+  },
+  "migrations": [
+    {
+      "source": "Units/BattleUnits/RGM_86R/RGM_86R.ini",
+      "target": "Units/BattleUnits/RGM_86R_0093_EFSF/RGM_86R_0093_EFSF_Base.gw"
+    },
+    {
+      "source": "Units/BattleUnits/RGM_86R_EFSF/RGM_86R_EFSF.ini",
+      "target": "Units/BattleUnits/RGM_86R_0093_EFSF/RGM_86R_0093_EFSF.ini"
+    },
+    {
+      "source": "Units/BattleUnits/AMX_101/AMX_101.ini",
+      "target": "Units/BattleUnits/AMX_101_0093_NZN/AMX_101_0093_NZN.ini"
+    },
+    {
+      "source": "Units/BattleUnits/SalamisClassKai_0087/SalamisClassKai_0087.ini",
+      "target": "Units/BattleUnits/SalamisClassKai_0093_EFSF/SalamisClassKai_0093_EFSF.ini"
+    },
+    {
+      "source": "Units/BattleUnits/SalamisClassKai_0087/SalamisClassKai_0087_Turret_AA.ini",
+      "target": "Units/BattleUnits/SalamisClassKai_0093_EFSF/SalamisClassKai_0093_EFSF_Turret_AA.ini"
+    },
+    {
+      "source": "Units/BattleUnits/SalamisClassKai_0087/SalamisClassKai_0087_Turret_AA_2.ini",
+      "target": "Units/BattleUnits/SalamisClassKai_0093_EFSF/SalamisClassKai_0093_EFSF_Turret_AA_2.ini"
+    },
+    {
+      "source": "Units/BattleUnits/SalamisClassKai_0087/SalamisClassKai_0087_Turret_AMS.ini",
+      "target": "Units/BattleUnits/SalamisClassKai_0093_EFSF/SalamisClassKai_0093_EFSF_Turret_AMS.ini"
+    },
+    {
+      "source": "Units/BattleUnits/SalamisClassKai_0087/SalamisClassKai_0087_Turret_BeamCannon.ini",
+      "target": "Units/BattleUnits/SalamisClassKai_0093_EFSF/SalamisClassKai_0093_EFSF_Turret_BeamCannon.ini"
+    },
+    {
+      "source": "Units/BattleUnits/SalamisClassKai_0087/SalamisClassKai_0087_Turret_BeamCannon_2.ini",
+      "target": "Units/BattleUnits/SalamisClassKai_0093_EFSF/SalamisClassKai_0093_EFSF_Turret_BeamCannon_2.ini"
+    },
+    {
+      "source": "Units/BattleUnits/SalamisClassKai_0087/SalamisClassKai_0087_Turret_BeamCannon_3.ini",
+      "target": "Units/BattleUnits/SalamisClassKai_0093_EFSF/SalamisClassKai_0093_EFSF_Turret_BeamCannon_3.ini"
+    },
+    {
+      "source": "Units/BattleUnits/SalamisClassKai_0087/SalamisClassKai_0087_Turret_BeamCannon_4.ini",
+      "target": "Units/BattleUnits/SalamisClassKai_0093_EFSF/SalamisClassKai_0093_EFSF_Turret_BeamCannon_4.ini"
+    },
+    {
+      "source": "Units/BattleUnits/SalamisClassKai_0087/SalamisClassKai_0087_Turret_BeamCannon_5.ini",
+      "target": "Units/BattleUnits/SalamisClassKai_0093_EFSF/SalamisClassKai_0093_EFSF_Turret_BeamCannon_5.ini"
+    },
+    {
+      "source": "Units/BattleUnits/MusaiClassFinalType/MusaiClassFinalType.ini",
+      "target": "Units/BattleUnits/MusaiClassFinalType_0093_NZN/MusaiClassFinalType_0093_NZN.ini"
+    },
+    {
+      "source": "Units/BattleUnits/MusaiClassFinalType/MusaiClassFinalType_Turret_AA.ini",
+      "target": "Units/BattleUnits/MusaiClassFinalType_0093_NZN/MusaiClassFinalType_0093_NZN_Turret_AA.ini"
+    },
+    {
+      "source": "Units/BattleUnits/MusaiClassFinalType/MusaiClassFinalType_Turret_BeamCannon.ini",
+      "target": "Units/BattleUnits/MusaiClassFinalType_0093_NZN/MusaiClassFinalType_0093_NZN_Turret_BeamCannon.ini"
+    },
+    {
+      "source": "Units/BattleUnits/MusaiClassFinalType/MusaiClassFinalType_Turret_BeamCannon_2.ini",
+      "target": "Units/BattleUnits/MusaiClassFinalType_0093_NZN/MusaiClassFinalType_0093_NZN_Turret_BeamCannon_2.ini"
+    },
+    {
+      "source": "Units/BattleUnits/MusaiClassFinalType/MusaiClassFinalType_Turret_BeamCannon_3.ini",
+      "target": "Units/BattleUnits/MusaiClassFinalType_0093_NZN/MusaiClassFinalType_0093_NZN_Turret_BeamCannon_3.ini"
+    },
+    {
+      "source": "Units/BattleUnits/MusaiClassFinalType/MusaiClassFinalType_Turret_MS.ini",
+      "target": "Units/BattleUnits/MusaiClassFinalType_0093_NZN/MusaiClassFinalType_0093_NZN_Turret_MS.ini"
+    }
+  ],
+  "asset_repairs": [],
+  "main_infrastructure": [
+    "Units/BattleUnits/HLV/HLV_0093.ini",
+    "Units/Buildings/HLV_Build/Unit/HLV_0093_Build.ini"
+  ],
+  "missing_files": [],
+  "common_unlocks": [
+    "Refinery_Common_T3",
+    "Institute_Common_T2",
+    "SupplyDepot_Common_T2",
+    "Academy_Common_T2",
+    "Turret_MG_B",
+    "Turret_AA_B",
+    "Turret_CN_B",
+    "Turret_BM_B_Yellow",
+    "Turret_Radar_B",
+    "Turret_Space_MG_B",
+    "Turret_Space_MS_B",
+    "Turret_Space_CN_B",
+    "Wall_T2_A",
+    "Wall_T2_B",
+    "HLV_0093_Build"
+  ],
+  "factory_categories": [
+    "Land",
+    "Mega",
+    "Space",
+    "Space_Mega"
+  ],
+  "base_unlocks": {
+    "0093_EFSF": [
+      "RGM_86R_0093_EFSF",
+      "SalamisClassKai_0093_EFSF",
+      "Factory_0093_EFSF_Land",
+      "Factory_0093_EFSF_Mega",
+      "Factory_0093_EFSF_Space",
+      "Factory_0093_EFSF_Space_Mega",
+      "Refinery_Common_T3",
+      "Institute_Common_T2",
+      "SupplyDepot_Common_T2",
+      "Academy_Common_T2",
+      "Turret_MG_B",
+      "Turret_AA_B",
+      "Turret_CN_B",
+      "Turret_BM_B_Yellow",
+      "Turret_Radar_B",
+      "Turret_Space_MG_B",
+      "Turret_Space_MS_B",
+      "Turret_Space_CN_B",
+      "Wall_T2_A",
+      "Wall_T2_B",
+      "HLV_0093_Build"
+    ],
+    "0093_NZN": [
+      "AMX_101_0093_NZN",
+      "MusaiClassFinalType_0093_NZN",
+      "Factory_0093_NZN_Land",
+      "Factory_0093_NZN_Mega",
+      "Factory_0093_NZN_Space",
+      "Factory_0093_NZN_Space_Mega",
+      "Refinery_Common_T3",
+      "Institute_Common_T2",
+      "SupplyDepot_Common_T2",
+      "Academy_Common_T2",
+      "Turret_MG_B",
+      "Turret_AA_B",
+      "Turret_CN_B",
+      "Turret_BM_B_Yellow",
+      "Turret_Radar_B",
+      "Turret_Space_MG_B",
+      "Turret_Space_MS_B",
+      "Turret_Space_CN_B",
+      "Wall_T2_A",
+      "Wall_T2_B",
+      "HLV_0093_Build"
+    ]
+  },
+  "notes": [
+    "Main共用建筑不复制到DLC；HLV新增Main 0093年代变体。",
+    "仅迁移四种战斗单位及其炮塔附件；无其他研究项目或战斗单位。",
+    "Base费用、时间、科技需求均为0，沿用0087；不赠送开局战斗部队。",
+    "Mega工厂作为基础建筑解锁，目前无地面大型单位生产项；Air/Aqua仍未解锁。"
+  ],
+  "validation": {
+    "base_static": {
+      "passed": 135,
+      "total": 135
+    },
+    "integration_regression": {
+      "passed": 86,
+      "total": 86
+    },
+    "tech_lint": {
+      "files": 27,
+      "errors": 0,
+      "warnings": 25
+    },
+    "engine": {
+      "main": {
+        "case": "main",
+        "passed": true,
+        "initialized": true,
+        "enabled": {
+          "GW_BattleUniverse_Main": true
+        },
+        "errors": [],
+        "timed_out": false,
+        "returncode": 0,
+        "elapsed_seconds": 15.2,
+        "log": "文档 (不要打包)\\工具\\0093_loadtest\\verify_main\\engine.log"
+      },
+      "0093": {
+        "case": "0093",
+        "passed": true,
+        "initialized": true,
+        "enabled": {
+          "GW_BattleUniverse_Main": true,
+          "GW_BattleUniverse_DLC_0093": true
+        },
+        "errors": [],
+        "timed_out": false,
+        "returncode": 0,
+        "elapsed_seconds": 18.2,
+        "log": "文档 (不要打包)\\工具\\0093_loadtest\\verify_0093\\engine.log"
+      },
+      "mixed": {
+        "case": "mixed",
+        "passed": true,
+        "initialized": true,
+        "enabled": {
+          "GW_BattleUniverse_Main": true,
+          "GW_BattleUniverse_DLC_0079": true,
+          "GW_BattleUniverse_DLC_0087": true,
+          "GW_BattleUniverse_DLC_SEED": true,
+          "GW_BattleUniverse_DLC_0093": true
+        },
+        "errors": [],
+        "timed_out": false,
+        "returncode": 1,
+        "elapsed_seconds": 59.6,
+        "log": "文档 (不要打包)\\工具\\0093_loadtest\\verify_mixed\\engine.log"
+      }
+    },
+    "gameplay_tested": false
+  },
+  "startup_fix": {
+    "cause": "TechTree_Core_0093缺少Start_Set_Tech开局分派，虽然HQ已提供PassT0，仍没有Base完成消息。",
+    "file": "GW_BattleUniverse_DLC_0093/Units/TechTree/Core/0093/TechTree_Core_0093.ini",
+    "route": "created -> InitializeStats -> Start_Set_Tech -> faction attachment -> Unlock_Tech_<faction>_BaseTech(byOther=1) -> Done/UnlockUnit -> Get/Send",
+    "conditions": [
+      "Tech_<faction>_Start",
+      "PassT0"
+    ],
+    "regression": {
+      "passed": 135,
+      "total": 135
+    },
+    "lint": {
+      "errors": 0,
+      "warnings": 1,
+      "note": "多行alsoTriggerAction被误识别为动作名。"
+    },
+    "live_gameplay_tested": false,
+    "engine_load": {
+      "case": "0093",
+      "passed": true,
+      "initialized": true,
+      "enabled": {
+        "GW_BattleUniverse_Main": true,
+        "GW_BattleUniverse_DLC_0093": true
+      },
+      "errors": [],
+      "timed_out": false,
+      "returncode": 0,
+      "elapsed_seconds": 18.2,
+      "log": "文档 (不要打包)\\工具\\0093_loadtest\\verify_0093\\engine.log"
+    }
+  },
+  "icon_update_0079": [
+    {
+      "source": "DLC_0079/Resource/Image/Tech/Tech_EFSF_0079_1.png",
+      "path": "Resource/Image/Tech/Tech_0093_EFSF_1.png",
+      "sha256": "0bb771b41b3ecee30389834480dac819994cd3673e66b59e3385b7d19e4d4041",
+      "dimensions": [
+        33,
+        32
+      ],
+      "reason": "user-selected 0079 emblem/base icon, renamed for 0093"
+    },
+    {
+      "source": "DLC_0079/Resource/Image/Tech/Tech_ZEON_0079_1.png",
+      "path": "Resource/Image/Tech/Tech_0093_NZN_1.png",
+      "sha256": "ca13e34623f6fe2df15d700cce8504e20ce09f02353f172da3f497e23f289fb4",
+      "dimensions": [
+        33,
+        32
+      ],
+      "reason": "user-selected 0079 emblem/base icon, renamed for 0093"
+    },
+    {
+      "source": "DLC_0079/Resource/Image/Icon/Faction_ZEON_0079_1.png",
+      "path": "Resource/Image/Icon/Faction_0093_NZN_1.png",
+      "sha256": "151f654e53204305e8fb0a23329349dc092de45fe4f45d191beb94738903da61",
+      "dimensions": [
+        104,
+        64
+      ],
+      "reason": "user-selected 0079 emblem/base icon, renamed for 0093"
+    },
+    {
+      "source": "DLC_0079/Resource/Image/Icon/Faction_ZEON_0079_2.png",
+      "path": "Resource/Image/Icon/Faction_0093_NZN_2.png",
+      "sha256": "dcd426b5d87b2d42268baa9fb5bc2e958da7ae7557b8e2c44e66a74a38514f29",
+      "dimensions": [
+        65,
+        64
+      ],
+      "reason": "user-selected 0079 emblem/base icon, renamed for 0093"
+    },
+    {
+      "source": "DLC_0079/Resource/Image/Icon/Faction_ZEON_0079_3.png",
+      "path": "Resource/Image/Icon/Faction_0093_NZN_3.png",
+      "sha256": "fa1966508b1d1defb3283c7aa93d548da8987adc9371eb3bc5425726687ff2a2",
+      "dimensions": [
+        65,
+        64
+      ],
+      "reason": "user-selected 0079 emblem/base icon, renamed for 0093"
+    }
+  ]
+}

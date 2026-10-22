@@ -221,8 +221,10 @@ git diff --check
 
 ## 10. UC0093 骨架
 
-`GW_BattleUniverse_DLC_0093` 为已接入 Main 的空内容骨架，见 [接入说明](<文档 (不要打包)/教程/BattleUniverse_0093骨架接入说明.md>)。阵营键严格使用 `0093_EFSF`、`0093_NZN`，FactionIndex 分别为 `1030101`、`1030201`，场景 stageIndex 为 `1020`。
+`GW_BattleUniverse_DLC_0093` 为已接入 Main 的开发包，见 [接入说明](<文档 (不要打包)/教程/BattleUniverse_0093骨架接入说明.md>)。阵营键严格使用 `0093_EFSF`、`0093_NZN`，FactionIndex 分别为 `1030101`、`1030201`，场景 stageIndex 为 `1020`。
 
 Main 的场景 Page3、HQ_GetMode 和占位目标已连接；GameManager 复用原有通用广播。旧四包建筑槽/据点副本均追加 0093 分支，新包自身保留多场景回转。不要只改新 DLC 而遗漏这些公共入口。
 
-BattleUnits 只保留 Shield、Weapon；科技节点与生产列表为空，不要为了补齐报错而把 0087 的整台机体或整条科技复制回来。资源来源、临时图片和改动前基线在 `文档 (不要打包)/分析/`，后续维护应保留这些可追踪信息。
+0093 每阵营第一页只接入一个 Base 科技。BattleUnits 除 Shield、Weapon 外，仅有 `RGM_86R_0093_EFSF`、`SalamisClassKai_0093_EFSF`、`AMX_101_0093_NZN`、`MusaiClassFinalType_0093_NZN` 四种战斗单位及必要炮塔/继承模板；不要复制其他整条科技或未请求单位。Base 解锁 Main 共用基础建筑和 Land/Mega/Space/Space_Mega 工厂，Mega 暂无生产项，Air/Aqua 尚未解锁。HLV 的 0093 基础设施变体在 Main。资源来源、临时图片和改动前基线在 `文档 (不要打包)/分析/`，后续维护应保留这些可追踪信息。
+
+0093 普通驾驶员和士官按 0087 结构放在 Main 的 `Units/BattleUnits/Pilot/0093/Common/`；总 Marker 已接入两个阵营，T1/T2 学院有普通驾驶员入口。复用的 0087 贴图在 Main 另存为 0093 命名，勿误判为 DLC 缺少 Pilot 目录。详情见接入说明的“普通驾驶员接入”。

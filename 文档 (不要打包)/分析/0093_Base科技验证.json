@@ -1,0 +1,681 @@
+{
+  "checks": 135,
+  "passed": 135,
+  "results": [
+    {
+      "check": "unlocked marker includes shared building receiver",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "created event reaches the core startup tech dispatcher",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "startup dispatch covers both 0093 factions",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF startup addresses its actual attached tech UI",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF startup sends Base completion via the existing event path",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF startup is gated by its start tag and PassT0",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF faction selection grants the startup prerequisites",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN startup addresses its actual attached tech UI",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN startup sends Base completion via the existing event path",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN startup is gated by its start tag and PassT0",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN faction selection grants the startup prerequisites",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF Base unlocks exactly two combat units and baseline infrastructure",
+      "passed": true,
+      "details": []
+    },
+    {
+      "check": "0093_EFSF Base lifecycle is complete",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF zero-cost Base matches 0087",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF only one research project",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF unlock resolves through Send/Get and real entity: Academy_Common_T2",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF unlock resolves through Send/Get and real entity: Factory_0093_EFSF_Land",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF unlock resolves through Send/Get and real entity: Factory_0093_EFSF_Mega",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF unlock resolves through Send/Get and real entity: Factory_0093_EFSF_Space",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF unlock resolves through Send/Get and real entity: Factory_0093_EFSF_Space_Mega",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF unlock resolves through Send/Get and real entity: HLV_0093_Build",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF unlock resolves through Send/Get and real entity: Institute_Common_T2",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF unlock resolves through Send/Get and real entity: RGM_86R_0093_EFSF",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF unlock resolves through Send/Get and real entity: Refinery_Common_T3",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF unlock resolves through Send/Get and real entity: SalamisClassKai_0093_EFSF",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF unlock resolves through Send/Get and real entity: SupplyDepot_Common_T2",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF unlock resolves through Send/Get and real entity: Turret_AA_B",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF unlock resolves through Send/Get and real entity: Turret_BM_B_Yellow",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF unlock resolves through Send/Get and real entity: Turret_CN_B",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF unlock resolves through Send/Get and real entity: Turret_MG_B",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF unlock resolves through Send/Get and real entity: Turret_Radar_B",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF unlock resolves through Send/Get and real entity: Turret_Space_CN_B",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF unlock resolves through Send/Get and real entity: Turret_Space_MG_B",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF unlock resolves through Send/Get and real entity: Turret_Space_MS_B",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF unlock resolves through Send/Get and real entity: Wall_T2_A",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF unlock resolves through Send/Get and real entity: Wall_T2_B",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF first page contains only the Base node",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF single-page UI and AI research opening",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Factory_0093_EFSF_Land has HQ/SL and slot construction routes",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Factory_0093_EFSF_Land retains construction completion tag",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Factory_0093_EFSF_Land registers correct production and AI action",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Factory_0093_EFSF_Mega has HQ/SL and slot construction routes",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Factory_0093_EFSF_Mega retains construction completion tag",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Factory_0093_EFSF_Space has HQ/SL and slot construction routes",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Factory_0093_EFSF_Space retains construction completion tag",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Factory_0093_EFSF_Space registers correct production and AI action",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Factory_0093_EFSF_Space_Mega has HQ/SL and slot construction routes",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Factory_0093_EFSF_Space_Mega retains construction completion tag",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Factory_0093_EFSF_Space_Mega registers correct production and AI action",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "RGM_86R_0093_EFSF has no cross-DLC duplicate ID",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "RGM_86R_0093_EFSF defaults to correct 0093 pilot",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "RGM_86R_0093_EFSF production creates only itself",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "RGM_86R_0093_EFSF squad spacing preserves separate pilot rolls",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "SalamisClassKai_0093_EFSF has no cross-DLC duplicate ID",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "SalamisClassKai_0093_EFSF defaults to correct 0093 pilot",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "SalamisClassKai_0093_EFSF production creates only itself",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN Base unlocks exactly two combat units and baseline infrastructure",
+      "passed": true,
+      "details": []
+    },
+    {
+      "check": "0093_NZN Base lifecycle is complete",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN zero-cost Base matches 0087",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN only one research project",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN unlock resolves through Send/Get and real entity: AMX_101_0093_NZN",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN unlock resolves through Send/Get and real entity: Academy_Common_T2",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN unlock resolves through Send/Get and real entity: Factory_0093_NZN_Land",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN unlock resolves through Send/Get and real entity: Factory_0093_NZN_Mega",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN unlock resolves through Send/Get and real entity: Factory_0093_NZN_Space",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN unlock resolves through Send/Get and real entity: Factory_0093_NZN_Space_Mega",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN unlock resolves through Send/Get and real entity: HLV_0093_Build",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN unlock resolves through Send/Get and real entity: Institute_Common_T2",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN unlock resolves through Send/Get and real entity: MusaiClassFinalType_0093_NZN",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN unlock resolves through Send/Get and real entity: Refinery_Common_T3",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN unlock resolves through Send/Get and real entity: SupplyDepot_Common_T2",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN unlock resolves through Send/Get and real entity: Turret_AA_B",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN unlock resolves through Send/Get and real entity: Turret_BM_B_Yellow",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN unlock resolves through Send/Get and real entity: Turret_CN_B",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN unlock resolves through Send/Get and real entity: Turret_MG_B",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN unlock resolves through Send/Get and real entity: Turret_Radar_B",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN unlock resolves through Send/Get and real entity: Turret_Space_CN_B",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN unlock resolves through Send/Get and real entity: Turret_Space_MG_B",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN unlock resolves through Send/Get and real entity: Turret_Space_MS_B",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN unlock resolves through Send/Get and real entity: Wall_T2_A",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN unlock resolves through Send/Get and real entity: Wall_T2_B",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN first page contains only the Base node",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN single-page UI and AI research opening",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Factory_0093_NZN_Land has HQ/SL and slot construction routes",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Factory_0093_NZN_Land retains construction completion tag",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Factory_0093_NZN_Land registers correct production and AI action",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Factory_0093_NZN_Mega has HQ/SL and slot construction routes",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Factory_0093_NZN_Mega retains construction completion tag",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Factory_0093_NZN_Space has HQ/SL and slot construction routes",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Factory_0093_NZN_Space retains construction completion tag",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Factory_0093_NZN_Space registers correct production and AI action",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Factory_0093_NZN_Space_Mega has HQ/SL and slot construction routes",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Factory_0093_NZN_Space_Mega retains construction completion tag",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Factory_0093_NZN_Space_Mega registers correct production and AI action",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "AMX_101_0093_NZN has no cross-DLC duplicate ID",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "AMX_101_0093_NZN defaults to correct 0093 pilot",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "AMX_101_0093_NZN production creates only itself",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "AMX_101_0093_NZN squad spacing preserves separate pilot rolls",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "MusaiClassFinalType_0093_NZN has no cross-DLC duplicate ID",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "MusaiClassFinalType_0093_NZN defaults to correct 0093 pilot",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "MusaiClassFinalType_0093_NZN production creates only itself",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Academy_Common_T2 has HQ/SL canBuild entry",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Academy_Common_T2 remains Main infrastructure",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "HLV_0093_Build has HQ/SL canBuild entry",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "HLV_0093_Build remains Main infrastructure",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Institute_Common_T2 has HQ/SL canBuild entry",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Institute_Common_T2 remains Main infrastructure",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Refinery_Common_T3 has HQ/SL canBuild entry",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Refinery_Common_T3 remains Main infrastructure",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "SupplyDepot_Common_T2 has HQ/SL canBuild entry",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "SupplyDepot_Common_T2 remains Main infrastructure",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Turret_AA_B has HQ/SL canBuild entry",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Turret_AA_B remains Main infrastructure",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Turret_BM_B_Yellow has HQ/SL canBuild entry",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Turret_BM_B_Yellow remains Main infrastructure",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Turret_CN_B has HQ/SL canBuild entry",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Turret_CN_B remains Main infrastructure",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Turret_MG_B has HQ/SL canBuild entry",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Turret_MG_B remains Main infrastructure",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Turret_Radar_B has HQ/SL canBuild entry",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Turret_Radar_B remains Main infrastructure",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Turret_Space_CN_B has HQ/SL canBuild entry",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Turret_Space_CN_B remains Main infrastructure",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Turret_Space_MG_B has HQ/SL canBuild entry",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Turret_Space_MG_B remains Main infrastructure",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Turret_Space_MS_B has HQ/SL canBuild entry",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Turret_Space_MS_B remains Main infrastructure",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Wall_T2_A has HQ/SL canBuild entry",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Wall_T2_A remains Main infrastructure",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Wall_T2_B has HQ/SL canBuild entry",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Wall_T2_B remains Main infrastructure",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "core economy buildings have building-slot actions",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "HLV construction creates the 0093 transport",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "migrated file references and relative inheritance resolve",
+      "passed": true,
+      "details": []
+    },
+    {
+      "check": "all migrated unit and turret IDs are unique across 0087",
+      "passed": true,
+      "details": null
+    }
+  ]
+}

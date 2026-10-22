@@ -1,0 +1,143 @@
+{
+  "location": "Main",
+  "factions": {
+    "0093_EFSF": {
+      "units": [
+        "GW_BattleUniverse_Main/Units/BattleUnits/Pilot/0093/Common/0093_EFSF/Pilot_0093_EFSF_N_C_A.ini",
+        "GW_BattleUniverse_Main/Units/BattleUnits/Pilot/0093/Common/0093_EFSF/Pilot_0093_EFSF_O_C_A.ini"
+      ],
+      "marker": "GW_BattleUniverse_Main/Units/BattleUnits/Pilot/0093/Common/0093_EFSF/Pilot_CustomMarker_Common_0093_EFSF.ini",
+      "PilotType": {
+        "ordinary": [
+          1001,
+          1101
+        ],
+        "officer": [
+          2001,
+          2101
+        ]
+      }
+    },
+    "0093_NZN": {
+      "units": [
+        "GW_BattleUniverse_Main/Units/BattleUnits/Pilot/0093/Common/0093_NZN/Pilot_0093_NZN_N_C_A.ini",
+        "GW_BattleUniverse_Main/Units/BattleUnits/Pilot/0093/Common/0093_NZN/Pilot_0093_NZN_O_C_A.ini"
+      ],
+      "marker": "GW_BattleUniverse_Main/Units/BattleUnits/Pilot/0093/Common/0093_NZN/Pilot_CustomMarker_Common_0093_NZN.ini",
+      "PilotType": {
+        "ordinary": [
+          1001,
+          1101
+        ],
+        "officer": [
+          2001,
+          2101
+        ]
+      }
+    }
+  },
+  "images": [
+    {
+      "source": "GW_BattleUniverse_DLC_0087/Resource/Image/Units/Icon/Pilot_EFSF_0079_Common_1.png",
+      "target": "GW_BattleUniverse_Main/Resource/Image/Units/Icon/Pilot_0093_EFSF_Common_1.png",
+      "sha256": "44d9ba03187133e1c768d3d2ac0c53b62616d65731692c98ba41f47010687d75"
+    },
+    {
+      "source": "GW_BattleUniverse_DLC_0087/Resource/Image/Units/Icon/Pilot_EFSF_0079_Officer_1.png",
+      "target": "GW_BattleUniverse_Main/Resource/Image/Units/Icon/Pilot_0093_EFSF_Officer_1.png",
+      "sha256": "24ae21088ef2cda9ea65abe5274da8e6fdf70b55032b0f52f262c2e017ad2665"
+    },
+    {
+      "source": "GW_BattleUniverse_DLC_0087/Units/BattleUnits/Pilot/Image/EFSF_0079/Pilot_Yellow/EFSF_0079_Pilot_Yellow_6.png",
+      "target": "GW_BattleUniverse_Main/Units/BattleUnits/Pilot/Image/0093_EFSF/Pilot_Yellow/0093_EFSF_Pilot_Yellow_6.png",
+      "sha256": "395cc072a282c3c28f76d2cb545da5c85cbab59ab17ab33fcb7ece33351f89f1"
+    },
+    {
+      "source": "GW_BattleUniverse_DLC_0087/Resource/Image/Units/Icon/Pilot_NEO_ZEON_0087_Common_1.png",
+      "target": "GW_BattleUniverse_Main/Resource/Image/Units/Icon/Pilot_0093_NZN_Common_1.png",
+      "sha256": "4c16bb348d505e112062a56eded1d9eca02e62bb124f8fee130730d8ffa52fa8"
+    },
+    {
+      "source": "GW_BattleUniverse_DLC_0087/Resource/Image/Units/Icon/Pilot_NEO_ZEON_0087_Officer_1.png",
+      "target": "GW_BattleUniverse_Main/Resource/Image/Units/Icon/Pilot_0093_NZN_Officer_1.png",
+      "sha256": "34dfeb5883b0f00794086d44693a533b197b1c279b6a892ce3e731085f07a033"
+    },
+    {
+      "source": "GW_BattleUniverse_DLC_0087/Units/BattleUnits/Pilot/Image/NEO_ZEON_0087/Pilot_Green/NEO_ZEON_0087_Pilot_Green_6.png",
+      "target": "GW_BattleUniverse_Main/Units/BattleUnits/Pilot/Image/0093_NZN/Pilot_Green/0093_NZN_Pilot_Green_6.png",
+      "sha256": "19cbc8165c808ddb7979d102dc25c7edd2dca53ea07fc593dd9541d88e49621c"
+    }
+  ],
+  "existing_modified": [
+    "GW_BattleUniverse_Main/Units/BattleUnits/Pilot/Pilot_CustomMarker_Common.ini",
+    "GW_BattleUniverse_Main/Units/Buildings/Academy/Common/Academy_Common_T1.ini",
+    "GW_BattleUniverse_Main/Units/Buildings/Academy/Common/Academy_Common_T2.ini"
+  ],
+  "preexisting_status": [
+    " D GW_BattleUniverse_Main/Resource/Image/Title/top_GL_G0520.png",
+    " D GW_BattleUniverse_Main/Resource/Image/Title/top_GL_G0590.png",
+    " D GW_BattleUniverse_Main/Resource/Image/Title/top_GL_G0640.png",
+    " D GW_BattleUniverse_Main/Resource/Image/Title/top_GL_G0680.png"
+  ],
+  "era_marker": "GW_BattleUniverse_Main/Units/BattleUnits/Pilot/0093/Common/Pilot_CustomMarker_Common_0093.ini",
+  "validation": {
+    "static_checks": {
+      "passed": 86,
+      "total": 86
+    },
+    "pilot_lint": {
+      "files": 7,
+      "errors": 0,
+      "warnings": 7,
+      "explanation": "4 scope-local minVersion warnings (Main declares 1.15p11), 3 multiline alsoTriggerAction false positives; actual engine accepted the files."
+    },
+    "gameplay_tested": false,
+    "pending": "实际配属、学院训练、登机、存档重载及联机交互未测试；0093学院科技仍为空。",
+    "engine_load": {
+      "main": {
+        "case": "main",
+        "passed": true,
+        "initialized": true,
+        "enabled": {
+          "GW_BattleUniverse_Main": true
+        },
+        "errors": [],
+        "timed_out": false,
+        "returncode": 0,
+        "elapsed_seconds": 16.2,
+        "log": "文档 (不要打包)\\工具\\0093_loadtest\\verify_main\\engine.log"
+      },
+      "0093": {
+        "case": "0093",
+        "passed": true,
+        "initialized": true,
+        "enabled": {
+          "GW_BattleUniverse_Main": true,
+          "GW_BattleUniverse_DLC_0093": true
+        },
+        "errors": [],
+        "timed_out": false,
+        "returncode": 1,
+        "elapsed_seconds": 19.3,
+        "log": "文档 (不要打包)\\工具\\0093_loadtest\\verify_0093\\engine.log"
+      },
+      "mixed": {
+        "case": "mixed",
+        "passed": true,
+        "initialized": true,
+        "enabled": {
+          "GW_BattleUniverse_Main": true,
+          "GW_BattleUniverse_DLC_0079": true,
+          "GW_BattleUniverse_DLC_0087": true,
+          "GW_BattleUniverse_DLC_SEED": true,
+          "GW_BattleUniverse_DLC_0093": true
+        },
+        "errors": [],
+        "timed_out": false,
+        "returncode": 1,
+        "elapsed_seconds": 58.4,
+        "log": "文档 (不要打包)\\工具\\0093_loadtest\\verify_mixed\\engine.log"
+      }
+    }
+  }
+}

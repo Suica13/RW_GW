@@ -38,8 +38,9 @@ def main():
    rel=m[1].replace('\\','/')
    if not (DLC/rel).is_file():missing.append([p.relative_to(DLC).as_posix(),rel])
  check('all concrete ROOT file references exist inside DLC0093',not missing,missing)
- check('BattleUnits contains only reusable Shield and Weapon trees',
-       {p.name for p in (DLC/'Units/BattleUnits').iterdir()}=={'Shield','Weapon'})
+ manifest_content=json.loads((ANALYSIS/'0093_构建清单.json').read_text('utf-8')).get('base_content',{})
+ check('BattleUnits contains only declared units and reusable Shield/Weapon trees',
+       {p.name for p in (DLC/'Units/BattleUnits').iterdir()}=={'Shield','Weapon'}|set(manifest_content.get('battle_folders',[])))
  check('no duplicated background music',not list((DLC/'Resource/Music').rglob('*.ogg')))
 
  # Pure text texture updates keep identical local copies in the runtime Main pack.
@@ -56,6 +57,38 @@ def main():
         all('image:ROOT:'+manifest_ui['title'] in text(MAIN/f'Units/Buildings/HQ/HostOption/VS/HostOption_Main_VS_GE_{terrain}_Page3.ini') for terrain in ['Ground','Space'])
         and 'image:ROOT:Resource/Image/Text/Button/Button_UC0093.png' in text(MAIN/'Units/Buildings/HQ/HostOption/VS/Marker/Common/HostOption_VS_GE_Common_UC0093.ini'))
 
+ # Main owns complete common pilots; the optional DLC has no cross-pack image dependencies.
+ pilot_report=ANALYSIS/'0093_普通驾驶员接入.json'
+ if pilot_report.exists():
+  pilots=json.loads(pilot_report.read_text('utf-8'))
+  pilot_files=list((MAIN/'Units/BattleUnits/Pilot/0093').rglob('*.ini'))
+  check('0093 has four common pilots and three dispatch markers',len(pilot_files)==7)
+  missing_pilot_refs=[]
+  for p in pilot_files:
+   for m in rx.finditer(text(p)):
+    if not (MAIN/m[1].replace('\\','/')).is_file():missing_pilot_refs.append([str(p),m[1]])
+  check('0093 pilot templates and images resolve entirely inside Main',not missing_pilot_refs,missing_pilot_refs)
+  check('0087 pilot images copied without modification',all((ROOT/x['source']).read_bytes()==(ROOT/x['target']).read_bytes() and hashlib.sha256((ROOT/x['target']).read_bytes()).hexdigest()==x['sha256'] for x in pilots['images']))
+  root_routes=blocks(text(MAIN/'Units/BattleUnits/Pilot/Pilot_CustomMarker_Common.ini'))
+  era_routes=blocks(text(ROOT/pilots['era_marker']))
+  check('created common marker dispatches to UC0093', 'Start_PilotCustomChange_Common_0093' in root_routes['hiddenAction_Start_PilotCustomChange'] and 'convertTo:Pilot_CustomMarker_Common_0093' in root_routes['hiddenAction_Start_PilotCustomChange_Common_0093'])
+  for f,info in pilots['factions'].items():
+   route=root_routes['hiddenAction_Start_PilotCustomChange_Common_0093']
+   target=era_routes['hiddenAction_Start_PilotCustomChange_'+f]
+   check(f+' faction routing matches HQ tags',"includes='"+f+"'" in route and "includes='"+f+"'" in target and 'convertTo:Pilot_CustomMarker_Common_'+f in target)
+   bs=blocks(text(ROOT/info['marker']))
+   start=bs['hiddenAction_Start_PilotCustomChange']
+   check(f+' preserves message/skill-transfer chain','newMessage(withTag="PilotCustomChange")' in start and 'Send_TryTransform_PilotCustomChange_Step3' in start and 'changePilotSkillsBool=true' in bs['hiddenAction_Send_TryTransform_PilotCustomChange_Step3'])
+   for kind,codes in [('N_C',[1001,1101]),('O_C',[2001,2101])]:
+    branch=bs['hiddenAction_Start_PilotCustomChange_Pilot_'+f+'_'+kind]
+    check(f+' '+kind+' PilotType resolves to real unit',all('PilotType=='+str(code) in branch for code in codes) and 'convertTo:Pilot_'+f+'_'+kind+'_A' in branch)
+   for unit in info['units']:
+    u=text(ROOT/unit);core=blocks(u)['core'];unit_id=(ROOT/unit).stem
+    check(unit_id+' identity and era are isolated',('name:'+unit_id) in core and ('tags:'+unit_id+','+f+',') in core and ',0093,UC,' in core and '0087' not in u and '0079' not in u)
+   for tier in [1,2]:
+    action=blocks(text(MAIN/f'Units/Buildings/Academy/Common/Academy_Common_T{tier}.ini'))['action_Produce_Pilot_'+f+'_N_C_A']
+    check(f+' Academy T'+str(tier)+' faction/production match',"includes='Tech_"+f+"_Start'" in action and 'Pilot_'+f+'_N_C_A*1' in action and '@define Money=100' in action and 'buildSpeed:3s' in action)
+
  mode=text(DLC/'Units/Buildings/HQ/HQ_VS_GE/HQ_VS_GE_UC0093.ini')
  check('no starting combat roster',not re.search(r'^\s*(spawnUnits|produceUnits):',mode,re.M))
  check('exactly two faction selection actions',
@@ -69,7 +102,9 @@ def main():
    check(f+' directory '+group,(DLC/group/f).is_dir())
   for category in ['Land','Air','Aqua','Mega','Space','Space_Mega']:
    p=DLC/f'Units/Buildings/Factory/UnitList/{f}/{f}_UnitList_{category}.ini'
-   check(f+' empty '+category+' production list',p.is_file() and not re.search(r'^\[(?:action_|hiddenAction_AutoProduce)',text(p),re.M))
+   expected=bool(manifest_content and category in ['Land','Space','Space_Mega'])
+   has_content=p.is_file() and ('/Units/Land/' in text(p) or '/Units/Space_Mega/' in text(p))
+   check(f+' '+category+' production registration',p.is_file() and has_content==expected)
  for suffix in ['Main','DLC_0079','DLC_0087','DLC_SEED','DLC_0093']:
   p=ROOT/('GW_BattleUniverse_'+suffix)
   for rel,target in [('Template/Building/Common_Buildings_Slot.gw','0093_BuildingSlot'),('Units/Buildings/StrategicLocation/Mod/StrategicLocation.ini','StrategicLocation_0093')]:
@@ -105,7 +140,8 @@ def main():
    if not p.is_file():deleted.append(str(p));continue
    if hashlib.sha256(p.read_bytes()).hexdigest()!=meta['sha256']:actual.append(p.relative_to(ROOT).as_posix())
  check('only declared existing files changed',set(actual)==set(manifest['existing_modified']),actual)
- check('no existing source-pack files deleted',not deleted,deleted)
+ declared_deleted={str(ROOT/p) for p in manifest.get('preexisting_deleted',[])}
+ check('no additional source-pack files deleted',set(deleted)==declared_deleted,deleted)
  check('GameManager files remain byte-identical',not any('/Units/GameManager/' in p for p in actual))
  # Old scene actions must remain semantically unchanged, apart from appending the new dispatch.
  regress=[]
@@ -119,12 +155,17 @@ def main():
    if '/HostOption/VS/Marker/Common/' in rel:
     for old_image,new_image in manifest.get('ui_texture_renames',{}).items():
      a=a.replace('ROOT:'+new_image,'ROOT:'+old_image)
+     b=b.replace('ROOT:'+new_image,'ROOT:'+old_image)
 
    if rel.endswith('HostOption_Core.ini'):
     a=a.replace('nowStageUIPageMax=3','nowStageUIPageMax=2')
-    for terrain in ['Ground','Space']:a=without_calls(a,'ShowVS_GE_'+terrain+'_Page3')
-   for call in ['ConvertTo_0093','SetGameMode_Setting_Get_GameMode_VS_GE_UC0093']:
+    b=b.replace('nowStageUIPageMax=3','nowStageUIPageMax=2')
+    for terrain in ['Ground','Space']:
+     a=without_calls(a,'ShowVS_GE_'+terrain+'_Page3')
+     b=without_calls(b,'ShowVS_GE_'+terrain+'_Page3')
+   for call in ['ConvertTo_0093','SetGameMode_Setting_Get_GameMode_VS_GE_UC0093','Start_PilotCustomChange_Common_0093']:
     a=without_calls(a,call)
+    b=without_calls(b,call)
    b=without_calls(b,'__nothing__')
    if norm(a)!=norm(b):regress.append([rel,sec])
  check('original scene sections preserved',not regress,regress)

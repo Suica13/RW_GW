@@ -12,7 +12,6 @@
   "errors": [],
   "timed_out": false,
   "returncode": 1,
-  "elapsed_seconds": 74.4,
-  "log": "文档 (不要打包)\\工具\\0093_loadtest\\verify_mixed\\engine.log",
-  "exit_code_note": "Engine initialization completed with all five packs enabled and no MOD errors; harness then stopped the headless process. The shutdown exit code is not a load failure."
+  "elapsed_seconds": 59.6,
+  "log": "文档 (不要打包)\\工具\\0093_loadtest\\verify_mixed\\engine.log"
 }

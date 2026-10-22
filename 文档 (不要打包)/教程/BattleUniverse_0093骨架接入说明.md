@@ -1,114 +1,117 @@
-# UC0093 DLC 骨架接入说明
+# UC0093 DLC 接入说明
 
-本包是可以接入原有开局链的开发骨架，保留空科技页、空生产列表、HQ/建筑槽/据点与 Main 占位定义；没有加入战斗机体、小队、驾驶员或初始部队。
+0093 已接入原开局链，两阵营各有第一页科技树和一个 Base 科技，解锁基础建筑及指定的两种战斗单位。没有其他研究项目、战斗单位或开局赠送部队。
 
-## 安装组合与命名
+## 安装与命名
 
-启用 `GW_BattleUniverse_Main` 和 `GW_BattleUniverse_DLC_0093`。可以与 0079、0087、SEED 混装。没有 0093 包时，Main 的 0093 场景按钮受 DLC Marker 条件锁定。
+启用 `GW_BattleUniverse_Main` 和 `GW_BattleUniverse_DLC_0093`；支持与 0079、0087、SEED 混装。Main 单独加载时，0093 场景按钮受 DLC Marker 条件锁定。
 
 | 项目 | 值 |
 |---|---|
-| 包目录 | `GW_BattleUniverse_DLC_0093` |
-| 元数据版本 | V159，最低引擎 1.15p11 |
-| 场景实体 | `HQ_VS_GE_UC0093` |
-| 场景 Index | `1020` |
-| 联邦阵营键 | `0093_EFSF` |
-| 联邦 FactionIndex | `1030101` |
-| 联邦 HQ | `HQ_0093_EFSF` |
-| 新吉翁阵营键 | `0093_NZN` |
-| 新吉翁 FactionIndex | `1030201` |
-| 新吉翁 HQ | `HQ_0093_NZN` |
-| 科技核心 / 已解锁标记 | `TechTree_Core_0093` / `UnlockedListMarker_0093` |
+| 版本 / 最低引擎 | V159 / 1.15p11 |
+| 场景 / stageIndex | `HQ_VS_GE_UC0093` / `1020` |
+| 联邦阵营 / FactionIndex | `0093_EFSF` / `1030101` |
+| 新吉翁阵营 / FactionIndex | `0093_NZN` / `1030201` |
+| 正式 HQ | `HQ_0093_EFSF` / `HQ_0093_NZN` |
+| 科技核心 / 解锁标记 | `TechTree_Core_0093` / `UnlockedListMarker_0093` |
 | 建筑槽 / 据点 | `0093_BuildingSlot` / `StrategicLocation_0093` |
 
-`0093_EFSF`、`0093_NZN` 按本次需求保留年代在前的写法；不要自行转换成 `EFSF_0093` 或沿用 `NEO_ZEON_0087`。场景编号延续 UC 0079=1001/1002、0087=1010/1011 的分组，0093 占用 1020。FactionIndex 延续 UC 第三个剧本 103 的编码。
+阵营键严格保留年代在前；不要自行改为 `EFSF_0093`，也不要沿用 `NEO_ZEON_0087`。
 
-## 已接入的开局链
+## 开局、建筑槽与据点
 
-1. Main 地面和宇宙的第四页（内部 Page3）提供 UC0093 场景按钮，使用现有 `UC0093_01.png` 横幅。
-2. 按钮发送 `VS_Stage(Index=1020)`，HostOption_Core 将 Index 写入 stageIndex，再通过 `Setting_GameMode` 发给 GameManager_Start。
-3. GameManager_Start 保存全部开局参数，逐玩家 HQ 广播。原有 GameManager 逻辑已经通用传递 stageIndex，没有增加第二套管理器，也没有修改其文件。
-4. Main/0079/0087/0093 中存在的 HQ_GetMode 副本均增加 1020 路由，目标为 Main 同名占位/DLC 正式 `HQ_VS_GE_UC0093`。
-5. 玩家选阵营时设置对应 FactionIndex、阵营 Tag 和 `Tech_<阵营>_Start`，沿用 ReadyOK，挂载 `UnlockedListMarker_0093`。AI 使用队伍编号奇偶作为确定性兜底，避免全 AI 开局无人首先选阵营。
-6. GameManager_VS 等全员准备后设置 GameStart；0093 HQ 转换为最终阵营 HQ，并挂载 TechTree_Core_0093。地面、宇宙都不赠送战斗单位。
-7. 两阵营各有一张空科技页，可打开/关闭；没有研究节点、科技费用、前置线或虚假的默认战斗单位解锁。
+1. Main 地面/宇宙第四页（内部 Page3）提供 UC0093 场景入口。
+2. 按钮发送 `VS_Stage(Index=1020)`，HostOption_Core 保存 stageIndex，经 `Setting_GameMode` 交给 GameManager_Start，随后广播到各玩家 HQ。GameManager 的通用逻辑未修改。
+3. Main/0079/0087/0093 的 HQ_GetMode 副本已有 1020 路由；Main 保留模式 HQ、阵营 HQ、科技核心、解锁标记、建筑槽和据点的稳定占位。
+4. 选择阵营时写入对应 FactionIndex、阵营 Tag、`Tech_<阵营>_Start`，挂载 UnlockedListMarker_0093；GameStart 后转换为正式 HQ，并挂载 TechTree_Core_0093。
+5. 五包建筑槽/据点路由均能识别两个新 FactionIndex，保留旧年代转换。没有赠送战斗单位或改变地面/宇宙初始编成。
+6. 正式 HQ 和 StrategicLocation_0093 均继承 `0093_MainBuildList.ini`；建筑槽保留独立的建筑附件生产 Action，二者都接收同一套 Unlock Tag。
 
-## 建筑槽与据点
+## 第一页与 Base 科技
 
-- 旧四包的 `Template/Building/Common_Buildings_Slot.gw` 都追加 `ConvertTo_0093`；旧有场景分支保持。
-- 旧四包的 `Units/Buildings/StrategicLocation/Mod/StrategicLocation.ini` 同样追加 0093 转换。
-- Main 提供 `0093_BuildingSlot`、`StrategicLocation_0093` 占位定义，确保公共分支不引用只存在于可选 DLC 的 ID。
-- 0093 通过同名 `overrideAndReplace` 接管，连接 `0093_MainBuildList.ini`。
-- 新包自身的建筑槽和据点 Mod 以 Main 的多场景路由为基础，因此不会丢掉被旧年代阵营接管后返回对应场景的入口。
-- 两个 FactionIndex 都转换到 0093 建筑槽/据点，阵营内容再用各自 Tag 筛选。没有将新的联邦或新吉翁映射到 0087。
+每阵营只有一页（`Page_00`）和一个节点：`Tech_0093_EFSF_BaseTech` / `Tech_0093_NZN_BaseTech`。节点沿用 0087 左侧起点坐标，不画通向不存在项目的连线；pageMax=0。UI、AI 打开科技页、研究 Awake/Start/Stop/Done、解锁和盟友同步链均已接入。
 
-## 空内容如何扩展
+Base 的时间、资金、物资、科技需求均为 0。选阵营时已有 PassT0；科技核心初始化沿用 0087 的 Start_Set_Tech 分派，向当前阵营的科技 UI 发送 Unlock_Tech_<阵营>_BaseTech（byOther=1），经原有 Done → UnlockUnit → Get/Send 自动解锁基础内容，不需要手动研究或打开科技页。最初遗漏的开局分派已补齐。
 
-每阵营工厂均保留 `Land`、`Air`、`Aqua`、`Mega`、`Space`、`Space_Mega` 六类空壳、UnitList 文件和对应分类目录。工厂没有生产 Action，不会偷偷生产旧阵营单位。
+| 阵营 | 战斗单位 ID | 生产位置 |
+|---|---|---|
+| 联邦吉姆III | `RGM_86R_0093_EFSF` | Land、Space 工厂 |
+| 联邦萨拉米斯改级 | `SalamisClassKai_0093_EFSF` | Space_Mega 工厂 |
+| 新吉翁卡尔斯J | `AMX_101_0093_NZN` | Land、Space 工厂 |
+| 新吉翁姆塞最终生产型 | `MusaiClassFinalType_0093_NZN` | Space_Mega 工厂 |
 
-MainBuildList、BuildingSlot Action、阵营 Get/Send 已为这些空工厂预留匹配的 `Factory_<阵营>_<分类>` 和 `Unlock_...`。默认不赠送这些解锁 Tag，因此正常面板不会出现一批无内容工厂。以后在新科技的完成事件中解锁目标工厂，即可继续填入生产定义。
+单位从 0087 复制后使用独立 ID；舰船炮塔、段名、资源和动作引用一并处理，混装时不覆盖 0087 同型机体。吉姆III采用 0087 联邦涂装，保留标准/机枪/火箭筒三种小队；卡尔斯J保留标准三机小队。队列后两步的 1 秒间隔保留，不合并随机驾驶员生成。舰船保留炮塔、机库、伤害检测和补给/再入等原有能力。四种机体的基础数值、装备与生产费用沿用原型。
 
-建议扩展顺序：
+## 基础建筑解锁
 
-```text
-新增第一台 0093 单位并独立测试
-→ 使用现有武器/盾牌模板
-→ 在正确工厂分类添加 <UNIT>.gw 并纳入 UnitList
-→ 在新阵营 TechList 定义科技，Get/Send 注册目标
-→ 在 Common 添加研究节点，放入 Page_00 并连线
-→ 接入工厂解锁，测试生产
-→ 再添加驾驶员、支援技能、ACE 和初始部队
-```
+双方 Base 均解锁以下内容：
 
-空 ACE 信标与支援技能目录不注册功能实体；Main 原有公共技能入口仍按原框架存在。不要把“有目录”误认为已经完成相应玩法。
+- 各自 Land、Mega、Space、Space_Mega 工厂。Mega 目前无地面大型单位生产项；Air/Aqua 空壳保留，尚未解锁。
+- `Refinery_Common_T3`、`Institute_Common_T2`、`SupplyDepot_Common_T2`、`Academy_Common_T2`。
+- 地面 B 型机枪、防空、加农、黄色光束炮塔，以及 B 型雷达。
+- 宇宙 B 型机枪、导弹、加农防御设施。
+- `Wall_T2_A`、`Wall_T2_B` 和 `HLV_0093_Build`。
 
-## 武器、盾牌与资源
+公共建筑实体与贴图由 Main 提供，不复制到 DLC。0093 自身增加 Common_Building_Get/Send、MainBuildList 和 BuildingSlot 的必要注册，使解锁同时到达 HQ、据点和建筑槽。建筑槽也补了经济建筑与工厂的 AI 建造分派；三类有内容工厂显式调用对应单位的自动生产 Action。
 
-`Units/BattleUnits/` 顶层严格只有 `Shield/`、`Weapon/`。武器保留 Beam、Cqb、Funnel、SetUp、Shell、Sp、Template 及其图片和弹体/辅助实体定义，没有实际机体、舰船、小队、Pilot 目录。
+HLV 属于跨地面/宇宙的基础功能，新增 Main 的 `Units/Buildings/HLV_Build/Unit/HLV_0093_Build.ini` 和 `Units/BattleUnits/HLV/HLV_0093.ini`。它们复用 Main 原有模型、模板和音效，施工完成生成 0093 HLV，默认驾驶员按当前阵营选择；不额外引入其他战斗机体。
 
-公共模板和资源参考四包合并，优先取 0087 同路径文件，再补 0079、SEED、Main 的独有路径；少数公共接口/多场景路由明确采用 Main。音乐不复制，新包没有 `[music]` 配置。
+0087 Base 的实际完成动作没有解锁 ACE 信标。本轮保持这一范围，不复制其他 ACE、强化人、支援技能或额外运输舰。
 
-临时图片包含两阵营徽标的六张别名和八张上游缺失图片替代。清单记录在 `文档 (不要打包)/分析/0093_构建清单.json`。六张原本来自具体机体或 Pilot 目录的图片移到 `Resource/Image/Weapon/Legacy/`，不因此恢复那些战斗单位目录。
+## 普通驾驶员
 
-## 已执行与未执行的检查
+完整定义位于 Main 的 `Units/BattleUnits/Pilot/0093/Common/`，沿用 0087 实际结构，无需 DLC 再覆盖。
 
-- 自定义静态连携/回归：58 项通过，包括文件引用闭合、阵营编号链、Main 占位对应、场景按钮经 GameManager 广播的字段链、五包建筑槽/据点分支、原场景 Action 保留、旧包仅 12 个声明文件变化。
-- 新阵营选择 HQ 的 MCP lint：0 错误、0 警告。
-- 科技树目录 MCP lint：0 错误、21 警告；部分跨文件继承/宏在局部扫描时无法还原。
-- 全包 MCP lint：1821 个配置文件，6368 个错误、2122 个警告。大量来自原样复制的宏/模板，示例为 Combo_AGE_1N 的 `${...}` 被视作多余 `}`。这不是全包无问题的证明，也没有据此批量修模板。全量保留的未接入 `.gw` 还需在具体单位引用时测试。
-- 使用本机真实引擎，在项目内隔离 preferences/cache/logs 后分别验证 Main、Main+0093、五包混装；结果见分析目录 `0093_引擎加载_*.json`。只有启用状态、初始化完成和 MOD 错误检查均满足，才判定加载通过。初始化后由脚本停止无窗口进程，受控停止可能返回非零退出码；这与 MOD 解析失败分开记录。
+| 阵营 | 普通驾驶员 | 士官 |
+|---|---|---|
+| `0093_EFSF` | `Pilot_0093_EFSF_N_C_A` | `Pilot_0093_EFSF_O_C_A` |
+| `0093_NZN` | `Pilot_0093_NZN_N_C_A` | `Pilot_0093_NZN_O_C_A` |
 
-可复现命令（从工作区根目录运行）：
+普通驾驶员/士官继承 Main 原有基础模板；身体两张、头像四张从 0087 原样复制，在 Main 独立命名。分派链为总 Marker → 0093 Marker → 阵营 Marker → 实体，保留消息和 Step3 技能传递。
+
+`PilotType=1001/1101` 选择普通驾驶员，`2001/2101` 选择士官；工厂自动配属继续使用既有 `PilotCustom=1` 流程。MS 使用 1101，舰船使用 2101，默认驾驶员也均改为 0093 对应阵营。
+
+Main 的 T1/T2 学院有两阵营普通驾驶员生产入口，100 资金、0 物资、3 秒。当前 Base 解锁 T2 学院，实际学院可用性仍取决于科技、建造和施工完成。
+
+## 图片与公共文件
+
+场景下方标题使用 `Resource/Image/Title/UC_0093.png`，Main 与 0093 同步。场景横幅仍使用其原 Banner。
+
+六张年代文字为 130×60 透明 PNG：Button_UC0079、Button_UC0087、Button_CE71、Button_CE73、Button_AD2308、Button_UC0093。运行时引用在 Main；0079/0087（含 T2）和 0093 已接入，CE73/AD2308 只准备素材。生成脚本与预览备份位于“工具”目录。
+
+DLC 保留 Shield、Weapon 公共树，另有上述四种机体目录及必要炮塔、图像和一份不加载的吉姆III继承模板。未复制其他战斗单位定义，没有重复音乐。公共模板/资源的首轮来源仍参考四包合并清单；本轮具体迁移和缺图补齐记录在 `0093_Base科技接入.json`。
+
+本轮仅改 0093 的科技、工厂和建筑入口，在 Main 新增 HLV 变体；原有驾驶员接入继续保留。没有修改 0079、0087、SEED 原文件、GameManager 或公共战斗框架。
+
+## 验证与待验收
+
+- Base 接入静态检查：135/135 通过（含开局自动完成链）；覆盖解锁集、Get/Send、建造入口、生产与驾驶员、文件继承和跨包 ID。
+- 开局/公共链回归：86/86 通过；保留 HQ、GameManager 字段、BuildingSlot、据点转换、场景按钮与驾驶员检查。
+- 上一轮整目录科技树 MCP lint：27 文件，0 错误、25 警告，包含原共享模板空段/重复键提示、局部扫描最低版本提示和多行动作误报；未自动批量修改公共层。
+- 使用本机真实引擎，Main、Main＋0093、五包混装均已重新启用并完成初始化，无 MOD 加载错误。首次迁移出现的舰船炮塔段名不一致已修正，以上均为修正后的结果。
+- `git diff --check` 用于检查修改格式。原工作区已有四张 Main Title 删除和新的年代标题图片，本轮保留用户修改。
+
+上述加载不等于对局行为验证。仍需在游戏里检查：房主/非房主参数和 AI 阵营；地面/宇宙科技页打开与 Base 研究；建筑建造、施工、据点占领转换；四种单位的工厂训练、驾驶员配属、部件/炮塔显示、攻击、运输与再入；AI 生产、存档重载和联网同步。
 
 ```powershell
 $env:PYTHONUTF8='1'
+python '文档 (不要打包)/工具/验证_0093_Base科技.py'
 python '文档 (不要打包)/工具/验证_0093骨架.py'
 python '文档 (不要打包)/工具/验证_0093引擎加载.py' --case main
 python '文档 (不要打包)/工具/验证_0093引擎加载.py' --case 0093
 python '文档 (不要打包)/工具/验证_0093引擎加载.py' --case mixed
 ```
 
-隔离加载目录 `文档 (不要打包)/工具/0093_loadtest/` 被 Git 忽略；日志保存在本机，其中使用目录联接读取游戏资源。原游戏 preferences.ini 和 MOD 启用状态不改。
+引擎校验使用项目内隔离 preferences/cache/logs，原游戏设置不改。初始化后可由脚本受控停止，非零退出码与 MOD 解析错误分别记录。
 
-尚未进行玩家界面/联网对局的交互验收。需手动检查：两种地图模式下 Page3 场景选择，房主与非房主参数一致，玩家/AI 选阵营与准备，GameStart 后正式 HQ 与科技附件，空页面开关，以及据点和建筑槽的占领/换阵营转换。空包没有可生产部队，因此不能声称已验证 0093 的战斗或完整经济循环。
+## 清单
 
-## 审阅文件
+分析目录保留 `BattleUniverse_四包详细对比与0093方案.md`、逐文件 CSV 与制作前 SHA-256 基线；它们是首轮历史快照，不是当前空包状态说明。
 
-- `文档 (不要打包)/分析/BattleUniverse_四包详细对比与0093方案.md`：结构、职责、内容差异和接入方案。
-- `BU_四包文件对比_0093制作前.csv`：四包 12538 个不同相对路径的逐文件内容比较。
-- `BU_四包基线_0093制作前.json`：制作前的文件大小与 SHA-256，可检查旧包是否意外改动。
-- `0093_公共资源来源.csv`、`0093_同路径公共副本取舍.csv`：来源和冲突取舍。
-- `0093_构建清单.json`、`0093_静态连携验证.json`：新 ID、临时图片、修改范围与检查结果。
+当前接入与结果见 `0093_构建清单.json`、`0093_Base科技接入.json`、`0093_Base科技验证.json`、`0093_普通驾驶员接入.json`、`0093_静态连携验证.json` 和 `0093_引擎加载_*.json`。
 
-以上文档和工具都在“不要打包”目录；发布只取所需游戏包，不把分析报告、测试目录和 MCP 工具装入 MOD。
+“文档 (不要打包)”、原始素材和 MCP/测试目录均不属于 MOD 发布内容。
 
+开局 Base 修复补充：仅修改 0093 科技核心的初始化分派，按原 0087 流程完成当前阵营 Base。修复后的单文件 lint 为 0 错误、1 条多行动作误报；135 项 Base 静态检查通过，尚未实测交互对局。需要重新加载 MOD 并新开一局验证，已有存档不会重新执行 created 初始化事件。
 
-## 年代文字与标题更新（2026-10-23）
-
-场景选择下方的 UC0093 标题现在使用新增的 `Resource/Image/Title/UC_0093.png`，已复制到 Main，并接入地面/宇宙 Page3 的 `decal_Title`；场景卡片的 Banner 图片保留原用途。
-
-六张年代文字按原画布 130×60 重绘为透明 RGBA PNG：`Button_UC0079.png`、`Button_UC0087.png`、`Button_CE71.png`、`Button_CE73.png`、`Button_AD2308.png`、`Button_UC0093.png`。显示文字沿用 UC.0079、UC.0087、SEED.CE71、SEED.CE73、A.D.2308、UC.0093；使用 Arial Bold 白字，4 倍采样后缩小。
-
-新素材以 0093 包为源，同步到绘制场景界面的 Main。0079/0087（含 T2）场景引用新文件名，CE71 自动使用同名重绘资源；0093 原先空白的 `decal_Text` 已接入专用按钮。CE73/AD2308 素材已准备，但不额外创建未请求的新场景。
-
-0093 中旧的 Button_0079、Button_0087、Button_2308 已完成重命名；Main 保留旧文件供兼容。原图备份和总览在 `文档 (不要打包)/工具/年代按钮预览/`，可复现渲染脚本为 `生成_年代按钮.ps1`。本轮额外改动的图片和引用已记入构建清单，初版“原包 12 个文件变化”的统计仅对应首轮骨架制作。
+图标更新：联邦 Base 使用 0079 EFSF 的 `Tech_EFSF_0079_1.png`，在 0093 本地命名为 `Tech_0093_EFSF_1.png`；新吉翁 Base 使用 0079 ZEON 的 `Tech_ZEON_0079_1.png`，本地命名为 `Tech_0093_NZN_1.png`。NZN 阵营图标的 1/2/3 三种规格也由 0079 ZEON 原图复制，命名为 `Faction_0093_NZN_1/2/3.png`，现有阵营选择、HQ、工厂和科技树入口引用继续使用这些 0093 名称。五张图与来源逐字节一致，尺寸保持不变。

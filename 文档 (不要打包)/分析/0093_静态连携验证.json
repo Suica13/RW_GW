@@ -1,6 +1,6 @@
 {
-  "checks": 66,
-  "passed": 66,
+  "checks": 86,
+  "passed": 86,
   "results": [
     {
       "check": "all concrete ROOT file references exist inside DLC0093",
@@ -8,7 +8,7 @@
       "details": []
     },
     {
-      "check": "BattleUnits contains only reusable Shield and Weapon trees",
+      "check": "BattleUnits contains only declared units and reusable Shield/Weapon trees",
       "passed": true,
       "details": null
     },
@@ -58,6 +58,106 @@
       "details": null
     },
     {
+      "check": "0093 has four common pilots and three dispatch markers",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093 pilot templates and images resolve entirely inside Main",
+      "passed": true,
+      "details": []
+    },
+    {
+      "check": "0087 pilot images copied without modification",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "created common marker dispatches to UC0093",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF faction routing matches HQ tags",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF preserves message/skill-transfer chain",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF N_C PilotType resolves to real unit",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF O_C PilotType resolves to real unit",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Pilot_0093_EFSF_N_C_A identity and era are isolated",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Pilot_0093_EFSF_O_C_A identity and era are isolated",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF Academy T1 faction/production match",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF Academy T2 faction/production match",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN faction routing matches HQ tags",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN preserves message/skill-transfer chain",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN N_C PilotType resolves to real unit",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN O_C PilotType resolves to real unit",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Pilot_0093_NZN_N_C_A identity and era are isolated",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Pilot_0093_NZN_O_C_A identity and era are isolated",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN Academy T1 faction/production match",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN Academy T2 faction/production match",
+      "passed": true,
+      "details": null
+    },
+    {
       "check": "no starting combat roster",
       "passed": true,
       "details": null
@@ -103,32 +203,32 @@
       "details": null
     },
     {
-      "check": "0093_EFSF empty Land production list",
+      "check": "0093_EFSF Land production registration",
       "passed": true,
       "details": null
     },
     {
-      "check": "0093_EFSF empty Air production list",
+      "check": "0093_EFSF Air production registration",
       "passed": true,
       "details": null
     },
     {
-      "check": "0093_EFSF empty Aqua production list",
+      "check": "0093_EFSF Aqua production registration",
       "passed": true,
       "details": null
     },
     {
-      "check": "0093_EFSF empty Mega production list",
+      "check": "0093_EFSF Mega production registration",
       "passed": true,
       "details": null
     },
     {
-      "check": "0093_EFSF empty Space production list",
+      "check": "0093_EFSF Space production registration",
       "passed": true,
       "details": null
     },
     {
-      "check": "0093_EFSF empty Space_Mega production list",
+      "check": "0093_EFSF Space_Mega production registration",
       "passed": true,
       "details": null
     },
@@ -168,32 +268,32 @@
       "details": null
     },
     {
-      "check": "0093_NZN empty Land production list",
+      "check": "0093_NZN Land production registration",
       "passed": true,
       "details": null
     },
     {
-      "check": "0093_NZN empty Air production list",
+      "check": "0093_NZN Air production registration",
       "passed": true,
       "details": null
     },
     {
-      "check": "0093_NZN empty Aqua production list",
+      "check": "0093_NZN Aqua production registration",
       "passed": true,
       "details": null
     },
     {
-      "check": "0093_NZN empty Mega production list",
+      "check": "0093_NZN Mega production registration",
       "passed": true,
       "details": null
     },
     {
-      "check": "0093_NZN empty Space production list",
+      "check": "0093_NZN Space production registration",
       "passed": true,
       "details": null
     },
     {
-      "check": "0093_NZN empty Space_Mega production list",
+      "check": "0093_NZN Space_Mega production registration",
       "passed": true,
       "details": null
     },
@@ -319,6 +419,9 @@
         "GW_BattleUniverse_Main/Resource/Image/Text/Button/Button_CE71.png",
         "GW_BattleUniverse_Main/Resource/Image/Text/Button/Button_CE73.png",
         "GW_BattleUniverse_Main/Template/Building/Common_Buildings_Slot.gw",
+        "GW_BattleUniverse_Main/Units/BattleUnits/Pilot/Pilot_CustomMarker_Common.ini",
+        "GW_BattleUniverse_Main/Units/Buildings/Academy/Common/Academy_Common_T1.ini",
+        "GW_BattleUniverse_Main/Units/Buildings/Academy/Common/Academy_Common_T2.ini",
         "GW_BattleUniverse_Main/Units/Buildings/HQ/HostOption/HostOption_Core.ini",
         "GW_BattleUniverse_Main/Units/Buildings/HQ/Mod/HQ_GetMode.ini",
         "GW_BattleUniverse_Main/Units/Buildings/HQ/HostOption/VS/Marker/Common/HostOption_VS_GE_Common_UC0079.ini",
@@ -337,9 +440,14 @@
       ]
     },
     {
-      "check": "no existing source-pack files deleted",
+      "check": "no additional source-pack files deleted",
       "passed": true,
-      "details": []
+      "details": [
+        "E:\\RustedWarfare_Reunion\\mods\\units\\GW_BattleUniverse_Main\\Resource\\Image\\Title\\top_GL_G0520.png",
+        "E:\\RustedWarfare_Reunion\\mods\\units\\GW_BattleUniverse_Main\\Resource\\Image\\Title\\top_GL_G0590.png",
+        "E:\\RustedWarfare_Reunion\\mods\\units\\GW_BattleUniverse_Main\\Resource\\Image\\Title\\top_GL_G0640.png",
+        "E:\\RustedWarfare_Reunion\\mods\\units\\GW_BattleUniverse_Main\\Resource\\Image\\Title\\top_GL_G0680.png"
+      ]
     },
     {
       "check": "GameManager files remain byte-identical",

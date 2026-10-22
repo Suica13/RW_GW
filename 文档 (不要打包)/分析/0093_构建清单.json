@@ -30,7 +30,10 @@
     "GW_BattleUniverse_Main/Units/Buildings/HQ/HostOption/VS/Marker/Common/HostOption_VS_GE_Common_UC0087.ini",
     "GW_BattleUniverse_Main/Units/Buildings/HQ/HostOption/VS/Marker/Common/HostOption_VS_GE_Common_UC0087_T2.ini",
     "GW_BattleUniverse_Main/Resource/Image/Text/Button/Button_CE71.png",
-    "GW_BattleUniverse_Main/Resource/Image/Text/Button/Button_CE73.png"
+    "GW_BattleUniverse_Main/Resource/Image/Text/Button/Button_CE73.png",
+    "GW_BattleUniverse_Main/Units/BattleUnits/Pilot/Pilot_CustomMarker_Common.ini",
+    "GW_BattleUniverse_Main/Units/Buildings/Academy/Common/Academy_Common_T1.ini",
+    "GW_BattleUniverse_Main/Units/Buildings/Academy/Common/Academy_Common_T2.ini"
   ],
   "image_aliases": [
     {
@@ -46,21 +49,6 @@
     {
       "path": "Resource/Image/Icon/Faction_0093_EFSF_3.png",
       "source": "DLC_0079/Resource/Image/Icon/Faction_EFSF_0079_3.png",
-      "reason": "temporary faction emblem"
-    },
-    {
-      "path": "Resource/Image/Icon/Faction_0093_NZN_1.png",
-      "source": "DLC_0087/Resource/Image/Icon/Faction_NEO_ZEON_0087_1.png",
-      "reason": "temporary faction emblem"
-    },
-    {
-      "path": "Resource/Image/Icon/Faction_0093_NZN_2.png",
-      "source": "DLC_0087/Resource/Image/Icon/Faction_NEO_ZEON_0087_2.png",
-      "reason": "temporary faction emblem"
-    },
-    {
-      "path": "Resource/Image/Icon/Faction_0093_NZN_3.png",
-      "source": "DLC_0087/Resource/Image/Icon/Faction_NEO_ZEON_0087_3.png",
       "reason": "temporary faction emblem"
     },
     {
@@ -102,6 +90,56 @@
       "path": "Units/BattleUnits/Weapon/Shell/Image/EF_RFF_06_Cannon_Backpack.png",
       "source": "0093/Units/BattleUnits/Weapon/Shell/Image/EF_RFF_06_Cannon.png",
       "reason": "upstream missing file; temporary existing bitmap"
+    },
+    {
+      "source": "DLC_0079/Resource/Image/Tech/Tech_EFSF_0079_1.png",
+      "path": "Resource/Image/Tech/Tech_0093_EFSF_1.png",
+      "sha256": "0bb771b41b3ecee30389834480dac819994cd3673e66b59e3385b7d19e4d4041",
+      "dimensions": [
+        33,
+        32
+      ],
+      "reason": "user-selected 0079 emblem/base icon, renamed for 0093"
+    },
+    {
+      "source": "DLC_0079/Resource/Image/Tech/Tech_ZEON_0079_1.png",
+      "path": "Resource/Image/Tech/Tech_0093_NZN_1.png",
+      "sha256": "ca13e34623f6fe2df15d700cce8504e20ce09f02353f172da3f497e23f289fb4",
+      "dimensions": [
+        33,
+        32
+      ],
+      "reason": "user-selected 0079 emblem/base icon, renamed for 0093"
+    },
+    {
+      "source": "DLC_0079/Resource/Image/Icon/Faction_ZEON_0079_1.png",
+      "path": "Resource/Image/Icon/Faction_0093_NZN_1.png",
+      "sha256": "151f654e53204305e8fb0a23329349dc092de45fe4f45d191beb94738903da61",
+      "dimensions": [
+        104,
+        64
+      ],
+      "reason": "user-selected 0079 emblem/base icon, renamed for 0093"
+    },
+    {
+      "source": "DLC_0079/Resource/Image/Icon/Faction_ZEON_0079_2.png",
+      "path": "Resource/Image/Icon/Faction_0093_NZN_2.png",
+      "sha256": "dcd426b5d87b2d42268baa9fb5bc2e958da7ae7557b8e2c44e66a74a38514f29",
+      "dimensions": [
+        65,
+        64
+      ],
+      "reason": "user-selected 0079 emblem/base icon, renamed for 0093"
+    },
+    {
+      "source": "DLC_0079/Resource/Image/Icon/Faction_ZEON_0079_3.png",
+      "path": "Resource/Image/Icon/Faction_0093_NZN_3.png",
+      "sha256": "fa1966508b1d1defb3283c7aa93d548da8987adc9371eb3bc5425726687ff2a2",
+      "dimensions": [
+        65,
+        64
+      ],
+      "reason": "user-selected 0079 emblem/base icon, renamed for 0093"
     }
   ],
   "relocated_images": {
@@ -149,5 +187,96 @@
     ],
     "runtime_pack": "Main",
     "source_pack": "DLC_0093"
-  }
+  },
+  "ordinary_pilots": {
+    "location": "Main",
+    "factions": [
+      "0093_EFSF",
+      "0093_NZN"
+    ],
+    "report": "0093_普通驾驶员接入.json"
+  },
+  "preexisting_deleted": [
+    "GW_BattleUniverse_Main/Resource/Image/Title/top_GL_G0520.png",
+    "GW_BattleUniverse_Main/Resource/Image/Title/top_GL_G0590.png",
+    "GW_BattleUniverse_Main/Resource/Image/Title/top_GL_G0640.png",
+    "GW_BattleUniverse_Main/Resource/Image/Title/top_GL_G0680.png"
+  ],
+  "base_content": {
+    "report": "0093_Base科技接入.json",
+    "factions": {
+      "0093_EFSF": [
+        "RGM_86R_0093_EFSF",
+        "SalamisClassKai_0093_EFSF"
+      ],
+      "0093_NZN": [
+        "AMX_101_0093_NZN",
+        "MusaiClassFinalType_0093_NZN"
+      ]
+    },
+    "categories": [
+      "Land",
+      "Mega",
+      "Space",
+      "Space_Mega"
+    ],
+    "battle_folders": [
+      "AMX_101_0093_NZN",
+      "MusaiClassFinalType_0093_NZN",
+      "RGM_86R_0093_EFSF",
+      "SalamisClassKai_0093_EFSF"
+    ]
+  },
+  "icon_update_0079": [
+    {
+      "source": "DLC_0079/Resource/Image/Tech/Tech_EFSF_0079_1.png",
+      "path": "Resource/Image/Tech/Tech_0093_EFSF_1.png",
+      "sha256": "0bb771b41b3ecee30389834480dac819994cd3673e66b59e3385b7d19e4d4041",
+      "dimensions": [
+        33,
+        32
+      ],
+      "reason": "user-selected 0079 emblem/base icon, renamed for 0093"
+    },
+    {
+      "source": "DLC_0079/Resource/Image/Tech/Tech_ZEON_0079_1.png",
+      "path": "Resource/Image/Tech/Tech_0093_NZN_1.png",
+      "sha256": "ca13e34623f6fe2df15d700cce8504e20ce09f02353f172da3f497e23f289fb4",
+      "dimensions": [
+        33,
+        32
+      ],
+      "reason": "user-selected 0079 emblem/base icon, renamed for 0093"
+    },
+    {
+      "source": "DLC_0079/Resource/Image/Icon/Faction_ZEON_0079_1.png",
+      "path": "Resource/Image/Icon/Faction_0093_NZN_1.png",
+      "sha256": "151f654e53204305e8fb0a23329349dc092de45fe4f45d191beb94738903da61",
+      "dimensions": [
+        104,
+        64
+      ],
+      "reason": "user-selected 0079 emblem/base icon, renamed for 0093"
+    },
+    {
+      "source": "DLC_0079/Resource/Image/Icon/Faction_ZEON_0079_2.png",
+      "path": "Resource/Image/Icon/Faction_0093_NZN_2.png",
+      "sha256": "dcd426b5d87b2d42268baa9fb5bc2e958da7ae7557b8e2c44e66a74a38514f29",
+      "dimensions": [
+        65,
+        64
+      ],
+      "reason": "user-selected 0079 emblem/base icon, renamed for 0093"
+    },
+    {
+      "source": "DLC_0079/Resource/Image/Icon/Faction_ZEON_0079_3.png",
+      "path": "Resource/Image/Icon/Faction_0093_NZN_3.png",
+      "sha256": "fa1966508b1d1defb3283c7aa93d548da8987adc9371eb3bc5425726687ff2a2",
+      "dimensions": [
+        65,
+        64
+      ],
+      "reason": "user-selected 0079 emblem/base icon, renamed for 0093"
+    }
+  ]
 }
