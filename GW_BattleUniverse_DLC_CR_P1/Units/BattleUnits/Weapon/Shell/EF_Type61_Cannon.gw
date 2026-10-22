@@ -1,0 +1,121 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw
+"""
+@memory EF_Type61_Cannon_OnCD:bool
+@memory EF_Type61_Cannon_CDTimer:float
+@global EF_Type61_Cannon_CD=4
+@global EF_Type61_Cannon_EN=8
+
+@global EF_Type61_Cannon_Shoot=2
+[resource_EF_Type61_Cannon_ShootTimer]
+hidden:true
+
+
+
+
+
+
+
+[turret_EF_Type61_Cannon]
+x:0
+y:0
+
+canShoot:true
+onShoot_triggerActions:SendEnemyTryAttack_Shoot
+canAttackCondition:"""
+if ${onAttacking}==false and ${cantAction}==false 
+"""
+showRangeUIGuide:false
+projectile:EF_Type61_Cannon_Projectile
+resourceUsage:EF_Type61_Cannon_ShootTimer=1,en=${EF_Type61_Cannon_EN}
+
+delay:0.0s
+canAttackMaxAngle:3
+barrelX:3
+barrelOffsetX_onOddShots:-6
+barrelY:15
+turnSpeed:1.0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\Bazooka_1.ogg
+shoot_sound_vol:0.35
+shoot_flame:BZ_Fire_1
+
+
+idleSweepAngle:15
+idleSweepAddRandomAngle:10
+idleSweepDelay:240
+idleSweepAddRandomDelay:120
+idleSweepSpeed:0.25
+idleSweepCondition:if memory.close==false
+
+
+[projectile_EF_Type61_Cannon_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Bazooka_S*1
+(
+    addResources=
+    ShellDamage:1500
+    |DpDamage:100
+    |WeaponAccuracy=90
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=2.0
+    |PilotDamageModifier=2.0
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.2 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=2
+    |HeightHitRange=20
+    |ProjectileSpeed:55
+    |ProjectileSpread:3
+    |ProjectileExplosionRange:30
+    |ProjectileLife:25
+)
+"""
+
+
+
+[hiddenAction_EF_Type61_Cannon_CDStart]
+autoTrigger:"""
+if memory.EF_Type61_Cannon_OnCD==false 
+and 
+(
+    (
+        self.resource.EF_Type61_Cannon_ShootTimer<=0 
+    ) 
+    or 
+    (
+        self.resource.EF_Type61_Cannon_ShootTimer<${EF_Type61_Cannon_Shoot} and not self.hasTags(includes='inBattle')
+    )
+)
+"""
+setUnitMemory:EF_Type61_Cannon_OnCD=true,EF_Type61_Cannon_CDTimer=self.timeAlive+${EF_Type61_Cannon_CD}
+
+[hiddenAction_EF_Type61_Cannon_CDEnd]
+autoTriggerOnEvent:created
+autoTrigger:if memory.EF_Type61_Cannon_OnCD==true and self.timeAlive>memory.EF_Type61_Cannon_CDTimer
+setUnitMemory:EF_Type61_Cannon_OnCD=false
+setResourcesWithLogic:EF_Type61_Cannon_ShootTimer=${EF_Type61_Cannon_Shoot}

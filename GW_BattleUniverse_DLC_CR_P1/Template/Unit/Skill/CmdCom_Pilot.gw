@@ -1,0 +1,82 @@
+
+[core]
+
+dont_load:false
+
+@memory cmdComActive:bool
+@memory cmdComRange:float
+@global cmdComRangeExtra=0
+
+@memory cmdComEffectFrame:float
+
+[hiddenAction_UpdatecmdComEffectFrame]
+autoTriggerOnEvent:newMessage(withTag="UpdateSub")
+setUnitMemory:cmdComEffectFrame=select(memory.cmdComEffectFrame>=7-0.5,0,memory.cmdComEffectFrame+0.5)
+
+
+[hiddenAction_Check_CmdCom]
+autoTrigger:true
+alsoTriggerAction:"""
+Check_CmdComActive,
+Check_CmdComRange
+"""
+[hiddenAction_Check_CmdComActive]
+setUnitMemory:"""
+cmdComActive=select
+(
+    memory.pilotLeadershipSkill>=75,
+    true,
+    false
+)
+"""
+[hiddenAction_Check_CmdComRange]
+setUnitMemory:"""
+cmdComRange=150+1*memory.pilotLeadershipSkill+${cmdComRangeExtra}
+"""
+
+
+[hiddenAction_cmdCom_CheckNearAlly_Unit]
+autoTrigger:if memory.cmdComActive==true and not self.hasTags(includes='inHangar')
+takeResources_includeUnitsWithinRange_team:ally
+takeResources_includeUnitsWithinRange:1000
+takeResources_excludeUnitsWithoutTags:BattleUnitCore
+takeResources_maxUnits:300
+takeResources_searchOnly:true
+takeResources_triggerActionForEach:cmdCom_CheckNearAlly_Unit_Step2
+[hiddenAction_cmdCom_CheckNearAlly_Unit_Step2]
+requireConditional:"""
+if distanceBetween(self, thisActionTarget)<=memory.cmdComRange 
+and thisActionTarget!=self.parent 
+"""
+sendMessageTo:thisActionTarget
+sendMessageWithTags:CmdBUFF
+sendMessageWithData:"""
+cmdComTimer=1
+"""
+
+
+
+[decal_cmdComEffect]
+layer:shadow
+order:1
+image:ROOT:Resource/Image/Fx/Unit/Image/CmdCom_1.png
+alpha:0.25
+onlyTeam:ally
+color:#83FF00
+total_frames:7
+frame:memory.cmdComEffectFrame
+imageScale:memory.cmdComRange/150
+onlyOnNonPreview:true
+onlyWhileAlive:true
+isVisible:if self.resource.ForceHideUI==0 and memory.cmdComActive==true
+[decal_cmdCom_Range]
+layer: shadow
+order:1
+alpha:0.25
+onlyTeam:ally
+image:ROOT:Resource/Image/Ring/Ring150_CmdCom.png
+imageScale:memory.cmdComRange/150
+alwaysStartDirAtZero:true
+onlyWhileAlive:true
+isVisible:if self.resource.ForceHideUI==0 and memory.cmdComActive==true
+#onlyWhenSelectedByAnyPlayer:true

@@ -1,0 +1,99 @@
+[core]
+dont_load:true
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_Flash_1.gw
+"""
+
+@memory Pilot_ExpUp_Active:bool
+@memory Pilot_ExpUp_ActiveTimer:float
+@global Pilot_ExpUp_ActiveTime:15
+@memory Pilot_ExpUp_CDTimer:float
+@global Pilot_ExpUp_CD=90
+
+@memory Pilot_ExpUp_Exp:float
+@global Pilot_ExpUp_ExpUp:1.75
+
+
+
+
+
+[hiddenAction_Pilot_ExpUp_Check]
+autoTrigger:true
+setUnitMemory:"""
+Pilot_ExpUp_Exp=select(memory.Pilot_ExpUp_Active==true,${Pilot_ExpUp_ExpUp},1)
+"""
+
+[hiddenAction_Check_UnitBuffRule_Exp]
+setUnitMemory:pilotBuffRuleExpModifier=1*memory.Pilot_ExpUp_Exp
+
+[action_Pilot_ExpUp_Trigger]
+pos:10
+text:"""
+ExpGenUp 
+%{
+    select(memory.Pilot_ExpUp_Active==true,
+    str(int(memory.Pilot_ExpUp_ActiveTimer-self.timeAlive))+"s",
+    select(self.timeAlive<=memory.Pilot_ExpUp_CDTimer,"CD:" + str(int(memory.Pilot_ExpUp_CDTimer-self.timeAlive))+"s","OK"))
+}
+"""
+text_zh:"""
+经验值上升 
+%{
+    select(memory.Pilot_ExpUp_Active==true,
+    str(int(memory.Pilot_ExpUp_ActiveTimer-self.timeAlive))+"秒",
+    select(self.timeAlive<=memory.Pilot_ExpUp_CDTimer,"冷却中:" + str(int(memory.Pilot_ExpUp_CDTimer-self.timeAlive))+"秒","OK"))
+}
+"""
+text_KP:100
+
+description:ExpGen Up 75% in 15sec
+description_zh:15秒内经验值获取提高75%
+
+displayType:infoOnly
+
+price:EN=100
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+highPriorityQueue:true
+ai_isDisabled:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Skill/Pilot_ExpUp.png
+
+isVisible:if not self.hasTags(includes='inHangar')
+
+
+
+isGuiBlinking:"""
+if self.timeAlive>memory.Pilot_ExpUp_CDTimer and memory.Pilot_ExpUp_Active==false
+"""
+
+isLocked:if self.timeAlive<=memory.Pilot_ExpUp_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+isLockedAlt:if memory.Pilot_ExpUp_Active==true
+isLockedAltMessage:In Action
+isLockedAltMessage_zh:行动中
+
+alsoTriggerAction:"""
+Pilot_ExpUp_Step_1
+"""
+[hiddenAction_Pilot_ExpUp_Step_1]
+spawnEffects:Flash_1_N
+playSoundAtUnit:ROOT:Resource/Sound/SE/Action/Common/Action_8.ogg:0.5
+
+setUnitMemory:"""
+Pilot_ExpUp_Active=true,
+Pilot_ExpUp_ActiveTimer=self.timeAlive+${Pilot_ExpUp_ActiveTime}
+"""
+
+[hiddenAction_Pilot_ExpUp_CheckOver]
+autoTrigger:"""
+if memory.Pilot_ExpUp_Active==true 
+and self.timeAlive>memory.Pilot_ExpUp_ActiveTimer
+"""
+setUnitMemory:"""
+Pilot_ExpUp_Active=false,
+Pilot_ExpUp_CDTimer=self.timeAlive+${Pilot_ExpUp_CD}
+"""

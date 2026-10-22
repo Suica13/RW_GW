@@ -1,0 +1,149 @@
+[core]
+copyFrom:"""
+ROOT:Template/Unit/Animation/Sp/Common_System_A.gw,
+ROOT:Resource/Image/Fx/System/System_Red_Bot_1.gw,
+ROOT:Resource/Image/Fx/System/System_Red_Top_1.gw,
+ROOT:Resource/Image/Fx/Common/Common_Light_1_Red.gw
+"""
+dont_load:true
+showInEditor:false
+
+@memory EXAM_CD:float
+@memory EXAM_Timer:float
+
+[decal_Boost]
+image:ROOT:\Resource\Image\Fx\Unit\Image\Boost_1_Red.png
+[decal_BoostReversing]
+image:ROOT:Resource/Image/Fx/Unit/Image/BoostReversing_1_Red.png
+
+[action_EXAM]
+pos:10
+buildSpeed:0s
+
+text:[EXAM System:%{memory.EXAM_Timer-self.timeAlive}s]
+text_zh:[EXAM系统:%{memory.EXAM_Timer-self.timeAlive}s]
+
+isGuiBlinking:true
+
+description:"""
+During activation, performance is greatly enhanced
+\nThe unit and pilot will suffer continuous damage
+\nForced termination if the head is damaged, durability is low, or the pilot dies
+\nNote: Automatically activates when an enemy unit equipped with the EXAM system is within 500 yards
+\nNote: When the pilot's HP is low, the unit will enter Out of Control mode and indiscriminately attack everyone
+\nThe pilot will be unable to eject
+"""
+description_zh:"""
+发动期间性能大幅提升
+\n机体与驾驶员将受到持续性伤害
+\n头部损坏或耐久较低或驾驶员死亡时强制结束
+\n注意:500码内有敌方搭载EXAM的机体时自动开启
+\n注意:驾驶员生命值较低时将进入暴走模式,无差别攻击所有人
+\n驾驶员将无法脱出
+"""
+
+displayType:infoOnly
+
+isVisible:if self.parent.hp<=0 
+
+iconImage:ROOT:Resource/Image/Units/Button/Skill/EXAM.png
+
+
+[action_UnloadPilot]
+autoTrigger:false
+isLocked:true
+isLockedMessage:No Allow To Exit
+isLockedMessage_zh:不允许脱出
+[action_ChangePilotWithTarget]
+isVisible:false
+[hiddenAction_Get_TryChangePilotWithTarget]
+requireConditional:false
+
+[hiddenAction_EXAMTimer]
+autoTriggerOnEvent:newMessage(withTag="UpdateSub")
+setResourcesWithLogic:hp=self.hp-self.maxHp*0.05*0.1
+sendMessageTo:memory.pilotUnit
+sendMessageWithTags:Damage
+sendMessageWithData:"""
+Damage=select(memory.pilotUnit.tags(includes='CNT') or memory.pilotUnit.tags(includes='NT') or memory.pilotUnit.tags(includes='EXAM_Pilot'),1,3)
+"""
+[hiddenAction_EXAMTimer_ChangeTeam]
+autoTrigger:if memory.pilotUnit.hp<=memory.pilotUnit.maxHp*0.3 and self.teamId!=-2
+switchToTeam:-2
+
+[hiddenAction_EXAMTimer_CheckEnd]
+autoTrigger:"""
+if 
+select
+(
+    memory.pilotUnit.hp<=0 or memory.headBreaked==true or self.timeAlive>=memory.EXAM_Timer,
+    true,
+    select
+    (
+        self.numberOfUnitsInEnemyTeam(withTag="EXAM_Unit",withinrange=500)<=0,
+        self.hp<=self.maxHp*0.15,
+        false
+    ) 
+) 
+and self.hp>0
+"""
+alsoTriggerAction:EXAMEnd_Stun,EXAMEnd_KillPilot,EXAMEnd_Transform
+playSoundAtUnit:ROOT:Resource/Sound/SE/Action/System/Shutdown_1.ogg:1.0
+
+
+
+
+[hiddenAction_EXAM_CheckEnemyEXAM]
+autoTrigger:"""
+if self.numberOfUnitsInEnemyTeam(withTag="EXAM_Unit",withinrange=500)>=0 
+and not self.attacking.tags(includes='EXAM_Unit')
+"""
+addWaypoint_target_nearestUnit_tagged:EXAM_Unit
+addWaypoint_target_nearestUnit_maxRange:500
+addWaypoint_target_nearestUnit_team:Enemy
+addWaypoint_type:attack
+
+
+[hiddenAction_EXAMEnd_Stun]
+sendMessageTo:self.attachment(slot='BattleUnitCore')
+sendMessageWithTags:DeBuff
+sendMessageWithData:"""
+stunDamage=3
+"""
+stopLastAnimation:true
+
+[hiddenAction_EXAMEnd_KillPilot]
+requireConditional:if memory.pilotUnit.teamId==-2
+sendMessageTo:memory.pilotUnit
+sendMessageWithTags:Damage
+sendMessageWithData:"""
+DamagePer=1
+"""
+switchToTeam:-1
+
+
+[hiddenAction_EXAMEnd_Transform]
+sendMessageTo:self.attachment(slot='BattleUnitCore')
+sendMessageWithTags:Transform
+
+setUnitMemory:EXAM_CD=self.timeAlive+90
+
+#convertTo:
+convertTo_keepCurrentTags:true
+convertTo_keepCurrentFields:"""
+selfRegenRate,
+shieldRegen,
+maxEnergy,
+armour,
+mass,
+movespeed,
+maxTurnSpeed,
+maxAttackRange,
+nanoRange,
+fogOfWarSightRange,
+nanoFactorySpeed,
+targetHeight
+"""
+whenBuilding_triggerAction:SetAttackingOff
+alsoTriggerAction:Send_TryClearQueued,Send_TryTransform
+

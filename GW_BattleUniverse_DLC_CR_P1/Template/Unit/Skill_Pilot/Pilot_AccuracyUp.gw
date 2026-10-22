@@ -1,0 +1,99 @@
+[core]
+dont_load:true
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_Flash_1.gw
+"""
+
+@memory Pilot_AccuracyUp_Active:bool
+@memory Pilot_AccuracyUp_ActiveTimer:float
+@global Pilot_AccuracyUp_ActiveTime:15
+@memory Pilot_AccuracyUp_CDTimer:float
+@global Pilot_AccuracyUp_CD=90
+
+@memory Pilot_AccuracyUp_Accuracy:float
+@global Pilot_AccuracyUp_AccuracyUp:1.75
+
+
+
+
+
+[hiddenAction_Pilot_AccuracyUp_Check]
+autoTrigger:true
+setUnitMemory:"""
+Pilot_AccuracyUp_Accuracy=select(memory.Pilot_AccuracyUp_Active==true,${Pilot_AccuracyUp_AccuracyUp},1)
+"""
+
+[hiddenAction_Check_UnitBuffRule_Accuracy]
+setUnitMemory:pilotBuffRuleAccuracyModifier=1*memory.Pilot_AccuracyUp_Accuracy
+
+[action_Pilot_AccuracyUp_Trigger]
+pos:10
+text:"""
+AccuracyUp 
+%{
+    select(memory.Pilot_AccuracyUp_Active==true,
+    str(int(memory.Pilot_AccuracyUp_ActiveTimer-self.timeAlive))+"s",
+    select(self.timeAlive<=memory.Pilot_AccuracyUp_CDTimer,"CD:" + str(int(memory.Pilot_AccuracyUp_CDTimer-self.timeAlive))+"s","OK"))
+}
+"""
+text_zh:"""
+命中率上升 
+%{
+    select(memory.Pilot_AccuracyUp_Active==true,
+    str(int(memory.Pilot_AccuracyUp_ActiveTimer-self.timeAlive))+"秒",
+    select(self.timeAlive<=memory.Pilot_AccuracyUp_CDTimer,"冷却中:" + str(int(memory.Pilot_AccuracyUp_CDTimer-self.timeAlive))+"秒","OK"))
+}
+"""
+text_KP:100
+
+description:Accuracy Up 75% in 15sec
+description_zh:15秒内命中率提高75%
+
+displayType:infoOnly
+
+price:EN=100
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+highPriorityQueue:true
+ai_isDisabled:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Skill/Pilot_AccuracyUp.png
+
+isVisible:if not self.hasTags(includes='inHangar')
+
+
+
+isGuiBlinking:"""
+if self.timeAlive>memory.Pilot_AccuracyUp_CDTimer and memory.Pilot_AccuracyUp_Active==false
+"""
+
+isLocked:if self.timeAlive<=memory.Pilot_AccuracyUp_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+isLockedAlt:if memory.Pilot_AccuracyUp_Active==true
+isLockedAltMessage:In Action
+isLockedAltMessage_zh:行动中
+
+alsoTriggerAction:"""
+Pilot_AccuracyUp_Step_1
+"""
+[hiddenAction_Pilot_AccuracyUp_Step_1]
+spawnEffects:Flash_1_N
+playSoundAtUnit:ROOT:Resource/Sound/SE/Action/Common/Action_8.ogg:0.5
+
+setUnitMemory:"""
+Pilot_AccuracyUp_Active=true,
+Pilot_AccuracyUp_ActiveTimer=self.timeAlive+${Pilot_AccuracyUp_ActiveTime}
+"""
+
+[hiddenAction_Pilot_AccuracyUp_CheckOver]
+autoTrigger:"""
+if memory.Pilot_AccuracyUp_Active==true 
+and self.timeAlive>memory.Pilot_AccuracyUp_ActiveTimer
+"""
+setUnitMemory:"""
+Pilot_AccuracyUp_Active=false,
+Pilot_AccuracyUp_CDTimer=self.timeAlive+${Pilot_AccuracyUp_CD}
+"""

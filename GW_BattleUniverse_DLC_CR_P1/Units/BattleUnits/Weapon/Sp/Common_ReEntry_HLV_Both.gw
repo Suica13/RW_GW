@@ -1,0 +1,67 @@
+[core]
+dont_load:true
+copyFrom:"""
+Common_ReEntry_HLV.gw,
+Common_ReEntry_HLV_FromSpace.gw
+"""
+
+
+[decal_Common_ReEntry_HLV_BotEffect]
+layer:beforeUI
+order:10
+onlyWhileAlive:true
+image:ROOT:Resource/Image/Fx/Weapon/Sp/Image/Dash_Orange_1.png
+imageScale:3
+alpha:0.5
+xOffsetRelative:0
+yOffsetRelative:-10
+dirOffset:0
+isVisible:"""
+if 
+(
+    (memory.Common_ReEntry_HLV_CanBeTargetUnit==false and memory.Common_ReEntry_HLV_Active==true) 
+    or 
+    (memory.Common_ReEntry_HLV_FromSpace_CanBeTargetUnit==false and memory.Common_ReEntry_HLV_FromSpace_Active==true) 
+)
+"""
+[decal_Common_ReEntry_HLV_FromSpace_BotEffect]
+isVisible:false
+
+[decal_Common_ReEntry_HLV_SpeedLine_1]
+@copyFromSection:decal_SpeedLine_1
+isVisible:"""
+if 
+(
+    memory.Common_ReEntry_HLV_Active==true
+    or 
+    memory.Common_ReEntry_HLV_FromSpace_Active==true
+)
+"""
+imageScale:1
+
+[decal_Common_ReEntry_HLV_FromSpace_SpeedLine_1]
+isVisible:false
+
+[hiddenAction_Check_CanBeTargetUnit_Tags_T]
+requireConditional:if (memory.Common_ReEntry_HLV_CanBeTargetUnit==true or memory.Common_ReEntry_HLV_FromSpace_CanBeTargetUnit==true) and not self.tags(includes='CanBeTargetUnit')
+temporarilyAddTags:CanBeTargetUnit
+
+[hiddenAction_Check_CanBeTargetUnit_Tags_F]
+requireConditional:if (memory.Common_ReEntry_HLV_CanBeTargetUnit==false and memory.Common_ReEntry_HLV_FromSpace_CanBeTargetUnit==false) and self.tags(includes='CanBeTargetUnit')
+temporarilyRemoveTags:CanBeTargetUnit
+
+
+[hiddenAction_Check_ReEntry_Tags_T]
+requireConditional:if (memory.Common_ReEntry_HLV_Active==true or memory.Common_ReEntry_HLV_FromSpace_Active==true) and not self.tags(includes='ReEntry')
+temporarilyAddTags:ReEntry
+
+[hiddenAction_Check_ReEntry_Tags_F]
+requireConditional:if (memory.Common_ReEntry_HLV_Active==false and memory.Common_ReEntry_HLV_FromSpace_Active==false) and self.tags(includes='ReEntry')
+temporarilyRemoveTags:ReEntry
+
+
+[hiddenAction_HLV_SetBodyDir]
+autoTrigger:"""
+if self.resource().TileMode==0 and memory.Common_ReEntry_HLV_Active==false and memory.Common_ReEntry_HLV_FromSpace_Active==false
+"""
+setBodyRotation:-90

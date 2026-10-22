@@ -1,0 +1,169 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Beam/Common/Beam_Fire_1_Blue.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_Two_Handed_A.gw
+"""
+
+@memory AEUG_MSA_0011_BeamSmartGun_CDTimer:float
+@global AEUG_MSA_0011_BeamSmartGun_CD=4
+@global AEUG_MSA_0011_BeamSmartGun_EN=90
+
+
+
+[decal_AEUG_MSA_0011_BeamSmartGun]
+layer:beforeBody
+order:5.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Beam\Image\AEUG_MSA_0011_BeamSmartGun.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:1
+xOffsetRelative: 4
+yOffsetRelative: 24
+dirOffset:0
+[decal_AEUG_MSA_0011_BeamSmartGun_NotUsing]
+@copyFromSection:decal_AEUG_MSA_0011_BeamSmartGun
+isVisible:false
+order:3
+basePositionFromLegEnd:arm1
+imageScale:0.85
+xOffsetRelative: -2
+yOffsetRelative:-12
+dirOffset:-90
+
+
+
+
+
+
+
+[turret_AEUG_MSA_0011_BeamSmartGun]
+x:0
+y:0
+
+canShoot:false
+projectile:AEUG_MSA_0011_BeamSmartGun_Projectile
+
+delay:0.2s
+canAttackMaxAngle:15
+barrelX:9
+barrelY:40
+limitingRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\BeamCannon_2.ogg
+shoot_sound_vol:0.6
+shoot_flame:Beam_Fire_1_Blue
+
+
+
+[projectile_AEUG_MSA_0011_BeamSmartGun_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_AP_BeamRifle_Blue*1
+(
+    addResources=
+    BeamDamage:12000
+    |BeamAPDamage:6000
+    |DpDamage:350
+    |WeaponAccuracy=85
+    |PartBreakModifier=1
+    |CockpitBreakModifier=1
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1 
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1 
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=3
+    |HeightHitRange=25
+    |ProjectileSpeed:150
+    |ProjectileSpread:1
+    |ProjectileLife:30
+
+    |ProjectileAttackTimes:3
+    |ProjectileAttackTimesDamageModifier:0.75
+
+    |EquipmentIndex=2
+    |EquipmentIndex2=1000
+),
+
+Projectile_BeamSniper_Blue_Effect*1
+(
+    addResources=
+    ProjectileSpeed:0.75
+    |ProjectileSpread:1
+    |ProjectileLife:25
+)
+"""
+
+
+
+
+
+[hiddenAction_AEUG_MSA_0011_BeamSmartGun_Trigger]
+alsoTriggerAction:AEUG_MSA_0011_BeamSmartGun_Fire
+[hiddenAction_AEUG_MSA_0011_BeamSmartGun_Fire]
+requireConditional:"""
+if self.timeAlive>memory.AEUG_MSA_0011_BeamSmartGun_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15) 
+and self.resource.EN>0
+"""
+setUnitMemory:AEUG_MSA_0011_BeamSmartGun_CDTimer=self.timeAlive+${AEUG_MSA_0011_BeamSmartGun_CD}
+addResources:EN=-${AEUG_MSA_0011_BeamSmartGun_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+AEUG_MSA_0011_BeamSmartGun_SetWeaponIndex,
+PlayCommon_Shoot_Two_Handed_A_Step_1,
+AEUG_MSA_0011_BeamSmartGun_B1_Step_1
+"""
+[hiddenAction_AEUG_MSA_0011_BeamSmartGun_B1_Step_1]
+alsoQueueAction:"""
+AEUG_MSA_0011_BeamSmartGun_Fire_Step_1,
+AEUG_MSA_0011_BeamSmartGun_Fire_Step_2,
+AEUG_MSA_0011_BeamSmartGun_Fire_Step_Final
+"""
+
+
+
+[hiddenAction_AEUG_MSA_0011_BeamSmartGun_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_AEUG_MSA_0011_BeamSmartGun_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.35s
+[hiddenAction_AEUG_MSA_0011_BeamSmartGun_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:AEUG_MSA_0011_BeamSmartGun
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_AEUG_MSA_0011_BeamSmartGun_Fire_Step_Final]
+buildSpeed:0.35s
+alsoTriggerAction:SetAttackingOff
+

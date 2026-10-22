@@ -1,0 +1,124 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw
+"""
+
+@memory ZN_MS_12_Cannon_OnCD:bool
+@memory ZN_MS_12_Cannon_CDTimer:float
+@global ZN_MS_12_Cannon_CD=6
+@global ZN_MS_12_Cannon_EN=35
+
+@global ZN_MS_12_Cannon_Shoot=1
+[resource_ZN_MS_12_Cannon_ShootTimer]
+hidden:true
+
+
+
+
+
+
+[turret_ZN_MS_12_Cannon]
+x:0
+y:0
+
+canShoot:true
+canOnlyAttackUnitsWithoutTags:AirUnit
+onShoot_triggerActions:SendEnemyTryAttack_Shoot
+canAttackCondition:"""
+if ${onAttacking}==false and ${cantAction}==false and ${onSkill}==false and distanceBetween(self,self.attacking)>120
+"""
+showRangeUIGuide:false
+projectile:ZN_MS_12_Cannon_Projectile
+resourceUsage:ZN_MS_12_Cannon_ShootTimer=1,en=${ZN_MS_12_Cannon_EN}
+
+
+delay:0.1s
+canAttackMaxAngle:8
+barrelX:4
+barrelOffsetX_onOddShots:-8
+barrelY:20
+turnSpeed:0.5
+
+
+idleSweepAngle:3
+idleSweepAddRandomAngle:10
+idleSweepDelay:240
+idleSweepAddRandomDelay:120
+idleSweepSpeed:0.25
+idleSweepCondition:if memory.close==false
+
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\Bazooka_1.ogg
+shoot_sound_vol:0.35
+shoot_flame:BZ_Fire_1
+
+
+
+[projectile_ZN_MS_12_Cannon_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Bazooka_S*1
+(
+    addResources=
+    ShellDamage:4500
+    |DpDamage:200
+    |WeaponAccuracy=75
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1.0
+    |HeightChangeSpeed=2
+    |HeightHitRange=25
+    |ProjectileSpeed:45
+    |ProjectileSpread:1
+    |ProjectileExplosionRange:30
+    |ProjectileLife:35
+
+    |ProjectileBlastRange:50
+    |ProjectileBlastDamageModifier:0.20
+    |ProjectileBlastDpModifier:1
+)
+"""
+
+
+
+[hiddenAction_ZN_MS_12_Cannon_CDStart]
+autoTrigger:"""
+if memory.ZN_MS_12_Cannon_OnCD==false 
+and 
+(
+    (
+        self.resource.ZN_MS_12_Cannon_ShootTimer<=0 
+    ) 
+    or 
+    (
+        self.resource.ZN_MS_12_Cannon_ShootTimer<${ZN_MS_12_Cannon_Shoot} and not self.hasTags(includes='inBattle')
+    )
+)
+"""
+setUnitMemory:ZN_MS_12_Cannon_OnCD=true,ZN_MS_12_Cannon_CDTimer=self.timeAlive+${ZN_MS_12_Cannon_CD}
+
+[hiddenAction_ZN_MS_12_Cannon_CDEnd]
+autoTriggerOnEvent:created
+autoTrigger:if memory.ZN_MS_12_Cannon_OnCD==true and self.timeAlive>memory.ZN_MS_12_Cannon_CDTimer
+setUnitMemory:ZN_MS_12_Cannon_OnCD=false
+setResourcesWithLogic:ZN_MS_12_Cannon_ShootTimer=${ZN_MS_12_Cannon_Shoot}

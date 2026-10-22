@@ -1,0 +1,25 @@
+[core]
+dont_load:false
+
+@memory spawnTrailEffectCD_RocketTrailLine_1_S:float
+
+
+[effect_RocketTrailLine_1_S]
+priority:low
+life: 15
+alpha: 0.3
+attachedToUnit: false
+image: ROOT:Resource/Image/Fx/Weapon/Shell/Image/RocketTrailLine_1.png
+scaleFrom: 0.75
+scaleTo: 0.5
+fadeOut: true
+color: #dddddd
+xSpeedRelativeRandom: 0.05
+fadeInTime: 10
+yOffsetRelative:-2
+
+
+[hiddenAction_SpawnTrailEffect_RocketTrailLine_1_S]
+autoTrigger:if self.timeAlive>memory.spawnTrailEffectCD_RocketTrailLine_1_S
+setUnitMemory:spawnTrailEffectCD_RocketTrailLine_1_S=self.timeAlive+0.02
+spawnEffects:RocketTrailLine_1_S

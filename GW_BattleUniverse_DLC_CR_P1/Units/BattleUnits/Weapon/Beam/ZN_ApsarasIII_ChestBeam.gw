@@ -1,0 +1,136 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Beam/Common/Beam_Fire_1_Yellow.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Cannon_Shoot_A.gw
+"""
+
+@memory ZN_ApsarasIII_ChestBeam_CDTimer:float
+@global ZN_ApsarasIII_ChestBeam_CD=5
+@global ZN_ApsarasIII_ChestBeam_EN=50
+
+
+
+
+
+
+
+
+
+
+[turret_ZN_ApsarasIII_ChestBeam]
+x:0
+y:0
+
+canShoot:false
+projectile:ZN_ApsarasIII_ChestBeam_Projectile
+
+delay:0.2s
+canAttackMaxAngle:15
+barrelX:0
+barrelY:30
+limitingRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource/Sound/SE/Weapon/Fire/BeamSprayGun_2.ogg
+shoot_sound_vol:0.75
+shoot_flame:Beam_Fire_1_Yellow
+
+
+
+[projectile_ZN_ApsarasIII_ChestBeam_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_BeamShotGun_Long_Yellow*12
+(
+    offsetRandomDir=10,
+    addResources=
+    BeamDamage:3000
+    |DpDamage:40
+    |WeaponAccuracy=85
+    |PartBreakModifier=1
+    |CockpitBreakModifier=1
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.5 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=2
+    |HeightHitRange=20
+    |ProjectileSpeed:60
+    |ProjectileSpread:1
+    |ProjectileLife:12
+)
+"""
+
+
+
+
+
+[hiddenAction_ZN_ApsarasIII_ChestBeam_Trigger]
+alsoTriggerAction:ZN_ApsarasIII_ChestBeam_Fire
+[hiddenAction_ZN_ApsarasIII_ChestBeam_Fire]
+requireConditional:"""
+if self.timeAlive>memory.ZN_ApsarasIII_ChestBeam_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15) 
+and self.resource.EN>0
+"""
+setUnitMemory:ZN_ApsarasIII_ChestBeam_CDTimer=self.timeAlive+${ZN_ApsarasIII_ChestBeam_CD}
+addResources:EN=-${ZN_ApsarasIII_ChestBeam_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+PlayCommon_Cannon_Shoot_A_Step_1,
+ZN_ApsarasIII_ChestBeam_SetWeaponIndex,
+ZN_ApsarasIII_ChestBeam_B1_Step_1
+"""
+[hiddenAction_ZN_ApsarasIII_ChestBeam_B1_Step_1]
+alsoQueueAction:"""
+ZN_ApsarasIII_ChestBeam_Fire_Step_1,
+ZN_ApsarasIII_ChestBeam_Fire_Step_2,
+ZN_ApsarasIII_ChestBeam_Fire_Step_Final
+"""
+
+
+
+[hiddenAction_ZN_ApsarasIII_ChestBeam_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_ZN_ApsarasIII_ChestBeam_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.25s
+[hiddenAction_ZN_ApsarasIII_ChestBeam_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:ZN_ApsarasIII_ChestBeam
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+
+[hiddenAction_ZN_ApsarasIII_ChestBeam_Fire_Step_Final]
+buildSpeed:0.5s
+alsoTriggerAction:SetAttackingOff
+

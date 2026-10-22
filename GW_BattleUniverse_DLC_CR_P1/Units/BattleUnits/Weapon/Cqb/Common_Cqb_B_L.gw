@@ -1,0 +1,139 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Cqb/Common/Cqb_Fire_2_White_L.gw,
+ROOT:Template\Unit\Animation\Cqb\Common_Melee_B_L.gw
+"""
+
+@memory Common_Cqb_B_L_CDTimer:float
+@global Common_Cqb_B_L_CD=3
+
+
+
+
+
+[turret_Common_Cqb_B_L]
+x:0
+y:0
+invisible:true
+
+canShoot:false
+
+showRangeUIGuide:false
+projectile:Common_Cqb_B_L_Projectile
+
+delay:3s
+limitingMinRange:0
+limitingRange:0
+
+canAttackMaxAngle:60
+barrelX:0
+barrelY:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/Fist_1.ogg
+shoot_sound_vol:0.5
+
+[projectile_Common_Cqb_B_L_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Saber_S_B*1
+(
+    addResources=
+    CqbDamage:2000
+    |CqbShellDamage:2000
+    |DpDamage:750
+    |WeaponAccuracy:125
+    |PartBreakModifier=0.5
+    |CockpitBreakModifier=1.0
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:0.25
+    |ProjectileAttackTimes:1
+)
+"""
+
+
+
+
+
+
+
+
+
+[hiddenAction_Common_Cqb_B_L_Trigger]
+alsoTriggerAction:Common_Cqb_B_L_Fire
+[hiddenAction_Common_Cqb_B_L_Fire]
+requireConditional:"""
+if self.timeAlive>memory.Common_Cqb_B_L_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) 
+and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50
+"""
+setUnitMemory:Common_Cqb_B_L_CDTimer=self.timeAlive+${Common_Cqb_B_L_CD}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Cqb,
+Common_Cqb_B_L_SetWeaponIndex,
+PlayCommon_Melee_B_L_Step_1,
+Common_Cqb_B_L_Step_1
+"""
+[hiddenAction_Common_Cqb_B_L_Step_1]
+alsoQueueAction:"""
+Common_Cqb_B_L_Fire_Step_1,
+Common_Cqb_B_L_Fire_Step_2,
+Common_Cqb_B_L_Fire_Step_Final
+"""
+
+
+
+
+
+
+
+[hiddenAction_Common_Cqb_B_L_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_Common_Cqb_B_L_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.4s
+[hiddenAction_Common_Cqb_B_L_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:Common_Cqb_B_L
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+spawnEffects:Cqb_Fire_2_White_L_S
+[hiddenAction_Common_Cqb_B_L_Fire_Step_Final]
+buildSpeed:1.0s
+alsoTriggerAction:SetAttackingOff
+

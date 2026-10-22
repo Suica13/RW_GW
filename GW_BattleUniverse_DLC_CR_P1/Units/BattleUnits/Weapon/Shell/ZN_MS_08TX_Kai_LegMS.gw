@@ -1,0 +1,159 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Cannon_Shoot_A.gw
+"""
+
+
+@memory ZN_MS_08TX_Kai_LegMS_CDTimer:float
+@global ZN_MS_08TX_Kai_LegMS_CD=8
+@global ZN_MS_08TX_Kai_LegMS_EN=20
+
+
+
+
+
+
+
+
+[turret_ZN_MS_08TX_Kai_LegMS]
+x:0
+y:0
+
+canShoot:false
+projectile:ZN_MS_08TX_Kai_LegMS_Projectile
+
+delay:0.15s
+limitingRange:0
+
+canAttackMaxAngle:15
+barrelX:11
+barrelY:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\Missile_1.ogg
+shoot_sound_vol:0.15
+shoot_flame:BZ_Fire_1_S
+[turret_ZN_MS_08TX_Kai_LegMS_L]
+@copyFromSection:turret_ZN_MS_08TX_Kai_LegMS
+barrelX:-11
+
+
+
+[projectile_ZN_MS_08TX_Kai_LegMS_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_MS*1
+(
+    addResources=
+    ShellDamage:1550
+    |DpDamage:135
+    |WeaponAccuracy=85
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=1.0
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=1
+    |AntiLand=1
+    |AntiSpace=1.0
+    |HeightHitRange=20
+    |HeightChangeSpeed=2
+    |ProjectileSpeed:30
+    |ProjectileTurnspeed:1.5
+    |ProjectileSpread:0
+    |ProjectileExplosionRange:35
+    |ProjectileLife:50
+)
+"""
+
+
+
+
+
+
+
+[hiddenAction_ZN_MS_08TX_Kai_LegMS_Trigger]
+alsoTriggerAction:ZN_MS_08TX_Kai_LegMS_Fire
+[hiddenAction_ZN_MS_08TX_Kai_LegMS_Fire]
+requireConditional:"""
+if self.timeAlive>memory.ZN_MS_08TX_Kai_LegMS_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false 
+and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)  
+and self.resource.EN>0
+"""
+setUnitMemory:ZN_MS_08TX_Kai_LegMS_CDTimer=self.timeAlive+${ZN_MS_08TX_Kai_LegMS_CD}
+addResources:EN=-${ZN_MS_08TX_Kai_LegMS_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+ZN_MS_08TX_Kai_LegMS_SetWeaponIndex,
+ZN_MS_08TX_Kai_LegMS_B6_Step_1,
+PlayCommon_Cannon_Shoot_A_Step_1
+"""
+[hiddenAction_ZN_MS_08TX_Kai_LegMS_B6_Step_1]
+alsoQueueAction:"""
+ZN_MS_08TX_Kai_LegMS_Fire_Step_1,
+
+ZN_MS_08TX_Kai_LegMS_Fire_Step_2,
+ZN_MS_08TX_Kai_LegMS_Fire_Step_3,
+
+ZN_MS_08TX_Kai_LegMS_Fire_Step_2,
+ZN_MS_08TX_Kai_LegMS_Fire_Step_3,
+
+ZN_MS_08TX_Kai_LegMS_Fire_Step_2,
+ZN_MS_08TX_Kai_LegMS_Fire_Step_3,
+
+ZN_MS_08TX_Kai_LegMS_Fire_Step_Final
+"""
+
+
+
+
+
+[hiddenAction_ZN_MS_08TX_Kai_LegMS_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_ZN_MS_08TX_Kai_LegMS_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.2s
+[hiddenAction_ZN_MS_08TX_Kai_LegMS_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false  and memory.legLBreaked==false
+"""
+buildSpeed:0.1s
+fireTurretXAtGround:ZN_MS_08TX_Kai_LegMS
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_ZN_MS_08TX_Kai_LegMS_Fire_Step_3]
+requireConditional:"""
+if ${cantAction}==false  and memory.legRBreaked==false
+"""
+buildSpeed:0s
+fireTurretXAtGround:ZN_MS_08TX_Kai_LegMS_L
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_ZN_MS_08TX_Kai_LegMS_Fire_Step_Final]
+buildSpeed:0.3s
+alsoTriggerAction:SetAttackingOff
+
+

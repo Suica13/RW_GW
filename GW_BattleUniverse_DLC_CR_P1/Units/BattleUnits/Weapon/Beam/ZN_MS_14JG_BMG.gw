@@ -1,0 +1,175 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Beam/Common/Beam_Fire_1_Yellow.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_A.gw
+"""
+
+@memory ZN_MS_14JG_BMG_CDTimer:float
+@global ZN_MS_14JG_BMG_CD=3.5
+@global ZN_MS_14JG_BMG_EN=75
+
+
+
+
+
+[decal_ZN_MS_14JG_BMG]
+layer:beforeBody
+order:4.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Beam\Image\ZN_MS_14JG_BMG.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:1.0
+xOffsetRelative: 3
+yOffsetRelative: 14
+dirOffset:0
+[decal_ZN_MS_14JG_BMG_NotUsing]
+@copyFromSection:decal_ZN_MS_14JG_BMG
+isVisible:false
+order:3
+basePositionFromLegEnd:arm1
+imageScale:0.85
+xOffsetRelative:1
+yOffsetRelative:-10
+dirOffset:-90
+
+
+
+
+
+
+
+[turret_ZN_MS_14JG_BMG]
+x:0
+y:0
+
+canShoot:false
+projectile:ZN_MS_14JG_BMG_Projectile
+
+delay:0.1s
+canAttackMaxAngle:15
+barrelX:10
+barrelY:30
+limitingRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource/Sound/SE/Weapon/Fire/BeamGun_2.ogg
+shoot_sound_vol:0.5
+shoot_flame:Beam_Fire_1_Yellow_S
+
+
+
+[projectile_ZN_MS_14JG_BMG_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_BeamGun_Yellow*1
+(
+    addResources=
+    BeamDamage:1750
+    |DpDamage:50
+    |WeaponAccuracy=95
+    |PartBreakModifier=1
+    |CockpitBreakModifier=1
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.5
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=2
+    |HeightHitRange=25
+    |ProjectileSpeed:80
+    |ProjectileSpread:3
+    |ProjectileLife:25
+)
+"""
+
+
+
+
+
+[hiddenAction_ZN_MS_14JG_BMG_Trigger]
+alsoTriggerAction:ZN_MS_14JG_BMG_Fire
+[hiddenAction_ZN_MS_14JG_BMG_Fire]
+requireConditional:"""
+if self.timeAlive>memory.ZN_MS_14JG_BMG_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  
+and self.resource.EN>0
+"""
+setUnitMemory:ZN_MS_14JG_BMG_CDTimer=self.timeAlive+${ZN_MS_14JG_BMG_CD}
+addResources:EN=-${ZN_MS_14JG_BMG_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+ZN_MS_14JG_BMG_SetWeaponIndex,
+PlayCommon_Shoot_A_Step_1,
+ZN_MS_14JG_BMG_B9_Step_1
+"""
+[hiddenAction_ZN_MS_14JG_BMG_B9_Step_1]
+alsoQueueAction:"""
+ZN_MS_14JG_BMG_Fire_Step_1,
+ZN_MS_14JG_BMG_Fire_Step_2,
+ZN_MS_14JG_BMG_Fire_Step_3,
+
+ZN_MS_14JG_BMG_Fire_Step_3,
+ZN_MS_14JG_BMG_Fire_Step_3,
+ZN_MS_14JG_BMG_Fire_Step_3,
+
+ZN_MS_14JG_BMG_Fire_Step_3,
+ZN_MS_14JG_BMG_Fire_Step_3,
+ZN_MS_14JG_BMG_Fire_Step_3,
+ZN_MS_14JG_BMG_Fire_Step_Final
+"""
+
+
+
+[hiddenAction_ZN_MS_14JG_BMG_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_ZN_MS_14JG_BMG_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.25s
+[hiddenAction_ZN_MS_14JG_BMG_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:ZN_MS_14JG_BMG
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+
+[hiddenAction_ZN_MS_14JG_BMG_Fire_Step_3]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.1s
+fireTurretXAtGround:ZN_MS_14JG_BMG
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+
+
+[hiddenAction_ZN_MS_14JG_BMG_Fire_Step_Final]
+buildSpeed:0.25s
+alsoTriggerAction:SetAttackingOff
+

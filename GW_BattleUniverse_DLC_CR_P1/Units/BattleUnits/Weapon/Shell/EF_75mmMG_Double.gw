@@ -1,0 +1,197 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/MG_Fire_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_StandShoot_A_Double.gw
+"""
+
+
+@memory EF_75mmMG_Double_CDTimer:float
+@global EF_75mmMG_Double_CD=3.5
+@global EF_75mmMG_Double_EN=45
+
+
+
+
+
+[decal_EF_75mmMG_Double]
+layer:beforeBody
+order:5.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Shell\Image\EF_75mmMG.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:0.85
+xOffsetRelative: 0
+yOffsetRelative: 16
+dirOffset:0
+[decal_EF_75mmMG_Double_NotUsing]
+@copyFromSection:decal_EF_75mmMG_Double
+isVisible:false
+order:3
+basePositionFromLegEnd:arm1
+imageScale:0.75
+xOffsetRelative:-1
+yOffsetRelative:-9.5
+dirOffset:-90
+
+[decal_EF_75mmMG_Double_L]
+@copyFromSection:decal_EF_75mmMG_Double
+basePositionFromLegEnd:arm3
+[decal_EF_75mmMG_Double_L_NotUsing]
+@copyFromSection:decal_EF_75mmMG_Double_L
+isVisible:false
+order:3
+basePositionFromLegEnd:arm1
+imageScale:0.75
+xOffsetRelative:1
+yOffsetRelative:-9.5
+dirOffset:90
+
+
+
+
+
+
+
+[turret_EF_75mmMG_Double]
+x:0
+y:0
+
+canShoot:false
+projectile:EF_75mmMG_Double_Projectile
+
+delay:0.035s
+limitingRange:0
+
+canAttackMaxAngle:15
+barrelX:8
+barrelY:20
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\MachineGun_2.ogg
+shoot_sound_vol:0.3
+shoot_flame:MG_Fire_1
+[turret_EF_75mmMG_Double_L]
+@copyFromSection:turret_EF_75mmMG_Double
+barrelX:-8
+
+
+
+[projectile_EF_75mmMG_Double_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_MG*1
+(
+    addResources=
+    ShellDamage:375
+    |DpDamage:35
+    |WeaponAccuracy=100
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=1.0
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=1
+    |AntiLand=1
+    |AntiSpace=1.0
+    |HeightChangeSpeed=2.0
+    |HeightHitRange=20
+    |ProjectileSpeed:75
+    |ProjectileSpread:6
+    |ProjectileLife:20
+)
+"""
+
+
+
+
+
+
+
+[hiddenAction_EF_75mmMG_Double_Trigger]
+alsoTriggerAction:EF_75mmMG_Double_Fire
+[hiddenAction_EF_75mmMG_Double_Fire]
+requireConditional:"""
+if self.timeAlive>memory.EF_75mmMG_Double_CDTimer and ${onAttacking}==false and ${cantAction}==false and ${onSkill}==false  
+and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)  
+and self.resource.EN>0
+"""
+setUnitMemory:EF_75mmMG_Double_CDTimer=self.timeAlive+${EF_75mmMG_Double_CD}
+addResources:EN=-${EF_75mmMG_Double_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+EF_75mmMG_Double_SetWeaponIndex,
+EF_75mmMG_Double_B14_Step_1
+"""
+[hiddenAction_EF_75mmMG_Double_B14_Step_1]
+alsoQueueAction:"""
+EF_75mmMG_Double_Fire_Step_1,
+EF_75mmMG_Double_Fire_Step_2,
+EF_75mmMG_Double_Fire_Step_4,
+EF_75mmMG_Double_Fire_Step_3,
+EF_75mmMG_Double_Fire_Step_4,
+EF_75mmMG_Double_Fire_Step_3,
+EF_75mmMG_Double_Fire_Step_4,
+EF_75mmMG_Double_Fire_Step_3,
+EF_75mmMG_Double_Fire_Step_4,
+EF_75mmMG_Double_Fire_Step_3,
+EF_75mmMG_Double_Fire_Step_4,
+EF_75mmMG_Double_Fire_Step_3,
+EF_75mmMG_Double_Fire_Step_4,
+EF_75mmMG_Double_Fire_Step_3,
+EF_75mmMG_Double_Fire_Step_4,
+EF_75mmMG_Double_Fire_Step_Final
+"""
+
+
+
+
+
+[hiddenAction_EF_75mmMG_Double_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_EF_75mmMG_Double_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.2s
+[hiddenAction_EF_75mmMG_Double_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:EF_75mmMG_Double
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+alsoTriggerAction:PlayCommon_StandShoot_A_Double_Step_1
+[hiddenAction_EF_75mmMG_Double_Fire_Step_3]
+@copyFromSection:hiddenAction_EF_75mmMG_Double_Fire_Step_2
+buildSpeed:${turret_EF_75mmMG_Double.delay}
+[hiddenAction_EF_75mmMG_Double_Fire_Step_4]
+@copyFromSection:hiddenAction_EF_75mmMG_Double_Fire_Step_3
+fireTurretXAtGround:EF_75mmMG_Double_L
+[hiddenAction_EF_75mmMG_Double_Fire_Step_Final]
+buildSpeed:0.2s
+alsoTriggerAction:SetAttackingOff
+
+

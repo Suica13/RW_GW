@@ -1,0 +1,191 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Cqb/Common/Cqb_Fire_1_Pink_R.gw,
+ROOT:Resource/Image/Fx/Weapon/Cqb/Common/Cqb_Fire_1_Pink_L.gw,
+ROOT:Template/Unit/Animation/Cqb/Common_Melee_Double_F.gw
+"""
+
+@memory EF_BeamLance_Double_DF_CDTimer:float
+@global EF_BeamLance_Double_DF_CD=5.5
+
+
+#====================贴画====================#
+
+[decal_EF_BeamLance_Double_DF]
+layer:beforeBody
+order:5.4
+onlyWhileAlive:true
+image:ROOT:Units/BattleUnits/Weapon/Cqb/Image/EF_BeamLancer_S.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:0.75
+imageScaleX:-1
+xOffsetRelative:2
+yOffsetRelative:15
+dirOffset:5
+
+[decal_EF_BeamLance_Double_DF_L]
+@copyFromSection:decal_EF_BeamLance_Double_DF
+basePositionFromLegEnd:arm3
+imageScale:0.75
+imageScaleX:1
+xOffsetRelative:-2
+yOffsetRelative:15
+dirOffset:-5
+
+#========炮弹========#
+
+[turret_EF_BeamLance_Double_DF]
+x:0
+y:0
+invisible:true
+#射击参数
+canShoot:false
+
+showRangeUIGuide:false
+projectile:EF_BeamLance_Double_DF_Projectile
+#实战参数
+delay:3s
+limitingMinRange:0
+limitingRange:0
+#枪管参数
+canAttackMaxAngle:60
+barrelX:0
+barrelY:0
+#后座力参数
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+#音效参数
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\HeatHawk_1.ogg
+shoot_sound_vol:0.5
+
+[projectile_EF_BeamLance_Double_DF_Projectile]
+#炮弹参数
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+#描画参数
+lightSize:0.75
+lightColor:#ff57e9
+explodeEffect:none
+#生成
+spawnUnit:"""
+Projectile_Saber_A*1
+(
+    addResources=
+    CqbDamage:2500
+    |CqbBeamDamage:2500
+    |DpDamage:750
+    |WeaponAccuracy:125
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:0.25
+    |ProjectileAttackTimes:2
+)
+"""
+
+[projectile_EF_BeamLance_Double_DF_L_Projectile]
+@copyFromSection:projectile_EF_BeamLance_Double_DF_Projectile
+spawnUnit:"""
+Projectile_Saber_A_L*1
+(
+    addResources=
+    CqbDamage:2500
+    |CqbBeamDamage:2500
+    |DpDamage:750
+    |WeaponAccuracy:125
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:0.25
+    |ProjectileAttackTimes:2
+)
+"""
+
+#====================逻辑====================#
+
+#========触发========#
+
+[hiddenAction_EF_BeamLance_Double_DF_Trigger]
+alsoTriggerAction:EF_BeamLance_Double_DF_Fire
+[hiddenAction_EF_BeamLance_Double_DF_Fire]
+requireConditional:"""
+if self.timeAlive>memory.EF_BeamLance_Double_DF_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) 
+and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50
+"""
+setUnitMemory:EF_BeamLance_Double_DF_CDTimer=self.timeAlive+${EF_BeamLance_Double_DF_CD}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Cqb,
+EF_BeamLance_Double_DF_SetWeaponIndex,
+PlayCommon_Melee_Double_F_Step_1,
+EF_BeamLance_Double_DF_Step_1
+"""
+[hiddenAction_EF_BeamLance_Double_DF_Step_1]
+alsoQueueAction:"""
+EF_BeamLance_Double_DF_Fire_Step_1,
+EF_BeamLance_Double_DF_Fire_Step_2,
+EF_BeamLance_Double_DF_Fire_Step_3,
+EF_BeamLance_Double_DF_Fire_Step_Final
+"""
+
+#设置武器
+[hiddenAction_EF_BeamLance_Double_DF_SetWeaponIndex]
+isVisible:false
+[hiddenAction_EF_BeamLance_Double_DF_SetWeaponIndex_Step2]
+isVisible:false
+
+#格斗A
+[hiddenAction_EF_BeamLance_Double_DF_Fire_Step_1]
+requireConditional:if ${cantAction}==false
+buildSpeed:0.3s
+[hiddenAction_EF_BeamLance_Double_DF_Fire_Step_2]
+requireConditional:if ${cantAction}==false and memory.armRBreaked==false
+buildSpeed:0s
+fireTurretXAtGround:EF_BeamLance_Double_DF
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+spawnEffects:Cqb_Fire_1_Pink_R
+[hiddenAction_EF_BeamLance_Double_DF_Fire_Step_3]
+requireConditional:if ${cantAction}==false and memory.armLBreaked==false
+buildSpeed:0s
+fireTurretXAtGround:EF_BeamLance_Double_DF
+fireTurretXAtGround_withProjectile:EF_BeamLance_Double_DF_L_Projectile
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+spawnEffects:Cqb_Fire_1_Pink_L
+[hiddenAction_EF_BeamLance_Double_DF_Fire_Step_Final]
+buildSpeed:1.0s
+alsoTriggerAction:SetAttackingOff
+
+

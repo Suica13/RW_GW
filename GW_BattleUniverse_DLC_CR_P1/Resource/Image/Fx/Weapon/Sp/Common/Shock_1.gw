@@ -1,0 +1,35 @@
+[core]
+dont_load:false
+
+[effect_Shock_1]
+life: 200
+
+xOffsetRelative: 0
+yOffsetRelative: 0
+hOffset: 0
+dirOffset: 0
+attachedToUnit: false
+drawUnderUnits:true
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+alpha:0.85
+scaleFrom: 1
+scaleTo: 1
+image:ROOT:Resource/Image/Fx/Weapon/Sp/Image/Shock_1.png
+
+total_frames: 11
+animateFrameStart: 0
+animateFrameEnd: 10
+animateFrameSpeed: 0.15
+showInFog:true
+
+
+
+[effect_Shock_1_L]
+@copyFromSection:effect_Shock_1
+scaleFrom: 1.5
+scaleTo: 1.5

@@ -1,0 +1,157 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw
+"""
+
+@memory EF_PublicClass_AntiShipMS_CDTimer:float
+@global EF_PublicClass_AntiShipMS_CD=180
+@global EF_PublicClass_AntiShipMS_EN=150
+
+
+
+
+
+[turret_EF_PublicClass_AntiShipMS]
+x:0
+y:0
+
+canShoot:false
+showRangeUIGuide:false
+projectile:EF_PublicClass_AntiShipMS_Projectile
+
+delay:0.2s
+limitingRange:600
+limitingAngle:15
+
+canAttackMaxAngle:15
+barrelX:0
+barrelY:20
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\Missile_1.ogg
+shoot_sound_vol:0.15
+shoot_flame:BZ_Fire_1_S
+
+
+
+[projectile_EF_PublicClass_AntiShipMS_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_EF_PublicClass_AntiShipMS_BurningArea_B*1
+(
+    addResources=
+    ShellDamage:8000
+    |DpDamage:250
+    |WeaponAccuracy=85
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=0.5
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=2.0
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.5
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1.5
+    |AntiAqua=0.75
+    |AntiAir=0.75
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange=20
+    |HeightChangeSpeed=2
+    |ProjectileSpeed:20
+    |ProjectileSpread:5
+    |ProjectileExplosionRange:55
+    |ProjectileLife:40
+)
+"""
+
+
+[action_EF_PublicClass_AntiShipMS_Trigger]
+pos:10
+text:AntiShipMS %{select(self.timeAlive<=memory.EF_PublicClass_AntiShipMS_CDTimer,str(int(memory.EF_PublicClass_AntiShipMS_CDTimer-self.timeAlive))+"s","OK")}
+text_zh:对舰导弹 %{select(self.timeAlive<=memory.EF_PublicClass_AntiShipMS_CDTimer,str(int(memory.EF_PublicClass_AntiShipMS_CDTimer-self.timeAlive))+"秒","OK")}
+text_KP:100
+
+displayType:infoOnly
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Missile_3.png
+highPriorityQueue:true
+
+price:EN=${EF_PublicClass_AntiShipMS_EN}
+
+
+isVisible:if self.parent.hp<=0  
+
+isGuiBlinking:"""
+if self.timeAlive>memory.EF_PublicClass_AntiShipMS_CDTimer
+"""
+
+isLocked:if self.timeAlive<=memory.EF_PublicClass_AntiShipMS_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+isLockedAlt2:if ${cantAction}==true or ${onSkill}==true or ${allowAI}==true
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+setUnitMemory:EF_PublicClass_AntiShipMS_CDTimer=self.timeAlive+${EF_PublicClass_AntiShipMS_CD}
+alsoTriggerAction:EF_PublicClass_AntiShipMS_Fire
+[hiddenAction_EF_PublicClass_AntiShipMS_Fire]
+setUnitMemory:EF_PublicClass_AntiShipMS_CDTimer=self.timeAlive+${EF_PublicClass_AntiShipMS_CD} 
+addResourcesWithLogic:EN=-select(self.isControlledByAI(),${EF_PublicClass_AntiShipMS_EN},0)
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+EF_PublicClass_AntiShipMS_SetWeaponIndex,
+EF_PublicClass_AntiShipMS_B2_Step_1
+"""
+[hiddenAction_EF_PublicClass_AntiShipMS_B2_Step_1]
+alsoQueueAction:"""
+EF_PublicClass_AntiShipMS_Fire_Step_1,
+EF_PublicClass_AntiShipMS_Fire_Step_2,
+EF_PublicClass_AntiShipMS_Fire_Step_3,
+EF_PublicClass_AntiShipMS_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_EF_PublicClass_AntiShipMS_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_EF_PublicClass_AntiShipMS_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+[hiddenAction_EF_PublicClass_AntiShipMS_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:EF_PublicClass_AntiShipMS
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_EF_PublicClass_AntiShipMS_Fire_Step_3]
+@copyFromSection:hiddenAction_EF_PublicClass_AntiShipMS_Fire_Step_2
+buildSpeed:${turret_EF_PublicClass_AntiShipMS.delay}
+[hiddenAction_EF_PublicClass_AntiShipMS_Fire_Step_Final]
+buildSpeed:0.3s
+alsoTriggerAction:SetAttackingOff

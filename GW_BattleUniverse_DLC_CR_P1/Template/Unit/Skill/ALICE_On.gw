@@ -1,0 +1,99 @@
+[core]
+copyFrom:"""
+ROOT:Template/Unit/Animation/Sp/Common_System_A.gw,
+ROOT:Resource/Image/Fx/System/System_Red_Bot_1.gw,
+ROOT:Resource/Image/Fx/System/System_Red_Top_1.gw,
+ROOT:Resource/Image/Fx/Common/Common_Light_1_Red.gw
+"""
+dont_load:true
+showInEditor:false
+
+@memory ALICE_CD:float
+@memory ALICE_Timer:float
+
+[decal_Boost]
+image:ROOT:\Resource\Image\Fx\Unit\Image\Boost_1_Red.png
+[decal_BoostReversing]
+image:ROOT:Resource/Image/Fx/Unit/Image/BoostReversing_1_Red.png
+
+[action_ALICE]
+pos:10
+buildSpeed:0s
+
+text:[ALICE System:%{memory.ALICE_Timer-self.timeAlive}s]
+text_zh:[ALICE系统:%{memory.ALICE_Timer-self.timeAlive}s]
+
+isGuiBlinking:true
+
+description:"""
+Performance greatly improved during activation
+\nThe unit will continuously consume EN
+\nForced to end when the head is damaged
+"""
+description_zh:"""
+发动期间性能大幅提升
+\n机体将不断消耗EN
+\n头部损坏时强制结束
+"""
+
+displayType:infoOnly
+
+isVisible:if self.parent.hp<=0 
+
+iconImage:ROOT:Resource/Image/Units/Button/Skill/ALICE.png
+
+
+[hiddenAction_ALICETimer]
+autoTriggerOnEvent:newMessage(withTag="UpdateSub")
+setResourcesWithLogic:EN=self.resource().EN-4
+
+[hiddenAction_ALICETimer_CheckEnd]
+autoTrigger:"""
+if 
+select
+(
+    self.resource().EN<=0 or memory.headBreaked==true or self.timeAlive>=memory.ALICE_Timer,
+    true,
+    false
+) 
+and self.hp>0
+"""
+alsoTriggerAction:ALICEEnd_Stun,ALICEEnd_Transform
+playSoundAtUnit:ROOT:Resource/Sound/SE/Action/System/Shutdown_1.ogg:1.0
+
+
+
+[hiddenAction_ALICEEnd_Stun]
+sendMessageTo:self.attachment(slot='BattleUnitCore')
+sendMessageWithTags:DeBuff
+sendMessageWithData:"""
+stunDamage=1
+"""
+stopLastAnimation:true
+
+
+[hiddenAction_ALICEEnd_Transform]
+sendMessageTo:self.attachment(slot='BattleUnitCore')
+sendMessageWithTags:Transform
+
+setUnitMemory:ALICE_CD=self.timeAlive+90
+
+#convertTo:
+convertTo_keepCurrentTags:true
+convertTo_keepCurrentFields:"""
+selfRegenRate,
+shieldRegen,
+maxEnergy,
+armour,
+mass,
+movespeed,
+maxTurnSpeed,
+maxAttackRange,
+nanoRange,
+fogOfWarSightRange,
+nanoFactorySpeed,
+targetHeight
+"""
+whenBuilding_triggerAction:SetAttackingOff
+alsoTriggerAction:Send_TryClearQueued,Send_TryTransform
+

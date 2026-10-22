@@ -1,0 +1,70 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Units/BattleUnits/Weapon/Shell/ZN_120mmMGWithGrenadeLauncher.gw
+"""
+
+
+
+[projectile_ZN_120mmMGWithGrenadeLauncher_Projectile]
+spawnUnit:"""
+Projectile_MG*1
+(
+    addResources=
+    ShellDamage:725
+    |DpDamage:30
+    |WeaponAccuracy=100
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=1.0
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=1
+    |AntiLand=1
+    |AntiSpace=1.0
+    |HeightChangeSpeed=2.0
+    |HeightHitRange=20
+    |ProjectileSpeed:75
+    |ProjectileSpread:5
+    |ProjectileLife:25
+)
+"""
+
+[projectile_ZN_120mmMGWithGrenadeLauncher_Projectile_GD]
+spawnUnit:"""
+Projectile_Bazooka_S*1
+(
+    addResources=
+    ShellDamage:2250
+    |DpDamage:125
+    |WeaponAccuracy=85
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75
+    |AntiLand=1 
+    |AntiSpace=1 
+    |HeightChangeSpeed=2
+    |HeightHitRange=20
+    |ProjectileSpeed:55
+    |ProjectileSpread:2
+    |ProjectileExplosionRange:35
+    |ProjectileLife:25
+)
+"""
+
+
+
+

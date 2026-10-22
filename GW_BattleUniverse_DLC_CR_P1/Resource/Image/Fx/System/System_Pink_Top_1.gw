@@ -1,0 +1,22 @@
+[core]
+dont_load:false
+
+@memory System_Pink_Top_1Frame:float
+
+
+[hiddenAction_UpdateSystem_Pink_Top_1Frame]
+autoTriggerOnEvent:newMessage(withTag="UpdateSub")
+setUnitMemory:System_Pink_Top_1Frame=select(memory.System_Pink_Top_1Frame>=${decal_System_Pink_Top_1.total_frames}-1,0,memory.System_Pink_Top_1Frame+1)
+
+[decal_System_Pink_Top_1]
+layer:beforeBody
+order:10
+onlyWhileAlive:true 
+isVisible:true
+imageScale:1.25
+xOffsetRelative: 0
+yOffsetRelative: 0
+dirOffset:0
+total_frames:5
+frame:memory.System_Pink_Top_1Frame
+image: ROOT:Resource/Image/Fx/System/Image/System_Pink_Top_1.png

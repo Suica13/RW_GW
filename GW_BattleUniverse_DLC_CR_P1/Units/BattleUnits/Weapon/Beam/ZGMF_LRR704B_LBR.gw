@@ -1,0 +1,163 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Beam/Common/Beam_Fire_1_Green.gw,
+ROOT:Resource/Image/Fx/Common/Common_Flash_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_Two_Handed_A.gw
+"""
+
+@memory ZGMF_LRR704B_LBR_CDTimer:float
+@global ZGMF_LRR704B_LBR_CD=5
+@global ZGMF_LRR704B_LBR_EN=50
+
+
+
+
+
+[decal_ZGMF_LRR704B_LBR]
+layer:beforeBody
+order:5.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Beam\Image\ZGMF_LRR704B_LBR.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:0.65
+xOffsetRelative: 2
+yOffsetRelative: 15
+dirOffset:0
+[decal_ZGMF_LRR704B_LBR_NotUsing]
+layer:beforeBody
+order:1
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Beam\Image\ZGMF_LRR704B_LBR.png
+isVisible:false
+basePositionFromLegEnd:arm1
+imageScale:0.55
+xOffsetRelative: 0
+yOffsetRelative: -7
+dirOffset:-90
+
+
+
+
+
+[turret_ZGMF_LRR704B_LBR]
+x:0
+y:0
+
+canShoot:false
+projectile:ZGMF_LRR704B_LBR_Projectile
+
+delay:0.2s
+canAttackMaxAngle:15
+barrelX:9
+barrelY:35
+limitingRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/BeamCannon_1.ogg
+shoot_sound_vol:0.6
+shoot_flame:Beam_Fire_1_Green
+
+
+
+
+
+[projectile_ZGMF_LRR704B_LBR_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Target_BeamRifle_Green*1
+(
+    addResources=
+    BeamDamage:5000 
+    |BeamAPDamage:1000
+    |DpDamage:250
+    |WeaponAccuracy=125
+    |PartBreakModifier=1
+    |CockpitBreakModifier=1
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=0.75
+    |AntiAqua=0.5
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+
+    |HeightChangeSpeed=2
+    |HeightHitRange=25
+    |ProjectileSpeed:100
+    |ProjectileSpread:1
+    |ProjectileLife:30
+)
+"""
+
+
+
+
+
+[hiddenAction_ZGMF_LRR704B_LBR_Trigger]
+alsoTriggerAction:ZGMF_LRR704B_LBR_Fire
+[hiddenAction_ZGMF_LRR704B_LBR_Fire]
+requireConditional:"""
+if self.timeAlive>memory.ZGMF_LRR704B_LBR_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15) 
+and self.resource.EN>0
+"""
+setUnitMemory:ZGMF_LRR704B_LBR_CDTimer=self.timeAlive+${ZGMF_LRR704B_LBR_CD}
+addResources:EN=-${ZGMF_LRR704B_LBR_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+ZGMF_LRR704B_LBR_SetWeaponIndex,
+PlayCommon_Shoot_Two_Handed_A_Step_1,
+ZGMF_LRR704B_LBR_B1_Step_1
+"""
+[hiddenAction_ZGMF_LRR704B_LBR_B1_Step_1]
+alsoQueueAction:"""
+ZGMF_LRR704B_LBR_Fire_Step_1,
+ZGMF_LRR704B_LBR_Fire_Step_2,
+ZGMF_LRR704B_LBR_Fire_Step_Final
+"""
+
+
+
+[hiddenAction_ZGMF_LRR704B_LBR_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_ZGMF_LRR704B_LBR_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.35s
+whenBuilding_cannotMove:true
+[hiddenAction_ZGMF_LRR704B_LBR_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+whenBuilding_cannotMove:true
+fireTurretXAtGround:ZGMF_LRR704B_LBR
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_ZGMF_LRR704B_LBR_Fire_Step_Final]
+buildSpeed:1.0s
+whenBuilding_cannotMove:true
+stopLastAnimation:true
+alsoTriggerAction:SetAttackingOff

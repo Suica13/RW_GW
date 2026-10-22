@@ -1,0 +1,92 @@
+[core]
+dont_load:false
+
+
+[hiddenAction_PlayCommon_Shoot_B_Insta_Step_1]
+finishPlayingLastAnimation:true
+alsoTriggerAction:PlayCommon_Shoot_B_Insta_Step_2
+[hiddenAction_PlayCommon_Shoot_B_Insta_Step_2]
+playAnimation:Common_Shoot_B_Insta
+
+
+
+
+
+
+
+[animation_Common_Shoot_B_Insta]
+KeyframeTimeScale:              1
+blendIn:                        0.0s
+blendOut:                       0.0s
+
+
+
+arm19_0.00s:                     {x:0.0, y:0.0, dir:0}
+arm19_0.05s:                    {x:0.0, y:-2.0, dir:0}
+arm19_0.40s:                    {x:0.0, y:0.0, dir:0}
+
+
+arm20_0.0s:                     {x:0.0, y:0.0, dir:0}
+
+
+arm1_0.00s:                     {x:0.0, y:0.0, dir:10}
+arm1_0.05s:                     {x:0.0, y:0.0, dir:15}
+arm1_0.10s:                     {x:0.0, y:0.0, dir:15}
+arm1_0.40s:                     {x:0.0, y:0.0, dir:0}
+
+
+arm2_0.00s:                     {x:0.0, y:0.0, dir:15}
+arm2_0.05s:                     {x:0.0, y:0.0, dir:45}
+arm2_0.10s:                     {x:0.0, y:0.0, dir:45}
+arm2_0.40s:                     {x:0.0, y:0.0, dir:0}
+
+
+arm3_0.00s:                     {x:8.0, y:5.0, dir:50}
+arm3_0.10s:                     {x:8.0, y:5.0, dir:50}
+arm3_0.40s:                     {x:0.0, y:0.0, dir:0}
+
+
+arm5_0.00s:                     {x:3.0, y:3.0, dir:50}
+arm5_0.10s:                     {x:3.0, y:3.0, dir:50}
+arm5_0.40s:                     {x:0.0, y:0.0, dir:0}
+
+
+arm4_0.00s:                     {x:0.0, y:2.0, dir:0}
+arm4_0.05s:                     {x:0.0, y:-5.0, dir:10}
+arm4_0.10s:                     {x:0.0, y:-5.0, dir:10}
+arm4_0.40s:                     {x:0.0, y:0.0, dir:0}
+
+
+arm6_0.00s:                     {x:0.0, y:2.0, dir:0}
+arm6_0.05s:                     {x:0.0, y:-5.0, dir:15}
+arm6_0.10s:                     {x:0.0, y:-5.0, dir:15}
+arm6_0.40s:                     {x:0.0, y:0.0, dir:0}
+
+
+arm10_0.0s:                     {x:0.0, y:0.0, dir:0}
+
+
+arm11_0.0s:                     {x:0.0, y:0.0, dir:0}
+
+
+arm12_0.05s:                    {x:8.0, y:5.0, dir:50}
+arm12_0.10s:                    {x:8.0, y:5.0, dir:50}
+arm12_0.40s:                    {x:0.0, y:0.0, dir:0}
+
+
+arm13_0.0s:                     {x:0.0, y:0.0, dir:0}
+
+
+
+
+
+
+leg17_0.0s:                     {x:0.0, y:-5.0, dir:-5}
+
+leg18_0.0s:                     {x:0.0, y:-5.0, dir:-5}
+
+
+
+leg19_0.0s:                     {x:0.0, y:-5.0, dir:5}
+
+leg20_0.0s:                     {x:0.0, y:-5.0, dir:5}

@@ -1,0 +1,149 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Cannon_Shoot_A.gw
+"""
+
+@memory Common_EyeFlash_CDTimer:float
+@global Common_EyeFlash_CD=10
+@global Common_EyeFlash_EN=30
+
+
+
+
+
+
+
+
+[turret_Common_EyeFlash]
+x:0
+y:0
+
+canShoot:false
+projectile:Common_EyeFlash_Projectile
+
+delay:0.3s
+canAttackMaxAngle:15
+limitingAngle:0
+barrelX:0
+barrelY:5
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/FlashBang_1.ogg
+shoot_sound_vol:1.0
+shoot_flame:none
+
+
+
+[projectile_Common_EyeFlash_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_FlashBang*1
+(
+    addResources=
+    ShellDamage:500
+    |DpDamage:50
+    |WeaponAccuracy=100
+    |PartBreakModifier=0.5
+    |CockpitBreakModifier=0.5
+    |PilotDamageModifier=0.5
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=0.5
+    |AntiSizeSmallDamage=0.5
+    |AntiSizeLargeAccuracy=0.5
+    |AntiSizeSmallAccuracy=0.5
+    |AntiBuilding=0.5
+    |AntiAqua=0.5
+    |AntiAir=0.5 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=0.5
+    |HeightHitRange=10
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileExplosionRange:60
+    |ProjectileLife:0.25
+    |ProjectileLife:0.25
+
+    |StunDamage:2
+)
+"""
+
+
+
+
+
+
+
+
+[hiddenAction_Common_EyeFlash_Trigger]
+alsoTriggerAction:Common_EyeFlash_Fire
+[hiddenAction_Common_EyeFlash_Fire]
+requireConditional:"""
+if self.timeAlive>memory.Common_EyeFlash_CDTimer and ${onAttacking}==false and ${cantAction}==false and ${onSkill}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15) 
+and self.resource.EN>0
+"""
+setUnitMemory:Common_EyeFlash_CDTimer=self.timeAlive+${Common_EyeFlash_CD}
+addResources:EN=-${Common_EyeFlash_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+Common_EyeFlash_SetWeaponIndex,
+Common_EyeFlash_B1_Step_1
+"""
+[hiddenAction_Common_EyeFlash_B1_Step_1]
+alsoQueueAction:"""
+Common_EyeFlash_Fire_Step_1,
+Common_EyeFlash_Fire_Step_2,
+Common_EyeFlash_Fire_Step_3,
+Common_EyeFlash_Fire_Step_Final
+"""
+
+
+
+
+
+
+[hiddenAction_Common_EyeFlash_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_Common_EyeFlash_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.35s
+alsoTriggerAction:PlayCommon_Cannon_Shoot_A_Step_1
+[hiddenAction_Common_EyeFlash_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.25s
+[hiddenAction_Common_EyeFlash_Fire_Step_3]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:Common_EyeFlash
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_Common_EyeFlash_Fire_Step_Final]
+buildSpeed:1.25s
+finishPlayingLastAnimation:true
+alsoTriggerAction:SetAttackingOff
+
+

@@ -1,0 +1,137 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Beam/Common/Beam_Fire_1_Pink.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Cannon_Shoot_A.gw
+"""
+
+@memory AEUG_MSA_005S_BeamCannon_CDTimer:float
+@global AEUG_MSA_005S_BeamCannon_CD=4
+@global AEUG_MSA_005S_BeamCannon_EN=70
+
+
+
+[turret_AEUG_MSA_005S_BeamCannon]
+x:0
+y:0
+
+canShoot:false
+projectile:AEUG_MSA_005S_BeamCannon_Projectile
+
+delay:0.3s
+canAttackMaxAngle:15
+barrelX:0
+barrelY:40
+limitingRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/BeamCannon_2.ogg
+shoot_sound_vol:0.5
+shoot_flame:Beam_Fire_1_Pink
+
+
+
+[projectile_AEUG_MSA_005S_BeamCannon_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_BeamCannon_Pink*1
+(
+    addResources=
+    BeamDamage:10000
+    |BeamAPDamage:5000
+    |DpDamage:450
+    |WeaponAccuracy=75
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1.5
+    |HeightChangeSpeed=2
+    |HeightHitRange=20
+    |ProjectileSpeed:60
+    |ProjectileSpread:1
+    |ProjectileExplosionRange:40
+    |ProjectileLife:35
+
+    |ProjectileBlastRange:60
+    |ProjectileBlastDamageModifier:0.20
+    |ProjectileBlastDpModifier:1
+)
+"""
+
+
+
+
+
+
+
+
+[hiddenAction_AEUG_MSA_005S_BeamCannon_Trigger]
+alsoTriggerAction:AEUG_MSA_005S_BeamCannon_Fire
+[hiddenAction_AEUG_MSA_005S_BeamCannon_Fire]
+requireConditional:"""
+if self.timeAlive>memory.AEUG_MSA_005S_BeamCannon_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  
+and self.resource.EN>0
+"""
+setUnitMemory:AEUG_MSA_005S_BeamCannon_CDTimer=self.timeAlive+${AEUG_MSA_005S_BeamCannon_CD}
+addResources:EN=-${AEUG_MSA_005S_BeamCannon_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+AEUG_MSA_005S_BeamCannon_SetWeaponIndex,
+PlayCommon_Cannon_Shoot_A_Step_1,
+AEUG_MSA_005S_BeamCannon_B1_Step_1
+"""
+[hiddenAction_AEUG_MSA_005S_BeamCannon_B1_Step_1]
+alsoQueueAction:"""
+AEUG_MSA_005S_BeamCannon_Fire_Step_1,
+AEUG_MSA_005S_BeamCannon_Fire_Step_2,
+AEUG_MSA_005S_BeamCannon_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_AEUG_MSA_005S_BeamCannon_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_AEUG_MSA_005S_BeamCannon_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.5s
+[hiddenAction_AEUG_MSA_005S_BeamCannon_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:AEUG_MSA_005S_BeamCannon
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_AEUG_MSA_005S_BeamCannon_Fire_Step_Final]
+buildSpeed:0.75s
+alsoTriggerAction:SetAttackingOff
+
+

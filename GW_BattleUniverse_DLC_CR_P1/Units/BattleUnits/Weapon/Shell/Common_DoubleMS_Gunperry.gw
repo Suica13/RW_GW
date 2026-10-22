@@ -1,0 +1,125 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw
+"""
+
+@memory Common_DoubleMS_Gunperry_OnCD:bool
+@memory Common_DoubleMS_Gunperry_CDTimer:float
+@global Common_DoubleMS_Gunperry_CD=9
+@global Common_DoubleMS_Gunperry_EN=12
+
+@global Common_DoubleMS_Gunperry_Shoot=6
+[resource_Common_DoubleMS_Gunperry_ShootTimer]
+hidden:true
+
+
+
+
+
+
+
+
+
+
+[turret_Common_DoubleMS_Gunperry]
+x:0
+y:0
+
+canShoot:true
+canAttackCondition:"""
+if ${cantAction}==false 
+"""
+showRangeUIGuide:false
+resourceUsage:Common_DoubleMS_Gunperry_ShootTimer=1,en=${Common_DoubleMS_Gunperry_EN}
+projectile:Common_DoubleMS_Gunperry_Projectile
+
+delay:0.35s
+limitingRange:1200
+limitingAngle:360
+turnSpeed:0
+
+canAttackMaxAngle:360
+barrelX:5
+barrelY:0
+barrelOffsetX_onOddShots:-10
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\Missile_1.ogg
+shoot_sound_vol:0.15
+shoot_flame:BZ_Fire_1_S
+
+
+
+[projectile_Common_DoubleMS_Gunperry_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_MS_L*1
+(
+    addResources=
+    ShellDamage:2000
+    |DpDamage:200
+    |WeaponAccuracy=85
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=1.0
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=0.5
+    |AntiAqua=1.5
+    |AntiAir=0.25 
+    |AntiLand=1.5
+    |AntiSpace=1
+    |HeightHitRange=20
+    |HeightChangeSpeed=2
+    |ProjectileSpeed:15
+    |ProjectileTurnspeed:0
+    |ProjectileSpread:0
+    |ProjectileExplosionRange:55
+    |ProjectileLife:40
+
+    |EquipmentIndex:1
+    |EquipmentIndex2:100
+)
+"""
+
+
+
+
+[hiddenAction_Common_DoubleMS_Gunperry_CDStart]
+autoTrigger:"""
+if memory.Common_DoubleMS_Gunperry_OnCD==false 
+and 
+(
+    (
+        self.resource.Common_DoubleMS_Gunperry_ShootTimer<=0 
+    ) 
+    or 
+    (
+        self.resource.Common_DoubleMS_Gunperry_ShootTimer<${Common_DoubleMS_Gunperry_Shoot} and not self.hasTags(includes='inBattle')
+    )
+)
+"""
+setUnitMemory:Common_DoubleMS_Gunperry_OnCD=true,Common_DoubleMS_Gunperry_CDTimer=self.timeAlive+${Common_DoubleMS_Gunperry_CD}
+
+[hiddenAction_Common_DoubleMS_Gunperry_CDEnd]
+autoTriggerOnEvent:created
+autoTrigger:if memory.Common_DoubleMS_Gunperry_OnCD==true and self.timeAlive>memory.Common_DoubleMS_Gunperry_CDTimer
+setUnitMemory:Common_DoubleMS_Gunperry_OnCD=false
+setResourcesWithLogic:Common_DoubleMS_Gunperry_ShootTimer=${Common_DoubleMS_Gunperry_Shoot}

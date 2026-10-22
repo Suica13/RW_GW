@@ -1,6 +1,6 @@
 """Headless load verification in isolated folders; never edits original game preferences.
 
-Usage: python 验证_0093引擎加载.py --case main|0093|mixed
+Usage: python 验证_0093引擎加载.py --case main|0093|mixed|cr_p1|mixed_cr_p1
 Requires the local game and Windows junction support.
 """
 from pathlib import Path
@@ -10,7 +10,9 @@ ROOT=Path(__file__).resolve().parents[2]
 GAME=ROOT.parents[1]
 BASE=Path(__file__).resolve().parent/'0093_loadtest'
 CASES={'main':['Main'],'0093':['Main','DLC_0093'],
-       'mixed':['Main','DLC_0079','DLC_0087','DLC_SEED','DLC_0093']}
+       'mixed':['Main','DLC_0079','DLC_0087','DLC_SEED','DLC_0093'],
+       'cr_p1':['Main','DLC_CR_P1'],
+       'mixed_cr_p1':['Main','DLC_0079','DLC_0087','DLC_SEED','DLC_0093','DLC_CR_P1']}
 
 def link(target,path):
     if path.exists():

@@ -1,0 +1,170 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Template/Unit/Animation/Cqb/Common_Melee_B.gw
+"""
+
+@memory TITANS_ShieldBoostedRifle_Winch_Blue_CDTimer:float
+@global TITANS_ShieldBoostedRifle_Winch_Blue_CD=7
+
+
+@memory TITANS_ShieldBoostedRifle_Winch_Blue_Unit:unit
+
+[hiddenAction_Get_Spawn_TITANS_ShieldBoostedRifle_Winch_Blue]
+autoTriggerOnEvent:newMessage(withTag="RodSpawn_TITANS_ShieldBoostedRifle_Winch_Blue")
+setUnitMemory:TITANS_ShieldBoostedRifle_Winch_Blue_Unit=eventData("unitInfo",type="unit")
+
+
+
+
+[decal_DrawLineTo_TITANS_ShieldBoostedRifle_Winch_Blue_Unit]
+layer:beforeBody
+order:4.5
+alpha:1
+basePositionFromLegEnd:arm4
+drawLineTo:memory.TITANS_ShieldBoostedRifle_Winch_Blue_Unit
+color:#333333
+imageScale:1
+lineWidth:5
+xOffsetRelative: 6
+yOffsetRelative: 6
+onlyOnNonPreview:true
+isVisible:if memory.TITANS_ShieldBoostedRifle_Winch_Blue_Unit.hp>0
+onlyWhileAlive:true
+
+
+
+
+
+
+[decal_TITANS_ShieldBoostedRifle_Winch_Blue]
+layer:beforeBody
+order:5.5
+onlyWhileAlive:true
+image:ROOT:Units/BattleUnits/Weapon/Cqb/Image/ShieldBoostedRifle_Winch_Blue.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:0.75
+xOffsetRelative: 10
+yOffsetRelative: 20
+dirOffset:0
+
+
+
+[turret_TITANS_ShieldBoostedRifle_Winch_Blue]
+x:0
+y:0
+
+canShoot:false
+projectile:TITANS_ShieldBoostedRifle_Winch_Blue_Projectile
+
+delay:0.3s
+canAttackMaxAngle:15
+barrelX:11
+barrelY:17
+limitingRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/Fist_2.ogg
+shoot_sound_vol:0.5
+
+
+
+[projectile_TITANS_ShieldBoostedRifle_Winch_Blue_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_TITANS_ShieldBoostedRifle_Winch_Blue*1
+(
+    addResources=
+    CqbDamage:8000
+    |CqbBeamDamage:8000
+    |DpDamage:750
+    |WeaponAccuracy=90
+    |PartBreakModifier=3
+    |CockpitBreakModifier=100
+    |PilotDamageModifier=0.25
+    |PilotTrueDamage=0
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1.5
+    |HeightChangeSpeed=2
+    |HeightHitRange=20
+    |ProjectileSpeed:75
+    |ProjectileSpread:1
+    |ProjectileLife:8
+)
+"""
+
+
+
+
+
+
+
+
+[hiddenAction_TITANS_ShieldBoostedRifle_Winch_Blue_Trigger]
+alsoTriggerAction:TITANS_ShieldBoostedRifle_Winch_Blue_Fire
+[hiddenAction_TITANS_ShieldBoostedRifle_Winch_Blue_Fire]
+requireConditional:"""
+if self.timeAlive>memory.TITANS_ShieldBoostedRifle_Winch_Blue_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)
+"""
+setUnitMemory:TITANS_ShieldBoostedRifle_Winch_Blue_CDTimer=self.timeAlive+${TITANS_ShieldBoostedRifle_Winch_Blue_CD}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+TITANS_ShieldBoostedRifle_Winch_Blue_SetWeaponIndex,
+PlayCommon_Melee_B_Step_1,
+TITANS_ShieldBoostedRifle_Winch_Blue_B1_Step_1
+"""
+[hiddenAction_TITANS_ShieldBoostedRifle_Winch_Blue_B1_Step_1]
+alsoQueueAction:"""
+TITANS_ShieldBoostedRifle_Winch_Blue_Fire_Step_1,
+TITANS_ShieldBoostedRifle_Winch_Blue_Fire_Step_2,
+TITANS_ShieldBoostedRifle_Winch_Blue_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_TITANS_ShieldBoostedRifle_Winch_Blue_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_TITANS_ShieldBoostedRifle_Winch_Blue_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.5s
+[hiddenAction_TITANS_ShieldBoostedRifle_Winch_Blue_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:TITANS_ShieldBoostedRifle_Winch_Blue
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_TITANS_ShieldBoostedRifle_Winch_Blue_Fire_Step_Final]
+buildSpeed:0.5s
+alsoTriggerAction:SetAttackingOff
+
+

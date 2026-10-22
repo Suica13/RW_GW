@@ -1,0 +1,7 @@
+[core]
+copyFrom:ROOT:Template/Unit/Skill/SFS.gw
+
+
+[hiddenAction_attachment_SFS01]
+attachments_addNewUnits:SFS_CantAttack_X1
+

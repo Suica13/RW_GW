@@ -1,0 +1,25 @@
+[core]
+dont_load:false
+
+
+
+[effect_Dodge_1]
+image:ROOT:Resource/Image/Fx/Unit/Image/Dodge_1.png
+priority:critical
+yOffsetAbsolute:0
+life: 60
+
+alwayStartDirAtZero:true
+drawUnderUnits:false
+
+total_frames:4
+animateFrameStart: 0
+animateFrameEnd: 3
+animateFrameSpeed: 0.15
+
+yOffsetRelative:-5
+
+scaleFrom: 0.75
+scaleTo: 0.25
+
+showInFog:true

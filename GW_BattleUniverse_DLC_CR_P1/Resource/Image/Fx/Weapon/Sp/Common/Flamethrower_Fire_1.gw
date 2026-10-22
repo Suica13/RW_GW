@@ -1,0 +1,31 @@
+[core]
+dont_load:false
+
+#
+[effect_Flamethrower_Fire_1]
+life: 300
+
+xOffsetRelative: 0
+yOffsetRelative: 65
+hOffset: 0
+dirOffset:0
+attachedToUnit: true
+
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+scaleFrom: 1.0
+scaleTo: 1.0
+image: ROOT:Resource/Image/Fx/Weapon/Sp/Image/Flamethrower_Fire_1.png
+alsoPlaySound:ROOT:Resource/Sound/SE/Unit/Burned_1.ogg:1.0
+
+total_frames: 15
+animateFrameStart: 0
+animateFrameEnd: 14
+animateFrameSpeed: 0.1
+showInFog:true
+
+

@@ -1,0 +1,233 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_Flash_1.gw,
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw
+"""
+
+
+@memory Common_Turret_Mortar_DabudeClass_AimTarget:unit
+@memory Common_Turret_Mortar_DabudeClass_CDTimer:float
+@global Common_Turret_Mortar_DabudeClass_CD=180
+@global Common_Turret_Mortar_DabudeClass_EN=100
+
+
+
+[decal_Common_Turret_Mortar_DabudeClass_Range]
+layer: inactive
+order:0
+onlyTeam:own
+alpha:1
+image:ROOT:Resource/Image/Ring/Ring150_Action.png
+imageScale:8
+basePosition:self
+alwaysStartDirAtZero:true
+onlyWhileAlive:true
+isVisible:if true
+
+
+
+
+
+[turret_Common_Turret_Mortar_DabudeClass]
+x:0
+y:0
+
+canShoot:false
+projectile:Common_Turret_Mortar_DabudeClass_Projectile
+
+delay:0.3s
+canAttackMaxAngle:15
+limitingAngle:0
+limitingRange:1200
+limitingMinRange:300
+barrelX:0
+barrelY:30
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:none
+shoot_sound_vol:0.0
+shoot_flame:BZ_Fire_1
+
+
+
+[projectile_Common_Turret_Mortar_DabudeClass_Projectile]
+
+directDamage: 0
+life: 1
+explodeOnEndOfLife:true
+speed: 0
+instant:true
+
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_MortarMarker_A*1
+(
+    offsetRandomXY=100,
+    addResources=
+    ShellDamage:3000
+    |DpDamage:500
+    |WeaponAccuracy=75
+    |PartBreakModifier=0.5
+    |CockpitBreakModifier=0.5
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiBuilding=2.0
+    |AntiAqua=0.75
+    |AntiAir=0.5 
+    |AntiLand=1
+    |AntiSpace=1
+
+    |ProjectileSpeed:60
+    |ProjectileSpread:25
+    |ProjectileExplosionRange:80
+    |ProjectileLife:70
+)
+"""
+
+
+
+
+
+
+
+[hiddenAction_Common_Turret_Mortar_DabudeClass_Trigger_ByAI]
+autoTrigger:"""
+if ${allowAI}==true 
+and ${cantAction}==false 
+and memory.onSkill==false 
+and memory.close==false 
+and memory.breaked==false 
+and self.resource.EN>${Common_Turret_Mortar_DabudeClass_EN} 
+and self.timeAlive>memory.Common_Turret_Mortar_DabudeClass_CDTimer 
+and self.parent.hp<=0  
+and memory.Common_Turret_Mortar_DabudeClass_AimTarget.hp>0 
+and memory.Common_Turret_Mortar_DabudeClass_AimTarget.teamID>=0 
+and not memory.Common_Turret_Mortar_DabudeClass_AimTarget.tags(includes='UnDetected') 
+and distanceBetween(self, memory.Common_Turret_Mortar_DabudeClass_AimTarget)>=300 
+"""
+alsoTriggerAction:Common_Turret_Mortar_DabudeClass_Trigger
+
+
+[hiddenAction_Common_Turret_Mortar_DabudeClass_FindTarget]
+autoTrigger:if ${allowAI}==true 
+takeResources_includeUnitsWithinRange:1000
+takeResources_includeUnitsWithinRange_team:enemy
+takeResources_excludeUnitsWithoutTags:CanBeDetected
+takeResources_searchOnly:true
+takeResources_maxUnits:30
+takeResources_triggerActionForEach:Common_Turret_Mortar_DabudeClass_FindTarget_Step2
+[hiddenAction_Common_Turret_Mortar_DabudeClass_FindTarget_Step2]
+requireConditional:"""
+if not thisActionTarget.tags(includes='UnDetected') 
+"""
+setUnitMemory:Common_Turret_Mortar_DabudeClass_AimTarget=thisActionTarget
+
+
+
+[action_Common_Turret_Mortar_DabudeClass_Trigger]
+pos:10
+text:Mortar %{select(self.timeAlive<=memory.Common_Turret_Mortar_DabudeClass_CDTimer,str(int(memory.Common_Turret_Mortar_DabudeClass_CDTimer-self.timeAlive))+"s","OK")}
+text_zh:迫击炮 %{select(self.timeAlive<=memory.Common_Turret_Mortar_DabudeClass_CDTimer,str(int(memory.Common_Turret_Mortar_DabudeClass_CDTimer-self.timeAlive))+"秒","OK")}
+text_KP:100
+
+displayType:infoOnly
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Mortar_1.png
+highPriorityQueue:true
+
+
+onlyOneUnitAtATime:true
+
+isVisible:if true
+
+isGuiBlinking:"""
+if self.timeAlive>memory.Common_Turret_Mortar_DabudeClass_CDTimer
+"""
+
+isLocked:if self.timeAlive<=memory.Common_Turret_Mortar_DabudeClass_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+isLockedAlt:if ${tileMode}==1
+isLockedAltMessage:In Space
+isLockedAltMessage_zh:宇宙无法使用
+isLockedAlt2:if ${cantAction}==true or memory.breaked==true
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+fireTurretXAtGround:Common_Turret_Mortar_DabudeClass
+fireTurretXAtGround_count:0
+fireTurretXAtGround_showGuideDecals:Common_Turret_Mortar_DabudeClass_Range
+
+alsoTriggerAction:"""
+Common_Turret_Mortar_DabudeClass_B3_Step_1
+"""
+clearAllWaypoints:true
+[hiddenAction_Common_Turret_Mortar_DabudeClass_B3_Step_1]
+spawnEffects:Flash_1_N
+setUnitMemory:"""
+onSkill=true,
+Common_Turret_Mortar_DabudeClass_AimTarget=select(${allowAI}==true,memory.Common_Turret_Mortar_DabudeClass_AimTarget,thisActionTarget),
+Common_Turret_Mortar_DabudeClass_CDTimer=self.timeAlive+${Common_Turret_Mortar_DabudeClass_CD}
+"""
+
+alsoQueueAction:"""
+Common_Turret_Mortar_DabudeClass_Fire_Step_1,
+
+Common_Turret_Mortar_DabudeClass_Fire_Step_2,
+Common_Turret_Mortar_DabudeClass_Fire_Step_3,
+Common_Turret_Mortar_DabudeClass_Fire_Step_3,
+Common_Turret_Mortar_DabudeClass_Fire_Step_3,
+
+Common_Turret_Mortar_DabudeClass_Fire_Step_2,
+Common_Turret_Mortar_DabudeClass_Fire_Step_3,
+Common_Turret_Mortar_DabudeClass_Fire_Step_3,
+Common_Turret_Mortar_DabudeClass_Fire_Step_3,
+
+Common_Turret_Mortar_DabudeClass_Fire_Step_2,
+Common_Turret_Mortar_DabudeClass_Fire_Step_3,
+Common_Turret_Mortar_DabudeClass_Fire_Step_3,
+Common_Turret_Mortar_DabudeClass_Fire_Step_3,
+
+Common_Turret_Mortar_DabudeClass_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_Common_Turret_Mortar_DabudeClass_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.5s
+whenBuilding_cannotMove:true
+[hiddenAction_Common_Turret_Mortar_DabudeClass_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.5s
+whenBuilding_cannotMove:true
+playSoundAtUnit:ROOT:\Resource\Sound\SE\Weapon\Fire\ShellCannon_1.ogg:0.6
+[hiddenAction_Common_Turret_Mortar_DabudeClass_Fire_Step_3]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.1s
+whenBuilding_cannotMove:true
+fireTurretXAtGround:Common_Turret_Mortar_DabudeClass
+fireTurretXAtGround_withTarget:memory.Common_Turret_Mortar_DabudeClass_AimTarget
+[hiddenAction_Common_Turret_Mortar_DabudeClass_Fire_Step_Final]
+buildSpeed:1.5s
+whenBuilding_cannotMove:true
+setUnitMemory:onSkill=false
+clearAllWaypoints:true

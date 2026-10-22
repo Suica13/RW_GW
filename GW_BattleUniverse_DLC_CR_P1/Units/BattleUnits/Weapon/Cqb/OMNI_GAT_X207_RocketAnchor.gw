@@ -1,0 +1,157 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Template/Unit/Animation/Cqb/Common_Melee_B_L.gw
+"""
+
+@memory OMNI_GAT_X207_RocketAnchor_CDTimer:float
+@global OMNI_GAT_X207_RocketAnchor_CD=5
+
+
+@memory OMNI_GAT_X207_RocketAnchor_Unit:unit
+
+[hiddenAction_Get_Spawn_OMNI_GAT_X207_RocketAnchor]
+autoTriggerOnEvent:newMessage(withTag="RodSpawn_OMNI_GAT_X207_RocketAnchor")
+setUnitMemory:OMNI_GAT_X207_RocketAnchor_Unit=eventData("unitInfo",type="unit")
+
+
+
+
+[decal_DrawLineTo_OMNI_GAT_X207_RocketAnchor_Unit]
+layer:beforeBody
+order:4.5
+alpha:1
+basePositionFromLegEnd:arm4
+drawLineTo:memory.OMNI_GAT_X207_RocketAnchor_Unit
+color:#333333
+imageScale:1
+lineWidth:5
+xOffsetRelative: -24
+yOffsetRelative: 6
+onlyOnNonPreview:true
+isVisible:if memory.OMNI_GAT_X207_RocketAnchor_Unit.hp>0
+onlyWhileAlive:true
+
+
+
+
+
+
+
+
+[turret_OMNI_GAT_X207_RocketAnchor]
+x:0
+y:0
+
+canShoot:false
+projectile:OMNI_GAT_X207_RocketAnchor_Projectile
+
+delay:0.3s
+canAttackMaxAngle:15
+barrelX:-23
+barrelY:6
+limitingRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/Fist_2.ogg
+shoot_sound_vol:0.5
+
+
+
+[projectile_OMNI_GAT_X207_RocketAnchor_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_OMNI_GAT_X207_RocketAnchor*1
+(
+    addResources=
+    CqbDamage:4500
+    |DpDamage:750
+    |WeaponAccuracy=85
+    |PartBreakModifier=3
+    |CockpitBreakModifier=100
+    |PilotDamageModifier=0.25
+    |PilotTrueDamage=0
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1.5
+    |HeightChangeSpeed=2
+    |HeightHitRange=20
+    |ProjectileSpeed:75
+    |ProjectileSpread:1
+    |ProjectileLife:10
+)
+"""
+
+
+
+
+
+
+
+
+[hiddenAction_OMNI_GAT_X207_RocketAnchor_Trigger]
+alsoTriggerAction:OMNI_GAT_X207_RocketAnchor_Fire
+[hiddenAction_OMNI_GAT_X207_RocketAnchor_Fire]
+requireConditional:"""
+if self.timeAlive>memory.OMNI_GAT_X207_RocketAnchor_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)
+"""
+setUnitMemory:OMNI_GAT_X207_RocketAnchor_CDTimer=self.timeAlive+${OMNI_GAT_X207_RocketAnchor_CD}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+OMNI_GAT_X207_RocketAnchor_SetWeaponIndex,
+PlayCommon_Melee_B_L_Step_1,
+OMNI_GAT_X207_RocketAnchor_B1_Step_1
+"""
+[hiddenAction_OMNI_GAT_X207_RocketAnchor_B1_Step_1]
+alsoQueueAction:"""
+OMNI_GAT_X207_RocketAnchor_Fire_Step_1,
+OMNI_GAT_X207_RocketAnchor_Fire_Step_2,
+OMNI_GAT_X207_RocketAnchor_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_OMNI_GAT_X207_RocketAnchor_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_OMNI_GAT_X207_RocketAnchor_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.5s
+[hiddenAction_OMNI_GAT_X207_RocketAnchor_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:OMNI_GAT_X207_RocketAnchor
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_OMNI_GAT_X207_RocketAnchor_Fire_Step_Final]
+buildSpeed:0.5s
+alsoTriggerAction:SetAttackingOff
+
+

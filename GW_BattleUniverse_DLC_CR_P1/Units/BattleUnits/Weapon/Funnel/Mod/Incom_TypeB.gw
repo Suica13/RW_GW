@@ -1,0 +1,157 @@
+[core]
+dont_load:true
+
+copyFrom:"""
+ROOT:Units/BattleUnits/Weapon/Funnel/Mod/Funnel.gw
+"""
+
+
+
+@memory nowTarget:unit
+
+@memory moveCD:float
+@memory goBack:bool
+
+@global lifeTime=15
+
+@memory turnTimer:float
+@global turnTimerMax=10
+
+@memory Incom_LinkUnits:unit[]
+@memory Incom_LinkUnits_Last:unit
+@memory Incom_LinkUnits_LastUnitNum:float
+
+[hiddenAction_GetStats]
+alsoTriggerAction:GetStats_Step2
+[hiddenAction_GetStats_Step2]
+setUnitMemory:"""
+finalShootLevel=memory.baseShootLevel,
+finalCqbLevel=memory.baseCqbLevel,
+
+finalAccuracyLevel=memory.baseAccuracyLevel,
+finalReactionLevel=memory.baseReactionLevel,
+
+finalMoveSpeed=memory.baseMoveSpeed,
+finalTurnSpeed=memory.baseTurnSpeed
+"""
+setUnitStats:"""
+moveSpeed=memory.finalMoveSpeed,
+maxTurnSpeed=memory.finalTurnSpeed,
+targetHeight=memory.finalHeight,
+maxAttackRange=memory.finalAttackRange,
+fogOfWarSightRange=memory.finalFogOfWarSightRange,
+armour=
+(
+    memory.finalBeamDefPlus/3+memory.finalBeamDef*1+
+    memory.finalShellDefPlus/3+memory.finalShellDef*1+
+    memory.finalCqbDefPlus/3+memory.finalCqbDef*1
+)/5
+"""
+
+[hiddenAction_Get_Spawn_IncomLinkSpawn]
+autoTriggerOnEvent:newMessage(withTag="IncomLinkSpawn")
+setUnitMemory:Incom_LinkUnits[memory.Incom_LinkUnits.size]=eventData("unitInfo",type="unit")
+sendMessageTo:eventData("unitInfo",type="unit")
+sendMessageWithTags:IncomLinkIndex
+sendMessageWithData:"""
+IncomLinkIndex=memory.Incom_LinkUnits.size,
+IncomLinkLast=memory.Incom_LinkUnits[memory.Incom_LinkUnits_LastUnitNum]
+"""
+
+[hiddenAction_Check_IncomLink_Units]
+autoTrigger:true
+setUnitMemory:"""
+Incom_LinkUnits_Last=memory.Incom_LinkUnits[memory.Incom_LinkUnits_LastUnitNum],
+Incom_LinkUnits_LastUnitNum=memory.Incom_LinkUnits.size-1
+"""
+
+
+
+
+[hiddenAction_Send_FunnelSpawn]
+autoTriggerOnEvent:created
+sendMessageTo:customTarget1
+sendMessageWithTags:FunnelSpawn
+sendMessageWithData:unitInfo=self
+
+[hiddenAction_FunnelUpdate]
+autoTrigger:true
+alsoTriggerAction:"""
+FindTarget,
+Move
+"""
+
+[hiddenAction_FindTarget]
+setUnitMemory:nowTarget=customTarget1.attacking
+
+
+[hiddenAction_Move]
+alsoTriggerAction:"""
+Move_CloseCustomTarget1
+"""
+
+
+[hiddenAction_Move_CloseCustomTarget1]
+requireConditional:if not self.hasActiveWaypoint(type='move') and self.timeAlive>memory.moveCD and memory.goBack==false
+addWaypoint_type:move
+addWaypoint_prepend:true
+clearAllWaypoints:true
+addWaypoint_target_fromReference:customTarget1.getOffsetRelative(x=rnd(-150,150),y=rnd(-150,150)+35)
+setUnitMemory:moveCD=self.timeAlive+rnd(1,2),turnTimer=memory.turnTimer+1
+
+
+[hiddenAction_TimerOut]
+autoTrigger:if (self.timeAlive>=${lifeTime} or memory.turnTimer>=${turnTimerMax} or self.resource().EN<=0) and memory.goBack==false
+setUnitMemory:goBack=true
+clearAllWaypoints:true
+
+[hiddenAction_TryClearLinkUnits]
+autoTrigger:if memory.goBack==true and memory.Incom_LinkUnits.size>0
+alsoTriggerAction:ClearLinkUnits
+alsoTriggerActionRepeat:memory.Incom_LinkUnits.size
+shrinkArrays:Incom_LinkUnits
+
+[hiddenAction_ClearLinkUnits]
+sendMessageTo:memory.Incom_LinkUnits[index]
+sendMessageWithTags:DelIncomLink
+
+
+[hiddenAction_TryGoBack]
+autoTrigger:if memory.goBack==true and memory.Incom_LinkUnits.size<=0
+addWaypoint_target_fromReference:customTarget1
+addWaypoint_type:touchTarget
+
+
+[hiddenAction_TryDelSelWhenEnd]
+autoTrigger:if memory.goBack==true and memory.Incom_LinkUnits.size<=0 and distanceBetween(self,customTarget1)<60
+alsoTriggerAction:TimerOutDel
+
+
+[hiddenAction_TimerOutDel]
+autoTrigger:"""
+if 
+(
+    (
+        (self.hp>0 and customTarget1.hp>0) 
+        and memory.goBack==true 
+        and distanceBetween(self,customTarget1)>=60 
+        and self.timeAlive>${lifeTime}*2
+    ) 
+    or 
+    self.timeAlive>${lifeTime}*4
+)
+"""
+spawnEffects:Light_50
+deleteSelf:true
+
+
+[hiddenAction_Die]
+autoTrigger:if self.timeAlive<${lifeTime} and (self.hp<=0 or customTarget1.hp<=0) and memory.goBack==false and memory.onDie==false
+
+
+
+
+
+
+
+

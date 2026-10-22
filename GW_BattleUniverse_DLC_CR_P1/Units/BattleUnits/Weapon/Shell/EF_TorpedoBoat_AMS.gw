@@ -1,0 +1,123 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw
+"""
+@memory EF_TorpedoBoat_AMS_OnCD:bool
+@memory EF_TorpedoBoat_AMS_CDTimer:float
+@global EF_TorpedoBoat_AMS_CD=3
+@global EF_TorpedoBoat_AMS_EN=45
+
+@global EF_TorpedoBoat_AMS_Shoot=2
+[resource_EF_TorpedoBoat_AMS_ShootTimer]
+hidden:true
+
+
+
+
+
+
+
+[turret_EF_TorpedoBoat_AMS]
+x:0
+y:20
+
+canShoot:true
+canAttackNotTouchingWaterUnits:false
+canOnlyAttackUnitsWithoutTags:AirUnit
+onShoot_triggerActions:SendEnemyTryAttack_Shoot
+canAttackCondition:"""
+if ${onAttacking}==false and ${cantAction}==false 
+"""
+showRangeUIGuide:false
+projectile:EF_TorpedoBoat_AMS_Projectile
+resourceUsage:EF_TorpedoBoat_AMS_ShootTimer=1,en=${EF_TorpedoBoat_AMS_EN}
+
+delay:0.0s
+canAttackMaxAngle:360
+barrelX:0
+barrelY:0
+turnSpeed:1.0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\Bazooka_1.ogg
+shoot_sound_vol:0.35
+shoot_flame:BZ_Fire_1_S
+
+
+idleSweepAngle:15
+idleSweepAddRandomAngle:10
+idleSweepDelay:240
+idleSweepAddRandomDelay:120
+idleSweepSpeed:0.25
+idleSweepCondition:if memory.close==false
+
+
+[projectile_EF_TorpedoBoat_AMS_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_MS_Aqua_L*1
+(
+    addResources=
+    ShellDamage:1500
+    |DpDamage:125
+    |WeaponAccuracy=85
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=1.0
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=0.5
+    |AntiAqua=2
+    |AntiAir=0.25 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange=20
+    |HeightChangeSpeed=2
+    |ProjectileSpeed:20
+    |ProjectileTurnspeed:0
+    |ProjectileSpread:0
+    |ProjectileExplosionRange:55
+    |ProjectileLife:70
+)
+"""
+
+
+
+[hiddenAction_EF_TorpedoBoat_AMS_CDStart]
+autoTrigger:"""
+if memory.EF_TorpedoBoat_AMS_OnCD==false 
+and 
+(
+    (
+        self.resource.EF_TorpedoBoat_AMS_ShootTimer<=0 
+    ) 
+    or 
+    (
+        self.resource.EF_TorpedoBoat_AMS_ShootTimer<${EF_TorpedoBoat_AMS_Shoot} and not self.hasTags(includes='inBattle')
+    )
+)
+"""
+setUnitMemory:EF_TorpedoBoat_AMS_OnCD=true,EF_TorpedoBoat_AMS_CDTimer=self.timeAlive+${EF_TorpedoBoat_AMS_CD}
+
+[hiddenAction_EF_TorpedoBoat_AMS_CDEnd]
+autoTriggerOnEvent:created
+autoTrigger:if memory.EF_TorpedoBoat_AMS_OnCD==true and self.timeAlive>memory.EF_TorpedoBoat_AMS_CDTimer
+setUnitMemory:EF_TorpedoBoat_AMS_OnCD=false
+setResourcesWithLogic:EF_TorpedoBoat_AMS_ShootTimer=${EF_TorpedoBoat_AMS_Shoot}

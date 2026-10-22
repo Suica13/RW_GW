@@ -1,0 +1,53 @@
+[core]
+dont_load:false
+
+[effect_Flash_Hit_1]
+life: 100
+
+xOffsetRelative: 0
+yOffsetRelative: 0
+hOffset: 0
+dirOffset: 0
+attachedToUnit: false
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+alpha:0.85
+scaleFrom: 1.0
+scaleTo: 1.0
+image: ROOT:Resource/Image/Fx/Weapon/Sp/Image/Flash_Hit_1.png
+alsoPlaySound:ROOT:Resource/Sound/SE/Weapon/Hit/Beam_Hit_3.ogg:0.5
+
+total_frames: 6
+animateFrameStart: 0
+animateFrameEnd: 5
+animateFrameSpeed: 0.2
+showInFog:true
+
+[effect_Flash_Hit_1_L]
+@copyFromSection:effect_Flash_Hit_1
+scaleFrom: 1.5
+scaleTo: 1.5
+
+[effect_Flash_Hit_1_XL]
+@copyFromSection:effect_Flash_Hit_1
+xOffsetRelative: -1
+yOffsetRelative: 0
+scaleFrom: 2
+scaleTo: 2
+
+
+
+[effect_Flash_Hit_1_S]
+@copyFromSection:effect_Flash_Hit_1
+scaleFrom: 0.5
+scaleTo: 0.5
+
+[effect_Flash_Hit_1_XS]
+@copyFromSection:effect_Flash_Hit_1
+scaleFrom: 0.25
+scaleTo: 0.25
+

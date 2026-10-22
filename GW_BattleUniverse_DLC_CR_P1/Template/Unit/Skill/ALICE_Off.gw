@@ -1,0 +1,95 @@
+[core]
+copyFrom:"""
+ROOT:Template/Unit/Animation/Sp/Common_System_A.gw,
+ROOT:Resource/Image/Fx/System/System_ALICE_1.gw,
+ROOT:Resource/Image/Fx/Common/Common_Light_1_Red.gw
+"""
+
+@memory ALICE_CD:float
+
+@memory ALICE_Timer:float
+
+[action_ALICE]
+pos:10
+buildSpeed:0s
+autoTrigger:"""
+if 
+(
+    (${allowAI}==true and self.attacking.hp>0 and self.resource().EN>100)
+) 
+and self.timeAlive>memory.ALICE_CD 
+and memory.headBreaked==false
+"""
+requireConditional:"""
+if ${cantAction}==false 
+"""
+
+isLocked:if ${cantAction}==true or memory.headBreaked==true
+isLockedMessage:Can not Action
+isLockedMessage_zh:现在不能行动
+isLockedAlt:if self.resource().EN<=100
+isLockedAltMessage:Need at least 100 EN
+isLockedAltMessage_zh:需要至少100点EN
+isLockedAlt2:if self.timeAlive<=memory.ALICE_CD
+isLockedAlt2Message:CD:%{memory.ALICE_CD -self.timeAlive}s
+isLockedAlt2Message_zh:冷却:%{memory.ALICE_CD -self.timeAlive}s
+
+text:ALICE System StandBy
+text_zh:ALICE系统 发动
+
+description:"""
+Performance greatly improved during activation
+\nThe unit will continuously consume EN
+\nForced to end when the head is damaged
+"""
+description_zh:"""
+发动期间性能大幅提升
+\n机体将不断消耗EN
+\n头部损坏时强制结束
+"""
+
+displayType:infoOnly
+highPriorityQueue:true
+
+isVisible:if self.parent.hp<=0 
+
+iconImage:ROOT:Resource/Image/Units/Button/Skill/ALICE.png
+
+playSoundAtUnit:ROOT:Resource/Sound/SE/Action/System/Common_System_1.ogg:1.0
+
+stopLastAnimation:true
+
+spawnEffects:System_ALICE_1,Light_50_Red
+
+alsoTriggerAction:PlayCommon_System_A_Step_1,ALICE_CD,ALICEStart
+
+[hiddenAction_ALICE_CD]
+setUnitMemory:ALICE_CD=self.timeAlive+3
+
+[hiddenAction_ALICEStart]
+sendMessageTo:self.attachment(slot='BattleUnitCore')
+sendMessageWithTags:Transform
+
+setUnitMemory:ALICE_Timer=self.timeAlive+30
+
+
+#convertTo:
+convertTo_keepCurrentTags:true
+convertTo_keepCurrentFields:"""
+maxHp,
+selfRegenRate,
+maxShield,
+shieldRegen,
+maxEnergy,
+armour,
+mass,
+movespeed,
+maxTurnSpeed,
+maxAttackRange,
+nanoRange,
+fogOfWarSightRange,
+nanoFactorySpeed,
+targetHeight,
+"""
+whenBuilding_triggerAction:SetAttackingOff
+alsoTriggerAction:Send_TryClearQueued,Send_TryTransform

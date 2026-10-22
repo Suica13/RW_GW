@@ -1,0 +1,174 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_A_L.gw
+"""
+
+@memory EF_RTX_440_Flamethrower_CDTimer:float
+@global EF_RTX_440_Flamethrower_CD=9
+@global EF_RTX_440_Flamethrower_EN=45
+
+
+#====================贴画====================#
+
+
+#====================炮塔====================#
+
+#========炮塔========#
+
+[turret_EF_RTX_440_Flamethrower]
+x:0
+y:0
+#射击参数
+canShoot:false
+projectile:EF_RTX_440_Flamethrower_Projectile
+#实战参数
+delay:0.2s
+canAttackMaxAngle:15
+barrelX:-13
+barrelY:15
+limitingRange:0
+#后座力参数
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+#音效参数
+shoot_sound:ROOT:Resource/Sound/SE/Unit/Burned_1.ogg
+shoot_sound_vol:0.5
+
+#========炮弹========#
+
+[projectile_EF_RTX_440_Flamethrower_Projectile]
+#炮弹参数
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+#描画参数
+lightSize:0.75
+lightColor:#ffd53d
+explodeEffect:none
+#生成
+spawnUnit:"""
+Projectile_Flamethrower_1*1
+(
+    addResources=
+    ShellDamage:1250
+    |DpDamage:75
+    |WeaponAccuracy=85
+    |PartBreakModifier=0.75
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=10
+    |AntiAqua=0.5
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1.5
+    |HeightChangeSpeed=2
+    |HeightHitRange=20
+    |ProjectileSpeed:45
+    |ProjectileSpread:1
+    |ProjectileExplosionRange:35
+    |ProjectileLife:4.5
+
+    |ProjectileAttackTimes:12
+    |ProjectileAttackTimesDamageModifier:0.5
+
+    |BurnedDamage=3
+)
+"""
+
+[attachment_EF_RTX_440_Flamethrower_FireEffect_1]
+x:-13
+y:15
+isVisible:true
+keepAliveWhenParentDies:false
+canBeAttackedAndDamaged:false
+isUnselectable:true
+canAttack:false
+showAllActionsFrom:true
+idleDir:0
+resetRotationWhenNotAttacking:true
+onCreateSpawnUnitOf:Flamethrower_Fire_1_EffectUnit
+
+[hiddenAction_EF_RTX_440_Flamethrower_FireEffect_1_SetSpeed]
+autoTriggerOnEvent:created
+sendMessageTo:self.attachment(slot='EF_RTX_440_Flamethrower_FireEffect_1')
+sendMessageWithTags:SetSpeed
+sendMessageWithData:Speed=10
+
+[hiddenAction_EF_RTX_440_Flamethrower_Fire_Step_FireEffect_1]
+requireConditional:if ${cantAction}==false
+buildSpeed:0s
+sendMessageTo:self.attachment(slot='EF_RTX_440_Flamethrower_FireEffect_1')
+sendMessageWithTags:PlayOneTime
+playSoundAtUnit:ROOT:Resource/Sound/SE/Action/Common/Action_3.ogg:1.0
+
+#====================逻辑====================#
+
+#========触发========#
+
+
+
+
+[hiddenAction_EF_RTX_440_Flamethrower_Trigger]
+alsoTriggerAction:EF_RTX_440_Flamethrower_B1_Trigger
+[hiddenAction_EF_RTX_440_Flamethrower_B1_Trigger]
+requireConditional:"""
+if self.timeAlive>memory.EF_RTX_440_Flamethrower_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15) 
+and self.resource.EN>0
+"""
+setUnitMemory:EF_RTX_440_Flamethrower_CDTimer=self.timeAlive+${EF_RTX_440_Flamethrower_CD}
+addResources:EN=-${EF_RTX_440_Flamethrower_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+EF_RTX_440_Flamethrower_SetWeaponIndex,
+PlayCommon_Shoot_A_L_Step_1,
+EF_RTX_440_Flamethrower_B1_Step_1
+"""
+[hiddenAction_EF_RTX_440_Flamethrower_B1_Step_1]
+alsoQueueAction:"""
+EF_RTX_440_Flamethrower_Fire_Step_1,
+EF_RTX_440_Flamethrower_Fire_Step_FireEffect_1,
+EF_RTX_440_Flamethrower_Fire_Step_2,
+EF_RTX_440_Flamethrower_Fire_Step_3,
+EF_RTX_440_Flamethrower_Fire_Step_3,
+EF_RTX_440_Flamethrower_Fire_Step_3,
+EF_RTX_440_Flamethrower_Fire_Step_3,
+EF_RTX_440_Flamethrower_Fire_Step_3,
+EF_RTX_440_Flamethrower_Fire_Step_Final
+"""
+
+#设置武器
+[hiddenAction_EF_RTX_440_Flamethrower_SetWeaponIndex]
+isVisible:false
+
+#第一发与后续连发
+[hiddenAction_EF_RTX_440_Flamethrower_Fire_Step_1]
+requireConditional:if ${cantAction}==false
+buildSpeed:0.5s
+[hiddenAction_EF_RTX_440_Flamethrower_Fire_Step_2]
+requireConditional:if ${cantAction}==false
+buildSpeed:0s
+fireTurretXAtGround:EF_RTX_440_Flamethrower
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+
+[hiddenAction_EF_RTX_440_Flamethrower_Fire_Step_3]
+@copyFromSection:hiddenAction_EF_RTX_440_Flamethrower_Fire_Step_2
+requireConditional:if ${cantAction}==false
+buildSpeed:${turret_EF_RTX_440_Flamethrower.delay}
+
+[hiddenAction_EF_RTX_440_Flamethrower_Fire_Step_Final]
+buildSpeed:0.5s
+alsoTriggerAction:SetAttackingOff
+
+

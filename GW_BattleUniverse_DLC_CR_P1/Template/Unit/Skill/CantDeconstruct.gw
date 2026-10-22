@@ -1,0 +1,13 @@
+[core]
+dont_load:false
+
+[action_Deconstruct_Off]
+isLocked:if true
+isLockedMessage:Cant Deconstruct In This Style Or This Unit Cant Deconstruct
+isLockedMessage_zh:该形态无法解析或该单位无法解析
+[action_Deconstruct_On]
+isLocked:if true
+isLockedMessage:Cant Deconstruct In This Style Or This Unit Cant Deconstruct
+isLockedMessage_zh:该形态无法解析或该单位无法解析
+[action_Deconstruct_Placeholder]
+isVisible:if false

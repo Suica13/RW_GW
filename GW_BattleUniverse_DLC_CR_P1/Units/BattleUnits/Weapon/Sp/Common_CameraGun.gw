@@ -1,0 +1,187 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_Flash_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_A.gw
+"""
+
+@memory Common_CameraGun_AimTarget:unit
+@memory Common_CameraGun_CDTimer:float
+@global Common_CameraGun_CD=10
+@global Common_CameraGun_EN=30
+
+
+
+
+[decal_Common_CameraGun]
+layer:beforeBody
+order:5.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Sp\Image\CameraGun.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:0.65
+xOffsetRelative: 2
+yOffsetRelative: 15
+dirOffset:0
+
+[decal_Common_CameraGun_Range]
+layer: inactive
+order:0
+onlyTeam:own
+alpha:1
+image:ROOT:Resource/Image/Ring/Ring150_Action.png
+imageScale:1500/150
+basePosition:self
+alwaysStartDirAtZero:true
+onlyWhileAlive:true
+isVisible:if true
+
+
+
+
+
+
+[turret_Common_CameraGun]
+x:0
+y:0
+
+canShoot:false
+projectile:Common_CameraGun_Projectile
+
+delay:0.2s
+canAttackMaxAngle:15
+limitingAngle:0
+limitingRange:1500
+barrelX:9
+barrelY:35
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Action/Skill/Detect_4.ogg
+shoot_sound_vol:0.5
+shoot_flame:none
+
+[turret_Common_CameraGun_Aim]
+@copyFromSection:turret_Common_CameraGun
+projectile:Common_CameraGun_Projectile_Fake
+shoot_sound:none
+shoot_sound_vol:0
+shoot_flame:none
+
+
+
+
+[projectile_Common_CameraGun_Projectile]
+
+directDamage: 0
+life: 1
+explodeOnEndOfLife:true
+speed: 1
+instant:true
+invisible:true
+targetGround:true
+effectOnCreate:none
+explodeEffect:Flash_1_N
+drawUnderUnits:true
+image:none
+
+spawnUnit:DetectAera*1
+
+[projectile_Common_CameraGun_Projectile_Fake]
+
+directDamage: 0
+life: 1
+explodeOnEndOfLife:true
+speed: 0
+instant:true
+
+effectOnCreate:none
+explodeEffect:none
+
+
+
+
+
+[hiddenAction_Common_CameraGun_Trigger_ByAI]
+autoTrigger:"""
+if ${allowAI}==true 
+and ${cantAction}==false  
+and self.attacking.hp<=0 
+and self.timeAlive>memory.Common_CameraGun_CDTimer 
+and self.resource.en>${Common_CameraGun_EN} 
+and not self.hasTags(includes='inHangar')
+"""
+alsoTriggerAction:Common_CameraGun_Trigger
+
+[action_Common_CameraGun_Trigger]
+pos:10
+text:CameraGun %{select(self.timeAlive<=memory.Common_CameraGun_CDTimer,str(int(memory.Common_CameraGun_CDTimer-self.timeAlive))+"s","OK")}
+text_zh:摄像枪 %{select(self.timeAlive<=memory.Common_CameraGun_CDTimer,str(int(memory.Common_CameraGun_CDTimer-self.timeAlive))+"秒","OK")}
+text_KP:100
+
+displayType:infoOnly
+
+price:EN=${Common_CameraGun_EN} 
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+isGuiBlinking:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Action/Detect_1.png
+highPriorityQueue:true
+
+isVisible:if self.parent.hp<=0  
+
+isLocked:if self.timeAlive<=memory.Common_CameraGun_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+isLockedAlt2:if ${cantAction}==true or ${onSkill}==true or ${allowAI}==true
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+fireTurretXAtGround:Common_CameraGun_Aim
+fireTurretXAtGround_count:0
+fireTurretXAtGround_showGuideDecals:Common_CameraGun_Range
+
+alsoTriggerAction:"""
+SetOnSkillOn,
+Common_CameraGun_SetWeaponIndex,
+Common_CameraGun_B1_Step_1,
+PlayCommon_Shoot_A_Step_1
+"""
+clearAllWaypoints:true
+[hiddenAction_Common_CameraGun_B1_Step_1]
+setUnitMemory:"""
+Common_CameraGun_AimTarget=select(${allowAI}==true,self.getOffsetRelative(x=rnd(-450,450),y=rnd(900,1500)),thisActionTarget),
+Common_CameraGun_CDTimer=self.timeAlive+${Common_CameraGun_CD}
+"""
+
+alsoQueueAction:"""
+Common_CameraGun_Fire_Step_1,
+Common_CameraGun_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_Common_CameraGun_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_Common_CameraGun_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.25s
+fireTurretXAtGround:Common_CameraGun
+fireTurretXAtGround_withTarget:memory.Common_CameraGun_AimTarget
+[hiddenAction_Common_CameraGun_Fire_Step_Final]
+buildSpeed:0.5s
+alsoTriggerAction:"""
+SetOnSkillOff
+"""

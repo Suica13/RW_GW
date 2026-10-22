@@ -1,0 +1,12 @@
+[action_ShowTechTree_CR_Order]
+@copyFromSection:template_ShowTechTree
+text:Order[CR_P1]
+text_zh:秩序[CR_P1]
+iconImage:ROOT:Resource/Image/Icon/Faction_CR_Order_2.png
+isVisible:if self.attachment(slot="CR_Order").hp>0 and memory.showTechTree==false and self.globalTeamTags(includes='Tech_CR_Order_Start')
+isLocked:false
+sendMessageTo:self.attachment(slot="CR_Order")
+
+[attachment_CR_Order]
+@copyFromSection:template_TechTree_Main
+onCreateSpawnUnitOf:TechTree_UI_Main_CR_Order

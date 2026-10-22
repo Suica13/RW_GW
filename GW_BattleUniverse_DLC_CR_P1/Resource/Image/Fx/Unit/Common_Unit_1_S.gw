@@ -1,0 +1,32 @@
+[core]
+dont_load:false
+copyFrom:ROOT:Resource\Image\Fx\Common\Common_Explosion_1_S.gw
+
+
+[effect_ChangeHeight_1]
+life: 140
+
+xOffsetRelative: 0
+yOffsetRelative: 0
+
+
+drawUnderUnits:true
+attachedToUnit: false
+priority:high
+atmospheric:false
+ySpeedRelative:0
+delayedStartTimer:0
+fadeOut: false
+image:ROOT:\Resource\Image\Fx\Unit\Image\ChangeHeight_1.png
+
+dirOffset:90
+total_frames: 5
+animateFrameStart: 0
+animateFrameEnd: 4
+animateFrameSpeed:0.15
+
+alpha:0.85
+scaleFrom:0.35
+scaleTo:0.25
+alsoPlaySound:ROOT:Resource/Sound/SE/Unit/Fly_1.ogg
+showInFog:true

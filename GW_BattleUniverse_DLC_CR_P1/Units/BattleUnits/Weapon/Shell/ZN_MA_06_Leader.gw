@@ -1,0 +1,229 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_Flash_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Cannon_Shoot_A.gw
+"""
+
+
+@memory ZN_MA_06_Leader_AimTarget:unit
+@memory ZN_MA_06_Leader_CDTimer:float
+@global ZN_MA_06_Leader_CD=90
+@global ZN_MA_06_Leader_EN=150
+
+
+
+[decal_ZN_MA_06_Leader_Range]
+layer: inactive
+order:0
+onlyTeam:own
+alpha:1
+image:ROOT:Resource/Image/Ring/Ring150_Action.png
+imageScale:450/150
+basePosition:self
+alwaysStartDirAtZero:true
+onlyWhileAlive:true
+isVisible:if true
+
+
+
+
+
+[turret_ZN_MA_06_Leader]
+x:0
+y:0
+
+canShoot:false
+projectile:ZN_MA_06_Leader_Projectile
+
+delay:0.3s
+canAttackMaxAngle:15
+limitingAngle:0
+limitingRange:450
+barrelX:7
+barrelY:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/Bomb_1.ogg
+shoot_sound_vol:0.2
+shoot_flame:none
+
+
+
+[projectile_ZN_MA_06_Leader_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_ZN_MA_06_Leader_A*1
+(
+    addResources=
+    ShellDamage:1500
+    |DpDamage:250
+    |WeaponAccuracy=75
+    |PartBreakModifier=0.5
+    |CockpitBreakModifier=0.5
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=0.75
+    |AntiSizeSmallDamage=1.0
+    |AntiSizeLargeAccuracy=0.75
+    |AntiSizeSmallAccuracy=1.0
+    |AntiBuilding=1.5
+    |AntiAqua=0.75
+    |AntiAir=0.5 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=0.5
+    |HeightHitRange=10
+    |ProjectileSpeed:30
+    |ProjectileSpread:0
+    |ProjectileExplosionRange:55
+    |ProjectileLife:50
+)
+"""
+
+
+
+
+
+
+
+
+[hiddenAction_ZN_MA_06_Leader_Trigger_ByAI]
+autoTrigger:"""
+if ${allowAI}==true 
+and ${cantAction}==false 
+and ${onSkill}==false 
+and memory.close==false 
+and self.resource.EN>${ZN_MA_06_Leader_EN} 
+and self.timeAlive>memory.ZN_MA_06_Leader_CDTimer 
+and self.parent.hp<=0  
+and memory.ZN_MA_06_Leader_AimTarget.hp>0 
+and memory.ZN_MA_06_Leader_AimTarget.teamID>=0 
+and not memory.ZN_MA_06_Leader_AimTarget.tags(includes='UnDetected') 
+and distanceBetween(self, memory.ZN_MA_06_Leader_AimTarget)>=300 
+"""
+alsoTriggerAction:ZN_MA_06_Leader_Trigger
+
+
+[hiddenAction_ZN_MA_06_Leader_FindTarget]
+autoTrigger:if ${allowAI}==true 
+takeResources_includeUnitsWithinRange:1000
+takeResources_includeUnitsWithinRange_team:enemy
+takeResources_excludeUnitsWithoutTags:CanBeDetected
+takeResources_searchOnly:true
+takeResources_maxUnits:30
+takeResources_triggerActionForEach:ZN_MA_06_Leader_FindTarget_Step2
+[hiddenAction_ZN_MA_06_Leader_FindTarget_Step2]
+requireConditional:"""
+if not thisActionTarget.tags(includes='UnDetected') 
+"""
+setUnitMemory:ZN_MA_06_Leader_AimTarget=thisActionTarget
+
+
+[action_ZN_MA_06_Leader_Trigger]
+pos:10
+text:Leader %{select(self.timeAlive<=memory.ZN_MA_06_Leader_CDTimer,str(int(memory.ZN_MA_06_Leader_CDTimer-self.timeAlive))+"s","OK")}
+text_zh:电击网 %{select(self.timeAlive<=memory.ZN_MA_06_Leader_CDTimer,str(int(memory.ZN_MA_06_Leader_CDTimer-self.timeAlive))+"秒","OK")}
+text_KP:100
+
+displayType:infoOnly
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Grenade_4.png
+highPriorityQueue:true
+
+price:EN=${ZN_MA_06_Leader_EN}
+
+onlyOneUnitAtATime:true
+
+isVisible:if self.parent.hp<=0  
+
+isGuiBlinking:"""
+if self.timeAlive>memory.ZN_MA_06_Leader_CDTimer
+"""
+
+isLocked:if self.timeAlive<=memory.ZN_MA_06_Leader_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+isLockedAlt2:if ${cantAction}==true  or ${onSkill}==true or ${allowAI}==true
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+fireTurretXAtGround:ZN_MA_06_Leader
+fireTurretXAtGround_count:0
+fireTurretXAtGround_showGuideDecals:ZN_MA_06_Leader_Range
+
+alsoTriggerAction:"""
+SetAttackingCantAimOn,
+SetAttackingOn,
+SetOnSkillOn,
+PlayCommon_Cannon_Shoot_A_Step_1,
+ZN_MA_06_Leader_SetWeaponIndex,
+ZN_MA_06_Leader_B1_Step_1
+"""
+clearAllWaypoints:true
+[hiddenAction_ZN_MA_06_Leader_B1_Step_1]
+spawnEffects:Flash_1_N
+setUnitMemory:"""
+ZN_MA_06_Leader_AimTarget=select(${allowAI}==true,memory.ZN_MA_06_Leader_AimTarget,thisActionTarget),
+ZN_MA_06_Leader_CDTimer=self.timeAlive+${ZN_MA_06_Leader_CD}
+"""
+
+alsoQueueAction:"""
+ZN_MA_06_Leader_Fire_Step_1,
+
+ZN_MA_06_Leader_Fire_Step_2,
+ZN_MA_06_Leader_Fire_Step_3,
+
+ZN_MA_06_Leader_Fire_Step_Final
+"""
+
+
+
+[hiddenAction_ZN_MA_06_Leader_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_ZN_MA_06_Leader_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.75s
+[hiddenAction_ZN_MA_06_Leader_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.5s
+[hiddenAction_ZN_MA_06_Leader_Fire_Step_3]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:ZN_MA_06_Leader
+fireTurretXAtGround_withTarget:memory.ZN_MA_06_Leader_AimTarget
+[hiddenAction_ZN_MA_06_Leader_Fire_Step_Final]
+buildSpeed:2.5s
+finishPlayingLastAnimation:true
+alsoTriggerAction:"""
+SetAttackingOff,
+SetOnSkillOff,
+SetAttackingCantAimOff,
+SetAttackingCantTurnOff
+"""
+clearAllWaypoints:true

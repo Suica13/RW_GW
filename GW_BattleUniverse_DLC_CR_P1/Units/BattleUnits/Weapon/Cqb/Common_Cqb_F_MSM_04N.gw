@@ -1,0 +1,134 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Cqb/Common/Cqb_Fire_1_White_L.gw,
+ROOT:Template\Unit\Animation\Cqb\Common_Melee_F.gw
+"""
+
+@memory Common_Cqb_F_MSM_04N_CDTimer:float
+@global Common_Cqb_F_MSM_04N_CD=3
+
+
+
+
+[turret_Common_Cqb_F_MSM_04N]
+x:0
+y:0
+invisible:true
+
+canShoot:false
+
+showRangeUIGuide:false
+projectile:Common_Cqb_F_MSM_04N_Projectile
+
+delay:3s
+limitingMinRange:0
+limitingRange:0
+
+canAttackMaxAngle:60
+barrelX:0
+barrelY:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\HeatHawk_1.ogg
+shoot_sound_vol:0.5
+
+[projectile_Common_Cqb_F_MSM_04N_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Saber_A*1
+(
+    addResources=
+    CqbDamage:2750
+    |CqbShellDamage:2750
+    |DpDamage:750
+    |WeaponAccuracy:125
+    |PartBreakModifier=3
+    |CockpitBreakModifier=100
+    |PilotDamageModifier=0.25
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.0
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.0
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:6
+    |ProjectileSpread:0
+    |ProjectileLife:0.25
+    |ProjectileAttackTimes:2
+
+    |StunDamage:1.5
+)
+"""
+
+
+
+
+
+
+[hiddenAction_Common_Cqb_F_MSM_04N_Trigger]
+alsoTriggerAction:Common_Cqb_F_MSM_04N_Fire
+[hiddenAction_Common_Cqb_F_MSM_04N_Fire]
+requireConditional:"""
+if self.timeAlive>memory.Common_Cqb_F_MSM_04N_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) 
+and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50
+"""
+setUnitMemory:Common_Cqb_F_MSM_04N_CDTimer=self.timeAlive+${Common_Cqb_F_MSM_04N_CD}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Cqb,
+Common_Cqb_F_MSM_04N_SetWeaponIndex,
+PlayCommon_Melee_F_Step_1,
+Common_Cqb_F_MSM_04N_Step_1
+"""
+[hiddenAction_Common_Cqb_F_MSM_04N_Step_1]
+alsoQueueAction:"""
+Common_Cqb_F_MSM_04N_Fire_Step_1,
+Common_Cqb_F_MSM_04N_Fire_Step_2,
+Common_Cqb_F_MSM_04N_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_Common_Cqb_F_MSM_04N_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_Common_Cqb_F_MSM_04N_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.5s
+[hiddenAction_Common_Cqb_F_MSM_04N_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:Common_Cqb_F_MSM_04N
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+spawnEffects:Cqb_Fire_1_White_L
+[hiddenAction_Common_Cqb_F_MSM_04N_Fire_Step_Final]
+buildSpeed:1.5s
+alsoTriggerAction:SetAttackingOff
+

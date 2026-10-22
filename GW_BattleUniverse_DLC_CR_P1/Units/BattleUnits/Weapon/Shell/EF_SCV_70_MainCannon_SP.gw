@@ -1,0 +1,241 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_Flash_1.gw,
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw
+"""
+
+
+@memory EF_SCV_70_MainCannon_SP_AimTarget:unit
+@memory EF_SCV_70_MainCannon_SP_CDTimer:float
+@global EF_SCV_70_MainCannon_SP_CD=90
+
+
+
+[decal_EF_SCV_70_MainCannon_SP_Range]
+layer: inactive
+order:0
+onlyTeam:own
+alpha:1
+image:ROOT:Resource/Image/Ring/Ring150_Action.png
+imageScale:6
+basePosition:self
+alwaysStartDirAtZero:true
+onlyWhileAlive:true
+isVisible:if true
+
+
+
+
+
+[turret_EF_SCV_70_MainCannon_SP]
+x:0
+y:0
+
+canShoot:false
+projectile:EF_SCV_70_MainCannon_SP_Projectile
+
+delay:0.3s
+canAttackMaxAngle:15
+limitingAngle:0
+limitingRange:900
+limitingMinRange:300
+barrelX:10
+barrelY:20
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\ShellCannon_1.ogg
+shoot_sound_vol:0.6
+shoot_flame:BZ_Fire_1
+[turret_EF_SCV_70_MainCannon_SP_L]
+@copyFromSection:turret_EF_SCV_70_MainCannon_SP
+barrelX:-10
+
+
+
+[projectile_EF_SCV_70_MainCannon_SP_Projectile]
+
+directDamage: 0
+life: 500
+explodeOnEndOfLife:true
+speed: 10
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+drawSize:1.5
+image:ROOT:Resource/Image/Bullet/Shell/Sniper_1.png
+
+spawnUnit:"""
+Projectile_Mortar_L_B*1
+(
+    addResources=
+    ShellDamage:8000
+    |DpDamage:1000
+    |WeaponAccuracy=75
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=1.0
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=3
+    |AntiAqua=0.75
+    |AntiAir=1
+    |AntiLand=1
+    |AntiSpace=1.0
+    |HeightChangeSpeed=2
+    |HeightHitRange=50
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileExplosionRange:80
+    |ProjectileLife:0
+)
+"""
+
+
+
+
+
+
+
+[hiddenAction_EF_SCV_70_MainCannon_SP_Trigger_ByAI]
+autoTrigger:"""
+if ${allowAI}==true 
+and ${cantAction}==false 
+and memory.onSkill==false 
+and self.timeAlive>memory.EF_SCV_70_MainCannon_SP_CDTimer 
+and self.parent.hp<=0  
+and memory.EF_SCV_70_MainCannon_SP_AimTarget.teamID>=0 
+and not memory.EF_SCV_70_MainCannon_SP_AimTarget.tags(includes='UnDetected') 
+and memory.EF_SCV_70_MainCannon_SP_AimTarget.hp>0
+"""
+alsoTriggerAction:EF_SCV_70_MainCannon_SP_Trigger
+
+[hiddenAction_EF_SCV_70_MainCannon_SP_FindTarget]
+autoTrigger:"""
+if ${allowAI}==true and self.attacking.hp>0
+"""
+setUnitMemory:EF_SCV_70_MainCannon_SP_AimTarget=self.attacking
+
+
+
+[action_EF_SCV_70_MainCannon_SP_Trigger]
+pos:10
+text:MainCannon[HEAT] %{select(self.timeAlive<=memory.EF_SCV_70_MainCannon_SP_CDTimer,str(int(memory.EF_SCV_70_MainCannon_SP_CDTimer-self.timeAlive))+"s","OK")}
+text_zh:主炮[HEAT] %{select(self.timeAlive<=memory.EF_SCV_70_MainCannon_SP_CDTimer,str(int(memory.EF_SCV_70_MainCannon_SP_CDTimer-self.timeAlive))+"秒","OK")}
+text_KP:100
+
+displayType:infoOnly
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/ShellCannon_2.png
+highPriorityQueue:true
+
+isVisible:if true
+
+isGuiBlinking:"""
+if self.timeAlive>memory.EF_SCV_70_MainCannon_SP_CDTimer
+"""
+
+isLocked:if self.timeAlive<=memory.EF_SCV_70_MainCannon_SP_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+isLockedAlt2:if ${cantAction}==true  or ${allowAI}==true
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+fireTurretXAtGround:EF_SCV_70_MainCannon_SP
+fireTurretXAtGround_count:0
+fireTurretXAtGround_showGuideDecals:EF_SCV_70_MainCannon_SP_Range
+
+setUnitMemory:onSkill=true
+
+alsoTriggerAction:"""
+EF_SCV_70_MainCannon_SP_B1_Step_1,
+EF_SCV_70_MainCannon_SP_B1_Step_1_AI
+"""
+clearAllWaypoints:true
+[hiddenAction_EF_SCV_70_MainCannon_SP_B1_Step_1]
+requireConditional:if ${allowAI}==false
+spawnEffects:Flash_1_N
+setUnitMemory:"""
+EF_SCV_70_MainCannon_SP_AimTarget=thisActionTarget.getOffsetRelative,
+EF_SCV_70_MainCannon_SP_CDTimer=self.timeAlive+${EF_SCV_70_MainCannon_SP_CD}
+"""
+
+alsoQueueAction:"""
+EF_SCV_70_MainCannon_SP_Fire_Step_1,
+
+
+EF_SCV_70_MainCannon_SP_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_EF_SCV_70_MainCannon_SP_B1_Step_1_AI]
+requireConditional:if ${allowAI}==true
+spawnEffects:Flash_1_N
+setUnitMemory:"""
+EF_SCV_70_MainCannon_SP_AimTarget=memory.EF_SCV_70_MainCannon_SP_AimTarget.getOffsetRelative(),
+EF_SCV_70_MainCannon_SP_CDTimer=self.timeAlive+${EF_SCV_70_MainCannon_SP_CD}
+"""
+setBodyRotation:directionBetween(self,memory.EF_SCV_70_MainCannon_SP_AimTarget)
+
+
+alsoQueueAction:"""
+EF_SCV_70_MainCannon_SP_Fire_Step_1,
+
+EF_SCV_70_MainCannon_SP_Fire_Step_Final
+"""
+
+
+
+
+
+
+
+
+[hiddenAction_EF_SCV_70_MainCannon_SP_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.1s
+whenBuilding_cannotMove:true
+fireTurretXAtGround:EF_SCV_70_MainCannon_SP
+fireTurretXAtGround_withTarget:memory.EF_SCV_70_MainCannon_SP_AimTarget
+
+whenBuilding_rotateTo_aimAtActionTarget:true
+whenBuilding_rotateTo_waitTillRotated:true
+alsoTriggerAction:EF_SCV_70_MainCannon_SP_Fire_Step_1_Sub
+
+[hiddenAction_EF_SCV_70_MainCannon_SP_Fire_Step_1_Sub]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+whenBuilding_cannotMove:true
+fireTurretXAtGround:EF_SCV_70_MainCannon_SP_L
+fireTurretXAtGround_withTarget:memory.EF_SCV_70_MainCannon_SP_AimTarget
+
+[hiddenAction_EF_SCV_70_MainCannon_SP_Fire_Step_Final]
+buildSpeed:1.5s
+whenBuilding_cannotMove:true
+finishPlayingLastAnimation:true
+setUnitMemory:onSkill=false
+clearAllWaypoints:true
+
+
+
+
+

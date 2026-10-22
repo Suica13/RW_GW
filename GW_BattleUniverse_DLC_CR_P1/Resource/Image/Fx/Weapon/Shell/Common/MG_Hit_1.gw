@@ -1,0 +1,30 @@
+[core]
+dont_load:false
+
+[effect_MG_Hit_1]
+image:ROOT:\Resource\Image\Fx\Weapon\Shell\Image\MG_Hit_1.png
+life: 100
+
+alsoPlaySound:ROOT:\Resource\Sound\SE\Weapon\Hit\MachineGun_Hit_1.ogg:0.15
+
+attachedToUnit: false
+
+priority:high
+atmospheric:false
+ySpeedRelative:0.5
+delayedStartTimer:0
+fadeOut: false
+scaleFrom: 0.5
+scaleTo: 0.5
+
+total_frames: 2
+animateFrameStart: 0
+animateFrameEnd: 1
+animateFrameSpeed: 0.2
+showInFog:true
+
+[effect_MG_Hit_1_S]
+@copyFromSection:effect_MG_Hit_1
+scaleFrom: 0.25
+scaleTo: 0.25
+

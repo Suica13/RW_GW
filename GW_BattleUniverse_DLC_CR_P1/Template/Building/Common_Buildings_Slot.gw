@@ -1,0 +1,151 @@
+
+[core]
+dont_load:true
+
+tags:BuildingSlot
+name:BuildingSlot
+
+showOnMinimap:false
+price: 9999
+maxHp: 99999
+mass: 50000
+
+disableAllUnitCollisions:true
+disableDeathOnZeroHp:true
+
+buildSpeed: 1s
+radius: 25
+fogOfWarSightRange:0
+
+
+hideScorchMark:true
+numBitsOnDeath:0
+effectOnDeath:none
+
+isUnselectableAsTarget:true
+ignoreInUnitCapCalculation:true
+
+showInEditor:false
+
+autoTriggerCooldownTime:0.1s
+autoTriggerCheckRate:every8Frames
+
+[hiddenAction_InitializeStats]
+autoTriggerOnEvent:created
+isVisible:false
+
+
+[hiddenAction_ConvertToFaction]
+autoTrigger:"""
+if self.attachment(slot='Building').hp<=0 and self.resource().GameStart==1
+"""
+alsoTriggerAction:"""
+ConvertTo_0079,
+ConvertTo_0087,
+ConvertTo_CE71,
+ConvertTo_0093,
+ConvertTo_CR_P1
+"""
+
+[hiddenAction_ConvertTo_0079]
+requireConditional:"""
+if 
+(
+    (self.resource().FactionIndex==1010101 or self.resource().FactionIndex==1010201) 
+    or 
+    (self.resource().FactionIndex==1010102 or self.resource().FactionIndex==1010202)
+) 
+and not self.tags(includes='0079') 
+"""
+convertTo:0079_BuildingSlot
+
+[hiddenAction_ConvertTo_0087]
+requireConditional:"""
+if 
+(
+    (self.resource().FactionIndex==1020101 or self.resource().FactionIndex==1020201 or self.resource().FactionIndex==1020301) 
+) 
+and not self.tags(includes='0087') 
+"""
+convertTo:0087_BuildingSlot
+
+[hiddenAction_ConvertTo_CE71]
+requireConditional:"""
+if 
+(
+    (self.resource().FactionIndex==1110101 or self.resource().FactionIndex==1110201) 
+) 
+and not self.tags(includes='CE71') 
+"""
+convertTo:CE71_BuildingSlot
+
+[attachment_Building]
+x:0
+y:0
+isVisible:true
+keepAliveWhenParentDies:false
+canBeAttackedAndDamaged:true
+isUnselectable:false
+canAttack:true
+showAllActionsFrom:false
+prioritizeParentsMainTarget:true
+smoothlyBlendPositionWhenExistingUnitAdded:false
+onConvertKeepExistingUnitInSameSlot:true
+onParentTeamChangeKeepCurrentTeam:false
+
+[hiddenAction_Start_Get_TileMode]
+autoTrigger:true
+setResourcesWithLogic:tileMode=customTarget1.resource().TileMode
+[hiddenAction_Get_TileMode]
+autoTriggerOnEvent:newMessage(withTag="Setting_TileMode")
+setResourcesWithLogic:tileMode=eventData('tileMode',type='float')
+
+
+
+
+[graphics]
+imageScale:1
+
+
+showQueueBar:false
+
+showEnergyBar:false
+showTransportBar:false
+
+
+image:        SHARED:blank.png
+image_back:   NONE
+image_wreak:  NONE
+
+image_shadow: NONE
+shadowOffsetX:1
+shadowOffsetY:1
+
+isVisibleToEnemies:false
+[attack]
+canAttack:false
+
+
+[movement]
+movementType: Building
+moveSpeed:0
+maxTurnSpeed:0
+targetHeight:1
+targetHeightDrift:0
+
+
+
+[ai]
+useAsTransport:false
+useAsBuilder: false
+
+
+# [CROSS_DLC] Preserve earlier scene routes; add the UC0093 route only.
+[hiddenAction_ConvertTo_0093]
+requireConditional:if (self.resource().FactionIndex==1030101 or self.resource().FactionIndex==1030201) and not self.tags(includes='0093')
+convertTo:0093_BuildingSlot
+
+# [CROSS_DLC] CR has an independent faction namespace; retain all older routes.
+[hiddenAction_ConvertTo_CR_P1]
+requireConditional:if (self.resource().FactionIndex==9010101 or self.resource().FactionIndex==9010201 or self.resource().FactionIndex==9010301) and not self.tags(includes='CR_P1')
+convertTo:CR_P1_BuildingSlot

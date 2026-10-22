@@ -1,0 +1,22 @@
+[core]
+dont_load:false
+
+@memory trailFrame:float
+
+
+[hiddenAction_UpdateTrailFrame]
+autoTrigger:true
+setUnitMemory:trailFrame=select(memory.trailFrame>=${decal_BZ_Trail_1.total_frames}-0.09,0,memory.trailFrame+0.01)
+
+[decal_BZ_Trail_1]
+layer:beforeUI
+order:6.1
+onlyWhileAlive:true 
+isVisible:true
+imageScale:1
+xOffsetRelative: -1
+yOffsetRelative: -15
+dirOffset:0
+total_frames:2
+frame:memory.trailFrame
+image: ROOT:\Resource\Image\Fx\Weapon\Shell\Image\BZ_Trail_1.png

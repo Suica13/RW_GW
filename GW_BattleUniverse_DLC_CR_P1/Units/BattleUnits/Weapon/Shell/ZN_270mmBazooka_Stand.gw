@@ -1,0 +1,16 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Units/BattleUnits/Weapon/Shell/ZN_270mmBazooka.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_StandShoot_A.gw
+"""
+
+
+[hiddenAction_ZN_270mmBazooka_Fire]
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+ZN_270mmBazooka_SetWeaponIndex,
+PlayCommon_StandShoot_A_Step_1,
+ZN_270mmBazooka_B1_Step_1
+"""

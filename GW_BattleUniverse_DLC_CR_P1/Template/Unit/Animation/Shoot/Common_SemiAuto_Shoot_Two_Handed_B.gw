@@ -1,0 +1,79 @@
+[core]
+dont_load:false
+
+[hiddenAction_PlayCommon_Shoot_Two_Handed_B_R]
+
+finishPlayingLastAnimation:     true
+playAnimation:                  Common_Shoot_Two_Handed_B_R
+
+[animation_Common_Shoot_Two_Handed_B_R]
+KeyframeTimeScale:              1
+blendIn:                        0.0s
+blendOut:                       0.0s
+
+
+
+
+
+
+
+arm19_0.00s:                    {x:0.0, y:0.0, dir:0}
+arm19_0.10s:                    {x:0.0, y:0.0, dir:5}
+arm19_0.75s:                    {x:0.0, y:0.0, dir:0}
+
+
+arm2_0.00s:                     {x:0.0, y:0.0, dir:30}
+arm2_0.09s:                     {x:0.0, y:0.0, dir:30}
+arm2_0.13s:                     {x:0.0, y:0.0, dir:45}
+arm2_0.50s:                     {x:0.0, y:0.0, dir:35}
+arm2_0.75s:                     {x:0.0, y:0.0, dir:0}
+
+
+arm3_0.00s:                     {x:5.0, y:5.0, dir:55}
+arm3_0.10s:                     {x:5.0, y:5.0, dir:60}
+arm3_0.50s:                     {x:5.0, y:5.0, dir:62}
+arm3_0.75s:                     {x:0.0, y:0.0, dir:0}
+
+
+arm5_0.00s:                     {x:5.0, y:5.0, dir:49}
+arm5_0.10s:                     {x:5.0, y:5.0, dir:50}
+arm5_0.50s:                     {x:5.0, y:5.0, dir:52}
+arm5_0.75s:                     {x:0.0, y:0.0, dir:0}
+
+
+arm4_0.00s:                     {x:-4.0, y:3.0, dir:0}
+arm4_0.09s:                     {x:-4.0, y:3.0, dir:0}
+arm4_0.10s:                     {x:-4.0, y:-2.0, dir:0}
+arm4_0.20s:                     {x:-4.0, y:-2.0, dir:0}
+arm4_0.75s:                     {x:0.0, y:0.0, dir:0}
+
+
+arm6_0.00s:                     {x:-2.0, y:3.0, dir:0}
+arm6_0.09s:                     {x:-2.0, y:3.0, dir:0}
+arm6_0.10s:                     {x:-2.0, y:-2.0, dir:-15}
+arm6_0.20s:                     {x:-2.0, y:-2.0, dir:-15}
+arm6_0.75s:                     {x:0.0, y:0.0, dir:0}
+
+
+arm12_0.00s:                     {x:5.0, y:5.0, dir:55}
+arm12_0.10s:                     {x:5.0, y:5.0, dir:60}
+arm12_0.50s:                     {x:5.0, y:5.0, dir:62}
+arm12_0.75s:                     {x:0.0, y:0.0, dir:0}
+
+
+
+
+
+
+leg17_0.0s:                     {x:0.0, y:-5.0, dir:-5}
+
+leg18_0.0s:                     {x:0.0, y:-5.0, dir:-5}
+
+
+
+leg19_0.0s:                     {x:0.0, y:-5.0, dir:5}
+
+leg20_0.0s:                     {x:0.0, y:-5.0, dir:5}
+
+
+

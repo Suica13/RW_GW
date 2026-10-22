@@ -1,0 +1,32 @@
+[core]
+dont_load:false
+
+
+
+[effect_Net_Hit_1]
+life: 100
+
+xOffsetRelative: -2.5
+yOffsetRelative: 15
+hOffset: 0
+dirOffset:0
+
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+alpha:0.85
+scaleFrom: 1.25
+scaleTo: 1.5
+image: ROOT:\Resource\Image\Fx\Weapon\Shell\Image\Net_Hit_1.png
+
+alsoPlaySound:ROOT:\Resource\Sound\SE\Weapon\Hit\Net_Hit_1.ogg:1
+
+total_frames: 4
+animateFrameStart: 0
+animateFrameEnd: 2
+animateFrameSpeed: 0.1
+showInFog:true
+

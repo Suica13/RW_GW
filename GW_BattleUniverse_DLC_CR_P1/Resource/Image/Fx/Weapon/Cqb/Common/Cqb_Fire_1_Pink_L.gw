@@ -1,0 +1,49 @@
+[core]
+dont_load:false
+
+
+
+[effect_Cqb_Fire_1_Pink_L]
+life: 160
+
+xOffsetRelative: -7.5
+yOffsetRelative: 11
+
+attachedToUnit: true
+priority:high
+atmospheric:false
+ySpeedRelative:0.35
+delayedStartTimer:0
+fadeOut: false
+image: ROOT:\Resource\Image\Fx\Weapon\Cqb\Image\Cqb_Fire_1_Pink_L.png
+
+dirOffset:90
+total_frames: 9
+animateFrameStart: 0
+animateFrameEnd: 8
+animateFrameSpeed:0.3
+
+alpha:1
+scaleFrom:1
+scaleTo:0.75
+showInFog:true
+
+
+[effect_Cqb_Fire_1_Pink_L_L]
+@copyFromSection:effect_Cqb_Fire_1_Pink_L
+scaleFrom:1.35
+scaleTo:1.0
+yOffsetRelative: 10
+
+[effect_Cqb_Fire_1_Pink_L_XL]
+@copyFromSection:effect_Cqb_Fire_1_Pink_L
+scaleFrom:1.75
+scaleTo:1.4
+yOffsetRelative: 18
+
+
+[effect_Cqb_Fire_1_Pink_L_S]
+@copyFromSection:effect_Cqb_Fire_1_Pink_L
+scaleFrom:0.75
+scaleTo:0.5
+yOffsetRelative: 6

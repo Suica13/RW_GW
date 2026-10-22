@@ -1,0 +1,157 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Template/Unit/Animation/Cqb/Common_Melee_B.gw
+"""
+
+@memory ZN_MS_07B_HeatRod_CDTimer:float
+@global ZN_MS_07B_HeatRod_CD=5
+
+
+@memory ZN_MS_07B_HeatRod_Unit:unit
+
+[hiddenAction_Get_Spawn_ZN_MS_07B_HeatRod]
+autoTriggerOnEvent:newMessage(withTag="RodSpawn_ZN_MS_07B_HeatRod")
+setUnitMemory:ZN_MS_07B_HeatRod_Unit=eventData("unitInfo",type="unit")
+
+
+
+
+[decal_DrawLineTo_ZN_MS_07B_HeatRod_Unit]
+layer:beforeBody
+order:4.5
+alpha:1
+basePositionFromLegEnd:arm4
+drawLineTo:memory.ZN_MS_07B_HeatRod_Unit
+color:#333333
+imageScale:1
+lineWidth:5
+xOffsetRelative: 6
+yOffsetRelative: 6
+onlyOnNonPreview:true
+isVisible:if memory.ZN_MS_07B_HeatRod_Unit.hp>0
+onlyWhileAlive:true
+
+
+
+
+
+
+
+
+[turret_ZN_MS_07B_HeatRod]
+x:0
+y:0
+
+canShoot:false
+projectile:ZN_MS_07B_HeatRod_Projectile
+
+delay:0.3s
+canAttackMaxAngle:15
+barrelX:11
+barrelY:17
+limitingRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/Fist_2.ogg
+shoot_sound_vol:0.5
+
+
+
+[projectile_ZN_MS_07B_HeatRod_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_HeatRod*1
+(
+    addResources=
+    CqbDamage:3500
+    |DpDamage:750
+    |WeaponAccuracy=85
+    |PartBreakModifier=3
+    |CockpitBreakModifier=100
+    |PilotDamageModifier=0.25
+    |PilotTrueDamage=0
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1.5
+    |HeightChangeSpeed=2
+    |HeightHitRange=20
+    |ProjectileSpeed:55
+    |ProjectileSpread:1
+    |ProjectileLife:10
+)
+"""
+
+
+
+
+
+
+
+
+[hiddenAction_ZN_MS_07B_HeatRod_Trigger]
+alsoTriggerAction:ZN_MS_07B_HeatRod_Fire
+[hiddenAction_ZN_MS_07B_HeatRod_Fire]
+requireConditional:"""
+if self.timeAlive>memory.ZN_MS_07B_HeatRod_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)
+"""
+setUnitMemory:ZN_MS_07B_HeatRod_CDTimer=self.timeAlive+${ZN_MS_07B_HeatRod_CD}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+ZN_MS_07B_HeatRod_SetWeaponIndex,
+PlayCommon_Melee_B_Step_1,
+ZN_MS_07B_HeatRod_B1_Step_1
+"""
+[hiddenAction_ZN_MS_07B_HeatRod_B1_Step_1]
+alsoQueueAction:"""
+ZN_MS_07B_HeatRod_Fire_Step_1,
+ZN_MS_07B_HeatRod_Fire_Step_2,
+ZN_MS_07B_HeatRod_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_ZN_MS_07B_HeatRod_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_ZN_MS_07B_HeatRod_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.5s
+[hiddenAction_ZN_MS_07B_HeatRod_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:ZN_MS_07B_HeatRod
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_ZN_MS_07B_HeatRod_Fire_Step_Final]
+buildSpeed:0.5s
+alsoTriggerAction:SetAttackingOff
+
+

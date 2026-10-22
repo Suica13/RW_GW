@@ -1,0 +1,31 @@
+[core]
+dont_load:false
+
+
+[effect_Cqb_Hit_2]
+life: 140
+
+xOffsetRelative: -5
+yOffsetRelative: -15
+
+attachedToUnit: false
+priority:high
+atmospheric:false
+ySpeedRelative:0.15
+delayedStartTimer:0
+fadeOut: false
+image: ROOT:\Resource\Image\Fx\Weapon\Cqb\Image\Cqb_Hit_2.png
+
+dirOffset:0
+total_frames: 4
+animateFrameStart: 0
+animateFrameEnd: 3
+animateFrameSpeed:0.1
+
+alpha:0.75
+scaleFrom:1.25
+scaleTo:1.0
+alsoPlaySound:ROOT:\Resource\Sound\SE\Weapon\Hit\Cqb_Hit_1.ogg:0.5,ROOT:\Resource\Sound\SE\Weapon\Hit\Cqb_Hit_2.ogg:0.5,ROOT:\Resource\Sound\SE\Weapon\Hit\Cqb_Hit_3.ogg:0.5
+showInFog:true
+
+

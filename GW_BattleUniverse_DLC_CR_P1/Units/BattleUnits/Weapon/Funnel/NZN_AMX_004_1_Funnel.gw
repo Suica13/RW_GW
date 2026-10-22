@@ -1,0 +1,173 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Cannon_Shoot_A.gw
+"""
+
+@memory NZN_AMX_004_1_Funnel_CDTimer:float
+@memory NZN_AMX_004_1_Funnel_Units:unit[]
+@global NZN_AMX_004_1_Funnel_CD=20
+@global NZN_AMX_004_1_Funnel_EN=100
+@global NZN_AMX_004_1_Funnel_PilotAwakeningSkill=75
+
+[hiddenAction_Get_FunnelSpawn_NZN_AMX_004_1_Funnel]
+autoTriggerOnEvent:newMessage(withTag="FunnelSpawn_NZN_AMX_004_1_Funnel")
+setUnitMemory:NZN_AMX_004_1_Funnel_Units[0]=eventData("unitInfo",type="unit")
+
+
+
+
+[turret_NZN_AMX_004_1_Funnel]
+x:0
+y:0
+
+canShoot:false
+projectile:NZN_AMX_004_1_Funnel_Projectile
+
+delay:0.2s
+canAttackMaxAngle:15
+limitingAngle:0
+limitingRange:1200
+barrelX:0
+barrelY:-10
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Action/Common/Transform_1.ogg
+shoot_sound_vol:0
+shoot_flame:none
+
+
+[projectile_NZN_AMX_004_1_Funnel_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+AMX_004_1_Funnel*1
+"""
+
+
+[hiddenAction_NZN_AMX_004_1_Funnel_Trigger_ByAI]
+autoTrigger:"""
+if ${allowAI}==true 
+and ${cantAction}==false 
+and ${onSkill}==false 
+and memory.close==false 
+and self.resource.EN>${NZN_AMX_004_1_Funnel_EN} 
+and self.timeAlive>memory.NZN_AMX_004_1_Funnel_CDTimer 
+and self.parent.hp<=0  
+and self.attacking.hp>0 
+and memory.pilotUnit.readUnitMemory("pilotAwakeningSkillFinal",type="float")>=${NZN_AMX_004_1_Funnel_PilotAwakeningSkill} 
+"""
+setResourcesWithLogic:EN=self.resource().EN-${NZN_AMX_004_1_Funnel_EN}
+alsoTriggerAction:NZN_AMX_004_1_Funnel_Trigger
+
+[action_NZN_AMX_004_1_Funnel_Trigger]
+pos:10
+text:Funnel[LockOn] %{select(self.timeAlive<=memory.NZN_AMX_004_1_Funnel_CDTimer,str(int(memory.NZN_AMX_004_1_Funnel_CDTimer-self.timeAlive))+"s","OK")}
+text_zh:浮游炮[锁定] %{select(self.timeAlive<=memory.NZN_AMX_004_1_Funnel_CDTimer,str(int(memory.NZN_AMX_004_1_Funnel_CDTimer-self.timeAlive))+"秒","OK")}
+text_KP:100
+
+displayType:infoOnly
+
+price:EN=${NZN_AMX_004_1_Funnel_EN} 
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+ai_isDisabled:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Funnel_3.png
+highPriorityQueue:true
+
+isVisible:if self.parent.hp<=0 
+isGuiBlinking:"""
+if self.timeAlive>memory.NZN_AMX_004_1_Funnel_CDTimer 
+and ${cantAction}==false 
+and ${onSkill}==false 
+and not 
+(
+    memory.armLBreaked==true 
+    and 
+    memory.armRBreaked==true
+)
+"""
+
+isLocked:if self.timeAlive<=memory.NZN_AMX_004_1_Funnel_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+
+isLockedAlt:"""
+if memory.pilotUnit.readUnitMemory("pilotAwakeningSkillFinal",type="float")<${NZN_AMX_004_1_Funnel_PilotAwakeningSkill}
+"""
+isLockedAltMessage:PilotAwakeningSkill Not Enough(%{${NZN_AMX_004_1_Funnel_PilotAwakeningSkill}})
+isLockedAltMessage_zh:驾驶员觉醒能力不足(%{${NZN_AMX_004_1_Funnel_PilotAwakeningSkill}})
+
+isLockedAlt2:"""
+if 
+(
+    ${cantAction}==true or ${onSkill}==true or ${allowAI}==true 
+)
+"""
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+alsoTriggerAction:"""
+SetOnSkillOn,
+NZN_AMX_004_1_Funnel_SetWeaponIndex,
+NZN_AMX_004_1_Funnel_B10_Step_1,
+PlayCommon_Cannon_Shoot_A_Step_1
+"""
+[hiddenAction_NZN_AMX_004_1_Funnel_B10_Step_1]
+setUnitMemory:"""
+NZN_AMX_004_1_Funnel_CDTimer=self.timeAlive+${NZN_AMX_004_1_Funnel_CD}
+"""
+shrinkArrays:NZN_AMX_004_1_Funnel_Units
+alsoQueueAction:"""
+NZN_AMX_004_1_Funnel_Fire_Step_1,
+NZN_AMX_004_1_Funnel_Fire_Step_2,
+NZN_AMX_004_1_Funnel_Fire_Step_2,
+NZN_AMX_004_1_Funnel_Fire_Step_2,
+NZN_AMX_004_1_Funnel_Fire_Step_2,
+NZN_AMX_004_1_Funnel_Fire_Step_2,
+NZN_AMX_004_1_Funnel_Fire_Step_Final
+"""
+playSoundAtUnit:ROOT:Resource/Sound/SE/Action/System/NewType_2.ogg
+
+
+
+[hiddenAction_NZN_AMX_004_1_Funnel_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_NZN_AMX_004_1_Funnel_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.15s
+fireTurretXAtGround:NZN_AMX_004_1_Funnel
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_NZN_AMX_004_1_Funnel_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.05s
+fireTurretXAtGround:NZN_AMX_004_1_Funnel
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_NZN_AMX_004_1_Funnel_Fire_Step_Final]
+buildSpeed:0s
+alsoTriggerAction:"""
+SetOnSkillOff
+"""

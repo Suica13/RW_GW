@@ -1,0 +1,383 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Beam/Common/Beam_Fire_1_Blue.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Cannon_Shoot_A.gw
+"""
+
+@memory AEUG_FA_010A_BeamCannon_CDTimer:float
+@global AEUG_FA_010A_BeamCannon_CD=12
+@global AEUG_FA_010A_BeamCannon_EN=120
+
+@memory AEUG_FA_010A_BeamCannon_ChargeEffect_1:unit
+@memory AEUG_FA_010A_BeamCannon_BulletEffect_1:unit
+
+@memory AEUG_FA_010A_BeamCannon_ChargeEffect_2:unit
+@memory AEUG_FA_010A_BeamCannon_BulletEffect_2:unit
+
+
+
+
+[turret_AEUG_FA_010A_BeamCannon]
+x:0
+y:0
+
+canShoot:false
+projectile:AEUG_FA_010A_BeamCannon_Projectile
+
+delay:0.2s
+canAttackMaxAngle:15
+barrelX:15
+barrelY:-5
+limitingAngle:0
+limitingRange:500
+limitingMinRange:300
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\BeamCannon_2.ogg
+shoot_sound_vol:0
+shoot_flame:none
+
+[turret_AEUG_FA_010A_BeamCannon_L]
+@copyFromSection:turret_AEUG_FA_010A_BeamCannon
+barrelX:-15
+barrelY:-5
+
+
+[projectile_AEUG_FA_010A_BeamCannon_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_AP_BeamRifle_Blue_Alpha0*1
+(
+    addResources=
+    BeamDamage:3000
+    |BeamAPDamage:500
+    |DpDamage:50
+    |WeaponAccuracy=85
+    |PartBreakModifier=1
+    |CockpitBreakModifier=1
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=1.0
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=2
+    |HeightHitRange=25
+    |ProjectileSpeed:150
+    |ProjectileSpread:1
+    |ProjectileLife:3.75
+
+    |ProjectileAttackTimes:7
+    |ProjectileAttackTimesDamageModifier:0.5
+
+    |EquipmentIndex=2
+    |EquipmentIndex2=600
+)
+"""
+
+
+
+
+[attachment_AEUG_FA_010A_BeamCannon_ChargeEffect_1]
+x:15
+y:-5
+isVisible:true
+keepAliveWhenParentDies:false
+canBeAttackedAndDamaged:false
+isUnselectable:true
+canAttack:false
+showAllActionsFrom:true
+onConvertKeepExistingUnitInSameSlot:true
+idleDir:0
+resetRotationWhenNotAttacking:true
+
+[hiddenAction_AEUG_FA_010A_BeamCannon_ChargeEffect_1_AwakeSet]
+autoTriggerOnEvent:newMessage(withTag="UnitTurretSpawn")
+alsoTriggerAction:"""
+AEUG_FA_010A_BeamCannon_ChargeEffect_1_StartSet
+"""
+attachments_addNewUnits:Beam_Charge_1_EffectUnit
+attachments_onlyOnSlots:AEUG_FA_010A_BeamCannon_ChargeEffect_1
+
+[hiddenAction_AEUG_FA_010A_BeamCannon_ChargeEffect_1_StartSet]
+setUnitMemory:AEUG_FA_010A_BeamCannon_ChargeEffect_1=self.attachment(slot='AEUG_FA_010A_BeamCannon_ChargeEffect_1')
+alsoTriggerAction:"""
+AEUG_FA_010A_BeamCannon_ChargeEffect_1_SetColor,
+AEUG_FA_010A_BeamCannon_ChargeEffect_1_SetSpeed
+"""
+
+[hiddenAction_AEUG_FA_010A_BeamCannon_ChargeEffect_1_SetColor]
+sendMessageTo:memory.AEUG_FA_010A_BeamCannon_ChargeEffect_1
+sendMessageWithTags:SetColor_Blue
+[hiddenAction_AEUG_FA_010A_BeamCannon_ChargeEffect_1_SetSpeed]
+sendMessageTo:memory.AEUG_FA_010A_BeamCannon_ChargeEffect_1
+sendMessageWithTags:SetSpeed
+sendMessageWithData:Speed=5
+
+[hiddenAction_AEUG_FA_010A_BeamCannon_Fire_Step_ChargeEffect_1]
+requireConditional:if ${cantAction}==false
+buildSpeed:0s
+sendMessageTo:memory.AEUG_FA_010A_BeamCannon_ChargeEffect_1
+sendMessageWithTags:PlayOneTime
+playSoundAtUnit:ROOT:Resource/Sound/SE/Weapon/Fire/BeamCharge_1.ogg:2.0
+
+
+[attachment_AEUG_FA_010A_BeamCannon_ChargeEffect_2]
+x:-15
+y:-5
+isVisible:true
+keepAliveWhenParentDies:false
+canBeAttackedAndDamaged:false
+isUnselectable:true
+canAttack:false
+showAllActionsFrom:true
+onConvertKeepExistingUnitInSameSlot:true
+idleDir:0
+resetRotationWhenNotAttacking:true
+
+[hiddenAction_AEUG_FA_010A_BeamCannon_ChargeEffect_2_AwakeSet]
+autoTriggerOnEvent:newMessage(withTag="UnitTurretSpawn")
+alsoTriggerAction:"""
+AEUG_FA_010A_BeamCannon_ChargeEffect_2_StartSet
+"""
+attachments_addNewUnits:Beam_Charge_1_EffectUnit
+attachments_onlyOnSlots:AEUG_FA_010A_BeamCannon_ChargeEffect_2
+
+[hiddenAction_AEUG_FA_010A_BeamCannon_ChargeEffect_2_StartSet]
+setUnitMemory:AEUG_FA_010A_BeamCannon_ChargeEffect_2=self.attachment(slot='AEUG_FA_010A_BeamCannon_ChargeEffect_2')
+alsoTriggerAction:"""
+AEUG_FA_010A_BeamCannon_ChargeEffect_2_SetColor,
+AEUG_FA_010A_BeamCannon_ChargeEffect_2_SetSpeed
+"""
+
+[hiddenAction_AEUG_FA_010A_BeamCannon_ChargeEffect_2_SetColor]
+sendMessageTo:memory.AEUG_FA_010A_BeamCannon_ChargeEffect_2
+sendMessageWithTags:SetColor_Blue
+[hiddenAction_AEUG_FA_010A_BeamCannon_ChargeEffect_2_SetSpeed]
+sendMessageTo:memory.AEUG_FA_010A_BeamCannon_ChargeEffect_2
+sendMessageWithTags:SetSpeed
+sendMessageWithData:Speed=5
+
+[hiddenAction_AEUG_FA_010A_BeamCannon_Fire_Step_ChargeEffect_2]
+requireConditional:if ${cantAction}==false
+buildSpeed:0s
+sendMessageTo:memory.AEUG_FA_010A_BeamCannon_ChargeEffect_2
+sendMessageWithTags:PlayOneTime
+playSoundAtUnit:ROOT:Resource/Sound/SE/Weapon/Fire/BeamCharge_1.ogg:2.0
+
+[attachment_AEUG_FA_010A_BeamCannon_BulletEffect_1]
+x:15
+y:-5
+isVisible:true
+keepAliveWhenParentDies:false
+canBeAttackedAndDamaged:false
+isUnselectable:true
+canAttack:false
+showAllActionsFrom:true
+onConvertKeepExistingUnitInSameSlot:true
+idleDir:0
+resetRotationWhenNotAttacking:true
+
+[hiddenAction_AEUG_FA_010A_BeamCannon_BulletEffect_1_AwakeSet]
+autoTriggerOnEvent:newMessage(withTag="UnitTurretSpawn")
+alsoTriggerAction:"""
+AEUG_FA_010A_BeamCannon_BulletEffect_1_StartSet
+"""
+attachments_addNewUnits:HighBeamRifle_1_Fast_EffectUnit
+attachments_onlyOnSlots:AEUG_FA_010A_BeamCannon_BulletEffect_1
+
+[hiddenAction_AEUG_FA_010A_BeamCannon_BulletEffect_1_StartSet]
+setUnitMemory:AEUG_FA_010A_BeamCannon_BulletEffect_1=self.attachment(slot='AEUG_FA_010A_BeamCannon_BulletEffect_1')
+alsoTriggerAction:"""
+AEUG_FA_010A_BeamCannon_BulletEffect_1_SetColor,
+AEUG_FA_010A_BeamCannon_BulletEffect_1_SetSpeed
+"""
+
+[hiddenAction_AEUG_FA_010A_BeamCannon_BulletEffect_1_SetColor]
+sendMessageTo:memory.AEUG_FA_010A_BeamCannon_BulletEffect_1
+sendMessageWithTags:SetColor_Blue
+[hiddenAction_AEUG_FA_010A_BeamCannon_BulletEffect_1_SetSpeed]
+sendMessageTo:memory.AEUG_FA_010A_BeamCannon_BulletEffect_1
+sendMessageWithTags:SetSpeed
+sendMessageWithData:Speed=8
+
+[hiddenAction_AEUG_FA_010A_BeamCannon_Fire_Step_BulletEffect_1]
+requireConditional:if ${cantAction}==false
+buildSpeed:0s
+sendMessageTo:memory.AEUG_FA_010A_BeamCannon_BulletEffect_1
+sendMessageWithTags:PlayOneTime
+
+[hiddenAction_AEUG_FA_010A_BeamCannon_BulletEffect_1_StopPlay]
+buildSpeed:0s
+sendMessageTo:memory.AEUG_FA_010A_BeamCannon_BulletEffect_1
+sendMessageWithTags:StopPlay
+
+
+
+
+
+
+[attachment_AEUG_FA_010A_BeamCannon_BulletEffect_2]
+x:-15
+y:-5
+isVisible:true
+keepAliveWhenParentDies:false
+canBeAttackedAndDamaged:false
+isUnselectable:true
+canAttack:false
+showAllActionsFrom:true
+onConvertKeepExistingUnitInSameSlot:true
+idleDir:0
+resetRotationWhenNotAttacking:true
+
+[hiddenAction_AEUG_FA_010A_BeamCannon_BulletEffect_2_AwakeSet]
+autoTriggerOnEvent:newMessage(withTag="UnitTurretSpawn")
+alsoTriggerAction:"""
+AEUG_FA_010A_BeamCannon_BulletEffect_2_StartSet
+"""
+attachments_addNewUnits:HighBeamRifle_1_Fast_EffectUnit
+attachments_onlyOnSlots:AEUG_FA_010A_BeamCannon_BulletEffect_2
+
+[hiddenAction_AEUG_FA_010A_BeamCannon_BulletEffect_2_StartSet]
+setUnitMemory:AEUG_FA_010A_BeamCannon_BulletEffect_2=self.attachment(slot='AEUG_FA_010A_BeamCannon_BulletEffect_2')
+alsoTriggerAction:"""
+AEUG_FA_010A_BeamCannon_BulletEffect_2_SetColor,
+AEUG_FA_010A_BeamCannon_BulletEffect_2_SetSpeed
+"""
+
+[hiddenAction_AEUG_FA_010A_BeamCannon_BulletEffect_2_SetColor]
+sendMessageTo:memory.AEUG_FA_010A_BeamCannon_BulletEffect_2
+sendMessageWithTags:SetColor_Blue
+[hiddenAction_AEUG_FA_010A_BeamCannon_BulletEffect_2_SetSpeed]
+sendMessageTo:memory.AEUG_FA_010A_BeamCannon_BulletEffect_2
+sendMessageWithTags:SetSpeed
+sendMessageWithData:Speed=8
+
+[hiddenAction_AEUG_FA_010A_BeamCannon_Fire_Step_BulletEffect_2]
+requireConditional:if ${cantAction}==false
+buildSpeed:0s
+sendMessageTo:memory.AEUG_FA_010A_BeamCannon_BulletEffect_2
+sendMessageWithTags:PlayOneTime
+
+[hiddenAction_AEUG_FA_010A_BeamCannon_BulletEffect_2_StopPlay]
+buildSpeed:0s
+sendMessageTo:memory.AEUG_FA_010A_BeamCannon_BulletEffect_2
+sendMessageWithTags:StopPlay
+
+
+
+
+[hiddenAction_AEUG_FA_010A_BeamCannon_Trigger]
+alsoTriggerAction:AEUG_FA_010A_BeamCannon_Fire
+[hiddenAction_AEUG_FA_010A_BeamCannon_Fire]
+requireConditional:"""
+if self.timeAlive>memory.AEUG_FA_010A_BeamCannon_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15) 
+and self.resource.EN>0
+"""
+setUnitMemory:AEUG_FA_010A_BeamCannon_CDTimer=self.timeAlive+${AEUG_FA_010A_BeamCannon_CD}
+addResources:EN=-${AEUG_FA_010A_BeamCannon_EN}
+
+alsoTriggerAction:"""
+SetAttackingOn,
+SetOnSkillOn_AEUG_FA_010A_BeamCannon,
+SendEnemyTryAttack_Shoot,
+PlayCommon_Cannon_Shoot_A_Step_1,
+AEUG_FA_010A_BeamCannon_SetWeaponIndex,
+AEUG_FA_010A_BeamCannon_B1_Step_1
+"""
+[hiddenAction_AEUG_FA_010A_BeamCannon_B1_Step_1]
+alsoQueueAction:"""
+AEUG_FA_010A_BeamCannon_Fire_Step_ChargeEffect_1,
+AEUG_FA_010A_BeamCannon_Fire_Step_ChargeEffect_2,
+AEUG_FA_010A_BeamCannon_Fire_Step_1,
+AEUG_FA_010A_BeamCannon_Fire_Step_BulletEffect_1,
+AEUG_FA_010A_BeamCannon_Fire_Step_BulletEffect_2,
+
+AEUG_FA_010A_BeamCannon_Fire_Step_2,
+AEUG_FA_010A_BeamCannon_Fire_Step_2,
+AEUG_FA_010A_BeamCannon_Fire_Step_2,
+AEUG_FA_010A_BeamCannon_Fire_Step_2,
+AEUG_FA_010A_BeamCannon_Fire_Step_2,
+AEUG_FA_010A_BeamCannon_Fire_Step_2,
+AEUG_FA_010A_BeamCannon_Fire_Step_2,
+AEUG_FA_010A_BeamCannon_Fire_Step_2,
+
+AEUG_FA_010A_BeamCannon_Fire_Step_Final,
+AEUG_FA_010A_BeamCannon_BulletEffect_1_StopPlay
+"""
+
+
+
+
+
+[hiddenAction_SetOnSkillOn_AEUG_FA_010A_BeamCannon]
+@copyFromSection:hiddenAction_SetOnSkillOn
+sendMessageWithData:"""
+skillMoveSpeedBuff=0.75,
+skillTurnSpeedBuff=0.05
+"""
+
+
+
+
+[hiddenAction_AEUG_FA_010A_BeamCannon_SetWeaponIndex]
+isVisible:false
+
+[hiddenAction_AEUG_FA_010A_BeamCannon_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.65s
+
+playSoundAtUnit:ROOT:\Resource\Sound\SE\Weapon\Fire\BeamCannon_2.ogg
+
+[hiddenAction_AEUG_FA_010A_BeamCannon_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.1s
+
+fireTurretXAtGround:AEUG_FA_010A_BeamCannon
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+alsoTriggerAction:"""
+PlayCommon_Cannon_Shoot_A_Step_1,
+AEUG_FA_010A_BeamCannon_Fire_Step_2_Sub
+"""
+[hiddenAction_AEUG_FA_010A_BeamCannon_Fire_Step_2_Sub]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+
+fireTurretXAtGround:AEUG_FA_010A_BeamCannon_L
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+
+[hiddenAction_AEUG_FA_010A_BeamCannon_Fire_Step_Final]
+buildSpeed:1.5s
+alsoTriggerAction:"""
+SetAttackingOff,
+SetOnSkillOff,
+SetAttackingCantTurnOff
+"""
+

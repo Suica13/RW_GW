@@ -1,0 +1,66 @@
+[core]
+
+price: 5000
+mass: 50000
+
+
+disableAllUnitCollisions:true
+
+buildSpeed: 0.001
+radius: 5
+fogOfWarSightRange:0
+
+hideScorchMark:true
+numBitsOnDeath:0
+effectOnDeath:none
+ignoreInUnitCapCalculation:true
+
+@memory coreUnit:unit
+
+@memory finalShootLevel:float
+@memory finalCqbLevel:float
+@memory finalAccuracyLevel:float
+
+@memory finalBeamDef:float
+@memory finalShellDef:float
+@memory finalCqbDef:float
+
+@memory extraBuildingDef:float
+@memory extraBuildingAtk:float
+
+@memory lastDamageBy:unit
+
+[hiddenAction_SetCoreUnit]
+autoTriggerOnEvent:created
+setUnitMemory:coreUnit=self
+
+[hiddenAction_InitializeStats]
+autoTriggerOnEvent:created
+isVisible:false
+
+
+
+[hiddenAction_Update]
+
+
+[hiddenAction_TookDamage]
+autoTriggerOnEvent:newMessage(withTag="Damage")
+setUnitStats:hp=self.hp-eventData(name="Damage",type="float")
+setUnitMemory:lastDamageBy=eventData(name="LastDamageBy",type="unit")
+
+
+
+
+
+[graphics]
+image:SHARED:blank.png
+disableLowHpFire:true
+disableLowHpSmoke:true
+
+[attack]
+canAttack:false
+
+[ai]
+useAsTransport:false
+useAsBuilder: false
+

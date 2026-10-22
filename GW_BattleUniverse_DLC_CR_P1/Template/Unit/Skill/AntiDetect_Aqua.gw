@@ -1,0 +1,31 @@
+[core]
+
+
+[hiddenAction_Check_AntiDetect]
+autoTrigger:true
+alsoTriggerAction:"""
+Check_AntiDetect_True,
+Check_AntiDetect_False
+"""
+[hiddenAction_Check_AntiDetect_True]
+requireConditional:"""
+if not self.hasTags(includes='AntiDetect') 
+and 
+(
+    self.resource.TileMode==0 
+    and memory.tileType==2 
+    and self.height<1
+)
+"""
+temporarilyAddTags:AntiDetect
+[hiddenAction_Check_AntiDetect_False]
+requireConditional:"""
+if self.hasTags(includes='AntiDetect') 
+and 
+(
+    self.resource.TileMode!=0 
+    or memory.tileType!=2 
+    or self.height>=1
+)
+"""
+temporarilyAddTags:AntiDetect

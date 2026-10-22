@@ -1,0 +1,20 @@
+[core]
+dont_load:true
+copyFrom:"""
+ROOT:Units/BattleUnits/Weapon/Sp/Common_DetectArea.gw
+"""
+@global Common_DetectArea_Range=1100
+
+
+
+
+[decal_Common_DetectArea_Range]
+imageScale:1100/150
+
+
+
+
+[turret_Common_DetectArea]
+limitingRange:1100
+
+

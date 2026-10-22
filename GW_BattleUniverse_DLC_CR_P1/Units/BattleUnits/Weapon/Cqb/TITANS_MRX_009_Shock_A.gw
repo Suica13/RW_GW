@@ -1,0 +1,153 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Sp/Common/Shock_1.gw,
+ROOT:Resource/Image/Fx/Common/Common_Crater_2.gw,
+ROOT:Template/Unit/Animation/Cqb/Common_Large_Shock_A.gw
+"""
+
+
+@memory TITANS_MRX_009_Shock_A_CDTimer:float
+@global TITANS_MRX_009_Shock_A_CD=4
+
+
+#====================贴画====================#
+
+#========炮弹========#
+
+[turret_TITANS_MRX_009_Shock_A]
+x:0
+y:0
+invisible:true
+#射击参数
+canShoot:false
+
+showRangeUIGuide:false
+projectile:TITANS_MRX_009_Shock_A_Projectile
+#实战参数
+delay:3s
+limitingMinRange:0
+limitingRange:0
+#枪管参数
+canAttackMaxAngle:60
+barrelX:30
+barrelY:55
+#后座力参数
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+#音效参数
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/Fist_2.ogg
+shoot_sound_vol:0.5
+shoot_flame:none
+
+[projectile_TITANS_MRX_009_Shock_A_Projectile]
+#炮弹参数
+directDamage: 0
+life: 1
+explodeOnEndOfLife:true
+instant:true
+speed: 0
+#描画参数
+lightSize:0.75
+lightColor:#ff57e9
+explodeEffect:none
+#生成
+spawnUnit:"""
+Projectile_Shock_A_L*1
+(
+    addResources=
+    CqbDamage:9000
+    |CqbShellDamage:9000
+    |DpDamage:2000
+    |WeaponAccuracy:125
+    |PartBreakModifier=0.5
+    |CockpitBreakModifier=1.0
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.0
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.0
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:0.25
+    |ProjectileAttackTimes:9
+)
+"""
+#====================逻辑====================#
+
+#========触发========#
+
+
+
+[hiddenAction_TITANS_MRX_009_Shock_A_Trigger]
+alsoTriggerAction:TITANS_MRX_009_Shock_A_Fire
+[hiddenAction_TITANS_MRX_009_Shock_A_Fire]
+requireConditional:"""
+if self.timeAlive>memory.TITANS_MRX_009_Shock_A_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-60 or directionBetween(self, self.attacking) > self.dir+60) 
+and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50
+"""
+setUnitMemory:TITANS_MRX_009_Shock_A_CDTimer=self.timeAlive+${TITANS_MRX_009_Shock_A_CD}
+alsoTriggerAction:"""
+SetAttackingOn,
+SetAttackingCantTurnOn,
+SendEnemyTryAttack_Cqb,
+TITANS_MRX_009_Shock_A_SetWeaponIndex,
+PlayCommon_Large_Shock_A_Step_1,
+TITANS_MRX_009_Shock_A_Step_1
+"""
+stopLastAnimation:true
+[hiddenAction_TITANS_MRX_009_Shock_A_Step_1]
+alsoQueueAction:"""
+TITANS_MRX_009_Shock_A_Fire_Step_1,
+TITANS_MRX_009_Shock_A_Fire_Step_2,
+TITANS_MRX_009_Shock_A_Fire_Step_3,
+TITANS_MRX_009_Shock_A_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_TITANS_MRX_009_Shock_A_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_TITANS_MRX_009_Shock_A_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.65s
+whenBuilding_cannotMove:true
+[hiddenAction_TITANS_MRX_009_Shock_A_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false and self.resource().tileMode==0
+"""
+buildSpeed:0s
+whenBuilding_cannotMove:true
+spawnEffects:Shock_1_L,Common_Crater_2_L
+[hiddenAction_TITANS_MRX_009_Shock_A_Fire_Step_3]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+whenBuilding_cannotMove:true
+fireTurretXAtGround:TITANS_MRX_009_Shock_A
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=30)
+[hiddenAction_TITANS_MRX_009_Shock_A_Fire_Step_Final]
+buildSpeed:2.5s
+whenBuilding_cannotMove:true
+alsoTriggerAction:"""
+SetAttackingOff,
+SetAttackingCantTurnOff
+"""
+
+

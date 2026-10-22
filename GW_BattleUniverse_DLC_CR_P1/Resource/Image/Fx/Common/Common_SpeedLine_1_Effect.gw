@@ -1,0 +1,31 @@
+[core]
+dont_load:false
+
+
+
+[effect_Common_SpeedLine_1_Effect]
+image:ROOT:Resource/Image/Fx/Common/Image/SpeedLine_1.png
+priority:critical
+life: 20
+
+drawUnderUnits:false
+
+
+total_frames:15
+animateFrameStart: 0
+animateFrameEnd: 14
+animateFrameSpeed: 0.2
+
+xOffsetRelative:2
+yOffsetRelative:-30
+
+ySpeedRelative:10
+dirOffset: 0
+
+alpha:1
+
+scaleFrom: 1
+scaleTo: 0.75
+
+
+showInFog:false

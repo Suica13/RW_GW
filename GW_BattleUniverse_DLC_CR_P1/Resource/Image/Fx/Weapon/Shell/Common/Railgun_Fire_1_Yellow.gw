@@ -1,0 +1,30 @@
+[core]
+dont_load:false
+
+
+
+[effect_Railgun_Fire_1_Yellow]
+life: 100
+
+xOffsetRelative: 0
+yOffsetRelative: 40
+hOffset: 0
+dirOffset: -90
+attachedToUnit: true
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+alpha:0.85
+scaleFrom: 1
+scaleTo:1
+image: ROOT:\Resource\Image\Fx\Weapon\Shell\Image\Railgun_Fire_1_Yellow.png
+
+total_frames: 5
+animateFrameStart: 0
+animateFrameEnd: 4
+animateFrameSpeed: 0.1
+showInFog:true
+

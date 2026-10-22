@@ -41,9 +41,9 @@ if self.attachment(slot='Building').hp<=0 and self.resource().GameStart==1
 """
 alsoTriggerAction:"""
 ConvertTo_CE71,
-ConvertTo_0093
+ConvertTo_0093,
+ConvertTo_CR_P1
 """
-
 
 [hiddenAction_ConvertTo_CE71]
 requireConditional:"""
@@ -120,3 +120,8 @@ useAsBuilder: false
 [hiddenAction_ConvertTo_0093]
 requireConditional:if (self.resource().FactionIndex==1030101 or self.resource().FactionIndex==1030201) and not self.tags(includes='0093')
 convertTo:0093_BuildingSlot
+
+# [CROSS_DLC] CR has an independent faction namespace; retain all older routes.
+[hiddenAction_ConvertTo_CR_P1]
+requireConditional:if (self.resource().FactionIndex==9010101 or self.resource().FactionIndex==9010201 or self.resource().FactionIndex==9010301) and not self.tags(includes='CR_P1')
+convertTo:CR_P1_BuildingSlot

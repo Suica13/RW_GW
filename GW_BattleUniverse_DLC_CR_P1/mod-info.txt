@@ -1,0 +1,6 @@
+[mod]
+title: GW_BattleUniverse_DLC_CR_P1_V159
+description:\n高达战争_战争宇宙_火线纵横P1内容包\n火线纵横第一阶段：秩序 / 反抗 / 混沌\n基础设施骨架，场景模式与单位阵容开发中
+minVersion: 1.15p11
+tags: units,building,DLC_pack
+thumbnail: mod-thumbnail.png

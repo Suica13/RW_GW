@@ -228,3 +228,14 @@ Main 的场景 Page3、HQ_GetMode 和占位目标已连接；GameManager 复用�
 0093 每阵营第一页只接入一个 Base 科技。BattleUnits 除 Shield、Weapon 外，仅有 `RGM_86R_0093_EFSF`、`SalamisClassKai_0093_EFSF`、`AMX_101_0093_NZN`、`MusaiClassFinalType_0093_NZN` 四种战斗单位及必要炮塔/继承模板；不要复制其他整条科技或未请求单位。Base 解锁 Main 共用基础建筑和 Land/Mega/Space/Space_Mega 工厂，Mega 暂无生产项，Air/Aqua 尚未解锁。HLV 的 0093 基础设施变体在 Main。资源来源、临时图片和改动前基线在 `文档 (不要打包)/分析/`，后续维护应保留这些可追踪信息。
 
 0093 普通驾驶员和士官按 0087 结构放在 Main 的 `Units/BattleUnits/Pilot/0093/Common/`；总 Marker 已接入两个阵营，T1/T2 学院有普通驾驶员入口。复用的 0087 贴图在 Main 另存为 0093 命名，勿误判为 DLC 缺少 Pilot 目录。详情见接入说明的“普通驾驶员接入”。
+
+## 11. 火线纵横 P1
+
+`GW_BattleUniverse_DLC_CR_P1` 是独立主模式的第一阶段骨架，见 [接入说明](<文档 (不要打包)/教程/BattleUniverse_CR_P1骨架接入说明.md>)。菜单使用既有单位 / 附属单位系统，顺序为主模式（起源 / 火线纵横）→ 子模式（对决 / 场景 WIP）。
+
+- `gameMainMode=1` 为起源，`2` 为火线纵横；`gameSubMode=1` 为对决。原起源仍是 `(1,1)`；火线纵横 P1 使用 `(2,1,stageIndex=2000)`。不要按照旧 `VS_GE` 文件名推断字段层级。
+- 阵营为 `CR_Order` / `9010101`、`CR_Resistance` / `9010201`、`CR_Chaos` / `9010301`。阶段级实体用 `CR_P1`，阵营键不含 P1。
+- Main 保留八个 CR P1 入口占位；P1 覆盖。六包的建筑槽 / 据点、现有 HQ_GetMode 副本都已接入新路由，后续保留旧分支和包间差异。
+- Base 仅解锁基础建筑和四类工厂；全部生产列表为空。未接入驾驶员、HLV 或战斗单位。不能从 0093 复制生产动作后遗留自动生产和解锁引用。
+- `GameManager_CR_VS` 继承 Main 的 `GameManager_VS`，专用逻辑优先在 CR 实例中覆盖。
+- 只读静态检查：`python -B '文档 (不要打包)/工具/验证_CR_P1骨架.py'`。该检查不代表引擎加载或实际对局通过。
