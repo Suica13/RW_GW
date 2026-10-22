@@ -1,0 +1,144 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Beam/Common/Beam_Fire_1_Pink.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Cannon_Shoot_A.gw
+"""
+
+@memory AEUG_MSA_005K_BeamGun_CDTimer:float
+@global AEUG_MSA_005K_BeamGun_CD=4
+@global AEUG_MSA_005K_BeamGun_EN=50
+
+
+
+
+[turret_AEUG_MSA_005K_BeamGun]
+x:0
+y:0
+
+canShoot:false
+projectile:AEUG_MSA_005K_BeamGun_Projectile
+
+delay:0.2s
+canAttackMaxAngle:15
+barrelX:9
+barrelY:4
+limitingRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/BeamGun_1.ogg
+shoot_sound_vol:0.6
+shoot_flame:Beam_Fire_1_Pink
+
+
+
+[projectile_AEUG_MSA_005K_BeamGun_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_BeamGun_Pink*1
+(
+    addResources=
+    BeamDamage:3000
+    |DpDamage:100
+    |WeaponAccuracy=90
+    |PartBreakModifier=1
+    |CockpitBreakModifier=1
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.5
+    |AntiAir=1.25 
+    |AntiLand=1
+    |AntiSpace=1
+    |PartBreakModifier=1.0
+    |HeightChangeSpeed=2
+    |HeightHitRange=25
+    |ProjectileSpeed:100
+    |ProjectileSpread:5
+    |ProjectileLife:15
+)
+"""
+
+
+
+
+
+[hiddenAction_AEUG_MSA_005K_BeamGun_Trigger]
+alsoTriggerAction:AEUG_MSA_005K_BeamGun_Fire
+[hiddenAction_AEUG_MSA_005K_BeamGun_Fire]
+requireConditional:"""
+if self.timeAlive>memory.AEUG_MSA_005K_BeamGun_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  
+and self.resource.EN>0
+"""
+setUnitMemory:AEUG_MSA_005K_BeamGun_CDTimer=self.timeAlive+${AEUG_MSA_005K_BeamGun_CD}
+addResources:EN=-${AEUG_MSA_005K_BeamGun_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+PlayCommon_Cannon_Shoot_A_Step_1,
+AEUG_MSA_005K_BeamGun_SetWeaponIndex,
+AEUG_MSA_005K_BeamGun_B7_Step_1
+"""
+[hiddenAction_AEUG_MSA_005K_BeamGun_B7_Step_1]
+alsoQueueAction:"""
+AEUG_MSA_005K_BeamGun_Fire_Step_1,
+AEUG_MSA_005K_BeamGun_Fire_Step_2,
+AEUG_MSA_005K_BeamGun_Fire_Step_3,
+AEUG_MSA_005K_BeamGun_Fire_Step_3,
+AEUG_MSA_005K_BeamGun_Fire_Step_3,
+AEUG_MSA_005K_BeamGun_Fire_Step_3,
+AEUG_MSA_005K_BeamGun_Fire_Step_3,
+AEUG_MSA_005K_BeamGun_Fire_Step_3,
+AEUG_MSA_005K_BeamGun_Fire_Step_Final
+"""
+
+
+
+[hiddenAction_AEUG_MSA_005K_BeamGun_SetWeaponIndex]
+isVisible:false
+
+
+
+[hiddenAction_AEUG_MSA_005K_BeamGun_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.35s
+[hiddenAction_AEUG_MSA_005K_BeamGun_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false and memory.armRBreaked==false
+"""
+buildSpeed:0s
+fireTurretXAtGround:AEUG_MSA_005K_BeamGun
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_AEUG_MSA_005K_BeamGun_Fire_Step_3]
+requireConditional:"""
+if ${cantAction}==false and memory.armRBreaked==false
+"""
+buildSpeed:0.1s
+fireTurretXAtGround:AEUG_MSA_005K_BeamGun
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_AEUG_MSA_005K_BeamGun_Fire_Step_Final]
+buildSpeed:1.0s
+finishPlayingLastAnimation:true
+alsoTriggerAction:SetAttackingOff
+

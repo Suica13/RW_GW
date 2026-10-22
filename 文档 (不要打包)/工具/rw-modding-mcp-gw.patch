@@ -1,0 +1,13 @@
+diff --git a/tools/rw_lint.py b/tools/rw_lint.py
+index e5d41e9..7cbb3c9 100644
+--- a/tools/rw_lint.py
++++ b/tools/rw_lint.py
+@@ -926,7 +926,7 @@ def collect_files(target):
+     for dp, _, fns in os.walk(target):
+         for f in fns:
+             low = f.lower()
+-            if low.endswith((".ini", ".template")) or low == "mod-info.txt":
++            if low.endswith((".ini", ".gw", ".template")) or low == "mod-info.txt":
+                 out.append(os.path.join(dp, f))
+     return sorted(out)
+ 

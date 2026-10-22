@@ -1,0 +1,106 @@
+[core]
+dont_load:false
+
+[effect_BeamSniper_1_Start_Pink]
+life: 500
+
+xOffsetRelative: 8
+yOffsetRelative: 170
+hOffset: 0
+dirOffset: -90
+attachedToUnit: false
+
+
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+scaleFrom: 1
+scaleTo: 1
+image: ROOT:Resource/Image/Fx/Weapon/Beam/Sniper/Image/BeamSniper_1_Start_Pink.png
+
+total_frames: 9
+animateFrameStart: 0
+animateFrameEnd: 9
+animateFrameSpeed: 0.15
+showInFog:true
+
+[effect_BeamSniper_1_Mid_Pink]
+life: 500
+
+xOffsetRelative: 8
+yOffsetRelative: 450
+hOffset: 0
+dirOffset: -90
+attachedToUnit: false
+
+
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+scaleFrom: 1
+scaleTo: 1
+image: ROOT:Resource/Image/Fx/Weapon/Beam/Sniper/Image/BeamSniper_1_Mid_Pink.png
+
+total_frames: 9
+animateFrameStart: 0
+animateFrameEnd: 9
+animateFrameSpeed: 0.15
+showInFog:true
+
+[effect_BeamSniper_1_End_Pink]
+life: 500
+
+xOffsetRelative: 8
+yOffsetRelative: 735
+hOffset: 0
+dirOffset: -90
+attachedToUnit: false
+
+
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+scaleFrom: 1
+scaleTo: 1
+image: ROOT:Resource/Image/Fx/Weapon/Beam/Sniper/Image/BeamSniper_1_End_Pink.png
+
+total_frames: 9
+animateFrameStart: 0
+animateFrameEnd: 9
+animateFrameSpeed: 0.15
+showInFog:true
+
+
+[effect_BeamSniper_1]
+life: 100
+
+xOffsetRelative: 2
+yOffsetRelative: -20
+hOffset: 0
+dirOffset: -90
+attachedToUnit: true
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+alpha:0.85
+scaleFrom: 1.25
+scaleTo:1.25
+image: ROOT:Resource/Image/Fx/Weapon/Beam/HighMegaCannon/Image/HighMegaCannon_Hit_1.png
+
+total_frames: 11
+animateFrameStart: 0
+animateFrameEnd: 4
+animateFrameSpeed: 0.3
+showInFog:true

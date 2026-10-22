@@ -1,0 +1,25 @@
+[core]
+dont_load:false
+
+
+#
+[effect_System_NTD_1]
+image:ROOT:Resource/Image/Fx/System/Image/System_NTD.png
+attachedToUnit:true
+life:200
+priority:critical
+liveAfterAttachedDies:true
+alwayStartDirAtZero:true
+yOffsetAbsolute:0
+scaleFrom:0.3
+scaleTo:0.35
+
+fadeOut:true
+
+yOffsetAbsolute:-40
+alpha:1
+total_frames:10
+animateFrameStart: 0
+animateFrameEnd: 9
+animateFrameSpeed: 0.1
+showInFog:true

@@ -1,0 +1,176 @@
+[core]
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_Light_1.gw
+"""
+dont_load:false
+
+
+@memory changeFlyStyleCD:float
+
+@memory cantTransform:bool
+
+
+[hiddenAction_Check_CantTransform]
+autoTrigger:true
+setUnitMemory:"""
+cantTransform=select
+(
+    memory.headBreaked==true 
+    or memory.backpackBreaked==true 
+    or memory.armLBreaked==true 
+    or memory.armRBreaked==true 
+    or memory.legLBreaked==true 
+    or memory.legRBreaked==true,
+    true,
+    false
+)
+"""
+
+[action_FlyStyleB]
+autoTrigger:"""
+if self.isControlledByAI()==true 
+and ${allowAI}==true 
+and memory.cantTransform==false 
+and memory.close==false 
+and not self.hasTags(includes='inHangar') 
+and ${cantAction}==false 
+and self.timeAlive>memory.changeFlyStyleCD 
+and memory.flyUnit!=1
+"""
+
+pos:1
+
+buildSpeed:0s
+tags:Upgrade
+
+highPriorityQueue:true
+allowMultipleInQueue:false
+canPlayerCancel:true
+alwaysSinglePress:true
+ai_isDisabled:true
+extraLagHidingInUI:true
+
+displayType:Upgrade
+
+text:Fly Style
+text_zh:飞行形态
+
+isVisible:if memory.close==false and memory.styleIndex!=97 and memory.styleIndex!=100 and not self.hasTags(includes='inHangar')
+
+iconImage:ROOT:Resource/Image/Units/Button/Action/Transform_1.png
+
+spawnEffects:Light_50
+
+isLocked:if memory.cantTransform==true
+isLockedMessage:Need Repair
+isLockedMessage_zh:需要修理
+isLockedAlt:if self.timeAlive<memory.changeFlyStyleCD
+isLockedAltMessage:In Cooldown[%{memory.changeFlyStyleCD-self.timeAlive}s]
+isLockedAltMessage_zh:冷却中[%{memory.changeFlyStyleCD-self.timeAlive}s]
+isLockedAlt2:if ${cantAction}==true 
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+#convertTo:
+convertTo_keepCurrentTags:true
+convertTo_keepCurrentFields:"""
+selfRegenRate,
+shieldRegen,
+maxEnergy,
+armour,
+mass,
+movespeed,
+maxTurnSpeed,
+maxAttackRange,
+nanoRange,
+fogOfWarSightRange,
+nanoFactorySpeed,
+targetHeight
+"""
+
+setUnitMemory:styleIndex=97
+
+
+whenBuilding_triggerAction:SetAttackingOff
+alsoTriggerAction:FlyStyleCD,Send_TryClearQueued,Send_TryTransform
+
+[action_FlyStyleA]
+@copyFromSection:action_FlyStyleB
+
+text:Ground Style
+text_zh:陆地形态
+
+isVisible:if memory.close==false and memory.styleIndex!=0 and not self.hasTags(includes='inHangar')
+iconImage:ROOT:Resource/Image/Units/Button/Action/Transform_2.png
+
+#convertTo:
+
+setUnitMemory:styleIndex=0
+
+
+[hiddenAction_FlyStyleCD]
+setUnitMemory:changeFlyStyleCD=self.timeAlive+3
+
+
+[hiddenAction_FlyStyle_cantTransform]
+autoTrigger:"""
+if 
+(
+    memory.cantTransform==true 
+    or memory.battleUnitCore.readUnitMemory("onDaze",type="bool")==true 
+    or memory.battleUnitCore.readUnitMemory("onStagger",type="bool")==true 
+) 
+and memory.flyUnit==1 
+"""
+alsoTriggerAction:FlyStyleA
+
+
+
+
+
+
+
+
+
+
+[hiddenAction_TurnToOverLine_T]
+autoTrigger:"""
+if self.resource().DedicatedMap==1
+"""
+convertTo_keepCurrentTags:true
+convertTo_keepCurrentFields:"""
+selfRegenRate,
+shieldRegen,
+maxEnergy,
+armour,
+mass,
+movespeed,
+maxTurnSpeed,
+maxAttackRange,
+nanoRange,
+fogOfWarSightRange,
+nanoFactorySpeed,
+targetHeight
+"""
+#clearActiveWaypoint:true
+setUnitMemory:styleIndex=100
+[hiddenAction_TurnToOverLine_F]
+autoTrigger:"""
+if self.resource().DedicatedMap==1
+"""
+convertTo_keepCurrentTags:true
+convertTo_keepCurrentFields:"""
+selfRegenRate,
+shieldRegen,
+maxEnergy,
+armour,
+mass,
+movespeed,
+maxTurnSpeed,
+maxAttackRange,
+nanoRange,
+fogOfWarSightRange,
+nanoFactorySpeed,
+targetHeight
+"""
+setUnitMemory:styleIndex=97

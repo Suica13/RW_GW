@@ -1,0 +1,104 @@
+[core]
+copyFrom:"""
+ROOT:Template/Unit/Animation/Sp/Common_System_A.gw,
+ROOT:Resource/Image/Fx/System/System_EXAM_1.gw,
+ROOT:Resource/Image/Fx/Common/Common_Light_1_Red.gw
+"""
+
+@memory EXAM_CD:float
+@memory EXAM_Timer:float
+
+[action_EXAM]
+pos:10
+buildSpeed:0s
+autoTrigger:"""
+if 
+(
+    self.numberOfUnitsInEnemyTeam(withTag="EXAM_Unit",withinrange=500)>0 
+    or 
+    self.numberOfUnitsInAggressiveTeam(withTag="EXAM_Unit",withinrange=500)>0 
+    or 
+    (${allowAI}==true and self.attacking.hp>0 and self.hp>self.maxHp*0.75)
+) 
+and self.timeAlive>memory.EXAM_CD 
+and memory.headBreaked==false
+"""
+requireConditional:"""
+if ${cantAction}==false 
+"""
+
+isLocked:if ${cantAction}==true or memory.headBreaked==true
+isLockedMessage:Can not Action
+isLockedMessage_zh:现在不能行动
+isLockedAlt:if self.hp<self.maxHp*0.35
+isLockedAltMessage:Need 35% Hp
+isLockedAltMessage_zh:需要至少35%耐久
+isLockedAlt2:if self.timeAlive<=memory.EXAM_CD 
+isLockedAlt2Message:CD:%{memory.EXAM_CD  -self.timeAlive}s
+isLockedAlt2Message_zh:冷却:%{memory.EXAM_CD  -self.timeAlive}s
+
+text:EXAM System StandBy
+text_zh:EXAM系统 发动
+
+description:"""
+During activation, performance is greatly enhanced
+\nThe unit and pilot will suffer continuous damage
+\nForced termination if the head is damaged, durability is low, or the pilot dies
+\nNote: Automatically activates when an enemy unit equipped with the EXAM system is within 500 yards
+\nNote: When the pilot's HP is low, the unit will enter Out of Control mode and indiscriminately attack everyone
+\nThe pilot will be unable to eject
+"""
+description_zh:"""
+发动期间性能大幅提升
+\n机体与驾驶员将受到持续性伤害
+\n头部损坏或耐久较低或驾驶员死亡时强制结束
+\n注意:500码内有敌方搭载EXAM的机体时自动开启
+\n注意:驾驶员生命值较低时将进入暴走模式,无差别攻击所有人
+\n驾驶员将无法脱出
+"""
+
+displayType:infoOnly
+highPriorityQueue:true
+
+isVisible:if self.parent.hp<=0 
+
+iconImage:ROOT:Resource/Image/Units/Button/Skill/EXAM.png
+
+playSoundAtUnit:ROOT:Resource/Sound/SE/Action/System/EXAM_1.ogg:1.0
+
+stopLastAnimation:true
+
+spawnEffects:System_EXAM_1,Light_50_Red
+
+alsoTriggerAction:PlayCommon_System_A_Step_1,EXAM_CD,EXAMStart
+
+[hiddenAction_EXAM_CD]
+setUnitMemory:EXAM_CD=self.timeAlive+3
+
+[hiddenAction_EXAMStart]
+sendMessageTo:self.attachment(slot='BattleUnitCore')
+sendMessageWithTags:Transform
+
+setUnitMemory:EXAM_Timer=self.timeAlive+30
+
+
+#convertTo:
+convertTo_keepCurrentTags:true
+convertTo_keepCurrentFields:"""
+maxHp,
+selfRegenRate,
+maxShield,
+shieldRegen,
+maxEnergy,
+armour,
+mass,
+movespeed,
+maxTurnSpeed,
+maxAttackRange,
+nanoRange,
+fogOfWarSightRange,
+nanoFactorySpeed,
+targetHeight,
+"""
+whenBuilding_triggerAction:SetAttackingOff
+alsoTriggerAction:Send_TryClearQueued,Send_TryTransform

@@ -1,0 +1,29 @@
+[core]
+dont_load:false
+
+
+[effect_Critical_1]
+image:ROOT:\Resource\Image\Fx\Common\Image\Critical_1.png
+priority:critical
+
+yOffsetRelative:0
+
+life: 50
+
+xOffsetRelativeRandom:10
+yOffsetRelativeRandom:10
+dirOffsetRandom:360
+
+alpha:0.85
+
+
+total_frames:4
+animateFrameStart:0
+animateFrameEnd:3
+animateFrameSpeed:0.2
+
+scaleFrom: 0.5
+scaleTo: 0.25
+alwayStartDirAtZero:true
+drawUnderUnits:false
+

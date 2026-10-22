@@ -1,0 +1,14 @@
+{
+  "case": "0093",
+  "passed": true,
+  "initialized": true,
+  "enabled": {
+    "GW_BattleUniverse_Main": true,
+    "GW_BattleUniverse_DLC_0093": true
+  },
+  "errors": [],
+  "timed_out": false,
+  "returncode": 0,
+  "elapsed_seconds": 21.3,
+  "log": "文档 (不要打包)\\工具\\0093_loadtest\\main_0093\\engine.log"
+}

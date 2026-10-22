@@ -1,0 +1,154 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Cannon_Shoot_A.gw
+"""
+
+@memory Common_Cannon_CDTimer:float
+@global Common_Cannon_CD=9
+@global Common_Cannon_EN=55
+
+
+
+
+
+
+
+
+[turret_Common_Cannon]
+x:0
+y:0
+
+canShoot:false
+projectile:Common_Cannon_Projectile
+
+delay:0.3s
+canAttackMaxAngle:15
+limitingAngle:0
+barrelX:7
+barrelY:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\ShellCannon_1.ogg
+shoot_sound_vol:0.6
+shoot_flame:BZ_Fire_1
+
+
+
+[projectile_Common_Cannon_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Mortar_L*1
+(
+    addResources=
+    ShellDamage:8000
+    |DpDamage:350
+    |WeaponAccuracy=75
+    |PartBreakModifier=0.5
+    |CockpitBreakModifier=0.5
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1.5
+    |AntiAqua=0.75
+    |AntiAir=0.5 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=0.5
+    |HeightHitRange=10
+    |ProjectileSpeed:45
+    |ProjectileSpread:0
+    |ProjectileExplosionRange:40
+    |ProjectileLife:70
+
+    |ProjectileBlastRange:80
+    |ProjectileBlastDamageModifier:0.35
+    |ProjectileBlastDpModifier:1
+)
+"""
+
+
+
+
+
+
+
+
+[hiddenAction_Common_Cannon_Trigger]
+alsoTriggerAction:Common_Cannon_Fire
+[hiddenAction_Common_Cannon_Fire]
+requireConditional:"""
+if self.timeAlive>memory.Common_Cannon_CDTimer and ${onAttacking}==false and ${cantAction}==false and ${onSkill}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15) 
+and self.resource.EN>0
+"""
+setUnitMemory:Common_Cannon_CDTimer=self.timeAlive+${Common_Cannon_CD}
+addResources:EN=-${Common_Cannon_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+Common_Cannon_SetWeaponIndex,
+Common_Cannon_B1_Step_1
+"""
+[hiddenAction_Common_Cannon_B1_Step_1]
+alsoQueueAction:"""
+Common_Cannon_Fire_Step_1,
+Common_Cannon_Fire_Step_2,
+Common_Cannon_Fire_Step_3,
+Common_Cannon_Fire_Step_Final
+"""
+
+
+
+
+
+
+[hiddenAction_Common_Cannon_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_Common_Cannon_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.35s
+alsoTriggerAction:PlayCommon_Cannon_Shoot_A_Step_1
+whenBuilding_cannotMove:true
+[hiddenAction_Common_Cannon_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.25s
+whenBuilding_cannotMove:true
+[hiddenAction_Common_Cannon_Fire_Step_3]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+whenBuilding_cannotMove:true
+fireTurretXAtGround:Common_Cannon
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_Common_Cannon_Fire_Step_Final]
+buildSpeed:1.25s
+whenBuilding_cannotMove:true
+finishPlayingLastAnimation:true
+alsoTriggerAction:SetAttackingOff
+
+

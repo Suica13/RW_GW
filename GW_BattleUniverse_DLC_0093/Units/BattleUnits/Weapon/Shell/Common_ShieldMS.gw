@@ -1,0 +1,147 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_A_L.gw
+"""
+
+
+@memory Common_ShieldMS_CDTimer:float
+@global Common_ShieldMS_CD=4.5
+@global Common_ShieldMS_EN=25
+
+
+
+
+
+
+
+
+
+
+
+[turret_Common_ShieldMS]
+x:0
+y:0
+
+canShoot:false
+projectile:Common_ShieldMS_Projectile
+
+delay:0.15s
+limitingRange:0
+
+canAttackMaxAngle:15
+barrelX:-16
+barrelY:12
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\Missile_1.ogg
+shoot_sound_vol:0.4
+shoot_flame:BZ_Fire_1_S
+
+
+
+[projectile_Common_ShieldMS_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_MS*1
+(
+    addResources=
+    ShellDamage:3000
+    |DpDamage:150
+    |WeaponAccuracy=100
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=1.0
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1.0
+    |AntiAqua=0.75
+    |AntiAir=1.5
+    |AntiLand=1
+    |AntiSpace=1.0
+    |HeightHitRange=20
+    |HeightChangeSpeed=2
+    |ProjectileSpeed:40
+    |ProjectileTurnspeed:1.5
+    |ProjectileSpread:0
+    |ProjectileExplosionRange:40
+    |ProjectileLife:40
+)
+"""
+
+
+
+
+
+
+[hiddenAction_Common_ShieldMS_Trigger]
+alsoTriggerAction:Common_ShieldMS_Fire
+[hiddenAction_Common_ShieldMS_Fire]
+requireConditional:"""
+if self.timeAlive>memory.Common_ShieldMS_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false 
+and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)  
+and self.resource.EN>0 
+and self.shield>0
+"""
+setUnitMemory:Common_ShieldMS_CDTimer=self.timeAlive+${Common_ShieldMS_CD}
+addResources:EN=-${Common_ShieldMS_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+Common_ShieldMS_SetWeaponIndex,
+Common_ShieldMS_B2_Step_1
+"""
+[hiddenAction_Common_ShieldMS_B2_Step_1]
+alsoQueueAction:"""
+Common_ShieldMS_Fire_Step_1,
+Common_ShieldMS_Fire_Step_2,
+Common_ShieldMS_Fire_Step_3,
+Common_ShieldMS_Fire_Step_Final
+"""
+
+
+
+
+
+[hiddenAction_Common_ShieldMS_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_Common_ShieldMS_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false and self.shield>0
+"""
+buildSpeed:0.3s
+[hiddenAction_Common_ShieldMS_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false and self.shield>0
+"""
+buildSpeed:0s
+fireTurretXAtGround:Common_ShieldMS
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+alsoTriggerAction:PlayCommon_Shoot_A_L_Step_1
+[hiddenAction_Common_ShieldMS_Fire_Step_3]
+@copyFromSection:hiddenAction_Common_ShieldMS_Fire_Step_2
+buildSpeed:${turret_Common_ShieldMS.delay}
+[hiddenAction_Common_ShieldMS_Fire_Step_Final]
+buildSpeed:0.3s
+alsoTriggerAction:SetAttackingOff
+
+

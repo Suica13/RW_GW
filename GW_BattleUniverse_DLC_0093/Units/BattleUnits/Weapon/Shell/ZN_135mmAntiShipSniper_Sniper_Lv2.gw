@@ -1,0 +1,39 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Units/BattleUnits/Weapon/Shell/ZN_135mmAntiShipSniper_Sniper.gw
+"""
+
+
+
+[projectile_ZN_135mmAntiShipSniper_Sniper_Projectile]
+spawnUnit:"""
+Projectile_Sniper_RailShell*1
+(
+    addResources=
+    ShellDamage:30000
+    |DpDamage:750
+    |WeaponAccuracy=150
+    |PartBreakModifier=1
+    |CockpitBreakModifier=1
+    |PilotDamageModifier=0.75
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=0.25
+    |AntiAqua=0.5
+    |AntiAir=1
+    |AntiLand=1
+    |AntiSpace=1.0
+    |CantDodge=1
+    |HeightChangeSpeed=0
+    |HeightHitRange=20
+    |ProjectileSpeed:1.0
+    |ProjectileSpread:0
+    |ProjectileLife:0
+    
+    |SubEquipmentIndex=1
+)
+"""

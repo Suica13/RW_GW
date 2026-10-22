@@ -1,0 +1,22 @@
+[core]
+dont_load:false
+
+@memory System_TA_Bot_1Frame:float
+
+
+[hiddenAction_UpdateSystem_TA_Bot_1Frame]
+autoTriggerOnEvent:newMessage(withTag="UpdateSub")
+setUnitMemory:System_TA_Bot_1Frame=select(memory.System_TA_Bot_1Frame>=${decal_System_TA_Bot_1.total_frames}-1,0,memory.System_TA_Bot_1Frame+1)
+
+[decal_System_TA_Bot_1]
+layer:beforeBody
+order:1
+onlyWhileAlive:true 
+isVisible:true
+imageScale:0.85
+yOffsetRelative:-12
+xOffsetRelative:-5
+dirOffset:0
+total_frames:5
+frame:memory.System_TA_Bot_1Frame
+image: ROOT:Resource/Image/Fx/System/Image/System_TA_Bot_1.png

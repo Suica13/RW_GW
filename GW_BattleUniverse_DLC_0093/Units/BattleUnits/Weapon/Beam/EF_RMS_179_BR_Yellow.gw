@@ -1,0 +1,156 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Beam/Common/Beam_Fire_1_Yellow.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_A.gw
+"""
+
+@memory EF_RMS_179_BR_Yellow_CDTimer:float
+@global EF_RMS_179_BR_Yellow_CD=2
+@global EF_RMS_179_BR_Yellow_EN=40
+
+
+
+
+
+[decal_EF_RMS_179_BR_Yellow]
+layer:beforeBody
+order:4.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Beam\Image\EF_RMS_179_BR.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:0.8
+xOffsetRelative: 0
+yOffsetRelative: 12
+dirOffset:0
+[decal_EF_RMS_179_BR_Yellow_NotUsing]
+@copyFromSection:decal_EF_RMS_179_BR_Yellow
+isVisible:false
+order:3
+basePositionFromLegEnd:arm1
+imageScale:0.7
+xOffsetRelative:3.5
+yOffsetRelative:-8.5
+dirOffset:-90
+
+
+
+
+
+
+
+[turret_EF_RMS_179_BR_Yellow]
+x:0
+y:0
+
+canShoot:false
+projectile:EF_RMS_179_BR_Yellow_Projectile
+
+delay:0.2s
+canAttackMaxAngle:15
+barrelX:9
+barrelY:25
+limitingRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\BeamRifle_3.ogg
+shoot_sound_vol:0.6
+shoot_flame:Beam_Fire_1_Yellow
+
+
+
+[projectile_EF_RMS_179_BR_Yellow_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_BeamRifle_Yellow*1
+(
+    addResources=
+    BeamDamage:8000
+    |DpDamage:250
+    |WeaponAccuracy=90
+    |PartBreakModifier=1
+    |CockpitBreakModifier=1
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.5
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=2
+    |HeightHitRange=25
+    |ProjectileSpeed:85
+    |ProjectileSpread:1
+    |ProjectileLife:30
+)
+"""
+
+
+
+
+
+[hiddenAction_EF_RMS_179_BR_Yellow_Trigger]
+alsoTriggerAction:EF_RMS_179_BR_Yellow_Fire
+[hiddenAction_EF_RMS_179_BR_Yellow_Fire]
+requireConditional:"""
+if self.timeAlive>memory.EF_RMS_179_BR_Yellow_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  
+and self.resource.EN>0
+"""
+setUnitMemory:EF_RMS_179_BR_Yellow_CDTimer=self.timeAlive+${EF_RMS_179_BR_Yellow_CD}
+addResources:EN=-${EF_RMS_179_BR_Yellow_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+EF_RMS_179_BR_Yellow_SetWeaponIndex,
+PlayCommon_Shoot_A_Step_1,
+EF_RMS_179_BR_Yellow_B1_Step_1
+"""
+[hiddenAction_EF_RMS_179_BR_Yellow_B1_Step_1]
+alsoQueueAction:"""
+EF_RMS_179_BR_Yellow_Fire_Step_1,
+EF_RMS_179_BR_Yellow_Fire_Step_2,
+EF_RMS_179_BR_Yellow_Fire_Step_Final
+"""
+
+
+
+[hiddenAction_EF_RMS_179_BR_Yellow_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_EF_RMS_179_BR_Yellow_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.25s
+[hiddenAction_EF_RMS_179_BR_Yellow_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:EF_RMS_179_BR_Yellow
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_EF_RMS_179_BR_Yellow_Fire_Step_Final]
+buildSpeed:0.25s
+alsoTriggerAction:SetAttackingOff
+

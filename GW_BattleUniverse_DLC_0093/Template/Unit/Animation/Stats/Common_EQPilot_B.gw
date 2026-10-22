@@ -1,0 +1,101 @@
+[core]
+dont_load:false
+
+
+[animation_EnterPilot]
+KeyframeTimeScale:5
+blendOut:0.5s
+
+arm1_0.0s: {y: -1.0 }
+arm1_0.25s: {y: 0 }
+arm1_0.35s: {y: 0 }
+
+arm2_0.0s: {y: -1 }
+arm2_0.25s: {y: 0 }
+
+arm19_0.0s: {y: -0.5 }
+arm19_0.25s: {y: 0 }
+
+
+arm20_0.0s:{x:0,y:0}
+arm20_0.05s:{x:-2,y:0}
+arm20_0.15s:{x:2,y:0}
+arm20_0.25s:{x:0}
+
+arm3_0.0s: {y: 0}
+arm3_0.25s: {y: -1 ,dir:-5}
+
+arm5_0.0s: {y: 0 }
+arm5_0.25s: {y: -0.5 ,dir:-5 }
+
+arm4_0.0s: {y: 0 }
+arm4_0.25s: {y: 2 }
+
+arm6_0.0s: {y: 0 }
+arm6_0.25s: {y: 1 }
+
+
+leg17_0.0s: {y: -3, dir: 0 }
+leg17_0.25s: {y: -1, dir: 0 }
+
+leg18_0.0s: {y: -3, dir: 0 }
+leg18_0.25s: {y: -1, dir: 0 }
+
+leg19_0.0s: {y: 4, dir: 0 }
+leg19_0.25s: {y: 2, dir: 0 }
+
+leg20_0.0s: {y: 3, dir: 0 }
+leg20_0.25s: {y: 1, dir: 0 }
+
+
+
+[animation_QuitPilot]
+KeyframeTimeScale:2
+blendOut:1s
+
+arm1_0.0s: {y: 0.0 }
+
+arm2_0.25s: {y: -1 }
+
+arm3_0.25s: {y: -1 }
+arm5_0.25s: {y: -0.5 }
+
+arm4_0.25s: {y: -1 }
+arm6_0.25s: {y: -0.5 }
+
+arm19_0.25s: {y: -1 }
+arm20_0.25s: {y: -1 }
+
+leg17_0.0s: {y: 0, dir: 6 }
+leg18_0.0s: {y: 0, dir: 6 }
+leg17_0.25s: {y: -3, dir: 0 }
+leg18_0.25s: {y: -3, dir: 0 }
+
+leg19_0.0s: {y: 0, dir: -6 }
+leg20_0.0s: {y: 0, dir: -6 }
+leg19_0.25s: {y: 4, dir: 0 }
+leg20_0.25s: {y: 3, dir: 0 }
+
+
+
+
+[animation_NoPilotIdle]
+KeyframeTimeScale:1
+
+
+arm1_0.0s: {y: 0}
+
+arm2_0.0s: {y: -1 }
+
+leg17_0.0s: {y: -3, dir: 0 }
+leg17_0.25s: {y: -3, dir: 0 }
+
+leg18_0.0s: {y: -3, dir: 0 }
+leg18_0.25s: {y: -3, dir: 0 }
+
+leg19_0.0s: {y: 4, dir: 0 }
+leg19_0.25s: {y: 4, dir: 0 }
+
+leg20_0.0s: {y: 3, dir: 0 }
+leg20_0.25s: {y: 3, dir: 0 }
+

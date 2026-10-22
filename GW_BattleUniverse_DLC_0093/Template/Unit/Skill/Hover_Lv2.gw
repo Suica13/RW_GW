@@ -1,0 +1,8 @@
+[core]
+copyFrom:Hover.gw
+
+
+[movement]
+moveAccelerationSpeed: 0.08
+moveDecelerationSpeed: 0.04
+

@@ -1,0 +1,164 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_A.gw
+"""
+
+@memory AEUG_ClayBazooka_CDTimer:float
+@global AEUG_ClayBazooka_CD=2.5
+@global AEUG_ClayBazooka_EN=40
+
+
+
+
+
+[decal_AEUG_ClayBazooka]
+layer:beforeBody
+order:4.5
+onlyWhileAlive:true
+image:ROOT:Units/BattleUnits/Weapon/Shell/Image/AEUG_ClayBazooka.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:0.9
+xOffsetRelative: 0
+yOffsetRelative: 13
+dirOffset:0
+[decal_AEUG_ClayBazooka_NotUsing]
+@copyFromSection:decal_AEUG_ClayBazooka
+order:0
+basePositionFromLegEnd:arm1
+imageScale:0.75
+imageScaleY:-1
+xOffsetRelative:0
+yOffsetRelative:-9.5
+dirOffset:90
+
+
+
+
+
+
+[turret_AEUG_ClayBazooka]
+x:0
+y:0
+
+canShoot:false
+projectile:AEUG_ClayBazooka_Projectile
+
+delay:0.3s
+canAttackMaxAngle:15
+barrelX:10
+barrelY:20
+limitingRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\Bazooka_1.ogg
+shoot_sound_vol:0.4
+shoot_flame:BZ_Fire_1
+
+
+
+[projectile_AEUG_ClayBazooka_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Bazooka*1
+(
+    addResources=
+    ShellDamage:15000
+    |DpDamage:500
+    |WeaponAccuracy=80
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1.5
+    |HeightChangeSpeed=2
+    |HeightHitRange=20
+    |ProjectileSpeed:80
+    |ProjectileSpread:1
+    |ProjectileExplosionRange:30
+    |ProjectileLife:35
+
+    |ProjectileBlastRange:60
+    |ProjectileBlastDamageModifier:0.20
+    |ProjectileBlastDpModifier:1
+)
+"""
+
+
+
+
+
+
+
+
+[hiddenAction_AEUG_ClayBazooka_Trigger]
+alsoTriggerAction:AEUG_ClayBazooka_Fire
+[hiddenAction_AEUG_ClayBazooka_Fire]
+requireConditional:"""
+if self.timeAlive>memory.AEUG_ClayBazooka_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  
+and self.resource.EN>0
+"""
+setUnitMemory:AEUG_ClayBazooka_CDTimer=self.timeAlive+${AEUG_ClayBazooka_CD}
+addResources:EN=-${AEUG_ClayBazooka_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+AEUG_ClayBazooka_SetWeaponIndex,
+PlayCommon_Shoot_A_Step_1,
+AEUG_ClayBazooka_B1_Step_1
+"""
+[hiddenAction_AEUG_ClayBazooka_B1_Step_1]
+alsoQueueAction:"""
+AEUG_ClayBazooka_Fire_Step_1,
+AEUG_ClayBazooka_Fire_Step_2,
+AEUG_ClayBazooka_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_AEUG_ClayBazooka_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_AEUG_ClayBazooka_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.35s
+[hiddenAction_AEUG_ClayBazooka_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:AEUG_ClayBazooka
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_AEUG_ClayBazooka_Fire_Step_Final]
+buildSpeed:0.3s
+alsoTriggerAction:SetAttackingOff
+
+

@@ -1,0 +1,83 @@
+
+[core]
+
+dont_load:false
+
+@memory cmdComActive:bool
+@memory cmdComRange:float
+@global cmdComRangeExtra=0
+
+@memory cmdComEffectFrame:float
+
+[hiddenAction_UpdatecmdComEffectFrame]
+autoTriggerOnEvent:newMessage(withTag="UpdateSub")
+setUnitMemory:cmdComEffectFrame=select(memory.cmdComEffectFrame>=7-1,0,memory.cmdComEffectFrame+1)
+
+
+[hiddenAction_Check_CmdCom]
+autoTrigger:true
+alsoTriggerAction:"""
+Check_CmdComActive,
+Check_CmdComRange
+"""
+[hiddenAction_Check_CmdComActive]
+setUnitMemory:"""
+cmdComActive=select
+(
+    memory.pilotUnit.readUnitMemory("pilotLeadershipSkill",type="float")>=50,
+    true,
+    false
+)
+"""
+[hiddenAction_Check_CmdComRange]
+setUnitMemory:"""
+cmdComRange=100+2*memory.pilotUnit.readUnitMemory("pilotLeadershipSkill",type="float")+${cmdComRangeExtra}
+"""
+
+
+[hiddenAction_cmdCom_CheckNearAlly_Unit]
+autoTrigger:if memory.cmdComActive==true and not self.hasTags(includes='inHangar')
+takeResources_includeUnitsWithinRange_team:ally
+takeResources_includeUnitsWithinRange:1000
+takeResources_excludeUnitsWithoutTags:BattleUnitCore
+takeResources_maxUnits:300
+takeResources_searchOnly:true
+takeResources_triggerActionForEach:cmdCom_CheckNearAlly_Unit_Step2
+[hiddenAction_cmdCom_CheckNearAlly_Unit_Step2]
+requireConditional:"""
+if distanceBetween(self, thisActionTarget)<=memory.cmdComRange 
+and thisActionTarget.parent!=self 
+"""
+sendMessageTo:thisActionTarget
+sendMessageWithTags:CmdBUFF
+sendMessageWithData:"""
+cmdComTimer=3,
+cmdComPower=1+(memory.pilotUnit.readUnitMemory("pilotLeadershipSkill",type="float")*0.001)
+"""
+
+
+
+[decal_cmdComEffect]
+layer:shadow
+order:0
+image:ROOT:Resource/Image/Fx/Unit/Image/cmdCom_1.png
+alpha:0.75
+color:#83FF00
+total_frames:7
+frame:memory.cmdComEffectFrame
+imageScale:memory.cmdComRange/150
+onlyOnNonPreview:true
+onlyWhileAlive:true
+isVisible:if memory.hideUI==0 and memory.cmdComActive==true
+onlyWhenSelectedByAnyPlayer:true
+[decal_cmdCom_Range]
+layer: shadow
+order:0
+alpha:0.35
+onlyTeam:ally
+image:ROOT:Resource/Image/Ring/Ring150_CmdCom.png
+imageScale:memory.cmdComRange/150
+alwaysStartDirAtZero:true
+onlyWhileAlive:true
+isVisible:if memory.hideUI==0 and memory.cmdComActive==true
+onlyWhenSelectedByAnyPlayer:true

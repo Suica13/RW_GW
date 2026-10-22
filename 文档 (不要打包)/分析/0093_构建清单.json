@@ -1,0 +1,153 @@
+{
+  "stageIndex": 1020,
+  "factions": {
+    "0093_EFSF": {
+      "FactionIndex": 1030101,
+      "HQ": "HQ_0093_EFSF",
+      "startTag": "Tech_0093_EFSF_Start"
+    },
+    "0093_NZN": {
+      "FactionIndex": 1030201,
+      "HQ": "HQ_0093_NZN",
+      "startTag": "Tech_0093_NZN_Start"
+    }
+  },
+  "existing_modified": [
+    "GW_BattleUniverse_Main/Units/Buildings/HQ/HostOption/HostOption_Core.ini",
+    "GW_BattleUniverse_Main/Units/Buildings/HQ/Mod/HQ_GetMode.ini",
+    "GW_BattleUniverse_Main/Template/Building/Common_Buildings_Slot.gw",
+    "GW_BattleUniverse_Main/Units/Buildings/StrategicLocation/Mod/StrategicLocation.ini",
+    "GW_BattleUniverse_DLC_0079/Units/Buildings/HQ/Mod/HQ_GetMode.ini",
+    "GW_BattleUniverse_DLC_0079/Template/Building/Common_Buildings_Slot.gw",
+    "GW_BattleUniverse_DLC_0079/Units/Buildings/StrategicLocation/Mod/StrategicLocation.ini",
+    "GW_BattleUniverse_DLC_0087/Units/Buildings/HQ/Mod/HQ_GetMode.ini",
+    "GW_BattleUniverse_DLC_0087/Template/Building/Common_Buildings_Slot.gw",
+    "GW_BattleUniverse_DLC_0087/Units/Buildings/StrategicLocation/Mod/StrategicLocation.ini",
+    "GW_BattleUniverse_DLC_SEED/Template/Building/Common_Buildings_Slot.gw",
+    "GW_BattleUniverse_DLC_SEED/Units/Buildings/StrategicLocation/Mod/StrategicLocation.ini",
+    "GW_BattleUniverse_Main/Units/Buildings/HQ/HostOption/VS/Marker/Common/HostOption_VS_GE_Common_UC0079.ini",
+    "GW_BattleUniverse_Main/Units/Buildings/HQ/HostOption/VS/Marker/Common/HostOption_VS_GE_Common_UC0079_T2.ini",
+    "GW_BattleUniverse_Main/Units/Buildings/HQ/HostOption/VS/Marker/Common/HostOption_VS_GE_Common_UC0087.ini",
+    "GW_BattleUniverse_Main/Units/Buildings/HQ/HostOption/VS/Marker/Common/HostOption_VS_GE_Common_UC0087_T2.ini",
+    "GW_BattleUniverse_Main/Resource/Image/Text/Button/Button_CE71.png",
+    "GW_BattleUniverse_Main/Resource/Image/Text/Button/Button_CE73.png"
+  ],
+  "image_aliases": [
+    {
+      "path": "Resource/Image/Icon/Faction_0093_EFSF_1.png",
+      "source": "DLC_0079/Resource/Image/Icon/Faction_EFSF_0079_1.png",
+      "reason": "temporary faction emblem"
+    },
+    {
+      "path": "Resource/Image/Icon/Faction_0093_EFSF_2.png",
+      "source": "DLC_0079/Resource/Image/Icon/Faction_EFSF_0079_2.png",
+      "reason": "temporary faction emblem"
+    },
+    {
+      "path": "Resource/Image/Icon/Faction_0093_EFSF_3.png",
+      "source": "DLC_0079/Resource/Image/Icon/Faction_EFSF_0079_3.png",
+      "reason": "temporary faction emblem"
+    },
+    {
+      "path": "Resource/Image/Icon/Faction_0093_NZN_1.png",
+      "source": "DLC_0087/Resource/Image/Icon/Faction_NEO_ZEON_0087_1.png",
+      "reason": "temporary faction emblem"
+    },
+    {
+      "path": "Resource/Image/Icon/Faction_0093_NZN_2.png",
+      "source": "DLC_0087/Resource/Image/Icon/Faction_NEO_ZEON_0087_2.png",
+      "reason": "temporary faction emblem"
+    },
+    {
+      "path": "Resource/Image/Icon/Faction_0093_NZN_3.png",
+      "source": "DLC_0087/Resource/Image/Icon/Faction_NEO_ZEON_0087_3.png",
+      "reason": "temporary faction emblem"
+    },
+    {
+      "path": "Resource/Image/System/Index/M1.png",
+      "source": "0093/Resource/Image/Banner/M1.png",
+      "reason": "upstream missing file; temporary existing bitmap"
+    },
+    {
+      "path": "Resource/Image/System/Index/M2.png",
+      "source": "0093/Resource/Image/Banner/M2.png",
+      "reason": "upstream missing file; temporary existing bitmap"
+    },
+    {
+      "path": "Resource/Image/Fx/Weapon/Shell/Image/Hit_Explosion_1.png",
+      "source": "0093/Resource/Image/Fx/Weapon/Shell/Image/Explosion_Hit_1.png",
+      "reason": "upstream missing file; temporary existing bitmap"
+    },
+    {
+      "path": "Resource/Image/Fx/Weapon/Beam/Image/Hit_HighMegaCannon_1_Pink.png",
+      "source": "0093/Resource/Image/Fx/Weapon/Beam/HighMegaCannon/Image/HighMegaCannon_Hit_1.png",
+      "reason": "upstream missing file; temporary existing bitmap"
+    },
+    {
+      "path": "Resource/Image/Fx/Weapon/Shell/Image/Railgun_Hit.png",
+      "source": "0093/Resource/Image/Fx/Weapon/Shell/Image/Railgun_Hit_1.png",
+      "reason": "upstream missing file; temporary existing bitmap"
+    },
+    {
+      "path": "Units/BattleUnits/Weapon/Shell/Image/EF_180mmCannon_Backpack.png",
+      "source": "0093/Units/BattleUnits/Weapon/Shell/Image/EF_180mmCannon.png",
+      "reason": "upstream missing file; temporary existing bitmap"
+    },
+    {
+      "path": "Units/BattleUnits/Weapon/Shell/Image/EF_180mmCannon_PR_Backpack.png",
+      "source": "0093/Units/BattleUnits/Weapon/Shell/Image/EF_180mmCannon.png",
+      "reason": "upstream missing file; temporary existing bitmap"
+    },
+    {
+      "path": "Units/BattleUnits/Weapon/Shell/Image/EF_RFF_06_Cannon_Backpack.png",
+      "source": "0093/Units/BattleUnits/Weapon/Shell/Image/EF_RFF_06_Cannon.png",
+      "reason": "upstream missing file; temporary existing bitmap"
+    }
+  ],
+  "relocated_images": {
+    "Units/BattleUnits/Pilot/Image/Weapon/MG_1.png": "Resource/Image/Weapon/Legacy/Pilot_Image_Weapon_MG_1.png",
+    "Units/BattleUnits/Pilot/Image/Weapon/BZ_1.png": "Resource/Image/Weapon/Legacy/Pilot_Image_Weapon_BZ_1.png",
+    "Units/BattleUnits/Pilot/Image/Weapon/S_1.png": "Resource/Image/Weapon/Legacy/Pilot_Image_Weapon_S_1.png",
+    "Units/BattleUnits/Cui/Image/Cui_Turret_AA_1.png": "Resource/Image/Weapon/Legacy/Cui_Image_Cui_Turret_AA_1.png",
+    "Units/BattleUnits/SamsonGroundTransportTruck/Image/SamsonGroundTransportTruck_Turret_MG_1.png": "Resource/Image/Weapon/Legacy/SamsonGroundTransportTruck_Image_SamsonGroundTransportTruck_Turret_MG_1.png",
+    "Units/BattleUnits/PMX_001/Image/PMX_001_Body_MS_1.png": "Resource/Image/Weapon/Legacy/PMX_001_Image_PMX_001_Body_MS_1.png"
+  },
+  "unresolved_file_refs": [],
+  "GameManager": "existing generic Setting_GameMode broadcast, unchanged",
+  "local_template_fixes": [
+    "Shell/Turret/Common_Turret_Mortar_Lv2.gw: correct inherited file directory",
+    "Sp/Common_Dash_NoAqua.gw: bind old Common_Dash names to existing Common_Dash_Attack base"
+  ],
+  "ui_texture_renames": {
+    "Resource/Image/Text/Button/Button_0079.png": "Resource/Image/Text/Button/Button_UC0079.png",
+    "Resource/Image/Text/Button/Button_0087.png": "Resource/Image/Text/Button/Button_UC0087.png",
+    "Resource/Image/Text/Button/Button_2308.png": "Resource/Image/Text/Button/Button_AD2308.png"
+  },
+  "ui_texture_update": {
+    "canvas": [
+      130,
+      60
+    ],
+    "font": "Arial Bold",
+    "text": {
+      "Button_UC0079.png": "UC.0079",
+      "Button_UC0087.png": "UC.0087",
+      "Button_CE71.png": "SEED.CE71",
+      "Button_CE73.png": "SEED.CE73",
+      "Button_AD2308.png": "A.D.2308",
+      "Button_UC0093.png": "UC.0093"
+    },
+    "title": "Resource/Image/Title/UC_0093.png",
+    "updated_config_files": [
+      "GW_BattleUniverse_Main/Units/Buildings/HQ/HostOption/VS/Marker/Common/HostOption_VS_GE_Common_UC0079.ini",
+      "GW_BattleUniverse_Main/Units/Buildings/HQ/HostOption/VS/Marker/Common/HostOption_VS_GE_Common_UC0079_T2.ini",
+      "GW_BattleUniverse_Main/Units/Buildings/HQ/HostOption/VS/Marker/Common/HostOption_VS_GE_Common_UC0087.ini",
+      "GW_BattleUniverse_Main/Units/Buildings/HQ/HostOption/VS/Marker/Common/HostOption_VS_GE_Common_UC0087_T2.ini",
+      "GW_BattleUniverse_Main/Units/Buildings/HQ/HostOption/VS/Marker/Common/HostOption_VS_GE_Common_UC0093.ini",
+      "GW_BattleUniverse_Main/Units/Buildings/HQ/HostOption/VS/HostOption_Main_VS_GE_Ground_Page3.ini",
+      "GW_BattleUniverse_Main/Units/Buildings/HQ/HostOption/VS/HostOption_Main_VS_GE_Space_Page3.ini"
+    ],
+    "runtime_pack": "Main",
+    "source_pack": "DLC_0093"
+  }
+}

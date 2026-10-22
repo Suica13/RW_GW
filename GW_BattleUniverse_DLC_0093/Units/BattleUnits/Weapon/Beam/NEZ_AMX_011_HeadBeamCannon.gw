@@ -1,0 +1,134 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Beam/Common/Beam_Fire_1_Yellow.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Cannon_Shoot_A.gw
+"""
+
+@memory NEZ_AMX_011_HeadBeamCannon_CDTimer:float
+@global NEZ_AMX_011_HeadBeamCannon_CD=8
+@global NEZ_AMX_011_HeadBeamCannon_EN=75
+
+
+
+
+[turret_NEZ_AMX_011_HeadBeamCannon]
+x:0
+y:0
+
+canShoot:false
+projectile:NEZ_AMX_011_HeadBeamCannon_Projectile
+
+delay:0.2s
+canAttackMaxAngle:15
+barrelX:0
+barrelY:-2
+limitingRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\BeamCannon_2.ogg
+shoot_sound_vol:0.6
+shoot_flame:Beam_Fire_1_Yellow
+
+
+
+[projectile_NEZ_AMX_011_HeadBeamCannon_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_AP_BeamRifle_Yellow*1
+(
+    addResources=
+    BeamDamage:10000
+    |BeamAPDamage:5000
+    |DpDamage:400
+    |WeaponAccuracy=90
+    |PartBreakModifier=1
+    |CockpitBreakModifier=1
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1 
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1 
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=3
+    |HeightHitRange=25
+    |ProjectileSpeed:95
+    |ProjectileSpread:1
+    |ProjectileLife:30
+
+    |ProjectileAttackTimes:2
+    |ProjectileAttackTimesDamageModifier:0.75
+)
+"""
+
+
+
+
+
+[hiddenAction_NEZ_AMX_011_HeadBeamCannon_Trigger]
+alsoTriggerAction:NEZ_AMX_011_HeadBeamCannon_Fire
+[hiddenAction_NEZ_AMX_011_HeadBeamCannon_Fire]
+requireConditional:"""
+if self.timeAlive>memory.NEZ_AMX_011_HeadBeamCannon_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  
+and self.resource.EN>0
+"""
+setUnitMemory:NEZ_AMX_011_HeadBeamCannon_CDTimer=self.timeAlive+${NEZ_AMX_011_HeadBeamCannon_CD}
+addResources:EN=-${NEZ_AMX_011_HeadBeamCannon_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+PlayCommon_Cannon_Shoot_A_Step_1,
+NEZ_AMX_011_HeadBeamCannon_SetWeaponIndex,
+NEZ_AMX_011_HeadBeamCannon_B1_Step_1
+"""
+[hiddenAction_NEZ_AMX_011_HeadBeamCannon_B1_Step_1]
+alsoQueueAction:"""
+NEZ_AMX_011_HeadBeamCannon_Fire_Step_1,
+NEZ_AMX_011_HeadBeamCannon_Fire_Step_2,
+NEZ_AMX_011_HeadBeamCannon_Fire_Step_Final
+"""
+
+
+
+[hiddenAction_NEZ_AMX_011_HeadBeamCannon_SetWeaponIndex]
+isVisible:false
+
+
+
+[hiddenAction_NEZ_AMX_011_HeadBeamCannon_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.45s
+[hiddenAction_NEZ_AMX_011_HeadBeamCannon_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:NEZ_AMX_011_HeadBeamCannon
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_NEZ_AMX_011_HeadBeamCannon_Fire_Step_Final]
+buildSpeed:1.0s
+finishPlayingLastAnimation:true
+alsoTriggerAction:SetAttackingOff
+

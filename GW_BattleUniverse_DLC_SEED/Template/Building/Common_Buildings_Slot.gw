@@ -40,7 +40,8 @@ autoTrigger:"""
 if self.attachment(slot='Building').hp<=0 and self.resource().GameStart==1
 """
 alsoTriggerAction:"""
-ConvertTo_CE71
+ConvertTo_CE71,
+ConvertTo_0093
 """
 
 
@@ -114,3 +115,8 @@ targetHeightDrift:0
 useAsTransport:false
 useAsBuilder: false
 
+
+# [CROSS_DLC] Preserve earlier scene routes; add the UC0093 route only.
+[hiddenAction_ConvertTo_0093]
+requireConditional:if (self.resource().FactionIndex==1030101 or self.resource().FactionIndex==1030201) and not self.tags(includes='0093')
+convertTo:0093_BuildingSlot

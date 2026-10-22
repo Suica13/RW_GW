@@ -1,0 +1,156 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_StandShoot_A.gw
+"""
+
+
+@memory ZAFT_ZGMF_1017_D_LMS_CDTimer:float
+@global ZAFT_ZGMF_1017_D_LMS_CD=12
+@global ZAFT_ZGMF_1017_D_LMS_EN=120
+
+
+
+
+
+
+
+
+[turret_ZAFT_ZGMF_1017_D_LMS]
+x:0
+y:0
+
+canShoot:false
+projectile:ZAFT_ZGMF_1017_D_LMS_Projectile
+
+delay:0.15s
+limitingRange:0
+
+canAttackMaxAngle:15
+barrelX:13
+barrelY:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\Missile_1.ogg
+shoot_sound_vol:0.15
+shoot_flame:BZ_Fire_1_S
+[turret_ZAFT_ZGMF_1017_D_LMS_L]
+@copyFromSection:turret_ZAFT_ZGMF_1017_D_LMS
+barrelX:-13
+
+
+
+[projectile_ZAFT_ZGMF_1017_D_LMS_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_ZGMF_1017_ASP_BurningArea_B*1
+(
+    addResources=
+    ShellDamage:5500
+    |DpDamage:150
+    |WeaponAccuracy=75
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=1.0
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |AntiSizeLargeDamage=1.5
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.5
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1.0
+    |HeightChangeSpeed=2
+    |HeightHitRange=20
+    |ProjectileSpeed:30
+    |ProjectileSpread:0
+    |ProjectileExplosionRange:30
+    |ProjectileLife:50
+    
+    |ProjectileBlastRange:60
+    |ProjectileBlastDamageModifier:0.20
+    |ProjectileBlastDpModifier:1
+)
+"""
+
+
+
+
+
+
+
+[hiddenAction_ZAFT_ZGMF_1017_D_LMS_Trigger]
+alsoTriggerAction:ZAFT_ZGMF_1017_D_LMS_Fire
+[hiddenAction_ZAFT_ZGMF_1017_D_LMS_Fire]
+requireConditional:"""
+if self.timeAlive>memory.ZAFT_ZGMF_1017_D_LMS_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false 
+and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)  
+and self.resource.EN>0
+"""
+setUnitMemory:ZAFT_ZGMF_1017_D_LMS_CDTimer=self.timeAlive+${ZAFT_ZGMF_1017_D_LMS_CD}
+addResources:EN=-${ZAFT_ZGMF_1017_D_LMS_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+ZAFT_ZGMF_1017_D_LMS_SetWeaponIndex,
+ZAFT_ZGMF_1017_D_LMS_B4_Step_1,
+PlayCommon_StandShoot_A_Step_1
+"""
+[hiddenAction_ZAFT_ZGMF_1017_D_LMS_B4_Step_1]
+alsoQueueAction:"""
+ZAFT_ZGMF_1017_D_LMS_Fire_Step_1,
+ZAFT_ZGMF_1017_D_LMS_Fire_Step_2,
+ZAFT_ZGMF_1017_D_LMS_Fire_Step_3,
+ZAFT_ZGMF_1017_D_LMS_Fire_Step_2,
+ZAFT_ZGMF_1017_D_LMS_Fire_Step_3,
+ZAFT_ZGMF_1017_D_LMS_Fire_Step_Final
+"""
+
+
+
+
+
+[hiddenAction_ZAFT_ZGMF_1017_D_LMS_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_ZAFT_ZGMF_1017_D_LMS_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.25s
+[hiddenAction_ZAFT_ZGMF_1017_D_LMS_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false and memory.armRBreaked==false
+"""
+buildSpeed:0.05s
+fireTurretXAtGround:ZAFT_ZGMF_1017_D_LMS
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_ZAFT_ZGMF_1017_D_LMS_Fire_Step_3]
+requireConditional:"""
+if ${cantAction}==false and memory.armLBreaked==false
+"""
+buildSpeed:0.05s
+fireTurretXAtGround:ZAFT_ZGMF_1017_D_LMS_L
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_ZAFT_ZGMF_1017_D_LMS_Fire_Step_Final]
+buildSpeed:0.25s
+alsoTriggerAction:SetAttackingOff
+
+

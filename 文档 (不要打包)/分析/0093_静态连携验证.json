@@ -1,0 +1,355 @@
+{
+  "checks": 66,
+  "passed": 66,
+  "results": [
+    {
+      "check": "all concrete ROOT file references exist inside DLC0093",
+      "passed": true,
+      "details": []
+    },
+    {
+      "check": "BattleUnits contains only reusable Shield and Weapon trees",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "no duplicated background music",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "UI texture 130x60 RGBA + synchronized: Button_UC0079.png",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "UI texture 130x60 RGBA + synchronized: Button_UC0087.png",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "UI texture 130x60 RGBA + synchronized: Button_CE71.png",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "UI texture 130x60 RGBA + synchronized: Button_CE73.png",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "UI texture 130x60 RGBA + synchronized: Button_AD2308.png",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "UI texture 130x60 RGBA + synchronized: Button_UC0093.png",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "UC0093 title is synchronized",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "UC0093 ground/space title and year text are wired",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "no starting combat roster",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "exactly two faction selection actions",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF has matching index/start tag",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF converts and attaches the UC0093 core",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF directory Units/TechTree/Core/Faction",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF directory Units/TechTree/Tech/Faction",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF directory Units/Buildings/HQ/HQ_VS_GE/Faction",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF directory Units/Buildings/Factory/Faction",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF directory Units/Buildings/Factory/UnitList",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF empty Land production list",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF empty Air production list",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF empty Aqua production list",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF empty Mega production list",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF empty Space production list",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF empty Space_Mega production list",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN has matching index/start tag",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN converts and attaches the UC0093 core",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN directory Units/TechTree/Core/Faction",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN directory Units/TechTree/Tech/Faction",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN directory Units/Buildings/HQ/HQ_VS_GE/Faction",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN directory Units/Buildings/Factory/Faction",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN directory Units/Buildings/Factory/UnitList",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN empty Land production list",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN empty Air production list",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN empty Aqua production list",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN empty Mega production list",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN empty Space production list",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN empty Space_Mega production list",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Main 0093_BuildingSlot routing",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Main StrategicLocation_0093 routing",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Main HQ stage routing",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "DLC_0079 0093_BuildingSlot routing",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "DLC_0079 StrategicLocation_0093 routing",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "DLC_0079 HQ stage routing",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "DLC_0087 0093_BuildingSlot routing",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "DLC_0087 StrategicLocation_0093 routing",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "DLC_0087 HQ stage routing",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "DLC_SEED 0093_BuildingSlot routing",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "DLC_SEED StrategicLocation_0093 routing",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "DLC_0093 0093_BuildingSlot routing",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "DLC_0093 StrategicLocation_0093 routing",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "DLC_0093 HQ stage routing",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "marker to HostOption to GameManager stageIndex chain",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "HostOption pagination covers ground and space page3",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Main placeholder and DLC replacement: HQ_VS_GE_UC0093",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Main placeholder and DLC replacement: HQ_0093_EFSF",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Main placeholder and DLC replacement: HQ_0093_NZN",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Main placeholder and DLC replacement: 0093_BuildingSlot",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Main placeholder and DLC replacement: StrategicLocation_0093",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Main placeholder and DLC replacement: TechTree_Core_0093",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Main placeholder and DLC replacement: UnlockedListMarker_0093",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "only declared existing files changed",
+      "passed": true,
+      "details": [
+        "GW_BattleUniverse_Main/Resource/Image/Text/Button/Button_CE71.png",
+        "GW_BattleUniverse_Main/Resource/Image/Text/Button/Button_CE73.png",
+        "GW_BattleUniverse_Main/Template/Building/Common_Buildings_Slot.gw",
+        "GW_BattleUniverse_Main/Units/Buildings/HQ/HostOption/HostOption_Core.ini",
+        "GW_BattleUniverse_Main/Units/Buildings/HQ/Mod/HQ_GetMode.ini",
+        "GW_BattleUniverse_Main/Units/Buildings/HQ/HostOption/VS/Marker/Common/HostOption_VS_GE_Common_UC0079.ini",
+        "GW_BattleUniverse_Main/Units/Buildings/HQ/HostOption/VS/Marker/Common/HostOption_VS_GE_Common_UC0079_T2.ini",
+        "GW_BattleUniverse_Main/Units/Buildings/HQ/HostOption/VS/Marker/Common/HostOption_VS_GE_Common_UC0087.ini",
+        "GW_BattleUniverse_Main/Units/Buildings/HQ/HostOption/VS/Marker/Common/HostOption_VS_GE_Common_UC0087_T2.ini",
+        "GW_BattleUniverse_Main/Units/Buildings/StrategicLocation/Mod/StrategicLocation.ini",
+        "GW_BattleUniverse_DLC_0079/Template/Building/Common_Buildings_Slot.gw",
+        "GW_BattleUniverse_DLC_0079/Units/Buildings/HQ/Mod/HQ_GetMode.ini",
+        "GW_BattleUniverse_DLC_0079/Units/Buildings/StrategicLocation/Mod/StrategicLocation.ini",
+        "GW_BattleUniverse_DLC_0087/Template/Building/Common_Buildings_Slot.gw",
+        "GW_BattleUniverse_DLC_0087/Units/Buildings/HQ/Mod/HQ_GetMode.ini",
+        "GW_BattleUniverse_DLC_0087/Units/Buildings/StrategicLocation/Mod/StrategicLocation.ini",
+        "GW_BattleUniverse_DLC_SEED/Template/Building/Common_Buildings_Slot.gw",
+        "GW_BattleUniverse_DLC_SEED/Units/Buildings/StrategicLocation/Mod/StrategicLocation.ini"
+      ]
+    },
+    {
+      "check": "no existing source-pack files deleted",
+      "passed": true,
+      "details": []
+    },
+    {
+      "check": "GameManager files remain byte-identical",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "original scene sections preserved",
+      "passed": true,
+      "details": []
+    }
+  ]
+}

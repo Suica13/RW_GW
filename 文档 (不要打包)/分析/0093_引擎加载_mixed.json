@@ -1,0 +1,18 @@
+{
+  "case": "mixed",
+  "passed": true,
+  "initialized": true,
+  "enabled": {
+    "GW_BattleUniverse_Main": true,
+    "GW_BattleUniverse_DLC_0079": true,
+    "GW_BattleUniverse_DLC_0087": true,
+    "GW_BattleUniverse_DLC_SEED": true,
+    "GW_BattleUniverse_DLC_0093": true
+  },
+  "errors": [],
+  "timed_out": false,
+  "returncode": 1,
+  "elapsed_seconds": 74.4,
+  "log": "文档 (不要打包)\\工具\\0093_loadtest\\verify_mixed\\engine.log",
+  "exit_code_note": "Engine initialization completed with all five packs enabled and no MOD errors; harness then stopped the headless process. The shutdown exit code is not a load failure."
+}

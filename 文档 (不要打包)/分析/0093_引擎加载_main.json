@@ -1,0 +1,13 @@
+{
+  "case": "main",
+  "passed": true,
+  "initialized": true,
+  "enabled": {
+    "GW_BattleUniverse_Main": true
+  },
+  "errors": [],
+  "timed_out": false,
+  "returncode": 0,
+  "elapsed_seconds": 12.1,
+  "log": "文档 (不要打包)\\工具\\0093_loadtest\\verify_main\\engine.log"
+}

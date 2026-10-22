@@ -1,0 +1,12 @@
+[action_ShowTechTree_0093_EFSF]
+@copyFromSection:template_ShowTechTree
+text:EFSF[0093]
+text_zh:地球联邦[0093]
+iconImage:ROOT:Resource/Image/Icon/Faction_0093_EFSF_2.png
+isVisible:if self.attachment(slot="0093_EFSF").hp>0 and memory.showTechTree==false and self.globalTeamTags(includes='Tech_0093_EFSF_Start')
+isLocked:false
+sendMessageTo:self.attachment(slot="0093_EFSF")
+
+[attachment_0093_EFSF]
+@copyFromSection:template_TechTree_Main
+onCreateSpawnUnitOf:TechTree_UI_Main_0093_EFSF

@@ -1,0 +1,169 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Reload_B.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_A.gw
+"""
+
+@memory ZN_ShotgunKai_CDTimer:float
+@global ZN_ShotgunKai_CD=3
+@global ZN_ShotgunKai_EN=25
+
+
+
+
+
+[decal_ZN_ShotgunKai]
+layer:beforeBody
+order:5.5
+onlyWhileAlive:true
+image:ROOT:Units/BattleUnits/Weapon/Shell/Image/ZN_ShotgunKai.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:1.25
+xOffsetRelative: 3
+yOffsetRelative: 14
+dirOffset:0
+[decal_ZN_ShotgunKai_NotUsing]
+@copyFromSection:decal_ZN_ShotgunKai
+isVisible:false
+order:3
+basePositionFromLegEnd:arm1
+imageScaleX:-1
+imageScale:1.15
+xOffsetRelative:2
+yOffsetRelative:-9
+dirOffset:-90
+
+
+
+
+
+
+
+
+[turret_ZN_ShotgunKai]
+x:0
+y:0
+
+canShoot:false
+projectile:ZN_ShotgunKai_Projectile
+
+delay:0.2s
+canAttackMaxAngle:15
+barrelX:9
+barrelY:15
+limitingRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/ShellShotGun_1.ogg
+shoot_sound_vol:0.5
+shoot_flame:BZ_Fire_1_S
+
+
+
+[projectile_ZN_ShotgunKai_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_ShellShotGun*8
+(
+    offsetRandomDir=9,
+    addResources=
+    ShellDamage:700
+    |ShellAPDamage:700
+    |DpDamage:150
+    |WeaponAccuracy=95
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=1.0
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.0
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.0
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=1 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=2
+    |HeightHitRange=20
+    |ProjectileSpeed:55
+    |ProjectileSpread:2
+    |ProjectileLife:12
+)
+"""
+
+
+
+
+
+[hiddenAction_ZN_ShotgunKai_Trigger]
+alsoTriggerAction:ZN_ShotgunKai_Fire
+[hiddenAction_ZN_ShotgunKai_Fire]
+requireConditional:"""
+if self.timeAlive>memory.ZN_ShotgunKai_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15) 
+and self.resource.EN>0
+"""
+setUnitMemory:ZN_ShotgunKai_CDTimer=self.timeAlive+${ZN_ShotgunKai_CD}
+addResources:EN=-${ZN_ShotgunKai_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+ZN_ShotgunKai_SetWeaponIndex,
+PlayCommon_Shoot_A_Step_1,
+ZN_ShotgunKai_B1_Step_1
+"""
+[hiddenAction_ZN_ShotgunKai_B1_Step_1]
+alsoQueueAction:"""
+ZN_ShotgunKai_Fire_Step_1,
+ZN_ShotgunKai_Fire_Step_2,
+ZN_ShotgunKai_Fire_Step_3,
+ZN_ShotgunKai_Fire_Step_Final
+"""
+
+
+
+[hiddenAction_ZN_ShotgunKai_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_ZN_ShotgunKai_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.25s
+[hiddenAction_ZN_ShotgunKai_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:ZN_ShotgunKai
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_ZN_ShotgunKai_Fire_Step_3]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.25s
+alsoTriggerAction:PlayCommon_Reload_B_Step_1
+playSoundAtUnit:ROOT:Resource/Sound/SE/Action/Common/Action_3.ogg:0.5
+[hiddenAction_ZN_ShotgunKai_Fire_Step_Final]
+buildSpeed:0.25s
+alsoTriggerAction:SetAttackingOff
+

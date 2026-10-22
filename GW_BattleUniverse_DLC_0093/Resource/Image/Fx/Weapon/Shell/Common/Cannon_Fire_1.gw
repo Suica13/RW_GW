@@ -1,0 +1,42 @@
+[core]
+dont_load:false
+
+
+[effect_Cannon_Fire_1]
+life: 100
+
+xOffsetRelative: -2.5
+yOffsetRelative: 20
+hOffset: 0
+dirOffset: -90
+
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+alpha:1
+scaleFrom: 1.0
+scaleTo: 1.0
+image: ROOT:\Resource\Image\Fx\Weapon\Shell\Image\Cannon_Fire_1.png
+
+total_frames: 6
+animateFrameStart: 0
+animateFrameEnd: 5
+animateFrameSpeed: 0.1
+showInFog:true
+
+alsoEmitEffects:Cannon_Fire_1_FireLight
+
+
+[effect_Cannon_Fire_1_FireLight]
+image:ROOT:Resource/Image/Fx/Weapon/Common/Image/Common_FireLight_25_Normal.png
+priority:high
+yOffsetRelative:15
+life: 15
+scaleFrom: 4
+scaleTo: 2
+alpha:0.5
+alwayStartDirAtZero:true
+drawUnderUnits:false

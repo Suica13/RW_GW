@@ -1,0 +1,118 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Beam/Common/Beam_Fire_1_Pink.gw
+"""
+@memory EF_G_Bull_Easy_BeamGun_OnCD:bool
+@memory EF_G_Bull_Easy_BeamGun_CDTimer:float
+@global EF_G_Bull_Easy_BeamGun_CD=4
+@global EF_G_Bull_Easy_BeamGun_EN=8
+
+@global EF_G_Bull_Easy_BeamGun_Shoot=2
+[resource_EF_G_Bull_Easy_BeamGun_ShootTimer]
+hidden:true
+
+
+
+
+
+
+
+[turret_EF_G_Bull_Easy_BeamGun]
+x:0
+y:0
+
+canShoot:true
+onShoot_triggerActions:SendEnemyTryAttack_Shoot
+canAttackCondition:"""
+if ${onAttacking}==false and ${cantAction}==false 
+"""
+showRangeUIGuide:false
+projectile:EF_G_Bull_Easy_BeamGun_Projectile
+resourceUsage:EF_G_Bull_Easy_BeamGun_ShootTimer=1,en=${EF_G_Bull_Easy_BeamGun_EN}
+
+delay:0.05s
+canAttackMaxAngle:3
+barrelX:3
+barrelOffsetX_onOddShots:-6
+barrelY:10
+turnSpeed:1.0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\BeamRifle_1.ogg
+shoot_sound_vol:0.75
+shoot_flame:Beam_Fire_1_Pink
+
+idleSweepAngle:15
+idleSweepAddRandomAngle:10
+idleSweepDelay:240
+idleSweepAddRandomDelay:120
+idleSweepSpeed:0.25
+idleSweepCondition:if memory.close==false
+
+
+[projectile_EF_G_Bull_Easy_BeamGun_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_BeamGun_Pink*1
+(
+    addResources=
+    BeamDamage:4000
+    |DpDamage:100
+    |WeaponAccuracy=90
+    |PartBreakModifier=1
+    |CockpitBreakModifier=1
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1.0
+    |AntiAqua=0.5
+    |AntiAir=1.5
+    |AntiLand=1
+    |AntiSpace=1.5
+    |HeightChangeSpeed=2
+    |HeightHitRange=20
+    |ProjectileSpeed:75
+    |ProjectileSpread:1
+    |ProjectileLife:30
+)
+"""
+
+
+[hiddenAction_EF_G_Bull_Easy_BeamGun_CDStart]
+autoTrigger:"""
+if memory.EF_G_Bull_Easy_BeamGun_OnCD==false 
+and 
+(
+    (
+        self.resource.EF_G_Bull_Easy_BeamGun_ShootTimer<=0 
+    ) 
+    or 
+    (
+        self.resource.EF_G_Bull_Easy_BeamGun_ShootTimer<${EF_G_Bull_Easy_BeamGun_Shoot} and not self.hasTags(includes='inBattle')
+    )
+)
+"""
+setUnitMemory:EF_G_Bull_Easy_BeamGun_OnCD=true,EF_G_Bull_Easy_BeamGun_CDTimer=self.timeAlive+${EF_G_Bull_Easy_BeamGun_CD}
+
+[hiddenAction_EF_G_Bull_Easy_BeamGun_CDEnd]
+autoTriggerOnEvent:created
+autoTrigger:if memory.EF_G_Bull_Easy_BeamGun_OnCD==true and self.timeAlive>memory.EF_G_Bull_Easy_BeamGun_CDTimer
+setUnitMemory:EF_G_Bull_Easy_BeamGun_OnCD=false
+setResourcesWithLogic:EF_G_Bull_Easy_BeamGun_ShootTimer=${EF_G_Bull_Easy_BeamGun_Shoot}

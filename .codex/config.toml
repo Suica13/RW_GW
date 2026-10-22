@@ -1,0 +1,13 @@
+# Project-local read-only Rusted Warfare tooling.
+[mcp_servers.rusted-warfare]
+command = 'C:/Users/jpex1/AppData/Local/Programs/Python/Python312/python.exe'
+args = ['E:/RustedWarfare_Reunion/mods/units/文档 (不要打包)/工具/rw-modding-mcp/bootstrap.py']
+cwd = 'E:/RustedWarfare_Reunion/mods/units'
+startup_timeout_sec = 60
+tool_timeout_sec = 180
+enabled = true
+
+[mcp_servers.rusted-warfare.env]
+PYTHONUTF8 = '1'
+PYTHONIOENCODING = 'utf-8'
+RW_GAME_JAR = 'E:/RustedWarfare_Reunion/game-lib.jar'

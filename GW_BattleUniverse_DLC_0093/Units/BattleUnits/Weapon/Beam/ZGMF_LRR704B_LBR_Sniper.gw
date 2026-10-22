@@ -1,0 +1,303 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Beam/Common/Beam_Fire_1_Green.gw,
+ROOT:Resource/Image/Fx/Common/Common_Flash_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_Two_Handed_A_Stand.gw
+"""
+
+
+@memory ZGMF_LRR704B_LBR_Sniper_Active:bool
+@memory ZGMF_LRR704B_LBR_Sniper_Marker:unit
+
+@memory ZGMF_LRR704B_LBR_Sniper_AimTarget:unit
+@memory ZGMF_LRR704B_LBR_Sniper_CDTimer:float
+@global ZGMF_LRR704B_LBR_Sniper_CD=60
+@global ZGMF_LRR704B_LBR_Sniper_EN=75
+@global ZGMF_LRR704B_LBR_Sniper_Range=1200
+
+@global ZGMF_LRR704B_LBR_Sniper_CanUse=true
+
+[hiddenAction_ZGMF_LRR704B_LBR_Sniper_GetMarker]
+autoTriggerOnEvent:newMessage(withTag="SniperMarker")
+requireConditional:if memory.ZGMF_LRR704B_LBR_Sniper_Active==true
+setUnitMemory:ZGMF_LRR704B_LBR_Sniper_Marker=eventData("unitInfo",type="unit")
+
+
+
+
+
+
+[decal_ZGMF_LRR704B_LBR_Sniper]
+layer:beforeBody
+order:5.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Beam\Image\ZGMF_LRR704B_LBR.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:0.65
+xOffsetRelative: 2
+yOffsetRelative: 15
+dirOffset:0
+
+[decal_ZGMF_LRR704B_LBR_Sniper_Range]
+layer: inactive
+order:0
+onlyTeam:own
+alpha:1
+image:ROOT:Resource/Image/Ring/Ring150_Action.png
+imageScale:${ZGMF_LRR704B_LBR_Sniper_Range}/150
+basePosition:self
+alwaysStartDirAtZero:true
+onlyWhileAlive:true
+isVisible:if true
+
+
+
+
+
+
+[turret_ZGMF_LRR704B_LBR_Sniper]
+x:0
+y:0
+
+canShoot:false
+projectile:ZGMF_LRR704B_LBR_Sniper_Projectile_Fake
+
+delay:0.2s
+canAttackMaxAngle:15
+limitingAngle:0
+limitingRange:${ZGMF_LRR704B_LBR_Sniper_Range}
+limitingMinRange:300
+barrelX:9
+barrelY:35
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/BeamCannon_1.ogg
+shoot_sound_vol:0.6
+shoot_flame:Beam_Fire_1_Green
+
+[turret_ZGMF_LRR704B_LBR_Sniper_Aim]
+@copyFromSection:turret_ZGMF_LRR704B_LBR_Sniper
+projectile:ZGMF_LRR704B_LBR_Sniper_Projectile
+shoot_sound:none
+shoot_sound_vol:0
+shoot_flame:none
+
+
+
+
+[projectile_ZGMF_LRR704B_LBR_Sniper_Projectile]
+
+directDamage: 0
+life: 1
+explodeOnEndOfLife:true
+speed: 0
+instant:true
+
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Sniper_Beam_Green*1
+(
+    addResources=
+    BeamDamage:10000 
+    |BeamAPDamage:5000
+    |DpDamage:500
+    |WeaponAccuracy=150
+    |PartBreakModifier=1
+    |CockpitBreakModifier=1
+    |PilotDamageModifier=0.75
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=0.25
+    |AntiAqua=0.5
+    |AntiAir=1
+    |AntiLand=1
+    |AntiSpace=1.0
+    |CantDodge=1
+    |HeightChangeSpeed=0
+    |HeightHitRange=20
+    |ProjectileSpeed:1.25
+    |ProjectileSpread:0
+    |ProjectileLife:0
+
+    |SubEquipmentIndex=1
+)
+"""
+
+[projectile_ZGMF_LRR704B_LBR_Sniper_Projectile_Fake]
+
+directDamage: 0
+life: 1
+explodeOnEndOfLife:true
+speed: 0
+instant:true
+
+effectOnCreate:none
+explodeEffect:none
+
+
+[hiddenAction_ZGMF_LRR704B_LBR_Sniper_Trigger_ByAI]
+@define canUse:true
+autoTrigger:"""
+if ${allowAI}==true 
+and ${cantAction}==false and ${onSkill}==false 
+and memory.armRBreaked==false 
+and self.timeAlive>memory.ZGMF_LRR704B_LBR_Sniper_CDTimer 
+and not self.hasTags(includes='inHangar') 
+and not parent.hasTags(includes='SFS_Slot') 
+and self.resource.en>${ZGMF_LRR704B_LBR_Sniper_EN} 
+and memory.ZGMF_LRR704B_LBR_Sniper_AimTarget.hp>0 
+and ${ZGMF_LRR704B_LBR_Sniper_CanUse}
+"""
+setResourcesWithLogic:en=self.resource.en-${ZGMF_LRR704B_LBR_Sniper_EN}
+alsoTriggerAction:ZGMF_LRR704B_LBR_Sniper_Trigger
+
+[hiddenAction_ZGMF_LRR704B_LBR_Sniper_FindTarget]
+autoTrigger:if memory.ZGMF_LRR704B_LBR_Sniper_AimTarget.hp<=0
+takeResources_includeUnitsWithinRange:1000
+takeResources_includeUnitsWithinRange_team:enemy
+takeResources_excludeUnitsWithoutTags:CanBeTargetUnit
+takeResources_searchOnly:true
+takeResources_maxUnits:100
+takeResources_triggerActionForEach:ZGMF_LRR704B_LBR_Sniper_FindTarget_Step2
+[hiddenAction_ZGMF_LRR704B_LBR_Sniper_FindTarget_Step2]
+requireConditional:if memory.ZGMF_LRR704B_LBR_Sniper_AimTarget.hp<=0 and not thisActionTarget.tags(includes='UnDetected')
+setUnitMemory:ZGMF_LRR704B_LBR_Sniper_AimTarget=thisActionTarget
+
+[hiddenAction_ZGMF_LRR704B_LBR_Sniper_MissTarget]
+autoTrigger:"""
+if memory.ZGMF_LRR704B_LBR_Sniper_AimTarget.hp>0 
+and 
+(
+    distanceBetween(self, memory.ZGMF_LRR704B_LBR_Sniper_AimTarget)>${ZGMF_LRR704B_LBR_Sniper_Range} 
+    or 
+    distanceBetween(self, memory.ZGMF_LRR704B_LBR_Sniper_AimTarget)<300 
+    or 
+    memory.ZGMF_LRR704B_LBR_Sniper_AimTarget.hasTags(includes='UnDetected')
+)
+"""
+setUnitMemory:ZGMF_LRR704B_LBR_Sniper_AimTarget=null
+
+
+
+
+
+[action_ZGMF_LRR704B_LBR_Sniper_Trigger]
+pos:10
+text:Sniper %{select(self.timeAlive<=memory.ZGMF_LRR704B_LBR_Sniper_CDTimer,str(int(memory.ZGMF_LRR704B_LBR_Sniper_CDTimer-self.timeAlive))+"s","OK")}
+text_zh:狙击 %{select(self.timeAlive<=memory.ZGMF_LRR704B_LBR_Sniper_CDTimer,str(int(memory.ZGMF_LRR704B_LBR_Sniper_CDTimer-self.timeAlive))+"秒","OK")}
+text_KP:100
+
+displayType:infoOnly
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+isGuiBlinking:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamSniperRifle_1.png
+highPriorityQueue:true
+
+onlyOneUnitAtATime:true
+
+price:en=${ZGMF_LRR704B_LBR_Sniper_EN}
+
+isVisible:if self.parent.hp<=0  
+
+isLocked:if self.timeAlive<=memory.ZGMF_LRR704B_LBR_Sniper_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+isLockedAlt:if memory.armRBreaked==true
+isLockedAltMessage:Arm Breaked
+isLockedAltMessage_zh:手臂损害
+isLockedAlt2:if ${cantAction}==true or ${onSkill}==true or ${allowAI}==true
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+fireTurretXAtGround:ZGMF_LRR704B_LBR_Sniper
+fireTurretXAtGround_count:0
+fireTurretXAtGround_showGuideDecals:ZGMF_LRR704B_LBR_Sniper_Range
+
+alsoTriggerAction:"""
+SetAttackingCantTurnOn,
+SetAttackingCantMoveOn,
+SetAttackingOn,
+SetOnSkillOn,
+ZGMF_LRR704B_LBR_Sniper_SetWeaponIndex,
+ZGMF_LRR704B_LBR_Sniper_B1_Step_1,
+PlayCommon_Shoot_Two_Handed_A_Stand_Step_1
+"""
+clearAllWaypoints:true
+[hiddenAction_ZGMF_LRR704B_LBR_Sniper_B1_Step_1]
+spawnEffects:Flash_1_N
+setUnitMemory:"""
+ZGMF_LRR704B_LBR_Sniper_Active=true,
+ZGMF_LRR704B_LBR_Sniper_AimTarget=select(${allowAI}==true,memory.ZGMF_LRR704B_LBR_Sniper_AimTarget,thisActionTarget),
+ZGMF_LRR704B_LBR_Sniper_CDTimer=self.timeAlive+${ZGMF_LRR704B_LBR_Sniper_CD}
+"""
+
+alsoQueueAction:"""
+ZGMF_LRR704B_LBR_Sniper_Fire_Step_1
+"""
+
+
+
+
+[hiddenAction_ZGMF_LRR704B_LBR_Sniper_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_ZGMF_LRR704B_LBR_Sniper_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.25s
+fireTurretXAtGround:ZGMF_LRR704B_LBR_Sniper_Aim
+fireTurretXAtGround_withTarget:memory.ZGMF_LRR704B_LBR_Sniper_AimTarget
+
+
+[hiddenAction_ZGMF_LRR704B_LBR_Sniper_AimTarget]
+autoTrigger:if memory.ZGMF_LRR704B_LBR_Sniper_Active==true and memory.ZGMF_LRR704B_LBR_Sniper_Marker.hp>0
+setBodyRotation:directionBetween(self,memory.ZGMF_LRR704B_LBR_Sniper_Marker)
+playAnimationIfNotPlaying:Common_Shoot_Two_Handed_A_Stand
+
+[hiddenAction_ZGMF_LRR704B_LBR_Sniper_Attack]
+autoTriggerOnEvent:newMessage(withTag="SniperAttack")
+requireConditional:if memory.ZGMF_LRR704B_LBR_Sniper_Active==true
+alsoTriggerAction:"""
+ZGMF_LRR704B_LBR_Sniper_Attack_T,
+ZGMF_LRR704B_LBR_Sniper_Attack_F
+"""
+
+[hiddenAction_ZGMF_LRR704B_LBR_Sniper_Attack_T]
+requireConditional:if memory.armRBreaked==false
+fireTurretXAtGround:ZGMF_LRR704B_LBR_Sniper
+fireTurretXAtGround_withTarget:memory.ZGMF_LRR704B_LBR_Sniper_AimTarget
+setUnitMemory:ZGMF_LRR704B_LBR_Sniper_Active=false
+alsoQueueAction:ZGMF_LRR704B_LBR_Sniper_Fire_Step_Final
+
+[hiddenAction_ZGMF_LRR704B_LBR_Sniper_Attack_F]
+requireConditional:if memory.armRBreaked==true
+setUnitMemory:ZGMF_LRR704B_LBR_Sniper_Active=false
+alsoQueueAction:ZGMF_LRR704B_LBR_Sniper_Fire_Step_Final
+
+
+[hiddenAction_ZGMF_LRR704B_LBR_Sniper_Fire_Step_Final]
+buildSpeed:1.25s
+#stopLastAnimation:true
+alsoTriggerAction:"""
+SetAttackingOff,
+SetOnSkillOff,
+SetAttackingCantTurnOff,
+SetAttackingCantMoveOff
+"""

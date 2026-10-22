@@ -1,0 +1,173 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_A.gw
+"""
+
+
+@memory EF_FA_78_2_FrameLauncher_GL_CDTimer:float
+@global EF_FA_78_2_FrameLauncher_GL_CD=12
+@global EF_FA_78_2_FrameLauncher_GL_EN=50
+
+
+
+
+
+[decal_EF_FA_78_2_FrameLauncher_GL]
+layer:beforeBody
+order:4.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Shell\Image\EF_FA_78_2_FrameLauncher.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:1.0
+xOffsetRelative: 2
+yOffsetRelative: 15
+dirOffset:0
+[decal_EF_FA_78_2_FrameLauncher_GL_NotUsing]
+@copyFromSection:decal_EF_FA_78_2_FrameLauncher_GL
+isVisible:false
+order:3
+basePositionFromLegEnd:arm1
+imageScale:0.9
+xOffsetRelative:2
+yOffsetRelative:-8.5
+dirOffset:-90
+
+
+
+
+
+
+
+[turret_EF_FA_78_2_FrameLauncher_GL]
+x:0
+y:0
+
+canShoot:false
+projectile:EF_FA_78_2_FrameLauncher_GL_Projectile
+
+delay:0.15s
+limitingRange:0
+
+canAttackMaxAngle:15
+barrelX:11
+barrelY:30
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\Missile_1.ogg
+shoot_sound_vol:0.25
+shoot_flame:BZ_Fire_1_S
+
+
+
+[projectile_EF_FA_78_2_FrameLauncher_GL_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Bazooka_S*1
+(
+    addResources=
+    ShellDamage:6000
+    |DpDamage:125
+    |WeaponAccuracy=85
+    |PartBreakModifier=0.75
+    |CockpitBreakModifier=2.35
+    |PilotDamageModifier=2.35
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.5  
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=2
+    |HeightHitRange=20
+    |ProjectileSpeed:65
+    |ProjectileSpread:2
+    |ProjectileExplosionRange:30
+    |ProjectileLife:20
+)
+"""
+
+
+
+
+
+
+[hiddenAction_EF_FA_78_2_FrameLauncher_GL_Trigger]
+alsoTriggerAction:EF_FA_78_2_FrameLauncher_GL_Fire
+[hiddenAction_EF_FA_78_2_FrameLauncher_GL_Fire]
+requireConditional:"""
+if self.timeAlive>memory.EF_FA_78_2_FrameLauncher_GL_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false 
+and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)  
+and self.resource.EN>0
+"""
+setUnitMemory:EF_FA_78_2_FrameLauncher_GL_CDTimer=self.timeAlive+${EF_FA_78_2_FrameLauncher_GL_CD}
+addResources:EN=-${EF_FA_78_2_FrameLauncher_GL_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+PlayCommon_Shoot_A_Step_1,
+EF_FA_78_2_FrameLauncher_GL_SetWeaponIndex,
+EF_FA_78_2_FrameLauncher_GL_B4_Step_1
+"""
+[hiddenAction_EF_FA_78_2_FrameLauncher_GL_B4_Step_1]
+alsoQueueAction:"""
+EF_FA_78_2_FrameLauncher_GL_Fire_Step_1,
+EF_FA_78_2_FrameLauncher_GL_Fire_Step_2,
+EF_FA_78_2_FrameLauncher_GL_Fire_Step_3,
+EF_FA_78_2_FrameLauncher_GL_Fire_Step_3,
+EF_FA_78_2_FrameLauncher_GL_Fire_Step_3,
+EF_FA_78_2_FrameLauncher_GL_Fire_Step_Final
+"""
+
+
+
+
+
+[hiddenAction_EF_FA_78_2_FrameLauncher_GL_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_EF_FA_78_2_FrameLauncher_GL_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.25s
+alsoTriggerAction:PlayCommon_Shoot_A_Step_1
+[hiddenAction_EF_FA_78_2_FrameLauncher_GL_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:EF_FA_78_2_FrameLauncher_GL
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_EF_FA_78_2_FrameLauncher_GL_Fire_Step_3]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.2s
+fireTurretXAtGround:EF_FA_78_2_FrameLauncher_GL
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_EF_FA_78_2_FrameLauncher_GL_Fire_Step_Final]
+buildSpeed:0.25s
+alsoTriggerAction:SetAttackingOff
+
+

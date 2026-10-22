@@ -1,0 +1,556 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_Flash_1.gw,
+ROOT:Resource/Image/Fx/Weapon/Beam/Common/Beam_Fire_1_Pink.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_Two_Handed_A.gw
+"""
+
+@memory EF_RX_78_4_HighMegaLauncher_AimTarget:unit
+@memory EF_RX_78_4_HighMegaLauncher_CDTimer:float
+@global EF_RX_78_4_HighMegaLauncher_CD=180
+@global EF_RX_78_4_HighMegaLauncher_EN=150
+@global EF_RX_78_4_HighMegaLauncher_Range=1000
+
+@memory EF_RX_78_4_HighMegaLauncher_ChargeEffect_1:unit
+@memory EF_RX_78_4_HighMegaLauncher_BulletEffect_1:unit
+
+[decal_EF_RX_78_4_HighMegaLauncher]
+layer:beforeBody
+order:5.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Beam\Image\EF_RX_78_4_HighMegaLauncher.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:0.85
+xOffsetRelative: 1
+yOffsetRelative: 22
+dirOffset:0
+
+[decal_EF_RX_78_4_HighMegaLauncher_Range]
+layer: inactive
+order:0
+onlyTeam:own
+alpha:1
+image:ROOT:Resource/Image/Ring/Ring150_Action.png
+imageScale:${EF_RX_78_4_HighMegaLauncher_Range}/150
+basePosition:self
+alwaysStartDirAtZero:true
+onlyWhileAlive:true
+isVisible:if true
+
+
+
+
+
+[turret_EF_RX_78_4_HighMegaLauncher]
+x:0
+y:0
+
+canShoot:false
+projectile:EF_RX_78_4_HighMegaLauncher_Projectile
+
+delay:0.2s
+canAttackMaxAngle:15
+barrelX:9
+barrelY:30
+limitingAngle:0
+limitingRange:${EF_RX_78_4_HighMegaLauncher_Range}
+limitingMinRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\BeamCannon_2.ogg
+shoot_sound_vol:0
+shoot_flame:none
+
+
+
+[projectile_EF_RX_78_4_HighMegaLauncher_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_AP_MegaBeamCannon_Pink_Alpha0*1
+(
+    addResources=
+    BeamDamage:2500
+    |BeamAPDamage:1250
+    |DpDamage:250
+    |WeaponAccuracy=100
+    |PartBreakModifier=1
+    |CockpitBreakModifier=1
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.0
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.0
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1.0
+    |AntiAqua=1.0
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=0
+    |HeightHitRange=50
+    |ProjectileExplosionRange:40
+    |ProjectileSpeed:125
+    |ProjectileSpread:0
+    |ProjectileLife:6
+
+    |ProjectileAttackTimes:9
+    |ProjectileAttackTimesDamageModifier:0.75
+
+    |EquipmentIndex=2
+    |EquipmentIndex2=1000
+    |SubEquipmentIndex=1
+)
+"""
+
+
+
+
+[attachment_EF_RX_78_4_HighMegaLauncher_ChargeEffect_1]
+x:9
+y:30
+isVisible:true
+keepAliveWhenParentDies:false
+canBeAttackedAndDamaged:false
+isUnselectable:true
+canAttack:false
+showAllActionsFrom:true
+onConvertKeepExistingUnitInSameSlot:true
+idleDir:0
+resetRotationWhenNotAttacking:true
+
+[hiddenAction_EF_RX_78_4_HighMegaLauncher_ChargeEffect_1_AwakeSet]
+autoTriggerOnEvent:newMessage(withTag="UnitTurretSpawn")
+alsoTriggerAction:"""
+EF_RX_78_4_HighMegaLauncher_ChargeEffect_1_StartSet
+"""
+attachments_addNewUnits:Beam_Charge_1_EffectUnit
+attachments_onlyOnSlots:EF_RX_78_4_HighMegaLauncher_ChargeEffect_1
+
+[hiddenAction_EF_RX_78_4_HighMegaLauncher_ChargeEffect_1_StartSet]
+setUnitMemory:EF_RX_78_4_HighMegaLauncher_ChargeEffect_1=self.attachment(slot='EF_RX_78_4_HighMegaLauncher_ChargeEffect_1')
+alsoTriggerAction:"""
+EF_RX_78_4_HighMegaLauncher_ChargeEffect_1_SetColor,
+EF_RX_78_4_HighMegaLauncher_ChargeEffect_1_SetSpeed
+"""
+
+[hiddenAction_EF_RX_78_4_HighMegaLauncher_ChargeEffect_1_SetColor]
+sendMessageTo:memory.EF_RX_78_4_HighMegaLauncher_ChargeEffect_1
+sendMessageWithTags:SetColor_Pink
+[hiddenAction_EF_RX_78_4_HighMegaLauncher_ChargeEffect_1_SetSpeed]
+sendMessageTo:memory.EF_RX_78_4_HighMegaLauncher_ChargeEffect_1
+sendMessageWithTags:SetSpeed
+sendMessageWithData:Speed=2.5
+
+[hiddenAction_EF_RX_78_4_HighMegaLauncher_Fire_Step_ChargeEffect_1]
+requireConditional:if ${cantAction}==false
+buildSpeed:0s
+sendMessageTo:memory.EF_RX_78_4_HighMegaLauncher_ChargeEffect_1
+sendMessageWithTags:PlayOneTime
+playSoundAtUnit:ROOT:Resource/Sound/SE/Weapon/Fire/BeamCharge_4.ogg:2.0
+
+
+[attachment_EF_RX_78_4_HighMegaLauncher_BulletEffect_1]
+x:9
+y:40
+isVisible:true
+keepAliveWhenParentDies:false
+canBeAttackedAndDamaged:false
+isUnselectable:true
+canAttack:false
+showAllActionsFrom:true
+onConvertKeepExistingUnitInSameSlot:true
+idleDir:0
+resetRotationWhenNotAttacking:true
+
+[hiddenAction_EF_RX_78_4_HighMegaLauncher_BulletEffect_1_AwakeSet]
+autoTriggerOnEvent:newMessage(withTag="UnitTurretSpawn")
+alsoTriggerAction:"""
+EF_RX_78_4_HighMegaLauncher_BulletEffect_1_StartSet
+"""
+attachments_addNewUnits:HighMegaCannon_1_EffectUnit
+attachments_onlyOnSlots:EF_RX_78_4_HighMegaLauncher_BulletEffect_1
+
+[hiddenAction_EF_RX_78_4_HighMegaLauncher_BulletEffect_1_StartSet]
+setUnitMemory:EF_RX_78_4_HighMegaLauncher_BulletEffect_1=self.attachment(slot='EF_RX_78_4_HighMegaLauncher_BulletEffect_1')
+alsoTriggerAction:"""
+EF_RX_78_4_HighMegaLauncher_BulletEffect_1_SetColor,
+EF_RX_78_4_HighMegaLauncher_BulletEffect_1_SetSpeed
+"""
+
+[hiddenAction_EF_RX_78_4_HighMegaLauncher_BulletEffect_1_SetColor]
+sendMessageTo:memory.EF_RX_78_4_HighMegaLauncher_BulletEffect_1
+sendMessageWithTags:SetColor_Pink
+[hiddenAction_EF_RX_78_4_HighMegaLauncher_BulletEffect_1_SetSpeed]
+sendMessageTo:memory.EF_RX_78_4_HighMegaLauncher_BulletEffect_1
+sendMessageWithTags:SetSpeed
+sendMessageWithData:Speed=4
+
+[hiddenAction_EF_RX_78_4_HighMegaLauncher_Fire_Step_BulletEffect_1]
+requireConditional:if ${cantAction}==false
+buildSpeed:0s
+sendMessageTo:memory.EF_RX_78_4_HighMegaLauncher_BulletEffect_1
+sendMessageWithTags:PlayOneTime
+
+[hiddenAction_EF_RX_78_4_HighMegaLauncher_BulletEffect_1_StopPlay]
+buildSpeed:0s
+sendMessageTo:memory.EF_RX_78_4_HighMegaLauncher_BulletEffect_1
+sendMessageWithTags:StopPlay
+
+
+
+[hiddenAction_EF_RX_78_4_HighMegaLauncher_Trigger_ByAI]
+autoTrigger:"""
+if ${allowAI}==true 
+and ${cantAction}==false and ${onSkill}==false 
+and memory.armRBreaked==false  
+and self.timeAlive>memory.EF_RX_78_4_HighMegaLauncher_CDTimer 
+and not self.hasTags(includes='inHangar') 
+and not parent.hasTags(includes='SFS_Slot') 
+and self.resource.en>${EF_RX_78_4_HighMegaLauncher_EN} 
+and memory.EF_RX_78_4_HighMegaLauncher_AimTarget.hp>0 
+"""
+setResourcesWithLogic:en=self.resource.en-${EF_RX_78_4_HighMegaLauncher_EN}
+alsoTriggerAction:EF_RX_78_4_HighMegaLauncher_Trigger
+
+[hiddenAction_EF_RX_78_4_HighMegaLauncher_FindTarget]
+autoTrigger:if memory.EF_RX_78_4_HighMegaLauncher_AimTarget.hp<=0 and ${onSkill}==false 
+takeResources_includeUnitsWithinRange:1000
+takeResources_includeUnitsWithinRange_team:enemy
+takeResources_excludeUnitsWithoutTags:CanBeTargetUnit
+takeResources_searchOnly:true
+takeResources_maxUnits:100
+takeResources_triggerActionForEach:EF_RX_78_4_HighMegaLauncher_FindTarget_Step2
+[hiddenAction_EF_RX_78_4_HighMegaLauncher_FindTarget_Step2]
+requireConditional:if memory.EF_RX_78_4_HighMegaLauncher_AimTarget.hp<=0 and not thisActionTarget.tags(includes='UnDetected')
+setUnitMemory:EF_RX_78_4_HighMegaLauncher_AimTarget=thisActionTarget
+
+[hiddenAction_EF_RX_78_4_HighMegaLauncher_MissTarget]
+autoTrigger:"""
+if memory.EF_RX_78_4_HighMegaLauncher_AimTarget.hp>0 
+and 
+(
+    distanceBetween(self, memory.EF_RX_78_4_HighMegaLauncher_AimTarget)>${EF_RX_78_4_HighMegaLauncher_Range} 
+    or 
+    distanceBetween(self, memory.EF_RX_78_4_HighMegaLauncher_AimTarget)<300 
+    or 
+    memory.EF_RX_78_4_HighMegaLauncher_AimTarget.hasTags(includes='UnDetected')
+)
+"""
+setUnitMemory:EF_RX_78_4_HighMegaLauncher_AimTarget=null
+
+
+
+[action_EF_RX_78_4_HighMegaLauncher_Trigger]
+pos:10
+text:MegaBeamCannon %{select(self.timeAlive<=memory.EF_RX_78_4_HighMegaLauncher_CDTimer,str(int(memory.EF_RX_78_4_HighMegaLauncher_CDTimer-self.timeAlive))+"s","OK")}
+text_zh:MEGA粒子炮 %{select(self.timeAlive<=memory.EF_RX_78_4_HighMegaLauncher_CDTimer,str(int(memory.EF_RX_78_4_HighMegaLauncher_CDTimer-self.timeAlive))+"秒","OK")}
+text_KP:100
+
+displayType:infoOnly
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamCannon_1.png
+highPriorityQueue:true
+
+price:EN=${EF_RX_78_4_HighMegaLauncher_EN}
+
+onlyOneUnitAtATime:true
+
+isVisible:if self.parent.hp<=0  
+
+isGuiBlinking:"""
+if self.timeAlive>memory.EF_RX_78_4_HighMegaLauncher_CDTimer
+"""
+
+
+
+isLocked:if self.timeAlive<=memory.EF_RX_78_4_HighMegaLauncher_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+isLockedAlt2:if ${cantAction}==true or ${onSkill}==true or ${allowAI}==true or memory.armRBreaked==true
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+fireTurretXAtGround:EF_RX_78_4_HighMegaLauncher
+fireTurretXAtGround_count:0
+fireTurretXAtGround_showGuideDecals:EF_RX_78_4_HighMegaLauncher_Range
+
+clearAllWaypoints:true
+
+
+alsoTriggerAction:"""
+SetAttackingOn,
+SetOnSkillOn_EF_RX_78_4_HighMegaLauncher,
+PlayCommon_Shoot_Two_Handed_A_Step_1,
+EF_RX_78_4_HighMegaLauncher_SetWeaponIndex,
+EF_RX_78_4_HighMegaLauncher_B1_Step_1,
+EF_RX_78_4_HighMegaLauncher_B1_Step_1_AI
+"""
+clearAllWaypoints:true
+[hiddenAction_EF_RX_78_4_HighMegaLauncher_B1_Step_1]
+requireConditional:if ${allowAI}==false
+setUnitMemory:"""
+EF_RX_78_4_HighMegaLauncher_AimTarget=memory.EF_RX_78_4_HighMegaLauncher_AimTarget.getOffsetRelative(),
+EF_RX_78_4_HighMegaLauncher_CDTimer=self.timeAlive+${EF_RX_78_4_HighMegaLauncher_CD}
+"""
+
+alsoQueueAction:"""
+SetAttackingCantAimOn,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_ChargeEffect_1,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_1,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_BulletEffect_1,
+
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+
+
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+
+
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+
+
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+
+
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+
+
+
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+
+
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+
+
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_Final,
+EF_RX_78_4_HighMegaLauncher_BulletEffect_1_StopPlay
+"""
+
+
+
+
+[hiddenAction_EF_RX_78_4_HighMegaLauncher_B1_Step_1_AI]
+requireConditional:if ${allowAI}==true
+setUnitMemory:"""
+EF_RX_78_4_HighMegaLauncher_AimTarget=memory.EF_RX_78_4_HighMegaLauncher_AimTarget.getOffsetRelative(),
+EF_RX_78_4_HighMegaLauncher_CDTimer=self.timeAlive+${EF_RX_78_4_HighMegaLauncher_CD}
+"""
+setBodyRotation:directionBetween(self,memory.EF_RX_78_4_HighMegaLauncher_AimTarget)
+
+alsoTriggerAction:"""
+SetAttackingCantTurnOn
+"""
+
+alsoQueueAction:"""
+SetAttackingCantAimOn,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_ChargeEffect_1,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_1_AI,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_BulletEffect_1,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+
+
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+
+
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+
+
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+
+
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+
+
+
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+
+
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+
+
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_2,
+EF_RX_78_4_HighMegaLauncher_Fire_Step_Final,
+EF_RX_78_4_HighMegaLauncher_BulletEffect_1_StopPlay
+"""
+spawnEffects:Flash_1_L
+
+
+
+
+[hiddenAction_SetOnSkillOn_EF_RX_78_4_HighMegaLauncher]
+@copyFromSection:hiddenAction_SetOnSkillOn
+sendMessageWithData:"""
+skillMoveSpeedBuff=1,
+skillTurnSpeedBuff=1,
+skillShootDefBuff=125.0,
+skillDpDefBuff=500.0
+"""
+
+
+
+[hiddenAction_EF_RX_78_4_HighMegaLauncher_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_EF_RX_78_4_HighMegaLauncher_Fire_Step_1_AI]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:2.0s
+spawnEffects:Flash_1_L
+whenBuilding_cannotMove:true
+playSoundAtUnit:ROOT:Resource/Sound/SE/Weapon/Fire/BeamCannon_6.ogg:3.0
+[hiddenAction_EF_RX_78_4_HighMegaLauncher_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:2.0s
+
+stopLastAnimation:true
+fireTurretXAtGround:EF_RX_78_4_HighMegaLauncher
+fireTurretXAtGround_count:0
+fireTurretXAtGround_withTarget:memory.EF_RX_78_4_HighMegaLauncher_AimTarget
+
+whenBuilding_cannotMove:true
+whenBuilding_rotateTo_aimAtActionTarget:true
+whenBuilding_rotateTo_waitTillRotated:true
+playSoundAtUnit:ROOT:Resource/Sound/SE/Weapon/Fire/BeamCannon_6.ogg:3.0
+[hiddenAction_EF_RX_78_4_HighMegaLauncher_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.1s
+whenBuilding_cannotMove:true
+fireTurretXAtGround:EF_RX_78_4_HighMegaLauncher
+fireTurretXAtGround_withTarget:self.getOffsetRelative(x=select(self.dir>90 or self.dir<-90,25,-25),y=1000)
+setBodyRotation:self.dir+0.5
+setResourcesWithLogic:"""
+hp=self.hp-self.maxHp*0.005,
+EN=self.resource().EN-5
+"""
+alsoTriggerAction:PlayCommon_Shoot_Two_Handed_A_Step_1
+
+[hiddenAction_EF_RX_78_4_HighMegaLauncher_Fire_Step_Final]
+buildSpeed:3.0s
+whenBuilding_cannotMove:true
+alsoTriggerAction:"""
+SetAttackingOff,
+SetOnSkillOff,
+SetAttackingCantAimOff,
+SetAttackingCantTurnOff
+"""
+

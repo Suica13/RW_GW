@@ -1,0 +1,296 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Beam/Common/Beam_Fire_1_Blue.gw,
+ROOT:Resource/Image/Fx/Common/Common_Flash_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_Two_Handed_A_Stand.gw
+"""
+
+
+@memory AEUG_MSZ_006C1_BeamSmartGun_Sniper_Active:bool
+@memory AEUG_MSZ_006C1_BeamSmartGun_Sniper_Marker:unit
+
+@memory AEUG_MSZ_006C1_BeamSmartGun_Sniper_AimTarget:unit
+@memory AEUG_MSZ_006C1_BeamSmartGun_Sniper_CDTimer:float
+@global AEUG_MSZ_006C1_BeamSmartGun_Sniper_CD=60
+@global AEUG_MSZ_006C1_BeamSmartGun_Sniper_EN=75
+@global AEUG_MSZ_006C1_BeamSmartGun_Sniper_Range=1200
+
+@global AEUG_MSZ_006C1_BeamSmartGun_Sniper_CanUse=true
+
+[hiddenAction_AEUG_MSZ_006C1_BeamSmartGun_Sniper_GetMarker]
+autoTriggerOnEvent:newMessage(withTag="SniperMarker")
+requireConditional:if memory.AEUG_MSZ_006C1_BeamSmartGun_Sniper_Active==true
+setUnitMemory:AEUG_MSZ_006C1_BeamSmartGun_Sniper_Marker=eventData("unitInfo",type="unit")
+
+
+
+
+
+[decal_AEUG_MSZ_006C1_BeamSmartGun_Sniper_Range]
+layer: inactive
+order:0
+onlyTeam:own
+alpha:1
+image:ROOT:Resource/Image/Ring/Ring150_Action.png
+imageScale:${AEUG_MSZ_006C1_BeamSmartGun_Sniper_Range}/150
+basePosition:self
+alwaysStartDirAtZero:true
+onlyWhileAlive:true
+isVisible:if true
+
+
+
+
+
+
+[turret_AEUG_MSZ_006C1_BeamSmartGun_Sniper]
+x:0
+y:0
+
+canShoot:false
+projectile:AEUG_MSZ_006C1_BeamSmartGun_Sniper_Projectile_Fake
+
+delay:0.2s
+canAttackMaxAngle:15
+limitingAngle:0
+limitingRange:${AEUG_MSZ_006C1_BeamSmartGun_Sniper_Range}
+limitingMinRange:300
+barrelX:9
+barrelY:40
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/BeamCannon_1.ogg
+shoot_sound_vol:0.6
+shoot_flame:Beam_Fire_1_Blue
+
+[turret_AEUG_MSZ_006C1_BeamSmartGun_Sniper_Aim]
+@copyFromSection:turret_AEUG_MSZ_006C1_BeamSmartGun_Sniper
+projectile:AEUG_MSZ_006C1_BeamSmartGun_Sniper_Projectile
+shoot_sound:none
+shoot_sound_vol:0
+shoot_flame:none
+
+
+
+
+[projectile_AEUG_MSZ_006C1_BeamSmartGun_Sniper_Projectile]
+
+directDamage: 0
+life: 1
+explodeOnEndOfLife:true
+speed: 0
+instant:true
+
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Sniper_Beam_Blue*1
+(
+    addResources=
+    BeamDamage:25000 
+    |BeamAPDamage:10000
+    |DpDamage:300
+    |WeaponAccuracy=100
+    |PartBreakModifier=1
+    |CockpitBreakModifier=1
+    |PilotDamageModifier=0.5
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=0.25
+    |AntiAqua=0.5
+    |AntiAir=1
+    |AntiLand=1
+    |AntiSpace=1.0
+    |CantDodge=1
+    |HeightChangeSpeed=0
+    |HeightHitRange=20
+    |ProjectileSpeed:1.25
+    |ProjectileSpread:0
+    |ProjectileLife:0
+
+    |SubEquipmentIndex=1
+)
+"""
+
+[projectile_AEUG_MSZ_006C1_BeamSmartGun_Sniper_Projectile_Fake]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+effectOnCreate:none
+explodeEffect:none
+spawnUnit:"""
+Projectile_BeamSniper_Blue_Effect*1
+(
+    addResources=
+    ProjectileSpeed:1
+    |ProjectileSpread:1
+    |ProjectileLife:25
+)
+"""
+
+[hiddenAction_AEUG_MSZ_006C1_BeamSmartGun_Sniper_Trigger_ByAI]
+@define canUse:true
+autoTrigger:"""
+if ${allowAI}==true 
+and ${cantAction}==false and ${onSkill}==false 
+and memory.armRBreaked==false 
+and self.timeAlive>memory.AEUG_MSZ_006C1_BeamSmartGun_Sniper_CDTimer 
+and not self.hasTags(includes='inHangar') 
+and not parent.hasTags(includes='SFS_Slot') 
+and self.resource.en>${AEUG_MSZ_006C1_BeamSmartGun_Sniper_EN} 
+and memory.AEUG_MSZ_006C1_BeamSmartGun_Sniper_AimTarget.hp>0 
+and ${AEUG_MSZ_006C1_BeamSmartGun_Sniper_CanUse}
+"""
+setResourcesWithLogic:en=self.resource.en-${AEUG_MSZ_006C1_BeamSmartGun_Sniper_EN}
+alsoTriggerAction:AEUG_MSZ_006C1_BeamSmartGun_Sniper_Trigger
+
+[hiddenAction_AEUG_MSZ_006C1_BeamSmartGun_Sniper_FindTarget]
+autoTrigger:if memory.AEUG_MSZ_006C1_BeamSmartGun_Sniper_AimTarget.hp<=0
+takeResources_includeUnitsWithinRange:1000
+takeResources_includeUnitsWithinRange_team:enemy
+takeResources_excludeUnitsWithoutTags:CanBeTargetUnit
+takeResources_searchOnly:true
+takeResources_maxUnits:100
+takeResources_triggerActionForEach:AEUG_MSZ_006C1_BeamSmartGun_Sniper_FindTarget_Step2
+[hiddenAction_AEUG_MSZ_006C1_BeamSmartGun_Sniper_FindTarget_Step2]
+requireConditional:if memory.AEUG_MSZ_006C1_BeamSmartGun_Sniper_AimTarget.hp<=0 and not thisActionTarget.tags(includes='UnDetected')
+setUnitMemory:AEUG_MSZ_006C1_BeamSmartGun_Sniper_AimTarget=thisActionTarget
+
+[hiddenAction_AEUG_MSZ_006C1_BeamSmartGun_Sniper_MissTarget]
+autoTrigger:"""
+if memory.AEUG_MSZ_006C1_BeamSmartGun_Sniper_AimTarget.hp>0 
+and 
+(
+    distanceBetween(self, memory.AEUG_MSZ_006C1_BeamSmartGun_Sniper_AimTarget)>${AEUG_MSZ_006C1_BeamSmartGun_Sniper_Range} 
+    or 
+    distanceBetween(self, memory.AEUG_MSZ_006C1_BeamSmartGun_Sniper_AimTarget)<300 
+    or 
+    memory.AEUG_MSZ_006C1_BeamSmartGun_Sniper_AimTarget.hasTags(includes='UnDetected')
+)
+"""
+setUnitMemory:AEUG_MSZ_006C1_BeamSmartGun_Sniper_AimTarget=null
+
+
+
+
+
+[action_AEUG_MSZ_006C1_BeamSmartGun_Sniper_Trigger]
+pos:10
+text:Sniper %{select(self.timeAlive<=memory.AEUG_MSZ_006C1_BeamSmartGun_Sniper_CDTimer,str(int(memory.AEUG_MSZ_006C1_BeamSmartGun_Sniper_CDTimer-self.timeAlive))+"s","OK")}
+text_zh:狙击 %{select(self.timeAlive<=memory.AEUG_MSZ_006C1_BeamSmartGun_Sniper_CDTimer,str(int(memory.AEUG_MSZ_006C1_BeamSmartGun_Sniper_CDTimer-self.timeAlive))+"秒","OK")}
+text_KP:100
+
+displayType:infoOnly
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+isGuiBlinking:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamSniperRifle_1.png
+highPriorityQueue:true
+
+onlyOneUnitAtATime:true
+
+price:en=${AEUG_MSZ_006C1_BeamSmartGun_Sniper_EN}
+
+isVisible:if self.parent.hp<=0  
+
+isLocked:if self.timeAlive<=memory.AEUG_MSZ_006C1_BeamSmartGun_Sniper_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+isLockedAlt:if memory.armRBreaked==true
+isLockedAltMessage:Arm Breaked
+isLockedAltMessage_zh:手臂损害
+isLockedAlt2:if ${cantAction}==true or ${onSkill}==true or ${allowAI}==true
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+fireTurretXAtGround:AEUG_MSZ_006C1_BeamSmartGun_Sniper
+fireTurretXAtGround_count:0
+fireTurretXAtGround_showGuideDecals:AEUG_MSZ_006C1_BeamSmartGun_Sniper_Range
+
+alsoTriggerAction:"""
+SetAttackingCantTurnOn,
+SetAttackingCantMoveOn,
+SetAttackingOn,
+SetOnSkillOn,
+AEUG_MSZ_006C1_BeamSmartGun_Sniper_SetWeaponIndex,
+AEUG_MSZ_006C1_BeamSmartGun_Sniper_B1_Step_1,
+PlayCommon_Shoot_Two_Handed_A_Stand_Step_1
+"""
+clearAllWaypoints:true
+[hiddenAction_AEUG_MSZ_006C1_BeamSmartGun_Sniper_B1_Step_1]
+spawnEffects:Flash_1_N
+setUnitMemory:"""
+AEUG_MSZ_006C1_BeamSmartGun_Sniper_Active=true,
+AEUG_MSZ_006C1_BeamSmartGun_Sniper_AimTarget=select(${allowAI}==true,memory.AEUG_MSZ_006C1_BeamSmartGun_Sniper_AimTarget,thisActionTarget),
+AEUG_MSZ_006C1_BeamSmartGun_Sniper_CDTimer=self.timeAlive+${AEUG_MSZ_006C1_BeamSmartGun_Sniper_CD}
+"""
+
+alsoQueueAction:"""
+AEUG_MSZ_006C1_BeamSmartGun_Sniper_Fire_Step_1
+"""
+
+
+
+
+[hiddenAction_AEUG_MSZ_006C1_BeamSmartGun_Sniper_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_AEUG_MSZ_006C1_BeamSmartGun_Sniper_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false and memory.armRBreaked==false
+"""
+buildSpeed:0.25s
+fireTurretXAtGround:AEUG_MSZ_006C1_BeamSmartGun_Sniper_Aim
+fireTurretXAtGround_withTarget:memory.AEUG_MSZ_006C1_BeamSmartGun_Sniper_AimTarget
+
+
+[hiddenAction_AEUG_MSZ_006C1_BeamSmartGun_Sniper_AimTarget]
+autoTrigger:if memory.AEUG_MSZ_006C1_BeamSmartGun_Sniper_Active==true and memory.AEUG_MSZ_006C1_BeamSmartGun_Sniper_Marker.hp>0
+setBodyRotation:directionBetween(self,memory.AEUG_MSZ_006C1_BeamSmartGun_Sniper_Marker)
+playAnimationIfNotPlaying:Common_Shoot_Two_Handed_A_Stand
+
+[hiddenAction_AEUG_MSZ_006C1_BeamSmartGun_Sniper_Attack]
+autoTriggerOnEvent:newMessage(withTag="SniperAttack")
+requireConditional:if memory.AEUG_MSZ_006C1_BeamSmartGun_Sniper_Active==true
+alsoTriggerAction:"""
+AEUG_MSZ_006C1_BeamSmartGun_Sniper_Attack_T,
+AEUG_MSZ_006C1_BeamSmartGun_Sniper_Attack_F
+"""
+
+[hiddenAction_AEUG_MSZ_006C1_BeamSmartGun_Sniper_Attack_T]
+requireConditional:if memory.armRBreaked==false
+fireTurretXAtGround:AEUG_MSZ_006C1_BeamSmartGun_Sniper
+fireTurretXAtGround_withTarget:memory.AEUG_MSZ_006C1_BeamSmartGun_Sniper_AimTarget
+setUnitMemory:AEUG_MSZ_006C1_BeamSmartGun_Sniper_Active=false
+alsoQueueAction:AEUG_MSZ_006C1_BeamSmartGun_Sniper_Fire_Step_Final
+
+[hiddenAction_AEUG_MSZ_006C1_BeamSmartGun_Sniper_Attack_F]
+requireConditional:if memory.armRBreaked==true
+setUnitMemory:AEUG_MSZ_006C1_BeamSmartGun_Sniper_Active=false
+alsoQueueAction:AEUG_MSZ_006C1_BeamSmartGun_Sniper_Fire_Step_Final
+
+
+[hiddenAction_AEUG_MSZ_006C1_BeamSmartGun_Sniper_Fire_Step_Final]
+buildSpeed:1.25s
+#stopLastAnimation:true
+alsoTriggerAction:"""
+SetAttackingOff,
+SetOnSkillOff,
+SetAttackingCantTurnOff,
+SetAttackingCantMoveOff
+"""

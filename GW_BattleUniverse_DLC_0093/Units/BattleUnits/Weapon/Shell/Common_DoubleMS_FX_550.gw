@@ -1,0 +1,142 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw
+"""
+
+@memory Common_DoubleMS_FX_550_CDTimer:float
+@global Common_DoubleMS_FX_550_CD=3
+@global Common_DoubleMS_FX_550_EN=20
+
+
+
+
+
+[turret_Common_DoubleMS_FX_550]
+x:0
+y:0
+
+canShoot:false
+showRangeUIGuide:false
+projectile:Common_DoubleMS_FX_550_Projectile
+
+delay:0.1s
+limitingRange:1200
+limitingAngle:15
+
+canAttackMaxAngle:15
+barrelX:5
+barrelY:-2
+barrelOffsetX_onOddShots:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\Missile_1.ogg
+shoot_sound_vol:0.15
+shoot_flame:BZ_Fire_1_S
+[turret_Common_DoubleMS_FX_550_L]
+@copyFromSection:turret_Common_DoubleMS_FX_550
+barrelX:-5
+
+
+
+[projectile_Common_DoubleMS_FX_550_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_MS*1
+(
+    addResources=
+    ShellDamage:1200
+    |DpDamage:50
+    |WeaponAccuracy=85
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=0.5
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=1
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange=20
+    |HeightChangeSpeed=2
+    |ProjectileSpeed:50
+    |ProjectileTurnspeed:3.5
+    |ProjectileSpread:0
+    |ProjectileExplosionRange:35
+    |ProjectileLife:20
+
+    |EquipmentIndex:1
+    |EquipmentIndex2:100
+)
+"""
+
+
+[hiddenAction_Common_DoubleMS_FX_550_Trigger]
+alsoTriggerAction:Common_DoubleMS_FX_550_Fire
+[hiddenAction_Common_DoubleMS_FX_550_Fire]
+requireConditional:"""
+if self.timeAlive>memory.Common_DoubleMS_FX_550_CDTimer and ${onAttacking}==false and ${cantAction}==false and ${onSkill}==false  
+and not (directionBetween(self, self.attacking) < self.dir-45 or directionBetween(self, self.attacking) > self.dir+45)  
+and self.resource.EN>0
+"""
+setUnitMemory:Common_DoubleMS_FX_550_CDTimer=self.timeAlive+${Common_DoubleMS_FX_550_CD} 
+addResources:EN=-${Common_DoubleMS_FX_550_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+Common_DoubleMS_FX_550_SetWeaponIndex,
+Common_DoubleMS_FX_550_B2_Step_1
+"""
+[hiddenAction_Common_DoubleMS_FX_550_B2_Step_1]
+alsoQueueAction:"""
+Common_DoubleMS_FX_550_Fire_Step_1,
+Common_DoubleMS_FX_550_Fire_Step_2,
+Common_DoubleMS_FX_550_Fire_Step_3,
+Common_DoubleMS_FX_550_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_Common_DoubleMS_FX_550_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_Common_DoubleMS_FX_550_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+[hiddenAction_Common_DoubleMS_FX_550_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:Common_DoubleMS_FX_550
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_Common_DoubleMS_FX_550_Fire_Step_3]
+@copyFromSection:hiddenAction_Common_DoubleMS_FX_550_Fire_Step_2
+buildSpeed:${turret_Common_DoubleMS_FX_550.delay}
+[hiddenAction_Common_DoubleMS_FX_550_Fire_Step_4]
+@copyFromSection:hiddenAction_Common_DoubleMS_FX_550_Fire_Step_3
+fireTurretXAtGround:Common_DoubleMS_FX_550_L
+[hiddenAction_Common_DoubleMS_FX_550_Fire_Step_Final]
+buildSpeed:0.3s
+alsoTriggerAction:SetAttackingOff

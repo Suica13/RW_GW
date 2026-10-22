@@ -1,0 +1,189 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_A.gw
+"""
+
+@memory ZN_Panzerfaust_Orange_CDTimer:float
+@global ZN_Panzerfaust_Orange_CD=12
+@global ZN_Panzerfaust_Orange_EN=40
+
+
+
+
+
+[decal_ZN_Panzerfaust_Orange]
+layer:beforeBody
+order:4.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Shell\Image\ZN_Panzerfaust_Orange.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:1
+xOffsetRelative: 2.5
+yOffsetRelative: 12
+dirOffset:0
+[decal_ZN_Panzerfaust_Orange_Used]
+@copyFromSection:decal_ZN_Panzerfaust_Orange
+image:ROOT:Units/BattleUnits/Weapon/Shell/Image/ZN_Panzerfaust_Orange_B.png
+[decal_ZN_Panzerfaust_Orange_NotUsing]
+@copyFromSection:decal_ZN_Panzerfaust_Orange
+order:4
+basePositionFromLegEnd:arm1
+imageScale:0.85
+xOffsetRelative:-8
+yOffsetRelative:0
+dirOffset:0
+
+
+
+[effect_ZN_Panzerfaust_Orange_Drop]
+attachedToUnit:false
+image:ROOT:Units/BattleUnits/Weapon/Shell/Image/ZN_Panzerfaust_Orange_B.png
+life:60
+physics:false
+physicsGravity:0
+priority:high
+liveAfterAttachedDies:true
+dirOffsetRandom:180
+drawUnderUnits:true
+color:#bda89d
+alpha:1
+yOffsetRelative:5
+xOffsetRelative:15
+xSpeedRelative:2
+dirSpeedRandom:15
+scaleFrom:1.0
+scaleTo:0.75
+createWhenOverLiquid:false
+
+
+
+
+
+[turret_ZN_Panzerfaust_Orange]
+x:0
+y:0
+
+canShoot:false
+projectile:ZN_Panzerfaust_Orange_Projectile
+
+delay:0.3s
+canAttackMaxAngle:15
+barrelX:13
+barrelY:20
+limitingRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\Bazooka_1.ogg
+shoot_sound_vol:0.4
+shoot_flame:BZ_Fire_1
+
+
+
+[projectile_ZN_Panzerfaust_Orange_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_ZN_Panzerfaust_Orange*1
+(
+    addResources=
+    ShellDamage:3500
+    |ShellAPDamage:2000
+    |DpDamage:600
+    |WeaponAccuracy=75
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |AntiSizeLargeDamage=1.0
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.0
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1.0
+    |HeightChangeSpeed=2
+    |HeightHitRange=20
+    |ProjectileSpeed:55
+    |ProjectileSpread:1
+    |ProjectileExplosionRange:30
+    |ProjectileLife:35
+)
+"""
+
+
+
+
+
+
+
+
+[hiddenAction_ZN_Panzerfaust_Orange_Trigger]
+alsoTriggerAction:ZN_Panzerfaust_Orange_Fire
+[hiddenAction_ZN_Panzerfaust_Orange_Fire]
+requireConditional:"""
+if self.timeAlive>memory.ZN_Panzerfaust_Orange_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15) 
+and self.resource.EN>0
+"""
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+ZN_Panzerfaust_Orange_SetWeaponIndex,
+PlayCommon_Shoot_A_Step_1,
+ZN_Panzerfaust_Orange_B1_Step_1
+"""
+[hiddenAction_ZN_Panzerfaust_Orange_B1_Step_1]
+alsoQueueAction:"""
+ZN_Panzerfaust_Orange_Fire_Step_1,
+ZN_Panzerfaust_Orange_Fire_Step_2,
+ZN_Panzerfaust_Orange_SetWeaponIndex_Step2,
+ZN_Panzerfaust_Orange_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_ZN_Panzerfaust_Orange_SetWeaponIndex]
+isVisible:false
+[hiddenAction_ZN_Panzerfaust_Orange_SetWeaponIndex_Step2]
+isVisible:false
+
+
+[hiddenAction_ZN_Panzerfaust_Orange_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.25s
+setUnitMemory:ZN_Panzerfaust_Orange_CDTimer=self.timeAlive+${ZN_Panzerfaust_Orange_CD}
+addResources:EN=-${ZN_Panzerfaust_Orange_EN}
+[hiddenAction_ZN_Panzerfaust_Orange_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:ZN_Panzerfaust_Orange
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+spawnEffects:ZN_Panzerfaust_Orange_Drop
+[hiddenAction_ZN_Panzerfaust_Orange_Fire_Step_Final]
+buildSpeed:0.25s
+alsoTriggerAction:"""
+SetAttackingOff
+"""
+

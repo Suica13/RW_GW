@@ -1,0 +1,42 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Units/BattleUnits/Weapon/Shell/Common_ArmMG.gw
+"""
+
+
+[turret_Common_ArmMG]
+delay:0.05s
+
+[projectile_Common_ArmMG_Projectile]
+spawnUnit:"""
+Projectile_MG*1
+(
+    addResources=
+    ShellDamage:700
+    |ShellAPDamage:250
+    |DpDamage:40
+    |WeaponAccuracy=110
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=1.25
+    |PilotDamageModifier=1.25
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=1
+    |AntiLand=1
+    |AntiSpace=1.0
+    |HeightChangeSpeed=2.0
+    |HeightHitRange=20
+    |ProjectileSpeed:85
+    |ProjectileSpread:5
+    |ProjectileLife:25
+)
+"""
+
+
+

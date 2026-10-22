@@ -1,0 +1,41 @@
+[core]
+copyFrom:"""
+"""
+dont_load:false
+
+
+[action_LaunchAllUnits]
+pos:100
+
+buildSpeed:0s
+
+highPriorityQueue:true
+allowMultipleInQueue:false
+canPlayerCancel:true
+alwaysSinglePress:true
+ai_isDisabled:true
+extraLagHidingInUI:true
+
+displayType:infoOnly
+
+text:Launch All Units
+text_zh:紧急出动
+
+isVisible:if true
+
+
+iconImage:ROOT:Resource/Image/Units/Button/Action/Ride_4.png
+
+alsoTriggerAction:Send_LaunchAllUnits
+
+[hiddenAction_Send_LaunchAllUnits]
+takeResources_includeUnitsWithinRange:600
+takeResources_includeUnitsWithinRange_team:any
+takeResources_excludeUnitsWithoutTags:TransportHangar
+takeResources_searchOnly:true
+takeResources_maxUnits:500
+takeResources_triggerActionForEach:Send_LaunchAllUnits_Step2
+[hiddenAction_Send_LaunchAllUnits_Step2]
+requireConditional:if thisActionTarget.parent==self
+sendMessageTo:thisActionTarget
+sendMessageWithTags:UnloadAllUnits

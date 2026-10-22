@@ -1,0 +1,69 @@
+[core]
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_Light_1.gw
+"""
+dont_load:false
+
+
+@memory CustomUnit_NewUnitBool:bool
+
+[template_CustomUnit_NewUnit]
+@define UnitID=MS_06F
+@define CustomRule=(true)
+@define AutoCustomRule=(false)
+@define Money=0
+@define Resource=0
+
+autoTrigger:"""
+if memory.canSupply==true 
+and ${CustomRule} 
+and ${AutoCustomRule} 
+and ${onSkill}==false
+"""
+
+tags:Upgrade
+isVisible:if not self.hasTags(includes='inHangar')
+addActionCooldownTime:0
+buildSpeed:30s
+
+pos:3000
+
+text:ConvertTo
+text_zh:改装至
+textAddUnitName:${UnitID}
+unitShownInUI:${UnitID}
+descriptionAddFromUnit:${UnitID}
+
+isGuiBlinking:true
+displayType:infoOnly
+
+price:"""
+Money=${Money},
+Resource=${Resource}
+"""
+
+isVisible:if memory.canSupply==true and ${CustomRule}
+
+isLocked:if ${cantAction}==true and ${onSkill}==false
+isLockedMessage:Can not Action
+isLockedMessage_zh:现在不能行动
+
+ai_isDisabled:true
+spawnEffects:Light_50
+playSoundAtUnit:ROOT:Resource/Sound/SE/Action/Common/ChangeEquipment.ogg:0.5
+
+removeAllQueuedItemsWithoutRefund:true
+
+
+
+setUnitMemory:"""
+CustomUnit_NewUnitBool=true
+"""
+
+whenBuilding_triggerAction:SetAttackingOff,SetOnSkillOff,Send_ForceUnload_TransportUnits
+
+[hiddenAction_CustomUnit_NewUnit_Done]
+autoTriggerOnEvent:newMessage(withTag="deleteCustomTarget1")
+showMessageToPlayer:1
+requireConditional:if eventData('deleteCustomTarget1',type="float")==1
+deleteSelf:true

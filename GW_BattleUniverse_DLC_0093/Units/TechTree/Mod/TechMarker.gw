@@ -1,0 +1,442 @@
+[core]
+copyFrom:"""
+ROOT:Template/UI/Common_UI.gw
+"""
+
+
+name:${TechID}
+displayText:A
+displayText_zh:A
+
+showInEditor:false
+
+radius:12
+displayRadius:12
+
+@memory techTree_UI_Main:unit
+@memory thisTimeSendMessage:string
+@memory thisTimeSendMessage_zh:string
+@memory autoTech:float
+
+
+@global TechID=Test
+@global IconImage=ROOT:Resource/Image/Tech/Tech_EFSF_0079_1.png
+@global Unlocked=true
+@global AIUnlocked=true
+
+
+[hiddenAction_Start_Get_AutoTech]
+autoTriggerOnEvent:created
+setUnitMemory:autoTech=customTarget1.readUnitMemory('autoTech',type='float')
+
+[hiddenAction_InitializeStats]
+setUnitMemory:"""
+techTree_UI_Main=parent.parent
+"""
+
+[hiddenAction_Update]
+
+
+[action_Tech_Info]
+pos:0
+text:"""
+Money:%{parent.parent.readUnitMemory("${TechID}_Money",type="float")}
+\nResource:%{parent.parent.readUnitMemory("${TechID}_Resource",type="float")}
+\nTechPoint:%{parent.parent.readUnitMemory("${TechID}_TechPoint",type="float")}
+"""
+text_zh:"""
+资金:%{parent.parent.readUnitMemory("${TechID}_Money",type="float")}
+\n物资:%{parent.parent.readUnitMemory("${TechID}_Resource",type="float")}
+\n科技:%{parent.parent.readUnitMemory("${TechID}_TechPoint",type="float")}
+"""
+
+highPriorityQueue:false
+allowMultipleInQueue: false
+ai_isDisabled:true
+displayType:infoOnly
+
+buildSpeed:0s
+isVisible:true
+
+
+[template_UnlockInfo_Unit]
+@define UnitID=Tpye61A5
+pos:3
+
+unitShownInUI:${UnitID}
+textAddUnitName:${UnitID}
+descriptionAddFromUnit:${UnitID}
+
+highPriorityQueue:false
+allowMultipleInQueue: false
+ai_isDisabled:true
+displayType:Action
+#iconImage:${IconImage}
+
+buildSpeed:0s
+isVisible:true
+
+
+
+
+
+[action_Tech_Locked]
+pos:1
+text: Locked
+text_zh: 未解锁
+
+highPriorityQueue:false
+allowMultipleInQueue: false
+alwaysSinglePress:true
+ai_isDisabled:true
+displayType:queueUnit
+iconImage:ROOT:Resource/Image/Tech/ResearchLocked_1.png
+
+buildSpeed:0s
+isVisible:"""
+if not self.globalTeamTags(includes='${TechID}') and not ${Unlocked}
+"""
+
+
+
+
+
+[action_Tech_Start]
+pos:1
+text: Start Research[%{memory.techTree_UI_Main.readUnitMemory("${TechID}_Time",type="float")}s]
+text_zh: 开始研究[%{memory.techTree_UI_Main.readUnitMemory("${TechID}_Time",type="float")}s]
+
+description:"""
+Money:%{parent.parent.readUnitMemory("${TechID}_Money",type="float")}
+\nResource:%{parent.parent.readUnitMemory("${TechID}_Resource",type="float")}
+\nTechPointNeed:%{parent.parent.readUnitMemory("${TechID}_TechPoint",type="float")}
+"""
+description_zh:"""
+资金:%{parent.parent.readUnitMemory("${TechID}_Money",type="float")}
+\n物资:%{parent.parent.readUnitMemory("${TechID}_Resource",type="float")}
+\n科技需求:%{parent.parent.readUnitMemory("${TechID}_TechPoint",type="float")}
+"""
+
+isLocked:"""
+if 
+self.resource.Money<parent.parent.readUnitMemory("${TechID}_Money",type="float") 
+or 
+self.resource.Resource<parent.parent.readUnitMemory("${TechID}_Resource",type="float") 
+or 
+self.resource.TechPoint<parent.parent.readUnitMemory("${TechID}_TechPoint",type="float") 
+"""
+isLockedMessage:"""
+Not Enough Resource Or Need TechPoint
+"""
+isLockedMessage_zh:"""
+所需资源不足或科技需求不足
+"""
+
+isLockedAlt:"""
+if memory.autoTech==1
+"""
+isLockedAltMessage:"""
+=In Auto Tech=
+"""
+isLockedAltMessage_zh:"""
+=自动研究已开启=
+"""
+
+
+
+highPriorityQueue:false
+allowMultipleInQueue: false
+alwaysSinglePress:true
+ai_isDisabled:true
+displayType:queueUnit
+iconImage:ROOT:Resource/Image/Tech/ResearchStart_1.png
+
+
+buildSpeed:0s
+isVisible:"""
+if memory.techTree_UI_Main.readUnitMemory("${TechID}_Switch",type="bool")==false and not self.globalTeamTags(includes='${TechID}') and ${Unlocked} and not self.isControlledByAI()
+"""
+
+sendMessageTo:memory.techTree_UI_Main
+sendMessageWithTags:${TechID}_Start
+
+setUnitMemory:"""
+thisTimeSendMessage=self.playerName+ " " + "start research"+ " " + "${core.displayText}",
+thisTimeSendMessage_zh=self.playerName+ " " + "已开始研究"+ " " + "${core.displayText_zh}"
+"""
+alsoTriggerAction:"""
+Tech_Start_SendAlly
+"""
+[hiddenAction_Tech_Start_SendAlly]
+takeResources_includeUnitsWithinRange:99999
+takeResources_includeUnitsWithinRange_team:ally
+takeResources_excludeUnitsWithoutTags:TechTree_Core
+takeResources_searchOnly:true
+takeResources_maxUnits:300
+takeResources_triggerActionForEach:Tech_Start_SendAlly_Step2
+[hiddenAction_Tech_Start_SendAlly_Step2]
+sendMessageTo:thisActionTarget
+sendMessageWithTags:PrintMessage
+sendMessageWithData:"""
+message=memory.thisTimeSendMessage,
+message_zh=memory.thisTimeSendMessage_zh
+"""
+
+
+[action_Tech_Start_AI]
+@copyFromSection:action_Tech_Start
+ai_isDisabled:false
+ai_isHighPriority:true
+
+isVisible:"""
+if memory.techTree_UI_Main.readUnitMemory("${TechID}_Switch",type="bool")==false and not self.globalTeamTags(includes='${TechID}') and ${AIUnlocked} and ${Unlocked} and self.isControlledByAI()
+"""
+isLocked:"""
+if self.resource.TechPoint<parent.parent.readUnitMemory("${TechID}_TechPoint",type="float")+self.teamID 
+"""
+
+[action_Tech_WIP]
+pos:1
+text: Researching[%{int(memory.techTree_UI_Main.readUnitMemory("${TechID}_Timer",type="float") - memory.techTree_UI_Main.timeAlive)}s]
+text_zh: 研究中[%{int(memory.techTree_UI_Main.readUnitMemory("${TechID}_Timer",type="float") - memory.techTree_UI_Main.timeAlive)}s]
+
+highPriorityQueue:false
+allowMultipleInQueue: false
+ai_isDisabled:true
+displayType:queueUnit
+iconImage:ROOT:Resource/Image/Tech/Researching_1.png
+
+
+description: Cliek Stop Research
+description_zh: 点击停止研究
+
+buildSpeed:1s
+isVisible:"""
+if memory.techTree_UI_Main.readUnitMemory("${TechID}_Switch",type="bool")==true and ${Unlocked}
+"""
+
+isLockedAlt:"""
+if memory.autoTech==1
+"""
+isLockedAltMessage:"""
+=In Auto Tech=
+"""
+isLockedAltMessage_zh:"""
+=自动研究已开启=
+"""
+
+
+
+sendMessageTo:memory.techTree_UI_Main
+sendMessageWithTags:${TechID}_Stop
+
+setUnitMemory:"""
+thisTimeSendMessage=self.playerName+ " " + "stop research"+ " " + "${core.displayText}",
+thisTimeSendMessage_zh=self.playerName+ " " + "已停止研究"+ " " + "${core.displayText_zh}"
+"""
+alsoTriggerAction:"""
+Tech_Stop_SendAlly
+"""
+[hiddenAction_Tech_Stop_SendAlly]
+takeResources_includeUnitsWithinRange:99999
+takeResources_includeUnitsWithinRange_team:ally
+takeResources_excludeUnitsWithoutTags:TechTree_Core
+takeResources_searchOnly:true
+takeResources_maxUnits:300
+takeResources_triggerActionForEach:Tech_Stop_SendAlly_Step2
+[hiddenAction_Tech_Stop_SendAlly_Step2]
+sendMessageTo:thisActionTarget
+sendMessageWithTags:PrintMessage
+sendMessageWithData:"""
+message=memory.thisTimeSendMessage,
+message_zh=memory.thisTimeSendMessage_zh
+"""
+
+
+[action_Tech_Done]
+pos:1
+text: Done
+text_zh: 已完成
+
+highPriorityQueue:false
+allowMultipleInQueue: false
+alwaysSinglePress:true
+ai_isDisabled:true
+displayType:queueUnit
+iconImage:ROOT:Resource/Image/Tech/ResearchDone_1.png
+
+buildSpeed:0s
+isVisible:"""
+if self.globalTeamTags(includes='${TechID}') and ${Unlocked}
+"""
+
+
+
+
+
+
+[decal_Icon_Show]
+layer:onTop
+onlyInPreview:true
+onlyTeam:ally
+image:${IconImage}
+order:1
+dirOffset:-90
+isVisible:true
+imageScale:0.35
+xOffsetRelative:0
+yOffsetRelative:0
+
+
+
+
+[decal_Icon_UI_Background]
+layer:beforeBody
+onlyWhileAlive:true
+onlyOnNonPreview:true
+onlyTeam:ally
+image:ROOT:Resource/Image/Tech/Tech_Background_1.png
+order:0
+dirOffset:0
+isVisible:true
+alpha:1
+imageScale:0.15
+
+[decal_Icon_UI_Selected]
+layer:beforeBody
+onlyWhileAlive:true
+onlyOnNonPreview:true
+onlyTeam:ally
+onlyWhenSelectedByAnyPlayer:true
+image:ROOT:Resource/Image/Tech/Tech_Selected_1.png
+order:1
+dirOffset:0
+isVisible:true
+alpha:1
+imageScale:0.15
+
+[decal_Icon_UI]
+layer:beforeBody
+order:2
+onlyWhileAlive:true
+onlyOnNonPreview:true
+onlyTeam:ally
+image:${IconImage}
+isVisible:true
+imageScale:0.15
+xOffsetRelative:0
+yOffsetRelative:0
+
+[decal_Icon_UI_Locked]
+layer:beforeBody
+onlyWhileAlive:true
+onlyOnNonPreview:true
+onlyTeam:ally
+image:ROOT:Resource/Image/Tech/Tech_Locked_Black_1.png
+order:3
+dirOffset:0
+isVisible:if not ${Unlocked} 
+alpha:0.75
+imageScale:0.15
+
+
+
+
+
+
+
+[decal_Icon_Done]
+layer:beforeBody
+onlyWhileAlive:true
+onlyOnNonPreview:true
+onlyTeam:ally
+image:ROOT:Resource/Image/Tech/Done_1.png
+order:5
+dirOffset:0
+isVisible:if self.globalTeamTags(includes='${TechID}') and ${Unlocked} 
+alpha:0.85
+imageScale:0.25
+xOffsetRelative:10
+yOffsetRelative:-10
+
+[decal_Icon_NotReady]
+layer:beforeBody
+onlyWhileAlive:true
+onlyOnNonPreview:true
+onlyTeam:ally
+image:ROOT:Resource/Image/Tech/NotReady_1.png
+order:5
+dirOffset:0
+isVisible:if not self.globalTeamTags(includes='${TechID}') and memory.techTree_UI_Main.readUnitMemory("${TechID}_Switch",type="bool")==false and ${Unlocked} 
+alpha:0.85
+imageScale:0.25
+xOffsetRelative:10
+yOffsetRelative:-10
+
+[decal_Icon_WIP]
+layer:beforeBody
+onlyWhileAlive:true
+onlyOnNonPreview:true
+onlyTeam:ally
+image:ROOT:Resource/Image/Tech/WIP_1.png
+order:5
+dirOffset:0
+isVisible:if not self.globalTeamTags(includes='${TechID}') and memory.techTree_UI_Main.readUnitMemory("${TechID}_Switch",type="bool")==true and ${Unlocked} 
+alpha:0.85
+imageScale:0.25
+xOffsetRelative:10
+yOffsetRelative:-10
+
+
+[decal_Icon_Locked]
+layer:beforeBody
+onlyWhileAlive:true
+onlyOnNonPreview:true
+onlyTeam:ally
+image:ROOT:Resource/Image/Tech/Locked_1.png
+order:5
+dirOffset:0
+isVisible:if not ${Unlocked} 
+alpha:0.85
+imageScale:0.25
+xOffsetRelative:10
+yOffsetRelative:-10
+
+
+
+
+
+
+[decal_ResearchingBar]
+layer:beforeUI
+order:2
+image:SHARED:white_pixel.png
+color:#54ffaf
+onlyTeam:ally
+alpha:1
+imageScale:1
+imageScaleX:20*(1-(memory.techTree_UI_Main.readUnitMemory("${TechID}_Timer",type="float") - memory.techTree_UI_Main.timeAlive)/memory.techTree_UI_Main.readUnitMemory("${TechID}_Time",type="float"))
+imageScaleY:2
+xOffsetAbsolute:(10*(1-(memory.techTree_UI_Main.readUnitMemory("${TechID}_Timer",type="float") - memory.techTree_UI_Main.timeAlive)/memory.techTree_UI_Main.readUnitMemory("${TechID}_Time",type="float")))-10
+yOffsetAbsolute:14
+alwaysStartDirAtZero:true
+onlyOnNonPreview:true
+isVisible:if memory.techTree_UI_Main.readUnitMemory("${TechID}_Switch",type="bool")==true 
+onlyWhileAlive:true
+[decal_ResearchingBar_BackGround]
+layer:beforeUI
+order:1
+image:SHARED:white_pixel.png
+color:#000000
+onlyTeam:ally
+alpha:1
+imageScale:1.05
+imageScaleX:20
+imageScaleY:3
+xOffsetAbsolute:0
+yOffsetAbsolute:14
+alwaysStartDirAtZero:true
+onlyOnNonPreview:true
+isVisible:if memory.techTree_UI_Main.readUnitMemory("${TechID}_Switch",type="bool")==true 
+onlyWhileAlive:true
+

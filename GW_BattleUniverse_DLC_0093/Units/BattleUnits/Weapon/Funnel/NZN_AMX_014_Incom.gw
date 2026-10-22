@@ -1,0 +1,233 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Cannon_Shoot_A.gw
+"""
+
+@memory NZN_AMX_014_Incom_CDTimer:float
+@memory NZN_AMX_014_Incom_Units:unit[]
+@global NZN_AMX_014_Incom_CD=18
+@global NZN_AMX_014_Incom_EN=100
+@global NZN_AMX_014_Incom_PilotAwakeningSkill=75
+
+[hiddenAction_Get_FunnelSpawn_NZN_AMX_014_Incom_L]
+autoTriggerOnEvent:newMessage(withTag="FunnelSpawn_NZN_AMX_014_Incom_L")
+setUnitMemory:NZN_AMX_014_Incom_Units[0]=eventData("unitInfo",type="unit")
+
+
+[hiddenAction_Get_FunnelSpawn_NZN_AMX_014_Incom_R]
+autoTriggerOnEvent:newMessage(withTag="FunnelSpawn_NZN_AMX_014_Incom_R")
+setUnitMemory:NZN_AMX_014_Incom_Units[1]=eventData("unitInfo",type="unit")
+
+
+
+[decal_DrawLineTo_NZN_AMX_014_Incom_Unit_HasLink_0]
+layer:beforeBody
+order:3
+alpha:0.75
+basePositionFromLegEnd:arm1
+drawLineTo:memory.NZN_AMX_014_Incom_Units[0].readUnitMemory("Incom_LinkUnits",type="unit[]")[0]
+color:#333333
+imageScale:0.75
+lineWidth:1
+xOffsetRelative: 15
+yOffsetRelative: -15
+onlyOnNonPreview:true
+isVisible:if memory.NZN_AMX_014_Incom_Units[0].hp>0
+onlyWhileAlive:true
+
+[decal_DrawLineTo_NZN_AMX_014_Incom_Unit_NoLink_0]
+layer:beforeBody
+order:3
+alpha:0.75
+basePositionFromLegEnd:arm1
+drawLineTo:memory.NZN_AMX_014_Incom_Units[0]
+color:#333333
+imageScale:0.75
+lineWidth:1
+xOffsetRelative: 15
+yOffsetRelative: -15
+onlyOnNonPreview:true
+isVisible:if memory.NZN_AMX_014_Incom_Units[0].hp>0 and memory.NZN_AMX_014_Incom_Units[0].readUnitMemory("Incom_LinkUnits",type="unit[]").size<=0
+onlyWhileAlive:true
+
+
+[decal_DrawLineTo_NZN_AMX_014_Incom_Unit_HasLink_1]
+@copyFromSection:decal_DrawLineTo_NZN_AMX_014_Incom_Unit_HasLink_0
+drawLineTo:memory.NZN_AMX_014_Incom_Units[1].readUnitMemory("Incom_LinkUnits",type="unit[]")[0]
+isVisible:if memory.NZN_AMX_014_Incom_Units[1].hp>0
+xOffsetRelative: -15
+
+[decal_DrawLineTo_NZN_AMX_014_Incom_Unit_NoLink_1]
+@copyFromSection:decal_DrawLineTo_NZN_AMX_014_Incom_Unit_NoLink_0
+drawLineTo:memory.NZN_AMX_014_Incom_Units[1]
+isVisible:if memory.NZN_AMX_014_Incom_Units[1].hp>0 and memory.NZN_AMX_014_Incom_Units[1].readUnitMemory("Incom_LinkUnits",type="unit[]").size<=0
+xOffsetRelative: -15
+
+
+
+
+
+
+[turret_NZN_AMX_014_Incom]
+x:0
+y:0
+
+canShoot:false
+projectile:NZN_AMX_014_Incom_Projectile
+
+delay:0.2s
+canAttackMaxAngle:15
+limitingAngle:0
+limitingRange:1200
+barrelX:-10
+barrelY:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Action/Common/Transform_1.ogg
+shoot_sound_vol:1.0
+shoot_flame:BZ_Fire_1_S
+[turret_NZN_AMX_014_Incom_R]
+@copyFromSection:turret_NZN_AMX_014_Incom
+barrelX:10
+projectile:NZN_AMX_014_Incom_Projectile_R
+shoot_sound_vol:0
+
+
+
+[projectile_NZN_AMX_014_Incom_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+AMX_014_Incom_L*1
+"""
+[projectile_NZN_AMX_014_Incom_Projectile_R]
+@copyFromSection:projectile_NZN_AMX_014_Incom_Projectile
+spawnUnit:"""
+AMX_014_Incom_R*1
+"""
+
+
+
+[hiddenAction_NZN_AMX_014_Incom_Trigger_ByAI]
+autoTrigger:"""
+if ${allowAI}==true 
+and ${cantAction}==false 
+and ${onSkill}==false 
+and memory.close==false 
+and self.resource.EN>${NZN_AMX_014_Incom_EN} 
+and self.timeAlive>memory.NZN_AMX_014_Incom_CDTimer 
+and self.parent.hp<=0  
+and self.attacking.hp>0 
+and memory.pilotUnit.readUnitMemory("pilotAwakeningSkillFinal",type="float")>=${NZN_AMX_014_Incom_PilotAwakeningSkill} 
+and memory.backpackBreaked==false
+"""
+setResourcesWithLogic:EN=self.resource().EN-${NZN_AMX_014_Incom_EN}
+alsoTriggerAction:NZN_AMX_014_Incom_Trigger
+
+[action_NZN_AMX_014_Incom_Trigger]
+pos:10
+text:Incom[LockOn] %{select(self.timeAlive<=memory.NZN_AMX_014_Incom_CDTimer,str(int(memory.NZN_AMX_014_Incom_CDTimer-self.timeAlive))+"s","OK")}
+text_zh:线控炮[锁定] %{select(self.timeAlive<=memory.NZN_AMX_014_Incom_CDTimer,str(int(memory.NZN_AMX_014_Incom_CDTimer-self.timeAlive))+"秒","OK")}
+text_KP:100
+
+displayType:infoOnly
+
+price:EN=${NZN_AMX_014_Incom_EN} 
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+ai_isDisabled:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Incom_3.png
+highPriorityQueue:true
+
+isVisible:if self.parent.hp<=0 
+isGuiBlinking:"""
+if self.timeAlive>memory.NZN_AMX_014_Incom_CDTimer 
+and ${cantAction}==false 
+and ${onSkill}==false 
+and memory.backpackBreaked==false
+"""
+
+isLocked:if self.timeAlive<=memory.NZN_AMX_014_Incom_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+
+isLockedAlt2:"""
+if 
+(
+    ${cantAction}==true or ${onSkill}==true or ${allowAI}==true 
+)
+or 
+(
+    memory.NZN_AMX_014_Incom_Units[0].hp>0 
+    or 
+    memory.NZN_AMX_014_Incom_Units[1].hp>0
+) 
+or 
+(
+    memory.backpackBreaked==true
+)
+"""
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+alsoTriggerAction:"""
+SetOnSkillOn,
+NZN_AMX_014_Incom_SetWeaponIndex,
+NZN_AMX_014_Incom_B1_Step_1,
+PlayCommon_Cannon_Shoot_A_Step_1
+"""
+[hiddenAction_NZN_AMX_014_Incom_B1_Step_1]
+setUnitMemory:"""
+NZN_AMX_014_Incom_CDTimer=self.timeAlive+${NZN_AMX_014_Incom_CD}
+"""
+shrinkArrays:NZN_AMX_014_Incom_Units
+alsoQueueAction:"""
+NZN_AMX_014_Incom_Fire_Step_1,
+NZN_AMX_014_Incom_Fire_Step_2,
+NZN_AMX_014_Incom_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_NZN_AMX_014_Incom_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_NZN_AMX_014_Incom_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false and memory.backpackBreaked==false
+"""
+buildSpeed:0.25s
+fireTurretXAtGround:NZN_AMX_014_Incom
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_NZN_AMX_014_Incom_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false and memory.backpackBreaked==false
+"""
+buildSpeed:0.05s
+fireTurretXAtGround:NZN_AMX_014_Incom_R
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_NZN_AMX_014_Incom_Fire_Step_Final]
+buildSpeed:0s
+alsoTriggerAction:"""
+SetOnSkillOff
+"""

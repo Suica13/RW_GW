@@ -1,0 +1,162 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/MG_Fire_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_A_L.gw
+"""
+
+@memory EF_RGM_79HC_ShieldMG_CDTimer:float
+@global EF_RGM_79HC_ShieldMG_CD=6
+@global EF_RGM_79HC_ShieldMG_EN=35
+
+
+
+
+
+
+
+
+
+[turret_EF_RGM_79HC_ShieldMG]
+x:0
+y:0
+
+canShoot:false
+projectile:EF_RGM_79HC_ShieldMG_Projectile
+
+delay:0.125s
+limitingRange:0
+
+canAttackMaxAngle:15
+barrelX:-20
+barrelY:12
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\MachineGun_2.ogg
+shoot_sound_vol:0.3
+shoot_flame:MG_Fire_1
+[turret_EF_RGM_79HC_ShieldMG_L]
+@copyFromSection:turret_EF_RGM_79HC_ShieldMG
+barrelX:0
+barrelY:15
+
+
+
+[projectile_EF_RGM_79HC_ShieldMG_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_MG*1
+(
+    addResources=
+    ShellDamage:400
+    |DpDamage:30
+    |WeaponAccuracy=100
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=1.0
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=1
+    |AntiLand=1
+    |AntiSpace=1.0
+    |HeightChangeSpeed=2.0
+    |HeightHitRange=20
+    |ProjectileSpeed:75
+    |ProjectileSpread:5
+    |ProjectileLife:25
+)
+"""
+
+
+
+
+
+
+
+[hiddenAction_EF_RGM_79HC_ShieldMG_Trigger]
+alsoTriggerAction:EF_RGM_79HC_ShieldMG_Fire
+[hiddenAction_EF_RGM_79HC_ShieldMG_Fire]
+requireConditional:"""
+if self.timeAlive>memory.EF_RGM_79HC_ShieldMG_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false 
+and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)  
+and self.resource.EN>0 
+and self.shield>0
+"""
+setUnitMemory:EF_RGM_79HC_ShieldMG_CDTimer=self.timeAlive+${EF_RGM_79HC_ShieldMG_CD}
+addResources:EN=-${EF_RGM_79HC_ShieldMG_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+EF_RGM_79HC_ShieldMG_SetWeaponIndex,
+EF_RGM_79HC_ShieldMG_B12_Step_1
+"""
+[hiddenAction_EF_RGM_79HC_ShieldMG_B12_Step_1]
+alsoQueueAction:"""
+EF_RGM_79HC_ShieldMG_Fire_Step_1,
+EF_RGM_79HC_ShieldMG_Fire_Step_2,
+EF_RGM_79HC_ShieldMG_Fire_Step_3,
+EF_RGM_79HC_ShieldMG_Fire_Step_3,
+EF_RGM_79HC_ShieldMG_Fire_Step_3,
+EF_RGM_79HC_ShieldMG_Fire_Step_3,
+EF_RGM_79HC_ShieldMG_Fire_Step_3,
+EF_RGM_79HC_ShieldMG_Fire_Step_3,
+EF_RGM_79HC_ShieldMG_Fire_Step_Final
+"""
+
+
+
+
+
+[hiddenAction_EF_RGM_79HC_ShieldMG_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_EF_RGM_79HC_ShieldMG_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.3s
+alsoTriggerAction:PlayCommon_Shoot_A_L_Step_1
+[hiddenAction_EF_RGM_79HC_ShieldMG_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:EF_RGM_79HC_ShieldMG
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+alsoTriggerAction:EF_RGM_79HC_ShieldMG_Fire_Step_Sub
+[hiddenAction_EF_RGM_79HC_ShieldMG_Fire_Step_3]
+@copyFromSection:hiddenAction_EF_RGM_79HC_ShieldMG_Fire_Step_2
+buildSpeed:${turret_EF_RGM_79HC_ShieldMG.delay}
+
+[hiddenAction_EF_RGM_79HC_ShieldMG_Fire_Step_Sub]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:EF_RGM_79HC_ShieldMG_L
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+
+[hiddenAction_EF_RGM_79HC_ShieldMG_Fire_Step_Final]
+buildSpeed:0.3s
+alsoTriggerAction:SetAttackingOff
+
+

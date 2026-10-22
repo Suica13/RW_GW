@@ -1,0 +1,28 @@
+[core]
+dont_load:false
+
+
+[effect_HighMegaCannon_Hit_1]
+life: 100
+
+xOffsetRelative: 2
+yOffsetRelative: -20
+hOffset: 0
+dirOffset: -90
+attachedToUnit: true
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+alpha:0.85
+scaleFrom: 1.25
+scaleTo:1.25
+image: ROOT:Resource/Image/Fx/Weapon/Beam/HighMegaCannon/Image/HighMegaCannon_Hit_1.png
+
+total_frames: 11
+animateFrameStart: 0
+animateFrameEnd: 4
+animateFrameSpeed: 0.3
+showInFog:true

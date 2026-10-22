@@ -1,0 +1,552 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_Flash_1.gw,
+ROOT:Resource/Image/Fx/Weapon/Beam/Common/Beam_Fire_1_Yellow.gw
+"""
+
+@memory NZN_AMX_014_MegaBeamCannon_AimTarget:unit
+@memory NZN_AMX_014_MegaBeamCannon_CDTimer:float
+@global NZN_AMX_014_MegaBeamCannon_CD=240
+@global NZN_AMX_014_MegaBeamCannon_EN=500
+@global NZN_AMX_014_MegaBeamCannon_Range=1000
+
+@memory NZN_AMX_014_MegaBeamCannon_ChargeEffect_1:unit
+@memory NZN_AMX_014_MegaBeamCannon_BulletEffect_1:unit
+
+
+
+[decal_NZN_AMX_014_MegaBeamCannon]
+layer:beforeBody
+order:5.5
+onlyWhileAlive:true
+image:ROOT:Units/BattleUnits/Weapon/Beam/Image/NZN_AMX_014_BR_2.png
+isVisible:false
+basePositionFromLegEnd:arm2
+imageScale:0.85
+xOffsetRelative: -0.5
+yOffsetRelative: 20
+dirOffset:0
+
+
+[decal_NZN_AMX_014_MegaBeamCannon_Range]
+layer: inactive
+order:0
+onlyTeam:own
+alpha:1
+image:ROOT:Resource/Image/Ring/Ring150_Action.png
+imageScale:${NZN_AMX_014_MegaBeamCannon_Range}/150
+basePosition:self
+alwaysStartDirAtZero:true
+onlyWhileAlive:true
+isVisible:if true
+
+
+
+[turret_NZN_AMX_014_MegaBeamCannon]
+x:0
+y:0
+
+canShoot:false
+projectile:NZN_AMX_014_MegaBeamCannon_Projectile
+
+delay:0.2s
+canAttackMaxAngle:15
+barrelX:0
+barrelY:-10
+limitingAngle:0
+limitingRange:${NZN_AMX_014_MegaBeamCannon_Range}
+limitingMinRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\BeamCannon_2.ogg
+shoot_sound_vol:0
+shoot_flame:none
+
+
+
+[projectile_NZN_AMX_014_MegaBeamCannon_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_AP_MegaBeamCannon_Yellow_Alpha0*1
+(
+    addResources=
+    BeamDamage:3000
+    |BeamAPDamage:1500
+    |DpDamage:200
+    |WeaponAccuracy=100
+    |PartBreakModifier=1
+    |CockpitBreakModifier=1
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.0
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.0
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1.0
+    |AntiAqua=1.0
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=0
+    |HeightHitRange=50
+    |ProjectileExplosionRange:40
+    |ProjectileSpeed:200
+    |ProjectileSpread:0
+    |ProjectileLife:6
+
+    |ProjectileAttackTimes:9
+    |ProjectileAttackTimesDamageModifier:0.75
+
+    |EquipmentIndex=2
+    |EquipmentIndex2=1000
+    |SubEquipmentIndex=1
+)
+"""
+
+
+
+
+[attachment_NZN_AMX_014_MegaBeamCannon_ChargeEffect_1]
+x:0
+y:0
+isVisible:true
+keepAliveWhenParentDies:false
+canBeAttackedAndDamaged:false
+isUnselectable:true
+canAttack:false
+showAllActionsFrom:true
+onConvertKeepExistingUnitInSameSlot:true
+idleDir:0
+resetRotationWhenNotAttacking:true
+
+[hiddenAction_NZN_AMX_014_MegaBeamCannon_ChargeEffect_1_AwakeSet]
+autoTriggerOnEvent:newMessage(withTag="UnitTurretSpawn")
+alsoTriggerAction:"""
+NZN_AMX_014_MegaBeamCannon_ChargeEffect_1_StartSet
+"""
+attachments_addNewUnits:Beam_Charge_1_EffectUnit
+attachments_onlyOnSlots:NZN_AMX_014_MegaBeamCannon_ChargeEffect_1
+
+[hiddenAction_NZN_AMX_014_MegaBeamCannon_ChargeEffect_1_StartSet]
+setUnitMemory:NZN_AMX_014_MegaBeamCannon_ChargeEffect_1=self.attachment(slot='NZN_AMX_014_MegaBeamCannon_ChargeEffect_1')
+alsoTriggerAction:"""
+NZN_AMX_014_MegaBeamCannon_ChargeEffect_1_SetColor,
+NZN_AMX_014_MegaBeamCannon_ChargeEffect_1_SetSpeed
+"""
+
+[hiddenAction_NZN_AMX_014_MegaBeamCannon_ChargeEffect_1_SetColor]
+sendMessageTo:memory.NZN_AMX_014_MegaBeamCannon_ChargeEffect_1
+sendMessageWithTags:SetColor_Yellow
+[hiddenAction_NZN_AMX_014_MegaBeamCannon_ChargeEffect_1_SetSpeed]
+sendMessageTo:memory.NZN_AMX_014_MegaBeamCannon_ChargeEffect_1
+sendMessageWithTags:SetSpeed
+sendMessageWithData:Speed=3.25
+
+[hiddenAction_NZN_AMX_014_MegaBeamCannon_Fire_Step_ChargeEffect_1]
+requireConditional:if ${cantAction}==false
+buildSpeed:0s
+sendMessageTo:memory.NZN_AMX_014_MegaBeamCannon_ChargeEffect_1
+sendMessageWithTags:PlayOneTime
+playSoundAtUnit:ROOT:Resource/Sound/SE/Weapon/Fire/BeamCharge_4.ogg:2.0
+
+
+[attachment_NZN_AMX_014_MegaBeamCannon_BulletEffect_1]
+x:0
+y:0
+isVisible:true
+keepAliveWhenParentDies:false
+canBeAttackedAndDamaged:false
+isUnselectable:true
+canAttack:false
+showAllActionsFrom:true
+onConvertKeepExistingUnitInSameSlot:true
+idleDir:0
+resetRotationWhenNotAttacking:true
+
+[hiddenAction_NZN_AMX_014_MegaBeamCannon_BulletEffect_1_AwakeSet]
+autoTriggerOnEvent:newMessage(withTag="UnitTurretSpawn")
+alsoTriggerAction:"""
+NZN_AMX_014_MegaBeamCannon_BulletEffect_1_StartSet
+"""
+attachments_addNewUnits:HighMegaCannon_1_EffectUnit
+attachments_onlyOnSlots:NZN_AMX_014_MegaBeamCannon_BulletEffect_1
+
+[hiddenAction_NZN_AMX_014_MegaBeamCannon_BulletEffect_1_StartSet]
+setUnitMemory:NZN_AMX_014_MegaBeamCannon_BulletEffect_1=self.attachment(slot='NZN_AMX_014_MegaBeamCannon_BulletEffect_1')
+alsoTriggerAction:"""
+NZN_AMX_014_MegaBeamCannon_BulletEffect_1_SetColor,
+NZN_AMX_014_MegaBeamCannon_BulletEffect_1_SetSpeed
+"""
+
+[hiddenAction_NZN_AMX_014_MegaBeamCannon_BulletEffect_1_SetColor]
+sendMessageTo:memory.NZN_AMX_014_MegaBeamCannon_BulletEffect_1
+sendMessageWithTags:SetColor_Yellow
+[hiddenAction_NZN_AMX_014_MegaBeamCannon_BulletEffect_1_SetSpeed]
+sendMessageTo:memory.NZN_AMX_014_MegaBeamCannon_BulletEffect_1
+sendMessageWithTags:SetSpeed
+sendMessageWithData:Speed=4
+
+[hiddenAction_NZN_AMX_014_MegaBeamCannon_Fire_Step_BulletEffect_1]
+requireConditional:if ${cantAction}==false
+buildSpeed:0s
+sendMessageTo:memory.NZN_AMX_014_MegaBeamCannon_BulletEffect_1
+sendMessageWithTags:PlayOneTime
+
+[hiddenAction_NZN_AMX_014_MegaBeamCannon_BulletEffect_1_StopPlay]
+buildSpeed:0s
+sendMessageTo:memory.NZN_AMX_014_MegaBeamCannon_BulletEffect_1
+sendMessageWithTags:StopPlay
+
+
+
+[hiddenAction_NZN_AMX_014_MegaBeamCannon_Trigger_ByAI]
+autoTrigger:"""
+if ${allowAI}==true 
+and ${cantAction}==false and ${onSkill}==false 
+and self.timeAlive>memory.NZN_AMX_014_MegaBeamCannon_CDTimer 
+and not self.hasTags(includes='inHangar') 
+and not parent.hasTags(includes='SFS_Slot') 
+and self.resource.en>${NZN_AMX_014_MegaBeamCannon_EN} 
+and memory.NZN_AMX_014_MegaBeamCannon_AimTarget.hp>0 
+"""
+setResourcesWithLogic:en=self.resource.en-${NZN_AMX_014_MegaBeamCannon_EN}
+alsoTriggerAction:NZN_AMX_014_MegaBeamCannon_Trigger
+
+[hiddenAction_NZN_AMX_014_MegaBeamCannon_FindTarget]
+autoTrigger:if memory.NZN_AMX_014_MegaBeamCannon_AimTarget.hp<=0 and ${onSkill}==false 
+takeResources_includeUnitsWithinRange:1000
+takeResources_includeUnitsWithinRange_team:enemy
+takeResources_excludeUnitsWithoutTags:CanBeTargetUnit
+takeResources_searchOnly:true
+takeResources_maxUnits:100
+takeResources_triggerActionForEach:NZN_AMX_014_MegaBeamCannon_FindTarget_Step2
+[hiddenAction_NZN_AMX_014_MegaBeamCannon_FindTarget_Step2]
+requireConditional:if memory.NZN_AMX_014_MegaBeamCannon_AimTarget.hp<=0 and not thisActionTarget.tags(includes='UnDetected')
+setUnitMemory:NZN_AMX_014_MegaBeamCannon_AimTarget=thisActionTarget
+
+[hiddenAction_NZN_AMX_014_MegaBeamCannon_MissTarget]
+autoTrigger:"""
+if memory.NZN_AMX_014_MegaBeamCannon_AimTarget.hp>0 
+and 
+(
+    distanceBetween(self, memory.NZN_AMX_014_MegaBeamCannon_AimTarget)>${NZN_AMX_014_MegaBeamCannon_Range} 
+    or 
+    distanceBetween(self, memory.NZN_AMX_014_MegaBeamCannon_AimTarget)<300 
+    or 
+    memory.NZN_AMX_014_MegaBeamCannon_AimTarget.hasTags(includes='UnDetected')
+)
+"""
+setUnitMemory:NZN_AMX_014_MegaBeamCannon_AimTarget=null
+
+
+
+[action_NZN_AMX_014_MegaBeamCannon_Trigger]
+pos:10
+text:MegaBeamCannon %{select(self.timeAlive<=memory.NZN_AMX_014_MegaBeamCannon_CDTimer,str(int(memory.NZN_AMX_014_MegaBeamCannon_CDTimer-self.timeAlive))+"s","OK")}
+text_zh:MEGA粒子炮 %{select(self.timeAlive<=memory.NZN_AMX_014_MegaBeamCannon_CDTimer,str(int(memory.NZN_AMX_014_MegaBeamCannon_CDTimer-self.timeAlive))+"秒","OK")}
+text_KP:100
+
+displayType:infoOnly
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamCannon_1.png
+highPriorityQueue:true
+
+price:EN=${NZN_AMX_014_MegaBeamCannon_EN}
+
+onlyOneUnitAtATime:true
+
+isVisible:if self.parent.hp<=0  
+
+isGuiBlinking:"""
+if self.timeAlive>memory.NZN_AMX_014_MegaBeamCannon_CDTimer
+"""
+
+
+
+isLocked:if self.timeAlive<=memory.NZN_AMX_014_MegaBeamCannon_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+isLockedAlt2:if ${cantAction}==true or ${onSkill}==true or ${allowAI}==true or memory.repairNeed==true
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+fireTurretXAtGround:NZN_AMX_014_MegaBeamCannon
+fireTurretXAtGround_count:0
+fireTurretXAtGround_showGuideDecals:NZN_AMX_014_MegaBeamCannon_Range
+
+clearAllWaypoints:true
+
+
+alsoTriggerAction:"""
+SetAttackingOn,
+SetOnSkillOn_NZN_AMX_014_MegaBeamCannon,
+NZN_AMX_014_MegaBeamCannon_SetWeaponIndex,
+NZN_AMX_014_MegaBeamCannon_B1_Step_1,
+NZN_AMX_014_MegaBeamCannon_B1_Step_1_AI
+"""
+clearAllWaypoints:true
+[hiddenAction_NZN_AMX_014_MegaBeamCannon_B1_Step_1]
+requireConditional:if ${allowAI}==false
+setUnitMemory:"""
+NZN_AMX_014_MegaBeamCannon_AimTarget=memory.NZN_AMX_014_MegaBeamCannon_AimTarget.getOffsetRelative(),
+NZN_AMX_014_MegaBeamCannon_CDTimer=self.timeAlive+${NZN_AMX_014_MegaBeamCannon_CD}
+"""
+
+alsoQueueAction:"""
+SetAttackingCantAimOn,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_ChargeEffect_1,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_1,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_BulletEffect_1,
+
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+
+
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+
+
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+
+
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+
+
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+
+
+
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+
+
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+
+
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_Final,
+NZN_AMX_014_MegaBeamCannon_BulletEffect_1_StopPlay
+"""
+
+
+
+
+[hiddenAction_NZN_AMX_014_MegaBeamCannon_B1_Step_1_AI]
+requireConditional:if ${allowAI}==true
+setUnitMemory:"""
+NZN_AMX_014_MegaBeamCannon_AimTarget=memory.NZN_AMX_014_MegaBeamCannon_AimTarget.getOffsetRelative(),
+NZN_AMX_014_MegaBeamCannon_CDTimer=self.timeAlive+${NZN_AMX_014_MegaBeamCannon_CD}
+"""
+setBodyRotation:directionBetween(self,memory.NZN_AMX_014_MegaBeamCannon_AimTarget)
+
+alsoTriggerAction:"""
+SetAttackingCantTurnOn
+"""
+
+alsoQueueAction:"""
+SetAttackingCantAimOn,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_ChargeEffect_1,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_1_AI,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_BulletEffect_1,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+
+
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+
+
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+
+
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+
+
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+
+
+
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+
+
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+
+
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_2,
+NZN_AMX_014_MegaBeamCannon_Fire_Step_Final,
+NZN_AMX_014_MegaBeamCannon_BulletEffect_1_StopPlay
+"""
+spawnEffects:Flash_1_L
+
+
+
+
+[hiddenAction_SetOnSkillOn_NZN_AMX_014_MegaBeamCannon]
+@copyFromSection:hiddenAction_SetOnSkillOn
+sendMessageWithData:"""
+skillMoveSpeedBuff=1,
+skillTurnSpeedBuff=1,
+skillShootDefBuff=125.0,
+skillDpDefBuff=500.0
+"""
+
+
+
+[hiddenAction_NZN_AMX_014_MegaBeamCannon_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_NZN_AMX_014_MegaBeamCannon_Fire_Step_1_AI]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:1.5s
+spawnEffects:Flash_1_L
+whenBuilding_cannotMove:true
+playSoundAtUnit:ROOT:Resource/Sound/SE/Weapon/Fire/BeamCannon_6.ogg:3.0
+[hiddenAction_NZN_AMX_014_MegaBeamCannon_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:1.5s
+
+stopLastAnimation:true
+fireTurretXAtGround:NZN_AMX_014_MegaBeamCannon
+fireTurretXAtGround_count:0
+fireTurretXAtGround_withTarget:memory.NZN_AMX_014_MegaBeamCannon_AimTarget
+
+whenBuilding_cannotMove:true
+whenBuilding_rotateTo_aimAtActionTarget:true
+whenBuilding_rotateTo_waitTillRotated:true
+playSoundAtUnit:ROOT:Resource/Sound/SE/Weapon/Fire/BeamCannon_6.ogg:3.0
+[hiddenAction_NZN_AMX_014_MegaBeamCannon_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.1s
+whenBuilding_cannotMove:true
+fireTurretXAtGround:NZN_AMX_014_MegaBeamCannon
+fireTurretXAtGround_withTarget:self.getOffsetRelative(x=select(self.dir>90 or self.dir<-90,25,-25),y=1000)
+setResourcesWithLogic:"""
+EN=self.resource().EN-5
+"""
+setBodyRotation:self.dir+0.75
+
+[hiddenAction_NZN_AMX_014_MegaBeamCannon_Fire_Step_Final]
+buildSpeed:3.0s
+whenBuilding_cannotMove:true
+alsoTriggerAction:"""
+SetAttackingOff,
+SetOnSkillOff,
+SetAttackingCantAimOff,
+SetAttackingCantTurnOff
+"""
+

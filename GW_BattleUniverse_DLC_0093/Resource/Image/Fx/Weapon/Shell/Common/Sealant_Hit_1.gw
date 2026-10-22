@@ -1,0 +1,31 @@
+[core]
+dont_load:false
+
+
+
+
+
+[effect_Sealant_Hit_1]
+life: 100
+
+xOffsetRelative: 0
+yOffsetRelative: 0
+hOffset: 0
+dirOffset: -90
+attachedToUnit: true
+
+priority:high
+atmospheric:false
+
+delayedStartTimer:0
+fadeOut: false
+alpha:0.85
+scaleFrom: 0.75
+scaleTo:0.5
+image: ROOT:Resource/Image/Fx/Weapon/Shell/Image/Sealant_Hit_1.png
+
+total_frames: 7
+animateFrameStart: 0
+animateFrameEnd: 6
+animateFrameSpeed: 0.2
+showInFog:true

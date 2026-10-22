@@ -1,0 +1,189 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Beam/Common/Beam_Fire_1_Yellow.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_StandShoot_A.gw
+"""
+
+@memory AEUG_MSR_00100S_BeamMinigun_CDTimer:float
+@global AEUG_MSR_00100S_BeamMinigun_CD=5
+@global AEUG_MSR_00100S_BeamMinigun_EN=75
+
+
+
+
+
+
+
+
+
+[turret_AEUG_MSR_00100S_BeamMinigun]
+x:0
+y:0
+
+canShoot:false
+projectile:AEUG_MSR_00100S_BeamMinigun_Projectile
+
+delay:0.05s
+limitingRange:0
+
+canAttackMaxAngle:15
+barrelX:-10
+barrelY:-4
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource/Sound/SE/Weapon/Fire/BeamGun_2.ogg
+shoot_sound_vol:0.3
+shoot_flame:Beam_Fire_1_Yellow_S
+[turret_AEUG_MSR_00100S_BeamMinigun_L]
+@copyFromSection:turret_AEUG_MSR_00100S_BeamMinigun
+barrelX:10
+barrelY:-4
+
+
+
+[projectile_AEUG_MSR_00100S_BeamMinigun_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_BeamGun_Yellow*1
+(
+    addResources=
+    BeamDamage:1250
+    |DpDamage:65
+    |WeaponAccuracy=95
+    |PartBreakModifier=1
+    |CockpitBreakModifier=1
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.5
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=2
+    |HeightHitRange=25
+    |ProjectileSpeed:85
+    |ProjectileSpread:5
+    |ProjectileLife:20
+)
+"""
+
+
+
+
+
+
+
+[hiddenAction_AEUG_MSR_00100S_BeamMinigun_Trigger]
+alsoTriggerAction:AEUG_MSR_00100S_BeamMinigun_Fire
+[hiddenAction_AEUG_MSR_00100S_BeamMinigun_Fire]
+requireConditional:"""
+if self.timeAlive>memory.AEUG_MSR_00100S_BeamMinigun_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false 
+and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)  
+and self.resource.EN>0 
+"""
+setUnitMemory:AEUG_MSR_00100S_BeamMinigun_CDTimer=self.timeAlive+${AEUG_MSR_00100S_BeamMinigun_CD}
+addResources:EN=-${AEUG_MSR_00100S_BeamMinigun_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+AEUG_MSR_00100S_BeamMinigun_SetWeaponIndex,
+AEUG_MSR_00100S_BeamMinigun_B24_Step_1
+"""
+[hiddenAction_AEUG_MSR_00100S_BeamMinigun_B24_Step_1]
+alsoQueueAction:"""
+AEUG_MSR_00100S_BeamMinigun_Fire_Step_1,
+AEUG_MSR_00100S_BeamMinigun_Fire_Step_2,
+AEUG_MSR_00100S_BeamMinigun_Fire_Step_4,
+
+AEUG_MSR_00100S_BeamMinigun_Fire_Step_3,
+AEUG_MSR_00100S_BeamMinigun_Fire_Step_4,
+
+AEUG_MSR_00100S_BeamMinigun_Fire_Step_3,
+AEUG_MSR_00100S_BeamMinigun_Fire_Step_4,
+
+AEUG_MSR_00100S_BeamMinigun_Fire_Step_3,
+AEUG_MSR_00100S_BeamMinigun_Fire_Step_4,
+
+AEUG_MSR_00100S_BeamMinigun_Fire_Step_3,
+AEUG_MSR_00100S_BeamMinigun_Fire_Step_4,
+
+AEUG_MSR_00100S_BeamMinigun_Fire_Step_3,
+AEUG_MSR_00100S_BeamMinigun_Fire_Step_4,
+
+AEUG_MSR_00100S_BeamMinigun_Fire_Step_3,
+AEUG_MSR_00100S_BeamMinigun_Fire_Step_4,
+
+AEUG_MSR_00100S_BeamMinigun_Fire_Step_3,
+AEUG_MSR_00100S_BeamMinigun_Fire_Step_4,
+
+AEUG_MSR_00100S_BeamMinigun_Fire_Step_3,
+AEUG_MSR_00100S_BeamMinigun_Fire_Step_4,
+
+AEUG_MSR_00100S_BeamMinigun_Fire_Step_3,
+AEUG_MSR_00100S_BeamMinigun_Fire_Step_4,
+
+AEUG_MSR_00100S_BeamMinigun_Fire_Step_3,
+AEUG_MSR_00100S_BeamMinigun_Fire_Step_4,
+
+AEUG_MSR_00100S_BeamMinigun_Fire_Step_3,
+AEUG_MSR_00100S_BeamMinigun_Fire_Step_4,
+AEUG_MSR_00100S_BeamMinigun_Fire_Step_Final
+"""
+
+
+
+
+
+[hiddenAction_AEUG_MSR_00100S_BeamMinigun_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_AEUG_MSR_00100S_BeamMinigun_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.3s
+alsoTriggerAction:PlayCommon_StandShoot_A_Step_1
+[hiddenAction_AEUG_MSR_00100S_BeamMinigun_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:AEUG_MSR_00100S_BeamMinigun
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_AEUG_MSR_00100S_BeamMinigun_Fire_Step_3]
+@copyFromSection:hiddenAction_AEUG_MSR_00100S_BeamMinigun_Fire_Step_2
+buildSpeed:${turret_AEUG_MSR_00100S_BeamMinigun.delay}
+
+[hiddenAction_AEUG_MSR_00100S_BeamMinigun_Fire_Step_4]
+@copyFromSection:hiddenAction_AEUG_MSR_00100S_BeamMinigun_Fire_Step_2
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:${turret_AEUG_MSR_00100S_BeamMinigun.delay}
+fireTurretXAtGround:AEUG_MSR_00100S_BeamMinigun_L
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+
+[hiddenAction_AEUG_MSR_00100S_BeamMinigun_Fire_Step_Final]
+buildSpeed:0.3s
+alsoTriggerAction:SetAttackingOff
+
+

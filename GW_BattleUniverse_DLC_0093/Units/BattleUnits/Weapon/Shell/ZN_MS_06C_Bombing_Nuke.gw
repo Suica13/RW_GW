@@ -1,0 +1,329 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_Flash_1.gw,
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/Railgun_Fire_1_Yellow.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_A_LongTime.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_A.gw
+"""
+
+
+@memory ZN_MS_06C_Bombing_Nuke_AimTarget:unit
+@memory ZN_MS_06C_Bombing_Nuke_CDTimer:float
+@global ZN_MS_06C_Bombing_Nuke_CD=10000
+@global ZN_MS_06C_Bombing_Nuke_EN=350
+
+@memory ZN_MS_06C_Bombing_Nuke_ChargeEffect_1:unit
+
+
+
+[decal_ZN_MS_06C_Bombing_Nuke]
+layer:beforeBody
+order:4.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Shell\Image\ZN_270mmBazookaEarly.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:0.9
+xOffsetRelative: 2
+yOffsetRelative: 12
+dirOffset:0
+
+[decal_ZN_MS_06C_Bombing_Nuke_NotUsing]
+@copyFromSection:decal_ZN_MS_06C_Bombing_Nuke
+order:3
+basePositionFromLegEnd:arm1
+imageScale:0.85
+imageScaleY:-1
+xOffsetRelative:-0.5
+yOffsetRelative:-7.5
+dirOffset:90
+
+
+
+
+[decal_ZN_MS_06C_Bombing_Nuke_Range]
+layer: inactive
+order:0
+onlyTeam:own
+alpha:1
+image:ROOT:Resource/Image/Ring/Ring150_Action.png
+imageScale:800/150
+basePosition:self
+alwaysStartDirAtZero:true
+onlyWhileAlive:true
+isVisible:if true
+
+
+
+
+
+[turret_ZN_MS_06C_Bombing_Nuke]
+x:0
+y:0
+
+canShoot:false
+projectile:ZN_MS_06C_Bombing_Nuke_Projectile
+
+delay:0.3s
+canAttackMaxAngle:15
+limitingAngle:0
+limitingRange:800
+limitingMinRange:300
+barrelX:11
+barrelY:27
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/BeamCannon_2.ogg
+shoot_sound_vol:0.6
+shoot_flame:Railgun_Fire_1_Yellow
+
+
+
+[projectile_ZN_MS_06C_Bombing_Nuke_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Mortar_Bombing_Nuke_06C*1
+(
+    addResources=
+    ShellDamage:12000
+    |DpDamage:600
+    |WeaponAccuracy=75
+    |PartBreakModifier=0.5
+    |CockpitBreakModifier=0.5
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.0
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.0
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1.5
+    |AntiAqua=0.75
+    |AntiAir=0.5 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=0.5
+    |HeightHitRange=10
+    |ProjectileSpeed:25
+    |ProjectileSpread:5
+    |ProjectileExplosionRange:350
+    |ProjectileLife:50
+)
+"""
+
+
+
+
+
+
+
+
+[hiddenAction_ZN_MS_06C_Bombing_Nuke_Trigger_ByAI]
+autoTrigger:"""
+if ${allowAI}==true 
+and ${cantAction}==false 
+and ${onSkill}==false 
+and memory.close==false 
+and self.resource().EquipmentIndex==1 
+and self.resource.EN>${ZN_MS_06C_Bombing_Nuke_EN} 
+and self.timeAlive>memory.ZN_MS_06C_Bombing_Nuke_CDTimer 
+and self.parent.hp<=0  
+and memory.ZN_MS_06C_Bombing_Nuke_AimTarget.hp>0 
+and memory.ZN_MS_06C_Bombing_Nuke_AimTarget.teamID>=0 
+and not memory.ZN_MS_06C_Bombing_Nuke_AimTarget.tags(includes='UnDetected') 
+and distanceBetween(self, memory.ZN_MS_06C_Bombing_Nuke_AimTarget)>=300 
+"""
+alsoTriggerAction:ZN_MS_06C_Bombing_Nuke_Trigger
+
+
+[hiddenAction_ZN_MS_06C_Bombing_Nuke_FindTarget]
+autoTrigger:if ${allowAI}==true 
+takeResources_includeUnitsWithinRange:1000
+takeResources_includeUnitsWithinRange_team:enemy
+takeResources_excludeUnitsWithoutTags:CanBeDetected
+takeResources_searchOnly:true
+takeResources_maxUnits:30
+takeResources_triggerActionForEach:ZN_MS_06C_Bombing_Nuke_FindTarget_Step2
+[hiddenAction_ZN_MS_06C_Bombing_Nuke_FindTarget_Step2]
+requireConditional:"""
+if not thisActionTarget.tags(includes='UnDetected') 
+"""
+setUnitMemory:ZN_MS_06C_Bombing_Nuke_AimTarget=thisActionTarget
+
+
+[action_ZN_MS_06C_Bombing_Nuke_Trigger]
+pos:10
+text:Bombing[Nuke] %{select(self.timeAlive<=memory.ZN_MS_06C_Bombing_Nuke_CDTimer,str(int(memory.ZN_MS_06C_Bombing_Nuke_CDTimer-self.timeAlive))+"s","OK")}
+text_zh:轰炸[核弹] %{select(self.timeAlive<=memory.ZN_MS_06C_Bombing_Nuke_CDTimer,str(int(memory.ZN_MS_06C_Bombing_Nuke_CDTimer-self.timeAlive))+"秒","OK")}
+text_KP:100
+
+displayType:infoOnly
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Mortar_1.png
+highPriorityQueue:true
+
+price:EN=${ZN_MS_06C_Bombing_Nuke_EN}
+
+onlyOneUnitAtATime:true
+
+isVisible:if self.parent.hp<=0
+
+isGuiBlinking:"""
+if self.timeAlive>memory.ZN_MS_06C_Bombing_Nuke_CDTimer
+"""
+
+isLocked:if self.timeAlive<=memory.ZN_MS_06C_Bombing_Nuke_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+isLockedAlt:if memory.armRBreaked==true
+isLockedAltMessage:Arm Breaked
+isLockedAltMessage_zh:手臂损害
+isLockedAlt2:if ${cantAction}==true  or ${onSkill}==true or ${allowAI}==true
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+fireTurretXAtGround:ZN_MS_06C_Bombing_Nuke
+fireTurretXAtGround_count:0
+fireTurretXAtGround_showGuideDecals:ZN_MS_06C_Bombing_Nuke_Range
+
+alsoTriggerAction:"""
+SetAttackingCantAimOn,
+SetAttackingCantTurnOn,
+SetAttackingOn,
+SetOnSkillOn,
+PlayCommon_Shoot_A_LongTime_Step_1,
+ZN_MS_06C_Bombing_Nuke_SetWeaponIndex,
+ZN_MS_06C_Bombing_Nuke_B1_Step_1
+"""
+clearAllWaypoints:true
+[hiddenAction_ZN_MS_06C_Bombing_Nuke_B1_Step_1]
+spawnEffects:Flash_1_N
+setUnitMemory:"""
+ZN_MS_06C_Bombing_Nuke_AimTarget=select(${allowAI}==true,memory.ZN_MS_06C_Bombing_Nuke_AimTarget,thisActionTarget),
+ZN_MS_06C_Bombing_Nuke_CDTimer=self.timeAlive+${ZN_MS_06C_Bombing_Nuke_CD}
+"""
+
+setBodyRotation:directionBetween(self,memory.ZN_MS_06C_Bombing_Nuke_AimTarget)
+
+alsoQueueAction:"""
+ZN_MS_06C_Bombing_Nuke_Fire_Step_ChargeEffect_1,
+ZN_MS_06C_Bombing_Nuke_Fire_Step_1,
+
+ZN_MS_06C_Bombing_Nuke_Fire_Step_2,
+ZN_MS_06C_Bombing_Nuke_Fire_Step_3,
+
+ZN_MS_06C_Bombing_Nuke_Fire_Step_Final
+"""
+spawnEffects:Flash_1_L
+
+
+
+[hiddenAction_ZN_MS_06C_Bombing_Nuke_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_ZN_MS_06C_Bombing_Nuke_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false and memory.armRBreaked==false
+"""
+buildSpeed:2.5s
+whenBuilding_cannotMove:true
+[hiddenAction_ZN_MS_06C_Bombing_Nuke_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false and memory.armRBreaked==false
+"""
+buildSpeed:0.5s
+whenBuilding_cannotMove:true
+alsoTriggerAction:PlayCommon_Shoot_A_Step_1
+[hiddenAction_ZN_MS_06C_Bombing_Nuke_Fire_Step_3]
+requireConditional:"""
+if ${cantAction}==false and memory.armRBreaked==false
+"""
+buildSpeed:0s
+whenBuilding_cannotMove:true
+fireTurretXAtGround:ZN_MS_06C_Bombing_Nuke
+fireTurretXAtGround_withTarget:memory.ZN_MS_06C_Bombing_Nuke_AimTarget
+[hiddenAction_ZN_MS_06C_Bombing_Nuke_Fire_Step_Final]
+buildSpeed:1.5s
+whenBuilding_cannotMove:true
+finishPlayingLastAnimation:true
+alsoTriggerAction:"""
+SetAttackingOff,
+SetOnSkillOff,
+SetAttackingCantAimOff,
+SetAttackingCantTurnOff
+"""
+clearAllWaypoints:true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[attachment_ZN_MS_06C_Bombing_Nuke_ChargeEffect_1]
+x:11
+y:27
+isVisible:true
+keepAliveWhenParentDies:false
+canBeAttackedAndDamaged:false
+isUnselectable:true
+canAttack:false
+showAllActionsFrom:true
+onConvertKeepExistingUnitInSameSlot:true
+idleDir:0
+resetRotationWhenNotAttacking:true
+
+[hiddenAction_ZN_MS_06C_Bombing_Nuke_ChargeEffect_1_AwakeSet]
+autoTriggerOnEvent:created
+alsoTriggerAction:"""
+ZN_MS_06C_Bombing_Nuke_ChargeEffect_1_StartSet
+"""
+attachments_addNewUnits:Beam_Charge_1_EffectUnit
+attachments_onlyOnSlots:ZN_MS_06C_Bombing_Nuke_ChargeEffect_1
+
+[hiddenAction_ZN_MS_06C_Bombing_Nuke_ChargeEffect_1_StartSet]
+setUnitMemory:ZN_MS_06C_Bombing_Nuke_ChargeEffect_1=self.attachment(slot='ZN_MS_06C_Bombing_Nuke_ChargeEffect_1')
+alsoTriggerAction:"""
+ZN_MS_06C_Bombing_Nuke_ChargeEffect_1_SetColor,
+ZN_MS_06C_Bombing_Nuke_ChargeEffect_1_SetSpeed
+"""
+
+[hiddenAction_ZN_MS_06C_Bombing_Nuke_ChargeEffect_1_SetColor]
+sendMessageTo:memory.ZN_MS_06C_Bombing_Nuke_ChargeEffect_1
+sendMessageWithTags:SetColor_Yellow
+[hiddenAction_ZN_MS_06C_Bombing_Nuke_ChargeEffect_1_SetSpeed]
+sendMessageTo:memory.ZN_MS_06C_Bombing_Nuke_ChargeEffect_1
+sendMessageWithTags:SetSpeed
+sendMessageWithData:Speed=5
+
+[hiddenAction_ZN_MS_06C_Bombing_Nuke_Fire_Step_ChargeEffect_1]
+requireConditional:if ${cantAction}==false
+buildSpeed:0s
+sendMessageTo:memory.ZN_MS_06C_Bombing_Nuke_ChargeEffect_1
+sendMessageWithTags:PlayOneTime
+playSoundAtUnit:ROOT:Resource/Sound/SE/Weapon/Fire/BeamCharge_4.ogg:2.0

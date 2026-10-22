@@ -1,0 +1,30 @@
+[core]
+dont_load:false
+
+
+@memory checkBreakedPartsTimer:float
+[hiddenAction_Get_BreakedPartsInfo]
+autoTriggerOnEvent:newMessage(withTag="BreakedPartsInfo")
+setUnitMemory:checkBreakedPartsTimer=self.timeAlive+0.5
+[hiddenAction_Check_RepairNeed]
+setUnitMemory:"""
+repairNeed=select
+(
+    self.hp>0 and memory.checkBreakedPartsTimer>self.timeAlive,
+    true,
+    false
+)
+"""
+[hiddenAction_Set_Get_RepairDone]
+alsoTriggerAction:Send_RepairDoneToTurret
+[hiddenAction_Send_RepairDoneToTurret]
+takeResources_includeUnitsWithinRange:1000
+takeResources_includeUnitsWithinRange_team:own
+takeResources_excludeUnitsWithoutTags:UnitTurret
+takeResources_searchOnly:true
+takeResources_maxUnits:300
+takeResources_triggerActionForEach:Send_RepairDoneToTurret_Step2
+[hiddenAction_Send_RepairDoneToTurret_Step2]
+requireConditional:if thisActionTarget.parent==self
+sendMessageTo:thisActionTarget
+sendMessageWithTags:RepairDone

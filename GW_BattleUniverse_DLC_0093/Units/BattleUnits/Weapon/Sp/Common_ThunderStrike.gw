@@ -1,0 +1,117 @@
+[core]
+dont_load:true
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_Flash_1.gw,
+ROOT:Resource/Image/Fx/Common/Common_SpeedLine_1_Effect.gw
+"""
+
+@memory Common_ThunderStrike_CDTimer:float
+@global Common_ThunderStrike_CD=12
+@global Common_ThunderStrike_EN=50
+@global Common_ThunderStrike_PilotSpeedSkill=120
+
+
+
+[hiddenAction_Common_ThunderStrike_Trigger_ByAI]
+autoTrigger:"""
+if ${allowAI}==true 
+and ${cantAction}==false 
+and ${onSkill}==false 
+and self.timeAlive>memory.Common_ThunderStrike_CDTimer 
+and self.parent.hp<=0  
+and self.attacking.hp>0 
+and self.resource.EN>${Common_ThunderStrike_EN} 
+and (memory.pilotUnit.readUnitMemory("pilotSpeedSkillFinal",type="float")>=${Common_ThunderStrike_PilotSpeedSkill}) 
+and distanceBetween(self, self.attacking)<=150  
+and distanceBetween(self, self.attacking)>50   
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15) 
+"""
+alsoTriggerAction:Common_ThunderStrike_Trigger
+
+
+
+[action_Common_ThunderStrike_Trigger]
+pos:10
+text:ThunderStrike %{select(self.timeAlive<=memory.Common_ThunderStrike_CDTimer,str(int(memory.Common_ThunderStrike_CDTimer-self.timeAlive))+"s","OK")}
+text_zh:疾风迅雷 %{select(self.timeAlive<=memory.Common_ThunderStrike_CDTimer,str(int(memory.Common_ThunderStrike_CDTimer-self.timeAlive))+"秒","OK")}
+text_KP:100
+
+description:Teleport instantly behind the enemy\nMust be within 150 yards of the enemy
+description_zh:瞬间移动到敌人身后\n必须与敌人相距150码以内
+
+displayType:infoOnly
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+
+iconImage:ROOT:Resource\Image\Units\Button\Weapon\Cqb_10.png
+isVisible:if self.parent.hp<=0  
+highPriorityQueue:true
+
+price:EN=${Common_ThunderStrike_EN}
+
+isGuiBlinking:"""
+if self.timeAlive>memory.Common_ThunderStrike_CDTimer
+"""
+
+isLocked:if self.timeAlive<=memory.Common_ThunderStrike_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+isLockedAlt:if self.attacking.hp<=0 or distanceBetween(self, self.attacking)>150  
+isLockedAltMessage:No Target
+isLockedAltMessage_zh:没有目标
+isLockedAlt2:if ${cantAction}==true or ${onSkill}==true or ${allowAI}==true or (memory.pilotUnit.readUnitMemory("pilotSpeedSkillFinal",type="float")<${Common_ThunderStrike_PilotSpeedSkill})
+isLockedAlt2Message:Cant Action or PilotSpeedSkill Not Enough(%{${Common_ThunderStrike_PilotSpeedSkill}})
+isLockedAlt2Message_zh:无法行动 或 驾驶员机动技能不足(%{${Common_ThunderStrike_PilotSpeedSkill}})
+
+alsoTriggerAction:"""
+Common_ThunderStrike_SetWeaponIndex,
+Common_ThunderStrike_Step_1
+"""
+
+[hiddenAction_Common_ThunderStrike_Step_1]
+spawnEffects:Flash_1_N,Common_SpeedLine_1_Effect
+playSoundAtUnit:ROOT:Resource/Sound/SE/Action/Common/Action_8.ogg:0.5
+setUnitMemory:"""
+Common_ThunderStrike_CDTimer=self.timeAlive+${Common_ThunderStrike_CD}
+"""
+
+alsoTriggerAction:"""
+Common_ThunderStrike_Fire_Step_1,
+Common_ThunderStrike_Fire_Step_2,
+Common_ThunderStrike_Fire_Step_Final
+"""
+clearActiveWaypoint:true
+
+[effect_Flash_1_N]
+attachedToUnit:false
+[effect_Common_SpeedLine_1_Effect]
+attachedToUnit:false
+
+
+
+[hiddenAction_Common_ThunderStrike_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_Common_ThunderStrike_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false and self.attacking.hp>0
+"""
+buildSpeed:0s
+teleportTo:self.attacking.getOffsetRelative(y=-20)
+[hiddenAction_Common_ThunderStrike_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false and self.attacking.hp>0
+"""
+buildSpeed:0s
+setBodyRotation:directionBetween(self,self.attacking)
+
+
+
+[hiddenAction_Common_ThunderStrike_Fire_Step_Final]
+buildSpeed:0s
+alsoTriggerAction:"""
+SetOnSkillOff
+"""

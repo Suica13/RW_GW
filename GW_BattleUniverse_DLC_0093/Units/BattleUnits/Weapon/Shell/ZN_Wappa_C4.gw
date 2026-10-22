@@ -1,0 +1,119 @@
+[core]
+dont_load:false
+copyFrom:"""
+
+"""
+@memory ZN_Wappa_C4_OnCD:bool
+@memory ZN_Wappa_C4_CDTimer:float
+@global ZN_Wappa_C4_CD=8
+@global ZN_Wappa_C4_EN=40
+
+@global ZN_Wappa_C4_Shoot=1
+[resource_ZN_Wappa_C4_ShootTimer]
+hidden:true
+
+
+
+
+
+
+
+[turret_ZN_Wappa_C4]
+x:0
+y:0
+
+canShoot:true
+canAttackCondition:"""
+if ${onAttacking}==false and ${cantAction}==false 
+"""
+showRangeUIGuide:false
+projectile:ZN_Wappa_C4_Projectile
+resourceUsage:ZN_Wappa_C4_ShootTimer=1,en=${ZN_Wappa_C4_EN}
+
+delay:0.0s
+canAttackMaxAngle:3
+limitingRange:100
+barrelX:0
+barrelY:0
+turnSpeed:1.0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/Bomb_1.ogg
+shoot_sound_vol:0.25
+shoot_flame:none
+
+
+
+
+
+[projectile_ZN_Wappa_C4_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_C4*1
+(
+    addResources=
+    ShellDamage:3500
+    |DpDamage:200
+    |WeaponAccuracy=75
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=1.0
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=2
+    |AntiAqua=0.75
+    |AntiAir=0.5 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=0
+    |HeightHitRange=10
+    |ProjectileSpeed:10
+    |ProjectileSpread:0
+    |ProjectileExplosionRange:30
+    |ProjectileLife:55
+    
+    |ProjectileBlastRange:55
+    |ProjectileBlastDamageModifier:0.20
+    |ProjectileBlastDpModifier:1
+)
+"""
+
+
+
+[hiddenAction_ZN_Wappa_C4_CDStart]
+autoTrigger:"""
+if memory.ZN_Wappa_C4_OnCD==false 
+and 
+(
+    (
+        self.resource.ZN_Wappa_C4_ShootTimer<=0 
+    ) 
+    or 
+    (
+        self.resource.ZN_Wappa_C4_ShootTimer<${ZN_Wappa_C4_Shoot} and not self.hasTags(includes='inBattle')
+    )
+)
+"""
+setUnitMemory:ZN_Wappa_C4_OnCD=true,ZN_Wappa_C4_CDTimer=self.timeAlive+${ZN_Wappa_C4_CD}
+
+[hiddenAction_ZN_Wappa_C4_CDEnd]
+autoTriggerOnEvent:created
+autoTrigger:if memory.ZN_Wappa_C4_OnCD==true and self.timeAlive>memory.ZN_Wappa_C4_CDTimer
+setUnitMemory:ZN_Wappa_C4_OnCD=false
+setResourcesWithLogic:ZN_Wappa_C4_ShootTimer=${ZN_Wappa_C4_Shoot}

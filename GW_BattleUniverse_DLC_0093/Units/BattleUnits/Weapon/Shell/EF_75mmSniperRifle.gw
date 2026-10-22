@@ -1,0 +1,174 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Resource/Image/Fx/Common/Common_Flash_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_Two_Handed_A.gw
+"""
+
+@memory EF_75mmSniperRifle_CDTimer:float
+@global EF_75mmSniperRifle_CD=4
+@global EF_75mmSniperRifle_EN=25
+
+
+
+
+
+[decal_EF_75mmSniperRifle_Idle]
+layer:beforeBody
+order:5.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Shell\Image\EF_75mmSniperRifle.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:0.75
+xOffsetRelative: 0.5
+yOffsetRelative: 12
+dirOffset:0
+[decal_EF_75mmSniperRifle_Attack]
+layer:beforeBody
+order:5.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Shell\Image\EF_75mmSniperRifle.png
+isVisible:false
+basePositionFromLegEnd:arm4
+imageScale:0.75
+xOffsetRelative: 0
+yOffsetRelative: 16
+dirOffset:0
+
+[decal_EF_75mmSniperRifle_NotUsing]
+layer:beforeBody
+order:1
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Shell\Image\EF_75mmSniperRifle.png
+isVisible:false
+basePositionFromLegEnd:arm1
+imageScale:0.65
+xOffsetRelative: 3
+yOffsetRelative: -7
+dirOffset:-90
+
+
+
+
+
+[turret_EF_75mmSniperRifle]
+x:0
+y:0
+
+canShoot:false
+projectile:EF_75mmSniperRifle_Projectile
+
+delay:0.2s
+canAttackMaxAngle:15
+barrelX:9
+barrelY:35
+limitingRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/ShellSniper.ogg
+shoot_sound_vol:0.6
+shoot_flame:BZ_Fire_1_S
+
+
+
+
+
+[projectile_EF_75mmSniperRifle_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Target_RailShell*1
+(
+    addResources=
+    ShellDamage:9000
+    |DpDamage:500
+    |WeaponAccuracy=150
+    |PartBreakModifier=1
+    |CockpitBreakModifier=1
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=0.75
+    |AntiAqua=0.5
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+
+    |HeightChangeSpeed=2
+    |HeightHitRange=25
+    |ProjectileSpeed:125
+    |ProjectileSpread:1
+    |ProjectileLife:30
+)
+"""
+
+
+
+
+
+[hiddenAction_EF_75mmSniperRifle_Trigger]
+alsoTriggerAction:EF_75mmSniperRifle_Fire
+[hiddenAction_EF_75mmSniperRifle_Fire]
+requireConditional:"""
+if self.timeAlive>memory.EF_75mmSniperRifle_CDTimer and ${onAttacking}==false and ${cantAction}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15) 
+and self.resource.EN>0
+"""
+setUnitMemory:EF_75mmSniperRifle_CDTimer=self.timeAlive+${EF_75mmSniperRifle_CD}
+addResources:EN=-${EF_75mmSniperRifle_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+EF_75mmSniperRifle_SetWeaponIndex,
+PlayCommon_Shoot_Two_Handed_A_Step_1,
+EF_75mmSniperRifle_B1_Step_1
+"""
+[hiddenAction_EF_75mmSniperRifle_B1_Step_1]
+alsoQueueAction:"""
+EF_75mmSniperRifle_Fire_Step_1,
+EF_75mmSniperRifle_Fire_Step_2,
+EF_75mmSniperRifle_Fire_Step_Final
+"""
+
+
+
+[hiddenAction_EF_75mmSniperRifle_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_EF_75mmSniperRifle_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0.35s
+whenBuilding_cannotMove:true
+[hiddenAction_EF_75mmSniperRifle_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+whenBuilding_cannotMove:true
+fireTurretXAtGround:EF_75mmSniperRifle
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_EF_75mmSniperRifle_Fire_Step_Final]
+buildSpeed:1.0s
+whenBuilding_cannotMove:true
+stopLastAnimation:true
+alsoTriggerAction:SetAttackingOff

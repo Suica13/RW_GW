@@ -1,0 +1,49 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Units/BattleUnits/Weapon/Beam/Common_DoubleVulcan_MS_Beam_Blue.gw
+"""
+@global Common_DoubleVulcan_MS_Beam_Blue_Shoot=24 
+[turret_Common_DoubleVulcan_MS_Beam_Blue]
+canAttackCondition:"""
+if ${cantAction}==false 
+and distanceBetween(self,self.attacking)<=600  
+and memory.headBreaked==false 
+and 
+(
+    attacking.tags(includes='Aircraft') 
+    or attacking.tags(includes='Tank') 
+    or attacking.tags(includes='Pilot') 
+    or memory.attackMode==1
+)
+"""
+
+[projectile_Common_DoubleVulcan_MS_Beam_Blue_Projectile]
+spawnUnit:"""
+Projectile_Vulcan_Beam_Blue*1
+(
+    addResources=
+    BeamDamage:375
+    |BeamAPDamage:37
+    |DpDamage:18
+    |WeaponAccuracy=100
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=0.5
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=1
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=1
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=1.5 
+    |AntiLand=1
+    |AntiSpace=1 
+    |HeightChangeSpeed=3
+    |HeightHitRange=25
+    |ProjectileSpeed:95
+    |ProjectileSpread:6
+    |ProjectileLife:20
+)
+"""

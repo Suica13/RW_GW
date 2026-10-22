@@ -1,0 +1,46 @@
+[core]
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_Light_1.gw
+"""
+dont_load:false
+
+@memory exitUnitBool:bool
+@memory exitUnitTimer:float
+
+[action_ExitUnit]
+autoTrigger:"""
+if ${allowAI}==true  
+and self.hp<self.maxHp*0.25 and self.hp>0 
+and not self.hasTags(includes='inHangar') 
+and memory.exitUnitBool==false
+"""
+
+isVisible:if not self.hasTags(includes='inHangar')
+addActionCooldownTime:0
+buildSpeed:0s
+
+pos:100
+text:Exit
+text_zh:脱出
+iconImage:ROOT:Resource/Image/Units/Button/Misc/Exit_1.png
+displayType:infoOnly
+
+
+ai_isDisabled:true
+spawnEffects:Light_75_NotAttached
+playSoundAtUnit:ROOT:Resource/Sound/SE/Action/Common/Transform_4.ogg:0.6
+highPriorityQueue:true
+
+setUnitMemory:"""
+exitUnitBool=true,
+exitUnitTimer=self.timeAlive+0.2
+"""
+[hiddenAction_ExitUnit_Step2]
+autoTrigger:if memory.exitUnitBool==true and self.timeAlive>memory.exitUnitTimer
+deleteSelf:true
+
+[effect_Light_75_NotAttached]
+@copyFromSection:effect_Light_75
+attachedToUnit:false
+
+

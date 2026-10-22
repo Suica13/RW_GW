@@ -1,0 +1,132 @@
+[core]
+dont_load:true
+copyFrom:"""
+
+"""
+@memory Common_Bomb_Luggun_CDTimer:float
+@global Common_Bomb_Luggun_CD=5
+@global Common_Bomb_Luggun_EN=30
+
+
+
+
+
+[turret_Common_Bomb_Luggun]
+x:0
+y:0
+
+canShoot:false
+showRangeUIGuide:false
+projectile:Common_Bomb_Luggun_Projectile
+
+delay:0.2s
+limitingRange:1200
+limitingAngle:15
+
+canAttackMaxAngle:15
+barrelX:1
+barrelY:6
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/Bomb_1.ogg
+shoot_sound_vol:0.2
+shoot_flame:none
+[turret_Common_Bomb_Luggun_L]
+@copyFromSection:turret_Common_Bomb_Luggun
+barrelX:-1
+
+
+
+[projectile_Common_Bomb_Luggun_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Bomb*1
+(
+    addResources=
+    ShellDamage:4500
+    |DpDamage:400
+    |WeaponAccuracy=85
+    |PartBreakModifier=0.5
+    |CockpitBreakModifier=0.5
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1.5
+    |AntiAqua=0.75
+    |AntiAir=0.25 
+    |AntiLand=1
+    |AntiSpace=1
+
+    |HeightHitRange=20
+    |ProjectileSpeed:1
+    |ProjectileSpread:5
+    |ProjectileExplosionRange:80
+    |ProjectileLife:8
+)
+"""
+
+
+[hiddenAction_Common_Bomb_Luggun_Trigger]
+alsoTriggerAction:Common_Bomb_Luggun_Fire
+[hiddenAction_Common_Bomb_Luggun_Fire]
+requireConditional:"""
+if self.timeAlive>memory.Common_Bomb_Luggun_CDTimer and ${onAttacking}==false and ${cantAction}==false and ${onSkill}==false  
+and self.attacking.hp>0 
+and self.resource.EN>0
+"""
+setUnitMemory:Common_Bomb_Luggun_CDTimer=self.timeAlive+${Common_Bomb_Luggun_CD} 
+addResources:EN=-${Common_Bomb_Luggun_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+Common_Bomb_Luggun_SetWeaponIndex,
+Common_Bomb_Luggun_B1_Step_1
+"""
+[hiddenAction_Common_Bomb_Luggun_B1_Step_1]
+alsoQueueAction:"""
+Common_Bomb_Luggun_Fire_Step_1,
+Common_Bomb_Luggun_Fire_Step_2,
+Common_Bomb_Luggun_Fire_Step_Final
+"""
+
+
+
+
+[hiddenAction_Common_Bomb_Luggun_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_Common_Bomb_Luggun_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+[hiddenAction_Common_Bomb_Luggun_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:Common_Bomb_Luggun
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+[hiddenAction_Common_Bomb_Luggun_Fire_Step_3]
+@copyFromSection:hiddenAction_Common_Bomb_Luggun_Fire_Step_2
+buildSpeed:${turret_Common_Bomb_Luggun.delay}
+[hiddenAction_Common_Bomb_Luggun_Fire_Step_Final]
+buildSpeed:0.3s
+alsoTriggerAction:SetAttackingOff

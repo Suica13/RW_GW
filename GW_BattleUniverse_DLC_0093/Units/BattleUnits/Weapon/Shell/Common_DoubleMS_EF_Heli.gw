@@ -1,0 +1,125 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw
+"""
+
+@memory Common_DoubleMS_EF_Heli_OnCD:bool
+@memory Common_DoubleMS_EF_Heli_CDTimer:float
+@global Common_DoubleMS_EF_Heli_CD=6
+@global Common_DoubleMS_EF_Heli_EN=5
+
+@global Common_DoubleMS_EF_Heli_Shoot=6
+[resource_Common_DoubleMS_EF_Heli_ShootTimer]
+hidden:true
+
+
+
+
+
+
+
+
+
+
+[turret_Common_DoubleMS_EF_Heli]
+x:0
+y:0
+
+canShoot:true
+canOnlyAttackUnitsWithoutTags:AirUnit
+canAttackCondition:"""
+if ${cantAction}==false 
+"""
+showRangeUIGuide:false
+resourceUsage:Common_DoubleMS_EF_Heli_ShootTimer=1,en=${Common_DoubleMS_EF_Heli_EN}
+projectile:Common_DoubleMS_EF_Heli_Projectile
+
+delay:0.2s
+limitingRange:1200
+limitingAngle:3
+
+canAttackMaxAngle:15
+barrelX:4
+barrelY:-15
+barrelOffsetX_onOddShots:-8
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\Missile_1.ogg
+shoot_sound_vol:0.2
+shoot_flame:BZ_Fire_1_S
+
+
+
+[projectile_Common_DoubleMS_EF_Heli_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_MS*1
+(
+    addResources=
+    ShellDamage:650
+    |DpDamage:50
+    |WeaponAccuracy=75
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=0.5
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.5
+    |AntiLand=1
+    |AntiSpace=1.0
+    |HeightHitRange=20
+    |HeightChangeSpeed=2
+    |ProjectileSpeed:35
+    |ProjectileTurnspeed:1.25
+    |ProjectileSpread:0
+    |ProjectileExplosionRange:35
+    |ProjectileLife:40
+
+    |EquipmentIndex:1
+    |EquipmentIndex2:100
+)
+"""
+
+
+
+
+[hiddenAction_Common_DoubleMS_EF_Heli_CDStart]
+autoTrigger:"""
+if memory.Common_DoubleMS_EF_Heli_OnCD==false 
+and 
+(
+    (
+        self.resource.Common_DoubleMS_EF_Heli_ShootTimer<=0 
+    ) 
+    or 
+    (
+        self.resource.Common_DoubleMS_EF_Heli_ShootTimer<${Common_DoubleMS_EF_Heli_Shoot} and not self.hasTags(includes='inBattle')
+    )
+)
+"""
+setUnitMemory:Common_DoubleMS_EF_Heli_OnCD=true,Common_DoubleMS_EF_Heli_CDTimer=self.timeAlive+${Common_DoubleMS_EF_Heli_CD}
+
+[hiddenAction_Common_DoubleMS_EF_Heli_CDEnd]
+autoTriggerOnEvent:created
+autoTrigger:if memory.Common_DoubleMS_EF_Heli_OnCD==true and self.timeAlive>memory.Common_DoubleMS_EF_Heli_CDTimer
+setUnitMemory:Common_DoubleMS_EF_Heli_OnCD=false
+setResourcesWithLogic:Common_DoubleMS_EF_Heli_ShootTimer=${Common_DoubleMS_EF_Heli_Shoot}
