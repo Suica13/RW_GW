@@ -1,0 +1,106 @@
+{
+  "unit": "RGZ_91B",
+  "source_mod": "E:\\RustedWarfare_Reunion\\mods\\GundamWars_BattleOperation2_V5",
+  "created_config": [
+    "Units/BattleUnits/RGZ_91B/RGZ_91B.ini",
+    "Units/BattleUnits/RGZ_91B/RGZ_91B_MA.ini",
+    "Units/BattleUnits/RGZ_91B/RGZ_91B_MA_OverLine.ini",
+    "Units/BattleUnits/Weapon/Beam/EF_RGZ_91B_BR.gw",
+    "Units/BattleUnits/Weapon/Beam/EF_RGZ_91B_CrotchBeamCannon.gw",
+    "Units/BattleUnits/Weapon/Beam/EF_RGZ_91B_HighBeamCannon.gw",
+    "Units/BattleUnits/Weapon/Shell/EF_RGZ_91B_MS.gw",
+    "Units/BattleUnits/Weapon/Cqb/EF_RGZ_91B_BeamSaber_AF_Large_Yellow.gw"
+  ],
+  "assets": [
+    {
+      "source": "Units/BattleUnits/RGZ-91B/Image/RGZ-91B_ArmL_1.png",
+      "target": "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_ArmL_1.png",
+      "sha256": "3864a210905a5e094b3248258fbb98c4ed2c0b6b683cb6a2411fd8436e7682a1"
+    },
+    {
+      "source": "Units/BattleUnits/RGZ-91B/Image/RGZ-91B_ArmR_1.png",
+      "target": "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_ArmR_1.png",
+      "sha256": "4baf03e265f871839b76cf4f720ca139f4012b1cadd8cf7280bebcbec219db97"
+    },
+    {
+      "source": "Units/BattleUnits/RGZ-91B/Image/RGZ-91B_Backpack_1.png",
+      "target": "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_Backpack_1.png",
+      "sha256": "c0e0f1b1d19c1866fada3af2d1648ac9f13ebde451a411c3f08caeba00171253"
+    },
+    {
+      "source": "Units/BattleUnits/RGZ-91B/Image/RGZ-91B_Backpack_2.png",
+      "target": "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_Backpack_2.png",
+      "sha256": "089cd3dcf3a96e19d91937fa19de763c12a250b682777ae325ccfcfebf90df1b"
+    },
+    {
+      "source": "Units/BattleUnits/RGZ-91B/Image/RGZ-91B_Backpack_BeamSaberL_1.png",
+      "target": "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_Backpack_BeamSaberL_1.png",
+      "sha256": "55daa8863940a540d9fa9f01ddecf1c7d6e318eab2308f00d28ab255edbabc93"
+    },
+    {
+      "source": "Units/BattleUnits/RGZ-91B/Image/RGZ-91B_Backpack_BeamSaberR_1.png",
+      "target": "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_Backpack_BeamSaberR_1.png",
+      "sha256": "72959aba58ff298e9350701341a8ccf429ddb73b76cbd72d0b4d711fbbd99f55"
+    },
+    {
+      "source": "Units/BattleUnits/RGZ-91B/Image/RGZ-91B_Body_1.png",
+      "target": "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_Body_1.png",
+      "sha256": "ded09400efa636d3960a579411fbe9f94383b049a12f41b73bffae3739e62ec3"
+    },
+    {
+      "source": "Units/BattleUnits/RGZ-91B/Image/RGZ-91B_Crotch_1.png",
+      "target": "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_Crotch_1.png",
+      "sha256": "02ce1c2b18a8c4f9f16d0fd29bc19d4f4128da7b852d3fb633b6723165269bb6"
+    },
+    {
+      "source": "Units/BattleUnits/RGZ-91B/Image/RGZ-91B_Crotch_2.png",
+      "target": "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_Crotch_2.png",
+      "sha256": "7ea8fd1ab504fcbddb77f7c5f954b86f5ec0e7919f7b30797e67a62641e06703"
+    },
+    {
+      "source": "Units/BattleUnits/RGZ-91B/Image/RGZ-91B_FootL_1.png",
+      "target": "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_FootL_1.png",
+      "sha256": "5953da6700d41a83cd06deaaadf6645212dd69a24b5208e30b366cc6f38eb6b3"
+    },
+    {
+      "source": "Units/BattleUnits/RGZ-91B/Image/RGZ-91B_FootR_1.png",
+      "target": "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_FootR_1.png",
+      "sha256": "30a9be4a7b5460da0be93b4d972cc187ef774be9f19b0e7310480ecc4aef59ee"
+    },
+    {
+      "source": "Units/BattleUnits/RGZ-91B/Image/RGZ-91B_Head_1.png",
+      "target": "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_Head_1.png",
+      "sha256": "ed10458c252b2fcc61feaaa072b440c413f3f5a746888852cb31e6f4776884f8"
+    },
+    {
+      "source": "Units/BattleUnits/RGZ-91B/Image/RGZ-91B_LegL_1.png",
+      "target": "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_LegL_1.png",
+      "sha256": "148739cdac4d53d9f4a4790ca3975b7a2eea1378b3bb80f44ee95603b4c92a35"
+    },
+    {
+      "source": "Units/BattleUnits/RGZ-91B/Image/RGZ-91B_LegR_1.png",
+      "target": "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_LegR_1.png",
+      "sha256": "464c745edf95f449b16133ca4dbaff3d7e031ae50a30fa9cf7f5c1ae29c557bb"
+    },
+    {
+      "source": "Units/BattleUnits/RGZ-91B/Image/RGZ-91B_MA_1.png",
+      "target": "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_MA_1.png",
+      "sha256": "28e1c55389ed125cfe0963710ad9f4ac4bf3aa84d578386ad52371df626cc56a"
+    },
+    {
+      "source": "Units/BattleUnits/RGZ-91B/Image/RGZ-91B_ShoulderL_1.png",
+      "target": "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_ShoulderL_1.png",
+      "sha256": "c426bfda79f07d035fd599b1e4cbbcec6b90c221717a02e93fb4ddd359a14794"
+    },
+    {
+      "source": "Units/BattleUnits/RGZ-91B/Image/RGZ-91B_ShoulderR_1.png",
+      "target": "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_ShoulderR_1.png",
+      "sha256": "11e6a7eeff4ff43e92bcb5098c90c4f0fc91ad8774cff0255091cadfc4e922aa"
+    }
+  ],
+  "icon_source": "Resource/Image/Units/Icon/RGZ_91.png",
+  "tech_factory_connected": false,
+  "stats": "provisional existing RGZ_91 stats",
+  "gameplay_tested": false,
+  "weapons": "MS: five shot BR, paired waist beam, arm GL, 12 backpack missiles, native large yellow saber, vulcans; MA: charged high beam, paired BWS beams, 12 missiles"
+}

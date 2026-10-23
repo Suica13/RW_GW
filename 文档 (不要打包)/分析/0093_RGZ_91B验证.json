@@ -1,0 +1,155 @@
+{
+  "checks": 37,
+  "passed": 37,
+  "results": [
+    {
+      "name": "all imported body images retain source bytes and use underscores",
+      "passed": true
+    },
+    {
+      "name": "all new runtime identifiers and paths use underscores",
+      "passed": true
+    },
+    {
+      "name": "MS has its own ID, tags and 0093 faction",
+      "passed": true
+    },
+    {
+      "name": "MS and MA use standalone native framework with inline graphics",
+      "passed": true
+    },
+    {
+      "name": "unit INIs never override weapon firing steps",
+      "passed": true
+    },
+    {
+      "name": "MS is editor selectable and uses independent placeholder icon",
+      "passed": true
+    },
+    {
+      "name": "only MS appears in editor",
+      "passed": true
+    },
+    {
+      "name": "both forms retain existing native 0093 ordinary pilot",
+      "passed": true
+    },
+    {
+      "name": "MS body has source backpack and stowed sabers",
+      "passed": true
+    },
+    {
+      "name": "waist cannon opens the alternate crotch sprite",
+      "passed": true
+    },
+    {
+      "name": "other selected MS weapons close the waist cannon",
+      "passed": true
+    },
+    {
+      "name": "MA hides all human body parts and hand rifle",
+      "passed": true
+    },
+    {
+      "name": "MA uses dedicated aircraft sprite and paired source exhausts",
+      "passed": true
+    },
+    {
+      "name": "both forms have reciprocal native transform targets",
+      "passed": true
+    },
+    {
+      "name": "transform preserves HP/shield instead of BWS ejection",
+      "passed": true
+    },
+    {
+      "name": "MS resets flight and MA resets aircraft state",
+      "passed": true
+    },
+    {
+      "name": "MA DedicatedMap routing remains bidirectional",
+      "passed": true
+    },
+    {
+      "name": "MS ranged random partitions are complete and exclusive",
+      "passed": true
+    },
+    {
+      "name": "MS weapon selection defers firing requirements to weapons",
+      "passed": true
+    },
+    {
+      "name": "MA ranged random partitions are complete and exclusive",
+      "passed": true
+    },
+    {
+      "name": "MA weapon selection defers firing requirements to weapons",
+      "passed": true
+    },
+    {
+      "name": "both forms import all shared cooldown declarations",
+      "passed": true
+    },
+    {
+      "name": "rifle fires five shots with source burst spacing",
+      "passed": true
+    },
+    {
+      "name": "missiles fire twelve alternating left/right shots",
+      "passed": true
+    },
+    {
+      "name": "waist cannon fires both source positions",
+      "passed": true
+    },
+    {
+      "name": "EF_RGZ_91B_BR guards its component during firing",
+      "passed": true
+    },
+    {
+      "name": "EF_RGZ_91B_CrotchBeamCannon guards its component during firing",
+      "passed": true
+    },
+    {
+      "name": "EF_RGZ_91B_HighBeamCannon guards its component during firing",
+      "passed": true
+    },
+    {
+      "name": "EF_RGZ_91B_MS guards its component during firing",
+      "passed": true
+    },
+    {
+      "name": "EF_RGZ_91B_BeamSaber_AF_Large_Yellow guards its component during firing",
+      "passed": true
+    },
+    {
+      "name": "high cannon recreates its native charge attachment after conversion",
+      "passed": true
+    },
+    {
+      "name": "high cannon uses native yellow beam and paired effect projectile",
+      "passed": true
+    },
+    {
+      "name": "charge queue releases turning and attack locks",
+      "passed": true
+    },
+    {
+      "name": "large yellow saber uses native large melee projectiles and yellow effects",
+      "passed": true
+    },
+    {
+      "name": "all concrete file references resolve in this DLC",
+      "passed": true
+    },
+    {
+      "name": "source rifle artwork is already byte identical",
+      "passed": true
+    },
+    {
+      "name": "no RGZ_91B tech or factory registrations exist",
+      "passed": true
+    }
+  ],
+  "gameplay_tested": false
+}
