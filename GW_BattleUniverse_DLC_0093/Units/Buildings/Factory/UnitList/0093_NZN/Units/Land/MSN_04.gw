@@ -39,13 +39,13 @@ alsoQueueAction:Produce_MSN_04_StandardSquad
 
 [hiddenAction_AutoProduce_MSN_04_Random_B]
 requireConditional:if memory.randomProduce>500 and memory.randomProduce<=850
-alsoQueueAction:Produce_MSN_04_MGSquad
+alsoQueueAction:Produce_MSN_04_StandardSquad
 
 [hiddenAction_AutoProduce_MSN_04_Random_C]
 requireConditional:"""
 if memory.randomProduce>850
 """
-alsoQueueAction:Produce_MSN_04_BazookaSquad
+alsoQueueAction:Produce_MSN_04_StandardSquad
 
 
 
@@ -89,6 +89,8 @@ MSN_04*1(addResources=PilotType:1101|EquipmentIndex:0)
 """
 
 [action_Produce_MSN_04_MGSquad]
+# [LEGACY_REASON] Preserve queued IDs; all weapons now belong to one actual loadout.
+isVisible:false
 @copyFromSection:template_Produce
 @define UnitID=MSN_04
 @define Money=3050
@@ -125,6 +127,8 @@ MSN_04*1(addResources=PilotType:1101|EquipmentIndex:1)
 
 
 [action_Produce_MSN_04_BazookaSquad]
+# [LEGACY_REASON] Preserve queued IDs; all weapons now belong to one actual loadout.
+isVisible:false
 @copyFromSection:template_Produce
 @define UnitID=MSN_04
 @define Money=3050

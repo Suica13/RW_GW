@@ -1,0 +1,159 @@
+{
+  "checks": 38,
+  "passed": 38,
+  "results": [
+    {
+      "name": "RX_93 uses a single native unit INI",
+      "passed": true
+    },
+    {
+      "name": "RX_93 has no GM III body or weapon residue",
+      "passed": true
+    },
+    {
+      "name": "RX_93 keeps initial base stats",
+      "passed": true
+    },
+    {
+      "name": "RX_93 contains no weapon Fire_Step overrides",
+      "passed": true
+    },
+    {
+      "name": "RX_93 keeps its faction pilot",
+      "passed": true
+    },
+    {
+      "name": "MSN_04 uses a single native unit INI",
+      "passed": true
+    },
+    {
+      "name": "MSN_04 has no GM III body or weapon residue",
+      "passed": true
+    },
+    {
+      "name": "MSN_04 keeps initial base stats",
+      "passed": true
+    },
+    {
+      "name": "MSN_04 contains no weapon Fire_Step overrides",
+      "passed": true
+    },
+    {
+      "name": "MSN_04 keeps its faction pilot",
+      "passed": true
+    },
+    {
+      "name": "all imported body, shield, weapon and funnel artwork matches source bytes",
+      "passed": true
+    },
+    {
+      "name": "Nu Gundam has no I-field/barrier imports or active decals",
+      "passed": true
+    },
+    {
+      "name": "RX_93 has complete exclusive ranged random branches",
+      "passed": true
+    },
+    {
+      "name": "MSN_04 has complete exclusive ranged random branches",
+      "passed": true
+    },
+    {
+      "name": "Sazabi axe and dual sabers use exclusive close-range branches",
+      "passed": true
+    },
+    {
+      "name": "all source/resource/animation/file references resolve inside DLC0093",
+      "passed": true
+    },
+    {
+      "name": "all spawned projectiles and funnels resolve to real entities",
+      "passed": true
+    },
+    {
+      "name": "RX_93 has one real funnel entity",
+      "passed": true
+    },
+    {
+      "name": "RX_93 deploys exactly six funnels per native queue",
+      "passed": true
+    },
+    {
+      "name": "RX_93 enforces active cap and backpack state for manual and AI launches",
+      "passed": true
+    },
+    {
+      "name": "RX_93 records every funnel with a matching spawn callback",
+      "passed": true
+    },
+    {
+      "name": "RX_93 prunes the owner active-funnel array",
+      "passed": true
+    },
+    {
+      "name": "RX_93 uses native target/attack/return lifecycle",
+      "passed": true
+    },
+    {
+      "name": "RX_93 removes funnels when owner dies or changes team",
+      "passed": true
+    },
+    {
+      "name": "RX_93 has no defensive barrier in its offensive funnel dependency",
+      "passed": true
+    },
+    {
+      "name": "RX_93 keeps standard-squad pilot queue and hides fake equipment squads",
+      "passed": true
+    },
+    {
+      "name": "MSN_04 has one real funnel entity",
+      "passed": true
+    },
+    {
+      "name": "MSN_04 deploys exactly six funnels per native queue",
+      "passed": true
+    },
+    {
+      "name": "MSN_04 enforces active cap and backpack state for manual and AI launches",
+      "passed": true
+    },
+    {
+      "name": "MSN_04 records every funnel with a matching spawn callback",
+      "passed": true
+    },
+    {
+      "name": "MSN_04 prunes the owner active-funnel array",
+      "passed": true
+    },
+    {
+      "name": "MSN_04 uses native target/attack/return lifecycle",
+      "passed": true
+    },
+    {
+      "name": "MSN_04 removes funnels when owner dies or changes team",
+      "passed": true
+    },
+    {
+      "name": "MSN_04 has no defensive barrier in its offensive funnel dependency",
+      "passed": true
+    },
+    {
+      "name": "MSN_04 keeps standard-squad pilot queue and hides fake equipment squads",
+      "passed": true
+    },
+    {
+      "name": "native funnel return has bounded lifetime and deletion",
+      "passed": true
+    },
+    {
+      "name": "Nu shield cannon AP projectile has finite hit count",
+      "passed": true
+    },
+    {
+      "name": "funnel launch queues cannot be cancelled mid-volley",
+      "passed": true
+    }
+  ],
+  "gameplay_tested": false
+}

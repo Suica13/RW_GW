@@ -1,0 +1,702 @@
+[
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\NZN_AMS_119H_BrunoGun.gw",
+    "files": 1,
+    "errors": 0,
+    "warnings": 7,
+    "elapsed_ms": 70,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\NZN_AMS_119H_BrunoGun.gw",
+        "line": 98,
+        "message": "`${onAttacking}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\NZN_AMS_119H_BrunoGun.gw",
+        "line": 98,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\NZN_AMS_119H_BrunoGun.gw",
+        "line": 98,
+        "message": "`${onSkill}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\NZN_AMS_119H_BrunoGun.gw",
+        "line": 104,
+        "message": "`alsoTriggerAction: \"\"\"` 指向的动作节找不到"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\NZN_AMS_119H_BrunoGun.gw",
+        "line": 135,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\NZN_AMS_119H_BrunoGun.gw",
+        "line": 148,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\NZN_AMS_119H_BrunoGun.gw",
+        "line": 163,
+        "message": "`alsoTriggerAction: SetAttackingOff` 指向的动作节找不到"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\Projectile\\Projectile_NZN_AMS_119H_BrunoShell.ini",
+    "files": 1,
+    "errors": 0,
+    "warnings": 0,
+    "elapsed_ms": 43,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": []
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_AMS_119H_BR.gw",
+    "files": 1,
+    "errors": 0,
+    "warnings": 7,
+    "elapsed_ms": 48,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_AMS_119H_BR.gw",
+        "line": 105,
+        "message": "`${onAttacking}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_AMS_119H_BR.gw",
+        "line": 105,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_AMS_119H_BR.gw",
+        "line": 111,
+        "message": "`alsoTriggerAction: \"\"\"` 指向的动作节找不到"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_AMS_119H_BR.gw",
+        "line": 146,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_AMS_119H_BR.gw",
+        "line": 154,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_AMS_119H_BR.gw",
+        "line": 164,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_AMS_119H_BR.gw",
+        "line": 174,
+        "message": "`alsoTriggerAction: SetAttackingOff` 指向的动作节找不到"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_AMS_119H_BeamSaber_AF.gw",
+    "files": 1,
+    "errors": 0,
+    "warnings": 10,
+    "elapsed_ms": 51,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_AMS_119H_BeamSaber_AF.gw",
+        "line": 139,
+        "message": "`${onAttacking}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_AMS_119H_BeamSaber_AF.gw",
+        "line": 139,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_AMS_119H_BeamSaber_AF.gw",
+        "line": 144,
+        "message": "`alsoTriggerAction: \"\"\"` 指向的动作节找不到"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_AMS_119H_BeamSaber_AF.gw",
+        "line": 173,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_AMS_119H_BeamSaber_AF.gw",
+        "line": 181,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_AMS_119H_BeamSaber_AF.gw",
+        "line": 192,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_AMS_119H_BeamSaber_AF.gw",
+        "line": 195,
+        "message": "`alsoTriggerAction: PlayCommon_Melee_F_Step_1` 指向的动作节找不到"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_AMS_119H_BeamSaber_AF.gw",
+        "line": 201,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_AMS_119H_BeamSaber_AF.gw",
+        "line": 209,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_AMS_119H_BeamSaber_AF.gw",
+        "line": 221,
+        "message": "`alsoTriggerAction: SetAttackingOff` 指向的动作节找不到"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\NZN_AMS_119H_Panzerfaust.gw",
+    "files": 1,
+    "errors": 0,
+    "warnings": 7,
+    "elapsed_ms": 49,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\NZN_AMS_119H_Panzerfaust.gw",
+        "line": 134,
+        "message": "`${onAttacking}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\NZN_AMS_119H_Panzerfaust.gw",
+        "line": 134,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\NZN_AMS_119H_Panzerfaust.gw",
+        "line": 134,
+        "message": "`${onSkill}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\NZN_AMS_119H_Panzerfaust.gw",
+        "line": 138,
+        "message": "`alsoTriggerAction: \"\"\"` 指向的动作节找不到"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\NZN_AMS_119H_Panzerfaust.gw",
+        "line": 171,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\NZN_AMS_119H_Panzerfaust.gw",
+        "line": 181,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\NZN_AMS_119H_Panzerfaust.gw",
+        "line": 192,
+        "message": "`alsoTriggerAction: \"\"\"` 指向的动作节找不到"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RGM_89\\RGM_89.ini",
+    "files": 1,
+    "errors": 0,
+    "warnings": 2,
+    "elapsed_ms": 41,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "06",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RGM_89\\RGM_89.ini",
+        "line": 117,
+        "message": "节 `[hiddenAction_Set_Get_PlayStartEffect]` 里没有任何键"
+      },
+      {
+        "level": "warning",
+        "code": "06",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RGM_89\\RGM_89.ini",
+        "line": 122,
+        "message": "节 `[hiddenAction_Set_Get_PlayCloseEffect]` 里没有任何键"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RGC_90\\RGC_90.ini",
+    "files": 1,
+    "errors": 0,
+    "warnings": 2,
+    "elapsed_ms": 55,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "06",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RGC_90\\RGC_90.ini",
+        "line": 117,
+        "message": "节 `[hiddenAction_Set_Get_PlayStartEffect]` 里没有任何键"
+      },
+      {
+        "level": "warning",
+        "code": "06",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RGC_90\\RGC_90.ini",
+        "line": 122,
+        "message": "节 `[hiddenAction_Set_Get_PlayCloseEffect]` 里没有任何键"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RGZ_91\\RGZ_91.ini",
+    "files": 1,
+    "errors": 0,
+    "warnings": 5,
+    "elapsed_ms": 42,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "06",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RGZ_91\\RGZ_91.ini",
+        "line": 228,
+        "message": "节 `[hiddenAction_Set_Get_PlayStartEffect]` 里没有任何键"
+      },
+      {
+        "level": "warning",
+        "code": "06",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RGZ_91\\RGZ_91.ini",
+        "line": 233,
+        "message": "节 `[hiddenAction_Set_Get_PlayCloseEffect]` 里没有任何键"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RGZ_91\\RGZ_91.ini",
+        "line": 287,
+        "message": "`${onAttacking}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RGZ_91\\RGZ_91.ini",
+        "line": 304,
+        "message": "`${onAttacking}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RGZ_91\\RGZ_91.ini",
+        "line": 372,
+        "message": "`${onAttacking}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RX_93\\RX_93.ini",
+    "files": 1,
+    "errors": 0,
+    "warnings": 2,
+    "elapsed_ms": 54,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "06",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RX_93\\RX_93.ini",
+        "line": 117,
+        "message": "节 `[hiddenAction_Set_Get_PlayStartEffect]` 里没有任何键"
+      },
+      {
+        "level": "warning",
+        "code": "06",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RX_93\\RX_93.ini",
+        "line": 122,
+        "message": "节 `[hiddenAction_Set_Get_PlayCloseEffect]` 里没有任何键"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RX_93_Test\\RX_93_Test.ini",
+    "files": 1,
+    "errors": 0,
+    "warnings": 2,
+    "elapsed_ms": 47,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "06",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RX_93_Test\\RX_93_Test.ini",
+        "line": 116,
+        "message": "节 `[hiddenAction_Set_Get_PlayStartEffect]` 里没有任何键"
+      },
+      {
+        "level": "warning",
+        "code": "06",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RX_93_Test\\RX_93_Test.ini",
+        "line": 121,
+        "message": "节 `[hiddenAction_Set_Get_PlayCloseEffect]` 里没有任何键"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\AMS_119\\AMS_119.ini",
+    "files": 1,
+    "errors": 0,
+    "warnings": 2,
+    "elapsed_ms": 40,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "06",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\AMS_119\\AMS_119.ini",
+        "line": 115,
+        "message": "节 `[hiddenAction_Set_Get_PlayStartEffect]` 里没有任何键"
+      },
+      {
+        "level": "warning",
+        "code": "06",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\AMS_119\\AMS_119.ini",
+        "line": 120,
+        "message": "节 `[hiddenAction_Set_Get_PlayCloseEffect]` 里没有任何键"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\AMS_119H\\AMS_119H.ini",
+    "files": 1,
+    "errors": 0,
+    "warnings": 2,
+    "elapsed_ms": 41,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "06",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\AMS_119H\\AMS_119H.ini",
+        "line": 114,
+        "message": "节 `[hiddenAction_Set_Get_PlayStartEffect]` 里没有任何键"
+      },
+      {
+        "level": "warning",
+        "code": "06",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\AMS_119H\\AMS_119H.ini",
+        "line": 119,
+        "message": "节 `[hiddenAction_Set_Get_PlayCloseEffect]` 里没有任何键"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\MSN_03\\MSN_03.ini",
+    "files": 1,
+    "errors": 0,
+    "warnings": 2,
+    "elapsed_ms": 41,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "06",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\MSN_03\\MSN_03.ini",
+        "line": 117,
+        "message": "节 `[hiddenAction_Set_Get_PlayStartEffect]` 里没有任何键"
+      },
+      {
+        "level": "warning",
+        "code": "06",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\MSN_03\\MSN_03.ini",
+        "line": 122,
+        "message": "节 `[hiddenAction_Set_Get_PlayCloseEffect]` 里没有任何键"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\MSN_04\\MSN_04.ini",
+    "files": 1,
+    "errors": 0,
+    "warnings": 2,
+    "elapsed_ms": 43,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "06",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\MSN_04\\MSN_04.ini",
+        "line": 117,
+        "message": "节 `[hiddenAction_Set_Get_PlayStartEffect]` 里没有任何键"
+      },
+      {
+        "level": "warning",
+        "code": "06",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\MSN_04\\MSN_04.ini",
+        "line": 122,
+        "message": "节 `[hiddenAction_Set_Get_PlayCloseEffect]` 里没有任何键"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RGZ_91\\RGZ_91_MA.ini",
+    "files": 1,
+    "errors": 0,
+    "warnings": 1,
+    "elapsed_ms": 38,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RGZ_91\\RGZ_91_MA.ini",
+        "line": 286,
+        "message": "`${onAttacking}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      }
+    ]
+  }
+]

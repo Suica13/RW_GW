@@ -1,0 +1,183 @@
+{
+  "checks": 44,
+  "passed": 44,
+  "results": [
+    {
+      "name": "RGM_89 owns a dedicated PNG icon",
+      "passed": true
+    },
+    {
+      "name": "RGM_89 references its own icon",
+      "passed": true
+    },
+    {
+      "name": "RGC_90 owns a dedicated PNG icon",
+      "passed": true
+    },
+    {
+      "name": "RGC_90 references its own icon",
+      "passed": true
+    },
+    {
+      "name": "RGZ_91 owns a dedicated PNG icon",
+      "passed": true
+    },
+    {
+      "name": "RGZ_91 references its own icon",
+      "passed": true
+    },
+    {
+      "name": "RX_93 owns a dedicated PNG icon",
+      "passed": true
+    },
+    {
+      "name": "RX_93 references its own icon",
+      "passed": true
+    },
+    {
+      "name": "RX_93_Test owns a dedicated PNG icon",
+      "passed": true
+    },
+    {
+      "name": "RX_93_Test references its own icon",
+      "passed": true
+    },
+    {
+      "name": "AMS_119 owns a dedicated PNG icon",
+      "passed": true
+    },
+    {
+      "name": "AMS_119 references its own icon",
+      "passed": true
+    },
+    {
+      "name": "AMS_119H owns a dedicated PNG icon",
+      "passed": true
+    },
+    {
+      "name": "AMS_119H references its own icon",
+      "passed": true
+    },
+    {
+      "name": "MSN_03 owns a dedicated PNG icon",
+      "passed": true
+    },
+    {
+      "name": "MSN_03 references its own icon",
+      "passed": true
+    },
+    {
+      "name": "MSN_04 owns a dedicated PNG icon",
+      "passed": true
+    },
+    {
+      "name": "MSN_04 references its own icon",
+      "passed": true
+    },
+    {
+      "name": "all nine placeholder icons are independent files and distinct images",
+      "passed": true
+    },
+    {
+      "name": "Re-GZ MA uses its family icon",
+      "passed": true
+    },
+    {
+      "name": "Nu Test retains its own name and tags",
+      "passed": true
+    },
+    {
+      "name": "Nu Test has no funnel imports/actions/backpack decal",
+      "passed": true
+    },
+    {
+      "name": "Nu Test has no barrier runtime",
+      "passed": true
+    },
+    {
+      "name": "Nu Test keeps Nu conventional weapons",
+      "passed": true
+    },
+    {
+      "name": "Nu Test uses Nu body without duplicate bazooka stow",
+      "passed": true
+    },
+    {
+      "name": "RX_93_Test preserves initial stats",
+      "passed": true
+    },
+    {
+      "name": "RX_93_Test keeps standalone layout with no weapon Step overrides",
+      "passed": true
+    },
+    {
+      "name": "AMS_119H preserves initial stats",
+      "passed": true
+    },
+    {
+      "name": "AMS_119H keeps standalone layout with no weapon Step overrides",
+      "passed": true
+    },
+    {
+      "name": "heavy unit matches source HWT body and weapons",
+      "passed": true
+    },
+    {
+      "name": "heavy unit has no sea serpent or underbarrel GL",
+      "passed": true
+    },
+    {
+      "name": "heavy unit uses imported body and source eye offsets",
+      "passed": true
+    },
+    {
+      "name": "Bruno uses original two-handed animation, cannon flash and source muzzle",
+      "passed": true
+    },
+    {
+      "name": "Bruno prefire flash and full attack queue remain in weapon",
+      "passed": true
+    },
+    {
+      "name": "Bruno checks both arms/backpack inside weapon Fire and shot steps",
+      "passed": true
+    },
+    {
+      "name": "Bruno holds still for windup, shot and recovery",
+      "passed": true
+    },
+    {
+      "name": "Bruno launches the dedicated large rail shell",
+      "passed": true
+    },
+    {
+      "name": "large shell keeps native explosion/trail/rail image/push",
+      "passed": true
+    },
+    {
+      "name": "Bruno uses real OGG audio",
+      "passed": true
+    },
+    {
+      "name": "green saber sprite and effects are real native assets",
+      "passed": true
+    },
+    {
+      "name": "Bruno gun and plain machine gun artwork match source bytes",
+      "passed": true
+    },
+    {
+      "name": "reused large explosion, trail and rail projectile match the external source",
+      "passed": true
+    },
+    {
+      "name": "heavy ranged random branches are complete and exclusive",
+      "passed": true
+    },
+    {
+      "name": "all concrete new unit/weapon references resolve in DLC0093",
+      "passed": true
+    }
+  ],
+  "gameplay_tested": false
+}

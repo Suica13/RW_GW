@@ -1,0 +1,108 @@
+{
+  "icons": [
+    {
+      "unit": "RGM_89",
+      "source": "GW_BattleUniverse_DLC_0093\\Resource\\Image\\Units\\Icon\\RGM_89.png",
+      "target": "Resource/Image/Units/Icon/RGM_89.png",
+      "sha256": "b80f729ba8db1149e5f6e23ad277d6707d248cecff73f51368d2a34b3da436c0"
+    },
+    {
+      "unit": "RGC_90",
+      "source": "GW_BattleUniverse_DLC_0087\\Resource\\Image\\Units\\Icon\\RGC_83_AEUG.png",
+      "target": "Resource/Image/Units/Icon/RGC_90.png",
+      "sha256": "f88ba949a100d18ab6a14a9fcd38394c3ce220e9419bdfcd9c878c259827c542"
+    },
+    {
+      "unit": "RGZ_91",
+      "source": "GW_BattleUniverse_DLC_0087\\Resource\\Image\\Units\\Icon\\MSZ_006.png",
+      "target": "Resource/Image/Units/Icon/RGZ_91.png",
+      "sha256": "5fe6223c70ac87082c3c84a7d57903bbde7eabf06b6a1888623f4095143808df"
+    },
+    {
+      "unit": "RX_93",
+      "source": "GW_BattleUniverse_DLC_0087\\Resource\\Image\\Units\\Icon\\MSZ_010.png",
+      "target": "Resource/Image/Units/Icon/RX_93.png",
+      "sha256": "f44ef8e23230c0ff4105239019978be8b860e6537649a6bd0579e17e18c89ef2"
+    },
+    {
+      "unit": "RX_93_Test",
+      "source": "GW_BattleUniverse_DLC_0087\\Resource\\Image\\Units\\Icon\\RX_178_Aeug.png",
+      "target": "Resource/Image/Units/Icon/RX_93_Test.png",
+      "sha256": "2277885a4f76284f21e8bcfd91a801e6607b866e8a239f8e16de8df0b7dcaecd"
+    },
+    {
+      "unit": "AMS_119",
+      "source": "GW_BattleUniverse_DLC_0087\\Resource\\Image\\Units\\Icon\\RMS_108.png",
+      "target": "Resource/Image/Units/Icon/AMS_119.png",
+      "sha256": "2ca7362760ed8acfecf69c5728459c22eca178cc27eb45b85e3e301d2571bce2"
+    },
+    {
+      "unit": "AMS_119H",
+      "source": "GW_BattleUniverse_DLC_0087\\Resource\\Image\\Units\\Icon\\RMS_106CS.png",
+      "target": "Resource/Image/Units/Icon/AMS_119H.png",
+      "sha256": "da0ca31e6d8e262e0e2627929a36ea17f52a3e8d1baeae8573f2a6d211e69797"
+    },
+    {
+      "unit": "MSN_03",
+      "source": "GW_BattleUniverse_DLC_0087\\Resource\\Image\\Units\\Icon\\AMX_004_1.png",
+      "target": "Resource/Image/Units/Icon/MSN_03.png",
+      "sha256": "32f4233e21ece8c3936e5c35e8e5f1cc9783e57e16ee367badabf6a7c2c5d425"
+    },
+    {
+      "unit": "MSN_04",
+      "source": "GW_BattleUniverse_DLC_0087\\Resource\\Image\\Units\\Icon\\AMX_009.png",
+      "target": "Resource/Image/Units/Icon/MSN_04.png",
+      "sha256": "4fabdf48a855c337b5588616837b0440a6f6dcc9b63a28836b582e8c94a66aa7"
+    }
+  ],
+  "source_heavy_unit": "Units/BattleUnits/AMS-119/AMS-119_HWT.ini",
+  "hws_search": "No HWS-named unit exists in this local external-mod version; HWT is the matching Bruno-gun heavy loadout.",
+  "source_mod": "E:\\RustedWarfare_Reunion\\mods\\GundamWars_BattleOperation2_V5",
+  "created": [
+    "Units/BattleUnits/Weapon/Shell/NZN_AMS_119H_BrunoGun.gw",
+    "Units/BattleUnits/Weapon/Shell/Projectile/Projectile_NZN_AMS_119H_BrunoShell.ini",
+    "Units/BattleUnits/Weapon/Beam/NZN_AMS_119H_BR.gw",
+    "Units/BattleUnits/Weapon/Cqb/NZN_AMS_119H_BeamSaber_AF.gw",
+    "Units/BattleUnits/Weapon/Shell/NZN_AMS_119H_Panzerfaust.gw"
+  ],
+  "assets": [
+    {
+      "source": "Units/BattleUnits/Weapon/Shell/Image/NZN_BrunoGun.png",
+      "target": "Units/BattleUnits/Weapon/Shell/Image/NZN_AMS_119H_BrunoGun.png",
+      "sha256": "68ab4469a30ea5904b592268eeb517ee290708e1655aa247f061ec64abb7c937"
+    },
+    {
+      "source": "Units/BattleUnits/Weapon/Beam/Image/NZN_AMS_119_BR.png",
+      "target": "Units/BattleUnits/Weapon/Beam/Image/NZN_AMS_119H_BR.png",
+      "sha256": "4624b09a3479a266e57ce08136ead2590a8640847f7f2142e669e99ba59f298a"
+    }
+  ],
+  "reused_fx": [
+    "Resource/Image/Fx/Weapon/Shell/Common/Cannon_Fire_1.gw",
+    "Resource/Image/Fx/Common/Common_Flash_1.gw",
+    "Resource/Image/Fx/Weapon/Shell/Common/RocketTrailLine_1.gw",
+    "Resource/Image/Fx/Weapon/Shell/Common/Explosion_Hit_2.gw",
+    "Resource/Image/Bullet/Shell/RailShell_1.png"
+  ],
+  "test_no_funnels": true,
+  "test_research_production": "Still pending; no new tech/factory entry requested.",
+  "initial_stats": {
+    "RX_93_Test": "14a9cf29a68cd882016bebc98374774a8ff6a363c471f4700709e991f8bc3753",
+    "AMS_119H": "14a9cf29a68cd882016bebc98374774a8ff6a363c471f4700709e991f8bc3753"
+  },
+  "validation_pending": false,
+  "validation": {
+    "specialized_checks": 44,
+    "technology_production": 241,
+    "nu_sazabi": 38,
+    "jegan_geara_doga": 38,
+    "rgz91_weapons": 23,
+    "bws": 22,
+    "lint_files": 15,
+    "lint_errors": 0,
+    "lint_warnings": 53,
+    "engine_passed": true,
+    "engine_report": "0093_引擎加载_0093.json",
+    "gameplay_tested": false
+  }
+}

@@ -364,5 +364,27 @@
     ],
     "sea_serpent": "Projectile_NZN_AMS_119_SeaSerpent",
     "external_red_artwork": true
+  },
+  "sazabi_nu_port": {
+    "report": "0093_沙扎比牛高达移植.json",
+    "units": [
+      "MSN_04",
+      "RX_93"
+    ],
+    "funnels": [
+      "MSN_04_Funnel",
+      "RX_93_Funnel"
+    ],
+    "i_field_implemented": false
+  },
+  "placeholder_icons_test_heavy": {
+    "report": "0093_占位图标_Test与重装基拉多加.json",
+    "icons": 9,
+    "test_unit": "RX_93_Test",
+    "test_has_funnels": false,
+    "test_tech_factory_connected": false,
+    "heavy_unit": "AMS_119H",
+    "source_heavy_variant": "AMS-119_HWT",
+    "bruno_projectile": "Projectile_NZN_AMS_119H_BrunoShell"
   }
 }

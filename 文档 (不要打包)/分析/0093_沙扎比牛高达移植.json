@@ -1,0 +1,265 @@
+{
+  "source_mod": "E:\\RustedWarfare_Reunion\\mods\\GundamWars_BattleOperation2_V5",
+  "created": [
+    "Units/BattleUnits/Weapon/Beam/EF_RX_93_BR.gw",
+    "Units/BattleUnits/Weapon/Shell/EF_RX_93_BZ.gw",
+    "Units/BattleUnits/Weapon/Beam/EF_RX_93_ShieldBC.gw",
+    "Units/BattleUnits/Weapon/Shell/EF_RX_93_ShieldMS.gw",
+    "Units/BattleUnits/Weapon/Cqb/EF_RX_93_BeamSaber_BF.gw",
+    "Units/BattleUnits/Weapon/Beam/NZN_MSN_04_BSG.gw",
+    "Units/BattleUnits/Weapon/Beam/NZN_MSN_04_BR.gw",
+    "Units/BattleUnits/Weapon/Beam/NZN_MSN_04_HighBeamCannon.gw",
+    "Units/BattleUnits/Weapon/Cqb/NZN_MSN_04_BeamHawk_AF.gw",
+    "Units/BattleUnits/Weapon/Cqb/NZN_MSN_04_DoubleSaber.gw",
+    "Units/BattleUnits/Weapon/Shell/NZN_MSN_04_ShieldMS.gw",
+    "Units/BattleUnits/Weapon/Funnel/EF_RX_93_Funnel.gw",
+    "Units/BattleUnits/Weapon/Funnel/EF_RX_93_Funnel_BeamGun.gw",
+    "Units/BattleUnits/RX_93/RX_93_Funnel.ini",
+    "Units/BattleUnits/Weapon/Funnel/NZN_MSN_04_Funnel.gw",
+    "Units/BattleUnits/Weapon/Funnel/NZN_MSN_04_Funnel_BeamGun.gw",
+    "Units/BattleUnits/MSN_04/MSN_04_Funnel.ini"
+  ],
+  "assets": [
+    {
+      "source": "Units/BattleUnits/RX-93/Image/RX-93_ArmL_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_ArmL_1.png",
+      "sha256": "6a3ee2670514aaec47b1cddcabf7674c171704346e22e0993c6912e064502070"
+    },
+    {
+      "source": "Units/BattleUnits/RX-93/Image/RX-93_ArmR_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_ArmR_1.png",
+      "sha256": "a6bbad48cfbdb583bc00bb3666fd2b65ad0d36b71dcff49abde481935843c841"
+    },
+    {
+      "source": "Units/BattleUnits/RX-93/Image/RX-93_Body_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_Body_1.png",
+      "sha256": "c387bacf0452e180365acde6cf577b0997b575a8774fd58314d9dc6ec5b77498"
+    },
+    {
+      "source": "Units/BattleUnits/RX-93/Image/RX-93_Body_BeamSaberR_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_Body_BeamSaberR_1.png",
+      "sha256": "36fc5642815052feb9ab6eb874167e98d45c1cc2442fb7bf24cfc4d23702ac6c"
+    },
+    {
+      "source": "Units/BattleUnits/RX-93/Image/RX-93_Body_BZ_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_Body_BZ_1.png",
+      "sha256": "1b4f8f6bdf88d0f525319dff84fff394da7e58433d4f78a57ce631f8723a8e53"
+    },
+    {
+      "source": "Units/BattleUnits/RX-93/Image/RX-93_Body_FF_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_Body_FF_1.png",
+      "sha256": "0169f3266fcc169ee5bb5d2a7b9ed0aa414d3909301e77cd5379cdb94e431058"
+    },
+    {
+      "source": "Units/BattleUnits/RX-93/Image/RX-93_Crotch_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_Crotch_1.png",
+      "sha256": "9db7f3b04907a20b2d94003c0b4f7bb7ebfec4803b4cf57687194ca8300b2737"
+    },
+    {
+      "source": "Units/BattleUnits/RX-93/Image/RX-93_FFS_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_FFS_1.png",
+      "sha256": "fbc5dee8fb8d030606ab89599091489d891aedc2c7be715859e9301cf6421a11"
+    },
+    {
+      "source": "Units/BattleUnits/RX-93/Image/RX-93_FFS_2.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_FFS_2.png",
+      "sha256": "43b115b059390c6a05842f3622d309141f6ce863c546035383a2cb3a34c49204"
+    },
+    {
+      "source": "Units/BattleUnits/RX-93/Image/RX-93_FFS_3.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_FFS_3.png",
+      "sha256": "d7612b04865db3519e63829bba5644f745c41d4ce2934676bfdff649a23db84e"
+    },
+    {
+      "source": "Units/BattleUnits/RX-93/Image/RX-93_FootL_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_FootL_1.png",
+      "sha256": "bc4783d25d687af5f542f40131d7d18c471fb268c7a9eaa6a03e6c3f279e510e"
+    },
+    {
+      "source": "Units/BattleUnits/RX-93/Image/RX-93_FootR_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_FootR_1.png",
+      "sha256": "ccd6575c092c308ae02dc06eed743913db56979c29c16beb11a95e46bef848ff"
+    },
+    {
+      "source": "Units/BattleUnits/RX-93/Image/RX-93_Head_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_Head_1.png",
+      "sha256": "52007ab000de302b37a13378eb2374e77f42f5857dc07dbc47156dfe30546911"
+    },
+    {
+      "source": "Units/BattleUnits/RX-93/Image/RX-93_LegL_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_LegL_1.png",
+      "sha256": "bde4297223afefa86c90a4670f7686fd66a3640d5fdd425a56a67d6144aec96e"
+    },
+    {
+      "source": "Units/BattleUnits/RX-93/Image/RX-93_LegR_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_LegR_1.png",
+      "sha256": "5c38570fa51d1df0f11b1500a65b43562160f44835653da98f0c58c6278e4d2d"
+    },
+    {
+      "source": "Units/BattleUnits/RX-93/Image/RX-93_ShoulderL_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_ShoulderL_1.png",
+      "sha256": "76e392f21d29c193661e27a528568b834ef3fa9b1db3e89e6e5f92e16a6552fa"
+    },
+    {
+      "source": "Units/BattleUnits/RX-93/Image/RX-93_ShoulderR_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_ShoulderR_1.png",
+      "sha256": "51438884e0cfc7f69ee8021a54b548d60109acd6b1553b7a371c93195c754a17"
+    },
+    {
+      "source": "Units/BattleUnits/MSN-04/Image/MSN-04_ArmL_1.png",
+      "target": "Units/BattleUnits/MSN_04/Image/MSN_04_ArmL_1.png",
+      "sha256": "e6de2fb1be923247035d1507d3345a845f3fd360c4c288d7814a63df86a7492a"
+    },
+    {
+      "source": "Units/BattleUnits/MSN-04/Image/MSN-04_ArmR_1.png",
+      "target": "Units/BattleUnits/MSN_04/Image/MSN_04_ArmR_1.png",
+      "sha256": "dd9d48f05c5d80c96da43d1b60c86a39a8730814cda12458095952a888471008"
+    },
+    {
+      "source": "Units/BattleUnits/MSN-04/Image/MSN-04_Backpack_1.png",
+      "target": "Units/BattleUnits/MSN_04/Image/MSN_04_Backpack_1.png",
+      "sha256": "b91179cec087e0e2eee24c829eabd9acafedf620f175ea2bd6a49b478f3c35e3"
+    },
+    {
+      "source": "Units/BattleUnits/MSN-04/Image/MSN-04_Backpack_2.png",
+      "target": "Units/BattleUnits/MSN_04/Image/MSN_04_Backpack_2.png",
+      "sha256": "f221beee9e4b57a67ef96f78e4fa5418d39192aa05af174ba05f55f5b7b0039f"
+    },
+    {
+      "source": "Units/BattleUnits/MSN-04/Image/MSN-04_Body_1.png",
+      "target": "Units/BattleUnits/MSN_04/Image/MSN_04_Body_1.png",
+      "sha256": "75bee181a24778d406c79d7ede3318228c6fdb496f246895e8e64095a1b72efe"
+    },
+    {
+      "source": "Units/BattleUnits/MSN-04/Image/MSN-04_Crotch_1.png",
+      "target": "Units/BattleUnits/MSN_04/Image/MSN_04_Crotch_1.png",
+      "sha256": "428937ffe1c1dd3f58d3af80d74321d5e7a268ce36537ed64572155e7fd1e533"
+    },
+    {
+      "source": "Units/BattleUnits/MSN-04/Image/MSN-04_FootL_1.png",
+      "target": "Units/BattleUnits/MSN_04/Image/MSN_04_FootL_1.png",
+      "sha256": "f3a49af99fcc6746b4ab3bc6c7e4049bac7451c52b74002d1a9a314f41492024"
+    },
+    {
+      "source": "Units/BattleUnits/MSN-04/Image/MSN-04_FootR_1.png",
+      "target": "Units/BattleUnits/MSN_04/Image/MSN_04_FootR_1.png",
+      "sha256": "b2d7352b6a32b9cee4da1844f952c77319d15eb7cbc49f5c5d05010c703ba9ee"
+    },
+    {
+      "source": "Units/BattleUnits/MSN-04/Image/MSN-04_Head_1.png",
+      "target": "Units/BattleUnits/MSN_04/Image/MSN_04_Head_1.png",
+      "sha256": "c9ad766eedd8e633789dda2421ac2b0ec394573a5ec162cc1aeaaa68099f2e0f"
+    },
+    {
+      "source": "Units/BattleUnits/MSN-04/Image/MSN-04_LegL_1.png",
+      "target": "Units/BattleUnits/MSN_04/Image/MSN_04_LegL_1.png",
+      "sha256": "2da696ed3007421f7fef8b0d9ecc1f8f1f4281907d668fa6bbe8d5f1b0a87c75"
+    },
+    {
+      "source": "Units/BattleUnits/MSN-04/Image/MSN-04_LegR_1.png",
+      "target": "Units/BattleUnits/MSN_04/Image/MSN_04_LegR_1.png",
+      "sha256": "3f5bc36b39fb637d37d399521d59d8b51063939a617c9dce24818d191f43f779"
+    },
+    {
+      "source": "Units/BattleUnits/MSN-04/Image/MSN-04_ShoulderL_1.png",
+      "target": "Units/BattleUnits/MSN_04/Image/MSN_04_ShoulderL_1.png",
+      "sha256": "887e6f6901b2f62f2b4624397c16298fb281be9ad423d30b8871cbb10222eca1"
+    },
+    {
+      "source": "Units/BattleUnits/MSN-04/Image/MSN-04_ShoulderR_1.png",
+      "target": "Units/BattleUnits/MSN_04/Image/MSN_04_ShoulderR_1.png",
+      "sha256": "3caa49ce24cd1d05c24615888e19cb84e6658e38bf2d953132fc0991b457c808"
+    },
+    {
+      "source": "Units/BattleUnits/Weapon/Beam/Image/EF_RX_93_BR.png",
+      "target": "Units/BattleUnits/Weapon/Beam/Image/EF_RX_93_BR.png",
+      "sha256": "d086c61a5a3ad41099b657903b6e3028a4260106686dd7c3e67888a4874eee85"
+    },
+    {
+      "source": "Units/BattleUnits/Weapon/Shell/Image/EF_RX_93_BZ.png",
+      "target": "Units/BattleUnits/Weapon/Shell/Image/EF_RX_93_BZ.png",
+      "sha256": "fa64ff9e8055ca5308301aa2b6c7bceaf2de8ff39f1e6bc732368f39e93176ef"
+    },
+    {
+      "source": "Units/BattleUnits/Weapon/Cqb/Image/EF_RX_93_BeamSaber.png",
+      "target": "Units/BattleUnits/Weapon/Cqb/Image/EF_RX_93_BeamSaber.png",
+      "sha256": "1b1e3da84ee71ab1abfde331c34d62aa15d9b0bb87fca602a5535339912bdb35"
+    },
+    {
+      "source": "Units/BattleUnits/Weapon/Beam/Image/NZN_MSN_04_BR.png",
+      "target": "Units/BattleUnits/Weapon/Beam/Image/NZN_MSN_04_BR.png",
+      "sha256": "d9f7e7c719200f78447b154a286426bcf8c6ca419151ebce33cac9de5f409a2b"
+    },
+    {
+      "source": "Units/BattleUnits/Weapon/Cqb/Image/NZN_MSN_04_BeamHawk.png",
+      "target": "Units/BattleUnits/Weapon/Cqb/Image/NZN_MSN_04_BeamHawk.png",
+      "sha256": "c6d28c49b99e90220faaa294ff9cceb1c153a773869d5fbb6ed13fe323a8ad4e"
+    },
+    {
+      "source": "Units/BattleUnits/Weapon/Cqb/Image/NZN_MSN_04_Saber.png",
+      "target": "Units/BattleUnits/Weapon/Cqb/Image/NZN_MSN_04_Saber.png",
+      "sha256": "ded4be15e8b8462ee2b6bc9b45157fb10146805ffaa3c905085b02bd719fe7dd"
+    },
+    {
+      "source": "Units/BattleUnits/Weapon/Funnel/Image/Funnel_RX_93_1.png",
+      "target": "Units/BattleUnits/Weapon/Funnel/Image/Funnel_RX_93_1.png",
+      "sha256": "4dfa40fa41d9a505a934d43c0d8f7f6be315ed4421f4bc86238f11f2d8213f7e"
+    },
+    {
+      "source": "Units/BattleUnits/Weapon/Funnel/Image/Funnel_RX_93_2.png",
+      "target": "Units/BattleUnits/Weapon/Funnel/Image/Funnel_RX_93_2.png",
+      "sha256": "64671583ea93bc755d55e04d7e477af2f438843b68c67b0ff3f816c19ad3b325"
+    },
+    {
+      "source": "Units/BattleUnits/Weapon/Funnel/Image/Funnel_MSN_04.png",
+      "target": "Units/BattleUnits/Weapon/Funnel/Image/Funnel_MSN_04.png",
+      "sha256": "7d499907c8963b4b027f364c4659fb5a61b2dcad072388426e72f9d5907ef00f"
+    },
+    {
+      "source": "Units/BattleUnits/Shield/EF_RX-93_Shield_B.png",
+      "target": "Units/BattleUnits/Shield/EF_RX_93_Shield_B.png",
+      "sha256": "0101a1d83715fa74baa0db5d52f1cfb18e51a6984e66312602b4101cb5fc5e19"
+    },
+    {
+      "source": "Units/BattleUnits/Shield/EF_RX-93_Shield_B_Breaked.png",
+      "target": "Units/BattleUnits/Shield/EF_RX_93_Shield_B_Breaked.png",
+      "sha256": "f93cc3d43db15babbcf6f9ed7508467cab04f29c4eab0e1cbb0714a3b9939b0d"
+    },
+    {
+      "source": "Units/BattleUnits/Shield/NZN_MSN-04_Shield_B.png",
+      "target": "Units/BattleUnits/Shield/NZN_MSN_04_Shield_B.png",
+      "sha256": "79c34e9ff0a1643af19677bc72393cfa9b6d72b1ac74175f35aa79e2ec0a4969"
+    },
+    {
+      "source": "Units/BattleUnits/Shield/NZN_MSN-04_Shield_B_Breaked.png",
+      "target": "Units/BattleUnits/Shield/NZN_MSN_04_Shield_B_Breaked.png",
+      "sha256": "0127cb2b743baf2bf3c39cea216362f15dfab5a55280b25ddf3ead890bbbcdc0"
+    }
+  ],
+  "i_field_implemented": false,
+  "ordinary_funnels_per_launch": 6,
+  "temporary_pilot_gate": 0,
+  "validation_pending": false,
+  "unit_wiring_complete": true,
+  "initial_stats_sha256": {
+    "RX_93": "14a9cf29a68cd882016bebc98374774a8ff6a363c471f4700709e991f8bc3753",
+    "MSN_04": "14a9cf29a68cd882016bebc98374774a8ff6a363c471f4700709e991f8bc3753"
+  },
+  "random_rules": {
+    "RX_93": "BR >35, bazooka (15,35], shield cannon (5,15], shield missile <=5; saber <=60",
+    "MSN_04": "primary >35 (shotgun <=300, rifle >300), torso cannon (15,35], shield missile <=15; close range axe >25, dual sabers <=25"
+  },
+  "validation": {
+    "new_checks": 38,
+    "jegan_geara_doga": 38,
+    "rgz91_weapons": 23,
+    "bws": 22,
+    "technology_production": 241,
+    "lint_files": 19,
+    "lint_errors": 0,
+    "lint_warnings": 127,
+    "engine_report": "0093_引擎加载_0093.json",
+    "gameplay_tested": false
+  },
+  "nu_bazooka_stow": "Body_BZ is the only stored bazooka decal (nowWeaponIndex!=2); handheld decal uses index2. Removed weapon NotUsing rear mount."
+}

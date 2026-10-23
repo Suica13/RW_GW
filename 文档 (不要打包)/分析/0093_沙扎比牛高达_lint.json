@@ -1,0 +1,1307 @@
+[
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\EF_RX_93_BR.gw",
+    "files": 1,
+    "errors": 0,
+    "warnings": 7,
+    "elapsed_ms": 48,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\EF_RX_93_BR.gw",
+        "line": 108,
+        "message": "`${onAttacking}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\EF_RX_93_BR.gw",
+        "line": 108,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\EF_RX_93_BR.gw",
+        "line": 114,
+        "message": "`alsoTriggerAction: \"\"\"` 指向的动作节找不到"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\EF_RX_93_BR.gw",
+        "line": 141,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\EF_RX_93_BR.gw",
+        "line": 149,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\EF_RX_93_BR.gw",
+        "line": 159,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\EF_RX_93_BR.gw",
+        "line": 169,
+        "message": "`alsoTriggerAction: SetAttackingOff` 指向的动作节找不到"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\EF_RX_93_BZ.gw",
+    "files": 1,
+    "errors": 0,
+    "warnings": 7,
+    "elapsed_ms": 46,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\EF_RX_93_BZ.gw",
+        "line": 114,
+        "message": "`${onAttacking}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\EF_RX_93_BZ.gw",
+        "line": 114,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\EF_RX_93_BZ.gw",
+        "line": 114,
+        "message": "`${onSkill}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\EF_RX_93_BZ.gw",
+        "line": 120,
+        "message": "`alsoTriggerAction: \"\"\"` 指向的动作节找不到"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\EF_RX_93_BZ.gw",
+        "line": 146,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\EF_RX_93_BZ.gw",
+        "line": 154,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\EF_RX_93_BZ.gw",
+        "line": 164,
+        "message": "`alsoTriggerAction: SetAttackingOff` 指向的动作节找不到"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\EF_RX_93_ShieldBC.gw",
+    "files": 1,
+    "errors": 0,
+    "warnings": 8,
+    "elapsed_ms": 58,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\EF_RX_93_ShieldBC.gw",
+        "line": 82,
+        "message": "`${onAttacking}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\EF_RX_93_ShieldBC.gw",
+        "line": 82,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\EF_RX_93_ShieldBC.gw",
+        "line": 82,
+        "message": "`${onSkill}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\EF_RX_93_ShieldBC.gw",
+        "line": 88,
+        "message": "`alsoTriggerAction: \"\"\"` 指向的动作节找不到"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\EF_RX_93_ShieldBC.gw",
+        "line": 110,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\EF_RX_93_ShieldBC.gw",
+        "line": 118,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\EF_RX_93_ShieldBC.gw",
+        "line": 128,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\EF_RX_93_ShieldBC.gw",
+        "line": 138,
+        "message": "`alsoTriggerAction: SetAttackingOff` 指向的动作节找不到"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\EF_RX_93_ShieldMS.gw",
+    "files": 1,
+    "errors": 0,
+    "warnings": 8,
+    "elapsed_ms": 48,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\EF_RX_93_ShieldMS.gw",
+        "line": 80,
+        "message": "`${onAttacking}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\EF_RX_93_ShieldMS.gw",
+        "line": 80,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\EF_RX_93_ShieldMS.gw",
+        "line": 80,
+        "message": "`${onSkill}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\EF_RX_93_ShieldMS.gw",
+        "line": 87,
+        "message": "`alsoTriggerAction: \"\"\"` 指向的动作节找不到"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\EF_RX_93_ShieldMS.gw",
+        "line": 113,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\EF_RX_93_ShieldMS.gw",
+        "line": 121,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\EF_RX_93_ShieldMS.gw",
+        "line": 126,
+        "message": "`alsoTriggerAction: PlayCommon_Shoot_A_L_Step_1` 指向的动作节找不到"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\EF_RX_93_ShieldMS.gw",
+        "line": 138,
+        "message": "`alsoTriggerAction: SetAttackingOff` 指向的动作节找不到"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\EF_RX_93_BeamSaber_BF.gw",
+    "files": 1,
+    "errors": 0,
+    "warnings": 10,
+    "elapsed_ms": 47,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\EF_RX_93_BeamSaber_BF.gw",
+        "line": 140,
+        "message": "`${onAttacking}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\EF_RX_93_BeamSaber_BF.gw",
+        "line": 140,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\EF_RX_93_BeamSaber_BF.gw",
+        "line": 145,
+        "message": "`alsoTriggerAction: \"\"\"` 指向的动作节找不到"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\EF_RX_93_BeamSaber_BF.gw",
+        "line": 179,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\EF_RX_93_BeamSaber_BF.gw",
+        "line": 187,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\EF_RX_93_BeamSaber_BF.gw",
+        "line": 198,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\EF_RX_93_BeamSaber_BF.gw",
+        "line": 201,
+        "message": "`alsoTriggerAction: PlayCommon_Melee_F_Step_1` 指向的动作节找不到"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\EF_RX_93_BeamSaber_BF.gw",
+        "line": 207,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\EF_RX_93_BeamSaber_BF.gw",
+        "line": 215,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\EF_RX_93_BeamSaber_BF.gw",
+        "line": 227,
+        "message": "`alsoTriggerAction: SetAttackingOff` 指向的动作节找不到"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_MSN_04_BSG.gw",
+    "files": 1,
+    "errors": 0,
+    "warnings": 6,
+    "elapsed_ms": 54,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_MSN_04_BSG.gw",
+        "line": 80,
+        "message": "`${onAttacking}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_MSN_04_BSG.gw",
+        "line": 80,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_MSN_04_BSG.gw",
+        "line": 86,
+        "message": "`alsoTriggerAction: \"\"\"` 指向的动作节找不到"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_MSN_04_BSG.gw",
+        "line": 112,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_MSN_04_BSG.gw",
+        "line": 120,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_MSN_04_BSG.gw",
+        "line": 130,
+        "message": "`alsoTriggerAction: SetAttackingOff` 指向的动作节找不到"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_MSN_04_BR.gw",
+    "files": 1,
+    "errors": 0,
+    "warnings": 7,
+    "elapsed_ms": 58,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_MSN_04_BR.gw",
+        "line": 108,
+        "message": "`${onAttacking}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_MSN_04_BR.gw",
+        "line": 108,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_MSN_04_BR.gw",
+        "line": 114,
+        "message": "`alsoTriggerAction: \"\"\"` 指向的动作节找不到"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_MSN_04_BR.gw",
+        "line": 141,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_MSN_04_BR.gw",
+        "line": 149,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_MSN_04_BR.gw",
+        "line": 159,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_MSN_04_BR.gw",
+        "line": 169,
+        "message": "`alsoTriggerAction: SetAttackingOff` 指向的动作节找不到"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_MSN_04_HighBeamCannon.gw",
+    "files": 1,
+    "errors": 0,
+    "warnings": 8,
+    "elapsed_ms": 49,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_MSN_04_HighBeamCannon.gw",
+        "line": 83,
+        "message": "`${onAttacking}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_MSN_04_HighBeamCannon.gw",
+        "line": 83,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_MSN_04_HighBeamCannon.gw",
+        "line": 89,
+        "message": "`alsoTriggerAction: \"\"\"` 指向的动作节找不到"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_MSN_04_HighBeamCannon.gw",
+        "line": 115,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_MSN_04_HighBeamCannon.gw",
+        "line": 118,
+        "message": "`alsoTriggerAction: PlayCommon_Cannon_Shoot_A_Step_1` 指向的动作节找不到"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_MSN_04_HighBeamCannon.gw",
+        "line": 125,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_MSN_04_HighBeamCannon.gw",
+        "line": 134,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\NZN_MSN_04_HighBeamCannon.gw",
+        "line": 146,
+        "message": "`alsoTriggerAction: SetAttackingOff` 指向的动作节找不到"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_MSN_04_BeamHawk_AF.gw",
+    "files": 1,
+    "errors": 0,
+    "warnings": 10,
+    "elapsed_ms": 51,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_MSN_04_BeamHawk_AF.gw",
+        "line": 137,
+        "message": "`${onAttacking}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_MSN_04_BeamHawk_AF.gw",
+        "line": 137,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_MSN_04_BeamHawk_AF.gw",
+        "line": 142,
+        "message": "`alsoTriggerAction: \"\"\"` 指向的动作节找不到"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_MSN_04_BeamHawk_AF.gw",
+        "line": 171,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_MSN_04_BeamHawk_AF.gw",
+        "line": 179,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_MSN_04_BeamHawk_AF.gw",
+        "line": 190,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_MSN_04_BeamHawk_AF.gw",
+        "line": 193,
+        "message": "`alsoTriggerAction: PlayCommon_Melee_F_Step_1` 指向的动作节找不到"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_MSN_04_BeamHawk_AF.gw",
+        "line": 199,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_MSN_04_BeamHawk_AF.gw",
+        "line": 207,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_MSN_04_BeamHawk_AF.gw",
+        "line": 219,
+        "message": "`alsoTriggerAction: SetAttackingOff` 指向的动作节找不到"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_MSN_04_DoubleSaber.gw",
+    "files": 1,
+    "errors": 0,
+    "warnings": 10,
+    "elapsed_ms": 47,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_MSN_04_DoubleSaber.gw",
+        "line": 222,
+        "message": "`${onAttacking}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_MSN_04_DoubleSaber.gw",
+        "line": 222,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_MSN_04_DoubleSaber.gw",
+        "line": 227,
+        "message": "`alsoTriggerAction: \"\"\"` 指向的动作节找不到"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_MSN_04_DoubleSaber.gw",
+        "line": 266,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_MSN_04_DoubleSaber.gw",
+        "line": 272,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_MSN_04_DoubleSaber.gw",
+        "line": 281,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_MSN_04_DoubleSaber.gw",
+        "line": 292,
+        "message": "`alsoTriggerAction: PlayCommon_Melee_Double_F_Step_1` 指向的动作节找不到"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_MSN_04_DoubleSaber.gw",
+        "line": 302,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_MSN_04_DoubleSaber.gw",
+        "line": 312,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Cqb\\NZN_MSN_04_DoubleSaber.gw",
+        "line": 323,
+        "message": "`alsoTriggerAction: SetAttackingOff` 指向的动作节找不到"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\NZN_MSN_04_ShieldMS.gw",
+    "files": 1,
+    "errors": 0,
+    "warnings": 8,
+    "elapsed_ms": 55,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\NZN_MSN_04_ShieldMS.gw",
+        "line": 80,
+        "message": "`${onAttacking}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\NZN_MSN_04_ShieldMS.gw",
+        "line": 80,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\NZN_MSN_04_ShieldMS.gw",
+        "line": 80,
+        "message": "`${onSkill}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\NZN_MSN_04_ShieldMS.gw",
+        "line": 87,
+        "message": "`alsoTriggerAction: \"\"\"` 指向的动作节找不到"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\NZN_MSN_04_ShieldMS.gw",
+        "line": 113,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\NZN_MSN_04_ShieldMS.gw",
+        "line": 121,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\NZN_MSN_04_ShieldMS.gw",
+        "line": 126,
+        "message": "`alsoTriggerAction: PlayCommon_Shoot_A_L_Step_1` 指向的动作节找不到"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Shell\\NZN_MSN_04_ShieldMS.gw",
+        "line": 138,
+        "message": "`alsoTriggerAction: SetAttackingOff` 指向的动作节找不到"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\EF_RX_93_Funnel.gw",
+    "files": 1,
+    "errors": 0,
+    "warnings": 14,
+    "elapsed_ms": 58,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\EF_RX_93_Funnel.gw",
+        "line": 64,
+        "message": "`${allowAI}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\EF_RX_93_Funnel.gw",
+        "line": 65,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\EF_RX_93_Funnel.gw",
+        "line": 66,
+        "message": "`${onSkill}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\EF_RX_93_Funnel.gw",
+        "line": 99,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\EF_RX_93_Funnel.gw",
+        "line": 100,
+        "message": "`${onSkill}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\EF_RX_93_Funnel.gw",
+        "line": 122,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\EF_RX_93_Funnel.gw",
+        "line": 122,
+        "message": "`${onSkill}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\EF_RX_93_Funnel.gw",
+        "line": 122,
+        "message": "`${allowAI}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\EF_RX_93_Funnel.gw",
+        "line": 128,
+        "message": "`alsoTriggerAction: \"\"\"` 指向的动作节找不到"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\EF_RX_93_Funnel.gw",
+        "line": 135,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\EF_RX_93_Funnel.gw",
+        "line": 135,
+        "message": "`${onSkill}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\EF_RX_93_Funnel.gw",
+        "line": 161,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\EF_RX_93_Funnel.gw",
+        "line": 171,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\EF_RX_93_Funnel.gw",
+        "line": 181,
+        "message": "`alsoTriggerAction: \"\"\"` 指向的动作节找不到"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\EF_RX_93_Funnel_BeamGun.gw",
+    "files": 1,
+    "errors": 0,
+    "warnings": 3,
+    "elapsed_ms": 46,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\EF_RX_93_Funnel_BeamGun.gw",
+        "line": 78,
+        "message": "`alsoTriggerAction: \"\"\"` 指向的动作节找不到"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\EF_RX_93_Funnel_BeamGun.gw",
+        "line": 89,
+        "message": "`alsoTriggerAction: \"\"\"` 指向的动作节找不到"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\EF_RX_93_Funnel_BeamGun.gw",
+        "line": 119,
+        "message": "`alsoTriggerAction: \"\"\"` 指向的动作节找不到"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RX_93\\RX_93_Funnel.ini",
+    "files": 1,
+    "errors": 0,
+    "warnings": 0,
+    "elapsed_ms": 51,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": []
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\NZN_MSN_04_Funnel.gw",
+    "files": 1,
+    "errors": 0,
+    "warnings": 14,
+    "elapsed_ms": 56,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\NZN_MSN_04_Funnel.gw",
+        "line": 64,
+        "message": "`${allowAI}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\NZN_MSN_04_Funnel.gw",
+        "line": 65,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\NZN_MSN_04_Funnel.gw",
+        "line": 66,
+        "message": "`${onSkill}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\NZN_MSN_04_Funnel.gw",
+        "line": 99,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\NZN_MSN_04_Funnel.gw",
+        "line": 100,
+        "message": "`${onSkill}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\NZN_MSN_04_Funnel.gw",
+        "line": 122,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\NZN_MSN_04_Funnel.gw",
+        "line": 122,
+        "message": "`${onSkill}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\NZN_MSN_04_Funnel.gw",
+        "line": 122,
+        "message": "`${allowAI}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\NZN_MSN_04_Funnel.gw",
+        "line": 128,
+        "message": "`alsoTriggerAction: \"\"\"` 指向的动作节找不到"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\NZN_MSN_04_Funnel.gw",
+        "line": 135,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\NZN_MSN_04_Funnel.gw",
+        "line": 135,
+        "message": "`${onSkill}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\NZN_MSN_04_Funnel.gw",
+        "line": 161,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "09",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\NZN_MSN_04_Funnel.gw",
+        "line": 171,
+        "message": "`${cantAction}` 在本次扫描范围内没找到 @global / @define 声明（若确实没定义，游戏里会静默变成空值）"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\NZN_MSN_04_Funnel.gw",
+        "line": 181,
+        "message": "`alsoTriggerAction: \"\"\"` 指向的动作节找不到"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\NZN_MSN_04_Funnel_BeamGun.gw",
+    "files": 1,
+    "errors": 0,
+    "warnings": 3,
+    "elapsed_ms": 44,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\NZN_MSN_04_Funnel_BeamGun.gw",
+        "line": 78,
+        "message": "`alsoTriggerAction: \"\"\"` 指向的动作节找不到"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\NZN_MSN_04_Funnel_BeamGun.gw",
+        "line": 89,
+        "message": "`alsoTriggerAction: \"\"\"` 指向的动作节找不到"
+      },
+      {
+        "level": "warning",
+        "code": "05",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Funnel\\NZN_MSN_04_Funnel_BeamGun.gw",
+        "line": 119,
+        "message": "`alsoTriggerAction: \"\"\"` 指向的动作节找不到"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\MSN_04\\MSN_04_Funnel.ini",
+    "files": 1,
+    "errors": 0,
+    "warnings": 0,
+    "elapsed_ms": 47,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": []
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RX_93\\RX_93.ini",
+    "files": 1,
+    "errors": 0,
+    "warnings": 2,
+    "elapsed_ms": 46,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "06",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RX_93\\RX_93.ini",
+        "line": 117,
+        "message": "节 `[hiddenAction_Set_Get_PlayStartEffect]` 里没有任何键"
+      },
+      {
+        "level": "warning",
+        "code": "06",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RX_93\\RX_93.ini",
+        "line": 122,
+        "message": "节 `[hiddenAction_Set_Get_PlayCloseEffect]` 里没有任何键"
+      }
+    ]
+  },
+  {
+    "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\MSN_04\\MSN_04.ini",
+    "files": 1,
+    "errors": 0,
+    "warnings": 2,
+    "elapsed_ms": 53,
+    "cache": {
+      "enabled": false,
+      "hits": 0,
+      "misses": 0,
+      "reused_files": 0,
+      "skipped": 0,
+      "cached_entries": 0,
+      "parse": {
+        "hits": 0,
+        "misses": 1,
+        "size": 1
+      }
+    },
+    "issues": [
+      {
+        "level": "warning",
+        "code": "06",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\MSN_04\\MSN_04.ini",
+        "line": 117,
+        "message": "节 `[hiddenAction_Set_Get_PlayStartEffect]` 里没有任何键"
+      },
+      {
+        "level": "warning",
+        "code": "06",
+        "file": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\MSN_04\\MSN_04.ini",
+        "line": 122,
+        "message": "节 `[hiddenAction_Set_Get_PlayCloseEffect]` 里没有任何键"
+      }
+    ]
+  }
+]

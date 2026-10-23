@@ -1,0 +1,201 @@
+[core]
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_A.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_A_L.gw
+"""
+dont_load:false
+@memory NZN_AMS_119H_Panzerfaust_CDTimer:float
+@global NZN_AMS_119H_Panzerfaust_CD=12
+@global NZN_AMS_119H_Panzerfaust_EN=40
+
+
+
+[decal_NZN_AMS_119H_Panzerfaust]
+layer:beforeBody
+order:4.5
+onlyWhileAlive:true
+image:ROOT:\Units\BattleUnits\Weapon\Shell\Image\ZN_Panzerfaust.png
+isVisible:false
+basePositionFromLegEnd:arm3
+imageScale:1
+xOffsetRelative: -2.5
+yOffsetRelative: 12
+dirOffset:0
+
+
+
+[decal_NZN_AMS_119H_Panzerfaust_Used]
+@copyFromSection:decal_NZN_AMS_119H_Panzerfaust
+image:ROOT:Units/BattleUnits/Weapon/Shell/Image/ZN_Panzerfaust_B.png
+
+
+
+[decal_NZN_AMS_119H_Panzerfaust_NotUsing]
+@copyFromSection:decal_NZN_AMS_119H_Panzerfaust
+order:4
+basePositionFromLegEnd:arm1
+imageScale:0.85
+xOffsetRelative:-8
+yOffsetRelative:0
+dirOffset:0
+
+
+
+[effect_NZN_AMS_119H_Panzerfaust_Drop]
+attachedToUnit:false
+image:ROOT:Units/BattleUnits/Weapon/Shell/Image/ZN_Panzerfaust_B.png
+life:60
+physics:false
+physicsGravity:0
+priority:high
+liveAfterAttachedDies:true
+dirOffsetRandom:180
+drawUnderUnits:true
+color:#bda89d
+alpha:1
+yOffsetRelative:-5
+xOffsetRelative:15
+xSpeedRelative:-2
+dirSpeedRandom:15
+scaleFrom:1.0
+scaleTo:0.75
+createWhenOverLiquid:false
+
+
+
+[turret_NZN_AMS_119H_Panzerfaust]
+x:0
+y:0
+canShoot:false
+projectile:NZN_AMS_119H_Panzerfaust_Projectile
+delay:0.3s
+canAttackMaxAngle:15
+barrelX:-11
+barrelY:12
+limitingRange:0
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\Bazooka_1.ogg
+shoot_sound_vol:0.4
+shoot_flame:BZ_Fire_1
+
+
+
+[projectile_NZN_AMS_119H_Panzerfaust_Projectile]
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+spawnUnit:"""
+Projectile_ZN_Panzerfaust_Black*1
+(
+    addResources=
+    ShellDamage:4500
+    |ShellAPDamage:2250
+    |DpDamage:650
+    |WeaponAccuracy=75
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1.5
+    |HeightChangeSpeed=2
+    |HeightHitRange=20
+    |ProjectileSpeed:55
+    |ProjectileSpread:1
+    |ProjectileExplosionRange:30
+    |ProjectileLife:35
+)
+"""
+
+
+
+[hiddenAction_NZN_AMS_119H_Panzerfaust_Trigger]
+alsoTriggerAction:NZN_AMS_119H_Panzerfaust_Fire
+
+
+
+[hiddenAction_NZN_AMS_119H_Panzerfaust_Fire]
+requireConditional:"""
+if self.timeAlive>memory.NZN_AMS_119H_Panzerfaust_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armLBreaked==false and self.shield>0  and ${onSkill}==false 
+and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15) 
+and self.resource.EN>0
+"""
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+NZN_AMS_119H_Panzerfaust_SetWeaponIndex,
+PlayCommon_Shoot_A_L_Step_1,
+NZN_AMS_119H_Panzerfaust_B1_Step_1
+"""
+
+
+
+[hiddenAction_NZN_AMS_119H_Panzerfaust_B1_Step_1]
+alsoQueueAction:"""
+NZN_AMS_119H_Panzerfaust_Fire_Step_1,
+NZN_AMS_119H_Panzerfaust_Fire_Step_2,
+NZN_AMS_119H_Panzerfaust_Fire_Step_3,
+NZN_AMS_119H_Panzerfaust_SetWeaponIndex_Step2,
+NZN_AMS_119H_Panzerfaust_Fire_Step_Final
+"""
+
+
+
+[hiddenAction_NZN_AMS_119H_Panzerfaust_SetWeaponIndex]
+isVisible:false
+
+
+
+[hiddenAction_NZN_AMS_119H_Panzerfaust_SetWeaponIndex_Step2]
+isVisible:false
+
+
+
+[hiddenAction_NZN_AMS_119H_Panzerfaust_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false and memory.armLBreaked==false and self.shield>0 
+"""
+buildSpeed:0.25s
+setUnitMemory:NZN_AMS_119H_Panzerfaust_CDTimer=self.timeAlive+${NZN_AMS_119H_Panzerfaust_CD}
+addResources:EN=-${NZN_AMS_119H_Panzerfaust_EN}
+
+
+
+[hiddenAction_NZN_AMS_119H_Panzerfaust_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false and memory.armLBreaked==false and self.shield>0 
+"""
+buildSpeed:0s
+fireTurretXAtGround:NZN_AMS_119H_Panzerfaust
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+spawnEffects:NZN_AMS_119H_Panzerfaust_Drop
+
+
+
+[hiddenAction_NZN_AMS_119H_Panzerfaust_Fire_Step_Final]
+buildSpeed:0.25s
+alsoTriggerAction:"""
+SetAttackingOff
+"""
+
+[hiddenAction_NZN_AMS_119H_Panzerfaust_Fire_Step_3]
+@copyFromSection:hiddenAction_NZN_AMS_119H_Panzerfaust_Fire_Step_2
+buildSpeed:0.2s
+
+
+
