@@ -1,0 +1,167 @@
+{
+  "source_mod": "E:\\RustedWarfare_Reunion\\mods\\GundamWars_BattleOperation2_V5",
+  "weapons_created": [
+    "Beam/EF_RGM_89_BR.gw",
+    "Shell/EF_RGM_89_BZ.gw",
+    "Shell/EF_RGM_89_ShieldMS.gw",
+    "Shell/EF_RGM_89_CrotchGL_L.gw",
+    "Shell/EF_RGM_89_Decoy.gw",
+    "Shell/Projectile/Projectile_Decoy_RGM_89.ini",
+    "Cqb/EF_RGM_89_BeamSaber_AF.gw",
+    "Beam/NZN_AMS_119_BR_WGL.gw",
+    "Shell/NZN_AMS_119_BR_GL.gw",
+    "Cqb/NZN_AMS_119_BeamHawk_AF.gw",
+    "Cqb/NZN_AMS_119_SeaSerpent.gw",
+    "Cqb/Projectile/Projectile_NZN_AMS_119_SeaSerpent.ini",
+    "Shell/NZN_AMS_119_Panzerfaust.gw"
+  ],
+  "artwork": [
+    {
+      "source": "Units/BattleUnits/Weapon/Beam/Image/EF_RGM_89_BR_0.png",
+      "target": "Units/BattleUnits/Weapon/Beam/Image/EF_RGM_89_BR_0.png",
+      "sha256": "d2ac3a5cd42ac26a9bfc99594b5cabae4086e62ccd12f0901324c18d38bfce7f"
+    },
+    {
+      "source": "Units/BattleUnits/Weapon/Shell/Image/EF_RGM_89_BZ_0.png",
+      "target": "Units/BattleUnits/Weapon/Shell/Image/EF_RGM_89_BZ_0.png",
+      "sha256": "3d034c9d513db0cf67a89fdfaa966a4ee4b994e0fcf3f223f78b20e187e33e4e"
+    },
+    {
+      "source": "Units/BattleUnits/Weapon/Beam/Image/NZN_AMS_119_BR_WGL.png",
+      "target": "Units/BattleUnits/Weapon/Beam/Image/NZN_AMS_119_BR_WGL.png",
+      "sha256": "19547408720fe79dfab8c5566bcc4f742f82f63225565f755d11ea0265c2c611"
+    },
+    {
+      "source": "Units/BattleUnits/Weapon/Cqb/Image/NZN_BeamHawk.png",
+      "target": "Units/BattleUnits/Weapon/Cqb/Image/NZN_AMS_119_BeamHawk.png",
+      "sha256": "f51413c77a8829d4adbbd3ecf818ee76e0046d753848aa83f5e71e1af1925980"
+    },
+    {
+      "source": "Resource/Image/Bullet/Sp/SeaSerpent_1.png",
+      "target": "Resource/Image/Bullet/Sp/NZN_AMS_119_SeaSerpent_Red.png",
+      "sha256": "7dcff16628f85d6ccd7f04d3d17b9d799bd25f3cc3538be3045ae69d7e65c6ff"
+    },
+    {
+      "source": "Resource/Image/Bullet/Sp/EF_Decoy_RGM_89.png",
+      "target": "Resource/Image/Bullet/Sp/EF_Decoy_RGM_89.png",
+      "sha256": "1f791a47fabde036ca736fc9066bef9aba427bb5a265c245214e73e730f998f5"
+    },
+    {
+      "source": "Units/BattleUnits/Shield/EF_RGM-89_Shield_B.png",
+      "target": "Units/BattleUnits/Shield/EF_RGM_89_Shield_B.png",
+      "sha256": "69746ab6858e6b0dbccc2731c721d07bd48544b72500066c13b31f0c70fa3667"
+    },
+    {
+      "source": "Units/BattleUnits/Shield/EF_RGM-89_Shield_B_Breaked.png",
+      "target": "Units/BattleUnits/Shield/EF_RGM_89_Shield_B_Breaked.png",
+      "sha256": "a8dddd84d8af6967af570519fa4c357d7d187dc99e762d58c8232c84ad6865a6"
+    },
+    {
+      "source": "Units/BattleUnits/Shield/NZN_AMS_119_Shield_B_1.png",
+      "target": "Units/BattleUnits/Shield/NZN_AMS_119_Shield_B_1.png",
+      "sha256": "265137d40a23b0eec592f2f98f0870cae7a8145a9900db55e1831f492cd41d3f"
+    },
+    {
+      "source": "Units/BattleUnits/Shield/NZN_AMS_119_Shield_B_0.png",
+      "target": "Units/BattleUnits/Shield/NZN_AMS_119_Shield_B_0.png",
+      "sha256": "cf3dbd03a8de359fa8a9c4263748774dc2db4166065d41ea2d91cf77390f568c"
+    },
+    {
+      "source": "Units/BattleUnits/AMS-119/Image/AMS-119_ArmL_1.png",
+      "target": "Units/BattleUnits/AMS_119/Image/AMS_119_ArmL_1.png",
+      "sha256": "b133cb1e40eaf9f4700bbd135de86d4d0246052aa35791ae176abaedaa2388e9"
+    },
+    {
+      "source": "Units/BattleUnits/AMS-119/Image/AMS-119_ArmR_1.png",
+      "target": "Units/BattleUnits/AMS_119/Image/AMS_119_ArmR_1.png",
+      "sha256": "ef7267bc34ef833cd6fd02bad59037fe19178a98011e716c4be4dfa193ba3164"
+    },
+    {
+      "source": "Units/BattleUnits/AMS-119/Image/AMS-119_Body_1.png",
+      "target": "Units/BattleUnits/AMS_119/Image/AMS_119_Body_1.png",
+      "sha256": "329712381ab96119729b326577bcf095caafa905cabed64bf34e7bb28cbea840"
+    },
+    {
+      "source": "Units/BattleUnits/AMS-119/Image/AMS-119_Body_2.png",
+      "target": "Units/BattleUnits/AMS_119/Image/AMS_119_Body_2.png",
+      "sha256": "b4bd0ac56b6f2affa932081e17c1f6f5902d9798341fe0803c808062d06954f9"
+    },
+    {
+      "source": "Units/BattleUnits/AMS-119/Image/AMS-119_Crotch_1.png",
+      "target": "Units/BattleUnits/AMS_119/Image/AMS_119_Crotch_1.png",
+      "sha256": "351d31f012811dda4a8e7749900938d3c797614d93af9fd120841ad6d51c757c"
+    },
+    {
+      "source": "Units/BattleUnits/AMS-119/Image/AMS-119_Eye_1.png",
+      "target": "Units/BattleUnits/AMS_119/Image/AMS_119_Eye_1.png",
+      "sha256": "ea1d1e42aaa3bdbe378c60783ac205f64b9d7b593f19617c9593803cca5a9588"
+    },
+    {
+      "source": "Units/BattleUnits/AMS-119/Image/AMS-119_FootL_1.png",
+      "target": "Units/BattleUnits/AMS_119/Image/AMS_119_FootL_1.png",
+      "sha256": "8f14af7e19fc4dda35cc7e07fe27c7c01f15f6ec4e373750cf106e297934cd89"
+    },
+    {
+      "source": "Units/BattleUnits/AMS-119/Image/AMS-119_FootR_1.png",
+      "target": "Units/BattleUnits/AMS_119/Image/AMS_119_FootR_1.png",
+      "sha256": "723a768ab41a0e976d619cf1a14b30ffe92ee17ac342305aa552a0796e735b3a"
+    },
+    {
+      "source": "Units/BattleUnits/AMS-119/Image/AMS-119_Head_1.png",
+      "target": "Units/BattleUnits/AMS_119/Image/AMS_119_Head_1.png",
+      "sha256": "e217a5f18a6b5fe3f07070b22f549bc84f5bc248b2322fd8ab67e7ab34b1b1a6"
+    },
+    {
+      "source": "Units/BattleUnits/AMS-119/Image/AMS-119_LegL_1.png",
+      "target": "Units/BattleUnits/AMS_119/Image/AMS_119_LegL_1.png",
+      "sha256": "ac0c3dfeba13b7a0292a8026920dbebf4391918366669a9ea7f87ae20e0a6167"
+    },
+    {
+      "source": "Units/BattleUnits/AMS-119/Image/AMS-119_LegR_1.png",
+      "target": "Units/BattleUnits/AMS_119/Image/AMS_119_LegR_1.png",
+      "sha256": "ae8ef0759818269186590c48a1025678a8a2d7d2f2d5e018c56b7d3063f5d356"
+    },
+    {
+      "source": "Units/BattleUnits/AMS-119/Image/AMS-119_ShoulderL_1.png",
+      "target": "Units/BattleUnits/AMS_119/Image/AMS_119_ShoulderL_1.png",
+      "sha256": "8f6a01a0d91f72fdd31efb906becfae95c4ebe76d520e554cfe799ed75675815"
+    },
+    {
+      "source": "Units/BattleUnits/AMS-119/Image/AMS-119_ShoulderR_1.png",
+      "target": "Units/BattleUnits/AMS_119/Image/AMS_119_ShoulderR_1.png",
+      "sha256": "26a172cb6548faa7e1cb0ce04f52d96edea311f5e84fd603344199a571e962af"
+    }
+  ],
+  "validation_pending": false,
+  "initialize_stats_sha256_before": {
+    "RGM_89": "14a9cf29a68cd882016bebc98374774a8ff6a363c471f4700709e991f8bc3753",
+    "AMS_119": "14a9cf29a68cd882016bebc98374774a8ff6a363c471f4700709e991f8bc3753"
+  },
+  "initialize_stats_sha256_after": {
+    "RGM_89": "14a9cf29a68cd882016bebc98374774a8ff6a363c471f4700709e991f8bc3753",
+    "AMS_119": "14a9cf29a68cd882016bebc98374774a8ff6a363c471f4700709e991f8bc3753"
+  },
+  "unit_wiring_complete": true,
+  "random_rules": {
+    "RGM_89": "primary >35, waist <=15, shield (15,30], decoy (30,35]; BR equipment0, BZ equipment1/legacy2",
+    "AMS_119": "BR >35, GL (15,35], red sea serpent <=10 within300, Panzerfaust (10,15] within300 or <=15 beyond300"
+  },
+  "validation": {
+    "new_weapon_checks": 38,
+    "rgz91_weapon_checks": 23,
+    "bws_checks": 22,
+    "technology_production_checks": 241,
+    "lint_files": 15,
+    "lint_errors": 0,
+    "lint_warnings": 91,
+    "engine_case": "Main + 0093",
+    "engine_report": "0093_引擎加载_0093.json",
+    "gameplay_tested": false
+  },
+  "ams119_body_artwork": {
+    "image_count": 13,
+    "body_2": "Copied as source artwork; unused because source unit also only references Body_1.",
+    "closed_head": "Reuses the unit head because no dedicated closed-head image is provided.",
+    "eye": "Original offset 2.5 and scale 1.5 retained."
+  }
+}

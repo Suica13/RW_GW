@@ -355,5 +355,14 @@
       "RGZ_91_Graphics.gw",
       "RX_93_Graphics.gw"
     ]
+  },
+  "jegan_geara_doga_weapons": {
+    "report": "0093_杰刚基拉多加武装接入.json",
+    "units": [
+      "RGM_89",
+      "AMS_119"
+    ],
+    "sea_serpent": "Projectile_NZN_AMS_119_SeaSerpent",
+    "external_red_artwork": true
   }
 }

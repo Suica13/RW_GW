@@ -1,0 +1,159 @@
+{
+  "checks": 38,
+  "passed": 38,
+  "results": [
+    {
+      "name": "RGM_89 uses one standalone native unit INI",
+      "passed": true
+    },
+    {
+      "name": "RGM_89 has no leftover GM III weapons",
+      "passed": true
+    },
+    {
+      "name": "RGM_89 contains no weapon Fire_Step overrides",
+      "passed": true
+    },
+    {
+      "name": "RGM_89 preserves initial base stats",
+      "passed": true
+    },
+    {
+      "name": "RGM_89 keeps its faction pilot",
+      "passed": true
+    },
+    {
+      "name": "AMS_119 uses one standalone native unit INI",
+      "passed": true
+    },
+    {
+      "name": "AMS_119 has no leftover GM III weapons",
+      "passed": true
+    },
+    {
+      "name": "AMS_119 contains no weapon Fire_Step overrides",
+      "passed": true
+    },
+    {
+      "name": "AMS_119 preserves initial base stats",
+      "passed": true
+    },
+    {
+      "name": "AMS_119 keeps its faction pilot",
+      "passed": true
+    },
+    {
+      "name": "Jegan random intervals and both equipment sets are complete/exclusive",
+      "passed": true
+    },
+    {
+      "name": "Geara Doga random intervals are complete/exclusive at the sea-serpent range boundary",
+      "passed": true
+    },
+    {
+      "name": "sea serpent is selected only at 60 < distance <= 300 and roll <= 10",
+      "passed": true
+    },
+    {
+      "name": "Jegan uses real BR/BZ equipment options",
+      "passed": true
+    },
+    {
+      "name": "Geara Doga has no inherited Federation equipment switch",
+      "passed": true
+    },
+    {
+      "name": "all weapon file references resolve inside DLC0093",
+      "passed": true
+    },
+    {
+      "name": "all spawned projectile entity IDs exist",
+      "passed": true
+    },
+    {
+      "name": "EF_RGM_89_BR keeps component guards inside weapon Fire/shot steps",
+      "passed": true
+    },
+    {
+      "name": "EF_RGM_89_BZ keeps component guards inside weapon Fire/shot steps",
+      "passed": true
+    },
+    {
+      "name": "EF_RGM_89_ShieldMS keeps component guards inside weapon Fire/shot steps",
+      "passed": true
+    },
+    {
+      "name": "EF_RGM_89_BeamSaber_AF keeps component guards inside weapon Fire/shot steps",
+      "passed": true
+    },
+    {
+      "name": "NZN_AMS_119_BR_WGL keeps component guards inside weapon Fire/shot steps",
+      "passed": true
+    },
+    {
+      "name": "NZN_AMS_119_BR_GL keeps component guards inside weapon Fire/shot steps",
+      "passed": true
+    },
+    {
+      "name": "NZN_AMS_119_BeamHawk_AF keeps component guards inside weapon Fire/shot steps",
+      "passed": true
+    },
+    {
+      "name": "NZN_AMS_119_SeaSerpent keeps component guards inside weapon Fire/shot steps",
+      "passed": true
+    },
+    {
+      "name": "NZN_AMS_119_Panzerfaust keeps component guards inside weapon Fire/shot steps",
+      "passed": true
+    },
+    {
+      "name": "imported artwork matches source bytes",
+      "passed": true
+    },
+    {
+      "name": "sea serpent uses native left-arm animation and left launch anchor",
+      "passed": true
+    },
+    {
+      "name": "sea serpent red image and callback are wired consistently",
+      "passed": true
+    },
+    {
+      "name": "sea serpent native hit pipeline carries stun and slow",
+      "passed": true
+    },
+    {
+      "name": "Panzerfaust queues both left-hand shots",
+      "passed": true
+    },
+    {
+      "name": "RGM_89 preserves three-step pilot rolls and real squad production",
+      "passed": true
+    },
+    {
+      "name": "RGM_89 hides invalid old MG squad",
+      "passed": true
+    },
+    {
+      "name": "AMS_119 preserves three-step pilot rolls and real squad production",
+      "passed": true
+    },
+    {
+      "name": "AMS_119 hides invalid old MG squad",
+      "passed": true
+    },
+    {
+      "name": "beam machine gun and underbarrel grenade use the external weapon muzzle",
+      "passed": true
+    },
+    {
+      "name": "Geara Doga body has no old GM III image references",
+      "passed": true
+    },
+    {
+      "name": "all Geara Doga body image references resolve",
+      "passed": true
+    }
+  ],
+  "gameplay_tested": false
+}
