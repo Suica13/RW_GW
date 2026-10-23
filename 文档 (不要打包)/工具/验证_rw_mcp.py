@@ -32,6 +32,12 @@ async def main():
             data = payload(await s.call_tool('lookup_key', {'key': 'canAttack'}))
             assert data['ok'] and data['found'] and data['sources']['jar'], data
             print('PASS lookup_key: tables + game JAR')
+            data = payload(await s.call_tool('lookup_key',
+                {'keys': ['canAttack', 'maxHp', '_definitely_missing_key_']}))
+            assert data['ok'] and data['count'] == 3 and data['found'] == 2, data
+            assert data['missing'] == ['_definitely_missing_key_'], data
+            assert data['results']['canAttack']['found'], data
+            print('PASS lookup_key: batch lookup + missing key')
             data = payload(await s.call_tool('get_ref', {}))
             assert data['ok'] and data['counts']['events'] == 18, data
             print('PASS get_ref')
@@ -46,6 +52,12 @@ async def main():
             data = payload(await s.call_tool('lint', {'path': str(fixture)}))
             assert data['ok'] and data['files'] == 1 and data['errors'] == 0, data
             print('PASS lint: valid INI fixture')
+            data = payload(await s.call_tool('lint', {'paths': [str(fixture),
+                str(TOOL / 'tests' / 'fixtures' / 'bad_event_name.ini')], 'max_issues': 10}))
+            assert data['ok'] and data['files'] == 2 and data['errors'] > 0, data
+            assert data['issues'] and all(0 <= i['f'] < len(data['issue_files'])
+                and 'file' not in i for i in data['issues']), data
+            print('PASS lint: batch paths + compact issue file indexes')
             with tempfile.TemporaryDirectory(prefix='rw-mcp-gw-') as temp:
                 (Path(temp) / 'sample.gw').write_bytes(fixture.read_bytes())
                 data = payload(await s.call_tool('lint', {'path': temp}))

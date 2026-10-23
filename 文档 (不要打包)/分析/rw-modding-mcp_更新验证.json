@@ -1,15 +1,15 @@
 {
   "date": "2026-10-24",
   "origin": "https://github.com/GMBOXMOD/rw-modding-mcp.git",
-  "previous_commit": "014dc92fb37d90c7ec028ff329a4b6843372867b",
-  "current_commit": "17c658d235e1fff8deaf1ce3e1cdac47ac100b0c",
+  "previous_commit": "17c658d235e1fff8deaf1ce3e1cdac47ac100b0c",
+  "current_commit": "172d26b2a4b2f8a282db4df0d7d62671fd9f2d50",
   "gw_patch_preserved": true,
   "upstream_selftest": {
-    "passed": 30,
+    "passed": 33,
     "failed": 0
   },
   "upstream_regression": {
-    "passed": 23,
+    "passed": 27,
     "failed": 0
   },
   "bootstrap_marker_extra": {
@@ -17,7 +17,7 @@
     "failed": 0
   },
   "project_stdio": {
-    "passed": 8,
+    "passed": 10,
     "failed": 0
   },
   "tools": [
@@ -28,5 +28,8 @@
     "explain_actions"
   ],
   "pip_check": "No broken requirements found",
-  "current_session_reload_required": true
+  "current_session_reload_required": true,
+  "mod_commit_before_tool_update": "2fe3969",
+  "batch_lookup_verified": true,
+  "batch_lint_compact_verified": true
 }
