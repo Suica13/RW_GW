@@ -1,0 +1,18 @@
+[core]
+dont_load:true
+copyFrom:ROOT:Template/UI/Common_UI.gw
+# [PLACEHOLDER] Preview metadata only. Never added to factories, attachments or spawn actions.
+price:0
+maxHp:1
+radius:1
+showInEditor:false
+isUnselectable:true
+canNotBeGivenOrdersByPlayer:true
+canNotBeDamaged:true
+canNotBeDirectlyAttacked:true
+
+[graphics]
+image:SHARED:blank.png
+
+[attack]
+canAttack:false

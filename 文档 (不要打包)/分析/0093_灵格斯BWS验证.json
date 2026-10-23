@@ -1,0 +1,95 @@
+{
+  "checks": 22,
+  "passed": 22,
+  "results": [
+    {
+      "check": "MSZ_006-style names resolve to distinct MS/MA/OverLine entities",
+      "passed": true
+    },
+    {
+      "check": "MA forms retain the research/factory family tag",
+      "passed": true
+    },
+    {
+      "check": "MA has native AIR movement",
+      "passed": true
+    },
+    {
+      "check": "MA sets flight stats and human explicitly clears flight state",
+      "passed": true
+    },
+    {
+      "check": "DedicatedMap adapter changes collision/movement without a new combat form",
+      "passed": true
+    },
+    {
+      "check": "aircraft has only requested BWS weapon templates and no inherited GM III armament",
+      "passed": true
+    },
+    {
+      "check": "BWS sprite is on the reference arm15 anchor",
+      "passed": true
+    },
+    {
+      "check": "all human body and shield layers are hidden on the aircraft",
+      "passed": true
+    },
+    {
+      "check": "ExitUnit shared action and staged message path remain in use",
+      "passed": true
+    },
+    {
+      "check": "purge converts the existing unit to the human form",
+      "passed": true
+    },
+    {
+      "check": "purge clears queued actions and retains the core state-transfer path",
+      "passed": true
+    },
+    {
+      "check": "core forwards Transform and the destination recomputes stats",
+      "passed": true
+    },
+    {
+      "check": "pilot initialization is not repeated by the transform path",
+      "passed": true
+    },
+    {
+      "check": "recovery ratios match the FA_78_1 purge example",
+      "passed": true
+    },
+    {
+      "check": "purge shows discarded BWS and a valid decoy",
+      "passed": true
+    },
+    {
+      "check": "human has no reverse BWS action or template",
+      "passed": true
+    },
+    {
+      "check": "OverLine inherits the same one-way exit",
+      "passed": true
+    },
+    {
+      "check": "production keeps the human family UI/unlock ID",
+      "passed": true
+    },
+    {
+      "check": "all existing squad steps produce MA with original pilot/equipment data",
+      "passed": true
+    },
+    {
+      "check": "Land continues to register the RGZ_91 family definition",
+      "passed": true
+    },
+    {
+      "check": "Space continues to register the RGZ_91 family definition",
+      "passed": true
+    },
+    {
+      "check": "all concrete RGZ body, BWS and template references resolve inside DLC0093",
+      "passed": true
+    }
+  ],
+  "gameplay_tested": false
+}

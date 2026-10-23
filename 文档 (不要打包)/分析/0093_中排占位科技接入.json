@@ -1,0 +1,204 @@
+{
+  "scope": "First-page middle row: Base, two assigned development plans and two reserved nodes per faction; selected shell units integrated with production.",
+  "factions": {
+    "0093_EFSF": [
+      {
+        "index": 2,
+        "tech": "Tech_0093_EFSF_Mid02",
+        "unit": "TechUnit_0093_EFSF_Mid02_Placeholder",
+        "predecessor": "Tech_0093_EFSF_BaseTech",
+        "reference": "Tech_AEUG_0087_RickDiasDevelopmentPlan",
+        "costs": {
+          "Time": 30,
+          "Money": 4000,
+          "Resource": 1000,
+          "TechPoint": 1200
+        },
+        "x": -60,
+        "y": -5,
+        "kind": "development_plan",
+        "displayText_zh": "杰刚开发计划",
+        "unlocks": [
+          "RGM_89",
+          "RGC_90"
+        ],
+        "production": [
+          "Land",
+          "Space"
+        ]
+      },
+      {
+        "index": 3,
+        "tech": "Tech_0093_EFSF_Mid03",
+        "unit": "TechUnit_0093_EFSF_Mid03_Placeholder",
+        "predecessor": "Tech_0093_EFSF_Mid02",
+        "reference": "Tech_AEUG_0087_GundamSeizurePlan",
+        "costs": {
+          "Time": 30,
+          "Money": 8000,
+          "Resource": 2000,
+          "TechPoint": 3600
+        },
+        "x": -20,
+        "y": -5,
+        "kind": "development_plan",
+        "displayText_zh": "新高达开发计划",
+        "unlocks": [
+          "RGZ_91",
+          "RX_93"
+        ],
+        "production": [
+          "Land",
+          "Space"
+        ]
+      },
+      {
+        "index": 4,
+        "tech": "Tech_0093_EFSF_Mid04",
+        "unit": "TechUnit_0093_EFSF_Mid04_Placeholder",
+        "predecessor": "Tech_0093_EFSF_Mid03",
+        "reference": "Tech_AEUG_0087_HyakuShikiDevelopmentPlan",
+        "costs": {
+          "Time": 30,
+          "Money": 10000,
+          "Resource": 2500,
+          "TechPoint": 6000
+        },
+        "x": 20,
+        "y": -5
+      },
+      {
+        "index": 5,
+        "tech": "Tech_0093_EFSF_Mid05",
+        "unit": "TechUnit_0093_EFSF_Mid05_Placeholder",
+        "predecessor": "Tech_0093_EFSF_Mid04",
+        "reference": "Tech_AEUG_0087_MethussDevelopmentPlan",
+        "costs": {
+          "Time": 30,
+          "Money": 12000,
+          "Resource": 3000,
+          "TechPoint": 8400
+        },
+        "x": 60,
+        "y": -5
+      }
+    ],
+    "0093_NZN": [
+      {
+        "index": 2,
+        "tech": "Tech_0093_NZN_Mid02",
+        "unit": "TechUnit_0093_NZN_Mid02_Placeholder",
+        "predecessor": "Tech_0093_NZN_BaseTech",
+        "reference": "Tech_NEO_ZEON_0087_GelgoogStutzerDevelopmentPlan",
+        "costs": {
+          "Time": 30,
+          "Money": 4000,
+          "Resource": 1000,
+          "TechPoint": 1200
+        },
+        "x": -60,
+        "y": -5,
+        "kind": "development_plan",
+        "displayText_zh": "基拉德卡开发计划",
+        "unlocks": [
+          "AMS_119",
+          "AMS_119H"
+        ],
+        "production": [
+          "Land",
+          "Space"
+        ]
+      },
+      {
+        "index": 3,
+        "tech": "Tech_0093_NZN_Mid03",
+        "unit": "TechUnit_0093_NZN_Mid03_Placeholder",
+        "predecessor": "Tech_0093_NZN_Mid02",
+        "reference": "Tech_NEO_ZEON_0087_GyanKaiDevelopmentPlan",
+        "costs": {
+          "Time": 30,
+          "Money": 8000,
+          "Resource": 2000,
+          "TechPoint": 3600
+        },
+        "x": -20,
+        "y": -5,
+        "kind": "development_plan",
+        "displayText_zh": "沙扎比开发计划",
+        "unlocks": [
+          "MSN_03",
+          "MSN_04"
+        ],
+        "production": [
+          "Land",
+          "Space"
+        ]
+      },
+      {
+        "index": 4,
+        "tech": "Tech_0093_NZN_Mid04",
+        "unit": "TechUnit_0093_NZN_Mid04_Placeholder",
+        "predecessor": "Tech_0093_NZN_Mid03",
+        "reference": "Tech_NEO_ZEON_0087_EnemyMSBlueprintAcquisitionPlan",
+        "costs": {
+          "Time": 30,
+          "Money": 10000,
+          "Resource": 2500,
+          "TechPoint": 6000
+        },
+        "x": 20,
+        "y": -5
+      },
+      {
+        "index": 5,
+        "tech": "Tech_0093_NZN_Mid05",
+        "unit": "TechUnit_0093_NZN_Mid05_Placeholder",
+        "predecessor": "Tech_0093_NZN_Mid04",
+        "reference": "Tech_NEO_ZEON_0087_GazaCDevelopmentPlan",
+        "costs": {
+          "Time": 30,
+          "Money": 12000,
+          "Resource": 3000,
+          "TechPoint": 8400
+        },
+        "x": 60,
+        "y": -5
+      }
+    ]
+  },
+  "cost_order": [
+    "time",
+    "money",
+    "resource",
+    "techPoint"
+  ],
+  "validation": {
+    "static": 196,
+    "static_passed": 196,
+    "lint": {
+      "files": 44,
+      "errors": 0,
+      "warnings": 42
+    },
+    "engine_0093": {
+      "case": "0093",
+      "passed": true,
+      "initialized": true,
+      "enabled": {
+        "GW_BattleUniverse_Main": true,
+        "GW_BattleUniverse_DLC_0093": true
+      },
+      "errors": [],
+      "timed_out": false,
+      "returncode": 1,
+      "elapsed_seconds": 25.5,
+      "log": "文档 (不要打包)\\工具\\0093_loadtest\\verify_0093\\engine.log"
+    },
+    "live_gameplay_tested": false
+  },
+  "latest_validation": {
+    "passed": 233,
+    "total": 233,
+    "report": "0093_第二第三科技开发计划接入.json"
+  }
+}

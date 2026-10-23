@@ -33,6 +33,8 @@ def run(case):
     settings=','.join(name+'|'+hashlib.sha256(name.encode()).hexdigest().upper()+'|enabled' for name in packs)
     (sandbox/'preferences.ini').write_text('[settings]\nloadDisabledModData:false\nmodSettingsVersion:1\nlastModCount:'+str(len(packs)+1)+'\nmodSettings:'+settings+'\n',encoding='utf-8')
     log=sandbox/'engine.log';console=sandbox/'console.log'
+    # Ignore a previous run's Init completed marker before Java replaces the log.
+    log.unlink(missing_ok=True)
     cmd=[str(GAME/'jvm64/bin/java.exe'),'-Xmx4096M','-Dfile.encoding=UTF-8','-Djava.library.path=.',
          '-cp','game-lib.jar;libs/*','com.corrodinggames.rts.java.Main','-nodisplay','-nosound','-nologfile','-log',str(log),'-printunits']
     start=time.time();timedout=False

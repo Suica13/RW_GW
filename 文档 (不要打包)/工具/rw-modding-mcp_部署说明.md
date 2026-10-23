@@ -6,7 +6,7 @@
 
 - 上游：https://github.com/GMBOXMOD/rw-modding-mcp
 - 本地检出：`文档 (不要打包)/工具/rw-modding-mcp/`
-- 上游提交：`014dc92fb37d90c7ec028ff329a4b6843372867b`
+- 上游提交：`17c658d235e1fff8deaf1ce3e1cdac47ac100b0c`
 - Python：本机 Python 3.12；依赖安装在工具自己的 `.venv/`，MCP SDK 为 2.3.0。
 - Java：本机 Java 21；输入是 `E:/RustedWarfare_Reunion/game-lib.jar`。
 - 反编译产物：工具的 `tools/jar/src/`，共 1,698 个 Java 文件。
@@ -66,7 +66,7 @@ python '文档 (不要打包)/工具/rw-modding-mcp/tools/rw_lint.py' 'GW_Battle
 ```powershell
 $tool = '文档 (不要打包)/工具/rw-modding-mcp'
 git clone https://github.com/GMBOXMOD/rw-modding-mcp.git $tool
-git -C $tool checkout 014dc92fb37d90c7ec028ff329a4b6843372867b
+git -C $tool checkout 17c658d235e1fff8deaf1ce3e1cdac47ac100b0c
 git -C $tool apply --check ../rw-modding-mcp-gw.patch
 git -C $tool apply ../rw-modding-mcp-gw.patch
 python -m venv "$tool/.venv"
@@ -81,3 +81,13 @@ python "$tool/bootstrap.py" --decompile --game 'E:/RustedWarfare_Reunion'
 资料表可能有版本差异，lint 不会完整模拟继承、消息时序和游戏行为。保留 `AGENTS.md` 的静态检查与游戏内测试要求。工具报告只是排查线索，不得据此批量删除历史兼容流程或改写公共模板。
 
 本次没有运行 `game_loadtest.py`、没有启动游戏加载测试、没有发布或打包 MOD。
+
+## 2026-10-24 上游更新
+
+当前 origin 仍为 https://github.com/GMBOXMOD/rw-modding-mcp ，已快进至 `17c658d235e1fff8deaf1ce3e1cdac47ac100b0c`。本地 `rw-modding-mcp-gw` 指 `.gw` 支持补丁，并非另一个已部署仓库。本次更新后重新适配 collect_files()，嵌套仓库的唯一已跟踪本地差异仍是 `.gw` 扫描一行。旧补丁备份为 `rw-modding-mcp-gw.before-update.patch`，新补丁为 `rw-modding-mcp-gw.patch`。
+
+新增第五个只读工具 `explain_actions`（动作调用图与静态规则）；原四个工具继续可用。上游也增加二进制键名参考表、键族匹配和 lint 增量缓存。现有 Python/MCP 依赖满足新版 `mcp>=2.3,<3`，未无条件升级依赖，pip check 无冲突。
+
+实际验证：上游自检 30 PASS / 0 FAIL；回归 23 PASS / 0 FAIL；启动就绪标记另测 4 PASS / 0 FAIL；项目 stdio 验证 8 项通过，包含五个工具识别、新增动作分析、游戏 JAR、源码索引与仅含 `.gw` 的目录扫描。上游不存在的作者私有示例、未安装 pyyaml 的工作流检查保持跳过；启动标记用例的上游路径假设通过独立导入补测，未改上游测试文件。
+
+当前会话已有 MCP 服务进程不会自动重新加载源码或新增工具列表。重启会话后使用新版服务；本次五工具验证使用独立 stdio 连接，无需改 `.codex/config.toml`。

@@ -1,0 +1,99 @@
+{
+  "checks": 23,
+  "passed": 23,
+  "results": [
+    {
+      "name": "human no longer inherits GM III weapon/equipment definitions",
+      "passed": true
+    },
+    {
+      "name": "human uses native framework, inline graphics and yellow saber",
+      "passed": true
+    },
+    {
+      "name": "deferred weapons remain absent",
+      "passed": true
+    },
+    {
+      "name": "plane uses only BWS ranged weapons",
+      "passed": true
+    },
+    {
+      "name": "low EN behavior resets across ejection",
+      "passed": true
+    },
+    {
+      "name": "unit ranged rolls are exclusive and independent of weapon firing guards",
+      "passed": true
+    },
+    {
+      "name": "melee saber selection uses the reference close range",
+      "passed": true
+    },
+    {
+      "name": "BWS unit random rolls cover both weapons without overlap",
+      "passed": true
+    },
+    {
+      "name": "weapon/body/effect/sound/animation file references resolve inside DLC0093",
+      "passed": true
+    },
+    {
+      "name": "beam rifle and BWS beams use yellow native projectiles",
+      "passed": true
+    },
+    {
+      "name": "BWS fires paired missiles from the reference wing positions",
+      "passed": true
+    },
+    {
+      "name": "queued BWS shots stop if the backpack breaks",
+      "passed": true
+    },
+    {
+      "name": "queued rifle shots stop if the right arm breaks",
+      "passed": true
+    },
+    {
+      "name": "human launcher and saber queues guard their own arms",
+      "passed": true
+    },
+    {
+      "name": "decoy intercept resolves the projectile and bursts using native handshake",
+      "passed": true
+    },
+    {
+      "name": "decoy uses a native explosive lifecycle and no foreign memory framework",
+      "passed": true
+    },
+    {
+      "name": "imported rifle/shield/decoy PNG files are byte identical to references",
+      "passed": true
+    },
+    {
+      "name": "factory offers only the real loadout while keeping old queued IDs",
+      "passed": true
+    },
+    {
+      "name": "all nine new units use standalone INIs without Base/Graphics wrappers",
+      "passed": true
+    },
+    {
+      "name": "decoy follows normal SetAttacking/queue/final-unlock firing pattern",
+      "passed": true
+    },
+    {
+      "name": "rifle uses MSZ_006 primary-weapon random threshold",
+      "passed": true
+    },
+    {
+      "name": "unit INIs have no weapon Fire Step overrides",
+      "passed": true
+    },
+    {
+      "name": "component firing requirements live in weapon Fire sections",
+      "passed": true
+    }
+  ],
+  "runtime_combat_tested": false
+}

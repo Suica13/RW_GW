@@ -32,7 +32,7 @@ units/
 ├─ GW_BattleUniverse_Main/          # 通用框架、开局与系统实体、公共占位入口
 ├─ GW_BattleUniverse_DLC_0079/      # UC 0079 内容
 ├─ GW_BattleUniverse_DLC_0087/      # UC 0087 内容
-├─ GW_BattleUniverse_DLC_0093/      # UC 0093 开发骨架（空阵容/科技/生产）
+├─ GW_BattleUniverse_DLC_0093/      # UC 0093 开发包（基础单位与中排占位科技）
 ├─ GW_BattleUniverse_DLC_SEED/      # SEED 内容
 ├─ 文档 (不要打包)/                 # 教程、TODO、代码表与编辑器插件
 ├─ 资源 (不要打包)/                 # 原始贴图、工程素材与压缩包
@@ -68,6 +68,7 @@ Main 还包含 `Maps/`，以及 `Units/CommonUnit`、`CVUnits`、`DelAllVanillaU
 - `.ini` 是单位或配置定义；新增可复用模板按 README 使用 `.gw`。已有框架也使用 `.ini`，不要为统一扩展名批量重命名。
 - 遵循原文件的段落结构、大小写、编码、换行和注释风格，中文文本应正确保存。新增文档使用 UTF-8，避免无关格式化。
 - 保留 `copyFrom` 顺序、三引号多行值、逗号、`${...}` 宏、`@define`、`@global`、`@memory` 和 `@copyFromSection` 语法。
+- `[ENGINE_WORKAROUND]` 引擎拼接三引号多行表达式时不会自动插入空格；`500 ` 后的空格可能是分词所必需的，禁止对配置整文件批量 `rstrip`。新增长条件优先写单行，或显式保留操作符两侧空格；格式改动必须在最终文件上重新做引擎加载检查。
 - 不要使用普通 INI 解析器直接读写整文件：项目有模板宏、多行表达式及重复段落等扩展写法。空段也可能参与继承覆盖，不能仅因内容为空就删除。
 - `ROOT:` 文件路径按当前 MOD 包根目录检查；相对路径按当前文件及引擎继承规则核实。其他包有同名文件不能证明本包资源引用有效。
 - 文件引用和单位 ID 引用分别检查：`copyFrom`、图片、音效指向文件；`produceUnits`、`spawnUnits`、`convertTo`、`attachments_addNewUnits` 等通常使用实体 ID。
@@ -225,7 +226,7 @@ git diff --check
 
 Main 的场景 Page3、HQ_GetMode 和占位目标已连接；GameManager 复用原有通用广播。旧四包建筑槽/据点副本均追加 0093 分支，新包自身保留多场景回转。不要只改新 DLC 而遗漏这些公共入口。
 
-0093 每阵营第一页只接入一个 Base 科技。BattleUnits 除 Shield、Weapon 外，仅有 `RGM_86R_0093_EFSF`、`SalamisClassKai_0093_EFSF`、`AMX_101_0093_NZN`、`MusaiClassFinalType_0093_NZN` 四种战斗单位及必要炮塔/继承模板；不要复制其他整条科技或未请求单位。Base 解锁 Main 共用基础建筑和 Land/Mega/Space/Space_Mega 工厂，Mega 暂无生产项，Air/Aqua 尚未解锁。HLV 的 0093 基础设施变体在 Main。资源来源、临时图片和改动前基线在 `文档 (不要打包)/分析/`，后续维护应保留这些可追踪信息。
+0093 每阵营第一页接入 Base 和 Mid02～Mid05 四个中排科技（02/03 已为开发计划，04/05 仍占位）；前置、研究费用和时长沿用 0087 中排节奏。展示占位定义位于 `Units/TechTree/PlaceholderUnits/`，不进工厂、不生成部队，不是新增战斗单位。BattleUnits 除 Shield、Weapon 外，仅有 `RGM_86R_0093_EFSF`、`SalamisClassKai_0093_EFSF`、`AMX_101_0093_NZN`、`MusaiClassFinalType_0093_NZN` 四种已接入生产的战斗单位及必要炮塔/继承模板，另有 `RGM_89`、`RGC_90`、`RGZ_91`、`RX_93`、`RX_93_Test`、`AMS_119`、`AMS_119H`、`MSN_03`、`MSN_04` 九种吉姆III属性空壳（八台已接入第2/3开发计划和地面／宇宙工厂，仅 RX_93_Test 待接入）；不要复制其他整条科技或未请求单位。Base 解锁 Main 共用基础建筑和 Land/Mega/Space/Space_Mega 工厂，Mega 暂无生产项，Air/Aqua 尚未解锁。HLV 的 0093 基础设施变体在 Main。资源来源、临时图片和改动前基线在 `文档 (不要打包)/分析/`，后续维护应保留这些可追踪信息。
 
 0093 普通驾驶员和士官按 0087 结构放在 Main 的 `Units/BattleUnits/Pilot/0093/Common/`；总 Marker 已接入两个阵营，T1/T2 学院有普通驾驶员入口。复用的 0087 贴图在 Main 另存为 0093 命名，勿误判为 DLC 缺少 Pilot 目录。详情见接入说明的“普通驾驶员接入”。
 
@@ -239,3 +240,15 @@ Main 的场景 Page3、HQ_GetMode 和占位目标已连接；GameManager 复用�
 - Base 仅解锁基础建筑和四类工厂；全部生产列表为空。未接入驾驶员、HLV 或战斗单位。不能从 0093 复制生产动作后遗留自动生产和解锁引用。
 - `GameManager_CR_VS` 继承 Main 的 `GameManager_VS`，专用逻辑优先在 CR 实例中覆盖。
 - 只读静态检查：`python -B '文档 (不要打包)/工具/验证_CR_P1骨架.py'`。该检查不代表引擎加载或实际对局通过。
+
+0093 吉姆III已切换为 0087 AEUG 身体贴图和图标，名称与数值保留。九种空壳在各自 INI 显式复制初始化数值，临时继承本包吉姆III Base 模板及模型/武器；阵营 Tag 和默认驾驶员已各自覆盖，勿把这些开发空壳视为已完成对应机型。
+
+0093 第2/3科技：联邦杰刚计划解锁 RGM_89/RGC_90，新高达计划解锁 RGZ_91/RX_93；新吉翁基拉德卡计划解锁 AMS_119/AMS_119H，沙扎比计划解锁 MSN_03/MSN_04。内部 Tech_0093_<阵营>_Mid02/Mid03 ID 保持，03→04 的前置不改；费用沿用0087，生产临时沿用吉姆III三种装备小队，不赠送部队。
+
+RGM_89、RGZ_91、RX_93 已移植 BattleUnits.zip 的本机身体素材，分别通过 `<ID>_Graphics.gw` 局部覆盖；其余空壳仍用吉姆III临时模型。不要恢复这三台的旧吉姆装饰层，也不要从外部INI引入武器/数值；灵格斯采用人形，牛高达浮游炮背包仅为静态外观。源包缺公共图形模板，骨架锚点和动画沿用本项目。
+
+0093 灵格斯形态：人形 `RGZ_91`、飞机 `RGZ_91_MA`、地图适配 `RGZ_91_MA_OverLine`。科技/工厂入口保持 RGZ_91，实际生产 MA；只允许按原生 ExitUnit 消息链单向脱出，人形必须显式重置 flyUnit=0。飞机暂时无武装，不导入 GM III 武器模板；人形保留现有临时武器。详见 0093 接入说明与 `验证_0093_灵格斯BWS.py`。
+
+0093 灵格斯武装已接入：MA 使用专用 BWS 双联光束炮／导弹，人形使用专用步枪、腕部／腰部榴弹、火神炮、伪装气球和黄色军刀。此状态取代此前“飞机无武装、人形临时吉姆III武器”的说明。RGZ_91 不再继承吉姆III Base.gw；工厂旧装备索引兼容同一武装，MG/BZ 入口隐藏并保留旧队列 ID，AI 均进入标准编制。飞机米加粒子炮与人形蓄力格斗仍未接入。回归使用 `验证_0093_灵格斯武装.py` 与 BWS、Base 科技检查。
+
+0093 单位遵循单INI布局，临时 Base.gw／Graphics.gw 已合入本体并移除。单位内不额外声明武器 Fire_Step；开火必需条件尽可能集中到专用武器模板，单位负责距离／随机选择、索引与贴图。灵格斯腕部榴弹、黄色军刀分别使用 EF_RGZ_91_ArmGL_L.gw、EF_RGZ_91_BeamSaber_AF_Yellow.gw。MCP 已更新至 17c658d，保留 .gw 补丁，新增 explain_actions；新版工具列表需重启会话加载。

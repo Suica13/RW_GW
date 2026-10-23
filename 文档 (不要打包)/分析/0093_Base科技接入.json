@@ -12,7 +12,9 @@
   "migrations": [
     {
       "source": "Units/BattleUnits/RGM_86R/RGM_86R.ini",
-      "target": "Units/BattleUnits/RGM_86R_0093_EFSF/RGM_86R_0093_EFSF_Base.gw"
+      "target": "Units/BattleUnits/RGM_86R_0093_EFSF/RGM_86R_0093_EFSF_Base.gw",
+      "current_target": "Units/BattleUnits/RGM_86R_0093_EFSF/RGM_86R_0093_EFSF.ini",
+      "layout_update": "Base contents merged into original unit INI on 2026-10-24; original target retained as migration history."
     },
     {
       "source": "Units/BattleUnits/RGM_86R_EFSF/RGM_86R_EFSF.ini",

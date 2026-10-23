@@ -224,7 +224,16 @@
       "AMX_101_0093_NZN",
       "MusaiClassFinalType_0093_NZN",
       "RGM_86R_0093_EFSF",
-      "SalamisClassKai_0093_EFSF"
+      "SalamisClassKai_0093_EFSF",
+      "RGM_89",
+      "RGC_90",
+      "RGZ_91",
+      "RX_93",
+      "RX_93_Test",
+      "AMS_119",
+      "AMS_119H",
+      "MSN_03",
+      "MSN_04"
     ]
   },
   "icon_update_0079": [
@@ -278,5 +287,73 @@
       ],
       "reason": "user-selected 0079 emblem/base icon, renamed for 0093"
     }
-  ]
+  ],
+  "middle_row_placeholders": {
+    "report": "0093_中排占位科技接入.json",
+    "research_nodes": 8,
+    "preview_units": 8,
+    "battle_units_added": 0,
+    "production_entries_added": 0
+  },
+  "shell_units": {
+    "report": "0093_九种空壳单位接入.json",
+    "units": [
+      "RGM_89",
+      "RGC_90",
+      "RGZ_91",
+      "RX_93",
+      "RX_93_Test",
+      "AMS_119",
+      "AMS_119H",
+      "MSN_03",
+      "MSN_04"
+    ],
+    "technology_integrated": true,
+    "production_integrated": true,
+    "pending_units": [
+      "RX_93_Test"
+    ]
+  },
+  "development_plans": {
+    "report": "0093_第二第三科技开发计划接入.json",
+    "count": 4,
+    "unlocked_units": [
+      "RGM_89",
+      "RGC_90",
+      "RGZ_91",
+      "RX_93",
+      "AMS_119",
+      "AMS_119H",
+      "MSN_03",
+      "MSN_04"
+    ]
+  },
+  "external_artwork": {
+    "source": "BattleUnits.zip",
+    "report": "0093_外部机体贴图移植.json",
+    "units": [
+      "RGM_89",
+      "RGZ_91",
+      "RX_93"
+    ],
+    "png_count": 41,
+    "weapons_or_stats_imported": false
+  },
+  "rgz91_bws": {
+    "report": "0093_灵格斯BWS脱出接入.json",
+    "human": "RGZ_91",
+    "air": "RGZ_91_MA",
+    "overline": "RGZ_91_MA_OverLine",
+    "production_target": "RGZ_91_MA"
+  },
+  "unit_layout": {
+    "report": "0093_单位格式整理.json",
+    "format": "Standalone unit INI with inline decals and direct framework/animation/weapon imports.",
+    "removed_wrappers": [
+      "RGM_86R_0093_EFSF_Base.gw",
+      "RGM_89_Graphics.gw",
+      "RGZ_91_Graphics.gw",
+      "RX_93_Graphics.gw"
+    ]
+  }
 }

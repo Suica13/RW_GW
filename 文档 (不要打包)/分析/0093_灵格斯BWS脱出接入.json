@@ -1,0 +1,41 @@
+{
+  "references": [
+    "DLC_0079/Units/BattleUnits/FA_78_1/FA_78_1.ini",
+    "DLC_0087/Units/BattleUnits/MSZ_006/MSZ_006_MA.ini"
+  ],
+  "human": "RGZ_91",
+  "air": "RGZ_91_MA",
+  "overline": "RGZ_91_MA_OverLine",
+  "production_ui_id": "RGZ_91",
+  "production_target": "RGZ_91_MA",
+  "production_count": 9,
+  "weapons_implemented": false,
+  "reverse_conversion": false,
+  "exit_hp_recovery": 0.35,
+  "exit_en_recovery": 0.35,
+  "exit_shield_recovery": 0,
+  "source_human_initialization_sha256": "2113e64db3487df9638af48869d9f69e6ec6d96f13dbeecb31e5e3d1a386183d",
+  "flight_stat_overrides": {
+    "baseHeight": "35",
+    "baseMoveSpeed": "1.5",
+    "boostMoveSpeed": "3.45",
+    "baseTurnSpeed": "3.0",
+    "cqbModeBuff": "1.0",
+    "onDodgeBoostSpeed": "1.0",
+    "groundAdaptability": "25",
+    "cliffAdaptability": "25",
+    "waterAdaptability": "25",
+    "skyAdaptability": "100"
+  },
+  "plane_maxHp": 40000,
+  "plane_maxShield": 0,
+  "human_flyUnit_reset": 0,
+  "validation": {
+    "bws_static_checks_passed": 22,
+    "tech_production_regression_passed": 241,
+    "engine_case": "Main + 0093",
+    "engine_passed": true,
+    "engine_errors": [],
+    "in_game_flight_and_ejection_tested": false
+  }
+}

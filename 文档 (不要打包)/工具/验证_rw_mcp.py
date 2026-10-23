@@ -27,8 +27,8 @@ async def main():
         async with ClientSession(reader, writer) as s:
             await s.initialize()
             names = {t.name for t in (await s.list_tools()).tools}
-            assert names == {'lookup_key', 'get_ref', 'search_source', 'lint'}, names
-            print('PASS initialize + four tools')
+            assert names == {'lookup_key', 'get_ref', 'search_source', 'lint', 'explain_actions'}, names
+            print('PASS initialize + five tools')
             data = payload(await s.call_tool('lookup_key', {'key': 'canAttack'}))
             assert data['ok'] and data['found'] and data['sources']['jar'], data
             print('PASS lookup_key: tables + game JAR')
@@ -39,6 +39,9 @@ async def main():
                 {'pattern': 'addBooleanType', 'max_results': 1}))
             assert data['ok'] and data['files_scanned'] > 0 and data['total_matches'] > 0, data
             print('PASS search_source: local source index')
+            explained = payload(await s.call_tool('explain_actions', {'path': str(TOOL / 'tests' / 'fixtures' / 'explain_loop_no_reset.ini')}))
+            assert explained['ok'], explained
+            print('PASS explain_actions: action graph')
             fixture = TOOL / 'tests' / 'fixtures' / 'good_minimal.ini'
             data = payload(await s.call_tool('lint', {'path': str(fixture)}))
             assert data['ok'] and data['files'] == 1 and data['errors'] == 0, data

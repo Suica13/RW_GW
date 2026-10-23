@@ -1,0 +1,553 @@
+{
+  "source": "BattleUnits.zip",
+  "zip_sha256": "9afee5bcbd97053a84284f3225fbab21e88ffa3c1a8aaaa0383b28fd752935d6",
+  "images": [
+    {
+      "zip_entry": "RGM-89/Image/RGM-89_ArmL_1.png",
+      "target": "Units/BattleUnits/RGM_89/Image/RGM_89_ArmL_1.png",
+      "sha256": "2900b071e7377c00e72371be0eb11e1533b7d3f29be110bce6989acfdd8df1e8"
+    },
+    {
+      "zip_entry": "RGM-89/Image/RGM-89_ArmR_1.png",
+      "target": "Units/BattleUnits/RGM_89/Image/RGM_89_ArmR_1.png",
+      "sha256": "28d09c935c09214e644132fe02e9881e7d443e9a236c70d6e9ad7c3088a0ddde"
+    },
+    {
+      "zip_entry": "RGM-89/Image/RGM-89_Body_1.png",
+      "target": "Units/BattleUnits/RGM_89/Image/RGM_89_Body_1.png",
+      "sha256": "1e8a5169402901016f5d722aa9b109db0503fbbce47912c5408bec306f7e051a"
+    },
+    {
+      "zip_entry": "RGM-89/Image/RGM-89_Crotch_1.png",
+      "target": "Units/BattleUnits/RGM_89/Image/RGM_89_Crotch_1.png",
+      "sha256": "e1fb8983633bc5c0068dcf32322fe0e754b3f0c0a0eff4a76ddb147ba81ceb6e"
+    },
+    {
+      "zip_entry": "RGM-89/Image/RGM-89_Foot_1.png",
+      "target": "Units/BattleUnits/RGM_89/Image/RGM_89_Foot_1.png",
+      "sha256": "ee4408c5e73efb65a37f80ebfeb0792fee5da6bc513db419016b16c2cb6dd9fa"
+    },
+    {
+      "zip_entry": "RGM-89/Image/RGM-89_Head_1.png",
+      "target": "Units/BattleUnits/RGM_89/Image/RGM_89_Head_1.png",
+      "sha256": "579361414dedae295cc6e392d9043f340f401014c9bbfb2cff65f3b3f2095d67"
+    },
+    {
+      "zip_entry": "RGM-89/Image/RGM-89_LegL_1.png",
+      "target": "Units/BattleUnits/RGM_89/Image/RGM_89_LegL_1.png",
+      "sha256": "342c5f74a9dcdbe03bebd50848a47ce08f1c40469f87e4de07fee9af7ed552e7"
+    },
+    {
+      "zip_entry": "RGM-89/Image/RGM-89_LegR_1.png",
+      "target": "Units/BattleUnits/RGM_89/Image/RGM_89_LegR_1.png",
+      "sha256": "1e29d3c3e7e358aa99d01bf738288b703adbfbaad844e4df0181d5a642e0c198"
+    },
+    {
+      "zip_entry": "RGM-89/Image/RGM-89_ShoulderL_1.png",
+      "target": "Units/BattleUnits/RGM_89/Image/RGM_89_ShoulderL_1.png",
+      "sha256": "b9fbd1a20633538ea0245d35017f95c0de5af2b404487eb9f0daf04f8ed7c999"
+    },
+    {
+      "zip_entry": "RGM-89/Image/RGM-89_ShoulderR_1.png",
+      "target": "Units/BattleUnits/RGM_89/Image/RGM_89_ShoulderR_1.png",
+      "sha256": "383d0e0defc3aa8a3214465221149d34d952bfb55ede6fb6a01e89a5d66f2a5b"
+    },
+    {
+      "zip_entry": "RGZ-91/Image/RGZ-91_ArmL_1.png",
+      "target": "Units/BattleUnits/RGZ_91/Image/RGZ_91_ArmL_1.png",
+      "sha256": "6d4e1657427d74eacdec5d0b2168d5b614dab3f0ab23bdc9ebb02bab8412d0f8"
+    },
+    {
+      "zip_entry": "RGZ-91/Image/RGZ-91_ArmR_1.png",
+      "target": "Units/BattleUnits/RGZ_91/Image/RGZ_91_ArmR_1.png",
+      "sha256": "13f2d6235004ae40ff30afd4a3c1afe9d06168047ec1eaee45f69d43313efbd6"
+    },
+    {
+      "zip_entry": "RGZ-91/Image/RGZ-91_BWS_1.png",
+      "target": "Units/BattleUnits/RGZ_91/Image/RGZ_91_BWS_1.png",
+      "sha256": "9ccd7959c32e81cc25b0bccbb571aeda281cf449425a4df3c724033bc17e3dfc"
+    },
+    {
+      "zip_entry": "RGZ-91/Image/RGZ-91_BWS_2.png",
+      "target": "Units/BattleUnits/RGZ_91/Image/RGZ_91_BWS_2.png",
+      "sha256": "221bdaf0922267da2c82341f97a60a63f9d746ba835c286ccc58c75d8db7bc9f"
+    },
+    {
+      "zip_entry": "RGZ-91/Image/RGZ-91_Body_1.png",
+      "target": "Units/BattleUnits/RGZ_91/Image/RGZ_91_Body_1.png",
+      "sha256": "d9f12b6e8a3501318f0e46cd426ec3c5ab3142b9158d2ad7f8426e5877092d39"
+    },
+    {
+      "zip_entry": "RGZ-91/Image/RGZ-91_Body_2.png",
+      "target": "Units/BattleUnits/RGZ_91/Image/RGZ_91_Body_2.png",
+      "sha256": "36b12e92061f625c8afd83db3f4cd7688114856289e65a10aa8a632ae9e31bc5"
+    },
+    {
+      "zip_entry": "RGZ-91/Image/RGZ-91_Crotch_1.png",
+      "target": "Units/BattleUnits/RGZ_91/Image/RGZ_91_Crotch_1.png",
+      "sha256": "d87fb489fde4b78f0e9fe8027a92350329420c85d82531c86f0170ddefd91703"
+    },
+    {
+      "zip_entry": "RGZ-91/Image/RGZ-91_FootL_1.png",
+      "target": "Units/BattleUnits/RGZ_91/Image/RGZ_91_FootL_1.png",
+      "sha256": "5953da6700d41a83cd06deaaadf6645212dd69a24b5208e30b366cc6f38eb6b3"
+    },
+    {
+      "zip_entry": "RGZ-91/Image/RGZ-91_FootR_1.png",
+      "target": "Units/BattleUnits/RGZ_91/Image/RGZ_91_FootR_1.png",
+      "sha256": "30a9be4a7b5460da0be93b4d972cc187ef774be9f19b0e7310480ecc4aef59ee"
+    },
+    {
+      "zip_entry": "RGZ-91/Image/RGZ-91_Head_1.png",
+      "target": "Units/BattleUnits/RGZ_91/Image/RGZ_91_Head_1.png",
+      "sha256": "f0f4717c2288f8f05ff05f030c7213580a5c6ed60500aa6850d6ff91e7480947"
+    },
+    {
+      "zip_entry": "RGZ-91/Image/RGZ-91_LegL_1.png",
+      "target": "Units/BattleUnits/RGZ_91/Image/RGZ_91_LegL_1.png",
+      "sha256": "901f92a50f733ec8fe0ac194a19882e94370ee72c8014ba62698f9ac6fc6622b"
+    },
+    {
+      "zip_entry": "RGZ-91/Image/RGZ-91_LegR_1.png",
+      "target": "Units/BattleUnits/RGZ_91/Image/RGZ_91_LegR_1.png",
+      "sha256": "1f002692afc468f95addc08a013c3978bf1e9b8b54c7aa22cd896922c6b90d6b"
+    },
+    {
+      "zip_entry": "RGZ-91/Image/RGZ-91_ShoulderL_1.png",
+      "target": "Units/BattleUnits/RGZ_91/Image/RGZ_91_ShoulderL_1.png",
+      "sha256": "452a16cec88a17b60713df5cbb1f80a75289b67ccd73c15c7a102735a501f0ac"
+    },
+    {
+      "zip_entry": "RGZ-91/Image/RGZ-91_ShoulderR_1.png",
+      "target": "Units/BattleUnits/RGZ_91/Image/RGZ_91_ShoulderR_1.png",
+      "sha256": "8ac5016fcf285d48a6313084464a2e294091a11774268b2ae0a1db4160ca65b6"
+    },
+    {
+      "zip_entry": "RX-93/Image/RX-93_ArmL_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_ArmL_1.png",
+      "sha256": "6a3ee2670514aaec47b1cddcabf7674c171704346e22e0993c6912e064502070"
+    },
+    {
+      "zip_entry": "RX-93/Image/RX-93_ArmR_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_ArmR_1.png",
+      "sha256": "a6bbad48cfbdb583bc00bb3666fd2b65ad0d36b71dcff49abde481935843c841"
+    },
+    {
+      "zip_entry": "RX-93/Image/RX-93_Body_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_Body_1.png",
+      "sha256": "c387bacf0452e180365acde6cf577b0997b575a8774fd58314d9dc6ec5b77498"
+    },
+    {
+      "zip_entry": "RX-93/Image/RX-93_Body_BZ_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_Body_BZ_1.png",
+      "sha256": "1b4f8f6bdf88d0f525319dff84fff394da7e58433d4f78a57ce631f8723a8e53"
+    },
+    {
+      "zip_entry": "RX-93/Image/RX-93_Body_BeamSaberR_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_Body_BeamSaberR_1.png",
+      "sha256": "36fc5642815052feb9ab6eb874167e98d45c1cc2442fb7bf24cfc4d23702ac6c"
+    },
+    {
+      "zip_entry": "RX-93/Image/RX-93_Body_FF_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_Body_FF_1.png",
+      "sha256": "0169f3266fcc169ee5bb5d2a7b9ed0aa414d3909301e77cd5379cdb94e431058"
+    },
+    {
+      "zip_entry": "RX-93/Image/RX-93_Crotch_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_Crotch_1.png",
+      "sha256": "9db7f3b04907a20b2d94003c0b4f7bb7ebfec4803b4cf57687194ca8300b2737"
+    },
+    {
+      "zip_entry": "RX-93/Image/RX-93_FFS_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_FFS_1.png",
+      "sha256": "fbc5dee8fb8d030606ab89599091489d891aedc2c7be715859e9301cf6421a11"
+    },
+    {
+      "zip_entry": "RX-93/Image/RX-93_FFS_2.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_FFS_2.png",
+      "sha256": "43b115b059390c6a05842f3622d309141f6ce863c546035383a2cb3a34c49204"
+    },
+    {
+      "zip_entry": "RX-93/Image/RX-93_FFS_3.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_FFS_3.png",
+      "sha256": "d7612b04865db3519e63829bba5644f745c41d4ce2934676bfdff649a23db84e"
+    },
+    {
+      "zip_entry": "RX-93/Image/RX-93_FootL_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_FootL_1.png",
+      "sha256": "bc4783d25d687af5f542f40131d7d18c471fb268c7a9eaa6a03e6c3f279e510e"
+    },
+    {
+      "zip_entry": "RX-93/Image/RX-93_FootR_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_FootR_1.png",
+      "sha256": "ccd6575c092c308ae02dc06eed743913db56979c29c16beb11a95e46bef848ff"
+    },
+    {
+      "zip_entry": "RX-93/Image/RX-93_Head_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_Head_1.png",
+      "sha256": "52007ab000de302b37a13378eb2374e77f42f5857dc07dbc47156dfe30546911"
+    },
+    {
+      "zip_entry": "RX-93/Image/RX-93_LegL_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_LegL_1.png",
+      "sha256": "bde4297223afefa86c90a4670f7686fd66a3640d5fdd425a56a67d6144aec96e"
+    },
+    {
+      "zip_entry": "RX-93/Image/RX-93_LegR_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_LegR_1.png",
+      "sha256": "5c38570fa51d1df0f11b1500a65b43562160f44835653da98f0c58c6278e4d2d"
+    },
+    {
+      "zip_entry": "RX-93/Image/RX-93_ShoulderL_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_ShoulderL_1.png",
+      "sha256": "76e392f21d29c193661e27a528568b834ef3fa9b1db3e89e6e5f92e16a6552fa"
+    },
+    {
+      "zip_entry": "RX-93/Image/RX-93_ShoulderR_1.png",
+      "target": "Units/BattleUnits/RX_93/Image/RX_93_ShoulderR_1.png",
+      "sha256": "51438884e0cfc7f69ee8021a54b548d60109acd6b1553b7a371c93195c754a17"
+    }
+  ],
+  "config_sources": {
+    "RGM_89": "RGM-89/RGM-89.ini",
+    "RGZ_91": "RGZ-91/RGZ-91_ExitUnit.ini",
+    "RX_93": "RX-93/RX-93.ini"
+  },
+  "units": {
+    "RGM_89": {
+      "source_config": "RGM-89/RGM-89.ini",
+      "graphics": "Units/BattleUnits/RGM_89/RGM_89_Graphics.gw",
+      "body_images": [
+        {
+          "section": "decal_Crotch",
+          "source_image": "Units/BattleUnits/RGM-89/Image/RGM-89_Crotch_1.png",
+          "target": "Units/BattleUnits/RGM_89/Image/RGM_89_Crotch_1.png"
+        },
+        {
+          "section": "decal_Body",
+          "source_image": "Units/BattleUnits/RGM-89/Image/RGM-89_Body_1.png",
+          "target": "Units/BattleUnits/RGM_89/Image/RGM_89_Body_1.png"
+        },
+        {
+          "section": "decal_ArmL",
+          "source_image": "Units/BattleUnits/RGM-89/Image/RGM-89_ArmL_1.png",
+          "target": "Units/BattleUnits/RGM_89/Image/RGM_89_ArmL_1.png"
+        },
+        {
+          "section": "decal_ArmR",
+          "source_image": "Units/BattleUnits/RGM-89/Image/RGM-89_ArmR_1.png",
+          "target": "Units/BattleUnits/RGM_89/Image/RGM_89_ArmR_1.png"
+        },
+        {
+          "section": "decal_ShoulderL",
+          "source_image": "Units/BattleUnits/RGM-89/Image/RGM-89_ShoulderL_1.png",
+          "target": "Units/BattleUnits/RGM_89/Image/RGM_89_ShoulderL_1.png"
+        },
+        {
+          "section": "decal_ShoulderR",
+          "source_image": "Units/BattleUnits/RGM-89/Image/RGM-89_ShoulderR_1.png",
+          "target": "Units/BattleUnits/RGM_89/Image/RGM_89_ShoulderR_1.png"
+        },
+        {
+          "section": "decal_Head",
+          "source_image": "Units/BattleUnits/RGM-89/Image/RGM-89_Head_1.png",
+          "target": "Units/BattleUnits/RGM_89/Image/RGM_89_Head_1.png"
+        },
+        {
+          "section": "decal_LeftFoot",
+          "source_image": "Units/BattleUnits/RGM-89/Image/RGM-89_Foot_1.png",
+          "target": "Units/BattleUnits/RGM_89/Image/RGM_89_Foot_1.png"
+        },
+        {
+          "section": "decal_LeftLeg",
+          "source_image": "Units/BattleUnits/RGM-89/Image/RGM-89_LegL_1.png",
+          "target": "Units/BattleUnits/RGM_89/Image/RGM_89_LegL_1.png"
+        },
+        {
+          "section": "decal_RightFoot",
+          "source_image": "Units/BattleUnits/RGM-89/Image/RGM-89_Foot_1.png",
+          "target": "Units/BattleUnits/RGM_89/Image/RGM_89_Foot_1.png"
+        },
+        {
+          "section": "decal_RightLeg",
+          "source_image": "Units/BattleUnits/RGM-89/Image/RGM-89_LegR_1.png",
+          "target": "Units/BattleUnits/RGM_89/Image/RGM_89_LegR_1.png"
+        }
+      ],
+      "suppressed_gm_decals": [
+        "Crotch_MS",
+        "Crotch_MS_2",
+        "ShoulderL_MS",
+        "ShoulderR_MS",
+        "Body_BeamSaberL",
+        "Body_BeamSaberR",
+        "Eye"
+      ],
+      "protected_nonvisual_sha256": "598ad8f536df1d92c0782f6ff82808566d33bfc48ac1974eed4d8a10da883f6c",
+      "initialization_unchanged": true,
+      "weapon_definitions_unchanged": true,
+      "stats_and_actions_unchanged": true
+    },
+    "RGZ_91": {
+      "source_config": "RGZ-91/RGZ-91_ExitUnit.ini",
+      "graphics": "Units/BattleUnits/RGZ_91/RGZ_91_Graphics.gw",
+      "body_images": [
+        {
+          "section": "decal_Crotch",
+          "source_image": "Units/BattleUnits/RGZ-91/Image/RGZ-91_Crotch_1.png",
+          "target": "Units/BattleUnits/RGZ_91/Image/RGZ_91_Crotch_1.png"
+        },
+        {
+          "section": "decal_Body",
+          "source_image": "Units/BattleUnits/RGZ-91/Image/RGZ-91_Body_1.png",
+          "target": "Units/BattleUnits/RGZ_91/Image/RGZ_91_Body_1.png"
+        },
+        {
+          "section": "decal_ArmL",
+          "source_image": "Units/BattleUnits/RGZ-91/Image/RGZ-91_ArmL_1.png",
+          "target": "Units/BattleUnits/RGZ_91/Image/RGZ_91_ArmL_1.png"
+        },
+        {
+          "section": "decal_ArmR",
+          "source_image": "Units/BattleUnits/RGZ-91/Image/RGZ-91_ArmR_1.png",
+          "target": "Units/BattleUnits/RGZ_91/Image/RGZ_91_ArmR_1.png"
+        },
+        {
+          "section": "decal_ShoulderL",
+          "source_image": "Units/BattleUnits/RGZ-91/Image/RGZ-91_ShoulderL_1.png",
+          "target": "Units/BattleUnits/RGZ_91/Image/RGZ_91_ShoulderL_1.png"
+        },
+        {
+          "section": "decal_ShoulderR",
+          "source_image": "Units/BattleUnits/RGZ-91/Image/RGZ-91_ShoulderR_1.png",
+          "target": "Units/BattleUnits/RGZ_91/Image/RGZ_91_ShoulderR_1.png"
+        },
+        {
+          "section": "decal_Head",
+          "source_image": "Units/BattleUnits/RGZ-91/Image/RGZ-91_Head_1.png",
+          "target": "Units/BattleUnits/RGZ_91/Image/RGZ_91_Head_1.png"
+        },
+        {
+          "section": "decal_LeftFoot",
+          "source_image": "Units/BattleUnits/RGZ-91/Image/RGZ-91_FootL_1.png",
+          "target": "Units/BattleUnits/RGZ_91/Image/RGZ_91_FootL_1.png"
+        },
+        {
+          "section": "decal_LeftLeg",
+          "source_image": "Units/BattleUnits/RGZ-91/Image/RGZ-91_LegL_1.png",
+          "target": "Units/BattleUnits/RGZ_91/Image/RGZ_91_LegL_1.png"
+        },
+        {
+          "section": "decal_RightFoot",
+          "source_image": "Units/BattleUnits/RGZ-91/Image/RGZ-91_FootR_1.png",
+          "target": "Units/BattleUnits/RGZ_91/Image/RGZ_91_FootR_1.png"
+        },
+        {
+          "section": "decal_RightLeg",
+          "source_image": "Units/BattleUnits/RGZ-91/Image/RGZ-91_LegR_1.png",
+          "target": "Units/BattleUnits/RGZ_91/Image/RGZ_91_LegR_1.png"
+        }
+      ],
+      "suppressed_gm_decals": [
+        "Crotch_MS",
+        "Crotch_MS_2",
+        "ShoulderL_MS",
+        "ShoulderR_MS",
+        "Body_BeamSaberL",
+        "Body_BeamSaberR",
+        "Eye"
+      ],
+      "protected_nonvisual_sha256": "73ce40037c62a16fd88d0ecf3e7a8c8bdc46eb836c56104ecbe911c97e8af2b2",
+      "initialization_unchanged": true,
+      "weapon_definitions_unchanged": true,
+      "stats_and_actions_unchanged": true
+    },
+    "RX_93": {
+      "source_config": "RX-93/RX-93.ini",
+      "graphics": "Units/BattleUnits/RX_93/RX_93_Graphics.gw",
+      "body_images": [
+        {
+          "section": "decal_Crotch",
+          "source_image": "Units/BattleUnits/RX-93/Image/RX-93_Crotch_1.png",
+          "target": "Units/BattleUnits/RX_93/Image/RX_93_Crotch_1.png"
+        },
+        {
+          "section": "decal_Body",
+          "source_image": "Units/BattleUnits/RX-93/Image/RX-93_Body_1.png",
+          "target": "Units/BattleUnits/RX_93/Image/RX_93_Body_1.png"
+        },
+        {
+          "section": "decal_ArmL",
+          "source_image": "Units/BattleUnits/RX-93/Image/RX-93_ArmL_1.png",
+          "target": "Units/BattleUnits/RX_93/Image/RX_93_ArmL_1.png"
+        },
+        {
+          "section": "decal_ArmR",
+          "source_image": "Units/BattleUnits/RX-93/Image/RX-93_ArmR_1.png",
+          "target": "Units/BattleUnits/RX_93/Image/RX_93_ArmR_1.png"
+        },
+        {
+          "section": "decal_ShoulderL",
+          "source_image": "Units/BattleUnits/RX-93/Image/RX-93_ShoulderL_1.png",
+          "target": "Units/BattleUnits/RX_93/Image/RX_93_ShoulderL_1.png"
+        },
+        {
+          "section": "decal_ShoulderR",
+          "source_image": "Units/BattleUnits/RX-93/Image/RX-93_ShoulderR_1.png",
+          "target": "Units/BattleUnits/RX_93/Image/RX_93_ShoulderR_1.png"
+        },
+        {
+          "section": "decal_Head",
+          "source_image": "Units/BattleUnits/RX-93/Image/RX-93_Head_1.png",
+          "target": "Units/BattleUnits/RX_93/Image/RX_93_Head_1.png"
+        },
+        {
+          "section": "decal_LeftFoot",
+          "source_image": "Units/BattleUnits/RX-93/Image/RX-93_FootL_1.png",
+          "target": "Units/BattleUnits/RX_93/Image/RX_93_FootL_1.png"
+        },
+        {
+          "section": "decal_LeftLeg",
+          "source_image": "Units/BattleUnits/RX-93/Image/RX-93_LegL_1.png",
+          "target": "Units/BattleUnits/RX_93/Image/RX_93_LegL_1.png"
+        },
+        {
+          "section": "decal_RightFoot",
+          "source_image": "Units/BattleUnits/RX-93/Image/RX-93_FootR_1.png",
+          "target": "Units/BattleUnits/RX_93/Image/RX_93_FootR_1.png"
+        },
+        {
+          "section": "decal_RightLeg",
+          "source_image": "Units/BattleUnits/RX-93/Image/RX-93_LegR_1.png",
+          "target": "Units/BattleUnits/RX_93/Image/RX_93_LegR_1.png"
+        }
+      ],
+      "suppressed_gm_decals": [
+        "Crotch_MS",
+        "Crotch_MS_2",
+        "ShoulderL_MS",
+        "ShoulderR_MS",
+        "Body_BeamSaberL",
+        "Body_BeamSaberR",
+        "Eye"
+      ],
+      "protected_nonvisual_sha256": "4b4df0d3e8e721e5c9e202fca51513f37ad6ad832fedb440503e763d85e55986",
+      "initialization_unchanged": true,
+      "weapon_definitions_unchanged": true,
+      "stats_and_actions_unchanged": true
+    }
+  },
+  "not_imported": [
+    "foreign copyFrom/framework",
+    "foreign stats/actions/weapons/shield assets",
+    "BWS unit/exit conversions",
+    "funnel/I-field state or abilities"
+  ],
+  "notes": [
+    "RGZ_91 uses the source ExitUnit MS artwork, with native visual boost stance.",
+    "RX_93 retains a static funnel rack appearance only.",
+    "Missing dedicated closed-head textures reuse each model normal head; old GM eye/decorations are hidden.",
+    "All 41 PNGs retained byte-for-byte; BWS, stored weapon and field-effect extras remain unused assets.",
+    "Existing unit icons and generic shields retained because the archive does not contain replacements.",
+    "Archive does not include its shared graphics template. Native MS part anchors, damage visibility and animations are retained; visual alignment remains untested in a match."
+  ],
+  "validation": {
+    "checks": 17,
+    "passed": 17,
+    "results": [
+      {
+        "check": "all 41 PNGs copied byte-for-byte with local underscore filenames",
+        "passed": true
+      },
+      {
+        "check": "RGM_89 attributes, initialization and all actions unchanged",
+        "passed": true
+      },
+      {
+        "check": "RGM_89 body section maps to own model assets",
+        "passed": true
+      },
+      {
+        "check": "RGM_89 graphics-only file imports no weapon, foreign memory or actions",
+        "passed": true
+      },
+      {
+        "check": "RGM_89 old head and GM-specific decorations overridden",
+        "passed": true
+      },
+      {
+        "check": "RGM_89 all concrete graphics paths are local and exist",
+        "passed": true
+      },
+      {
+        "check": "RGZ_91 attributes, initialization and all actions unchanged",
+        "passed": true
+      },
+      {
+        "check": "RGZ_91 body section maps to own model assets",
+        "passed": true
+      },
+      {
+        "check": "RGZ_91 graphics-only file imports no weapon, foreign memory or actions",
+        "passed": true
+      },
+      {
+        "check": "RGZ_91 old head and GM-specific decorations overridden",
+        "passed": true
+      },
+      {
+        "check": "RGZ_91 all concrete graphics paths are local and exist",
+        "passed": true
+      },
+      {
+        "check": "RX_93 attributes, initialization and all actions unchanged",
+        "passed": true
+      },
+      {
+        "check": "RX_93 body section maps to own model assets",
+        "passed": true
+      },
+      {
+        "check": "RX_93 graphics-only file imports no weapon, foreign memory or actions",
+        "passed": true
+      },
+      {
+        "check": "RX_93 old head and GM-specific decorations overridden",
+        "passed": true
+      },
+      {
+        "check": "RX_93 all concrete graphics paths are local and exist",
+        "passed": true
+      },
+      {
+        "check": "RGZ uses MS form rather than importing BWS conversion",
+        "passed": true
+      }
+    ],
+    "lint": {
+      "files": 6,
+      "errors": 0,
+      "warnings": 0
+    },
+    "runtime_visuals_tested": false,
+    "engine_0093": {
+      "case": "0093",
+      "passed": true,
+      "initialized": true,
+      "enabled": {
+        "GW_BattleUniverse_Main": true,
+        "GW_BattleUniverse_DLC_0093": true
+      },
+      "errors": [],
+      "timed_out": false,
+      "returncode": 1,
+      "elapsed_seconds": 36.5,
+      "log": "文档 (不要打包)\\工具\\0093_loadtest\\verify_0093\\engine.log"
+    },
+    "research_production_regression": {
+      "passed": 241,
+      "total": 241
+    }
+  },
+  "validation_helper_fix": "Clear the isolated engine.log before launch to avoid reading a previous run Init completed marker."
+}

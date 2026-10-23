@@ -1,0 +1,47 @@
+{
+  "cause": "Removing trailing whitespace joined 500 and and across multiline requireConditional.",
+  "fix": "Use a single-line requireConditional with explicit spaces for all eight new Random_B branches.",
+  "files": [
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/UnitList/0093_EFSF/Units/Land/RGM_89.gw",
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/UnitList/0093_EFSF/Units/Land/RGC_90.gw",
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/UnitList/0093_EFSF/Units/Land/RGZ_91.gw",
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/UnitList/0093_EFSF/Units/Land/RX_93.gw",
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/UnitList/0093_NZN/Units/Land/AMS_119.gw",
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/UnitList/0093_NZN/Units/Land/AMS_119H.gw",
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/UnitList/0093_NZN/Units/Land/MSN_03.gw",
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/UnitList/0093_NZN/Units/Land/MSN_04.gw"
+  ],
+  "validation": {
+    "static_passed": 241,
+    "static_checks": 241,
+    "production_lint": {
+      "errors": 0,
+      "warnings": 9
+    },
+    "engine_0093": {
+      "case": "0093",
+      "passed": true,
+      "initialized": true,
+      "enabled": {
+        "GW_BattleUniverse_Main": true,
+        "GW_BattleUniverse_DLC_0093": true
+      },
+      "errors": [],
+      "timed_out": false,
+      "returncode": 1,
+      "elapsed_seconds": 22.4,
+      "log": "文档 (不要打包)\\工具\\0093_loadtest\\verify_0093\\engine.log"
+    },
+    "gameplay_tested": false
+  },
+  "final_sha256": {
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/UnitList/0093_EFSF/Units/Land/RGM_89.gw": "335c3f67c5c8a601c1d70028e81226b57bc8fce1b25b5e9f551367a5310b0da4",
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/UnitList/0093_EFSF/Units/Land/RGC_90.gw": "d7abc183dccaab8c2dfb1ae4e15e654b026ca351dc86d700bad1d30d6c084c36",
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/UnitList/0093_EFSF/Units/Land/RGZ_91.gw": "89b87a53c310e0c86277110b5426cd1d25796528aead92aa84bb4282418fa030",
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/UnitList/0093_EFSF/Units/Land/RX_93.gw": "905ca7e5e61cf749421c4197efaa5de31b2abafd66e8fc5167f46719d73f559c",
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/UnitList/0093_NZN/Units/Land/AMS_119.gw": "bc34307f61d48b16abd3a4c92623ccd9a4dcbce693fb7ab3e3e94ffd6470d58a",
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/UnitList/0093_NZN/Units/Land/AMS_119H.gw": "5785c857fc5cd9a0e6bbcc14f26762f74765e6c28de55e163865f30c538620d4",
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/UnitList/0093_NZN/Units/Land/MSN_03.gw": "5f0907283da3f5957470ad5f9ad9db20a038b75ea39d66f1b43d3bae5edaf147",
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/UnitList/0093_NZN/Units/Land/MSN_04.gw": "1dc221ddbe433881c8842e77d5fef9169cb70e84859896d1c753b2b4155c6102"
+  }
+}

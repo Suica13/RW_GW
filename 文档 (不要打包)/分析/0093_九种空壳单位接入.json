@@ -1,0 +1,537 @@
+{
+  "prototype": "Units/BattleUnits/RGM_86R_0093_EFSF/RGM_86R_0093_EFSF_Base.gw",
+  "gm_skin_source": "GW_BattleUniverse_DLC_0087/Units/BattleUnits/RGM_86R",
+  "gm_graphics_changes": [
+    {
+      "section": "graphics",
+      "key": "icon_build",
+      "value": "ROOT:Resource/Image/Units/Icon/RGM_86R.png"
+    },
+    {
+      "section": "decal_Crotch",
+      "key": "image",
+      "value": "ROOT:Units/BattleUnits/RGM_86R_0093_EFSF/Image/Base/RGM_86R_Crotch_1.png"
+    },
+    {
+      "section": "decal_Crotch_MS",
+      "key": "image",
+      "value": "ROOT:Units/BattleUnits/RGM_86R_0093_EFSF/Image/Base/RGM_86R_CrotchMissleL_1.png"
+    },
+    {
+      "section": "decal_Crotch_MS_2",
+      "key": "image",
+      "value": "ROOT:Units/BattleUnits/RGM_86R_0093_EFSF/Image/Base/RGM_86R_CrotchMissleR_1.png"
+    },
+    {
+      "section": "decal_Body",
+      "key": "image",
+      "value": "ROOT:Units/BattleUnits/RGM_86R_0093_EFSF/Image/Base/RGM_86R_Body_1.png"
+    },
+    {
+      "section": "decal_Body_BeamSaberL",
+      "key": "image",
+      "value": "ROOT:Units/BattleUnits/RGM_86R_0093_EFSF/Image/Base/RGM_86R_Body_BeamSaberL_1.png"
+    },
+    {
+      "section": "decal_Body_BeamSaberR",
+      "key": "image",
+      "value": "ROOT:Units/BattleUnits/RGM_86R_0093_EFSF/Image/Base/RGM_86R_Body_BeamSaberR_1.png"
+    },
+    {
+      "section": "decal_ArmL",
+      "key": "image",
+      "value": "ROOT:Units/BattleUnits/RGM_86R_0093_EFSF/Image/Base/RGM_86R_ArmL_1.png"
+    },
+    {
+      "section": "decal_ArmR",
+      "key": "image",
+      "value": "ROOT:Units/BattleUnits/RGM_86R_0093_EFSF/Image/Base/RGM_86R_ArmR_1.png"
+    },
+    {
+      "section": "decal_ShoulderL",
+      "key": "image",
+      "value": "ROOT:Units/BattleUnits/RGM_86R_0093_EFSF/Image/Base/RGM_86R_ShoulderL_1.png"
+    },
+    {
+      "section": "decal_ShoulderL_MS",
+      "key": "image",
+      "value": "ROOT:Units/BattleUnits/RGM_86R_0093_EFSF/Image/Base/RGM_86R_ShoulderMissileL_1.png"
+    },
+    {
+      "section": "decal_ShoulderR",
+      "key": "image",
+      "value": "ROOT:Units/BattleUnits/RGM_86R_0093_EFSF/Image/Base/RGM_86R_ShoulderR_1.png"
+    },
+    {
+      "section": "decal_ShoulderR_MS",
+      "key": "image",
+      "value": "ROOT:Units/BattleUnits/RGM_86R_0093_EFSF/Image/Base/RGM_86R_ShoulderMissileR_1.png"
+    },
+    {
+      "section": "decal_Head",
+      "key": "image",
+      "value": "ROOT:Units/BattleUnits/RGM_86R_0093_EFSF/Image/Base/RGM_86R_Head_1.png"
+    },
+    {
+      "section": "decal_Head_Close",
+      "key": "image",
+      "value": "ROOT:Units/BattleUnits/RGM_86R_0093_EFSF/Image/Base/RGM_86R_Head_1_Close.png"
+    },
+    {
+      "section": "decal_LeftFoot",
+      "key": "image",
+      "value": "ROOT:Units/BattleUnits/RGM_86R_0093_EFSF/Image/Base/RGM_86R_Foot_1.png"
+    },
+    {
+      "section": "decal_LeftLeg",
+      "key": "image",
+      "value": "ROOT:Units/BattleUnits/RGM_86R_0093_EFSF/Image/Base/RGM_86R_LegL_1.png"
+    },
+    {
+      "section": "decal_RightFoot",
+      "key": "image",
+      "value": "ROOT:Units/BattleUnits/RGM_86R_0093_EFSF/Image/Base/RGM_86R_Foot_1.png"
+    },
+    {
+      "section": "decal_RightLeg",
+      "key": "image",
+      "value": "ROOT:Units/BattleUnits/RGM_86R_0093_EFSF/Image/Base/RGM_86R_LegR_1.png"
+    }
+  ],
+  "gm_other_fields_unchanged": true,
+  "units": [
+    {
+      "id": "RGM_89",
+      "displayText_zh": "杰刚",
+      "faction": "0093_EFSF",
+      "file": "Units/BattleUnits/RGM_89/RGM_89.ini",
+      "hp": "40000",
+      "shield": "8500",
+      "technology": "Tech_0093_EFSF_Mid02",
+      "production": [
+        "Land",
+        "Space"
+      ]
+    },
+    {
+      "id": "RGC_90",
+      "displayText_zh": "杰刚重装型",
+      "faction": "0093_EFSF",
+      "file": "Units/BattleUnits/RGC_90/RGC_90.ini",
+      "hp": "40000",
+      "shield": "8500",
+      "technology": "Tech_0093_EFSF_Mid02",
+      "production": [
+        "Land",
+        "Space"
+      ]
+    },
+    {
+      "id": "RGZ_91",
+      "displayText_zh": "灵格斯",
+      "faction": "0093_EFSF",
+      "file": "Units/BattleUnits/RGZ_91/RGZ_91.ini",
+      "hp": "40000",
+      "shield": "8500",
+      "technology": "Tech_0093_EFSF_Mid03",
+      "production": [
+        "Land",
+        "Space"
+      ]
+    },
+    {
+      "id": "RX_93",
+      "displayText_zh": "牛高达",
+      "faction": "0093_EFSF",
+      "file": "Units/BattleUnits/RX_93/RX_93.ini",
+      "hp": "40000",
+      "shield": "8500",
+      "technology": "Tech_0093_EFSF_Mid03",
+      "production": [
+        "Land",
+        "Space"
+      ]
+    },
+    {
+      "id": "RX_93_Test",
+      "displayText_zh": "牛高达测试型",
+      "faction": "0093_EFSF",
+      "file": "Units/BattleUnits/RX_93_Test/RX_93_Test.ini",
+      "hp": "40000",
+      "shield": "8500",
+      "technology": null,
+      "production": []
+    },
+    {
+      "id": "AMS_119",
+      "displayText_zh": "基拉德卡",
+      "faction": "0093_NZN",
+      "file": "Units/BattleUnits/AMS_119/AMS_119.ini",
+      "hp": "40000",
+      "shield": "8500",
+      "technology": "Tech_0093_NZN_Mid02",
+      "production": [
+        "Land",
+        "Space"
+      ]
+    },
+    {
+      "id": "AMS_119H",
+      "displayText_zh": "基拉多[加重武装规格]",
+      "faction": "0093_NZN",
+      "file": "Units/BattleUnits/AMS_119H/AMS_119H.ini",
+      "hp": "40000",
+      "shield": "8500",
+      "technology": "Tech_0093_NZN_Mid02",
+      "production": [
+        "Land",
+        "Space"
+      ]
+    },
+    {
+      "id": "MSN_03",
+      "displayText_zh": "乍得多加",
+      "faction": "0093_NZN",
+      "file": "Units/BattleUnits/MSN_03/MSN_03.ini",
+      "hp": "40000",
+      "shield": "8500",
+      "technology": "Tech_0093_NZN_Mid03",
+      "production": [
+        "Land",
+        "Space"
+      ]
+    },
+    {
+      "id": "MSN_04",
+      "displayText_zh": "沙扎比",
+      "faction": "0093_NZN",
+      "file": "Units/BattleUnits/MSN_04/MSN_04.ini",
+      "hp": "40000",
+      "shield": "8500",
+      "technology": "Tech_0093_NZN_Mid03",
+      "production": [
+        "Land",
+        "Space"
+      ]
+    }
+  ],
+  "technology_changed": true,
+  "production_changed": true,
+  "initialization_sha256": "2113e64db3487df9638af48869d9f69e6ec6d96f13dbeecb31e5e3d1a386183d",
+  "validation": {
+    "checks": 54,
+    "passed": 54,
+    "details": [
+      {
+        "unit": "RGM_89",
+        "check": "identity_and_own_tag",
+        "passed": true
+      },
+      {
+        "unit": "RGM_89",
+        "check": "prototype_stats_identical",
+        "passed": true
+      },
+      {
+        "unit": "RGM_89",
+        "check": "correct_faction_pilot",
+        "passed": true
+      },
+      {
+        "unit": "RGM_89",
+        "check": "unique_global_unit_id",
+        "passed": true
+      },
+      {
+        "unit": "RGM_89",
+        "check": "no_technology_or_production_registration",
+        "passed": true
+      },
+      {
+        "unit": "RGM_89",
+        "check": "concrete_local_references_exist",
+        "passed": true
+      },
+      {
+        "unit": "RGC_90",
+        "check": "identity_and_own_tag",
+        "passed": true
+      },
+      {
+        "unit": "RGC_90",
+        "check": "prototype_stats_identical",
+        "passed": true
+      },
+      {
+        "unit": "RGC_90",
+        "check": "correct_faction_pilot",
+        "passed": true
+      },
+      {
+        "unit": "RGC_90",
+        "check": "unique_global_unit_id",
+        "passed": true
+      },
+      {
+        "unit": "RGC_90",
+        "check": "no_technology_or_production_registration",
+        "passed": true
+      },
+      {
+        "unit": "RGC_90",
+        "check": "concrete_local_references_exist",
+        "passed": true
+      },
+      {
+        "unit": "RGZ_91",
+        "check": "identity_and_own_tag",
+        "passed": true
+      },
+      {
+        "unit": "RGZ_91",
+        "check": "prototype_stats_identical",
+        "passed": true
+      },
+      {
+        "unit": "RGZ_91",
+        "check": "correct_faction_pilot",
+        "passed": true
+      },
+      {
+        "unit": "RGZ_91",
+        "check": "unique_global_unit_id",
+        "passed": true
+      },
+      {
+        "unit": "RGZ_91",
+        "check": "no_technology_or_production_registration",
+        "passed": true
+      },
+      {
+        "unit": "RGZ_91",
+        "check": "concrete_local_references_exist",
+        "passed": true
+      },
+      {
+        "unit": "RX_93",
+        "check": "identity_and_own_tag",
+        "passed": true
+      },
+      {
+        "unit": "RX_93",
+        "check": "prototype_stats_identical",
+        "passed": true
+      },
+      {
+        "unit": "RX_93",
+        "check": "correct_faction_pilot",
+        "passed": true
+      },
+      {
+        "unit": "RX_93",
+        "check": "unique_global_unit_id",
+        "passed": true
+      },
+      {
+        "unit": "RX_93",
+        "check": "no_technology_or_production_registration",
+        "passed": true
+      },
+      {
+        "unit": "RX_93",
+        "check": "concrete_local_references_exist",
+        "passed": true
+      },
+      {
+        "unit": "RX_93_Test",
+        "check": "identity_and_own_tag",
+        "passed": true
+      },
+      {
+        "unit": "RX_93_Test",
+        "check": "prototype_stats_identical",
+        "passed": true
+      },
+      {
+        "unit": "RX_93_Test",
+        "check": "correct_faction_pilot",
+        "passed": true
+      },
+      {
+        "unit": "RX_93_Test",
+        "check": "unique_global_unit_id",
+        "passed": true
+      },
+      {
+        "unit": "RX_93_Test",
+        "check": "no_technology_or_production_registration",
+        "passed": true
+      },
+      {
+        "unit": "RX_93_Test",
+        "check": "concrete_local_references_exist",
+        "passed": true
+      },
+      {
+        "unit": "AMS_119",
+        "check": "identity_and_own_tag",
+        "passed": true
+      },
+      {
+        "unit": "AMS_119",
+        "check": "prototype_stats_identical",
+        "passed": true
+      },
+      {
+        "unit": "AMS_119",
+        "check": "correct_faction_pilot",
+        "passed": true
+      },
+      {
+        "unit": "AMS_119",
+        "check": "unique_global_unit_id",
+        "passed": true
+      },
+      {
+        "unit": "AMS_119",
+        "check": "no_technology_or_production_registration",
+        "passed": true
+      },
+      {
+        "unit": "AMS_119",
+        "check": "concrete_local_references_exist",
+        "passed": true
+      },
+      {
+        "unit": "AMS_119H",
+        "check": "identity_and_own_tag",
+        "passed": true
+      },
+      {
+        "unit": "AMS_119H",
+        "check": "prototype_stats_identical",
+        "passed": true
+      },
+      {
+        "unit": "AMS_119H",
+        "check": "correct_faction_pilot",
+        "passed": true
+      },
+      {
+        "unit": "AMS_119H",
+        "check": "unique_global_unit_id",
+        "passed": true
+      },
+      {
+        "unit": "AMS_119H",
+        "check": "no_technology_or_production_registration",
+        "passed": true
+      },
+      {
+        "unit": "AMS_119H",
+        "check": "concrete_local_references_exist",
+        "passed": true
+      },
+      {
+        "unit": "MSN_03",
+        "check": "identity_and_own_tag",
+        "passed": true
+      },
+      {
+        "unit": "MSN_03",
+        "check": "prototype_stats_identical",
+        "passed": true
+      },
+      {
+        "unit": "MSN_03",
+        "check": "correct_faction_pilot",
+        "passed": true
+      },
+      {
+        "unit": "MSN_03",
+        "check": "unique_global_unit_id",
+        "passed": true
+      },
+      {
+        "unit": "MSN_03",
+        "check": "no_technology_or_production_registration",
+        "passed": true
+      },
+      {
+        "unit": "MSN_03",
+        "check": "concrete_local_references_exist",
+        "passed": true
+      },
+      {
+        "unit": "MSN_04",
+        "check": "identity_and_own_tag",
+        "passed": true
+      },
+      {
+        "unit": "MSN_04",
+        "check": "prototype_stats_identical",
+        "passed": true
+      },
+      {
+        "unit": "MSN_04",
+        "check": "correct_faction_pilot",
+        "passed": true
+      },
+      {
+        "unit": "MSN_04",
+        "check": "unique_global_unit_id",
+        "passed": true
+      },
+      {
+        "unit": "MSN_04",
+        "check": "no_technology_or_production_registration",
+        "passed": true
+      },
+      {
+        "unit": "MSN_04",
+        "check": "concrete_local_references_exist",
+        "passed": true
+      }
+    ],
+    "lint": {
+      "files": 9,
+      "errors": 0,
+      "warnings": 0
+    },
+    "gameplay_tested": false,
+    "engine_0093": {
+      "case": "0093",
+      "passed": true,
+      "initialized": true,
+      "enabled": {
+        "GW_BattleUniverse_Main": true,
+        "GW_BattleUniverse_DLC_0093": true
+      },
+      "errors": [],
+      "timed_out": false,
+      "returncode": 1,
+      "elapsed_seconds": 23.4,
+      "log": "文档 (不要打包)\\工具\\0093_loadtest\\verify_0093\\engine.log"
+    },
+    "base_and_middle_regression": {
+      "passed": 196,
+      "total": 196
+    }
+  },
+  "creation_validation_is_historical": true,
+  "current_research_integration": {
+    "RGM_89": "Tech_0093_EFSF_Mid02",
+    "RGC_90": "Tech_0093_EFSF_Mid02",
+    "RGZ_91": "Tech_0093_EFSF_Mid03",
+    "RX_93": "Tech_0093_EFSF_Mid03",
+    "AMS_119": "Tech_0093_NZN_Mid02",
+    "AMS_119H": "Tech_0093_NZN_Mid02",
+    "MSN_03": "Tech_0093_NZN_Mid03",
+    "MSN_04": "Tech_0093_NZN_Mid03"
+  },
+  "current_imported_artwork": {
+    "RGM_89": "Units/BattleUnits/RGM_89/RGM_89_Graphics.gw",
+    "RGZ_91": "Units/BattleUnits/RGZ_91/RGZ_91_Graphics.gw",
+    "RX_93": "Units/BattleUnits/RX_93/RX_93_Graphics.gw"
+  }
+}

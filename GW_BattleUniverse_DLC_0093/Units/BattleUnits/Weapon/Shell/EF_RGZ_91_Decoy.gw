@@ -1,0 +1,159 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_A_L.gw
+"""
+
+
+@memory EF_RGZ_91_Decoy_CDTimer:float
+@global EF_RGZ_91_Decoy_CD=15
+@global EF_RGZ_91_Decoy_EN=25
+
+
+
+[turret_EF_RGZ_91_Decoy]
+x:0
+y:0
+
+canShoot:false
+projectile:EF_RGZ_91_Decoy_Projectile
+
+delay:0.2s
+limitingRange:0
+
+canAttackMaxAngle:15
+barrelX:-16
+barrelY:12
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\Missile_1.ogg
+shoot_sound_vol:0.4
+shoot_flame:BZ_Fire_1_S
+
+
+
+[projectile_EF_RGZ_91_Decoy_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Decoy_RGZ_91*1
+(
+    addResources=
+    ShellDamage:500
+    |DpDamage:500
+    |WeaponAccuracy=85
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75
+    |AntiLand=1 
+    |AntiSpace=1 
+    |HeightChangeSpeed=2
+    |HeightHitRange=20
+    |ProjectileSpeed:15
+    |ProjectileSpread:35
+    |ProjectileExplosionRange:75
+    |ProjectileLife:100
+)
+"""
+
+
+
+
+
+
+
+[hiddenAction_EF_RGZ_91_Decoy_Trigger]
+alsoTriggerAction:EF_RGZ_91_Decoy_Fire
+
+
+
+[hiddenAction_EF_RGZ_91_Decoy_Fire]
+requireConditional:"""
+if self.timeAlive>memory.EF_RGZ_91_Decoy_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armLBreaked==false  and ${onSkill}==false 
+and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)  
+and self.resource.EN>0
+"""
+setUnitMemory:EF_RGZ_91_Decoy_CDTimer=self.timeAlive+${EF_RGZ_91_Decoy_CD}
+addResources:EN=-${EF_RGZ_91_Decoy_EN}
+alsoTriggerAction:"""
+SetAttackingOn,
+SendEnemyTryAttack_Shoot,
+EF_RGZ_91_Decoy_SetWeaponIndex,
+EF_RGZ_91_Decoy_B2_Step_1
+"""
+
+
+
+[hiddenAction_EF_RGZ_91_Decoy_B2_Step_1]
+alsoQueueAction:"""
+EF_RGZ_91_Decoy_Fire_Step_1,
+EF_RGZ_91_Decoy_Fire_Step_2,
+EF_RGZ_91_Decoy_Fire_Step_3,
+EF_RGZ_91_Decoy_Fire_Step_Final
+"""
+
+
+
+
+
+[hiddenAction_EF_RGZ_91_Decoy_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_EF_RGZ_91_Decoy_Fire_Step_1]
+requireConditional:"""
+if ${cantAction}==false 
+and memory.armLBreaked==false 
+"""
+buildSpeed:0.1s
+
+
+
+[hiddenAction_EF_RGZ_91_Decoy_Fire_Step_2]
+requireConditional:"""
+if ${cantAction}==false 
+and memory.armLBreaked==false 
+"""
+buildSpeed:0s
+fireTurretXAtGround:EF_RGZ_91_Decoy
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+alsoTriggerAction:PlayCommon_Shoot_A_L_Step_1
+
+
+
+[hiddenAction_EF_RGZ_91_Decoy_Fire_Step_3]
+requireConditional:"""
+if ${cantAction}==false 
+and memory.armLBreaked==false 
+"""
+@copyFromSection:hiddenAction_EF_RGZ_91_Decoy_Fire_Step_2
+buildSpeed:${turret_EF_RGZ_91_Decoy.delay}
+
+
+
+[hiddenAction_EF_RGZ_91_Decoy_Fire_Step_Final]
+buildSpeed:0.3s
+alsoTriggerAction:SetAttackingOff
+
+

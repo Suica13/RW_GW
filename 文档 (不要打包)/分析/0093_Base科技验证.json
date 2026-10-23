@@ -1,6 +1,6 @@
 {
-  "checks": 135,
-  "passed": 135,
+  "checks": 241,
+  "passed": 241,
   "results": [
     {
       "check": "unlocked marker includes shared building receiver",
@@ -73,7 +73,7 @@
       "details": null
     },
     {
-      "check": "0093_EFSF only one research project",
+      "check": "0093_EFSF contains only the declared Base/middle-row projects",
       "passed": true,
       "details": null
     },
@@ -183,7 +183,7 @@
       "details": null
     },
     {
-      "check": "0093_EFSF first page contains only the Base node",
+      "check": "0093_EFSF first page contains the declared middle-row nodes",
       "passed": true,
       "details": null
     },
@@ -298,7 +298,7 @@
       "details": null
     },
     {
-      "check": "0093_NZN only one research project",
+      "check": "0093_NZN contains only the declared Base/middle-row projects",
       "passed": true,
       "details": null
     },
@@ -408,7 +408,7 @@
       "details": null
     },
     {
-      "check": "0093_NZN first page contains only the Base node",
+      "check": "0093_NZN first page contains the declared middle-row nodes",
       "passed": true,
       "details": null
     },
@@ -504,6 +504,576 @@
     },
     {
       "check": "MusaiClassFinalType_0093_NZN production creates only itself",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "exactly eight middle-row research nodes and retained preview definitions",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "preview placeholder template is hidden and noncombat",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_EFSF_Mid02 uses matching 0087 research pace",
+      "passed": true,
+      "details": {
+        "Time": 30,
+        "Money": 4000,
+        "Resource": 1000,
+        "TechPoint": 1200
+      }
+    },
+    {
+      "check": "Tech_0093_EFSF_Mid02 is gated by own start tag and previous middle node",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_EFSF_Mid02 retains complete research lifecycle",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_EFSF_Mid02 unlocks exactly its registered contents without free troops",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "RGM_89 has preview/Get/Send/identity registration",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "RGM_89 production targets itself and correct faction panel",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "RGM_89 squad queue preserves separate pilot rolls",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "RGM_89 random-B condition survives engine multiline concatenation",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "RGM_89 Land production and AI route are connected",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "RGM_89 Space production and AI route are connected",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "RGC_90 has preview/Get/Send/identity registration",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "RGC_90 production targets itself and correct faction panel",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "RGC_90 squad queue preserves separate pilot rolls",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "RGC_90 random-B condition survives engine multiline concatenation",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "RGC_90 Land production and AI route are connected",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "RGC_90 Space production and AI route are connected",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_EFSF_Mid02 shows the assigned development plan name",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_EFSF_Mid02 has correct middle-row slot and incoming line",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_EFSF_Mid03 uses matching 0087 research pace",
+      "passed": true,
+      "details": {
+        "Time": 30,
+        "Money": 8000,
+        "Resource": 2000,
+        "TechPoint": 3600
+      }
+    },
+    {
+      "check": "Tech_0093_EFSF_Mid03 is gated by own start tag and previous middle node",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_EFSF_Mid03 retains complete research lifecycle",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_EFSF_Mid03 unlocks exactly its registered contents without free troops",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "RGZ_91 has preview/Get/Send/identity registration",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "RGZ_91 production targets itself and correct faction panel",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "RGZ_91 squad queue preserves separate pilot rolls",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "RGZ_91 random-B condition survives engine multiline concatenation",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "RGZ_91 Land production and AI route are connected",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "RGZ_91 Space production and AI route are connected",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "RX_93 has preview/Get/Send/identity registration",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "RX_93 production targets itself and correct faction panel",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "RX_93 squad queue preserves separate pilot rolls",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "RX_93 random-B condition survives engine multiline concatenation",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "RX_93 Land production and AI route are connected",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "RX_93 Space production and AI route are connected",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_EFSF_Mid03 shows the assigned development plan name",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_EFSF_Mid03 has correct middle-row slot and incoming line",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_EFSF_Mid04 uses matching 0087 research pace",
+      "passed": true,
+      "details": {
+        "Time": 30,
+        "Money": 10000,
+        "Resource": 2500,
+        "TechPoint": 6000
+      }
+    },
+    {
+      "check": "Tech_0093_EFSF_Mid04 is gated by own start tag and previous middle node",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_EFSF_Mid04 retains complete research lifecycle",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_EFSF_Mid04 unlocks exactly its registered contents without free troops",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "TechUnit_0093_EFSF_Mid04_Placeholder has preview/Get/Send/identity registration",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "TechUnit_0093_EFSF_Mid04_Placeholder is never offered for factory production",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_EFSF_Mid04 has correct middle-row slot and incoming line",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_EFSF_Mid05 uses matching 0087 research pace",
+      "passed": true,
+      "details": {
+        "Time": 30,
+        "Money": 12000,
+        "Resource": 3000,
+        "TechPoint": 8400
+      }
+    },
+    {
+      "check": "Tech_0093_EFSF_Mid05 is gated by own start tag and previous middle node",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_EFSF_Mid05 retains complete research lifecycle",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_EFSF_Mid05 unlocks exactly its registered contents without free troops",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "TechUnit_0093_EFSF_Mid05_Placeholder has preview/Get/Send/identity registration",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "TechUnit_0093_EFSF_Mid05_Placeholder is never offered for factory production",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_EFSF_Mid05 has correct middle-row slot and incoming line",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_EFSF has no top or bottom branch placeholders",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_NZN_Mid02 uses matching 0087 research pace",
+      "passed": true,
+      "details": {
+        "Time": 30,
+        "Money": 4000,
+        "Resource": 1000,
+        "TechPoint": 1200
+      }
+    },
+    {
+      "check": "Tech_0093_NZN_Mid02 is gated by own start tag and previous middle node",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_NZN_Mid02 retains complete research lifecycle",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_NZN_Mid02 unlocks exactly its registered contents without free troops",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "AMS_119 has preview/Get/Send/identity registration",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "AMS_119 production targets itself and correct faction panel",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "AMS_119 squad queue preserves separate pilot rolls",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "AMS_119 random-B condition survives engine multiline concatenation",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "AMS_119 Land production and AI route are connected",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "AMS_119 Space production and AI route are connected",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "AMS_119H has preview/Get/Send/identity registration",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "AMS_119H production targets itself and correct faction panel",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "AMS_119H squad queue preserves separate pilot rolls",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "AMS_119H random-B condition survives engine multiline concatenation",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "AMS_119H Land production and AI route are connected",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "AMS_119H Space production and AI route are connected",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_NZN_Mid02 shows the assigned development plan name",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_NZN_Mid02 has correct middle-row slot and incoming line",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_NZN_Mid03 uses matching 0087 research pace",
+      "passed": true,
+      "details": {
+        "Time": 30,
+        "Money": 8000,
+        "Resource": 2000,
+        "TechPoint": 3600
+      }
+    },
+    {
+      "check": "Tech_0093_NZN_Mid03 is gated by own start tag and previous middle node",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_NZN_Mid03 retains complete research lifecycle",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_NZN_Mid03 unlocks exactly its registered contents without free troops",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "MSN_03 has preview/Get/Send/identity registration",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "MSN_03 production targets itself and correct faction panel",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "MSN_03 squad queue preserves separate pilot rolls",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "MSN_03 random-B condition survives engine multiline concatenation",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "MSN_03 Land production and AI route are connected",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "MSN_03 Space production and AI route are connected",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "MSN_04 has preview/Get/Send/identity registration",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "MSN_04 production targets itself and correct faction panel",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "MSN_04 squad queue preserves separate pilot rolls",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "MSN_04 random-B condition survives engine multiline concatenation",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "MSN_04 Land production and AI route are connected",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "MSN_04 Space production and AI route are connected",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_NZN_Mid03 shows the assigned development plan name",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_NZN_Mid03 has correct middle-row slot and incoming line",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_NZN_Mid04 uses matching 0087 research pace",
+      "passed": true,
+      "details": {
+        "Time": 30,
+        "Money": 10000,
+        "Resource": 2500,
+        "TechPoint": 6000
+      }
+    },
+    {
+      "check": "Tech_0093_NZN_Mid04 is gated by own start tag and previous middle node",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_NZN_Mid04 retains complete research lifecycle",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_NZN_Mid04 unlocks exactly its registered contents without free troops",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "TechUnit_0093_NZN_Mid04_Placeholder has preview/Get/Send/identity registration",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "TechUnit_0093_NZN_Mid04_Placeholder is never offered for factory production",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_NZN_Mid04 has correct middle-row slot and incoming line",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_NZN_Mid05 uses matching 0087 research pace",
+      "passed": true,
+      "details": {
+        "Time": 30,
+        "Money": 12000,
+        "Resource": 3000,
+        "TechPoint": 8400
+      }
+    },
+    {
+      "check": "Tech_0093_NZN_Mid05 is gated by own start tag and previous middle node",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_NZN_Mid05 retains complete research lifecycle",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_NZN_Mid05 unlocks exactly its registered contents without free troops",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "TechUnit_0093_NZN_Mid05_Placeholder has preview/Get/Send/identity registration",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "TechUnit_0093_NZN_Mid05_Placeholder is never offered for factory production",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "Tech_0093_NZN_Mid05 has correct middle-row slot and incoming line",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "0093_NZN has no top or bottom branch placeholders",
+      "passed": true,
+      "details": null
+    },
+    {
+      "check": "all first-page and placeholder ROOT file references resolve within DLC0093",
+      "passed": true,
+      "details": []
+    },
+    {
+      "check": "RX_93_Test remains outside research and production",
       "passed": true,
       "details": null
     },

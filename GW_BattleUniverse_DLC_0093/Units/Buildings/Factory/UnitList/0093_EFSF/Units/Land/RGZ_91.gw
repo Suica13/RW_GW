@@ -1,0 +1,164 @@
+[core]
+copyFrom:ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+
+
+@memory RGZ_91:bool
+
+
+[hiddenAction_Pannel_Close_RGZ_91]
+autoTriggerOnEvent:newMessage(withTag="CloseAll")
+setUnitMemory:RGZ_91=false
+
+
+
+
+[hiddenAction_AutoProduce_RGZ_91]
+@copyFromSection:template_AutoProduce
+@define UnitID=RGZ_91
+alsoTriggerAction:AutoProduce_RGZ_91_Step2
+
+[hiddenAction_AutoProduce_RGZ_91_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=3650
+@define Resource=4700
+alsoTriggerAction:AutoProduce_RGZ_91_Random
+
+
+
+[hiddenAction_AutoProduce_RGZ_91_Random]
+alsoTriggerAction:"""
+AutoProduce_RGZ_91_Random_A,
+AutoProduce_RGZ_91_Random_B,
+AutoProduce_RGZ_91_Random_C
+"""
+[hiddenAction_AutoProduce_RGZ_91_Random_A]
+requireConditional:"""
+if memory.randomProduce<=500
+"""
+alsoQueueAction:Produce_RGZ_91_StandardSquad
+
+[hiddenAction_AutoProduce_RGZ_91_Random_B]
+requireConditional:if memory.randomProduce>500 and memory.randomProduce<=850
+alsoQueueAction:Produce_RGZ_91_StandardSquad
+
+[hiddenAction_AutoProduce_RGZ_91_Random_C]
+requireConditional:"""
+if memory.randomProduce>850
+"""
+alsoQueueAction:Produce_RGZ_91_StandardSquad
+
+
+
+
+
+[action_Pannel_RGZ_91]
+@copyFromSection:template_Pannel
+@define UnitID=RGZ_91
+@define FactionVisible= (memory.Pannel_0093_EFSF_DontShow==false)
+
+[action_Produce_RGZ_91_StandardSquad]
+@copyFromSection:template_Produce
+@define UnitID=RGZ_91
+@define Money=3650
+@define Resource=4700
+@define FactionVisible= (memory.Pannel_0093_EFSF_DontShow==false)
+buildSpeed:50s
+
+alsoQueueAction:"""
+Produce_RGZ_91_StandardSquad_1,
+Produce_RGZ_91_StandardSquad_2,
+Produce_RGZ_91_StandardSquad_3
+"""
+[hiddenAction_Produce_RGZ_91_StandardSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RGZ_91_MA*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_RGZ_91_StandardSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+RGZ_91_MA*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+[hiddenAction_Produce_RGZ_91_StandardSquad_3]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+RGZ_91_MA*1(addResources=PilotType:1101|EquipmentIndex:0)
+"""
+
+[action_Produce_RGZ_91_MGSquad]
+# [LEGACY_REASON] Preserve queued action IDs; Re-GZ now has one dedicated loadout.
+isVisible:false
+@copyFromSection:template_Produce
+@define UnitID=RGZ_91
+@define Money=3050
+@define Resource=3800
+@define FactionVisible= (memory.Pannel_0093_EFSF_DontShow==false)
+buildSpeed:50s
+
+text:MG Squad
+text_zh:机枪小队
+
+alsoQueueAction:"""
+Produce_RGZ_91_MGSquad_1,
+Produce_RGZ_91_MGSquad_2,
+Produce_RGZ_91_MGSquad_3
+"""
+[hiddenAction_Produce_RGZ_91_MGSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RGZ_91_MA*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_RGZ_91_MGSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+RGZ_91_MA*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+[hiddenAction_Produce_RGZ_91_MGSquad_3]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+RGZ_91_MA*1(addResources=PilotType:1101|EquipmentIndex:1)
+"""
+
+
+[action_Produce_RGZ_91_BazookaSquad]
+# [LEGACY_REASON] Preserve queued action IDs; Re-GZ now has one dedicated loadout.
+isVisible:false
+@copyFromSection:template_Produce
+@define UnitID=RGZ_91
+@define Money=3050
+@define Resource=4400
+@define FactionVisible= (memory.Pannel_0093_EFSF_DontShow==false)
+buildSpeed:50s
+
+text:Bazooka Squad
+text_zh:火箭筒小队
+
+alsoQueueAction:"""
+Produce_RGZ_91_BazookaSquad_1,
+Produce_RGZ_91_BazookaSquad_2,
+Produce_RGZ_91_BazookaSquad_3
+"""
+[hiddenAction_Produce_RGZ_91_BazookaSquad_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+RGZ_91_MA*1(addResources=PilotType:1101|EquipmentIndex:2)
+"""
+[hiddenAction_Produce_RGZ_91_BazookaSquad_2]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+RGZ_91_MA*1(addResources=PilotType:1101|EquipmentIndex:2)
+"""
+[hiddenAction_Produce_RGZ_91_BazookaSquad_3]
+buildSpeed:1.0s
+highPriorityQueue:true
+produceUnits:"""
+RGZ_91_MA*1(addResources=PilotType:1101|EquipmentIndex:2)
+"""

@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-24",
+  "references": [
+    "E:/RustedWarfare_Reunion/mods/GundamWars_BattleOperation2_V5/Units/BattleUnits/RGZ-91",
+    "GW_BattleUniverse_DLC_0087/Units/BattleUnits/MSZ_006"
+  ],
+  "human_weapons": [
+    "EF_RGZ_91_BR",
+    "Common_ArmGL_L_Lv4",
+    "EF_RGZ_91_CrotchGL_L",
+    "Common_DoubleVulcan_MS_Lv4",
+    "EF_RGZ_91_Decoy",
+    "EF_BeamSaber_AF_Yellow_Lv2",
+    "Common_Push_A_Lv3 (damaged right arm)"
+  ],
+  "aircraft_weapons": [
+    "EF_RGZ_91_BWS_DBC",
+    "EF_RGZ_91_BWS_DMS"
+  ],
+  "deferred": [
+    "BWS high mega particle cannon",
+    "MS charged melee"
+  ],
+  "ranged_rolls": {
+    "human": "MSZ_006-style primary BR >25; arm GL (15,25]; waist GL (5,15]; decoy <=5. Damaged arms disable their weapons; no extra missing-arm interval redistribution.",
+    "aircraft": "Distance (60, finalAttackRange]; DBC >35, DMS <=35; both require intact backpack.",
+    "decoy": "Normal native Fire/SetAttackingOn/queued B2 steps/SetAttackingOff flow; no independent direct firing."
+  },
+  "balance": "Native Battle Universe EN/cooldown/damage data adapted from MSZ_006 and existing launchers; foreign magazine/input framework not copied. Base HP/EN/mobility stats unchanged.",
+  "factory": "Only BR squad displayed; legacy MG/BZ queued action IDs retained, all AI rolls select StandardSquad. Legacy equipment indices share the same dedicated weapon set.",
+  "decoy": "Native explosive projectile and TryDamage/DoDamage proximity interception; balloon animation/image derived from source mod. Runtime interception untested.",
+  "validation": {
+    "weapons": 23,
+    "bws": 22,
+    "technology_and_production": 241,
+    "engine_report": "0093_引擎加载_0093.json",
+    "runtime_combat_tested": false,
+    "lint_errors": 0,
+    "lint_warnings": "Inherited macros/actions not visible in single-file scan, multiline action scan limitations and two retained empty sections.",
+    "engine_passed": true
+  },
+  "format_update": "All RGZ_91 graphic sections in RGZ_91.ini; no Graphics.gw wrapper.",
+  "weapon_step_layout": {
+    "unit_fire_step_overrides": 0,
+    "moved_step_overrides": 11,
+    "guards": "Component requirements moved into weapon Fire/Step sections; unit random and distance selectors unchanged.",
+    "specialized_templates": [
+      "Shell/EF_RGZ_91_ArmGL_L.gw",
+      "Cqb/EF_RGZ_91_BeamSaber_AF_Yellow.gw"
+    ]
+  }
+}

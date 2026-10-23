@@ -1,0 +1,107 @@
+{
+  "plans": {
+    "Tech_0093_EFSF_Mid02": {
+      "name": "杰刚开发计划",
+      "units": [
+        "RGM_89",
+        "RGC_90"
+      ],
+      "production": [
+        "Land",
+        "Space"
+      ],
+      "costs": {
+        "Time": 30,
+        "Money": 4000,
+        "Resource": 1000,
+        "TechPoint": 1200
+      },
+      "predecessor": "Tech_0093_EFSF_BaseTech"
+    },
+    "Tech_0093_EFSF_Mid03": {
+      "name": "新高达开发计划",
+      "units": [
+        "RGZ_91",
+        "RX_93"
+      ],
+      "production": [
+        "Land",
+        "Space"
+      ],
+      "costs": {
+        "Time": 30,
+        "Money": 8000,
+        "Resource": 2000,
+        "TechPoint": 3600
+      },
+      "predecessor": "Tech_0093_EFSF_Mid02"
+    },
+    "Tech_0093_NZN_Mid02": {
+      "name": "基拉德卡开发计划",
+      "units": [
+        "AMS_119",
+        "AMS_119H"
+      ],
+      "production": [
+        "Land",
+        "Space"
+      ],
+      "costs": {
+        "Time": 30,
+        "Money": 4000,
+        "Resource": 1000,
+        "TechPoint": 1200
+      },
+      "predecessor": "Tech_0093_NZN_BaseTech"
+    },
+    "Tech_0093_NZN_Mid03": {
+      "name": "沙扎比开发计划",
+      "units": [
+        "MSN_03",
+        "MSN_04"
+      ],
+      "production": [
+        "Land",
+        "Space"
+      ],
+      "costs": {
+        "Time": 30,
+        "Money": 8000,
+        "Resource": 2000,
+        "TechPoint": 3600
+      },
+      "predecessor": "Tech_0093_NZN_Mid02"
+    }
+  },
+  "production_template": "RGM_86R_0093_EFSF",
+  "free_units_granted": false,
+  "stable_tech_ids": true,
+  "excluded_units": [
+    "RX_93_Test"
+  ],
+  "validation": {
+    "static_checks": 241,
+    "static_passed": 241,
+    "tech_lint": {
+      "files": 44,
+      "errors": 0,
+      "warnings": 46
+    },
+    "engine_0093": {
+      "case": "0093",
+      "passed": true,
+      "initialized": true,
+      "enabled": {
+        "GW_BattleUniverse_Main": true,
+        "GW_BattleUniverse_DLC_0093": true
+      },
+      "errors": [],
+      "timed_out": false,
+      "returncode": 1,
+      "elapsed_seconds": 22.4,
+      "log": "文档 (不要打包)\\工具\\0093_loadtest\\verify_0093\\engine.log"
+    },
+    "live_gameplay_tested": false
+  },
+  "condition_fix_report": "0093_生产条件换行修复.json"
+}

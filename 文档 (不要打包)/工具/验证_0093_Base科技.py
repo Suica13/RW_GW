@@ -57,7 +57,9 @@ def main():
   check(f+' Base unlocks exactly two combat units and baseline infrastructure',actual==expected,sorted(actual^expected))
   check(f+' Base lifecycle is complete',all('hiddenAction_'+base+'_'+s in sections for s in ['Awake','Start','Stop','Done','UnlockUnit','NotByOther','SendAlly','SendAlly_Step2','SendAlly_Step3']))
   check(f+' zero-cost Base matches 0087',all('${TechID}_'+x+'=0' in sections['hiddenAction_'+base+'_Awake'] for x in ['Time','Money','Resource','TechPoint']))
-  check(f+' only one research project',set(re.findall(r'@define TechID=([^\s]+)',project))=={base})
+  middle_path=ANALYSIS/'0093_中排占位科技接入.json'
+  middle=json.loads(middle_path.read_text('utf-8'))['factions'].get(f,[]) if middle_path.exists() else []
+  check(f+' contains only the declared Base/middle-row projects',set(re.findall(r'@define TechID=([^\s]+)',project))=={base}|{n['tech'] for n in middle})
   send=blocks(read(folder+'/'+f+'_Send.ini'))|common_send
   get=blocks(read(folder+'/'+f+'_Get.ini'))|common_get
   marker=blocks(read(folder+'/Common/'+base+'.ini'))
@@ -65,7 +67,7 @@ def main():
    ok=uid in registry and ('hiddenAction_Unlock_'+uid) in send and ('hiddenAction_Get_UnlockInfo_'+uid) in get and ('action_UnlockInfo_'+uid) in marker
    check(f+' unlock resolves through Send/Get and real entity: '+uid,ok)
   page=read(f'Units/TechTree/Core/Faction/{f}/TechTree_UI_Page_{f}_00.ini')
-  check(f+' first page contains only the Base node',re.findall(r'onCreateSpawnUnitOf:([^\s*]+)',page)==[base])
+  check(f+' first page contains the declared middle-row nodes',re.findall(r'onCreateSpawnUnitOf:([^\s*]+)',page)==[base]+[n['tech'] for n in middle])
   ui=read(f'Units/TechTree/Core/Faction/{f}/TechTree_UI_Main_{f}.ini')
   check(f+' single-page UI and AI research opening','pageMax=0' in ui and 'hiddenAction_AI_CheckPage_ShowTechTree' in ui)
   for category in CATEGORIES:
@@ -76,7 +78,7 @@ def main():
    if category=='Mega':continue
    unit=units[1] if category=='Space_Mega' else units[0]
    unitlist=read(f'Units/Buildings/Factory/UnitList/{f}/{f}_UnitList_{category}.ini')
-   check(uid+' registers correct production and AI action',unit+'.gw' in unitlist and 'alsoTriggerAction:AutoProduce_'+unit in factory)
+   check(uid+' registers correct production and AI action',unit+'.gw' in unitlist and 'AutoProduce_'+unit in blocks(factory)['hiddenAction_Get_AutoProduce'])
   for uid in units:
    check(uid+' has no cross-DLC duplicate ID',len(registry.get(uid,[]))==1)
    p=registry[uid][0];t=text(p)
@@ -88,6 +90,67 @@ def main():
    check(uid+' production creates only itself',bool(targets) and set(targets)=={uid})
    if category=='Land':
     check(uid+' squad spacing preserves separate pilot rolls',len(re.findall(r'buildSpeed:1\.0s',prod))==2*(len(targets)//3))
+ # Reserved research is wired through the real lifecycle, without production or free troops.
+ middle_path=ANALYSIS/'0093_中排占位科技接入.json'
+ if middle_path.exists():
+  mid=json.loads(middle_path.read_text('utf-8'))
+  placeholder_template=read('Units/TechTree/Mod/TechUnlockPlaceholder.gw')
+  factory_text='\n'.join(text(p) for p in (DLC/'Units/Buildings/Factory').rglob('*') if p.suffix in {'.ini','.gw'})
+  all_nodes=[n for nodes in mid['factions'].values() for n in nodes]
+  check('exactly eight middle-row research nodes and retained preview definitions',len(all_nodes)==8 and len(list((DLC/'Units/TechTree/PlaceholderUnits').rglob('*.ini')))==8)
+  check('preview placeholder template is hidden and noncombat','showInEditor:false' in placeholder_template and 'canAttack:false' in placeholder_template and 'canNotBeDamaged:true' in placeholder_template)
+  for f,nodes in mid['factions'].items():
+   folder=f'Units/TechTree/Tech/Faction/{f}'
+   project=blocks(read(folder+'/TechList_'+f+'.ini'))
+   page=blocks(read(f'Units/TechTree/Core/Faction/{f}/TechTree_UI_Page_{f}_00.ini'))
+   get=blocks(read(folder+'/'+f+'_Get.ini'));send=blocks(read(folder+'/'+f+'_Send.ini'))
+   previous='Tech_'+f+'_BaseTech'
+   for n in nodes:
+    tech=n['tech'];unit=n['unit'];idx=n['index']
+    marker=read(folder+'/Common/'+tech+'.ini')
+    source_faction='AEUG_0087' if f=='0093_EFSF' else 'NEO_ZEON_0087'
+    source=blocks(text(ROOT/f'GW_BattleUniverse_DLC_0087/Units/TechTree/Tech/Faction/{source_faction}/TechList_{source_faction}.ini'))
+    def costs(body):return {k:int(v) for k,v in re.findall(r'\$\{TechID\}_(Time|Money|Resource|TechPoint)=(\d+)',body)}
+    actual=costs(project['hiddenAction_'+tech+'_Awake']);expected=costs(source['hiddenAction_'+n['reference']+'_Awake'])
+    check(tech+' uses matching 0087 research pace',actual==expected and set(actual)=={'Time','Money','Resource','TechPoint'},actual)
+    gates=re.findall(r"self.globalTeamTags\(includes='([^']+)'\)",marker)
+    check(tech+' is gated by own start tag and previous middle node',set(gates)=={'Tech_'+f+'_Start',previous} and n['predecessor']==previous)
+    check(tech+' retains complete research lifecycle',all('hiddenAction_'+tech+'_'+s in project for s in ['Awake','Start','Stop','Done','UnlockUnit','NotByOther','SendAlly','SendAlly_Step2','SendAlly_Step3']))
+    body='\n'.join(v for k,v in project.items() if k.startswith('hiddenAction_'+tech+'_'))
+    targets=n.get('unlocks',[unit])
+    actions=set(re.findall(r'\bUnlock_([A-Za-z0-9_]+)',project['hiddenAction_'+tech+'_UnlockUnit']))
+    check(tech+' unlocks exactly its registered contents without free troops',actions==set(targets) and not re.search(r'^\s*(spawnUnits|produceUnits|addUnitsIntoTransport):',body,re.M))
+    for target in targets:
+     check(target+' has preview/Get/Send/identity registration','@define UnitID='+target in marker and ('hiddenAction_Get_UnlockInfo_'+target) in get and ('hiddenAction_Unlock_'+target) in send and len(registry.get(target,[]))==1)
+     if n.get('kind')=='development_plan':
+      prod=read(f'Units/Buildings/Factory/UnitList/{f}/Units/Land/{target}.gw')
+      check(target+' production targets itself and correct faction panel',set(re.findall(r'^\s*([A-Za-z0-9_]+)\*1\(addResources=PilotType:',prod,re.M))==({'RGZ_91_MA'} if target=='RGZ_91' else {target}) and 'memory.Pannel_'+f+'_DontShow' in prod)
+      check(target+' squad queue preserves separate pilot rolls',len(re.findall(r'buildSpeed:1\.0s',prod))==6 and prod.count('PilotType:1101')==9)
+      production_blocks=blocks(prod)
+      condition=production_blocks['hiddenAction_AutoProduce_'+target+'_Random_B']
+      match=re.search(r'requireConditional:(?:"""(.*?)"""|([^\n]+))',condition,re.S)
+      actual_condition=''.join((match[1] or match[2]).splitlines()).strip()
+      check(target+' random-B condition survives engine multiline concatenation',actual_condition=='if memory.randomProduce>500 and memory.randomProduce<=850')
+
+      for category in ['Land','Space']:
+       unitlist=read(f'Units/Buildings/Factory/UnitList/{f}/{f}_UnitList_{category}.ini')
+       factory=blocks(read(f'Units/Buildings/Factory/Faction/{f}/Factory_{f}_{category}.ini'))
+       check(target+' '+category+' production and AI route are connected',target+'.gw' in unitlist and 'AutoProduce_'+target in factory['hiddenAction_Get_AutoProduce'] and 'hiddenAction_AutoProduce_'+target in factory)
+     else:
+      check(target+' is never offered for factory production',target not in factory_text)
+    if n.get('kind')=='development_plan':
+     check(tech+' shows the assigned development plan name','displayText_zh:'+n['displayText_zh'] in marker)
+    slot=page.get(f'attachment_Tech_Mid_{idx:02d}','')
+    check(tech+' has correct middle-row slot and incoming line','onCreateSpawnUnitOf:'+tech+'*1' in slot and f'x:{-100+40*(idx-1)}' in slot and 'y:-5' in slot and f'decal_DrawLine_FM{idx-1:02d}_TM{idx:02d}_P1' in page)
+    previous=tech
+   check(f+' has no top or bottom branch placeholders',not any(k.startswith(('attachment_Tech_Top','attachment_Tech_Bottom')) for k in page))
+  bad=[]
+  for p in (DLC/'Units/TechTree').rglob('*'):
+   if p.suffix not in {'.ini','.gw'}:continue
+   for match in re.finditer(r'ROOT:[/\\]?([A-Za-z0-9_./\\ -]+?\.(?:png|ogg|ini|gw|template))',text(p),re.I):
+    if not (DLC/match[1].replace('\\','/')).is_file():bad.append([str(p),match[1]])
+  check('all first-page and placeholder ROOT file references resolve within DLC0093',not bad,bad)
+  check('RX_93_Test remains outside research and production',not re.search(r'@define UnitID=RX_93_Test\s*$',factory_text+'\n'+'\n'.join(text(p) for p in (DLC/'Units/TechTree').rglob('*.ini')),re.M))
  # Shared Main entities need unlocks and construction routes, not duplicate DLC copies.
  for uid in sorted(COMMON):
   check(uid+' has HQ/SL canBuild entry','canBuild_'+uid in buildlist)
@@ -98,7 +161,7 @@ def main():
  migration=json.loads((ANALYSIS/'0093_Base科技接入.json').read_text('utf-8'))
  bad=[]
  for item in migration['migrations']:
-  p=DLC/item['target'];t=text(p)
+  p=DLC/item.get('current_target',item['target']);t=text(p)
   for match in re.finditer(r'ROOT:[/\\]?([A-Za-z0-9_./\\ -]+?\.(?:png|ogg|ini|gw|template))',t,re.I):
    if not (DLC/match[1].replace('\\','/')).is_file():bad.append([str(p),match[1]])
   for value in re.findall(r'copyFrom:\s*(?:"""(.*?)"""|([^\r\n]+))',t,re.S):

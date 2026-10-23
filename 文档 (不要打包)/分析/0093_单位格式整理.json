@@ -1,0 +1,62 @@
+{
+  "units": {
+    "RGM_89": {
+      "sections": 54,
+      "imports": 20,
+      "merged_configuration_preserved": true
+    },
+    "RGC_90": {
+      "sections": 53,
+      "imports": 20,
+      "merged_configuration_preserved": true
+    },
+    "RGZ_91": {
+      "sections": 51,
+      "imports": 19,
+      "merged_configuration_preserved": true
+    },
+    "RX_93": {
+      "sections": 55,
+      "imports": 20,
+      "merged_configuration_preserved": true
+    },
+    "RX_93_Test": {
+      "sections": 53,
+      "imports": 20,
+      "merged_configuration_preserved": true
+    },
+    "AMS_119": {
+      "sections": 53,
+      "imports": 20,
+      "merged_configuration_preserved": true
+    },
+    "AMS_119H": {
+      "sections": 53,
+      "imports": 20,
+      "merged_configuration_preserved": true
+    },
+    "MSN_03": {
+      "sections": 53,
+      "imports": 20,
+      "merged_configuration_preserved": true
+    },
+    "MSN_04": {
+      "sections": 53,
+      "imports": 20,
+      "merged_configuration_preserved": true
+    },
+    "RGM_86R_0093_EFSF": {
+      "sections": 53,
+      "imports": 20,
+      "merged_configuration_preserved": true
+    }
+  },
+  "removed_wrappers": [
+    "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RGM_86R_0093_EFSF\\RGM_86R_0093_EFSF_Base.gw",
+    "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RGM_89\\RGM_89_Graphics.gw",
+    "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RGZ_91\\RGZ_91_Graphics.gw",
+    "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RX_93\\RX_93_Graphics.gw"
+  ],
+  "method": "Merged inherited section fields into standalone unit INIs; framework and reusable weapon templates retained.",
+  "runtime_tested": false
+}
