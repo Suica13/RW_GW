@@ -1,0 +1,125 @@
+{
+  "updated_descriptions": [
+    "Units/BattleUnits/RGM_89/RGM_89.ini",
+    "Units/BattleUnits/RGC_90/RGC_90.ini",
+    "Units/BattleUnits/RGZ_91/RGZ_91.ini",
+    "Units/BattleUnits/RGZ_91/RGZ_91_MA.ini",
+    "Units/BattleUnits/RGZ_91B/RGZ_91B.ini",
+    "Units/BattleUnits/RGZ_91B/RGZ_91B_MA.ini",
+    "Units/BattleUnits/AMS_119/AMS_119.ini",
+    "Units/BattleUnits/AMS_119H/AMS_119H.ini",
+    "Units/BattleUnits/MSN_03/MSN_03.ini",
+    "Units/BattleUnits/MSN_04/MSN_04.ini",
+    "Units/BattleUnits/RX_93/RX_93.ini",
+    "Units/BattleUnits/RX_93/RX_93_Test.ini"
+  ],
+  "preserved_existing_style": [
+    "AMX_101_0093_NZN",
+    "RGM_86R_0093_EFSF",
+    "SalamisClassKai_0093_EFSF",
+    "MusaiClassFinalType_0093_NZN"
+  ],
+  "notes": [
+    "Chinese and English quotes are editorial translations, not assertions of official subtitles.",
+    "MSV/test variants can use a related family/pilot line or visual meme; roles are recorded below.",
+    "Only descriptions and the Jegan rifle projectile color are changed."
+  ],
+  "quotes": [
+    {
+      "file": "RGM_89/RGM_89.ini",
+      "zh": "那种事，是不能做的啊！",
+      "en": "You should never have done that!",
+      "source": "https://renote.net/articles/16703/page/2",
+      "kind": "驾驶员台词节译",
+      "context": "哈萨维驾驶杰刚时的台词。"
+    },
+    {
+      "file": "RGC_90/RGC_90.ini",
+      "zh": "这种大型杰刚根本不行！",
+      "en": "These large Jegan types are no good!",
+      "source": "https://p-shirokuma.hatenadiary.com/entry/20121108/p1",
+      "kind": "同系列机体梗",
+      "context": "借用F91中杰刚驾驶员的台词，不是RGC_90专属台词。"
+    },
+    {
+      "file": "RGZ_91/RGZ_91.ini",
+      "zh": "因为大尉不在啊！",
+      "en": "The Captain isn't here!",
+      "source": "https://gundam.wiki.cre.jp/wiki/ケーラ・スゥ",
+      "kind": "驾驶员台词节译",
+      "context": "凯拉的原台词；她在原作驾驶灵格斯。"
+    },
+    {
+      "file": "RGZ_91/RGZ_91_MA.ini",
+      "zh": "和这种丢人的MS战斗，就算赢了又有什么意义？",
+      "en": "What is the point of beating such a pathetic mobile suit?",
+      "source": "https://anigala-rew.jp/column/gundam20240928/",
+      "kind": "机体相关台词梗",
+      "context": "夏亚关于情けないモビルスーツ的台词，此处作灵格斯相关梗。"
+    },
+    {
+      "file": "RGZ_91B/RGZ_91B.ini",
+      "zh": "光束AK",
+      "en": "Beam AK",
+      "source": "https://w.atwiki.jp/aniwotawiki/pages/12264.html",
+      "kind": "武器外形梗",
+      "context": "根据该机步枪与AK-47相似的外形压缩为短标签，不冒充动画角色原话。"
+    },
+    {
+      "file": "RGZ_91B/RGZ_91B_MA.ini",
+      "zh": "光束AK",
+      "en": "Beam AK",
+      "source": "https://w.atwiki.jp/aniwotawiki/pages/12264.html",
+      "kind": "同机体武器外形梗",
+      "context": "沿用人形步枪外形梗，不声称MA形态拥有额外步枪攻击。"
+    },
+    {
+      "file": "AMS_119/AMS_119.ini",
+      "zh": "地球就要完蛋了！值得试一试啊！",
+      "en": "Earth is at stake! It's worth a try!",
+      "source": "https://w.atwiki.jp/gundam-vs-gnsk/pages/1708.html",
+      "kind": "驾驶员台词节译",
+      "context": "协助推离阿克西斯的基拉多加驾驶员台词。"
+    },
+    {
+      "file": "AMS_119H/AMS_119H.ini",
+      "zh": "是隆德·贝尔的话，就乖乖去摇铃吧！",
+      "en": "Londo Bell should just stick to ringing bells!",
+      "source": "https://gundam.wiki.cre.jp/wiki/レズン・シュナイダー",
+      "kind": "原型机驾驶员台词节译",
+      "context": "借用基拉多加驾驶员蕾兹台词，不作本重装型专属台词宣称。"
+    },
+    {
+      "file": "MSN_03/MSN_03.ini",
+      "zh": "听说上校是个萝莉控啊。",
+      "en": "They say the Colonel is into little girls.",
+      "source": "https://w.atwiki.jp/gundam-vs-gnsk/pages/233.html",
+      "kind": "驾驶员台词流行概括梗",
+      "context": "裘尼在原作谈论夏亚与拉拉的台词衍生梗，不作逐字原台词宣称。"
+    },
+    {
+      "file": "MSN_04/MSN_04.ini",
+      "zh": "什么，功率下降了？！",
+      "en": "What?! A power drop?!",
+      "source": "https://detail.chiebukuro.yahoo.co.jp/qa/question_detail/q1276243412",
+      "kind": "驾驶员台词节译",
+      "context": "夏亚驾驶沙扎比时的パワーダウンだと相关台词。"
+    },
+    {
+      "file": "RX_93/RX_93.ini",
+      "zh": "牛高达可不是摆设！",
+      "en": "The Nu Gundam isn't just for show!",
+      "source": "https://thewonder.it/bukatsu/gundam/gundam_info/38514/",
+      "kind": "驾驶员台词节译",
+      "context": "万代官方收录的νガンダムは、伊達じゃない！台词。"
+    },
+    {
+      "file": "RX_93/RX_93_Test.ini",
+      "zh": "不过是一块石头，看我用高达把它推回去！",
+      "en": "It's just a rock! I'll push it back with this Gundam!",
+      "source": "https://moegirl.uk/index.php?title=不就是一块石头么，看我用高达把它推回去&variant=zh-hant",
+      "kind": "原型机驾驶员台词节译",
+      "context": "借用牛高达驾驶员阿姆罗台词；TEST是本项目测试规格，不虚构独立原作出场。"
+    }
+  ]
+}

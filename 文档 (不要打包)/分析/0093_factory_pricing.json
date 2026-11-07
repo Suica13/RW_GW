@@ -1,0 +1,207 @@
+{
+  "plans": {
+    "RGM_89": {
+      "faction": "0093_EFSF",
+      "money": 4500,
+      "resource": 6000,
+      "time": 55,
+      "count": 3,
+      "target": "RGM_89",
+      "limit": 9
+    },
+    "AMS_119": {
+      "faction": "0093_NZN",
+      "money": 5000,
+      "resource": 6500,
+      "time": 55,
+      "count": 3,
+      "target": "AMS_119",
+      "limit": 9
+    },
+    "RGZ_91": {
+      "faction": "0093_EFSF",
+      "money": 6500,
+      "resource": 7500,
+      "time": 55,
+      "count": 1,
+      "target": "RGZ_91_MA",
+      "limit": 2
+    },
+    "MSN_03": {
+      "faction": "0093_NZN",
+      "money": 8500,
+      "resource": 10000,
+      "time": 65,
+      "count": 1,
+      "target": "MSN_03",
+      "limit": 2
+    },
+    "RX_93_Test": {
+      "faction": "0093_EFSF",
+      "money": 11000,
+      "resource": 12500,
+      "time": 65,
+      "count": 1,
+      "target": "RX_93_Test",
+      "limit": 1
+    },
+    "RX_93": {
+      "faction": "0093_EFSF",
+      "money": 14500,
+      "resource": 17500,
+      "time": 70,
+      "count": 1,
+      "target": "RX_93",
+      "limit": 1
+    },
+    "MSN_04": {
+      "faction": "0093_NZN",
+      "money": 14500,
+      "resource": 17500,
+      "time": 70,
+      "count": 1,
+      "target": "MSN_04",
+      "limit": 1
+    }
+  },
+  "upgrade": {
+    "from": "RX_93_Test",
+    "to": "RX_93",
+    "money": 3500,
+    "resource": 5000,
+    "time": 20,
+    "unlock": "Unlock_RX_93",
+    "requires_resupply": true
+  },
+  "updated": [
+    "Units/Buildings/Factory/UnitList/0093_EFSF/Units/Land/RGM_89.gw",
+    "Units/Buildings/Factory/UnitList/0093_NZN/Units/Land/AMS_119.gw",
+    "Units/Buildings/Factory/UnitList/0093_EFSF/Units/Land/RGZ_91.gw",
+    "Units/Buildings/Factory/UnitList/0093_NZN/Units/Land/MSN_03.gw",
+    "Units/Buildings/Factory/UnitList/0093_EFSF/Units/Land/RX_93.gw",
+    "Units/Buildings/Factory/UnitList/0093_NZN/Units/Land/MSN_04.gw",
+    "Units/Buildings/Factory/UnitList/0093_EFSF/0093_EFSF_UnitList_Land.ini",
+    "Units/Buildings/Factory/UnitList/0093_EFSF/0093_EFSF_UnitList_Space.ini",
+    "Units/Buildings/Factory/Faction/0093_EFSF/Factory_0093_EFSF_Land.ini",
+    "Units/Buildings/Factory/Faction/0093_EFSF/Factory_0093_EFSF_Space.ini",
+    "Units/Buildings/Factory/Faction/0093_NZN/Factory_0093_NZN_Land.ini",
+    "Units/Buildings/Factory/Faction/0093_NZN/Factory_0093_NZN_Space.ini",
+    "Units/TechTree/Tech/Faction/0093_EFSF/TechList_0093_EFSF.ini",
+    "Units/TechTree/Tech/Faction/0093_EFSF/0093_EFSF_Get.ini",
+    "Units/TechTree/Tech/Faction/0093_EFSF/0093_EFSF_Send.ini",
+    "Units/TechTree/Tech/Faction/0093_EFSF/Common/Tech_0093_EFSF_Mid03.ini",
+    "Units/BattleUnits/RX_93/RX_93_Test.ini"
+  ],
+  "created": [
+    "Units/Buildings/Factory/UnitList/0093_EFSF/Units/Land/RX_93_Test.gw"
+  ],
+  "excluded": {
+    "Units/BattleUnits/RGC_90/RGC_90.ini": "8ce15e2aec9b1d6924d7d428f33c0e20c9ee4523619f24ae47aef937e3a72900",
+    "Units/Buildings/Factory/UnitList/0093_EFSF/Units/Land/RGC_90.gw": "d7abc183dccaab8c2dfb1ae4e15e654b026ca351dc86d700bad1d30d6c084c36",
+    "Units/BattleUnits/AMS_119H/AMS_119H.ini": "b34b54bfabb01f56691ef23c769d8552a8453b1a00baf574d069e04967287ef9",
+    "Units/Buildings/Factory/UnitList/0093_NZN/Units/Land/AMS_119H.gw": "87f9ba1ad45f40cfb44a0717999537aefa4196901a3156f39ead2043a4923e2c",
+    "Units/BattleUnits/RGZ_91B/RGZ_91B.ini": "104a0efebb3c4a639596e977b1a373852b7bb1ef7a55b6813343d4c69c8896b9",
+    "Units/BattleUnits/RGZ_91B/RGZ_91B_MA.ini": "22b8679bd5f3f47336fea4d4ab3f7e99cd363d42911c65d92ea83412def7c4f1",
+    "Units/BattleUnits/RGZ_91B/RGZ_91B_MA_OverLine.ini": "b9b6fa357cc7c52068784b2ebdb2b7fac3e9b6bf1496fdf771db1feda04069d3",
+    "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_ArmL_1.png": "3864a210905a5e094b3248258fbb98c4ed2c0b6b683cb6a2411fd8436e7682a1",
+    "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_ArmR_1.png": "4baf03e265f871839b76cf4f720ca139f4012b1cadd8cf7280bebcbec219db97",
+    "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_Backpack_1.png": "c0e0f1b1d19c1866fada3af2d1648ac9f13ebde451a411c3f08caeba00171253",
+    "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_Backpack_2.png": "089cd3dcf3a96e19d91937fa19de763c12a250b682777ae325ccfcfebf90df1b",
+    "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_Backpack_BeamSaberL_1.png": "55daa8863940a540d9fa9f01ddecf1c7d6e318eab2308f00d28ab255edbabc93",
+    "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_Backpack_BeamSaberR_1.png": "72959aba58ff298e9350701341a8ccf429ddb73b76cbd72d0b4d711fbbd99f55",
+    "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_Body_1.png": "ded09400efa636d3960a579411fbe9f94383b049a12f41b73bffae3739e62ec3",
+    "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_Crotch_1.png": "02ce1c2b18a8c4f9f16d0fd29bc19d4f4128da7b852d3fb633b6723165269bb6",
+    "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_Crotch_2.png": "7ea8fd1ab504fcbddb77f7c5f954b86f5ec0e7919f7b30797e67a62641e06703",
+    "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_FootL_1.png": "5953da6700d41a83cd06deaaadf6645212dd69a24b5208e30b366cc6f38eb6b3",
+    "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_FootR_1.png": "30a9be4a7b5460da0be93b4d972cc187ef774be9f19b0e7310480ecc4aef59ee",
+    "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_Head_1.png": "ed10458c252b2fcc61feaaa072b440c413f3f5a746888852cb31e6f4776884f8",
+    "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_Head_1_Close.png": "49b5d815d368bb2dd0660477eb90082346249b9904ce92408881c8f7826f7f29",
+    "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_LegL_1.png": "148739cdac4d53d9f4a4790ca3975b7a2eea1378b3bb80f44ee95603b4c92a35",
+    "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_LegR_1.png": "464c745edf95f449b16133ca4dbaff3d7e031ae50a30fa9cf7f5c1ae29c557bb",
+    "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_MA_1.png": "28e1c55389ed125cfe0963710ad9f4ac4bf3aa84d578386ad52371df626cc56a",
+    "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_ShoulderL_1.png": "c426bfda79f07d035fd599b1e4cbbcec6b90c221717a02e93fb4ddd359a14794",
+    "Units/BattleUnits/RGZ_91B/Image/RGZ_91B_ShoulderR_1.png": "11e6a7eeff4ff43e92bcb5098c90c4f0fc91ad8774cff0255091cadfc4e922aa"
+  },
+  "pricing_references": [
+    "DLC0087 AEUG RGM_86R: three units, 3650/4700, 50s",
+    "DLC0087 NEO_ZEON AMX_006: three units, 4000/5000, 55s",
+    "DLC0087 AEUG MSZ_006: one unit, 8500/9000, 60s",
+    "DLC0087 NEO_ZEON AMX_004_1: one unit, 8500/10000, 65s",
+    "DLC0087 AEUG MSZ_010: one unit, 14500/17500, 70s"
+  ],
+  "notes": [
+    "Prices are tiered estimates based on existing production examples, not an inferred exact formula.",
+    "Mass-production squads retain individual delayed spawns for random pilots.",
+    "Specialized orders now queue one unit; legacy queue IDs remain defined.",
+    "TEST shares the existing Mid03 New Gundam plan with Re-GZ and Nu Gundam; research grants no troops.",
+    "The existing unlock marker restores TEST access for saves with Mid03 already researched; it never spawns troops."
+  ],
+  "legacy_queue_sections": {
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/UnitList/0093_EFSF/Units/Land/RGM_89.gw": [
+      "hiddenAction_Produce_RGM_89_StandardSquad_1",
+      "hiddenAction_Produce_RGM_89_StandardSquad_2",
+      "hiddenAction_Produce_RGM_89_StandardSquad_3",
+      "hiddenAction_Produce_RGM_89_MGSquad_1",
+      "hiddenAction_Produce_RGM_89_MGSquad_2",
+      "hiddenAction_Produce_RGM_89_MGSquad_3",
+      "hiddenAction_Produce_RGM_89_BazookaSquad_1",
+      "hiddenAction_Produce_RGM_89_BazookaSquad_2",
+      "hiddenAction_Produce_RGM_89_BazookaSquad_3"
+    ],
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/UnitList/0093_NZN/Units/Land/AMS_119.gw": [
+      "hiddenAction_Produce_AMS_119_StandardSquad_1",
+      "hiddenAction_Produce_AMS_119_StandardSquad_2",
+      "hiddenAction_Produce_AMS_119_StandardSquad_3",
+      "hiddenAction_Produce_AMS_119_MGSquad_1",
+      "hiddenAction_Produce_AMS_119_MGSquad_2",
+      "hiddenAction_Produce_AMS_119_MGSquad_3",
+      "hiddenAction_Produce_AMS_119_BazookaSquad_1",
+      "hiddenAction_Produce_AMS_119_BazookaSquad_2",
+      "hiddenAction_Produce_AMS_119_BazookaSquad_3"
+    ],
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/UnitList/0093_EFSF/Units/Land/RGZ_91.gw": [
+      "hiddenAction_Produce_RGZ_91_StandardSquad_1",
+      "hiddenAction_Produce_RGZ_91_StandardSquad_2",
+      "hiddenAction_Produce_RGZ_91_StandardSquad_3",
+      "hiddenAction_Produce_RGZ_91_MGSquad_1",
+      "hiddenAction_Produce_RGZ_91_MGSquad_2",
+      "hiddenAction_Produce_RGZ_91_MGSquad_3",
+      "hiddenAction_Produce_RGZ_91_BazookaSquad_1",
+      "hiddenAction_Produce_RGZ_91_BazookaSquad_2",
+      "hiddenAction_Produce_RGZ_91_BazookaSquad_3"
+    ],
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/UnitList/0093_NZN/Units/Land/MSN_03.gw": [
+      "hiddenAction_Produce_MSN_03_StandardSquad_1",
+      "hiddenAction_Produce_MSN_03_StandardSquad_2",
+      "hiddenAction_Produce_MSN_03_StandardSquad_3",
+      "hiddenAction_Produce_MSN_03_MGSquad_1",
+      "hiddenAction_Produce_MSN_03_MGSquad_2",
+      "hiddenAction_Produce_MSN_03_MGSquad_3",
+      "hiddenAction_Produce_MSN_03_BazookaSquad_1",
+      "hiddenAction_Produce_MSN_03_BazookaSquad_2",
+      "hiddenAction_Produce_MSN_03_BazookaSquad_3"
+    ],
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/UnitList/0093_EFSF/Units/Land/RX_93.gw": [
+      "hiddenAction_Produce_RX_93_StandardSquad_1",
+      "hiddenAction_Produce_RX_93_StandardSquad_2",
+      "hiddenAction_Produce_RX_93_StandardSquad_3",
+      "hiddenAction_Produce_RX_93_MGSquad_1",
+      "hiddenAction_Produce_RX_93_MGSquad_2",
+      "hiddenAction_Produce_RX_93_MGSquad_3",
+      "hiddenAction_Produce_RX_93_BazookaSquad_1",
+      "hiddenAction_Produce_RX_93_BazookaSquad_2",
+      "hiddenAction_Produce_RX_93_BazookaSquad_3"
+    ],
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/UnitList/0093_NZN/Units/Land/MSN_04.gw": [
+      "hiddenAction_Produce_MSN_04_StandardSquad_1",
+      "hiddenAction_Produce_MSN_04_StandardSquad_2",
+      "hiddenAction_Produce_MSN_04_StandardSquad_3",
+      "hiddenAction_Produce_MSN_04_MGSquad_1",
+      "hiddenAction_Produce_MSN_04_MGSquad_2",
+      "hiddenAction_Produce_MSN_04_MGSquad_3",
+      "hiddenAction_Produce_MSN_04_BazookaSquad_1",
+      "hiddenAction_Produce_MSN_04_BazookaSquad_2",
+      "hiddenAction_Produce_MSN_04_BazookaSquad_3"
+    ]
+  }
+}

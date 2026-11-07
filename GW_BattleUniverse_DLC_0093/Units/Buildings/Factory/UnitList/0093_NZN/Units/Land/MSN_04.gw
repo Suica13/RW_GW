@@ -19,8 +19,8 @@ alsoTriggerAction:AutoProduce_MSN_04_Step2
 
 [hiddenAction_AutoProduce_MSN_04_Step2]
 @copyFromSection:template_AutoProduce_Step2
-@define Money=3650
-@define Resource=4700
+@define Money=14500
+@define Resource=17500
 alsoTriggerAction:AutoProduce_MSN_04_Random
 
 
@@ -53,22 +53,21 @@ alsoQueueAction:Produce_MSN_04_StandardSquad
 
 [action_Pannel_MSN_04]
 @copyFromSection:template_Pannel
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
 @define UnitID=MSN_04
 @define FactionVisible= (memory.Pannel_0093_NZN_DontShow==false)
 
 [action_Produce_MSN_04_StandardSquad]
 @copyFromSection:template_Produce
+text:Standard Armament
+text_zh:标准武装
 @define UnitID=MSN_04
-@define Money=3650
-@define Resource=4700
+@define Money=14500
+@define Resource=17500
 @define FactionVisible= (memory.Pannel_0093_NZN_DontShow==false)
-buildSpeed:50s
+buildSpeed:70s
 
-alsoQueueAction:"""
-Produce_MSN_04_StandardSquad_1,
-Produce_MSN_04_StandardSquad_2,
-Produce_MSN_04_StandardSquad_3
-"""
+alsoQueueAction:Produce_MSN_04_StandardSquad_1
 [hiddenAction_Produce_MSN_04_StandardSquad_1]
 buildSpeed:0.0s
 highPriorityQueue:true
@@ -93,19 +92,15 @@ MSN_04*1(addResources=PilotType:1101|EquipmentIndex:0)
 isVisible:false
 @copyFromSection:template_Produce
 @define UnitID=MSN_04
-@define Money=3050
-@define Resource=3800
+@define Money=14500
+@define Resource=17500
 @define FactionVisible= (memory.Pannel_0093_NZN_DontShow==false)
-buildSpeed:50s
+buildSpeed:70s
 
 text:MG Squad
 text_zh:机枪小队
 
-alsoQueueAction:"""
-Produce_MSN_04_MGSquad_1,
-Produce_MSN_04_MGSquad_2,
-Produce_MSN_04_MGSquad_3
-"""
+alsoQueueAction:Produce_MSN_04_MGSquad_1
 [hiddenAction_Produce_MSN_04_MGSquad_1]
 buildSpeed:0.0s
 highPriorityQueue:true
@@ -131,19 +126,15 @@ MSN_04*1(addResources=PilotType:1101|EquipmentIndex:1)
 isVisible:false
 @copyFromSection:template_Produce
 @define UnitID=MSN_04
-@define Money=3050
-@define Resource=4400
+@define Money=14500
+@define Resource=17500
 @define FactionVisible= (memory.Pannel_0093_NZN_DontShow==false)
-buildSpeed:50s
+buildSpeed:70s
 
 text:Bazooka Squad
 text_zh:火箭筒小队
 
-alsoQueueAction:"""
-Produce_MSN_04_BazookaSquad_1,
-Produce_MSN_04_BazookaSquad_2,
-Produce_MSN_04_BazookaSquad_3
-"""
+alsoQueueAction:Produce_MSN_04_BazookaSquad_1
 [hiddenAction_Produce_MSN_04_BazookaSquad_1]
 buildSpeed:0.0s
 highPriorityQueue:true

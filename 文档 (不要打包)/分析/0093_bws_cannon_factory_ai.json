@@ -1,0 +1,27 @@
+{
+  "updated": [
+    "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\EF_RGZ_91_BWS_HighBeamCannon.gw",
+    "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RGZ_91\\RGZ_91_MA.ini",
+    "GW_BattleUniverse_DLC_0093\\Units\\Buildings\\Factory\\Faction\\0093_EFSF\\Factory_0093_EFSF_Land.ini",
+    "GW_BattleUniverse_DLC_0093\\Units\\Buildings\\Factory\\Faction\\0093_EFSF\\Factory_0093_EFSF_Space.ini",
+    "GW_BattleUniverse_DLC_0093\\Units\\Buildings\\Factory\\Faction\\0093_NZN\\Factory_0093_NZN_Land.ini",
+    "GW_BattleUniverse_DLC_0093\\Units\\Buildings\\Factory\\Faction\\0093_NZN\\Factory_0093_NZN_Space.ini"
+  ],
+  "before_sha256": {
+    "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\EF_RGZ_91_BWS_HighBeamCannon.gw": null,
+    "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\RGZ_91\\RGZ_91_MA.ini": "b6acfeb34064e93070408ef771153b0c7cb80ad2dcc70f2a8ff1153738091557",
+    "GW_BattleUniverse_DLC_0093\\Units\\Buildings\\Factory\\Faction\\0093_EFSF\\Factory_0093_EFSF_Land.ini": "f9f3dd4b495330bb5b487d1044b7cd1bcf891de564bd472c778d1bc5a75ad3ab",
+    "GW_BattleUniverse_DLC_0093\\Units\\Buildings\\Factory\\Faction\\0093_EFSF\\Factory_0093_EFSF_Space.ini": "07b1a82bb91f0bd40be59aa141e160f254dc67a61e0134a2f47a9d8d7d6bc64d",
+    "GW_BattleUniverse_DLC_0093\\Units\\Buildings\\Factory\\Faction\\0093_NZN\\Factory_0093_NZN_Land.ini": "9ec83df6211aa3e2e9dc230f30a02046534b0e0a703ef050edfe205f8ee322d1",
+    "GW_BattleUniverse_DLC_0093\\Units\\Buildings\\Factory\\Faction\\0093_NZN\\Factory_0093_NZN_Space.ini": "b73e769e4fabbb60d297a82c398dcf2893da11b66f00f3c3c8652f8d65d714b2"
+  },
+  "weapon_source": "GW_BattleUniverse_DLC_0093\\Units\\BattleUnits\\Weapon\\Beam\\EF_RGZ_91B_HighBeamCannon.gw",
+  "weapon_choice": {
+    "missiles": "RandomWeapon<=25",
+    "twin_beam_cannons": "25<RandomWeapon<=65",
+    "large_mega_particle_cannon": "RandomWeapon>65"
+  },
+  "ai": "0087-style T1/T2, 15 percent specialist attempts, ordered normal/base fallback, Land prefers A1 and Space prefers C1. Existing ship AI retained.",
+  "tests_run": false,
+  "reason": "User explicitly requested no testing."
+}

@@ -19,8 +19,8 @@ alsoTriggerAction:AutoProduce_RGZ_91_Step2
 
 [hiddenAction_AutoProduce_RGZ_91_Step2]
 @copyFromSection:template_AutoProduce_Step2
-@define Money=3650
-@define Resource=4700
+@define Money=6500
+@define Resource=7500
 alsoTriggerAction:AutoProduce_RGZ_91_Random
 
 
@@ -53,22 +53,21 @@ alsoQueueAction:Produce_RGZ_91_StandardSquad
 
 [action_Pannel_RGZ_91]
 @copyFromSection:template_Pannel
+iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
 @define UnitID=RGZ_91
 @define FactionVisible= (memory.Pannel_0093_EFSF_DontShow==false)
 
 [action_Produce_RGZ_91_StandardSquad]
 @copyFromSection:template_Produce
+text:Standard Armament
+text_zh:标准武装
 @define UnitID=RGZ_91
-@define Money=3650
-@define Resource=4700
+@define Money=6500
+@define Resource=7500
 @define FactionVisible= (memory.Pannel_0093_EFSF_DontShow==false)
-buildSpeed:50s
+buildSpeed:55s
 
-alsoQueueAction:"""
-Produce_RGZ_91_StandardSquad_1,
-Produce_RGZ_91_StandardSquad_2,
-Produce_RGZ_91_StandardSquad_3
-"""
+alsoQueueAction:Produce_RGZ_91_StandardSquad_1
 [hiddenAction_Produce_RGZ_91_StandardSquad_1]
 buildSpeed:0.0s
 highPriorityQueue:true
@@ -93,19 +92,15 @@ RGZ_91_MA*1(addResources=PilotType:1101|EquipmentIndex:0)
 isVisible:false
 @copyFromSection:template_Produce
 @define UnitID=RGZ_91
-@define Money=3050
-@define Resource=3800
+@define Money=6500
+@define Resource=7500
 @define FactionVisible= (memory.Pannel_0093_EFSF_DontShow==false)
-buildSpeed:50s
+buildSpeed:55s
 
 text:MG Squad
 text_zh:机枪小队
 
-alsoQueueAction:"""
-Produce_RGZ_91_MGSquad_1,
-Produce_RGZ_91_MGSquad_2,
-Produce_RGZ_91_MGSquad_3
-"""
+alsoQueueAction:Produce_RGZ_91_MGSquad_1
 [hiddenAction_Produce_RGZ_91_MGSquad_1]
 buildSpeed:0.0s
 highPriorityQueue:true
@@ -131,19 +126,15 @@ RGZ_91_MA*1(addResources=PilotType:1101|EquipmentIndex:1)
 isVisible:false
 @copyFromSection:template_Produce
 @define UnitID=RGZ_91
-@define Money=3050
-@define Resource=4400
+@define Money=6500
+@define Resource=7500
 @define FactionVisible= (memory.Pannel_0093_EFSF_DontShow==false)
-buildSpeed:50s
+buildSpeed:55s
 
 text:Bazooka Squad
 text_zh:火箭筒小队
 
-alsoQueueAction:"""
-Produce_RGZ_91_BazookaSquad_1,
-Produce_RGZ_91_BazookaSquad_2,
-Produce_RGZ_91_BazookaSquad_3
-"""
+alsoQueueAction:Produce_RGZ_91_BazookaSquad_1
 [hiddenAction_Produce_RGZ_91_BazookaSquad_1]
 buildSpeed:0.0s
 highPriorityQueue:true
