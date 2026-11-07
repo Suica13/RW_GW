@@ -6,7 +6,7 @@
 
 - 上游：https://github.com/GMBOXMOD/rw-modding-mcp
 - 本地检出：`文档 (不要打包)/工具/rw-modding-mcp/`
-- 上游提交：`172d26b2a4b2f8a282db4df0d7d62671fd9f2d50`
+- 上游提交：`73572357c16c8729998e6e06e0fd35da99c488e3`
 - Python：本机 Python 3.12；依赖安装在工具自己的 `.venv/`，MCP SDK 为 2.3.0。
 - Java：本机 Java 21；输入是 `E:/RustedWarfare_Reunion/game-lib.jar`。
 - 反编译产物：工具的 `tools/jar/src/`，共 1,698 个 Java 文件。
@@ -66,7 +66,7 @@ python '文档 (不要打包)/工具/rw-modding-mcp/tools/rw_lint.py' 'GW_Battle
 ```powershell
 $tool = '文档 (不要打包)/工具/rw-modding-mcp'
 git clone https://github.com/GMBOXMOD/rw-modding-mcp.git $tool
-git -C $tool checkout 172d26b2a4b2f8a282db4df0d7d62671fd9f2d50
+git -C $tool checkout 73572357c16c8729998e6e06e0fd35da99c488e3
 git -C $tool apply --check ../rw-modding-mcp-gw.patch
 git -C $tool apply ../rw-modding-mcp-gw.patch
 python -m venv "$tool/.venv"
@@ -100,3 +100,13 @@ MOD 当前改动已先提交并推送至 develop（2fe3969），随后工具从 
 新增 `lookup_key(keys=[...])` 批量字段查询，原单字段接口继续可用。`lint(paths=[...])` 支持批量路径；精简后的问题列表用 `f` 索引 `issue_files`。`explain_actions` 默认返回文本，可用 `fmt=json` 或 `fmt=both` 请求结构化结果。
 
 本次验证：上游自检 33 PASS / 0 FAIL，回归 27 PASS / 0 FAIL，启动标记另测 4 PASS / 0 FAIL，项目 stdio 验证 10 项通过（包含批量字段、批量 lint 和 `.gw` 扫描）。作者私有示例和缺少 pyyaml 的工作流检查仍按原测试跳过。部署配置未变；需要重启会话加载新版 MCP 工具定义。
+
+## 2026-11-08 上游更新至 7357235
+
+本地检出从 `172d26b2a4b2f8a282db4df0d7d62671fd9f2d50` 快进到上游 origin/main 的 `73572357c16c8729998e6e06e0fd35da99c488e3`。上游仍为 https://github.com/GMBOXMOD/rw-modding-mcp 。更新前单独保存并暂存本地 .gw 扫描改动，更新后成功恢复；嵌套仓库仅保留 tools/rw_lint.py 的这一处本地差异。当前补丁已刷新，更新前补丁保存在 rw-modding-mcp-gw.before-update.patch。
+
+本次上游包含按继承作用域分析的 lint 改进、CORE: 引用检查、定向与精简查询接口、game_loadtest 加载失败漏报修复及 attach 模式。附带技能指南已随上游检出下载，未另行安装为全局技能。
+
+沿用当前虚拟环境和依赖锁定文件；上游仍要求 mcp>=2.3,<3，本次未额外升级依赖。只做最小环境/连接核对：bootstrap --check 通过，.gw 目录扫描适配有效，独立 stdio 连接识别五个工具，lookup_key(maxHp, section=core) 成功。没有运行上游完整测试套件、MOD lint 或游戏加载。
+
+工具目录继续被主项目 Git 忽略。本项目推送部署版本记录和本地适配补丁，不将嵌套仓库、虚拟环境、下载器或反编译源码纳入 MOD。重启会话后加载新版服务及工具参数。

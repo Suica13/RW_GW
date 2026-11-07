@@ -1,8 +1,8 @@
 diff --git a/tools/rw_lint.py b/tools/rw_lint.py
-index 8e1de7c..708f4b2 100644
+index e821b8f..7a61df8 100644
 --- a/tools/rw_lint.py
 +++ b/tools/rw_lint.py
-@@ -1046,7 +1046,7 @@ def collect_files(target):
+@@ -1044,7 +1044,7 @@ def collect_files(target):
      for dp, _, fns in os.walk(target):
          for f in fns:
              low = f.lower()
