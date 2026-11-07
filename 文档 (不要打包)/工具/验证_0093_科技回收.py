@@ -28,7 +28,7 @@ def main():
   t='Tech_'+f+'_Recovery';folder=D/f'Units/TechTree/Tech/Faction/{f}'
   b=sections(rd(folder/f'TechList_{f}.ini'))
   award=b[f'hiddenAction_{t}_UnlockUnit']
-  ck(f+' awards exactly recovered units',ids(field(award,'alsoTriggerAction'))==['Unlock_'+u for u in units+[moved]])
+  ck(f+' awards exactly recovered units',ids(field(award,'alsoTriggerAction'))==['Unlock_'+u for u in [moved]+units])
   ck(f+' old plan no longer awards moved unit','Unlock_'+moved not in field(b[f'hiddenAction_Tech_{f}_Mid03_UnlockUnit'],'alsoTriggerAction'))
   ck(f+' full research and ally lifecycle',all('hiddenAction_'+t+'_'+suffix in b for suffix in ['Awake','Start','Stop','Done','UnlockUnit','NotByOther','SendAlly','SendAlly_Step2','SendAlly_Step3']))
   marker=rd(folder/'Common'/f'{t}.ini')
@@ -37,7 +37,9 @@ def main():
   ck(f+' all recovery unit info buttons',all(f'[action_UnlockInfo_{u}]' in marker for u in units+[moved]))
   page=rd(D/f'Units/TechTree/Core/Faction/{f}/TechTree_UI_Page_{f}_00.ini')
   ck(f+' page order and six unique nodes',re.findall(r'onCreateSpawnUnitOf:([^*\r\n]+)',page)==[f'Tech_{f}_BaseTech',f'Tech_{f}_Mid02',t,f'Tech_{f}_Mid03',f'Tech_{f}_Mid04',f'Tech_{f}_Mid05'])
-  ck(f+' no free units','produceUnits:' not in award and 'spawnUnits:' not in award and 'produceUnits:' not in b[f'hiddenAction_{t}_Done'])
+  gift=b[f'hiddenAction_{t}_NotByOther']
+  expected=[u if u!='RGZ_91' else 'RGZ_91_MA' for u in [moved]+units]
+  ck(f+' own research grants each recovered unit once',re.findall(r'([A-Za-z_0-9]+)\*1\(',field(gift,'spawnUnits'))==expected and 'template_Tech_NotByOther' in gift)
   for u in units:
    old=u.split('_0093_')[0]
    for suffix in ['','_MA','_MA_OverLine']:
