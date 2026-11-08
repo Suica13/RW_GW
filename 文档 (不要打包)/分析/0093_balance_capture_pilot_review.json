@@ -1,0 +1,91 @@
+{
+  "changed_files": [
+    "GW_BattleUniverse_DLC_0093/Units/TechTree/Tech/Faction/0093_EFSF/TechList_0093_EFSF.ini",
+    "GW_BattleUniverse_DLC_0093/Units/TechTree/Tech/Faction/0093_NZN/TechList_0093_NZN.ini",
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/Faction/0093_EFSF/Factory_0093_EFSF_Land.ini",
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/Faction/0093_EFSF/Factory_0093_EFSF_Space.ini",
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/Faction/0093_NZN/Factory_0093_NZN_Land.ini",
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/Faction/0093_NZN/Factory_0093_NZN_Space.ini",
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/UnitList/0093_EFSF/Units/Land/RX_93.gw",
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/UnitList/0093_EFSF/Units/Land/RX_93_Test.gw",
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/UnitList/0093_NZN/Units/Land/MSN_04.gw",
+    "GW_BattleUniverse_DLC_0093/Units/BattleUnits/RX_93/RX_93_Test.ini",
+    "文档 (不要打包)/分析/0093_factory_pricing.json"
+  ],
+  "before_sha256": {
+    "GW_BattleUniverse_DLC_0093/Units/TechTree/Tech/Faction/0093_EFSF/TechList_0093_EFSF.ini": "91eec8440cbfefac0b5d83b9225559853f2c24cb8d468e6a646f2cb685d868cd",
+    "GW_BattleUniverse_DLC_0093/Units/TechTree/Tech/Faction/0093_NZN/TechList_0093_NZN.ini": "5b9426e3522cd2cc39ef7e786183a13cbf4f8908eb6d80e39939ffd4979e84f2",
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/Faction/0093_EFSF/Factory_0093_EFSF_Land.ini": "66101689899ccbdc9f7c79d5080b6ccd0a5787e5c0a1e98bf56e9202e4fc5449",
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/Faction/0093_EFSF/Factory_0093_EFSF_Space.ini": "274d79546ca5a270d7e76dc10f59860908da52eb7da91cc5cb47fe9896f840e3",
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/Faction/0093_NZN/Factory_0093_NZN_Land.ini": "eab5825d66a024ff16f3d196cc0c2bad0be348c95b0b030ba044081ff2dbdbd0",
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/Faction/0093_NZN/Factory_0093_NZN_Space.ini": "a71366563b88e7506167d69417116f6ff8b32529eb00b4d2d43314272d1c5eba",
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/UnitList/0093_EFSF/Units/Land/RX_93.gw": "412c1173542c3a1af00cdf24111715e51ce166761e50c8e8be2568f9cf840215",
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/UnitList/0093_EFSF/Units/Land/RX_93_Test.gw": "f3c37c92f292eae231c6eefb5a4b4454b18dc35da085d35ff145ee6c1d531ea8",
+    "GW_BattleUniverse_DLC_0093/Units/Buildings/Factory/UnitList/0093_NZN/Units/Land/MSN_04.gw": "829e559b95e95101a2ef6a2b706e38aede8100091b60016ef188372643587a39",
+    "GW_BattleUniverse_DLC_0093/Units/BattleUnits/RX_93/RX_93_Test.ini": "c53486d147cc02f199cdf7ea08eeb28999e47b4e1c74421cec5f8fd76885114b",
+    "文档 (不要打包)/分析/0093_factory_pricing.json": "d9783318ed3bdd45a3007f581a9010da2e40b97c34f13359c8e9fce6c8c62fb6"
+  },
+  "research_slots": {
+    "Recovery": [
+      8000,
+      2000,
+      3600
+    ],
+    "Mid03": [
+      10000,
+      2500,
+      6000
+    ]
+  },
+  "production": {
+    "RX_93": [
+      15950,
+      19250,
+      85
+    ],
+    "RX_93_Test": [
+      12100,
+      13750,
+      80
+    ],
+    "MSN_04": [
+      15950,
+      19250,
+      85
+    ]
+  },
+  "upgrade_difference": [
+    3850,
+    5500
+  ],
+  "gift": "Re-GZ BWS on both maps; A1 on ground and C1 in space only.",
+  "capture": "Land/Space factories inherit both faction lists; no unit is auto-unlocked.",
+  "pilot_fix_files": [
+    "GW_BattleUniverse_DLC_0079/Template/Unit/Skill/PilotCustomChange.gw",
+    "GW_BattleUniverse_DLC_0087/Template/Unit/Skill/PilotCustomChange.gw",
+    "GW_BattleUniverse_DLC_0093/Template/Unit/Skill/PilotCustomChange.gw",
+    "GW_BattleUniverse_DLC_CR_P1/Template/Unit/Skill/PilotCustomChange.gw",
+    "GW_BattleUniverse_DLC_SEED/Template/Unit/Skill/PilotCustomChange.gw",
+    "GW_BattleUniverse_Main/Template/Unit/Skill/PilotCustomChange.gw",
+    "GW_BattleUniverse_Main/Units/BattleUnits/Pilot/Pilot_CustomMarker_Common.ini"
+  ],
+  "pilot_evidence": {
+    "ag.java": "2870-2902 event defaults; newMessage limit=4 in this engine",
+    "j.java": "4025 old-type event discard; 4042 and 4054 event recursion filtering",
+    "previous_chain": "one-shot created -> convert -> core newMessage -> parent newMessage, repeatedly in one frame",
+    "fix": "defer core relay using memory timer; retry only intermediate markers; restore a missing core; root waits for core and source context",
+    "unsupported_paths": "0087 three faction ACE dispatch lists are empty; 0093 has no ACE route. Not silently remapped to ordinary pilots."
+  },
+  "pilot_reported_category": "ordinary pilots, confirmed by user",
+  "validation": {
+    "mcp_changed_files": 17,
+    "errors": 0,
+    "warnings": 36,
+    "incomplete_inheritance": [
+      "MCP cannot resolve MOD root for three standalone factory .gw inputs; explicit ROOT paths additionally checked against each real package root."
+    ],
+    "explicit_root_missing": [],
+    "pilot_templates_identical": true,
+    "game_load_or_gameplay_run": false
+  }
+}

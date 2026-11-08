@@ -38,8 +38,31 @@ ResetTags=1
 """
 
 [hiddenAction_Send_TryTransform_PilotCustomChange_Step2]
-sendMessageTo:memory.battleUnitCore
-sendMessageWithTags:PilotCustomChange
+# [ENGINE_WORKAROUND] Continue on a later frame, outside the current newMessage recursion chain.
+setUnitMemory:pilotCustomContinuePending=true,pilotCustomContinueAt=self.timeAlive+0.1,pilotCustomRetryAt=self.timeAlive+1
 
 [hiddenAction_Send_TryTransform_PilotCustomChange_Step3]
 setUnitMemory:changePilotSkillsBool=false
+[core]
+@memory pilotCustomContinuePending:bool
+@memory pilotCustomContinueAt:float
+@memory pilotCustomRetryAt:float
+
+# Only intermediate Pilot_CustomMarker units inherit this template; real pilots do not.
+# [ORDER_DEPENDENT] Keep the core relay, but do not queue behind TryClearQueued.
+[hiddenAction_PilotCustomContinue]
+autoTrigger:if memory.pilotCustomContinuePending and self.timeAlive>memory.pilotCustomContinueAt and self.attachment(slot='BattleUnitCore').hp>0
+setUnitMemory:pilotCustomContinuePending=false,pilotCustomRetryAt=self.timeAlive+1,battleUnitCore=self.attachment(slot='BattleUnitCore')
+sendMessageTo:self.attachment(slot='BattleUnitCore')
+sendMessageWithTags:PilotCustomChange
+
+# [ENGINE_WORKAROUND] A lost created/converted event must not leave a permanent blank marker.
+[hiddenAction_PilotCustomRepairCore]
+autoTrigger:if self.timeAlive>0.5 and self.attachment(slot='BattleUnitCore').hp<=0 and customTarget1!=null
+alsoTriggerAction:BattleUnitCore_Spawn,BattleUnitCore_Send_InitializeDone
+
+[hiddenAction_PilotCustomRetry]
+autoTrigger:if not memory.pilotCustomContinuePending and self.timeAlive>memory.pilotCustomRetryAt and self.timeAlive>0.5 and self.attachment(slot='BattleUnitCore').hp>0 and customTarget1!=null
+setUnitMemory:pilotCustomRetryAt=self.timeAlive+1,battleUnitCore=self.attachment(slot='BattleUnitCore')
+sendMessageTo:self
+sendMessageWithTags:PilotCustomChange

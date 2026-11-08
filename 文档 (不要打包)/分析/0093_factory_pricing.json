@@ -38,27 +38,27 @@
     },
     "RX_93_Test": {
       "faction": "0093_EFSF",
-      "money": 11000,
-      "resource": 12500,
-      "time": 65,
+      "money": 12100,
+      "resource": 13750,
+      "time": 80,
       "count": 1,
       "target": "RX_93_Test",
       "limit": 1
     },
     "RX_93": {
       "faction": "0093_EFSF",
-      "money": 14500,
-      "resource": 17500,
-      "time": 70,
+      "money": 15950,
+      "resource": 19250,
+      "time": 85,
       "count": 1,
       "target": "RX_93",
       "limit": 1
     },
     "MSN_04": {
       "faction": "0093_NZN",
-      "money": 14500,
-      "resource": 17500,
-      "time": 70,
+      "money": 15950,
+      "resource": 19250,
+      "time": 85,
       "count": 1,
       "target": "MSN_04",
       "limit": 1

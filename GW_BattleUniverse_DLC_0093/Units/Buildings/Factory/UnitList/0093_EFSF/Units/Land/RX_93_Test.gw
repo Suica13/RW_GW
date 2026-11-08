@@ -19,8 +19,8 @@ alsoTriggerAction:AutoProduce_RX_93_Test_Step2
 
 [hiddenAction_AutoProduce_RX_93_Test_Step2]
 @copyFromSection:template_AutoProduce_Step2
-@define Money=11000
-@define Resource=12500
+@define Money=12100
+@define Resource=13750
 alsoTriggerAction:AutoProduce_RX_93_Test_Random
 
 
@@ -43,10 +43,10 @@ iconExtraImage:ROOT:Resource/Image/Units/Button/Misc/SingleUnit_1.png
 text:Standard Armament
 text_zh:标准武装
 @define UnitID=RX_93_Test
-@define Money=11000
-@define Resource=12500
+@define Money=12100
+@define Resource=13750
 @define FactionVisible= (memory.Pannel_0093_EFSF_DontShow==false)
-buildSpeed:65s
+buildSpeed:80s
 
 alsoQueueAction:Produce_RX_93_Test_StandardSquad_1
 [hiddenAction_Produce_RX_93_Test_StandardSquad_1]

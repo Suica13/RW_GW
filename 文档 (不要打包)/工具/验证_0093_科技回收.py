@@ -39,7 +39,11 @@ def main():
   ck(f+' page order and six unique nodes',re.findall(r'onCreateSpawnUnitOf:([^*\r\n]+)',page)==[f'Tech_{f}_BaseTech',f'Tech_{f}_Mid02',t,f'Tech_{f}_Mid03',f'Tech_{f}_Mid04',f'Tech_{f}_Mid05'])
   gift=b[f'hiddenAction_{t}_NotByOther']
   expected=[u if u!='RGZ_91' else 'RGZ_91_MA' for u in [moved]+units]
-  ck(f+' own research grants each recovered unit once',re.findall(r'([A-Za-z_0-9]+)\*1\(',field(gift,'spawnUnits'))==expected and 'template_Tech_NotByOther' in gift)
+  actual=re.findall(r'([A-Za-z_0-9]+)\*1\(',field(gift,'spawnUnits'))
+  if f=='0093_EFSF':
+   ground=b['hiddenAction_Tech_0093_EFSF_Recovery_Gift_Ground'];space=b['hiddenAction_Tech_0093_EFSF_Recovery_Gift_Space']
+   ck(f+' map-specific recovery gifts',actual==['RGZ_91_MA'] and 'TileMode==0' in ground and 'MSZ_006A1_0093_EFSF*1(' in ground and 'TileMode==1' in space and 'MSZ_006C1_0093_EFSF*1(' in space and 'template_Tech_NotByOther' in gift)
+  else:ck(f+' own research grants each recovered unit once',actual==expected and 'template_Tech_NotByOther' in gift)
   for u in units:
    old=u.split('_0093_')[0]
    for suffix in ['','_MA','_MA_OverLine']:
@@ -81,7 +85,7 @@ def main():
  zz=rd(S/'Units/Buildings/Factory/UnitList/AEUG_0087/Units/Land/MSZ_010.gw')
  zprice=sections(z)['action_Produce_MSZ_006_StandardSquad'];zzprice=sections(zz)['action_Produce_MSZ_010_StandardSquad']
  for u in ['RX_93','MSN_04']:
-  ck(u+' priced above Z and at ZZ tier',all(plans[u][key]==int(field(zzprice,'@define '+fieldname)) and plans[u][key]>int(field(zprice,'@define '+fieldname)) for key,fieldname in [('money','Money'),('resource','Resource')]))
+  ck(u+' priced above Z and ten percent above previous ZZ-tier cost',all(plans[u][key]==int(field(zzprice,'@define '+fieldname))*110//100 and plans[u][key]>int(field(zprice,'@define '+fieldname)) for key,fieldname in [('money','Money'),('resource','Resource')]))
  print(f'{sum(checks)}/{len(checks)} checks passed; production, transformations and interception still need gameplay verification.')
  return int(not all(checks))
 if __name__=='__main__':raise SystemExit(main())
