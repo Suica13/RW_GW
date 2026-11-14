@@ -116,7 +116,7 @@ if ${cantAction}==false
 """
 buildSpeed:0.35s
 alsoTriggerAction:PlayCommon_Cannon_Shoot_A_Step_1
-whenBuilding_cannotMove:true
+whenBuilding_cannotMove:false
 
 
 
@@ -125,7 +125,7 @@ requireConditional:"""
 if ${cantAction}==false 
 """
 buildSpeed:0.25s
-whenBuilding_cannotMove:true
+whenBuilding_cannotMove:false
 
 
 
@@ -141,6 +141,6 @@ fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
 
 [hiddenAction_NZN_MSN_04_HighBeamCannon_Fire_Step_Final]
 buildSpeed:1.25s
-whenBuilding_cannotMove:true
+whenBuilding_cannotMove:false
 finishPlayingLastAnimation:true
 alsoTriggerAction:SetAttackingOff

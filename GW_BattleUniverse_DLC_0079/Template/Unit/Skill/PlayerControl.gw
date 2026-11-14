@@ -3,6 +3,13 @@ copyFrom:ROOT:Template/Unit/Skill/PlayerControl_Marker.gw,ROOT:Resource/Image/Fx
 @global manualControlImplemented=false
 dont_load:true
 @memory manualControlEnabled:bool
+@memory pmcBorrowActive:bool
+@memory pmcBorrowController:unit
+@memory pmcOriginalTeam:float
+@memory pmcOriginalHQ:unit
+@memory pmcOriginalPilot:unit
+@memory pmcOriginalPilotTeam:float
+@memory pmcGrantDeadline:float
 @memory manualControlHQ:unit
 @memory manualSavedAI:bool
 @memory manualSavedAssigned:bool
@@ -44,12 +51,12 @@ text_zh:直接控制%{select(${manualControlImplemented},'','（开发中）')}
 description:"""
 \nTake control of this unit; the previous unit returns to automatic combat.
 \nPress weapon buttons to fire; each weapon retains its cooldown. Vulcan bursts run independently.
-\nWhile controlled: reaction, accuracy, shooting and melee +25%; movement speed +10%.
+\nWhile controlled: shooting/melee +50%, accuracy/reaction +30%, speed +15%, vision +25%, final damage/DP taken -25%. PMC upgrades add to these bonuses.
 """
 description_zh:"""
 \n接管本机，上一台受控单位恢复自动战斗。
 \n点击武装按钮，按机体当前朝向使用武装；各武装保留独立冷却。
-\n接管期间：反应、命中、射击、格斗系数提高25%，移动速度提高10%。
+\n接管期间：射击/格斗系数+50%，命中/反应系数+30%，速度+15%，视野+25%，最终伤害/DP减免25%。另叠加PMC购买的增益点。
 """
 iconImage:ROOT:Resource/Image/Units/Button/Action/AI_2.png
 isVisible:if not memory.manualControlEnabled and not self.isControlledByAI() and not self.hasTags(includes='inHangar') and parent.hp<=0
@@ -98,7 +105,7 @@ sendMessageWithData:unitInfo=self
 requireConditional:if memory.manualControlEnabled
 setUnitMemory:manualForcedBoostUntil=0,manualControlEnabled=false,manualGuardCDUntil=select(memory.manualGuardUntil>self.timeAlive,self.timeAlive+30,memory.manualGuardCDUntil),manualGuardUntil=0,manualVulcanSerial=memory.manualVulcanSerial+1,attackRuleMode=memory.manualSavedAttackRule,attackMode=memory.manualSavedAttackMode,manualInputBusyUntil=self.timeAlive+0.15
 temporarilyRemoveTags:ManualControlled,ManualGuardActive
-alsoTriggerAction:ManualControl_CancelWeapon,ManualControl_RestoreAI,ManualControl_RestoreAssigned,ManualControl_RefreshSpeed
+alsoTriggerAction:ManualControl_CancelWeapon,ManualControl_RestoreAI,ManualControl_RestoreAssigned,ManualControl_RefreshSpeed,PMC_ReturnBorrow
 
 # Cancel attack queues without resetting stagger/daze or weapon cooldowns.
 [hiddenAction_ManualControl_CancelWeapon]
@@ -270,8 +277,8 @@ alsoTriggerAction:ManualControl_RefreshSpeed
 pos:1
 text:Forced thrust%{select(self.timeAlive<memory.manualForcedBoostReadyAt,' ['+str(int(max(0,memory.manualForcedBoostReadyAt-self.timeAlive)*10+0.999)/10)+'s]','')}
 text_zh:强制喷射%{select(self.timeAlive<memory.manualForcedBoostReadyAt,'（'+str(int(max(0,memory.manualForcedBoostReadyAt-self.timeAlive)*10+0.999)/10)+'秒）','')}
-description:50 EN. Movement speed +50% for 0.5s. Cooldown scales with base reaction: RX-78-2 3s, Gundam Mk-II 2s, Z Gundam 1.5s.
-description_zh:消耗50 EN，移动速度提高50%，持续0.5秒。冷却按机体基础反应系数缩放：高达3秒，高达Mk-II 2秒，Z高达1.5秒。当前冷却：%{str(int((${manualForcedBoostCooldown})*100+0.5)/100)}秒。
+description:50 EN. Movement speed +100% for 0.5s. Cooldown scales with base reaction: RX-78-2 3s, Gundam Mk-II 2s, Z Gundam 1.5s.
+description_zh:消耗50 EN，移动速度提高100%，持续0.5秒。冷却按机体基础反应系数缩放：高达3秒，高达Mk-II 2秒，Z高达1.5秒。当前冷却：%{str(int((${manualForcedBoostCooldown})*100+0.5)/100)}秒。
 iconImage:ROOT:Resource/Image/Units/Button/Action/Boost_1.png
 price:EN=50
 isVisible:if ${manualControlReady}
@@ -288,4 +295,67 @@ alsoTriggerAction:ManualControl_RefreshSpeed
 autoTriggerCheckRate:everyFrame
 autoTrigger:if memory.manualForcedBoostUntil>0 and self.timeAlive>=memory.manualForcedBoostUntil
 setUnitMemory:manualForcedBoostUntil=0
+alsoTriggerAction:ManualControl_RefreshSpeed
+
+# PMC borrowing has a separate pending phase; ownership is saved before any team switch.
+[hiddenAction_PMC_Borrow]
+autoTriggerOnEvent:newMessage(withTag='PMC_Borrow')
+requireConditional:if ${manualControlImplemented} and not memory.pmcBorrowActive and not memory.manualControlEnabled and self.hp>0 and memory.battleUnitCore.hp>0 and not memory.close and (memory.noNeedPilot or (memory.pilotUnit.hp>0 and memory.pilotUnit.parent==self)) and not self.hasTags(includes='inHangar') and parent.hp<=0 and eventSource==eventData('controller',type='unit') and eventSource.hp>0 and eventSource.hasTags(includes='PMC') and eventSource.hasTags(includes='HQ_NotCaptured') and eventSource.readUnitMemory('pmcBorrowCandidate',type='unit')==self and createMarker(x=self.x,y=self.y,teamId=eventSource.teamId).nearestUnit(withTag='ManualControlCapable',withinRange=1,relation='allyNotOwn')==self
+setUnitMemory:pmcBorrowActive=true,pmcBorrowController=eventData('controller',type='unit'),pmcOriginalTeam=self.teamId,pmcOriginalHQ=memory.HQ,pmcOriginalPilot=memory.pilotUnit,pmcOriginalPilotTeam=memory.pilotUnit.teamId,pmcGrantDeadline=self.timeAlive+2
+alsoTriggerAction:PMC_JoinController,PMC_RequestControl
+
+[hiddenAction_PMC_JoinController]
+switchToTeam:memory.pmcBorrowController.teamId
+setUnitMemory:HQ=memory.pmcBorrowController
+
+[hiddenAction_PMC_RequestControl]
+sendMessageTo:memory.pmcBorrowController
+sendMessageWithTags:ManualControl_Request
+sendMessageWithData:unitInfo=self
+
+# A rejected/dropped grant must not leave a unit transferred without an active lease.
+# Original-pilot identity also catches forced exit, swaps and pilot death before close updates.
+[hiddenAction_PMC_CheckBorrow]
+autoTriggerCheckRate:everyFrame
+autoTrigger:if memory.pmcBorrowActive and (memory.pmcBorrowController.hp<=0 or not memory.pmcBorrowController.hasTags(includes='HQ_NotCaptured') or self.teamId!=memory.pmcBorrowController.teamId or parent.hp>0 or self.hasTags(includes='inHangar') or memory.close or (memory.pmcOriginalPilot!=null and (memory.pmcOriginalPilot.hp<=0 or memory.pmcOriginalPilot.parent!=self)) or (not memory.manualControlEnabled and self.timeAlive>memory.pmcGrantDeadline))
+alsoTriggerAction:PMC_EndControl
+
+[hiddenAction_PMC_EndControl]
+requireConditional:if memory.pmcBorrowActive
+alsoTriggerAction:ManualControl_ReleaseHQ,ManualControl_Exit,PMC_ReturnBorrow
+
+[hiddenAction_PMC_ReturnBorrow]
+requireConditional:if memory.pmcBorrowActive
+alsoTriggerAction:PMC_ReturnPilot,PMC_ReturnOwner,PMC_ClearBorrow
+
+[hiddenAction_PMC_ReturnPilot]
+requireConditional:if memory.pmcOriginalPilot.hp>0 and memory.pmcOriginalPilot.teamId==memory.pmcBorrowController.teamId
+sendMessageTo:memory.pmcOriginalPilot
+sendMessageWithTags:ChangeTeam
+sendMessageWithData:teamID=memory.pmcOriginalPilotTeam
+
+[hiddenAction_PMC_ReturnOwner]
+switchToTeam:memory.pmcOriginalTeam
+setUnitMemory:HQ=memory.pmcOriginalHQ
+clearAllWaypoints:true
+
+[hiddenAction_PMC_ClearBorrow]
+setUnitMemory:pmcBorrowActive=false,pmcBorrowController=null,pmcOriginalHQ=null,pmcOriginalPilot=null,pmcGrantDeadline=0
+
+# The normal pilot message is queued; release the lease before it is handled.
+[action_UnloadPilot]
+alsoTriggerAction:PMC_EndControl
+
+[hiddenAction_PMC_Destroyed]
+autoTriggerOnEvent:destroyed
+alsoTriggerAction:PMC_EndControl
+
+[hiddenAction_PMC_ReleaseBeforeDeath]
+requireConditional:if memory.pmcBorrowActive
+alsoTriggerAction:PMC_EndControl
+
+# Purchases update the current lease immediately, without writing EN or healing.
+[hiddenAction_ManualControl_BonusesChanged]
+autoTriggerOnEvent:newMessage(withTag='ManualControl_BonusesChanged')
+requireConditional:if memory.manualControlEnabled and eventSource==memory.manualControlHQ
 alsoTriggerAction:ManualControl_RefreshSpeed

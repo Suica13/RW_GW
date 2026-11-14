@@ -66,7 +66,7 @@ ABCActive=select(memory.ABCHP>0,true,false)
 
 [hiddenAction_TookDamage_ABC_Damage]
 autoTriggerOnEvent:newMessage(withTag="ABC_Damage")
-setUnitMemory:ABCHp=memory.ABCHp-eventData('Damage',type='float')
+setUnitMemory:ABCHp=memory.ABCHp-eventData('Damage',type='float')*${manualFinalDamageFactor}
 alsoTriggerAction:TookDamage_ABC_SpawnEffect
 [hiddenAction_TookDamage_ABC_SpawnEffect]
 requireConditional:if self.timeAlive>memory.ABCEffectTimer and memory.ABCHp>0

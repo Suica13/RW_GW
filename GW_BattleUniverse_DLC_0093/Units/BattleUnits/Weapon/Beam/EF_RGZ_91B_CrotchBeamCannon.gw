@@ -102,14 +102,14 @@ if ${cantAction}==false and memory.backpackBreaked==false
 """
 buildSpeed:0.35s
 alsoTriggerAction:PlayCommon_Cannon_Shoot_A_Step_1
-whenBuilding_cannotMove:true
+whenBuilding_cannotMove:false
 
 [hiddenAction_EF_RGZ_91B_CrotchBeamCannon_Fire_Step_2]
 requireConditional:"""
 if ${cantAction}==false and memory.backpackBreaked==false  
 """
 buildSpeed:0s
-whenBuilding_cannotMove:true
+whenBuilding_cannotMove:false
 
 [hiddenAction_EF_RGZ_91B_CrotchBeamCannon_Fire_Step_3]
 requireConditional:"""
@@ -125,7 +125,7 @@ alsoTriggerAction:EF_RGZ_91B_CrotchBeamCannon_Fire_Step_Sub
 
 [hiddenAction_EF_RGZ_91B_CrotchBeamCannon_Fire_Step_Final]
 buildSpeed:0.35s
-whenBuilding_cannotMove:true
+whenBuilding_cannotMove:false
 finishPlayingLastAnimation:true
 alsoTriggerAction:SetAttackingOff
 

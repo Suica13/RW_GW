@@ -1,6 +1,9 @@
 [core]
 dont_load:true
 @global manualControlImplemented=false
+# Evaluate from native inputs and current controller. No cached multiplication or EN refill.
+@global manualFinalDamageFactor=select(self.hasTags(includes='ManualControlled'),0.75-0.025*min(5,max(0,memory.HQ.readUnitMemory('pmcDamagePoints',type='float'))),1)
+@global manualEffectiveEnMax=(memory.enMax*select(self.hasTags(includes='ManualControlled'),1+0.25*min(5,max(0,memory.HQ.readUnitMemory('pmcSupplyPoints',type='float'))),1))
 
 # Active unit adapters override this same action only after their weapon integration is ready.
 [action_ManualControl_Request]
@@ -21,4 +24,8 @@ isVisible:if not self.isControlledByAI() and parent.hp<=0 and self.hp>0 and not 
 isLocked:true
 isLockedMessage:In development
 isLockedMessage_zh:开发中
+requireConditional:false
+
+# Non-adapted units cannot be borrowed; keep the common death hook inert.
+[hiddenAction_PMC_ReleaseBeforeDeath]
 requireConditional:false

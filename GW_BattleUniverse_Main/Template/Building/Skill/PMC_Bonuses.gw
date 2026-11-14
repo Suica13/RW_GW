@@ -1,0 +1,117 @@
+[core]
+dont_load:true
+
+[template_PMC_BonusPurchase]
+buildSpeed:0s
+displayType:action
+price:Money=5000
+highPriorityQueue:true
+allowMultipleInQueue:false
+canPlayerCancel:false
+alwaysSinglePress:true
+ai_isDisabled:true
+isVisible:if self.hasTags(includes='PMC') and self.hasTags(includes='HQ_NotCaptured')
+isLockedMessage:Maximum purchases reached
+isLockedMessage_zh:已达到购买上限
+alsoTriggerAction:PMC_RefreshControlledBonuses
+playSoundToPlayer:ROOT:Resource/Sound/SE/System/Button/Info_1.ogg
+
+[hiddenAction_PMC_RefreshControlledBonuses]
+sendMessageTo:memory.manualControlledUnit
+sendMessageWithTags:ManualControl_BonusesChanged
+
+[action_PMC_BuyCqb]
+@copyFromSection:template_PMC_BonusPurchase
+pos:10
+text:Melee +5% [%{int(memory.pmcCqbPoints)}/5]
+text_zh:格斗 +5% [%{int(memory.pmcCqbPoints)}/5]
+description:Additional 5% while directly controlled; additive with base bonuses. 5000 Money per purchase, maximum 5. EN capacity upgrades do not refill EN.
+description_zh:直接控制期间额外增加5%格斗，与基础加成相加。每次5000资金，最多购买5次。
+iconImage:ROOT:Resource/Image/Units/Button/PowerCustom/ATK_Cqb.png
+isLocked:if memory.pmcCqbPoints>=5
+requireConditional:if self.hasTags(includes='PMC') and self.hasTags(includes='HQ_NotCaptured') and memory.pmcCqbPoints<5
+setUnitMemory:pmcCqbPoints=min(5,memory.pmcCqbPoints+1)
+
+[action_PMC_BuyShoot]
+@copyFromSection:template_PMC_BonusPurchase
+pos:11
+text:Shooting +5% [%{int(memory.pmcShootPoints)}/5]
+text_zh:射击 +5% [%{int(memory.pmcShootPoints)}/5]
+description:Additional 5% while directly controlled; additive with base bonuses. 5000 Money per purchase, maximum 5. EN capacity upgrades do not refill EN.
+description_zh:直接控制期间额外增加5%射击，与基础加成相加。每次5000资金，最多购买5次。
+iconImage:ROOT:Resource/Image/Units/Button/PowerCustom/ATK_Shoot.png
+isLocked:if memory.pmcShootPoints>=5
+requireConditional:if self.hasTags(includes='PMC') and self.hasTags(includes='HQ_NotCaptured') and memory.pmcShootPoints<5
+setUnitMemory:pmcShootPoints=min(5,memory.pmcShootPoints+1)
+
+[action_PMC_BuyAccuracy]
+@copyFromSection:template_PMC_BonusPurchase
+pos:12
+text:Accuracy +5% [%{int(memory.pmcAccuracyPoints)}/5]
+text_zh:命中 +5% [%{int(memory.pmcAccuracyPoints)}/5]
+description:Additional 5% while directly controlled; additive with base bonuses. 5000 Money per purchase, maximum 5. EN capacity upgrades do not refill EN.
+description_zh:直接控制期间额外增加5%命中，与基础加成相加。每次5000资金，最多购买5次。
+iconImage:ROOT:Resource/Image/Units/Button/PowerCustom/MP.png
+isLocked:if memory.pmcAccuracyPoints>=5
+requireConditional:if self.hasTags(includes='PMC') and self.hasTags(includes='HQ_NotCaptured') and memory.pmcAccuracyPoints<5
+setUnitMemory:pmcAccuracyPoints=min(5,memory.pmcAccuracyPoints+1)
+
+[action_PMC_BuyReaction]
+@copyFromSection:template_PMC_BonusPurchase
+pos:13
+text:Reaction +5% [%{int(memory.pmcReactionPoints)}/5]
+text_zh:反应 +5% [%{int(memory.pmcReactionPoints)}/5]
+description:Additional 5% while directly controlled; additive with base bonuses. 5000 Money per purchase, maximum 5. EN capacity upgrades do not refill EN.
+description_zh:直接控制期间额外增加5%反应，与基础加成相加。每次5000资金，最多购买5次。
+iconImage:ROOT:Resource/Image/Units/Button/PowerCustom/BOOST_CoolDown.png
+isLocked:if memory.pmcReactionPoints>=5
+requireConditional:if self.hasTags(includes='PMC') and self.hasTags(includes='HQ_NotCaptured') and memory.pmcReactionPoints<5
+setUnitMemory:pmcReactionPoints=min(5,memory.pmcReactionPoints+1)
+
+[action_PMC_BuySpeed]
+@copyFromSection:template_PMC_BonusPurchase
+pos:14
+text:Speed +2.5% [%{int(memory.pmcSpeedPoints)}/5]
+text_zh:速度 +2.5% [%{int(memory.pmcSpeedPoints)}/5]
+description:Additional 2.5% while directly controlled; additive with base bonuses. 5000 Money per purchase, maximum 5. EN capacity upgrades do not refill EN.
+description_zh:直接控制期间额外增加2.5%速度，与基础加成相加。每次5000资金，最多购买5次。
+iconImage:ROOT:Resource/Image/Units/Button/PowerCustom/SPEED.png
+isLocked:if memory.pmcSpeedPoints>=5
+requireConditional:if self.hasTags(includes='PMC') and self.hasTags(includes='HQ_NotCaptured') and memory.pmcSpeedPoints<5
+setUnitMemory:pmcSpeedPoints=min(5,memory.pmcSpeedPoints+1)
+
+[action_PMC_BuyDamage]
+@copyFromSection:template_PMC_BonusPurchase
+pos:15
+text:Damage reduction +2.5% [%{int(memory.pmcDamagePoints)}/5]
+text_zh:伤害减免 +2.5% [%{int(memory.pmcDamagePoints)}/5]
+description:Additional 2.5% while directly controlled; additive with base bonuses. 5000 Money per purchase, maximum 5. EN capacity upgrades do not refill EN.
+description_zh:直接控制期间最终伤害减免额外增加2.5个百分点，与基础25%减免相加。每次5000资金，最多购买5次。
+iconImage:ROOT:Resource/Image/Units/Button/PowerCustom/DEF_Beam.png
+isLocked:if memory.pmcDamagePoints>=5
+requireConditional:if self.hasTags(includes='PMC') and self.hasTags(includes='HQ_NotCaptured') and memory.pmcDamagePoints<5
+setUnitMemory:pmcDamagePoints=min(5,memory.pmcDamagePoints+1)
+
+[action_PMC_BuyDp]
+@copyFromSection:template_PMC_BonusPurchase
+pos:16
+text:DP reduction +2.5% [%{int(memory.pmcDpPoints)}/5]
+text_zh:DP减免 +2.5% [%{int(memory.pmcDpPoints)}/5]
+description:Additional 2.5% while directly controlled; additive with base bonuses. 5000 Money per purchase, maximum 5. EN capacity upgrades do not refill EN.
+description_zh:直接控制期间最终DP减免额外增加2.5个百分点，与基础25%减免相加。每次5000资金，最多购买5次。
+iconImage:ROOT:Resource/Image/Units/Button/PowerCustom/DP.png
+isLocked:if memory.pmcDpPoints>=5
+requireConditional:if self.hasTags(includes='PMC') and self.hasTags(includes='HQ_NotCaptured') and memory.pmcDpPoints<5
+setUnitMemory:pmcDpPoints=min(5,memory.pmcDpPoints+1)
+
+[action_PMC_BuySupply]
+@copyFromSection:template_PMC_BonusPurchase
+pos:17
+text:EN capacity +25% [%{int(memory.pmcSupplyPoints)}/5]
+text_zh:额外补给量 +25% [%{int(memory.pmcSupplyPoints)}/5]
+description:Additional 25% while directly controlled; additive with base bonuses. 5000 Money per purchase, maximum 5. EN capacity upgrades do not refill EN.
+description_zh:直接控制期间每点额外增加25%补给上限。只提高上限，不补充当前补给。每次5000资金，最多购买5次。
+iconImage:ROOT:Resource/Image/Units/Button/PowerCustom/BOOST_Fuel.png
+isLocked:if memory.pmcSupplyPoints>=5
+requireConditional:if self.hasTags(includes='PMC') and self.hasTags(includes='HQ_NotCaptured') and memory.pmcSupplyPoints<5
+setUnitMemory:pmcSupplyPoints=min(5,memory.pmcSupplyPoints+1)

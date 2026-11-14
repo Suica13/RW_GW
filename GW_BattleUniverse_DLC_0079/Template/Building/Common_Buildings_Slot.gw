@@ -128,3 +128,8 @@ convertTo:0093_BuildingSlot
 [hiddenAction_ConvertTo_CR_P1]
 requireConditional:if (self.resource().FactionIndex==9010101 or self.resource().FactionIndex==9010201 or self.resource().FactionIndex==9010301) and not self.tags(includes='CR_P1')
 convertTo:CR_P1_BuildingSlot
+
+# [CROSS_DLC] HQ slots may have been created by a scenario DLC before PMC selection.
+[hiddenAction_ConvertTo_PMC]
+autoTrigger:if self.resource.GameStart==1 and self.resource.FactionIndex==9900101 and not self.hasTags(includes='PMC_Slot')
+convertTo:PMC_BuildingSlot

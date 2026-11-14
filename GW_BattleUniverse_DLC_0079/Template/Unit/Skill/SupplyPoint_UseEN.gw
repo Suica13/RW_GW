@@ -42,6 +42,6 @@ and thisActionTarget.hp>0
 setResourcesWithLogic:"""
 EN=self.resource.EN-
 (
-    select(thisActionTarget.resource.EN<thisActionTarget.readUnitMemory("enMax",type="float"),thisActionTarget.readUnitMemory("enMax",type="float"),0)*0.01
+    select(thisActionTarget.resource.EN<(thisActionTarget.readUnitMemory('enMax',type='float')*select(thisActionTarget.hasTags(includes='ManualControlled'),1+0.25*min(5,max(0,thisActionTarget.readUnitMemory('HQ',type='unit').readUnitMemory('pmcSupplyPoints',type='float'))),1)),(thisActionTarget.readUnitMemory('enMax',type='float')*select(thisActionTarget.hasTags(includes='ManualControlled'),1+0.25*min(5,max(0,thisActionTarget.readUnitMemory('HQ',type='unit').readUnitMemory('pmcSupplyPoints',type='float'))),1)),0)*0.01
 )*0.01
 """

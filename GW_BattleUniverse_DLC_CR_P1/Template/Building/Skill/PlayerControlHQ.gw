@@ -1,6 +1,15 @@
 [core]
 dont_load:true
 @memory manualControlledUnit:unit
+@memory pmcBorrowCandidate:unit
+@memory pmcCqbPoints:float
+@memory pmcShootPoints:float
+@memory pmcAccuracyPoints:float
+@memory pmcReactionPoints:float
+@memory pmcSpeedPoints:float
+@memory pmcDamagePoints:float
+@memory pmcDpPoints:float
+@memory pmcSupplyPoints:float
 @memory manualControlGrantAt:float
 
 # [ORDER_DEPENDENT] Single HQ slot: revoke old owner, replace slot, grant new owner.
