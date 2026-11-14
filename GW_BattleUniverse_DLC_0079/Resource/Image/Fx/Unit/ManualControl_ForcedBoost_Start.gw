@@ -1,0 +1,29 @@
+# Startup flash from BattleOperation2 V5; uses the existing identical Battle Universe texture.
+[core]
+dont_load:true
+
+
+[effect_ManualControl_ForcedBoost_Start]
+image:ROOT:Resource/Image/Fx/Unit/Image/Boost_Start_1.png
+priority:critical
+life: 60
+
+drawUnderUnits:false
+
+
+total_frames:4
+animateFrameStart: 0
+animateFrameEnd: 3
+animateFrameSpeed: 0.1
+
+xOffsetRelative:2
+yOffsetRelative:-30
+dirOffset: 0
+
+alpha:0.85
+
+scaleFrom: 1
+scaleTo: 0.75
+
+
+showInFog:false

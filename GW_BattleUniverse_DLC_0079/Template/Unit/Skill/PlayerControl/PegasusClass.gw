@@ -1,0 +1,345 @@
+[core]
+dont_load:true
+@global manualControlImplemented=true
+@memory manualShipArcGroup:float
+copyFrom:ROOT:Template/Unit/Skill/PlayerControl.gw,ROOT:Template/Unit/Skill/PlayerControl/Ships/Arcs_218d68763137.gw
+
+[action_LaunchAllUnits]
+pos:82
+
+[action_Common_FullBoost_Trigger]
+pos:65
+
+[action_Common_MinovskyParticle_M_Trigger]
+pos:65
+
+[action_Common_ReEntry_Trigger]
+pos:65
+
+[action_Common_ReEntry_FromSpace_Trigger]
+pos:65
+
+[hiddenAction_ManualShip_Send_PegasusClass_Turret_MegaBeamCannon_L1]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_L1')
+sendMessageWithTags:ManualShip_0087_Beam
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_PegasusClass_Turret_MegaBeamCannon_R1]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_R1')
+sendMessageWithTags:ManualShip_0087_Beam
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[action_ManualShip_Beam]
+@copyFromSection:template_ManualWeapon
+pos:2
+text:Beam cannon salvo [%{select(self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_L1').hp>0 and self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_L1').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_L1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_L1').readUnitMemory('PegasusClass_Turret_MegaBeamCannon_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_L1').resource.PegasusClass_Turret_MegaBeamCannon_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_R1').hp>0 and self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_R1').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_R1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_R1').readUnitMemory('PegasusClass_Turret_MegaBeamCannon_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_R1').resource.PegasusClass_Turret_MegaBeamCannon_ShootTimer>0,1,0)}/2]
+text_zh:光束炮齐射 [%{select(self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_L1').hp>0 and self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_L1').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_L1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_L1').readUnitMemory('PegasusClass_Turret_MegaBeamCannon_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_L1').resource.PegasusClass_Turret_MegaBeamCannon_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_R1').hp>0 and self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_R1').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_R1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_R1').readUnitMemory('PegasusClass_Turret_MegaBeamCannon_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_R1').resource.PegasusClass_Turret_MegaBeamCannon_ShootTimer>0,1,0)}/2]
+description:Order ready turrets with existing targets to fire. Each turret keeps its own target.
+description_zh:命令已有瞄准目标的就绪炮位开火；各炮塔保持独立锁定，无目标、损坏或装填中的炮位跳过。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamCannon_1.png
+isLocked:if not ${manualAuxiliaryReady} or ${onSkill} or (select(self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_L1').hp>0 and self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_L1').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_L1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_L1').readUnitMemory('PegasusClass_Turret_MegaBeamCannon_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_L1').resource.PegasusClass_Turret_MegaBeamCannon_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_R1').hp>0 and self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_R1').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_R1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_R1').readUnitMemory('PegasusClass_Turret_MegaBeamCannon_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_R1').resource.PegasusClass_Turret_MegaBeamCannon_ShootTimer>0,1,0))<=0 or self.resource.EN<=0
+requireConditional:if ${manualAuxiliaryReady} and ${onSkill}==false
+alsoTriggerAction:ManualShip_Send_PegasusClass_Turret_MegaBeamCannon_L1,ManualShip_Send_PegasusClass_Turret_MegaBeamCannon_R1
+
+[hiddenAction_ManualShip_Send_PegasusClass_Turret_Cannon_M1]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_Cannon_M1')
+sendMessageWithTags:ManualShip_0087_Shell
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[action_ManualShip_Shell]
+@copyFromSection:template_ManualWeapon
+pos:3
+text:Cannon salvo [%{select(self.attachment(slot='PegasusClass_Turret_Cannon_M1').hp>0 and self.attachment(slot='PegasusClass_Turret_Cannon_M1').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_Cannon_M1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_Cannon_M1').readUnitMemory('PegasusClass_Turret_Cannon_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_Cannon_M1').resource.PegasusClass_Turret_Cannon_ShootTimer>0,1,0)}/1]
+text_zh:舰炮齐射 [%{select(self.attachment(slot='PegasusClass_Turret_Cannon_M1').hp>0 and self.attachment(slot='PegasusClass_Turret_Cannon_M1').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_Cannon_M1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_Cannon_M1').readUnitMemory('PegasusClass_Turret_Cannon_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_Cannon_M1').resource.PegasusClass_Turret_Cannon_ShootTimer>0,1,0)}/1]
+description:Order ready turrets with existing targets to fire. Each turret keeps its own target.
+description_zh:命令已有瞄准目标的就绪炮位开火；各炮塔保持独立锁定，无目标、损坏或装填中的炮位跳过。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Missile_1.png
+isLocked:if not ${manualAuxiliaryReady} or ${onSkill} or (select(self.attachment(slot='PegasusClass_Turret_Cannon_M1').hp>0 and self.attachment(slot='PegasusClass_Turret_Cannon_M1').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_Cannon_M1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_Cannon_M1').readUnitMemory('PegasusClass_Turret_Cannon_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_Cannon_M1').resource.PegasusClass_Turret_Cannon_ShootTimer>0,1,0))<=0 or self.resource.EN<=0
+requireConditional:if ${manualAuxiliaryReady} and ${onSkill}==false
+alsoTriggerAction:ManualShip_Send_PegasusClass_Turret_Cannon_M1
+
+[hiddenAction_ManualShip_Send_PegasusClass_Turret_AMS_L1]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AMS_L1')
+sendMessageWithTags:ManualShip_0087_Torpedo
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_PegasusClass_Turret_AMS_R1]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AMS_R1')
+sendMessageWithTags:ManualShip_0087_Torpedo
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[action_ManualShip_Torpedo]
+@copyFromSection:template_ManualWeapon
+pos:4
+text:Missile / torpedo salvo [%{select(self.attachment(slot='PegasusClass_Turret_AMS_L1').hp>0 and self.attachment(slot='PegasusClass_Turret_AMS_L1').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AMS_L1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AMS_L1').readUnitMemory('PegasusClass_Turret_AMS_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AMS_L1').resource.PegasusClass_Turret_AMS_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AMS_R1').hp>0 and self.attachment(slot='PegasusClass_Turret_AMS_R1').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AMS_R1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AMS_R1').readUnitMemory('PegasusClass_Turret_AMS_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AMS_R1').resource.PegasusClass_Turret_AMS_ShootTimer>0,1,0)}/2]
+text_zh:导弹／鱼雷齐射 [%{select(self.attachment(slot='PegasusClass_Turret_AMS_L1').hp>0 and self.attachment(slot='PegasusClass_Turret_AMS_L1').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AMS_L1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AMS_L1').readUnitMemory('PegasusClass_Turret_AMS_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AMS_L1').resource.PegasusClass_Turret_AMS_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AMS_R1').hp>0 and self.attachment(slot='PegasusClass_Turret_AMS_R1').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AMS_R1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AMS_R1').readUnitMemory('PegasusClass_Turret_AMS_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AMS_R1').resource.PegasusClass_Turret_AMS_ShootTimer>0,1,0)}/2]
+description:Order ready turrets with existing targets to fire. Each turret keeps its own target.
+description_zh:命令已有瞄准目标的就绪炮位开火；各炮塔保持独立锁定，无目标、损坏或装填中的炮位跳过。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Missile_1.png
+isLocked:if not ${manualAuxiliaryReady} or ${onSkill} or (select(self.attachment(slot='PegasusClass_Turret_AMS_L1').hp>0 and self.attachment(slot='PegasusClass_Turret_AMS_L1').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AMS_L1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AMS_L1').readUnitMemory('PegasusClass_Turret_AMS_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AMS_L1').resource.PegasusClass_Turret_AMS_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AMS_R1').hp>0 and self.attachment(slot='PegasusClass_Turret_AMS_R1').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AMS_R1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AMS_R1').readUnitMemory('PegasusClass_Turret_AMS_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AMS_R1').resource.PegasusClass_Turret_AMS_ShootTimer>0,1,0))<=0 or self.resource.EN<=0
+requireConditional:if ${manualAuxiliaryReady} and ${onSkill}==false
+alsoTriggerAction:ManualShip_Send_PegasusClass_Turret_AMS_L1,ManualShip_Send_PegasusClass_Turret_AMS_R1
+
+[hiddenAction_ManualShip_Send_PegasusClass_Turret_AA_L1]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_L1')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_PegasusClass_Turret_AA_R1]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_R1')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_PegasusClass_Turret_AA_L2]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_L2')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_PegasusClass_Turret_AA_R2]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_R2')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_PegasusClass_Turret_AA_L3]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_L3')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_PegasusClass_Turret_AA_R3]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_R3')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_PegasusClass_Turret_AA_B_L1]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_B_L1')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_PegasusClass_Turret_AA_B_R1]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_B_R1')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_PegasusClass_Turret_AA_B_L2]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_B_L2')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_PegasusClass_Turret_AA_B_R2]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_B_R2')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_PegasusClass_Turret_AA_B_L3]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_B_L3')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_PegasusClass_Turret_AA_B_R3]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_B_R3')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_PegasusClass_Turret_AA_B_L4]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_B_L4')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_PegasusClass_Turret_AA_B_R4]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_B_R4')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_PegasusClass_Turret_AA_B_L5]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_B_L5')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_PegasusClass_Turret_AA_B_R5]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_B_R5')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[action_ManualShip_AA]
+@copyFromSection:template_ManualWeapon
+pos:5
+text:Anti-aircraft burst [%{select(self.attachment(slot='PegasusClass_Turret_AA_L1').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_L1').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_L1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_L1').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_L1').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_R1').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_R1').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_R1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_R1').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_R1').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_L2').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_L2').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_L2').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_L2').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_L2').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_R2').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_R2').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_R2').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_R2').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_R2').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_L3').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_L3').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_L3').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_L3').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_L3').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_R3').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_R3').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_R3').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_R3').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_R3').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_L1').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_L1').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_L1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_L1').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_L1').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_R1').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_R1').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_R1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_R1').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_R1').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_L2').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_L2').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_L2').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_L2').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_L2').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_R2').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_R2').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_R2').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_R2').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_R2').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_L3').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_L3').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_L3').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_L3').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_L3').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_R3').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_R3').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_R3').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_R3').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_R3').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_L4').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_L4').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_L4').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_L4').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_L4').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_R4').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_R4').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_R4').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_R4').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_R4').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_L5').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_L5').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_L5').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_L5').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_L5').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_R5').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_R5').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_R5').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_R5').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_R5').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)}/16]
+text_zh:防空点射 [%{select(self.attachment(slot='PegasusClass_Turret_AA_L1').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_L1').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_L1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_L1').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_L1').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_R1').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_R1').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_R1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_R1').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_R1').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_L2').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_L2').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_L2').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_L2').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_L2').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_R2').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_R2').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_R2').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_R2').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_R2').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_L3').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_L3').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_L3').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_L3').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_L3').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_R3').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_R3').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_R3').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_R3').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_R3').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_L1').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_L1').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_L1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_L1').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_L1').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_R1').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_R1').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_R1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_R1').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_R1').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_L2').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_L2').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_L2').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_L2').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_L2').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_R2').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_R2').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_R2').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_R2').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_R2').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_L3').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_L3').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_L3').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_L3').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_L3').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_R3').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_R3').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_R3').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_R3').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_R3').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_L4').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_L4').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_L4').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_L4').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_L4').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_R4').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_R4').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_R4').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_R4').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_R4').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_L5').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_L5').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_L5').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_L5').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_L5').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_R5').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_R5').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_R5').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_R5').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_R5').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)}/16]
+description:Order ready turrets with existing targets to fire. Each turret keeps its own target.
+description_zh:命令已有瞄准目标的就绪炮位开火；各炮塔保持独立锁定，无目标、损坏或装填中的炮位跳过。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Ciws_1.png
+isLocked:if not ${manualAuxiliaryReady} or ${onSkill} or (select(self.attachment(slot='PegasusClass_Turret_AA_L1').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_L1').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_L1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_L1').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_L1').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_R1').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_R1').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_R1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_R1').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_R1').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_L2').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_L2').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_L2').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_L2').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_L2').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_R2').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_R2').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_R2').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_R2').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_R2').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_L3').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_L3').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_L3').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_L3').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_L3').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_R3').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_R3').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_R3').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_R3').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_R3').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_L1').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_L1').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_L1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_L1').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_L1').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_R1').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_R1').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_R1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_R1').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_R1').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_L2').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_L2').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_L2').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_L2').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_L2').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_R2').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_R2').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_R2').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_R2').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_R2').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_L3').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_L3').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_L3').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_L3').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_L3').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_R3').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_R3').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_R3').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_R3').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_R3').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_L4').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_L4').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_L4').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_L4').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_L4').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_R4').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_R4').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_R4').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_R4').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_R4').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_L5').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_L5').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_L5').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_L5').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_L5').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0)+select(self.attachment(slot='PegasusClass_Turret_AA_B_R5').hp>0 and self.attachment(slot='PegasusClass_Turret_AA_B_R5').attacking.hp>0 and not self.attachment(slot='PegasusClass_Turret_AA_B_R5').readUnitMemory('breaked',type='bool') and not self.attachment(slot='PegasusClass_Turret_AA_B_R5').readUnitMemory('PegasusClass_Turret_AA_OnCD',type='bool') and self.attachment(slot='PegasusClass_Turret_AA_B_R5').resource.PegasusClass_Turret_AA_ShootTimer>0,1,0))<=0 or self.resource.EN<=0
+requireConditional:if ${manualAuxiliaryReady} and ${onSkill}==false
+alsoTriggerAction:ManualShip_Send_PegasusClass_Turret_AA_L1,ManualShip_Send_PegasusClass_Turret_AA_R1,ManualShip_Send_PegasusClass_Turret_AA_L2,ManualShip_Send_PegasusClass_Turret_AA_R2,ManualShip_Send_PegasusClass_Turret_AA_L3,ManualShip_Send_PegasusClass_Turret_AA_R3,ManualShip_Send_PegasusClass_Turret_AA_B_L1,ManualShip_Send_PegasusClass_Turret_AA_B_R1,ManualShip_Send_PegasusClass_Turret_AA_B_L2,ManualShip_Send_PegasusClass_Turret_AA_B_R2,ManualShip_Send_PegasusClass_Turret_AA_B_L3,ManualShip_Send_PegasusClass_Turret_AA_B_R3,ManualShip_Send_PegasusClass_Turret_AA_B_L4,ManualShip_Send_PegasusClass_Turret_AA_B_R4,ManualShip_Send_PegasusClass_Turret_AA_B_L5,ManualShip_Send_PegasusClass_Turret_AA_B_R5
+
+[hiddenAction_ManualShip_Hold_PegasusClass_Turret_Cannon_M1]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_Cannon_M1')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_PegasusClass_Turret_MegaBeamCannon_L1]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_L1')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_PegasusClass_Turret_MegaBeamCannon_R1]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_MegaBeamCannon_R1')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_PegasusClass_Turret_AMS_L1]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AMS_L1')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_PegasusClass_Turret_AMS_R1]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AMS_R1')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_PegasusClass_Turret_AA_L1]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_L1')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_PegasusClass_Turret_AA_R1]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_R1')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_PegasusClass_Turret_AA_L2]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_L2')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_PegasusClass_Turret_AA_R2]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_R2')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_PegasusClass_Turret_AA_L3]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_L3')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_PegasusClass_Turret_AA_R3]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_R3')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_PegasusClass_Turret_AA_B_L1]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_B_L1')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_PegasusClass_Turret_AA_B_R1]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_B_R1')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_PegasusClass_Turret_AA_B_L2]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_B_L2')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_PegasusClass_Turret_AA_B_R2]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_B_R2')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_PegasusClass_Turret_AA_B_L3]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_B_L3')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_PegasusClass_Turret_AA_B_R3]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_B_R3')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_PegasusClass_Turret_AA_B_L4]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_B_L4')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_PegasusClass_Turret_AA_B_R4]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_B_R4')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_PegasusClass_Turret_AA_B_L5]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_B_L5')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_PegasusClass_Turret_AA_B_R5]
+sendMessageTo:self.attachment(slot='PegasusClass_Turret_AA_B_R5')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_HoldAll]
+alsoTriggerAction:ManualShip_Hold_PegasusClass_Turret_Cannon_M1,ManualShip_Hold_PegasusClass_Turret_MegaBeamCannon_L1,ManualShip_Hold_PegasusClass_Turret_MegaBeamCannon_R1,ManualShip_Hold_PegasusClass_Turret_AMS_L1,ManualShip_Hold_PegasusClass_Turret_AMS_R1,ManualShip_Hold_PegasusClass_Turret_AA_L1,ManualShip_Hold_PegasusClass_Turret_AA_R1,ManualShip_Hold_PegasusClass_Turret_AA_L2,ManualShip_Hold_PegasusClass_Turret_AA_R2,ManualShip_Hold_PegasusClass_Turret_AA_L3,ManualShip_Hold_PegasusClass_Turret_AA_R3,ManualShip_Hold_PegasusClass_Turret_AA_B_L1,ManualShip_Hold_PegasusClass_Turret_AA_B_R1,ManualShip_Hold_PegasusClass_Turret_AA_B_L2,ManualShip_Hold_PegasusClass_Turret_AA_B_R2,ManualShip_Hold_PegasusClass_Turret_AA_B_L3,ManualShip_Hold_PegasusClass_Turret_AA_B_R3,ManualShip_Hold_PegasusClass_Turret_AA_B_L4,ManualShip_Hold_PegasusClass_Turret_AA_B_R4,ManualShip_Hold_PegasusClass_Turret_AA_B_L5,ManualShip_Hold_PegasusClass_Turret_AA_B_R5
+
+[hiddenAction_ManualControl_CancelSpecialWeapons]
+requireConditional:true
+alsoTriggerAction:ManualShip_HoldAll,SetOnSkillOff
+
+[action_ManualShip_ArcGroup]
+@copyFromSection:template_ManualWeapon
+pos:70
+text:Firing arcs
+text_zh:射界：%{select(memory.manualShipArcGroup==0,'光束炮齐射',select(memory.manualShipArcGroup==1,'舰炮齐射',select(memory.manualShipArcGroup==2,'导弹／鱼雷齐射',select(memory.manualShipArcGroup==3,'防空点射','关闭'))))}
+description:Cycle firing-arc group / off. Only shown while selected.
+description_zh:切换各炮组射界／关闭。仅选中时显示；装填中的炮位调暗。
+isLocked:false
+requireConditional:if ${manualControlReady}
+setUnitMemory:manualShipArcGroup=(memory.manualShipArcGroup+1)%5
+
+[hiddenAction_TryAttack]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_AttackMode_Cqb_WhenHasTarget]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_ResetTargetTags_Step2]
+alsoTriggerAction:ManualControl_AfterTransform,ManualControl_RestoreGuard
+
+[action_ChangeAttackRuleMode_Free]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Guard]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Hold]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==2 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Shoot]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Cqb]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_AllowAIOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAI}==false and not self.hasTags(includes='inHangar'))
+
+[action_AllowAssignedOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAssigned}==false and not self.hasTags(includes='inHangar'))
+
+[resource_PegasusClass_Turret_AMS_ShootTimer]
+hidden:true
+
+[resource_PegasusClass_Turret_MegaBeamCannon_ShootTimer]
+hidden:true
+
+[resource_PegasusClass_Turret_AA_ShootTimer]
+hidden:true
+
+[resource_PegasusClass_Turret_Cannon_ShootTimer]
+hidden:true

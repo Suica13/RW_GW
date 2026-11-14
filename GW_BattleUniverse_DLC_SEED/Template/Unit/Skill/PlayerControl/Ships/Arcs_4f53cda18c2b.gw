@@ -1,0 +1,11 @@
+[core]
+dont_load:true
+
+[template_ManualShip_ArcLine]
+layer:shadow
+order:0
+onlyTeam:own
+onlyWhenSelectedByOwnPlayer:true
+onlyOnNonPreview:true
+onlyWhileAlive:true
+lineWidth:1

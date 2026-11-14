@@ -1,0 +1,210 @@
+[core]
+dont_load:true
+@global manualControlImplemented=true
+@memory manualVulcanRightNext:bool
+copyFrom:ROOT:Template/Unit/Skill/PlayerControl.gw
+
+# Instance overrides keep native weapon sequences, equipment and damage definitions.
+
+[hiddenAction_Common_Push_A_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)<=60   and memory.armRBreaked==true)
+
+[hiddenAction_Common_Push_A_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_EF_100mmMG_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>60  and distanceBetween(self,self.attacking)<=memory.finalAttackRange and self.resource().EquipmentIndex==0 and memory.attackMode==0 and memory.armRBreaked==false)
+
+[hiddenAction_EF_100mmMG_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_EF_100mmMG_Fire_Step_3]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_EF_HypeBazooka_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>60  and distanceBetween(self,self.attacking)<=memory.finalAttackRange and self.resource().EquipmentIndex==1  and memory.attackMode==0 and memory.armRBreaked==false)
+
+[hiddenAction_EF_HypeBazooka_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_EF_BeamLancer_BF_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)<=60   and memory.armRBreaked==false and eventData("RandomWeapon",type="float")<50)
+
+[hiddenAction_EF_BeamLancer_BF_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_EF_BeamLancer_BF_Fire_Step_5]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_EF_BeamSaber_F_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)<=60   and memory.armRBreaked==false and eventData("RandomWeapon",type="float")<=50  and eventData("RandomWeapon",type="float")>25  and memory.pilotUnit.readUnitMemory("pilotCqbSkillFinal",type="float")>145)
+
+[hiddenAction_EF_BeamSaber_F_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_Common_Cqb_A_L_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)<=60   and memory.armLBreaked==false and self.shield>0 and eventData("RandomWeapon",type="float")<=25  and memory.pilotUnit.readUnitMemory("pilotCqbSkillFinal",type="float")>145)
+
+[hiddenAction_Common_Cqb_A_L_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[action_ExitUnit]
+pos:81
+
+[hiddenAction_ManualControl_CancelSpecialWeapons]
+requireConditional:true
+alsoTriggerAction:SetOnSkillOff
+
+[action_Manual_Common_Push_A]
+@copyFromSection:template_ManualWeapon
+pos:4
+text:Punch
+text_zh:徒手格斗
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Cqb_1.png
+isVisible:if ${manualControlReady} and ((((memory.armRBreaked==true))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.Common_Push_A_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==true)))))
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.Common_Push_A_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==true))))
+alsoTriggerAction:Common_Push_A_Fire
+
+[hiddenAction_Common_Push_A_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.Common_Push_A_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50)) or (${manualWeaponReady} and ((self.timeAlive>memory.Common_Push_A_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==true)))))
+setUnitMemory:Common_Push_A_CDTimer=self.timeAlive+${Common_Push_A_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${Common_Push_A_CD}s
+addActionCooldownApplyToActions:Manual_Common_Push_A
+
+[action_Manual_EF_100mmMG]
+@copyFromSection:template_ManualWeapon
+pos:2
+text:Machine gun
+text_zh:机枪
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/MachineGun_1.png
+isVisible:if ${manualControlReady} and ((((self.resource().EquipmentIndex==0) and (memory.armRBreaked==false))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.EF_100mmMG_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==0) and (memory.armRBreaked==false)))) and self.resource.EN>=${EF_100mmMG_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.EF_100mmMG_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==0) and (memory.armRBreaked==false)))) and self.resource.EN>=${EF_100mmMG_EN}
+alsoTriggerAction:EF_100mmMG_Fire
+
+[hiddenAction_EF_100mmMG_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.EF_100mmMG_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)  and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.EF_100mmMG_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==0) and (memory.armRBreaked==false)))) and self.resource.EN>=${EF_100mmMG_EN})
+setUnitMemory:EF_100mmMG_CDTimer=self.timeAlive+${EF_100mmMG_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${EF_100mmMG_CD}s
+addActionCooldownApplyToActions:Manual_EF_100mmMG
+
+[action_Manual_EF_HypeBazooka]
+@copyFromSection:template_ManualWeapon
+pos:5
+text:Bazooka
+text_zh:火箭筒
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Bazooka_1.png
+isVisible:if ${manualControlReady} and ((((self.resource().EquipmentIndex==1) and (memory.armRBreaked==false))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.EF_HypeBazooka_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==1) and (memory.armRBreaked==false)))) and self.resource.EN>=${EF_HypeBazooka_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.EF_HypeBazooka_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==1) and (memory.armRBreaked==false)))) and self.resource.EN>=${EF_HypeBazooka_EN}
+alsoTriggerAction:EF_HypeBazooka_Fire
+
+[hiddenAction_EF_HypeBazooka_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.EF_HypeBazooka_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.EF_HypeBazooka_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==1) and (memory.armRBreaked==false)))) and self.resource.EN>=${EF_HypeBazooka_EN})
+setUnitMemory:EF_HypeBazooka_CDTimer=self.timeAlive+${EF_HypeBazooka_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${EF_HypeBazooka_CD}s
+addActionCooldownApplyToActions:Manual_EF_HypeBazooka
+
+[action_Manual_EF_BeamLancer_BF]
+@copyFromSection:template_ManualWeapon
+pos:6
+text:Special weapon
+text_zh:特殊武装
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamRifle_1.png
+isVisible:if ${manualControlReady} and ((((memory.armRBreaked==false))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.EF_BeamLancer_BF_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==false)))))
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.EF_BeamLancer_BF_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==false))))
+alsoTriggerAction:EF_BeamLancer_BF_Fire
+
+[hiddenAction_EF_BeamLancer_BF_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.EF_BeamLancer_BF_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50)) or (${manualWeaponReady} and ((self.timeAlive>memory.EF_BeamLancer_BF_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==false)))))
+setUnitMemory:EF_BeamLancer_BF_CDTimer=self.timeAlive+${EF_BeamLancer_BF_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${EF_BeamLancer_BF_CD}s
+addActionCooldownApplyToActions:Manual_EF_BeamLancer_BF
+
+[action_Manual_EF_BeamSaber_F]
+@copyFromSection:template_ManualWeapon
+pos:3
+text:Beam saber
+text_zh:光束军刀
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Cqb_1.png
+isVisible:if ${manualControlReady} and ((((memory.armRBreaked==false) and (memory.pilotUnit.readUnitMemory("pilotCqbSkillFinal",type="float")>145))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.EF_BeamSaber_F_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==false) and (memory.pilotUnit.readUnitMemory("pilotCqbSkillFinal",type="float")>145)))))
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.EF_BeamSaber_F_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==false) and (memory.pilotUnit.readUnitMemory("pilotCqbSkillFinal",type="float")>145))))
+alsoTriggerAction:EF_BeamSaber_F_Fire
+
+[hiddenAction_EF_BeamSaber_F_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.EF_BeamSaber_F_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50)) or (${manualWeaponReady} and ((self.timeAlive>memory.EF_BeamSaber_F_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==false) and (memory.pilotUnit.readUnitMemory("pilotCqbSkillFinal",type="float")>145)))))
+setUnitMemory:EF_BeamSaber_F_CDTimer=self.timeAlive+${EF_BeamSaber_F_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${EF_BeamSaber_F_CD}s
+addActionCooldownApplyToActions:Manual_EF_BeamSaber_F
+
+[action_Manual_Common_Cqb_A_L]
+@copyFromSection:template_ManualWeapon
+pos:7
+text:Melee (left)
+text_zh:格斗攻击（左）
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Cqb_1.png
+isVisible:if ${manualControlReady} and ((((memory.armLBreaked==false) and (self.shield>0) and (memory.pilotUnit.readUnitMemory("pilotCqbSkillFinal",type="float")>145))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.Common_Cqb_A_L_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armLBreaked==false) and (self.shield>0) and (memory.pilotUnit.readUnitMemory("pilotCqbSkillFinal",type="float")>145)))))
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.Common_Cqb_A_L_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armLBreaked==false) and (self.shield>0) and (memory.pilotUnit.readUnitMemory("pilotCqbSkillFinal",type="float")>145))))
+alsoTriggerAction:Common_Cqb_A_L_Fire
+
+[hiddenAction_Common_Cqb_A_L_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.Common_Cqb_A_L_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50)) or (${manualWeaponReady} and ((self.timeAlive>memory.Common_Cqb_A_L_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armLBreaked==false) and (self.shield>0) and (memory.pilotUnit.readUnitMemory("pilotCqbSkillFinal",type="float")>145)))))
+setUnitMemory:Common_Cqb_A_L_CDTimer=self.timeAlive+${Common_Cqb_A_L_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${Common_Cqb_A_L_CD}s
+addActionCooldownApplyToActions:Manual_Common_Cqb_A_L
+
+[hiddenAction_TryAttack]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_AttackMode_Cqb_WhenHasTarget]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_LowPartsForceCqbMode]
+requireConditional:if not memory.manualControlEnabled and (memory.attackMode==0 and memory.armRBreaked==true)
+
+[hiddenAction_ResetTargetTags_Step2]
+alsoTriggerAction:ManualControl_AfterTransform,ManualControl_RestoreGuard
+
+[action_ChangeAttackRuleMode_Free]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Guard]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Hold]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==2 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Shoot]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Cqb]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_AllowAIOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAI}==false and not self.hasTags(includes='inHangar'))
+
+[action_AllowAssignedOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAssigned}==false and not self.hasTags(includes='inHangar'))

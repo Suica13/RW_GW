@@ -1,0 +1,175 @@
+[core]
+@global manualControlImplemented=true
+copyFrom:ROOT:Template/Unit/Skill/PlayerControl.gw
+dont_load:true
+
+# Form-specific input adapters. Native damage, animations and firing queues are inherited.
+
+[action_Manual_Common_Push_A]
+@copyFromSection:template_ManualWeapon
+pos:4
+text:Punch
+text_zh:徒手格斗
+description:CD: ${Common_Push_A_CD}s
+description_zh:冷却: ${Common_Push_A_CD}秒
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Cqb_1.png
+isVisible:if ${manualControlReady} and memory.armRBreaked
+isLocked:if not (${manualWeaponReady} and (self.timeAlive>memory.Common_Push_A_CDTimer and ${onAttacking}==false and ${cantAction}==false) and (memory.armRBreaked==true))
+requireConditional:if ${manualWeaponReady} and (self.timeAlive>memory.Common_Push_A_CDTimer and ${onAttacking}==false and ${cantAction}==false) and (memory.armRBreaked==true)
+alsoTriggerAction:Common_Push_A_Fire
+
+[hiddenAction_Common_Push_A_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.Common_Push_A_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50)) or (${manualWeaponReady} and (self.timeAlive>memory.Common_Push_A_CDTimer and ${onAttacking}==false and ${cantAction}==false) and (memory.armRBreaked==true))
+addActionCooldownTime:${Common_Push_A_CD}s
+addActionCooldownApplyToActions:Manual_Common_Push_A
+setUnitMemory:Common_Push_A_CDTimer=self.timeAlive+${Common_Push_A_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+
+[action_Manual_EF_RGM_89_BR]
+@copyFromSection:template_ManualWeapon
+pos:2
+text:Beam rifle
+text_zh:光束步枪
+description:CD: ${EF_RGM_89_BR_CD}s
+description_zh:冷却: ${EF_RGM_89_BR_CD}秒
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamRifle_1.png
+isVisible:if ${manualControlReady} and self.resource().EquipmentIndex==0
+isLocked:if not (${manualWeaponReady} and (self.timeAlive>memory.EF_RGM_89_BR_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false and self.resource.EN>0) and (self.resource().EquipmentIndex==0) and self.resource.EN>=${EF_RGM_89_BR_EN})
+requireConditional:if ${manualWeaponReady} and (self.timeAlive>memory.EF_RGM_89_BR_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false and self.resource.EN>0) and (self.resource().EquipmentIndex==0) and self.resource.EN>=${EF_RGM_89_BR_EN}
+alsoTriggerAction:EF_RGM_89_BR_Fire
+
+[hiddenAction_EF_RGM_89_BR_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.EF_RGM_89_BR_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  and self.resource.EN>0)) or (${manualWeaponReady} and (self.timeAlive>memory.EF_RGM_89_BR_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false and self.resource.EN>0) and (self.resource().EquipmentIndex==0) and self.resource.EN>=${EF_RGM_89_BR_EN})
+addActionCooldownTime:${EF_RGM_89_BR_CD}s
+addActionCooldownApplyToActions:Manual_EF_RGM_89_BR
+setUnitMemory:EF_RGM_89_BR_CDTimer=self.timeAlive+${EF_RGM_89_BR_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+
+[action_Manual_EF_RGM_89_BZ]
+@copyFromSection:template_ManualWeapon
+pos:2
+text:Bazooka
+text_zh:火箭筒
+description:CD: ${EF_RGM_89_BZ_CD}s
+description_zh:冷却: ${EF_RGM_89_BZ_CD}秒
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Bazooka_1.png
+isVisible:if ${manualControlReady} and (self.resource().EquipmentIndex==1 or self.resource().EquipmentIndex==2)
+isLocked:if not (${manualWeaponReady} and (self.timeAlive>memory.EF_RGM_89_BZ_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false and ${onSkill}==false and self.resource.EN>0) and ((self.resource().EquipmentIndex==1 or self.resource().EquipmentIndex==2)) and self.resource.EN>=${EF_RGM_89_BZ_EN})
+requireConditional:if ${manualWeaponReady} and (self.timeAlive>memory.EF_RGM_89_BZ_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false and ${onSkill}==false and self.resource.EN>0) and ((self.resource().EquipmentIndex==1 or self.resource().EquipmentIndex==2)) and self.resource.EN>=${EF_RGM_89_BZ_EN}
+alsoTriggerAction:EF_RGM_89_BZ_Fire
+
+[hiddenAction_EF_RGM_89_BZ_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.EF_RGM_89_BZ_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false  and ${onSkill}==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  and self.resource.EN>0)) or (${manualWeaponReady} and (self.timeAlive>memory.EF_RGM_89_BZ_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false and ${onSkill}==false and self.resource.EN>0) and ((self.resource().EquipmentIndex==1 or self.resource().EquipmentIndex==2)) and self.resource.EN>=${EF_RGM_89_BZ_EN})
+addActionCooldownTime:${EF_RGM_89_BZ_CD}s
+addActionCooldownApplyToActions:Manual_EF_RGM_89_BZ
+setUnitMemory:EF_RGM_89_BZ_CDTimer=self.timeAlive+${EF_RGM_89_BZ_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+
+[action_Manual_EF_RGM_89_CrotchGL_L]
+@copyFromSection:template_ManualWeapon
+pos:5
+text:Waist grenade launcher
+text_zh:腰部榴弹
+description:CD: ${EF_RGM_89_CrotchGL_L_CD}s
+description_zh:冷却: ${EF_RGM_89_CrotchGL_L_CD}秒
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamRifle_1.png
+isVisible:if ${manualControlReady}
+isLocked:if not (${manualWeaponReady} and (self.timeAlive>memory.EF_RGM_89_CrotchGL_L_CDTimer and ${onAttacking}==false and ${cantAction}==false and ${onSkill}==false and self.resource.EN>0) and (true) and self.resource.EN>=${EF_RGM_89_CrotchGL_L_EN})
+requireConditional:if ${manualWeaponReady} and (self.timeAlive>memory.EF_RGM_89_CrotchGL_L_CDTimer and ${onAttacking}==false and ${cantAction}==false and ${onSkill}==false and self.resource.EN>0) and (true) and self.resource.EN>=${EF_RGM_89_CrotchGL_L_EN}
+alsoTriggerAction:EF_RGM_89_CrotchGL_L_Fire
+
+[hiddenAction_EF_RGM_89_CrotchGL_L_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.EF_RGM_89_CrotchGL_L_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)  and self.resource.EN>0)) or (${manualWeaponReady} and (self.timeAlive>memory.EF_RGM_89_CrotchGL_L_CDTimer and ${onAttacking}==false and ${cantAction}==false and ${onSkill}==false and self.resource.EN>0) and (true) and self.resource.EN>=${EF_RGM_89_CrotchGL_L_EN})
+addActionCooldownTime:${EF_RGM_89_CrotchGL_L_CD}s
+addActionCooldownApplyToActions:Manual_EF_RGM_89_CrotchGL_L
+setUnitMemory:EF_RGM_89_CrotchGL_L_CDTimer=self.timeAlive+${EF_RGM_89_CrotchGL_L_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+
+[action_Manual_EF_RGM_89_ShieldMS]
+@copyFromSection:template_ManualWeapon
+pos:6
+text:Shield missiles
+text_zh:盾牌导弹
+description:CD: ${EF_RGM_89_ShieldMS_CD}s
+description_zh:冷却: ${EF_RGM_89_ShieldMS_CD}秒
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Missile_1.png
+isVisible:if ${manualControlReady}
+isLocked:if not (${manualWeaponReady} and (self.timeAlive>memory.EF_RGM_89_ShieldMS_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armLBreaked==false and self.shield>0 and ${onSkill}==false and self.resource.EN>0 and self.shield>0) and (true) and self.resource.EN>=${EF_RGM_89_ShieldMS_EN})
+requireConditional:if ${manualWeaponReady} and (self.timeAlive>memory.EF_RGM_89_ShieldMS_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armLBreaked==false and self.shield>0 and ${onSkill}==false and self.resource.EN>0 and self.shield>0) and (true) and self.resource.EN>=${EF_RGM_89_ShieldMS_EN}
+alsoTriggerAction:EF_RGM_89_ShieldMS_Fire
+
+[hiddenAction_EF_RGM_89_ShieldMS_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.EF_RGM_89_ShieldMS_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armLBreaked==false and self.shield>0  and ${onSkill}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)  and self.resource.EN>0 and self.shield>0)) or (${manualWeaponReady} and (self.timeAlive>memory.EF_RGM_89_ShieldMS_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armLBreaked==false and self.shield>0 and ${onSkill}==false and self.resource.EN>0 and self.shield>0) and (true) and self.resource.EN>=${EF_RGM_89_ShieldMS_EN})
+addActionCooldownTime:${EF_RGM_89_ShieldMS_CD}s
+addActionCooldownApplyToActions:Manual_EF_RGM_89_ShieldMS
+setUnitMemory:EF_RGM_89_ShieldMS_CDTimer=self.timeAlive+${EF_RGM_89_ShieldMS_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+
+[action_Manual_EF_RGM_89_Decoy]
+@copyFromSection:template_ManualWeapon
+pos:60
+text:Decoy balloons
+text_zh:伪装气球
+description:CD: ${EF_RGM_89_Decoy_CD}s
+description_zh:冷却: ${EF_RGM_89_Decoy_CD}秒
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamRifle_1.png
+isVisible:if ${manualControlReady}
+isLocked:if not (${manualWeaponReady} and (self.timeAlive>memory.EF_RGM_89_Decoy_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armLBreaked==false and ${onSkill}==false and self.resource.EN>0) and (true) and self.resource.EN>=${EF_RGM_89_Decoy_EN})
+requireConditional:if ${manualWeaponReady} and (self.timeAlive>memory.EF_RGM_89_Decoy_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armLBreaked==false and ${onSkill}==false and self.resource.EN>0) and (true) and self.resource.EN>=${EF_RGM_89_Decoy_EN}
+alsoTriggerAction:EF_RGM_89_Decoy_Fire
+
+[hiddenAction_EF_RGM_89_Decoy_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.EF_RGM_89_Decoy_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armLBreaked==false  and ${onSkill}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)  and self.resource.EN>0)) or (${manualWeaponReady} and (self.timeAlive>memory.EF_RGM_89_Decoy_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armLBreaked==false and ${onSkill}==false and self.resource.EN>0) and (true) and self.resource.EN>=${EF_RGM_89_Decoy_EN})
+addActionCooldownTime:${EF_RGM_89_Decoy_CD}s
+addActionCooldownApplyToActions:Manual_EF_RGM_89_Decoy
+setUnitMemory:EF_RGM_89_Decoy_CDTimer=self.timeAlive+${EF_RGM_89_Decoy_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+
+[action_Manual_EF_RGM_89_BeamSaber_AF]
+@copyFromSection:template_ManualWeapon
+pos:3
+text:Beam saber
+text_zh:光束军刀
+description:CD: ${EF_RGM_89_BeamSaber_AF_CD}s
+description_zh:冷却: ${EF_RGM_89_BeamSaber_AF_CD}秒
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Cqb_1.png
+isVisible:if ${manualControlReady}
+isLocked:if not (${manualWeaponReady} and (self.timeAlive>memory.EF_RGM_89_BeamSaber_AF_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false) and (true))
+requireConditional:if ${manualWeaponReady} and (self.timeAlive>memory.EF_RGM_89_BeamSaber_AF_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false) and (true)
+alsoTriggerAction:EF_RGM_89_BeamSaber_AF_Fire
+
+[hiddenAction_EF_RGM_89_BeamSaber_AF_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.EF_RGM_89_BeamSaber_AF_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50)) or (${manualWeaponReady} and (self.timeAlive>memory.EF_RGM_89_BeamSaber_AF_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false) and (true))
+addActionCooldownTime:${EF_RGM_89_BeamSaber_AF_CD}s
+addActionCooldownApplyToActions:Manual_EF_RGM_89_BeamSaber_AF
+setUnitMemory:EF_RGM_89_BeamSaber_AF_CDTimer=self.timeAlive+${EF_RGM_89_BeamSaber_AF_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+
+[hiddenAction_Common_Push_A_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_EF_RGM_89_BR_Fire_Step_3]
+requireConditional:if (${cantAction}==false and memory.armRBreaked==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_EF_RGM_89_BR_Fire_Step_2]
+requireConditional:if (${cantAction}==false and memory.armRBreaked==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_EF_RGM_89_BZ_Fire_Step_2]
+requireConditional:if (${cantAction}==false and memory.armRBreaked==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_EF_RGM_89_CrotchGL_L_Fire_Step_3]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_EF_RGM_89_CrotchGL_L_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_EF_RGM_89_ShieldMS_Fire_Step_3]
+requireConditional:if (${cantAction}==false and memory.armLBreaked==false and self.shield>0 and self.shield>0) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_EF_RGM_89_ShieldMS_Fire_Step_2]
+requireConditional:if (${cantAction}==false and memory.armLBreaked==false and self.shield>0 and self.shield>0) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_EF_RGM_89_Decoy_Fire_Step_3]
+requireConditional:if (${cantAction}==false and memory.armLBreaked==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_EF_RGM_89_Decoy_Fire_Step_2]
+requireConditional:if (${cantAction}==false and memory.armLBreaked==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_EF_RGM_89_BeamSaber_AF_Fire_Step_5]
+requireConditional:if (${cantAction}==false and memory.armRBreaked==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_EF_RGM_89_BeamSaber_AF_Fire_Step_2]
+requireConditional:if (${cantAction}==false and memory.armRBreaked==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))

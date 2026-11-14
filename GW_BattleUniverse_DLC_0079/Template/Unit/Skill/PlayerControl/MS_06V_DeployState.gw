@@ -1,0 +1,150 @@
+[core]
+dont_load:true
+@global manualControlImplemented=true
+@memory manualVulcanRightNext:bool
+copyFrom:ROOT:Template/Unit/Skill/PlayerControl.gw
+
+# Instance overrides keep native weapon sequences, equipment and damage definitions.
+
+[hiddenAction_Common_Mortar_Trigger_ByAI]
+autoTrigger:if not memory.manualControlEnabled and (${allowAI}==true and ${cantAction}==false and ${onSkill}==false and memory.close==false and self.resource.EN>${Common_Mortar_EN} and self.timeAlive>memory.Common_Mortar_CDTimer and self.resource.TileMode==0 and self.parent.hp<=0  and memory.Common_Mortar_AimTarget.hp>0 and memory.Common_Mortar_AimTarget.teamID>=0 and not memory.Common_Mortar_AimTarget.tags(includes='UnDetected') and distanceBetween(self, memory.Common_Mortar_AimTarget)>=300)
+
+[hiddenAction_Common_Mortar_Fire_Step_4]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[action_EnterDeployMode]
+pos:80
+
+[action_ExitDeployMode]
+pos:80
+
+[action_Common_Mortar_Trigger]
+pos:30
+requireConditional:if (true) and (not memory.manualControlEnabled or ${manualWeaponReady})
+
+[hiddenAction_ManualControl_CancelSpecialWeapons]
+requireConditional:true
+alsoTriggerAction:SetOnSkillOff
+
+[turret_Common_DoubleVulcan_MTank]
+canAttackCondition:if not memory.manualControlEnabled and (${onAttacking}==false and ${cantAction}==false)
+
+[action_ManualAux_Common_DoubleVulcan_MTank]
+@copyFromSection:template_ManualWeapon
+pos:40
+text:Head Vulcan
+text_zh:辅助机炮
+description:Independent burst; primary weapons remain available.
+description_zh:独立点射，可同时使用主武器。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Ciws_1.png
+isVisible:if ${manualControlReady}
+isLocked:if not ((${manualAuxiliaryReady} and not memory.Common_DoubleVulcan_MTank_OnCD and self.resource.Common_DoubleVulcan_MTank_ShootTimer>0 and self.resource.EN>=${Common_DoubleVulcan_MTank_EN}) and ((true) and (${cantAction}==false)))
+requireConditional:if (${manualAuxiliaryReady} and not memory.Common_DoubleVulcan_MTank_OnCD and self.resource.Common_DoubleVulcan_MTank_ShootTimer>0 and self.resource.EN>=${Common_DoubleVulcan_MTank_EN}) and ((true) and (${cantAction}==false))
+alsoTriggerAction:ManualAux_Common_DoubleVulcan_MTank_Fire
+
+[hiddenAction_ManualAux_Common_DoubleVulcan_MTank_Fire]
+requireConditional:if (${manualAuxiliaryReady} and not memory.Common_DoubleVulcan_MTank_OnCD and self.resource.Common_DoubleVulcan_MTank_ShootTimer>0 and self.resource.EN>=${Common_DoubleVulcan_MTank_EN}) and ((true) and (${cantAction}==false))
+setUnitMemory:manualVulcanRightNext=false,manualVulcanSerial=memory.manualVulcanSerial+1,Common_DoubleVulcan_MTank_OnCD=true,Common_DoubleVulcan_MTank_CDTimer=self.timeAlive+${Common_DoubleVulcan_MTank_CD}+self.resource.Common_DoubleVulcan_MTank_ShootTimer*0.075
+spawnUnits:ManualAuxBurst_0079_Common_DoubleVulcan_MTank
+
+[hiddenAction_ManualAux_Common_DoubleVulcan_MTank_Shot]
+autoTriggerOnEvent:newMessage(withTag='ManualAuxShot_Common_DoubleVulcan_MTank')
+requireConditional:if (${manualAuxiliaryReady} and eventData('burstSerial',type='float')==memory.manualVulcanSerial  and self.resource.Common_DoubleVulcan_MTank_ShootTimer>0 and self.resource.EN>=${Common_DoubleVulcan_MTank_EN}) and ((true) and (${cantAction}==false))
+alsoTriggerAction:ManualAux_Common_DoubleVulcan_MTank_Left,ManualAux_Common_DoubleVulcan_MTank_Right,ManualAux_Common_DoubleVulcan_MTank_Spend
+
+[turret_ManualAux_Common_DoubleVulcan_MTank_Left]
+@copyFromSection:turret_Common_DoubleVulcan_MTank
+canShoot:false
+barrelX:0.0
+barrelOffsetX_onOddShots:0
+
+[hiddenAction_ManualAux_Common_DoubleVulcan_MTank_Left]
+requireConditional:if not memory.manualVulcanRightNext
+fireTurretXAtGround:ManualAux_Common_DoubleVulcan_MTank_Left
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+
+[turret_ManualAux_Common_DoubleVulcan_MTank_Right]
+@copyFromSection:turret_Common_DoubleVulcan_MTank
+canShoot:false
+barrelX:0.0
+barrelOffsetX_onOddShots:0
+
+[hiddenAction_ManualAux_Common_DoubleVulcan_MTank_Right]
+requireConditional:if memory.manualVulcanRightNext
+fireTurretXAtGround:ManualAux_Common_DoubleVulcan_MTank_Right
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+
+[hiddenAction_ManualAux_Common_DoubleVulcan_MTank_Spend]
+setUnitMemory:manualVulcanRightNext=not memory.manualVulcanRightNext
+addResources:Common_DoubleVulcan_MTank_ShootTimer=-1,EN=-${Common_DoubleVulcan_MTank_EN}
+
+[action_ManualAux_ZN_MS_06V_MG]
+isVisible:false
+requireConditional:false
+
+[hiddenAction_TryAttack]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_AttackMode_Cqb_WhenHasTarget]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_ResetTargetTags_Step2]
+alsoTriggerAction:ManualControl_AfterTransform,ManualControl_RestoreGuard
+
+[action_ChangeAttackRuleMode_Free]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Guard]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Hold]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==2 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Shoot]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Cqb]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_AllowAIOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAI}==false and not self.hasTags(includes='inHangar'))
+
+[action_AllowAssignedOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAssigned}==false and not self.hasTags(includes='inHangar'))
+
+[turret_ZN_MS_06V_Cannon]
+canAttackCondition:if not memory.manualControlEnabled and (${onAttacking}==false and ${cantAction}==false and self.speed<0.2 and distanceBetween(self,self.attacking)>150 and ${onSkill}==false)
+
+[action_ManualTurret_ZN_MS_06V_Cannon]
+alsoTriggerAction:ManualTurret_ZN_MS_06V_Cannon_Fire
+requireConditional:if ${manualWeaponReady} and ((${onAttacking}==false) and (${cantAction}==false) and (self.speed<0.2) and (${onSkill}==false)) and not memory.ZN_MS_06V_Cannon_OnCD and self.resource.ZN_MS_06V_Cannon_ShootTimer>0 and self.resource.ZN_MS_06V_Cannon_ShootTimer>=1 and self.resource.en>=${ZN_MS_06V_Cannon_EN}
+isLocked:if not (${manualWeaponReady} and ((${onAttacking}==false) and (${cantAction}==false) and (self.speed<0.2) and (${onSkill}==false)) and not memory.ZN_MS_06V_Cannon_OnCD and self.resource.ZN_MS_06V_Cannon_ShootTimer>0 and self.resource.ZN_MS_06V_Cannon_ShootTimer>=1 and self.resource.en>=${ZN_MS_06V_Cannon_EN})
+isVisible:if ${manualControlReady}
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Missile_1.png
+description_zh:沿用原炮口、弹仓、EN消耗及装填。
+text_zh:导弹
+text:Missiles
+pos:2
+@copyFromSection:template_ManualWeapon
+
+[turret_ManualTurret_ZN_MS_06V_Cannon]
+canShoot:false
+@copyFromSection:turret_ZN_MS_06V_Cannon
+
+[hiddenAction_ManualTurret_ZN_MS_06V_Cannon_Fire]
+setUnitMemory:manualInputBusyUntil=self.timeAlive+0.15
+addResources:ZN_MS_06V_Cannon_ShootTimer=-1,en=-${ZN_MS_06V_Cannon_EN}
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+fireTurretXAtGround:ManualTurret_ZN_MS_06V_Cannon
+requireConditional:if ${manualWeaponReady} and ((${onAttacking}==false) and (${cantAction}==false) and (self.speed<0.2) and (${onSkill}==false)) and not memory.ZN_MS_06V_Cannon_OnCD and self.resource.ZN_MS_06V_Cannon_ShootTimer>0 and self.resource.ZN_MS_06V_Cannon_ShootTimer>=1 and self.resource.en>=${ZN_MS_06V_Cannon_EN}
+
+[action_ManualTurret_ZN_MS_06V_MG]
+requireConditional:false
+isVisible:false

@@ -1,0 +1,232 @@
+[core]
+dont_load:true
+@global manualControlImplemented=true
+@memory manualVulcanRightNext:bool
+copyFrom:ROOT:Template/Unit/Skill/PlayerControl.gw
+
+# Instance overrides keep native weapon sequences, equipment and damage definitions.
+
+[hiddenAction_Common_Push_A_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)<=60   and memory.armRBreaked==true)
+
+[hiddenAction_Common_Push_A_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_TITANS_BR_87A_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>60  and distanceBetween(self,self.attacking)<=memory.finalAttackRange and self.resource().EquipmentIndex==2 and memory.armRBreaked==false and eventData("RandomWeapon",type="float")>25)
+
+[hiddenAction_TITANS_BR_87A_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_EF_HypeBazookaKai_0087_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>60  and distanceBetween(self,self.attacking)<=memory.finalAttackRange and self.resource().EquipmentIndex==1  and memory.armRBreaked==false and eventData("RandomWeapon",type="float")>25)
+
+[hiddenAction_EF_HypeBazookaKai_0087_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_TITANS_120mmMGKai_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>60  and distanceBetween(self,self.attacking)<=memory.finalAttackRange and self.resource().EquipmentIndex==0 and memory.armRBreaked==false and eventData("RandomWeapon",type="float")>25)
+
+[hiddenAction_TITANS_120mmMGKai_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_TITANS_120mmMGKai_Fire_Step_3]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_TITANS_RMS_106_MS_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>60  and distanceBetween(self,self.attacking)<=memory.finalAttackRange and memory.backpackBreaked==false and eventData("RandomWeapon",type="float")<=25)
+
+[hiddenAction_TITANS_RMS_106_MS_Fire_Step_2]
+requireConditional:if (${cantAction}==false  and memory.backpackBreaked==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_TITANS_RMS_106_MS_Fire_Step_3]
+requireConditional:if (${cantAction}==false  and memory.backpackBreaked==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_EF_BeamSaber_A_Yellow_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)<=60   and memory.armRBreaked==false and (    self.resource().EquipmentIndex==0     or     self.resource().EquipmentIndex==1 ))
+
+[hiddenAction_EF_BeamSaber_A_Yellow_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_TITANS_HeatHawkKai_A_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)<=60   and memory.armRBreaked==false and self.resource().EquipmentIndex==2)
+
+[hiddenAction_TITANS_HeatHawkKai_A_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_ManualControl_CancelSpecialWeapons]
+requireConditional:true
+alsoTriggerAction:SetOnSkillOff
+
+[action_Manual_Common_Push_A]
+@copyFromSection:template_ManualWeapon
+pos:4
+text:Punch
+text_zh:徒手格斗
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Cqb_1.png
+isVisible:if ${manualControlReady} and ((((memory.armRBreaked==true))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.Common_Push_A_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==true)))))
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.Common_Push_A_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==true))))
+alsoTriggerAction:Common_Push_A_Fire
+
+[hiddenAction_Common_Push_A_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.Common_Push_A_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50)) or (${manualWeaponReady} and ((self.timeAlive>memory.Common_Push_A_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==true)))))
+setUnitMemory:Common_Push_A_CDTimer=self.timeAlive+${Common_Push_A_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${Common_Push_A_CD}s
+addActionCooldownApplyToActions:Manual_Common_Push_A
+
+[action_Manual_TITANS_BR_87A]
+@copyFromSection:template_ManualWeapon
+pos:2
+text:Beam rifle
+text_zh:光束步枪
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamRifle_1.png
+isVisible:if ${manualControlReady} and ((((self.resource().EquipmentIndex==2) and (memory.armRBreaked==false))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.TITANS_BR_87A_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==2) and (memory.armRBreaked==false)))) and self.resource.EN>=${TITANS_BR_87A_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.TITANS_BR_87A_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==2) and (memory.armRBreaked==false)))) and self.resource.EN>=${TITANS_BR_87A_EN}
+alsoTriggerAction:TITANS_BR_87A_Fire
+
+[hiddenAction_TITANS_BR_87A_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.TITANS_BR_87A_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.TITANS_BR_87A_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==2) and (memory.armRBreaked==false)))) and self.resource.EN>=${TITANS_BR_87A_EN})
+setUnitMemory:TITANS_BR_87A_CDTimer=self.timeAlive+${TITANS_BR_87A_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${TITANS_BR_87A_CD}s
+addActionCooldownApplyToActions:Manual_TITANS_BR_87A
+
+[action_Manual_EF_HypeBazookaKai_0087]
+@copyFromSection:template_ManualWeapon
+pos:5
+text:Bazooka
+text_zh:火箭筒
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Bazooka_1.png
+isVisible:if ${manualControlReady} and ((((self.resource().EquipmentIndex==1) and (memory.armRBreaked==false))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.EF_HypeBazookaKai_0087_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==1) and (memory.armRBreaked==false)))) and self.resource.EN>=${EF_HypeBazookaKai_0087_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.EF_HypeBazookaKai_0087_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==1) and (memory.armRBreaked==false)))) and self.resource.EN>=${EF_HypeBazookaKai_0087_EN}
+alsoTriggerAction:EF_HypeBazookaKai_0087_Fire
+
+[hiddenAction_EF_HypeBazookaKai_0087_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.EF_HypeBazookaKai_0087_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.EF_HypeBazookaKai_0087_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==1) and (memory.armRBreaked==false)))) and self.resource.EN>=${EF_HypeBazookaKai_0087_EN})
+setUnitMemory:EF_HypeBazookaKai_0087_CDTimer=self.timeAlive+${EF_HypeBazookaKai_0087_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${EF_HypeBazookaKai_0087_CD}s
+addActionCooldownApplyToActions:Manual_EF_HypeBazookaKai_0087
+
+[action_Manual_TITANS_120mmMGKai]
+@copyFromSection:template_ManualWeapon
+pos:6
+text:Machine gun
+text_zh:机枪
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/MachineGun_1.png
+isVisible:if ${manualControlReady} and ((((self.resource().EquipmentIndex==0) and (memory.armRBreaked==false))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.TITANS_120mmMGKai_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==0) and (memory.armRBreaked==false)))) and self.resource.EN>=${TITANS_120mmMGKai_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.TITANS_120mmMGKai_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==0) and (memory.armRBreaked==false)))) and self.resource.EN>=${TITANS_120mmMGKai_EN}
+alsoTriggerAction:TITANS_120mmMGKai_Fire
+
+[hiddenAction_TITANS_120mmMGKai_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.TITANS_120mmMGKai_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)   and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.TITANS_120mmMGKai_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==0) and (memory.armRBreaked==false)))) and self.resource.EN>=${TITANS_120mmMGKai_EN})
+setUnitMemory:TITANS_120mmMGKai_CDTimer=self.timeAlive+${TITANS_120mmMGKai_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${TITANS_120mmMGKai_CD}s
+addActionCooldownApplyToActions:Manual_TITANS_120mmMGKai
+
+[action_Manual_TITANS_RMS_106_MS]
+@copyFromSection:template_ManualWeapon
+pos:7
+text:Missiles
+text_zh:导弹
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Missile_1.png
+isVisible:if ${manualControlReady} and ((((memory.backpackBreaked==false))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.TITANS_RMS_106_MS_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((memory.backpackBreaked==false)))) and self.resource.EN>=${TITANS_RMS_106_MS_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.TITANS_RMS_106_MS_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((memory.backpackBreaked==false)))) and self.resource.EN>=${TITANS_RMS_106_MS_EN}
+alsoTriggerAction:TITANS_RMS_106_MS_Fire
+
+[hiddenAction_TITANS_RMS_106_MS_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.TITANS_RMS_106_MS_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)  and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.TITANS_RMS_106_MS_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((memory.backpackBreaked==false)))) and self.resource.EN>=${TITANS_RMS_106_MS_EN})
+setUnitMemory:TITANS_RMS_106_MS_CDTimer=self.timeAlive+${TITANS_RMS_106_MS_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${TITANS_RMS_106_MS_CD}s
+addActionCooldownApplyToActions:Manual_TITANS_RMS_106_MS
+
+[action_Manual_EF_BeamSaber_A_Yellow]
+@copyFromSection:template_ManualWeapon
+pos:3
+text:Beam saber
+text_zh:光束军刀
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Cqb_1.png
+isVisible:if ${manualControlReady} and ((((memory.armRBreaked==false) and ((self.resource().EquipmentIndex==0) or (self.resource().EquipmentIndex==1)))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.EF_BeamSaber_A_Yellow_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==false) and ((self.resource().EquipmentIndex==0) or (self.resource().EquipmentIndex==1))))))
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.EF_BeamSaber_A_Yellow_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==false) and ((self.resource().EquipmentIndex==0) or (self.resource().EquipmentIndex==1)))))
+alsoTriggerAction:EF_BeamSaber_A_Yellow_Fire
+
+[hiddenAction_EF_BeamSaber_A_Yellow_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.EF_BeamSaber_A_Yellow_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50)) or (${manualWeaponReady} and ((self.timeAlive>memory.EF_BeamSaber_A_Yellow_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==false) and ((self.resource().EquipmentIndex==0) or (self.resource().EquipmentIndex==1))))))
+setUnitMemory:EF_BeamSaber_A_Yellow_CDTimer=self.timeAlive+${EF_BeamSaber_A_Yellow_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${EF_BeamSaber_A_Yellow_CD}s
+addActionCooldownApplyToActions:Manual_EF_BeamSaber_A_Yellow
+
+[action_Manual_TITANS_HeatHawkKai_A]
+@copyFromSection:template_ManualWeapon
+pos:8
+text:Melee weapon
+text_zh:近战武器
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Cqb_1.png
+isVisible:if ${manualControlReady} and ((((memory.armRBreaked==false) and (self.resource().EquipmentIndex==2))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.TITANS_HeatHawkKai_A_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==false) and (self.resource().EquipmentIndex==2)))))
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.TITANS_HeatHawkKai_A_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==false) and (self.resource().EquipmentIndex==2))))
+alsoTriggerAction:TITANS_HeatHawkKai_A_Fire
+
+[hiddenAction_TITANS_HeatHawkKai_A_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.TITANS_HeatHawkKai_A_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50)) or (${manualWeaponReady} and ((self.timeAlive>memory.TITANS_HeatHawkKai_A_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==false) and (self.resource().EquipmentIndex==2)))))
+setUnitMemory:TITANS_HeatHawkKai_A_CDTimer=self.timeAlive+${TITANS_HeatHawkKai_A_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${TITANS_HeatHawkKai_A_CD}s
+addActionCooldownApplyToActions:Manual_TITANS_HeatHawkKai_A
+
+[hiddenAction_TryAttack]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_AttackMode_Cqb_WhenHasTarget]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_LowPartsForceCqbMode]
+requireConditional:if not memory.manualControlEnabled and (memory.attackMode==0 and memory.armRBreaked==true)
+
+[hiddenAction_ResetTargetTags_Step2]
+alsoTriggerAction:ManualControl_AfterTransform,ManualControl_RestoreGuard
+
+[action_ChangeAttackRuleMode_Free]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Guard]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Hold]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==2 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Shoot]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Cqb]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_AllowAIOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAI}==false and not self.hasTags(includes='inHangar'))
+
+[action_AllowAssignedOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAssigned}==false and not self.hasTags(includes='inHangar'))

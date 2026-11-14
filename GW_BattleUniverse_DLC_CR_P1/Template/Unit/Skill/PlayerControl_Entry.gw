@@ -1,0 +1,24 @@
+[core]
+dont_load:true
+@global manualControlImplemented=false
+
+# Active unit adapters override this same action only after their weapon integration is ready.
+[action_ManualControl_Request]
+pos:995.1
+text:Direct control (In development)
+text_zh:直接控制（开发中）
+description:Direct-control weapon integration is in development for this unit.
+description_zh:该单位的直接控制武装适配正在开发中，暂时无法接管。
+iconImage:ROOT:Resource/Image/Units/Button/Action/AI_2.png
+displayType:action
+buildSpeed:0s
+highPriorityQueue:true
+allowMultipleInQueue:false
+canPlayerCancel:false
+alwaysSinglePress:true
+ai_isDisabled:true
+isVisible:if not self.isControlledByAI() and parent.hp<=0 and self.hp>0 and not self.hasTags(includes='inHangar') and (self.hasTags(includes='MS') or self.hasTags(includes='MA') or self.hasTags(includes='Ship'))
+isLocked:true
+isLockedMessage:In development
+isLockedMessage_zh:开发中
+requireConditional:false

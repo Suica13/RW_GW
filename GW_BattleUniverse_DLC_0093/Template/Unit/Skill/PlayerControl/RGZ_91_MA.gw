@@ -1,0 +1,81 @@
+[core]
+@global manualControlImplemented=true
+copyFrom:ROOT:Template/Unit/Skill/PlayerControl.gw
+dont_load:true
+
+# Form-specific input adapters. Native damage, animations and firing queues are inherited.
+
+[action_Manual_EF_RGZ_91_BWS_DBC]
+@copyFromSection:template_ManualWeapon
+pos:2
+text:Twin beam cannon
+text_zh:双联光束炮
+description:CD: ${EF_RGZ_91_BWS_DBC_CD}s
+description_zh:冷却: ${EF_RGZ_91_BWS_DBC_CD}秒
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamCannon_1.png
+isVisible:if ${manualControlReady}
+isLocked:if not (${manualWeaponReady} and (self.timeAlive>memory.EF_RGZ_91_BWS_DBC_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.backpackBreaked==false and ${onSkill}==false and self.resource.EN>0) and (true) and self.resource.EN>=${EF_RGZ_91_BWS_DBC_EN})
+requireConditional:if ${manualWeaponReady} and (self.timeAlive>memory.EF_RGZ_91_BWS_DBC_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.backpackBreaked==false and ${onSkill}==false and self.resource.EN>0) and (true) and self.resource.EN>=${EF_RGZ_91_BWS_DBC_EN}
+alsoTriggerAction:EF_RGZ_91_BWS_DBC_Fire
+
+[hiddenAction_EF_RGZ_91_BWS_DBC_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.EF_RGZ_91_BWS_DBC_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.backpackBreaked==false and ${onSkill}==false  and not (directionBetween(self, self.attacking) < self.dir-35 or directionBetween(self, self.attacking) > self.dir+35)  and self.resource.EN>0)) or (${manualWeaponReady} and (self.timeAlive>memory.EF_RGZ_91_BWS_DBC_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.backpackBreaked==false and ${onSkill}==false and self.resource.EN>0) and (true) and self.resource.EN>=${EF_RGZ_91_BWS_DBC_EN})
+addActionCooldownTime:${EF_RGZ_91_BWS_DBC_CD}s
+addActionCooldownApplyToActions:Manual_EF_RGZ_91_BWS_DBC
+setUnitMemory:EF_RGZ_91_BWS_DBC_CDTimer=self.timeAlive+${EF_RGZ_91_BWS_DBC_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+
+[action_Manual_EF_RGZ_91_BWS_DMS]
+@copyFromSection:template_ManualWeapon
+pos:4
+text:BWS missiles
+text_zh:BWS导弹
+description:CD: ${EF_RGZ_91_BWS_DMS_CD}s
+description_zh:冷却: ${EF_RGZ_91_BWS_DMS_CD}秒
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Missile_1.png
+isVisible:if ${manualControlReady}
+isLocked:if not (${manualWeaponReady} and (self.timeAlive>memory.EF_RGZ_91_BWS_DMS_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.backpackBreaked==false and ${onSkill}==false and self.resource.EN>0) and (${onAttacking}==false) and self.resource.EN>=${EF_RGZ_91_BWS_DMS_EN})
+requireConditional:if ${manualWeaponReady} and (self.timeAlive>memory.EF_RGZ_91_BWS_DMS_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.backpackBreaked==false and ${onSkill}==false and self.resource.EN>0) and (${onAttacking}==false) and self.resource.EN>=${EF_RGZ_91_BWS_DMS_EN}
+alsoTriggerAction:EF_RGZ_91_BWS_DMS_Fire
+
+[hiddenAction_EF_RGZ_91_BWS_DMS_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.EF_RGZ_91_BWS_DMS_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.backpackBreaked==false  and ${onSkill}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)  and self.resource.EN>0)) or (${manualWeaponReady} and (self.timeAlive>memory.EF_RGZ_91_BWS_DMS_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.backpackBreaked==false and ${onSkill}==false and self.resource.EN>0) and (${onAttacking}==false) and self.resource.EN>=${EF_RGZ_91_BWS_DMS_EN})
+addActionCooldownTime:${EF_RGZ_91_BWS_DMS_CD}s
+addActionCooldownApplyToActions:Manual_EF_RGZ_91_BWS_DMS
+setUnitMemory:EF_RGZ_91_BWS_DMS_CDTimer=self.timeAlive+${EF_RGZ_91_BWS_DMS_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+
+[action_Manual_EF_RGZ_91_BWS_HighBeamCannon]
+@copyFromSection:template_ManualWeapon
+pos:5
+text:Mega particle cannon
+text_zh:大口径米加粒子炮
+description:CD: ${EF_RGZ_91_BWS_HighBeamCannon_CD}s
+description_zh:冷却: ${EF_RGZ_91_BWS_HighBeamCannon_CD}秒
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamCannon_1.png
+isVisible:if ${manualControlReady}
+isLocked:if not (${manualWeaponReady} and (self.timeAlive>memory.EF_RGZ_91_BWS_HighBeamCannon_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.backpackBreaked==false and ${onSkill}==false and self.resource.EN>0) and (true) and self.resource.EN>=${EF_RGZ_91_BWS_HighBeamCannon_EN})
+requireConditional:if ${manualWeaponReady} and (self.timeAlive>memory.EF_RGZ_91_BWS_HighBeamCannon_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.backpackBreaked==false and ${onSkill}==false and self.resource.EN>0) and (true) and self.resource.EN>=${EF_RGZ_91_BWS_HighBeamCannon_EN}
+alsoTriggerAction:EF_RGZ_91_BWS_HighBeamCannon_Fire
+
+[hiddenAction_EF_RGZ_91_BWS_HighBeamCannon_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.EF_RGZ_91_BWS_HighBeamCannon_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.backpackBreaked==false   and ${onSkill}==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  and self.resource.EN>0)) or (${manualWeaponReady} and (self.timeAlive>memory.EF_RGZ_91_BWS_HighBeamCannon_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.backpackBreaked==false and ${onSkill}==false and self.resource.EN>0) and (true) and self.resource.EN>=${EF_RGZ_91_BWS_HighBeamCannon_EN})
+addActionCooldownTime:${EF_RGZ_91_BWS_HighBeamCannon_CD}s
+addActionCooldownApplyToActions:Manual_EF_RGZ_91_BWS_HighBeamCannon
+setUnitMemory:EF_RGZ_91_BWS_HighBeamCannon_CDTimer=self.timeAlive+${EF_RGZ_91_BWS_HighBeamCannon_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+
+[hiddenAction_EF_RGZ_91_BWS_DBC_Fire_Step_3]
+requireConditional:if (${cantAction}==false and memory.backpackBreaked==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_EF_RGZ_91_BWS_DBC_Fire_Step_2]
+requireConditional:if (${cantAction}==false and memory.backpackBreaked==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_EF_RGZ_91_BWS_DMS_Fire_Step_3]
+requireConditional:if (${cantAction}==false  and memory.backpackBreaked==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_EF_RGZ_91_BWS_DMS_Fire_Step_2]
+requireConditional:if (${cantAction}==false  and memory.backpackBreaked==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_EF_RGZ_91_BWS_HighBeamCannon_Fire_Step_2]
+requireConditional:if (${cantAction}==false and memory.backpackBreaked==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[action_ExitUnit]
+pos:81

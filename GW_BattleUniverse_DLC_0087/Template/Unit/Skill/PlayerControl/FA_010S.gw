@@ -1,0 +1,274 @@
+[core]
+dont_load:true
+@global manualControlImplemented=true
+@memory manualVulcanRightNext:bool
+copyFrom:ROOT:Template/Unit/Skill/PlayerControl.gw
+
+# Instance overrides keep native weapon sequences, equipment and damage definitions.
+
+[hiddenAction_Common_Push_A_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_AEUG_MSZ_010_HighMegaCannon_Trigger_ByAI]
+autoTrigger:if not memory.manualControlEnabled and (${allowAI}==true and ${cantAction}==false and ${onSkill}==false and self.timeAlive>memory.AEUG_MSZ_010_HighMegaCannon_CDTimer and not self.hasTags(includes='inHangar') and not parent.hasTags(includes='SFS_Slot') and self.resource.en>${AEUG_MSZ_010_HighMegaCannon_EN} and memory.AEUG_MSZ_010_HighMegaCannon_AimTarget.hp>0)
+
+[hiddenAction_AEUG_MSZ_010_HighMegaCannon_Fire_Step_1]
+requireConditional:if (${cantAction}==false and memory.headBreaked==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_AEUG_MSZ_010_HighMegaCannon_Fire_Step_2]
+requireConditional:if (${cantAction}==false and memory.headBreaked==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_AEUG_MSZ_010S_BR_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>60  and distanceBetween(self,self.attacking)<=memory.finalAttackRange and memory.armRBreaked==false and eventData("RandomWeapon",type="float")>50)
+
+[hiddenAction_AEUG_MSZ_010S_BR_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_AEUG_MSZ_010S_BR_Fire_Step_3]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_AEUG_MSZ_010_BeamCannon_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>60  and distanceBetween(self,self.attacking)<=memory.finalAttackRange and ${onAttacking}==false and memory.backpackBreaked==false and memory.attackMode==0 and eventData("RandomWeapon",type="float")>35  and eventData("RandomWeapon",type="float")<=50)
+
+[hiddenAction_AEUG_MSZ_010_BeamCannon_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_AEUG_MSZ_010_BeamCannon_Fire_Step_2_Sub]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_AEUG_FA_010S_BodyMS_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>60  and distanceBetween(self,self.attacking)<=memory.finalAttackRange and ${onAttacking}==false and memory.backpackBreaked==false and memory.attackMode==0   and eventData("RandomWeapon",type="float")>15  and eventData("RandomWeapon",type="float")<=35)
+
+[hiddenAction_AEUG_FA_010S_BodyMS_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_AEUG_FA_010S_BodyMS_Fire_Step_3]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_AEUG_FA_010S_BodyMS_Fire_Step_3_L]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_AEUG_FA_010S_BodyMS_Fire_Step_3_R2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_AEUG_FA_010S_BodyMS_Fire_Step_3_L2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_AEUG_FA_010S_BodyMS_Fire_Step_3_R3]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_AEUG_FA_010S_BodyMS_Fire_Step_3_L3]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_AEUG_FA_010S_MegaBeamCannon_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>60  and distanceBetween(self,self.attacking)<=memory.finalAttackRange and ${onAttacking}==false and memory.backpackBreaked==false and memory.attackMode==0   and eventData("RandomWeapon",type="float")<=15)
+
+[hiddenAction_AEUG_FA_010S_MegaBeamCannon_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_EF_BeamSaber_AF_Large_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)<=60   and memory.armRBreaked==false)
+
+[hiddenAction_EF_BeamSaber_AF_Large_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_EF_BeamSaber_AF_Large_Fire_Step_5]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[action_ExitUnit]
+pos:81
+
+[action_AEUG_MSZ_010_HighMegaCannon_Trigger]
+pos:30
+requireConditional:if (true) and (not memory.manualControlEnabled or ${manualWeaponReady})
+
+[hiddenAction_ManualControl_CancelSpecialWeapons]
+requireConditional:true
+alsoTriggerAction:SetOnSkillOff
+
+[action_Manual_AEUG_MSZ_010S_BR]
+@copyFromSection:template_ManualWeapon
+pos:2
+text:Beam rifle
+text_zh:光束步枪
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamRifle_1.png
+isVisible:if ${manualControlReady} and ((((memory.armRBreaked==false))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.AEUG_MSZ_010S_BR_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (self.resource.EN>0)) and ((((memory.armRBreaked==false)))) and self.resource.EN>=${AEUG_MSZ_010S_BR_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.AEUG_MSZ_010S_BR_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (self.resource.EN>0)) and ((((memory.armRBreaked==false)))) and self.resource.EN>=${AEUG_MSZ_010S_BR_EN}
+alsoTriggerAction:AEUG_MSZ_010S_BR_Fire
+
+[hiddenAction_AEUG_MSZ_010S_BR_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.AEUG_MSZ_010S_BR_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.AEUG_MSZ_010S_BR_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (self.resource.EN>0)) and ((((memory.armRBreaked==false)))) and self.resource.EN>=${AEUG_MSZ_010S_BR_EN})
+setUnitMemory:AEUG_MSZ_010S_BR_CDTimer=self.timeAlive+${AEUG_MSZ_010S_BR_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${AEUG_MSZ_010S_BR_CD}s
+addActionCooldownApplyToActions:Manual_AEUG_MSZ_010S_BR
+
+[action_Manual_AEUG_MSZ_010_BeamCannon]
+@copyFromSection:template_ManualWeapon
+pos:4
+text:Beam cannon
+text_zh:光束炮
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamCannon_1.png
+isVisible:if ${manualControlReady} and ((((true) and (memory.backpackBreaked==false))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.AEUG_MSZ_010_BeamCannon_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (self.resource.EN>0)) and ((((${onAttacking}==false) and (memory.backpackBreaked==false)))) and self.resource.EN>=${AEUG_MSZ_010_BeamCannon_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.AEUG_MSZ_010_BeamCannon_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (self.resource.EN>0)) and ((((${onAttacking}==false) and (memory.backpackBreaked==false)))) and self.resource.EN>=${AEUG_MSZ_010_BeamCannon_EN}
+alsoTriggerAction:AEUG_MSZ_010_BeamCannon_Fire
+
+[hiddenAction_AEUG_MSZ_010_BeamCannon_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.AEUG_MSZ_010_BeamCannon_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15) and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.AEUG_MSZ_010_BeamCannon_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (self.resource.EN>0)) and ((((${onAttacking}==false) and (memory.backpackBreaked==false)))) and self.resource.EN>=${AEUG_MSZ_010_BeamCannon_EN})
+setUnitMemory:AEUG_MSZ_010_BeamCannon_CDTimer=self.timeAlive+${AEUG_MSZ_010_BeamCannon_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${AEUG_MSZ_010_BeamCannon_CD}s
+addActionCooldownApplyToActions:Manual_AEUG_MSZ_010_BeamCannon
+
+[action_Manual_AEUG_FA_010S_BodyMS]
+@copyFromSection:template_ManualWeapon
+pos:5
+text:Body missiles
+text_zh:机体导弹
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Missile_1.png
+isVisible:if ${manualControlReady} and ((((true) and (memory.backpackBreaked==false))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.AEUG_FA_010S_BodyMS_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((${onAttacking}==false) and (memory.backpackBreaked==false)))) and self.resource.EN>=${AEUG_FA_010S_BodyMS_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.AEUG_FA_010S_BodyMS_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((${onAttacking}==false) and (memory.backpackBreaked==false)))) and self.resource.EN>=${AEUG_FA_010S_BodyMS_EN}
+alsoTriggerAction:AEUG_FA_010S_BodyMS_Fire
+
+[hiddenAction_AEUG_FA_010S_BodyMS_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.AEUG_FA_010S_BodyMS_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)  and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.AEUG_FA_010S_BodyMS_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((${onAttacking}==false) and (memory.backpackBreaked==false)))) and self.resource.EN>=${AEUG_FA_010S_BodyMS_EN})
+setUnitMemory:AEUG_FA_010S_BodyMS_CDTimer=self.timeAlive+${AEUG_FA_010S_BodyMS_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${AEUG_FA_010S_BodyMS_CD}s
+addActionCooldownApplyToActions:Manual_AEUG_FA_010S_BodyMS
+
+[action_Manual_AEUG_FA_010S_MegaBeamCannon]
+@copyFromSection:template_ManualWeapon
+pos:6
+text:Mega particle cannon
+text_zh:米加粒子炮
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamCannon_1.png
+isVisible:if ${manualControlReady} and ((((true) and (memory.backpackBreaked==false))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.AEUG_FA_010S_MegaBeamCannon_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((${onAttacking}==false) and (memory.backpackBreaked==false)))) and self.resource.EN>=${AEUG_FA_010S_MegaBeamCannon_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.AEUG_FA_010S_MegaBeamCannon_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((${onAttacking}==false) and (memory.backpackBreaked==false)))) and self.resource.EN>=${AEUG_FA_010S_MegaBeamCannon_EN}
+alsoTriggerAction:AEUG_FA_010S_MegaBeamCannon_Fire
+
+[hiddenAction_AEUG_FA_010S_MegaBeamCannon_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.AEUG_FA_010S_MegaBeamCannon_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.AEUG_FA_010S_MegaBeamCannon_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((${onAttacking}==false) and (memory.backpackBreaked==false)))) and self.resource.EN>=${AEUG_FA_010S_MegaBeamCannon_EN})
+setUnitMemory:AEUG_FA_010S_MegaBeamCannon_CDTimer=self.timeAlive+${AEUG_FA_010S_MegaBeamCannon_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${AEUG_FA_010S_MegaBeamCannon_CD}s
+addActionCooldownApplyToActions:Manual_AEUG_FA_010S_MegaBeamCannon
+
+[action_Manual_EF_BeamSaber_AF_Large]
+@copyFromSection:template_ManualWeapon
+pos:3
+text:Beam saber
+text_zh:光束军刀
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Cqb_1.png
+isVisible:if ${manualControlReady} and ((((memory.armRBreaked==false))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.EF_BeamSaber_AF_Large_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==false)))))
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.EF_BeamSaber_AF_Large_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==false))))
+alsoTriggerAction:EF_BeamSaber_AF_Large_Fire
+
+[hiddenAction_EF_BeamSaber_AF_Large_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.EF_BeamSaber_AF_Large_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50)) or (${manualWeaponReady} and ((self.timeAlive>memory.EF_BeamSaber_AF_Large_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==false)))))
+setUnitMemory:EF_BeamSaber_AF_Large_CDTimer=self.timeAlive+${EF_BeamSaber_AF_Large_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${EF_BeamSaber_AF_Large_CD}s
+addActionCooldownApplyToActions:Manual_EF_BeamSaber_AF_Large
+
+[turret_Common_DoubleVulcan_MS]
+canAttackCondition:if not memory.manualControlEnabled and (${cantAction}==false and distanceBetween(self,self.attacking)<=600 and memory.headBreaked==false)
+
+[action_ManualAux_Common_DoubleVulcan_MS]
+@copyFromSection:template_ManualWeapon
+pos:40
+text:Head Vulcan
+text_zh:头部火神炮
+description:Independent burst; primary weapons remain available.
+description_zh:独立点射，可同时使用主武器。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Ciws_1.png
+isVisible:if ${manualControlReady}
+isLocked:if not (${manualAuxiliaryReady} and not memory.headBreaked and not memory.Common_DoubleVulcan_MS_OnCD and self.resource.Common_DoubleVulcan_MS_ShootTimer>0)
+requireConditional:if ${manualAuxiliaryReady} and not memory.headBreaked and not memory.Common_DoubleVulcan_MS_OnCD and self.resource.Common_DoubleVulcan_MS_ShootTimer>0
+alsoTriggerAction:ManualAux_Common_DoubleVulcan_MS_Fire
+
+[hiddenAction_ManualAux_Common_DoubleVulcan_MS_Fire]
+requireConditional:if ${manualAuxiliaryReady} and not memory.headBreaked and not memory.Common_DoubleVulcan_MS_OnCD and self.resource.Common_DoubleVulcan_MS_ShootTimer>0
+setUnitMemory:manualVulcanRightNext=false,manualVulcanSerial=memory.manualVulcanSerial+1,Common_DoubleVulcan_MS_OnCD=true,Common_DoubleVulcan_MS_CDTimer=self.timeAlive+${Common_DoubleVulcan_MS_CD}+self.resource.Common_DoubleVulcan_MS_ShootTimer*0.075
+spawnUnits:ManualAuxBurst_0087_Common_DoubleVulcan_MS
+
+[hiddenAction_ManualAux_Common_DoubleVulcan_MS_Shot]
+autoTriggerOnEvent:newMessage(withTag='ManualAuxShot_Common_DoubleVulcan_MS')
+requireConditional:if ${manualAuxiliaryReady} and eventData('burstSerial',type='float')==memory.manualVulcanSerial and not memory.headBreaked and self.resource.Common_DoubleVulcan_MS_ShootTimer>0
+alsoTriggerAction:ManualAux_Common_DoubleVulcan_MS_Left,ManualAux_Common_DoubleVulcan_MS_Right,ManualAux_Common_DoubleVulcan_MS_Spend
+
+[turret_ManualAux_Common_DoubleVulcan_MS_Left]
+@copyFromSection:turret_Common_DoubleVulcan_MS
+canShoot:false
+barrelX:-3
+barrelOffsetX_onOddShots:0
+
+[hiddenAction_ManualAux_Common_DoubleVulcan_MS_Left]
+requireConditional:if not memory.manualVulcanRightNext
+fireTurretXAtGround:ManualAux_Common_DoubleVulcan_MS_Left
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+
+[turret_ManualAux_Common_DoubleVulcan_MS_Right]
+@copyFromSection:turret_Common_DoubleVulcan_MS
+canShoot:false
+barrelX:3
+barrelOffsetX_onOddShots:0
+
+[hiddenAction_ManualAux_Common_DoubleVulcan_MS_Right]
+requireConditional:if memory.manualVulcanRightNext
+fireTurretXAtGround:ManualAux_Common_DoubleVulcan_MS_Right
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+
+[hiddenAction_ManualAux_Common_DoubleVulcan_MS_Spend]
+setUnitMemory:manualVulcanRightNext=not memory.manualVulcanRightNext
+addResources:Common_DoubleVulcan_MS_ShootTimer=-1
+
+[hiddenAction_TryAttack]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_AttackMode_Cqb_WhenHasTarget]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_LowPartsForceCqbMode]
+requireConditional:if not memory.manualControlEnabled and (memory.attackMode==0 and memory.armRBreaked==true and memory.armLBreaked==true)
+
+[hiddenAction_ResetTargetTags_Step2]
+alsoTriggerAction:ManualControl_AfterTransform,ManualControl_RestoreGuard
+
+[action_ChangeAttackRuleMode_Free]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Guard]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Hold]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==2 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Shoot]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Cqb]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_AllowAIOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAI}==false and not self.hasTags(includes='inHangar'))
+
+[action_AllowAssignedOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAssigned}==false and not self.hasTags(includes='inHangar'))

@@ -1,0 +1,180 @@
+[core]
+@memory manualShipArcGroup:float
+dont_load:true
+@global manualControlImplemented=true
+@memory manualVulcanRightNext:bool
+copyFrom:ROOT:Template/Unit/Skill/PlayerControl.gw,ROOT:Template/Unit/Skill/PlayerControl/Ships/Arcs_ceb3ac5ac8d1.gw
+
+# Instance overrides keep native weapon sequences, equipment and damage definitions.
+
+[hiddenAction_ZN_MAX_03_Leader_Trigger_ByAI]
+autoTrigger:if not memory.manualControlEnabled and (${allowAI}==true and ${cantAction}==false and ${onSkill}==false and memory.close==false and self.resource.EN>${ZN_MAX_03_Leader_EN} and self.timeAlive>memory.ZN_MAX_03_Leader_CDTimer and self.resource.TileMode==0 and self.parent.hp<=0  and memory.ZN_MAX_03_Leader_AimTarget.hp>0 and memory.ZN_MAX_03_Leader_AimTarget.teamID>=0 and not memory.ZN_MAX_03_Leader_AimTarget.tags(includes='UnDetected') and distanceBetween(self, memory.ZN_MAX_03_Leader_AimTarget)>=300)
+
+[hiddenAction_ZN_MAX_03_Leader_Fire_Step_3]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[action_ZN_MAX_03_Leader_Trigger]
+pos:65
+requireConditional:if (true) and (not memory.manualControlEnabled or ${manualWeaponReady})
+
+[hiddenAction_ManualControl_CancelSpecialWeapons]
+requireConditional:true
+alsoTriggerAction:ManualShip_HoldAll,SetOnSkillOff
+
+[hiddenAction_ManualShip_Send_MAX_03_Turret_BeamCannon_M1]
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+sendMessageWithTags:ManualShip_0087_Beam
+sendMessageTo:self.attachment(slot='MAX_03_Turret_BeamCannon_M1')
+
+[hiddenAction_ManualShip_Send_MAX_03_Turret_BeamCannon_M2]
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+sendMessageWithTags:ManualShip_0087_Beam
+sendMessageTo:self.attachment(slot='MAX_03_Turret_BeamCannon_M2')
+
+[hiddenAction_ManualShip_Send_MAX_03_Turret_BeamCannon_M3]
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+sendMessageWithTags:ManualShip_0087_Beam
+sendMessageTo:self.attachment(slot='MAX_03_Turret_BeamCannon_M3')
+
+[hiddenAction_ManualShip_Send_MAX_03_Turret_BeamCannon_M4]
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+sendMessageWithTags:ManualShip_0087_Beam
+sendMessageTo:self.attachment(slot='MAX_03_Turret_BeamCannon_M4')
+
+[hiddenAction_ManualShip_Send_MAX_03_Turret_BeamCannon_M5]
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+sendMessageWithTags:ManualShip_0087_Beam
+sendMessageTo:self.attachment(slot='MAX_03_Turret_BeamCannon_M5')
+
+[hiddenAction_ManualShip_Send_MAX_03_Turret_BeamCannon_M6]
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+sendMessageWithTags:ManualShip_0087_Beam
+sendMessageTo:self.attachment(slot='MAX_03_Turret_BeamCannon_M6')
+
+[hiddenAction_ManualShip_Send_MAX_03_Turret_BeamCannon_M7]
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+sendMessageWithTags:ManualShip_0087_Beam
+sendMessageTo:self.attachment(slot='MAX_03_Turret_BeamCannon_M7')
+
+[hiddenAction_ManualShip_Send_MAX_03_Turret_BeamCannon_M8]
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+sendMessageWithTags:ManualShip_0087_Beam
+sendMessageTo:self.attachment(slot='MAX_03_Turret_BeamCannon_M8')
+
+[action_ManualShip_Beam]
+alsoTriggerAction:ManualShip_Send_MAX_03_Turret_BeamCannon_M1,ManualShip_Send_MAX_03_Turret_BeamCannon_M2,ManualShip_Send_MAX_03_Turret_BeamCannon_M3,ManualShip_Send_MAX_03_Turret_BeamCannon_M4,ManualShip_Send_MAX_03_Turret_BeamCannon_M5,ManualShip_Send_MAX_03_Turret_BeamCannon_M6,ManualShip_Send_MAX_03_Turret_BeamCannon_M7,ManualShip_Send_MAX_03_Turret_BeamCannon_M8
+requireConditional:if ${manualAuxiliaryReady} and ${onSkill}==false
+isLocked:if not ${manualAuxiliaryReady} or ${onSkill} or (select(self.attachment(slot='MAX_03_Turret_BeamCannon_M1').hp>0 and self.attachment(slot='MAX_03_Turret_BeamCannon_M1').attacking.hp>0 and not self.attachment(slot='MAX_03_Turret_BeamCannon_M1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='MAX_03_Turret_BeamCannon_M1').readUnitMemory('MAX_03_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='MAX_03_Turret_BeamCannon_M1').resource.MAX_03_Turret_BeamCannon_ShootTimer>0,1,0)+select(self.attachment(slot='MAX_03_Turret_BeamCannon_M2').hp>0 and self.attachment(slot='MAX_03_Turret_BeamCannon_M2').attacking.hp>0 and not self.attachment(slot='MAX_03_Turret_BeamCannon_M2').readUnitMemory('breaked',type='bool') and not self.attachment(slot='MAX_03_Turret_BeamCannon_M2').readUnitMemory('MAX_03_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='MAX_03_Turret_BeamCannon_M2').resource.MAX_03_Turret_BeamCannon_ShootTimer>0,1,0)+select(self.attachment(slot='MAX_03_Turret_BeamCannon_M3').hp>0 and self.attachment(slot='MAX_03_Turret_BeamCannon_M3').attacking.hp>0 and not self.attachment(slot='MAX_03_Turret_BeamCannon_M3').readUnitMemory('breaked',type='bool') and not self.attachment(slot='MAX_03_Turret_BeamCannon_M3').readUnitMemory('MAX_03_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='MAX_03_Turret_BeamCannon_M3').resource.MAX_03_Turret_BeamCannon_ShootTimer>0,1,0)+select(self.attachment(slot='MAX_03_Turret_BeamCannon_M4').hp>0 and self.attachment(slot='MAX_03_Turret_BeamCannon_M4').attacking.hp>0 and not self.attachment(slot='MAX_03_Turret_BeamCannon_M4').readUnitMemory('breaked',type='bool') and not self.attachment(slot='MAX_03_Turret_BeamCannon_M4').readUnitMemory('MAX_03_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='MAX_03_Turret_BeamCannon_M4').resource.MAX_03_Turret_BeamCannon_ShootTimer>0,1,0)+select(self.attachment(slot='MAX_03_Turret_BeamCannon_M5').hp>0 and self.attachment(slot='MAX_03_Turret_BeamCannon_M5').attacking.hp>0 and not self.attachment(slot='MAX_03_Turret_BeamCannon_M5').readUnitMemory('breaked',type='bool') and not self.attachment(slot='MAX_03_Turret_BeamCannon_M5').readUnitMemory('MAX_03_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='MAX_03_Turret_BeamCannon_M5').resource.MAX_03_Turret_BeamCannon_ShootTimer>0,1,0)+select(self.attachment(slot='MAX_03_Turret_BeamCannon_M6').hp>0 and self.attachment(slot='MAX_03_Turret_BeamCannon_M6').attacking.hp>0 and not self.attachment(slot='MAX_03_Turret_BeamCannon_M6').readUnitMemory('breaked',type='bool') and not self.attachment(slot='MAX_03_Turret_BeamCannon_M6').readUnitMemory('MAX_03_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='MAX_03_Turret_BeamCannon_M6').resource.MAX_03_Turret_BeamCannon_ShootTimer>0,1,0)+select(self.attachment(slot='MAX_03_Turret_BeamCannon_M7').hp>0 and self.attachment(slot='MAX_03_Turret_BeamCannon_M7').attacking.hp>0 and not self.attachment(slot='MAX_03_Turret_BeamCannon_M7').readUnitMemory('breaked',type='bool') and not self.attachment(slot='MAX_03_Turret_BeamCannon_M7').readUnitMemory('MAX_03_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='MAX_03_Turret_BeamCannon_M7').resource.MAX_03_Turret_BeamCannon_ShootTimer>0,1,0)+select(self.attachment(slot='MAX_03_Turret_BeamCannon_M8').hp>0 and self.attachment(slot='MAX_03_Turret_BeamCannon_M8').attacking.hp>0 and not self.attachment(slot='MAX_03_Turret_BeamCannon_M8').readUnitMemory('breaked',type='bool') and not self.attachment(slot='MAX_03_Turret_BeamCannon_M8').readUnitMemory('MAX_03_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='MAX_03_Turret_BeamCannon_M8').resource.MAX_03_Turret_BeamCannon_ShootTimer>0,1,0))<=0 or self.resource.EN<=0
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamCannon_1.png
+description_zh:命令已有瞄准目标的就绪炮位开火；各炮塔保持独立锁定，无目标、损坏或装填中的炮位跳过。
+description:Order ready turrets with existing targets to fire. Each turret keeps its own target.
+text_zh:光束炮齐射 [%{select(self.attachment(slot='MAX_03_Turret_BeamCannon_M1').hp>0 and self.attachment(slot='MAX_03_Turret_BeamCannon_M1').attacking.hp>0 and not self.attachment(slot='MAX_03_Turret_BeamCannon_M1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='MAX_03_Turret_BeamCannon_M1').readUnitMemory('MAX_03_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='MAX_03_Turret_BeamCannon_M1').resource.MAX_03_Turret_BeamCannon_ShootTimer>0,1,0)+select(self.attachment(slot='MAX_03_Turret_BeamCannon_M2').hp>0 and self.attachment(slot='MAX_03_Turret_BeamCannon_M2').attacking.hp>0 and not self.attachment(slot='MAX_03_Turret_BeamCannon_M2').readUnitMemory('breaked',type='bool') and not self.attachment(slot='MAX_03_Turret_BeamCannon_M2').readUnitMemory('MAX_03_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='MAX_03_Turret_BeamCannon_M2').resource.MAX_03_Turret_BeamCannon_ShootTimer>0,1,0)+select(self.attachment(slot='MAX_03_Turret_BeamCannon_M3').hp>0 and self.attachment(slot='MAX_03_Turret_BeamCannon_M3').attacking.hp>0 and not self.attachment(slot='MAX_03_Turret_BeamCannon_M3').readUnitMemory('breaked',type='bool') and not self.attachment(slot='MAX_03_Turret_BeamCannon_M3').readUnitMemory('MAX_03_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='MAX_03_Turret_BeamCannon_M3').resource.MAX_03_Turret_BeamCannon_ShootTimer>0,1,0)+select(self.attachment(slot='MAX_03_Turret_BeamCannon_M4').hp>0 and self.attachment(slot='MAX_03_Turret_BeamCannon_M4').attacking.hp>0 and not self.attachment(slot='MAX_03_Turret_BeamCannon_M4').readUnitMemory('breaked',type='bool') and not self.attachment(slot='MAX_03_Turret_BeamCannon_M4').readUnitMemory('MAX_03_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='MAX_03_Turret_BeamCannon_M4').resource.MAX_03_Turret_BeamCannon_ShootTimer>0,1,0)+select(self.attachment(slot='MAX_03_Turret_BeamCannon_M5').hp>0 and self.attachment(slot='MAX_03_Turret_BeamCannon_M5').attacking.hp>0 and not self.attachment(slot='MAX_03_Turret_BeamCannon_M5').readUnitMemory('breaked',type='bool') and not self.attachment(slot='MAX_03_Turret_BeamCannon_M5').readUnitMemory('MAX_03_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='MAX_03_Turret_BeamCannon_M5').resource.MAX_03_Turret_BeamCannon_ShootTimer>0,1,0)+select(self.attachment(slot='MAX_03_Turret_BeamCannon_M6').hp>0 and self.attachment(slot='MAX_03_Turret_BeamCannon_M6').attacking.hp>0 and not self.attachment(slot='MAX_03_Turret_BeamCannon_M6').readUnitMemory('breaked',type='bool') and not self.attachment(slot='MAX_03_Turret_BeamCannon_M6').readUnitMemory('MAX_03_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='MAX_03_Turret_BeamCannon_M6').resource.MAX_03_Turret_BeamCannon_ShootTimer>0,1,0)+select(self.attachment(slot='MAX_03_Turret_BeamCannon_M7').hp>0 and self.attachment(slot='MAX_03_Turret_BeamCannon_M7').attacking.hp>0 and not self.attachment(slot='MAX_03_Turret_BeamCannon_M7').readUnitMemory('breaked',type='bool') and not self.attachment(slot='MAX_03_Turret_BeamCannon_M7').readUnitMemory('MAX_03_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='MAX_03_Turret_BeamCannon_M7').resource.MAX_03_Turret_BeamCannon_ShootTimer>0,1,0)+select(self.attachment(slot='MAX_03_Turret_BeamCannon_M8').hp>0 and self.attachment(slot='MAX_03_Turret_BeamCannon_M8').attacking.hp>0 and not self.attachment(slot='MAX_03_Turret_BeamCannon_M8').readUnitMemory('breaked',type='bool') and not self.attachment(slot='MAX_03_Turret_BeamCannon_M8').readUnitMemory('MAX_03_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='MAX_03_Turret_BeamCannon_M8').resource.MAX_03_Turret_BeamCannon_ShootTimer>0,1,0)}/8]
+text:Beam cannon salvo [%{select(self.attachment(slot='MAX_03_Turret_BeamCannon_M1').hp>0 and self.attachment(slot='MAX_03_Turret_BeamCannon_M1').attacking.hp>0 and not self.attachment(slot='MAX_03_Turret_BeamCannon_M1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='MAX_03_Turret_BeamCannon_M1').readUnitMemory('MAX_03_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='MAX_03_Turret_BeamCannon_M1').resource.MAX_03_Turret_BeamCannon_ShootTimer>0,1,0)+select(self.attachment(slot='MAX_03_Turret_BeamCannon_M2').hp>0 and self.attachment(slot='MAX_03_Turret_BeamCannon_M2').attacking.hp>0 and not self.attachment(slot='MAX_03_Turret_BeamCannon_M2').readUnitMemory('breaked',type='bool') and not self.attachment(slot='MAX_03_Turret_BeamCannon_M2').readUnitMemory('MAX_03_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='MAX_03_Turret_BeamCannon_M2').resource.MAX_03_Turret_BeamCannon_ShootTimer>0,1,0)+select(self.attachment(slot='MAX_03_Turret_BeamCannon_M3').hp>0 and self.attachment(slot='MAX_03_Turret_BeamCannon_M3').attacking.hp>0 and not self.attachment(slot='MAX_03_Turret_BeamCannon_M3').readUnitMemory('breaked',type='bool') and not self.attachment(slot='MAX_03_Turret_BeamCannon_M3').readUnitMemory('MAX_03_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='MAX_03_Turret_BeamCannon_M3').resource.MAX_03_Turret_BeamCannon_ShootTimer>0,1,0)+select(self.attachment(slot='MAX_03_Turret_BeamCannon_M4').hp>0 and self.attachment(slot='MAX_03_Turret_BeamCannon_M4').attacking.hp>0 and not self.attachment(slot='MAX_03_Turret_BeamCannon_M4').readUnitMemory('breaked',type='bool') and not self.attachment(slot='MAX_03_Turret_BeamCannon_M4').readUnitMemory('MAX_03_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='MAX_03_Turret_BeamCannon_M4').resource.MAX_03_Turret_BeamCannon_ShootTimer>0,1,0)+select(self.attachment(slot='MAX_03_Turret_BeamCannon_M5').hp>0 and self.attachment(slot='MAX_03_Turret_BeamCannon_M5').attacking.hp>0 and not self.attachment(slot='MAX_03_Turret_BeamCannon_M5').readUnitMemory('breaked',type='bool') and not self.attachment(slot='MAX_03_Turret_BeamCannon_M5').readUnitMemory('MAX_03_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='MAX_03_Turret_BeamCannon_M5').resource.MAX_03_Turret_BeamCannon_ShootTimer>0,1,0)+select(self.attachment(slot='MAX_03_Turret_BeamCannon_M6').hp>0 and self.attachment(slot='MAX_03_Turret_BeamCannon_M6').attacking.hp>0 and not self.attachment(slot='MAX_03_Turret_BeamCannon_M6').readUnitMemory('breaked',type='bool') and not self.attachment(slot='MAX_03_Turret_BeamCannon_M6').readUnitMemory('MAX_03_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='MAX_03_Turret_BeamCannon_M6').resource.MAX_03_Turret_BeamCannon_ShootTimer>0,1,0)+select(self.attachment(slot='MAX_03_Turret_BeamCannon_M7').hp>0 and self.attachment(slot='MAX_03_Turret_BeamCannon_M7').attacking.hp>0 and not self.attachment(slot='MAX_03_Turret_BeamCannon_M7').readUnitMemory('breaked',type='bool') and not self.attachment(slot='MAX_03_Turret_BeamCannon_M7').readUnitMemory('MAX_03_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='MAX_03_Turret_BeamCannon_M7').resource.MAX_03_Turret_BeamCannon_ShootTimer>0,1,0)+select(self.attachment(slot='MAX_03_Turret_BeamCannon_M8').hp>0 and self.attachment(slot='MAX_03_Turret_BeamCannon_M8').attacking.hp>0 and not self.attachment(slot='MAX_03_Turret_BeamCannon_M8').readUnitMemory('breaked',type='bool') and not self.attachment(slot='MAX_03_Turret_BeamCannon_M8').readUnitMemory('MAX_03_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='MAX_03_Turret_BeamCannon_M8').resource.MAX_03_Turret_BeamCannon_ShootTimer>0,1,0)}/8]
+pos:2
+@copyFromSection:template_ManualWeapon
+
+[action_ManualShip_Shell]
+requireConditional:false
+isVisible:false
+
+[action_ManualShip_Torpedo]
+requireConditional:false
+isVisible:false
+
+[action_ManualShip_AA]
+requireConditional:false
+isVisible:false
+
+[hiddenAction_ManualShip_Hold_MAX_03_Turret_BeamCannon_M1]
+sendMessageWithData:owner=self
+sendMessageWithTags:ManualShip_Hold
+sendMessageTo:self.attachment(slot='MAX_03_Turret_BeamCannon_M1')
+
+[hiddenAction_ManualShip_Hold_MAX_03_Turret_BeamCannon_M2]
+sendMessageWithData:owner=self
+sendMessageWithTags:ManualShip_Hold
+sendMessageTo:self.attachment(slot='MAX_03_Turret_BeamCannon_M2')
+
+[hiddenAction_ManualShip_Hold_MAX_03_Turret_BeamCannon_M3]
+sendMessageWithData:owner=self
+sendMessageWithTags:ManualShip_Hold
+sendMessageTo:self.attachment(slot='MAX_03_Turret_BeamCannon_M3')
+
+[hiddenAction_ManualShip_Hold_MAX_03_Turret_BeamCannon_M4]
+sendMessageWithData:owner=self
+sendMessageWithTags:ManualShip_Hold
+sendMessageTo:self.attachment(slot='MAX_03_Turret_BeamCannon_M4')
+
+[hiddenAction_ManualShip_Hold_MAX_03_Turret_BeamCannon_M5]
+sendMessageWithData:owner=self
+sendMessageWithTags:ManualShip_Hold
+sendMessageTo:self.attachment(slot='MAX_03_Turret_BeamCannon_M5')
+
+[hiddenAction_ManualShip_Hold_MAX_03_Turret_BeamCannon_M6]
+sendMessageWithData:owner=self
+sendMessageWithTags:ManualShip_Hold
+sendMessageTo:self.attachment(slot='MAX_03_Turret_BeamCannon_M6')
+
+[hiddenAction_ManualShip_Hold_MAX_03_Turret_BeamCannon_M7]
+sendMessageWithData:owner=self
+sendMessageWithTags:ManualShip_Hold
+sendMessageTo:self.attachment(slot='MAX_03_Turret_BeamCannon_M7')
+
+[hiddenAction_ManualShip_Hold_MAX_03_Turret_BeamCannon_M8]
+sendMessageWithData:owner=self
+sendMessageWithTags:ManualShip_Hold
+sendMessageTo:self.attachment(slot='MAX_03_Turret_BeamCannon_M8')
+
+[hiddenAction_ManualShip_HoldAll]
+alsoTriggerAction:ManualShip_Hold_MAX_03_Turret_BeamCannon_M1,ManualShip_Hold_MAX_03_Turret_BeamCannon_M2,ManualShip_Hold_MAX_03_Turret_BeamCannon_M3,ManualShip_Hold_MAX_03_Turret_BeamCannon_M4,ManualShip_Hold_MAX_03_Turret_BeamCannon_M5,ManualShip_Hold_MAX_03_Turret_BeamCannon_M6,ManualShip_Hold_MAX_03_Turret_BeamCannon_M7,ManualShip_Hold_MAX_03_Turret_BeamCannon_M8
+
+[action_ManualShip_ArcGroup]
+setUnitMemory:manualShipArcGroup=(memory.manualShipArcGroup+1)%2
+requireConditional:if ${manualControlReady}
+isLocked:false
+description_zh:切换各炮组射界／关闭。仅选中时显示；装填中的炮位调暗。
+description:Cycle firing-arc group / off. Only shown while selected.
+text_zh:射界：%{select(memory.manualShipArcGroup==0,'光束炮齐射','关闭')}
+text:Firing arcs
+pos:70
+@copyFromSection:template_ManualWeapon
+
+[hiddenAction_TryAttack]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_AttackMode_Cqb_WhenHasTarget]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_ResetTargetTags_Step2]
+alsoTriggerAction:ManualControl_AfterTransform,ManualControl_RestoreGuard
+
+[action_ChangeAttackRuleMode_Free]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Guard]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Hold]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==2 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Shoot]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Cqb]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_AllowAIOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAI}==false and not self.hasTags(includes='inHangar'))
+
+[action_AllowAssignedOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAssigned}==false and not self.hasTags(includes='inHangar'))
+
+[resource_MAX_03_Turret_BeamCannon_ShootTimer]
+hidden:true

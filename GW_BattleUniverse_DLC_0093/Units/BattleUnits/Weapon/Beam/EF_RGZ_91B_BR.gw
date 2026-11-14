@@ -68,7 +68,7 @@ spawnUnit:"""
 Projectile_AP_BeamRifle_Yellow*1
 (
     addResources=
-    BeamDamage:3500
+    BeamDamage:3000
     |DpDamage:100
     |WeaponAccuracy=90
     |PartBreakModifier=1

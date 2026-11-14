@@ -69,7 +69,7 @@ spawnUnit:"""
 Projectile_BeamGun_Green*1
 (
     addResources=
-    BeamDamage:1750
+    BeamDamage:2750
     |DpDamage:50
     |WeaponAccuracy=95
     |PartBreakModifier=1

@@ -1,0 +1,195 @@
+[core]
+@global manualControlImplemented=true
+copyFrom:ROOT:Template/Unit/Skill/PlayerControl.gw
+dont_load:true
+
+# Form-specific input adapters. Native damage, animations and firing queues are inherited.
+
+[action_Manual_Common_Push_A]
+@copyFromSection:template_ManualWeapon
+pos:4
+text:Punch
+text_zh:徒手格斗
+description:CD: ${Common_Push_A_CD}s
+description_zh:冷却: ${Common_Push_A_CD}秒
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Cqb_1.png
+isVisible:if ${manualControlReady} and memory.armRBreaked
+isLocked:if not (${manualWeaponReady} and (self.timeAlive>memory.Common_Push_A_CDTimer and ${onAttacking}==false and ${cantAction}==false) and (memory.armRBreaked==true))
+requireConditional:if ${manualWeaponReady} and (self.timeAlive>memory.Common_Push_A_CDTimer and ${onAttacking}==false and ${cantAction}==false) and (memory.armRBreaked==true)
+alsoTriggerAction:Common_Push_A_Fire
+
+[hiddenAction_Common_Push_A_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.Common_Push_A_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50)) or (${manualWeaponReady} and (self.timeAlive>memory.Common_Push_A_CDTimer and ${onAttacking}==false and ${cantAction}==false) and (memory.armRBreaked==true))
+addActionCooldownTime:${Common_Push_A_CD}s
+addActionCooldownApplyToActions:Manual_Common_Push_A
+setUnitMemory:Common_Push_A_CDTimer=self.timeAlive+${Common_Push_A_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+
+[action_Manual_NZN_MSN_04_BSG]
+@copyFromSection:template_ManualWeapon
+pos:2
+text:Beam shotgun
+text_zh:光束散弹枪
+description:CD: ${NZN_MSN_04_BSG_CD}s
+description_zh:冷却: ${NZN_MSN_04_BSG_CD}秒
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamRifle_1.png
+isVisible:if ${manualControlReady}
+isLocked:if not (${manualWeaponReady} and (self.timeAlive>memory.NZN_MSN_04_BSG_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false and self.resource.EN>0) and (true) and self.resource.EN>=${NZN_MSN_04_BSG_EN})
+requireConditional:if ${manualWeaponReady} and (self.timeAlive>memory.NZN_MSN_04_BSG_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false and self.resource.EN>0) and (true) and self.resource.EN>=${NZN_MSN_04_BSG_EN}
+alsoTriggerAction:NZN_MSN_04_BSG_Fire
+
+[hiddenAction_NZN_MSN_04_BSG_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.NZN_MSN_04_BSG_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15) and self.resource.EN>0)) or (${manualWeaponReady} and (self.timeAlive>memory.NZN_MSN_04_BSG_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false and self.resource.EN>0) and (true) and self.resource.EN>=${NZN_MSN_04_BSG_EN})
+addActionCooldownTime:${NZN_MSN_04_BSG_CD}s
+addActionCooldownApplyToActions:Manual_NZN_MSN_04_BSG
+setUnitMemory:NZN_MSN_04_BSG_CDTimer=self.timeAlive+${NZN_MSN_04_BSG_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+
+[action_Manual_NZN_MSN_04_BR]
+@copyFromSection:template_ManualWeapon
+pos:5
+text:Beam rifle
+text_zh:光束步枪
+description:CD: ${NZN_MSN_04_BR_CD}s
+description_zh:冷却: ${NZN_MSN_04_BR_CD}秒
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamRifle_1.png
+isVisible:if ${manualControlReady}
+isLocked:if not (${manualWeaponReady} and (self.timeAlive>memory.NZN_MSN_04_BR_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false and self.resource.EN>0) and (true) and self.resource.EN>=${NZN_MSN_04_BR_EN})
+requireConditional:if ${manualWeaponReady} and (self.timeAlive>memory.NZN_MSN_04_BR_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false and self.resource.EN>0) and (true) and self.resource.EN>=${NZN_MSN_04_BR_EN}
+alsoTriggerAction:NZN_MSN_04_BR_Fire
+
+[hiddenAction_NZN_MSN_04_BR_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.NZN_MSN_04_BR_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  and self.resource.EN>0)) or (${manualWeaponReady} and (self.timeAlive>memory.NZN_MSN_04_BR_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false and self.resource.EN>0) and (true) and self.resource.EN>=${NZN_MSN_04_BR_EN})
+addActionCooldownTime:${NZN_MSN_04_BR_CD}s
+addActionCooldownApplyToActions:Manual_NZN_MSN_04_BR
+setUnitMemory:NZN_MSN_04_BR_CDTimer=self.timeAlive+${NZN_MSN_04_BR_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+
+[action_Manual_NZN_MSN_04_HighBeamCannon]
+@copyFromSection:template_ManualWeapon
+pos:6
+text:Mega particle cannon
+text_zh:大口径米加粒子炮
+description:CD: ${NZN_MSN_04_HighBeamCannon_CD}s
+description_zh:冷却: ${NZN_MSN_04_HighBeamCannon_CD}秒
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamCannon_1.png
+isVisible:if ${manualControlReady}
+isLocked:if not (${manualWeaponReady} and (self.timeAlive>memory.NZN_MSN_04_HighBeamCannon_CDTimer and ${onAttacking}==false and ${cantAction}==false and self.resource.EN>0) and (true) and self.resource.EN>=${NZN_MSN_04_HighBeamCannon_EN})
+requireConditional:if ${manualWeaponReady} and (self.timeAlive>memory.NZN_MSN_04_HighBeamCannon_CDTimer and ${onAttacking}==false and ${cantAction}==false and self.resource.EN>0) and (true) and self.resource.EN>=${NZN_MSN_04_HighBeamCannon_EN}
+alsoTriggerAction:NZN_MSN_04_HighBeamCannon_Fire
+
+[hiddenAction_NZN_MSN_04_HighBeamCannon_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.NZN_MSN_04_HighBeamCannon_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  and self.resource.EN>0)) or (${manualWeaponReady} and (self.timeAlive>memory.NZN_MSN_04_HighBeamCannon_CDTimer and ${onAttacking}==false and ${cantAction}==false and self.resource.EN>0) and (true) and self.resource.EN>=${NZN_MSN_04_HighBeamCannon_EN})
+addActionCooldownTime:${NZN_MSN_04_HighBeamCannon_CD}s
+addActionCooldownApplyToActions:Manual_NZN_MSN_04_HighBeamCannon
+setUnitMemory:NZN_MSN_04_HighBeamCannon_CDTimer=self.timeAlive+${NZN_MSN_04_HighBeamCannon_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+
+[action_Manual_NZN_MSN_04_ShieldMS]
+@copyFromSection:template_ManualWeapon
+pos:7
+text:Shield missiles
+text_zh:盾牌导弹
+description:CD: ${NZN_MSN_04_ShieldMS_CD}s
+description_zh:冷却: ${NZN_MSN_04_ShieldMS_CD}秒
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Missile_1.png
+isVisible:if ${manualControlReady}
+isLocked:if not (${manualWeaponReady} and (self.timeAlive>memory.NZN_MSN_04_ShieldMS_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armLBreaked==false and self.shield>0 and ${onSkill}==false and self.resource.EN>0 and self.shield>0) and (true) and self.resource.EN>=${NZN_MSN_04_ShieldMS_EN})
+requireConditional:if ${manualWeaponReady} and (self.timeAlive>memory.NZN_MSN_04_ShieldMS_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armLBreaked==false and self.shield>0 and ${onSkill}==false and self.resource.EN>0 and self.shield>0) and (true) and self.resource.EN>=${NZN_MSN_04_ShieldMS_EN}
+alsoTriggerAction:NZN_MSN_04_ShieldMS_Fire
+
+[hiddenAction_NZN_MSN_04_ShieldMS_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.NZN_MSN_04_ShieldMS_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armLBreaked==false and self.shield>0  and ${onSkill}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)  and self.resource.EN>0 and self.shield>0)) or (${manualWeaponReady} and (self.timeAlive>memory.NZN_MSN_04_ShieldMS_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armLBreaked==false and self.shield>0 and ${onSkill}==false and self.resource.EN>0 and self.shield>0) and (true) and self.resource.EN>=${NZN_MSN_04_ShieldMS_EN})
+addActionCooldownTime:${NZN_MSN_04_ShieldMS_CD}s
+addActionCooldownApplyToActions:Manual_NZN_MSN_04_ShieldMS
+setUnitMemory:NZN_MSN_04_ShieldMS_CDTimer=self.timeAlive+${NZN_MSN_04_ShieldMS_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+
+[action_Manual_NZN_MSN_04_BeamHawk_AF]
+@copyFromSection:template_ManualWeapon
+pos:3
+text:Beam axe
+text_zh:光束斧
+description:CD: ${NZN_MSN_04_BeamHawk_AF_CD}s
+description_zh:冷却: ${NZN_MSN_04_BeamHawk_AF_CD}秒
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Cqb_1.png
+isVisible:if ${manualControlReady}
+isLocked:if not (${manualWeaponReady} and (self.timeAlive>memory.NZN_MSN_04_BeamHawk_AF_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false) and (true))
+requireConditional:if ${manualWeaponReady} and (self.timeAlive>memory.NZN_MSN_04_BeamHawk_AF_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false) and (true)
+alsoTriggerAction:NZN_MSN_04_BeamHawk_AF_Fire
+
+[hiddenAction_NZN_MSN_04_BeamHawk_AF_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.NZN_MSN_04_BeamHawk_AF_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50)) or (${manualWeaponReady} and (self.timeAlive>memory.NZN_MSN_04_BeamHawk_AF_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false) and (true))
+addActionCooldownTime:${NZN_MSN_04_BeamHawk_AF_CD}s
+addActionCooldownApplyToActions:Manual_NZN_MSN_04_BeamHawk_AF
+setUnitMemory:NZN_MSN_04_BeamHawk_AF_CDTimer=self.timeAlive+${NZN_MSN_04_BeamHawk_AF_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+
+[action_Manual_NZN_MSN_04_DoubleSaber]
+@copyFromSection:template_ManualWeapon
+pos:8
+text:Double beam saber
+text_zh:双刃光束军刀
+description:CD: ${NZN_MSN_04_DoubleSaber_CD}s
+description_zh:冷却: ${NZN_MSN_04_DoubleSaber_CD}秒
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Cqb_1.png
+isVisible:if ${manualControlReady}
+isLocked:if not (${manualWeaponReady} and (self.timeAlive>memory.NZN_MSN_04_DoubleSaber_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false and memory.armLBreaked==false) and (true))
+requireConditional:if ${manualWeaponReady} and (self.timeAlive>memory.NZN_MSN_04_DoubleSaber_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false and memory.armLBreaked==false) and (true)
+alsoTriggerAction:NZN_MSN_04_DoubleSaber_Fire
+
+[hiddenAction_NZN_MSN_04_DoubleSaber_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.NZN_MSN_04_DoubleSaber_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false and memory.armLBreaked==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50)) or (${manualWeaponReady} and (self.timeAlive>memory.NZN_MSN_04_DoubleSaber_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false and memory.armLBreaked==false) and (true))
+addActionCooldownTime:${NZN_MSN_04_DoubleSaber_CD}s
+addActionCooldownApplyToActions:Manual_NZN_MSN_04_DoubleSaber
+setUnitMemory:NZN_MSN_04_DoubleSaber_CDTimer=self.timeAlive+${NZN_MSN_04_DoubleSaber_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+
+[hiddenAction_Common_Push_A_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_NZN_MSN_04_BSG_Fire_Step_2]
+requireConditional:if (${cantAction}==false and memory.armRBreaked==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_NZN_MSN_04_BR_Fire_Step_3]
+requireConditional:if (${cantAction}==false and memory.armRBreaked==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_NZN_MSN_04_BR_Fire_Step_2]
+requireConditional:if (${cantAction}==false and memory.armRBreaked==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_NZN_MSN_04_HighBeamCannon_Fire_Step_3]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_NZN_MSN_04_ShieldMS_Fire_Step_3]
+requireConditional:if (${cantAction}==false and memory.armLBreaked==false and self.shield>0 and self.shield>0) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_NZN_MSN_04_ShieldMS_Fire_Step_2]
+requireConditional:if (${cantAction}==false and memory.armLBreaked==false and self.shield>0 and self.shield>0) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_NZN_MSN_04_BeamHawk_AF_Fire_Step_5]
+requireConditional:if (${cantAction}==false and memory.armRBreaked==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_NZN_MSN_04_BeamHawk_AF_Fire_Step_2]
+requireConditional:if (${cantAction}==false and memory.armRBreaked==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_NZN_MSN_04_DoubleSaber_Fire_Step_7]
+requireConditional:if (${cantAction}==false and memory.armRBreaked==false and memory.armLBreaked==false and memory.armLBreaked==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_NZN_MSN_04_DoubleSaber_Fire_Step_6]
+requireConditional:if (${cantAction}==false and memory.armRBreaked==false and memory.armLBreaked==false and memory.armRBreaked==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_NZN_MSN_04_DoubleSaber_Fire_Step_3]
+requireConditional:if (${cantAction}==false and memory.armRBreaked==false and memory.armLBreaked==false and memory.armLBreaked==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_NZN_MSN_04_DoubleSaber_Fire_Step_2]
+requireConditional:if (${cantAction}==false and memory.armRBreaked==false and memory.armLBreaked==false and memory.armRBreaked==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_NZN_MSN_04_Funnel_Trigger_ByAI]
+autoTrigger:if not memory.manualControlEnabled and (${allowAI}==true and ${cantAction}==false and memory.backpackBreaked==false and memory.NZN_MSN_04_Funnel_Units.size==0 and ${onSkill}==false and memory.close==false and self.resource.EN>${NZN_MSN_04_Funnel_EN} and self.timeAlive>memory.NZN_MSN_04_Funnel_CDTimer and self.parent.hp<=0  and self.attacking.hp>0 and memory.pilotUnit.readUnitMemory("pilotAwakeningSkillFinal",type="float")>=${NZN_MSN_04_Funnel_PilotAwakeningSkill})
+
+[action_NZN_MSN_04_Funnel_Trigger]
+pos:30
+requireConditional:if (${cantAction}==false and ${onSkill}==false and memory.backpackBreaked==false and memory.NZN_MSN_04_Funnel_Units.size==0 and self.timeAlive>memory.NZN_MSN_04_Funnel_CDTimer) and (not memory.manualControlEnabled or ${manualWeaponReady})
+
+[hiddenAction_NZN_MSN_04_Funnel_Fire_Step_1]
+requireConditional:if (${cantAction}==false and memory.backpackBreaked==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_NZN_MSN_04_Funnel_Fire_Step_2]
+requireConditional:if (${cantAction}==false and memory.backpackBreaked==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_ManualControl_CancelSpecialWeapons]
+requireConditional:if ${onSkill}
+alsoTriggerAction:SetOnSkillOff

@@ -1,0 +1,3 @@
+[core]
+copyFrom:ROOT:Units/BattleUnits/Weapon/Manual/Common_DoubleVulcan_MS_Lv3_Manual.gw
+dont_load:true

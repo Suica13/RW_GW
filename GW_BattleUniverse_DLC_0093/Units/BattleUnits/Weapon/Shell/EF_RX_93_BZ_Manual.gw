@@ -1,0 +1,28 @@
+[core]
+copyFrom:ROOT:Units/BattleUnits/Weapon/Shell/EF_RX_93_BZ.gw
+dont_load:true
+
+# V5-style button; BU damage, EN, cooldown and firing steps are inherited.
+[action_Manual_EF_RX_93_BZ]
+@copyFromSection:template_ManualWeapon
+pos:12
+text:Hyper bazooka
+text_zh:新高能火箭筒
+description:CD: ${EF_RX_93_BZ_CD}s
+description_zh:冷却: ${EF_RX_93_BZ_CD}秒
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Bazooka_1.png
+requireConditional:if ${manualWeaponReady} and not memory.armRBreaked and self.resource.EN>=${EF_RX_93_BZ_EN} and self.timeAlive>memory.EF_RX_93_BZ_CDTimer
+isLocked:if not (${manualWeaponReady} and not memory.armRBreaked and self.resource.EN>=${EF_RX_93_BZ_EN})
+isLockedAlt2:if self.timeAlive<=memory.EF_RX_93_BZ_CDTimer
+isLockedAlt2Message:Weapon cooling down
+isLockedAlt2Message_zh:武器冷却中
+alsoTriggerAction:EF_RX_93_BZ_Fire
+
+[hiddenAction_EF_RX_93_BZ_Fire]
+requireConditional:if self.timeAlive>memory.EF_RX_93_BZ_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armRBreaked==false  and ${onSkill}==false and (memory.manualControlEnabled or not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)) and self.resource.EN>0 and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive'))) and self.timeAlive>memory.manualInputBusyUntil and self.resource.EN>=${EF_RX_93_BZ_EN}
+addActionCooldownTime:${EF_RX_93_BZ_CD}s
+addActionCooldownApplyToActions:Manual_EF_RX_93_BZ
+setUnitMemory:EF_RX_93_BZ_CDTimer=self.timeAlive+${EF_RX_93_BZ_CD},manualInputBusyUntil=self.timeAlive+0.15
+
+[hiddenAction_EF_RX_93_BZ_Fire_Step_2]
+requireConditional:if ${cantAction}==false and memory.armRBreaked==false and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
