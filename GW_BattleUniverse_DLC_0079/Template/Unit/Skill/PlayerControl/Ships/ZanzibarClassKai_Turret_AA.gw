@@ -5,10 +5,11 @@ dont_load:true
 @memory manualShipSerial:float
 @memory manualShipOrderUntil:float
 @memory manualShipRemaining:float
+@memory manualShipNextShotAt:float
 @memory manualShipReserved:bool
 @memory manualShipPermitControlled:bool
 @global manualShipAuthorized=(parent.hp>0 and self.hp>0 and not memory.breaked and parent.teamId==self.teamId and parent.hasTags(includes='ManualControlled') and not parent.hasTags(includes='inHangar') and memory.manualShipHQ.hp>0 and memory.manualShipHQ.teamId==self.teamId and memory.manualShipHQ.hasTags(includes='HQ_NotCaptured') and memory.manualShipHQ.readUnitMemory('manualControlledUnit',type='unit')==parent and parent.readUnitMemory('manualControlHQ',type='unit')==memory.manualShipHQ and parent.readUnitMemory('manualVulcanSerial',type='float')==memory.manualShipSerial and not parent.readUnitMemory('battleUnitCore',type='unit').readUnitMemory('cantAction',type='bool') and not parent.readUnitMemory('battleUnitCore',type='unit').readUnitMemory('onSkill',type='bool'))
-@global manualShipOrderReady=((parent.hp>0 and self.hp>0 and not memory.breaked and parent.teamId==self.teamId and parent.hasTags(includes='ManualControlled') and not parent.hasTags(includes='inHangar') and memory.manualShipHQ.hp>0 and memory.manualShipHQ.teamId==self.teamId and memory.manualShipHQ.hasTags(includes='HQ_NotCaptured') and memory.manualShipHQ.readUnitMemory('manualControlledUnit',type='unit')==parent and parent.readUnitMemory('manualControlHQ',type='unit')==memory.manualShipHQ and parent.readUnitMemory('manualVulcanSerial',type='float')==memory.manualShipSerial and not parent.readUnitMemory('battleUnitCore',type='unit').readUnitMemory('cantAction',type='bool') and not parent.readUnitMemory('battleUnitCore',type='unit').readUnitMemory('onSkill',type='bool')) and self.timeAlive<memory.manualShipOrderUntil and memory.manualShipRemaining>0 and memory.manualShipTarget.hp>0 and self.attacking==memory.manualShipTarget and not memory.manualShipTarget.hasTags(includes='UnDetected') and distanceBetween(self,memory.manualShipTarget)<=600)
+@global manualShipOrderReady=((parent.hp>0 and self.hp>0 and not memory.breaked and parent.teamId==self.teamId and parent.hasTags(includes='ManualControlled') and not parent.hasTags(includes='inHangar') and memory.manualShipHQ.hp>0 and memory.manualShipHQ.teamId==self.teamId and memory.manualShipHQ.hasTags(includes='HQ_NotCaptured') and memory.manualShipHQ.readUnitMemory('manualControlledUnit',type='unit')==parent and parent.readUnitMemory('manualControlHQ',type='unit')==memory.manualShipHQ and parent.readUnitMemory('manualVulcanSerial',type='float')==memory.manualShipSerial and not parent.readUnitMemory('battleUnitCore',type='unit').readUnitMemory('cantAction',type='bool') and not parent.readUnitMemory('battleUnitCore',type='unit').readUnitMemory('onSkill',type='bool')) and self.timeAlive<memory.manualShipOrderUntil and memory.manualShipRemaining>0 and (self.attacking.hp<=0 or (self.attacking.hp>0 and not self.attacking.hasTags(includes='UnDetected') and distanceBetween(self,self.attacking)<=600)))
 
 [resource_ManualShipShotPermit]
 hidden:true
@@ -16,14 +17,14 @@ hidden:true
 # Shared 0079/0087 turret IDs must use the same existing fire-order message protocol.
 [hiddenAction_ManualShip_Order]
 autoTriggerOnEvent:newMessage(withTag='ManualShip_0087_AA')
-requireConditional:if eventData('owner',type='unit')==parent and parent.hasTags(includes='ManualControlled') and eventData('controller',type='unit').hp>0 and eventData('controller',type='unit').readUnitMemory('manualControlledUnit',type='unit')==parent and eventData('serial',type='float')==parent.readUnitMemory('manualVulcanSerial',type='float') and self.hp>0 and not memory.breaked and self.attacking.hp>0 and not self.attacking.hasTags(includes='UnDetected') and not memory.ZanzibarClassKai_Turret_AA_OnCD and self.resource.ZanzibarClassKai_Turret_AA_ShootTimer>0 and memory.manualShipRemaining<=0
+requireConditional:if eventData('owner',type='unit')==parent and parent.hasTags(includes='ManualControlled') and eventData('controller',type='unit').hp>0 and eventData('controller',type='unit').readUnitMemory('manualControlledUnit',type='unit')==parent and eventData('serial',type='float')==parent.readUnitMemory('manualVulcanSerial',type='float') and self.hp>0 and not memory.breaked and not memory.ZanzibarClassKai_Turret_AA_OnCD and self.resource.ZanzibarClassKai_Turret_AA_ShootTimer>0 and memory.manualShipRemaining<=0
 setUnitMemory:manualShipTarget=self.attacking,manualShipHQ=eventData('controller',type='unit'),manualShipSerial=eventData('serial',type='float'),manualShipOrderUntil=self.timeAlive+5,manualShipRemaining=self.resource.ZanzibarClassKai_Turret_AA_ShootTimer
 
 # Native resourceUsage is checked at firing, separately from native target/arc selection.
 # Prepay one shot atomically; cancelled unused permission returns the same EN cost.
 [hiddenAction_ManualShip_ReserveShot]
 autoTriggerCheckRate:everyFrame
-autoTrigger:if self.hp>0 and parent.hp>0 and not memory.breaked and not parent.hasTags(includes='inHangar') and not memory.manualShipReserved and self.resource.ManualShipShotPermit<=0 and self.attacking.hp>0 and not self.attacking.hasTags(includes='UnDetected') and distanceBetween(self,self.attacking)<=600 and not memory.ZanzibarClassKai_Turret_AA_OnCD and self.resource.ZanzibarClassKai_Turret_AA_ShootTimer>0 and (${onAttacking}==false and ${cantAction}==false  and parent.resource().en>0) and (not parent.hasTags(includes='ManualControlled') or ${manualShipOrderReady})
+autoTrigger:if (not parent.hasTags(includes='ManualControlled') or self.timeAlive>=memory.manualShipNextShotAt) and self.hp>0 and parent.hp>0 and not memory.breaked and not parent.hasTags(includes='inHangar') and not memory.manualShipReserved and self.resource.ManualShipShotPermit<=0 and (self.attacking.hp>0 and not self.attacking.hasTags(includes='UnDetected') and distanceBetween(self,self.attacking)<=600 or (parent.hasTags(includes='ManualControlled') and self.attacking.hp<=0)) and not memory.ZanzibarClassKai_Turret_AA_OnCD and self.resource.ZanzibarClassKai_Turret_AA_ShootTimer>0 and (${onAttacking}==false and ${cantAction}==false  and parent.resource().en>0) and (not parent.hasTags(includes='ManualControlled') or ${manualShipOrderReady})
 takeResources:EN=${ZanzibarClassKai_Turret_AA_EN}
 takeResources_includeParent:true
 takeResources_excludeUnitsWithoutAllResources:true
@@ -35,8 +36,10 @@ takeResources_triggerActionIfAnyCollected:ManualShip_Permit
 setUnitMemory:manualShipReserved=true,manualShipPermitControlled=parent.hasTags(includes='ManualControlled')
 setResourcesWithLogic:ManualShipShotPermit=1
 
+alsoTriggerAction:ManualShip_BlindShot
+
 [hiddenAction_ManualShip_Consumed]
-setUnitMemory:manualShipReserved=false,manualShipRemaining=max(0,memory.manualShipRemaining-1)
+setUnitMemory:manualShipReserved=false,manualShipRemaining=max(0,memory.manualShipRemaining-1),manualShipNextShotAt=self.timeAlive+0.1
 
 [hiddenAction_ManualShip_Refund]
 requireConditional:if memory.manualShipReserved and self.resource.ManualShipShotPermit>0
@@ -54,14 +57,32 @@ alsoTriggerAction:ManualShip_Refund
 
 [hiddenAction_ManualShip_Cancel]
 autoTriggerCheckRate:everyFrame
-autoTrigger:if (memory.manualShipOrderUntil>0 and (not ${manualShipOrderReady})) or (memory.manualShipReserved and (self.hp<=0 or parent.hp<=0 or memory.breaked or self.attacking.hp<=0 or self.attacking.hasTags(includes='UnDetected') or distanceBetween(self,self.attacking)>600 or parent.hasTags(includes='inHangar') or memory.manualShipPermitControlled!=parent.hasTags(includes='ManualControlled')))
+autoTrigger:if (memory.manualShipOrderUntil>0 and (not ${manualShipOrderReady})) or (memory.manualShipReserved and (self.hp<=0 or parent.hp<=0 or memory.breaked or (not parent.hasTags(includes='ManualControlled') and (self.attacking.hp<=0 or self.attacking.hasTags(includes='UnDetected') or distanceBetween(self,self.attacking)>600)) or parent.hasTags(includes='inHangar') or memory.manualShipPermitControlled!=parent.hasTags(includes='ManualControlled')))
 setUnitMemory:manualShipOrderUntil=0,manualShipRemaining=0
 alsoTriggerAction:ManualShip_Refund
 
 [turret_ZanzibarClassKai_Turret_AA]
-canAttackCondition:if (${onAttacking}==false and ${cantAction}==false  and (parent.resource().en>0 or memory.manualShipReserved)) and (not memory.manualShipReserved or not parent.hasTags(includes='ManualControlled') or ${manualShipOrderReady})
+canAttackCondition:if (not parent.hasTags(includes='ManualControlled') or self.timeAlive>=memory.manualShipNextShotAt) and ((${onAttacking}==false and ${cantAction}==false  and (parent.resource().en>0 or memory.manualShipReserved)) and (not memory.manualShipReserved or not parent.hasTags(includes='ManualControlled') or ${manualShipOrderReady}))
 resourceUsage:ZanzibarClassKai_Turret_AA_ShootTimer=1,ManualShipShotPermit=1
 onShoot_triggerActions:ManualShip_Consumed
 
 [hiddenAction_ZanzibarClassKai_Turret_AA_CDStart]
 autoTrigger:if (memory.ZanzibarClassKai_Turret_AA_OnCD==false and (    (        self.resource.ZanzibarClassKai_Turret_AA_ShootTimer<=0     )     or     (        self.resource.ZanzibarClassKai_Turret_AA_ShootTimer<${ZanzibarClassKai_Turret_AA_Shoot} and not self.hasTags(includes='inBattle')    ))) and (not parent.hasTags(includes='ManualControlled') or memory.manualShipRemaining<=0 or self.timeAlive>=memory.manualShipOrderUntil)
+
+# No target: force the original muzzle to fire, preserving the engine's actual turret angle.
+# Forced shots bypass resourceUsage and native shot-delay timers, so account for both explicitly.
+[hiddenAction_ManualShip_BlindShot]
+autoTriggerCheckRate:everyFrame
+autoTrigger:if self.attacking.hp<=0 and memory.manualShipReserved and self.resource.ManualShipShotPermit>0 and self.timeAlive>=memory.manualShipNextShotAt and ${manualShipOrderReady} and ((${onAttacking}==false and ${cantAction}==false  and (parent.resource().en>0 or memory.manualShipReserved)) and (not memory.manualShipReserved or not parent.hasTags(includes='ManualControlled') or ${manualShipOrderReady}))
+requireConditional:if self.attacking.hp<=0 and memory.manualShipReserved and self.resource.ManualShipShotPermit>0 and self.resource.ZanzibarClassKai_Turret_AA_ShootTimer>0 and self.timeAlive>=memory.manualShipNextShotAt and ${manualShipOrderReady} and ((${onAttacking}==false and ${cantAction}==false  and (parent.resource().en>0 or memory.manualShipReserved)) and (not memory.manualShipReserved or not parent.hasTags(includes='ManualControlled') or ${manualShipOrderReady}))
+addResources:ZanzibarClassKai_Turret_AA_ShootTimer=-1,ManualShipShotPermit=-1
+fireTurretXAtGround:ZanzibarClassKai_Turret_AA
+fireTurretXAtGround_withTarget:self
+fireTurretXAtGround_withProjectile:ManualShip_Blind_ZanzibarClassKai_Turret_AA_Projectile
+
+# Native firing seeds az from the turret barrel. Prevent the zero-life emitter from turning
+# toward the dummy ground coordinate before it spawns the unchanged Battle Universe projectile unit.
+[projectile_ManualShip_Blind_ZanzibarClassKai_Turret_AA_Projectile]
+@copyFromSection:projectile_ZanzibarClassKai_Turret_AA_Projectile
+turnSpeed:0
+turnSpeedWhenNear:0

@@ -54,12 +54,12 @@ sendMessageTo:self.attachment(slot='TMF_A_802_Turret_M1')
 [action_ManualShip_Shell]
 alsoTriggerAction:ManualShip_Send_TMF_A_802_Turret_M1
 requireConditional:if ${manualAuxiliaryReady} and ${onSkill}==false
-isLocked:if not ${manualAuxiliaryReady} or ${onSkill} or (select(self.attachment(slot='TMF_A_802_Turret_M1').hp>0 and self.attachment(slot='TMF_A_802_Turret_M1').attacking.hp>0 and not self.attachment(slot='TMF_A_802_Turret_M1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='TMF_A_802_Turret_M1').readUnitMemory('TMF_A_802_Turret_Railgun_OnCD',type='bool') and self.attachment(slot='TMF_A_802_Turret_M1').resource.TMF_A_802_Turret_Railgun_ShootTimer>0,1,0))<=0 or self.resource.EN<=0
+isLocked:if not ${manualAuxiliaryReady} or ${onSkill} or (select(self.attachment(slot='TMF_A_802_Turret_M1').hp>0 and not self.attachment(slot='TMF_A_802_Turret_M1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='TMF_A_802_Turret_M1').readUnitMemory('TMF_A_802_Turret_Railgun_OnCD',type='bool') and self.attachment(slot='TMF_A_802_Turret_M1').resource.TMF_A_802_Turret_Railgun_ShootTimer>0,1,0))<=0 or self.resource.EN<=0
 iconImage:ROOT:Resource/Image/Units/Button/Weapon/Missile_1.png
-description_zh:命令已有瞄准目标的就绪炮位开火；各炮塔保持独立锁定，无目标、损坏或装填中的炮位跳过。
-description:Order ready turrets with existing targets to fire. Each turret keeps its own target.
-text_zh:舰炮齐射 [%{select(self.attachment(slot='TMF_A_802_Turret_M1').hp>0 and self.attachment(slot='TMF_A_802_Turret_M1').attacking.hp>0 and not self.attachment(slot='TMF_A_802_Turret_M1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='TMF_A_802_Turret_M1').readUnitMemory('TMF_A_802_Turret_Railgun_OnCD',type='bool') and self.attachment(slot='TMF_A_802_Turret_M1').resource.TMF_A_802_Turret_Railgun_ShootTimer>0,1,0)}/1]
-text:Cannon salvo [%{select(self.attachment(slot='TMF_A_802_Turret_M1').hp>0 and self.attachment(slot='TMF_A_802_Turret_M1').attacking.hp>0 and not self.attachment(slot='TMF_A_802_Turret_M1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='TMF_A_802_Turret_M1').readUnitMemory('TMF_A_802_Turret_Railgun_OnCD',type='bool') and self.attachment(slot='TMF_A_802_Turret_M1').resource.TMF_A_802_Turret_Railgun_ShootTimer>0,1,0)}/1]
+description_zh:命令就绪炮位开火；有目标时各自瞄准，无目标时沿炮塔当前朝向发射。损坏或装填中的炮位跳过。
+description:Order ready turrets to fire. Each turret aims at its own target; without a target it fires along its current barrel direction.
+text_zh:舰炮齐射 [%{select(self.attachment(slot='TMF_A_802_Turret_M1').hp>0 and not self.attachment(slot='TMF_A_802_Turret_M1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='TMF_A_802_Turret_M1').readUnitMemory('TMF_A_802_Turret_Railgun_OnCD',type='bool') and self.attachment(slot='TMF_A_802_Turret_M1').resource.TMF_A_802_Turret_Railgun_ShootTimer>0,1,0)}/1]
+text:Cannon salvo [%{select(self.attachment(slot='TMF_A_802_Turret_M1').hp>0 and not self.attachment(slot='TMF_A_802_Turret_M1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='TMF_A_802_Turret_M1').readUnitMemory('TMF_A_802_Turret_Railgun_OnCD',type='bool') and self.attachment(slot='TMF_A_802_Turret_M1').resource.TMF_A_802_Turret_Railgun_ShootTimer>0,1,0)}/1]
 pos:2
 @copyFromSection:template_ManualWeapon
 
@@ -71,12 +71,12 @@ sendMessageTo:self.attachment(slot='TMF_A_802_Turret_M2')
 [action_ManualShip_Torpedo]
 alsoTriggerAction:ManualShip_Send_TMF_A_802_Turret_M2
 requireConditional:if ${manualAuxiliaryReady} and ${onSkill}==false
-isLocked:if not ${manualAuxiliaryReady} or ${onSkill} or (select(self.attachment(slot='TMF_A_802_Turret_M2').hp>0 and self.attachment(slot='TMF_A_802_Turret_M2').attacking.hp>0 and not self.attachment(slot='TMF_A_802_Turret_M2').readUnitMemory('breaked',type='bool') and not self.attachment(slot='TMF_A_802_Turret_M2').readUnitMemory('TMF_A_802_Turret_MS_OnCD',type='bool') and self.attachment(slot='TMF_A_802_Turret_M2').resource.TMF_A_802_Turret_MS_ShootTimer>0,1,0))<=0 or self.resource.EN<=0
+isLocked:if not ${manualAuxiliaryReady} or ${onSkill} or (select(self.attachment(slot='TMF_A_802_Turret_M2').hp>0 and not self.attachment(slot='TMF_A_802_Turret_M2').readUnitMemory('breaked',type='bool') and not self.attachment(slot='TMF_A_802_Turret_M2').readUnitMemory('TMF_A_802_Turret_MS_OnCD',type='bool') and self.attachment(slot='TMF_A_802_Turret_M2').resource.TMF_A_802_Turret_MS_ShootTimer>0,1,0))<=0 or self.resource.EN<=0
 iconImage:ROOT:Resource/Image/Units/Button/Weapon/Missile_1.png
-description_zh:命令已有瞄准目标的就绪炮位开火；各炮塔保持独立锁定，无目标、损坏或装填中的炮位跳过。
-description:Order ready turrets with existing targets to fire. Each turret keeps its own target.
-text_zh:导弹／鱼雷齐射 [%{select(self.attachment(slot='TMF_A_802_Turret_M2').hp>0 and self.attachment(slot='TMF_A_802_Turret_M2').attacking.hp>0 and not self.attachment(slot='TMF_A_802_Turret_M2').readUnitMemory('breaked',type='bool') and not self.attachment(slot='TMF_A_802_Turret_M2').readUnitMemory('TMF_A_802_Turret_MS_OnCD',type='bool') and self.attachment(slot='TMF_A_802_Turret_M2').resource.TMF_A_802_Turret_MS_ShootTimer>0,1,0)}/1]
-text:Missile / torpedo salvo [%{select(self.attachment(slot='TMF_A_802_Turret_M2').hp>0 and self.attachment(slot='TMF_A_802_Turret_M2').attacking.hp>0 and not self.attachment(slot='TMF_A_802_Turret_M2').readUnitMemory('breaked',type='bool') and not self.attachment(slot='TMF_A_802_Turret_M2').readUnitMemory('TMF_A_802_Turret_MS_OnCD',type='bool') and self.attachment(slot='TMF_A_802_Turret_M2').resource.TMF_A_802_Turret_MS_ShootTimer>0,1,0)}/1]
+description_zh:命令就绪炮位开火；有目标时各自瞄准，无目标时沿炮塔当前朝向发射。损坏或装填中的炮位跳过。
+description:Order ready turrets to fire. Each turret aims at its own target; without a target it fires along its current barrel direction.
+text_zh:导弹／鱼雷齐射 [%{select(self.attachment(slot='TMF_A_802_Turret_M2').hp>0 and not self.attachment(slot='TMF_A_802_Turret_M2').readUnitMemory('breaked',type='bool') and not self.attachment(slot='TMF_A_802_Turret_M2').readUnitMemory('TMF_A_802_Turret_MS_OnCD',type='bool') and self.attachment(slot='TMF_A_802_Turret_M2').resource.TMF_A_802_Turret_MS_ShootTimer>0,1,0)}/1]
+text:Missile / torpedo salvo [%{select(self.attachment(slot='TMF_A_802_Turret_M2').hp>0 and not self.attachment(slot='TMF_A_802_Turret_M2').readUnitMemory('breaked',type='bool') and not self.attachment(slot='TMF_A_802_Turret_M2').readUnitMemory('TMF_A_802_Turret_MS_OnCD',type='bool') and self.attachment(slot='TMF_A_802_Turret_M2').resource.TMF_A_802_Turret_MS_ShootTimer>0,1,0)}/1]
 pos:3
 @copyFromSection:template_ManualWeapon
 
