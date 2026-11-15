@@ -18,7 +18,7 @@ alwaysSinglePress:true
 ai_isDisabled:true
 extraLagHidingInUI:true
 
-displayType:infoOnly
+displayType:action
 
 text:Enter Deploy Mode
 text_zh:进入部署模式
@@ -69,3 +69,4 @@ iconImage:ROOT:Resource/Image/Units/Button/Action/Transform_2.png
 #convertTo:
 
 setUnitMemory:styleIndex=0
+displayType:action

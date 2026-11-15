@@ -145,7 +145,7 @@ text:Incom Anti-Beam Unit[Follow] %{select(self.timeAlive<=memory.AEUG_MSA_0011_
 text_zh:线控反射单元[跟随] %{select(self.timeAlive<=memory.AEUG_MSA_0011_Ext_AntiBeamIncom_CDTimer,str(int(memory.AEUG_MSA_0011_Ext_AntiBeamIncom_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 price:EN=${AEUG_MSA_0011_Ext_AntiBeamIncom_EN} 
 

@@ -76,7 +76,7 @@ text:Fuse %{select(self.timeAlive<=memory.Common_Fuse_A_CDTimer,str(int(memory.C
 text_zh:组合 %{select(self.timeAlive<=memory.Common_Fuse_A_CDTimer,str(int(memory.Common_Fuse_A_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 buildSpeed:0s
 allowMultipleInQueue:false

@@ -11,3 +11,4 @@ SetOnSkillOn,
 Common_Dash_Attack_SetWeaponIndex,
 Common_Dash_Attack_Step_1
 """
+displayType:action

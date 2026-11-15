@@ -78,7 +78,7 @@ text:MSL[AMS] %{select(self.timeAlive<=memory.EF_GP_03D_MSL_AMS_CDTimer,str(int(
 text_zh:导弹货柜[AMS] %{select(self.timeAlive<=memory.EF_GP_03D_MSL_AMS_CDTimer,str(int(memory.EF_GP_03D_MSL_AMS_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 buildSpeed:0s
 allowMultipleInQueue:false

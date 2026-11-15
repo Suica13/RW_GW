@@ -207,7 +207,7 @@ text:Sniper %{select(self.timeAlive<=memory.ZN_135mmAntiShipSniper_Sniper_CDTime
 text_zh:狙击 %{select(self.timeAlive<=memory.ZN_135mmAntiShipSniper_Sniper_CDTimer,str(int(memory.ZN_135mmAntiShipSniper_Sniper_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 buildSpeed:0s
 allowMultipleInQueue:false

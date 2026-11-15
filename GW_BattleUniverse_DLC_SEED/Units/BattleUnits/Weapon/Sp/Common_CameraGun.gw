@@ -123,7 +123,7 @@ text:CameraGun %{select(self.timeAlive<=memory.Common_CameraGun_CDTimer,str(int(
 text_zh:摄像枪 %{select(self.timeAlive<=memory.Common_CameraGun_CDTimer,str(int(memory.Common_CameraGun_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 price:EN=${Common_CameraGun_EN} 
 

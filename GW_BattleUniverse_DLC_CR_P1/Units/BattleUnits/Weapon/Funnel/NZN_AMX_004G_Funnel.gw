@@ -80,7 +80,7 @@ text:Funnel[LockOn] %{select(self.timeAlive<=memory.NZN_AMX_004G_Funnel_CDTimer,
 text_zh:浮游炮[锁定] %{select(self.timeAlive<=memory.NZN_AMX_004G_Funnel_CDTimer,str(int(memory.NZN_AMX_004G_Funnel_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 price:EN=${NZN_AMX_004G_Funnel_EN} 
 

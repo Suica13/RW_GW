@@ -1,0 +1,158 @@
+[core]
+@memory manualShipArcGroup:float
+dont_load:true
+@global manualControlImplemented=true
+@memory manualVulcanRightNext:bool
+copyFrom:ROOT:Template/Unit/Skill/PlayerControl.gw,ROOT:Units/BattleUnits/TMF_A_802/PlayerControl/Ships/Arcs_448285264717.gw
+
+# Instance overrides keep native weapon sequences, equipment and damage definitions.
+
+[hiddenAction_Common_Push_A_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_EF_BeamSaber_BF_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)<=60   and memory.headBreaked==false)
+
+[hiddenAction_EF_BeamSaber_BF_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_EF_BeamSaber_BF_Fire_Step_5]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_ManualControl_CancelSpecialWeapons]
+requireConditional:true
+alsoTriggerAction:ManualShip_HoldAll,SetOnSkillOff
+
+[action_Manual_EF_BeamSaber_BF]
+@copyFromSection:template_ManualWeapon
+pos:3
+text:Beam saber
+text_zh:光束军刀
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Cqb_1.png
+isVisible:if ${manualControlReady} and ((((memory.headBreaked==false))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.EF_BeamSaber_BF_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.headBreaked==false)))))
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.EF_BeamSaber_BF_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.headBreaked==false))))
+alsoTriggerAction:EF_BeamSaber_BF_Fire
+displayType:action
+
+[hiddenAction_EF_BeamSaber_BF_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.EF_BeamSaber_BF_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50)) or (${manualWeaponReady} and ((self.timeAlive>memory.EF_BeamSaber_BF_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.headBreaked==false)))))
+setUnitMemory:EF_BeamSaber_BF_CDTimer=self.timeAlive+${EF_BeamSaber_BF_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${EF_BeamSaber_BF_CD}s
+addActionCooldownApplyToActions:Manual_EF_BeamSaber_BF
+
+[action_ManualShip_Beam]
+requireConditional:false
+isVisible:false
+
+[hiddenAction_ManualShip_Send_TMF_A_802_Turret_M1]
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+sendMessageWithTags:ManualShip_0087_Shell
+sendMessageTo:self.attachment(slot='TMF_A_802_Turret_M1')
+
+[action_ManualShip_Shell]
+alsoTriggerAction:ManualShip_Send_TMF_A_802_Turret_M1
+requireConditional:if ${manualAuxiliaryReady} and ${onSkill}==false
+isLocked:if not ${manualAuxiliaryReady} or ${onSkill} or (select(self.attachment(slot='TMF_A_802_Turret_M1').hp>0 and not self.attachment(slot='TMF_A_802_Turret_M1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='TMF_A_802_Turret_M1').readUnitMemory('TMF_A_802_Turret_Railgun_OnCD',type='bool') and self.attachment(slot='TMF_A_802_Turret_M1').resource.TMF_A_802_Turret_Railgun_ShootTimer>0,1,0))<=0 or self.resource.EN<=0
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Missile_1.png
+description_zh:命令就绪炮位开火；有目标时各自瞄准，无目标时沿炮塔当前朝向发射。损坏或装填中的炮位跳过。
+description:Order ready turrets to fire. Each turret aims at its own target; without a target it fires along its current barrel direction.
+text_zh:舰炮齐射 [%{select(self.attachment(slot='TMF_A_802_Turret_M1').hp>0 and not self.attachment(slot='TMF_A_802_Turret_M1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='TMF_A_802_Turret_M1').readUnitMemory('TMF_A_802_Turret_Railgun_OnCD',type='bool') and self.attachment(slot='TMF_A_802_Turret_M1').resource.TMF_A_802_Turret_Railgun_ShootTimer>0,1,0)}/1]
+text:Cannon salvo [%{select(self.attachment(slot='TMF_A_802_Turret_M1').hp>0 and not self.attachment(slot='TMF_A_802_Turret_M1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='TMF_A_802_Turret_M1').readUnitMemory('TMF_A_802_Turret_Railgun_OnCD',type='bool') and self.attachment(slot='TMF_A_802_Turret_M1').resource.TMF_A_802_Turret_Railgun_ShootTimer>0,1,0)}/1]
+pos:2
+@copyFromSection:template_ManualWeapon
+displayType:action
+
+[hiddenAction_ManualShip_Send_TMF_A_802_Turret_M2]
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+sendMessageWithTags:ManualShip_0087_Torpedo
+sendMessageTo:self.attachment(slot='TMF_A_802_Turret_M2')
+
+[action_ManualShip_Torpedo]
+alsoTriggerAction:ManualShip_Send_TMF_A_802_Turret_M2
+requireConditional:if ${manualAuxiliaryReady} and ${onSkill}==false
+isLocked:if not ${manualAuxiliaryReady} or ${onSkill} or (select(self.attachment(slot='TMF_A_802_Turret_M2').hp>0 and not self.attachment(slot='TMF_A_802_Turret_M2').readUnitMemory('breaked',type='bool') and not self.attachment(slot='TMF_A_802_Turret_M2').readUnitMemory('TMF_A_802_Turret_MS_OnCD',type='bool') and self.attachment(slot='TMF_A_802_Turret_M2').resource.TMF_A_802_Turret_MS_ShootTimer>0,1,0))<=0 or self.resource.EN<=0
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Missile_1.png
+description_zh:命令就绪炮位开火；有目标时各自瞄准，无目标时沿炮塔当前朝向发射。损坏或装填中的炮位跳过。
+description:Order ready turrets to fire. Each turret aims at its own target; without a target it fires along its current barrel direction.
+text_zh:导弹／鱼雷齐射 [%{select(self.attachment(slot='TMF_A_802_Turret_M2').hp>0 and not self.attachment(slot='TMF_A_802_Turret_M2').readUnitMemory('breaked',type='bool') and not self.attachment(slot='TMF_A_802_Turret_M2').readUnitMemory('TMF_A_802_Turret_MS_OnCD',type='bool') and self.attachment(slot='TMF_A_802_Turret_M2').resource.TMF_A_802_Turret_MS_ShootTimer>0,1,0)}/1]
+text:Missile / torpedo salvo [%{select(self.attachment(slot='TMF_A_802_Turret_M2').hp>0 and not self.attachment(slot='TMF_A_802_Turret_M2').readUnitMemory('breaked',type='bool') and not self.attachment(slot='TMF_A_802_Turret_M2').readUnitMemory('TMF_A_802_Turret_MS_OnCD',type='bool') and self.attachment(slot='TMF_A_802_Turret_M2').resource.TMF_A_802_Turret_MS_ShootTimer>0,1,0)}/1]
+pos:3
+@copyFromSection:template_ManualWeapon
+displayType:action
+
+[action_ManualShip_AA]
+requireConditional:false
+isVisible:false
+
+[hiddenAction_ManualShip_Hold_TMF_A_802_Turret_M1]
+sendMessageWithData:owner=self
+sendMessageWithTags:ManualShip_Hold
+sendMessageTo:self.attachment(slot='TMF_A_802_Turret_M1')
+
+[hiddenAction_ManualShip_Hold_TMF_A_802_Turret_M2]
+sendMessageWithData:owner=self
+sendMessageWithTags:ManualShip_Hold
+sendMessageTo:self.attachment(slot='TMF_A_802_Turret_M2')
+
+[hiddenAction_ManualShip_HoldAll]
+alsoTriggerAction:ManualShip_Hold_TMF_A_802_Turret_M1,ManualShip_Hold_TMF_A_802_Turret_M2
+
+[action_ManualShip_ArcGroup]
+setUnitMemory:manualShipArcGroup=(memory.manualShipArcGroup+1)%3
+requireConditional:if ${manualControlReady}
+isLocked:false
+description_zh:切换各炮组射界／关闭。仅选中时显示；装填中的炮位调暗。
+description:Cycle firing-arc group / off. Only shown while selected.
+text_zh:射界：%{select(memory.manualShipArcGroup==0,'舰炮齐射',select(memory.manualShipArcGroup==1,'导弹／鱼雷齐射','关闭'))}
+text:Firing arcs
+pos:70
+@copyFromSection:template_ManualWeapon
+
+[hiddenAction_TryAttack]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_AttackMode_Cqb_WhenHasTarget]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_LowPartsForceCqbMode]
+requireConditional:if not memory.manualControlEnabled and (memory.attackMode==0 and memory.armLBreaked==true and memory.armRBreaked==true)
+
+[hiddenAction_ResetTargetTags_Step2]
+alsoTriggerAction:ManualControl_AfterTransform,ManualControl_RestoreGuard
+
+[action_ChangeAttackRuleMode_Free]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Guard]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Hold]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==2 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Shoot]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Cqb]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_AllowAIOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAI}==false and not self.hasTags(includes='inHangar'))
+
+[action_AllowAssignedOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAssigned}==false and not self.hasTags(includes='inHangar'))
+
+[resource_TMF_A_802_Turret_MS_ShootTimer]
+hidden:true
+
+[resource_TMF_A_802_Turret_Railgun_ShootTimer]
+hidden:true

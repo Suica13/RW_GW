@@ -191,7 +191,7 @@ alwaysSinglePress:true
 ai_isDisabled:true
 extraLagHidingInUI:true
 
-displayType:infoOnly
+displayType:action
 
 text:SwitchON PSA
 text_zh:开启 PS装甲
@@ -233,7 +233,7 @@ setUnitMemory:"""
 PSASwitchBool=false,
 PSASwitchCD=self.timeAlive+3
 """
-
+displayType:action
 
 [decal_Crotch]
 isVisible:if memory.PSAActive==false

@@ -170,7 +170,7 @@ text:Bombing[MK-82] %{select(self.timeAlive<=memory.EF_RX_78GP02A_Bombing_Nuke_C
 text_zh:轰炸[MK-82] %{select(self.timeAlive<=memory.EF_RX_78GP02A_Bombing_Nuke_CDTimer,str(int(memory.EF_RX_78GP02A_Bombing_Nuke_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 buildSpeed:0s
 allowMultipleInQueue:false

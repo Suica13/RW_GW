@@ -62,11 +62,11 @@ life: 0
 explodeOnEndOfLife:true
 speed: 0
 lightSize:0.75
-lightColor:#ff57e9
+lightColor:#ffd53d
 effectOnCreate:none
 explodeEffect:none
 spawnUnit:"""
-Projectile_BeamRifle_Pink*1
+Projectile_BeamRifle_Yellow*1
 (
     addResources=
     BeamDamage:8000

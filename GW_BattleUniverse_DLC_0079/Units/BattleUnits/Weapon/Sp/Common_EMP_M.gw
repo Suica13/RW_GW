@@ -90,7 +90,7 @@ text_KP:100
 description:EMP Area
 description_zh:对周围敌人造成一次EMP打击,暂时瘫痪机能
 
-displayType:infoOnly
+displayType:action
 
 price:EN=${Common_EMP_M_EN}
 

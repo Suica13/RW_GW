@@ -1,0 +1,522 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_Flash_1.gw,
+ROOT:Resource/Image/Fx/Weapon/Beam/Common/Beam_Fire_1_Pink.gw
+"""
+
+@memory NahelArgamaClass_HighMegaCannon_AimTarget:unit
+@memory NahelArgamaClass_HighMegaCannon_CDTimer:float
+@global NahelArgamaClass_HighMegaCannon_CD=240
+@global NahelArgamaClass_HighMegaCannon_EN=400
+@global NahelArgamaClass_HighMegaCannon_Range=1000
+
+@memory NahelArgamaClass_HighMegaCannon_ChargeEffect_1:unit
+@memory NahelArgamaClass_HighMegaCannon_BulletEffect_1:unit
+
+
+[decal_NahelArgamaClass_HighMegaCannon_Range]
+layer: inactive
+order:0
+onlyTeam:own
+alpha:1
+image:ROOT:Resource/Image/Ring/Ring150_Action.png
+imageScale:${NahelArgamaClass_HighMegaCannon_Range}/150
+basePosition:self
+alwaysStartDirAtZero:true
+onlyWhileAlive:true
+isVisible:if true
+
+
+
+
+
+[turret_NahelArgamaClass_HighMegaCannon]
+x:0
+y:80
+
+canShoot:false
+projectile:NahelArgamaClass_HighMegaCannon_Projectile
+
+delay:0.2s
+canAttackMaxAngle:15
+barrelX:0
+barrelY:0
+limitingAngle:0
+limitingRange:${NahelArgamaClass_HighMegaCannon_Range}
+limitingMinRange:0
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\BeamCannon_2.ogg
+shoot_sound_vol:0
+shoot_flame:none
+
+
+
+[projectile_NahelArgamaClass_HighMegaCannon_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_AP_HighMegaCannon_Pink_Alpha0*1
+(
+    addResources=
+    BeamDamage:5000
+    |BeamAPDamage:2000
+    |DpDamage:300
+    |WeaponAccuracy=75
+    |PartBreakModifier=1
+    |CockpitBreakModifier=1
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=0.75
+    |AntiAqua=1.0
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightChangeSpeed=0
+    |HeightHitRange=50
+    |ProjectileExplosionRange:50
+    |ProjectileSpeed:200
+    |ProjectileSpread:0
+    |ProjectileLife:5.5
+
+    |ProjectileAttackTimes:12
+    |ProjectileAttackTimesDamageModifier:0.75
+
+    |EquipmentIndex=2
+    |EquipmentIndex2=1000
+    |SubEquipmentIndex=1
+)
+"""
+
+
+
+
+[attachment_NahelArgamaClass_HighMegaCannon_ChargeEffect_1]
+x:0
+y:80
+isVisible:true
+keepAliveWhenParentDies:false
+canBeAttackedAndDamaged:false
+isUnselectable:true
+canAttack:false
+showAllActionsFrom:true
+onConvertKeepExistingUnitInSameSlot:true
+idleDir:0
+resetRotationWhenNotAttacking:true
+setDrawLayerOnBottom:true
+
+[hiddenAction_NahelArgamaClass_HighMegaCannon_ChargeEffect_1_AwakeSet]
+autoTriggerOnEvent:newMessage(withTag="UnitTurretSpawn")
+alsoTriggerAction:"""
+NahelArgamaClass_HighMegaCannon_ChargeEffect_1_StartSet
+"""
+attachments_addNewUnits:NahelArgamaClass_HighMegaCannon_ChargeEffect
+attachments_onlyOnSlots:NahelArgamaClass_HighMegaCannon_ChargeEffect_1
+
+[hiddenAction_NahelArgamaClass_HighMegaCannon_ChargeEffect_1_StartSet]
+setUnitMemory:NahelArgamaClass_HighMegaCannon_ChargeEffect_1=self.attachment(slot='NahelArgamaClass_HighMegaCannon_ChargeEffect_1')
+alsoTriggerAction:"""
+NahelArgamaClass_HighMegaCannon_ChargeEffect_1_SetColor,
+NahelArgamaClass_HighMegaCannon_ChargeEffect_1_SetSpeed
+"""
+
+[hiddenAction_NahelArgamaClass_HighMegaCannon_ChargeEffect_1_SetColor]
+sendMessageTo:memory.NahelArgamaClass_HighMegaCannon_ChargeEffect_1
+sendMessageWithTags:SetColor_Pink
+[hiddenAction_NahelArgamaClass_HighMegaCannon_ChargeEffect_1_SetSpeed]
+sendMessageTo:memory.NahelArgamaClass_HighMegaCannon_ChargeEffect_1
+sendMessageWithTags:SetSpeed
+sendMessageWithData:Speed=3.25
+
+[hiddenAction_NahelArgamaClass_HighMegaCannon_Fire_Step_ChargeEffect_1]
+requireConditional:if ${cantAction}==false and (not memory.manualControlEnabled or ${manualControlReady})
+buildSpeed:0s
+sendMessageTo:memory.NahelArgamaClass_HighMegaCannon_ChargeEffect_1
+sendMessageWithTags:PlayOneTime
+playSoundAtUnit:ROOT:Resource/Sound/SE/Weapon/Fire/BeamCharge_4.ogg:2.0
+
+
+[attachment_NahelArgamaClass_HighMegaCannon_BulletEffect_1]
+x:0
+y:80
+isVisible:true
+keepAliveWhenParentDies:false
+canBeAttackedAndDamaged:false
+isUnselectable:true
+canAttack:false
+showAllActionsFrom:true
+onConvertKeepExistingUnitInSameSlot:true
+idleDir:0
+resetRotationWhenNotAttacking:true
+setDrawLayerOnBottom:true
+
+[hiddenAction_NahelArgamaClass_HighMegaCannon_BulletEffect_1_AwakeSet]
+autoTriggerOnEvent:newMessage(withTag="UnitTurretSpawn")
+alsoTriggerAction:"""
+NahelArgamaClass_HighMegaCannon_BulletEffect_1_StartSet
+"""
+attachments_addNewUnits:NahelArgamaClass_HighMegaCannon_BeamEffect
+attachments_onlyOnSlots:NahelArgamaClass_HighMegaCannon_BulletEffect_1
+
+[hiddenAction_NahelArgamaClass_HighMegaCannon_BulletEffect_1_StartSet]
+setUnitMemory:NahelArgamaClass_HighMegaCannon_BulletEffect_1=self.attachment(slot='NahelArgamaClass_HighMegaCannon_BulletEffect_1')
+alsoTriggerAction:"""
+NahelArgamaClass_HighMegaCannon_BulletEffect_1_SetColor,
+NahelArgamaClass_HighMegaCannon_BulletEffect_1_SetSpeed
+"""
+
+[hiddenAction_NahelArgamaClass_HighMegaCannon_BulletEffect_1_SetColor]
+sendMessageTo:memory.NahelArgamaClass_HighMegaCannon_BulletEffect_1
+sendMessageWithTags:SetColor_Pink
+[hiddenAction_NahelArgamaClass_HighMegaCannon_BulletEffect_1_SetSpeed]
+sendMessageTo:memory.NahelArgamaClass_HighMegaCannon_BulletEffect_1
+sendMessageWithTags:SetSpeed
+sendMessageWithData:Speed=4
+
+[hiddenAction_NahelArgamaClass_HighMegaCannon_Fire_Step_BulletEffect_1]
+requireConditional:if ${cantAction}==false and (not memory.manualControlEnabled or ${manualControlReady})
+buildSpeed:0s
+alsoTriggerAction:SetAttackingCantTurnOn
+sendMessageTo:memory.NahelArgamaClass_HighMegaCannon_BulletEffect_1
+sendMessageWithTags:PlayOneTime
+
+[hiddenAction_NahelArgamaClass_HighMegaCannon_BulletEffect_1_StopPlay]
+buildSpeed:0s
+sendMessageTo:memory.NahelArgamaClass_HighMegaCannon_BulletEffect_1
+sendMessageWithTags:StopPlay
+
+
+
+[hiddenAction_NahelArgamaClass_HighMegaCannon_Trigger_ByAI]
+autoTrigger:if not memory.manualControlEnabled and (${allowAI}==true and ${cantAction}==false and ${onSkill}==false and self.timeAlive>memory.NahelArgamaClass_HighMegaCannon_CDTimer and not self.hasTags(includes='inHangar') and not parent.hasTags(includes='SFS_Slot') and self.resource.en>${NahelArgamaClass_HighMegaCannon_EN} and memory.NahelArgamaClass_HighMegaCannon_AimTarget.hp>0)
+setResourcesWithLogic:en=self.resource.en-${NahelArgamaClass_HighMegaCannon_EN}
+alsoTriggerAction:NahelArgamaClass_HighMegaCannon_Trigger
+
+[hiddenAction_NahelArgamaClass_HighMegaCannon_FindTarget]
+autoTrigger:if memory.NahelArgamaClass_HighMegaCannon_AimTarget.hp<=0 and ${onSkill}==false 
+takeResources_includeUnitsWithinRange:1000
+takeResources_includeUnitsWithinRange_team:enemy
+takeResources_excludeUnitsWithoutTags:CanBeTargetUnit
+takeResources_searchOnly:true
+takeResources_maxUnits:100
+takeResources_triggerActionForEach:NahelArgamaClass_HighMegaCannon_FindTarget_Step2
+[hiddenAction_NahelArgamaClass_HighMegaCannon_FindTarget_Step2]
+requireConditional:if memory.NahelArgamaClass_HighMegaCannon_AimTarget.hp<=0 and not thisActionTarget.tags(includes='UnDetected')
+setUnitMemory:NahelArgamaClass_HighMegaCannon_AimTarget=thisActionTarget
+
+[hiddenAction_NahelArgamaClass_HighMegaCannon_MissTarget]
+autoTrigger:"""
+if memory.NahelArgamaClass_HighMegaCannon_AimTarget.hp>0 
+and 
+(
+    distanceBetween(self, memory.NahelArgamaClass_HighMegaCannon_AimTarget)>${NahelArgamaClass_HighMegaCannon_Range} 
+    or 
+    distanceBetween(self, memory.NahelArgamaClass_HighMegaCannon_AimTarget)<300 
+    or 
+    memory.NahelArgamaClass_HighMegaCannon_AimTarget.hasTags(includes='UnDetected')
+)
+"""
+setUnitMemory:NahelArgamaClass_HighMegaCannon_AimTarget=null
+
+
+
+[action_NahelArgamaClass_HighMegaCannon_Trigger]
+pos:30
+text:High Mega Particle Cannon %{select(self.timeAlive<=memory.NahelArgamaClass_HighMegaCannon_CDTimer,str(int(memory.NahelArgamaClass_HighMegaCannon_CDTimer-self.timeAlive))+"s","OK")}
+text_zh:超级米加粒子炮 %{select(self.timeAlive<=memory.NahelArgamaClass_HighMegaCannon_CDTimer,str(int(memory.NahelArgamaClass_HighMegaCannon_CDTimer-self.timeAlive))+"秒","OK")}
+text_KP:100
+
+displayType:action
+
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamCannon_1.png
+highPriorityQueue:true
+
+price:EN=${NahelArgamaClass_HighMegaCannon_EN}
+
+onlyOneUnitAtATime:true
+
+isVisible:if self.parent.hp<=0  
+
+isGuiBlinking:"""
+if self.timeAlive>memory.NahelArgamaClass_HighMegaCannon_CDTimer
+"""
+
+
+
+isLocked:if self.timeAlive<=memory.NahelArgamaClass_HighMegaCannon_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+isLockedAlt:if memory.close==true
+isLockedAltMessage:Hull disabled
+isLockedAltMessage_zh:舰体失效
+isLockedAlt2:if ${cantAction}==true or ${onSkill}==true or ${allowAI}==true
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+
+fireTurretXAtGround:NahelArgamaClass_HighMegaCannon
+fireTurretXAtGround_count:0
+fireTurretXAtGround_showGuideDecals:NahelArgamaClass_HighMegaCannon_Range
+
+alsoTriggerAction:"""
+SetAttackingOn,
+SetOnSkillOn_NahelArgamaClass_HighMegaCannon,
+NahelArgamaClass_HighMegaCannon_SetWeaponIndex,
+NahelArgamaClass_HighMegaCannon_B1_Step_1,
+NahelArgamaClass_HighMegaCannon_B1_Step_1_AI
+"""
+clearAllWaypoints:true
+canPlayerCancel:false
+requireConditional:if ${cantAction}==false and ${onSkill}==false and memory.close==false and (not memory.manualControlEnabled or ${manualWeaponReady})
+
+[hiddenAction_NahelArgamaClass_HighMegaCannon_B1_Step_1]
+requireConditional:if ${allowAI}==false
+setUnitMemory:"""
+NahelArgamaClass_HighMegaCannon_AimTarget=memory.NahelArgamaClass_HighMegaCannon_AimTarget.getOffsetRelative(),
+NahelArgamaClass_HighMegaCannon_CDTimer=self.timeAlive+${NahelArgamaClass_HighMegaCannon_CD}
+"""
+
+alsoQueueAction:"""
+SetAttackingCantAimOn,
+NahelArgamaClass_HighMegaCannon_Fire_Step_ChargeEffect_1,
+NahelArgamaClass_HighMegaCannon_Fire_Step_1,
+NahelArgamaClass_HighMegaCannon_Fire_Step_BulletEffect_1,
+
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+
+
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+
+
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+
+
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+
+
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_Final,
+NahelArgamaClass_HighMegaCannon_BulletEffect_1_StopPlay
+"""
+
+
+
+
+[hiddenAction_NahelArgamaClass_HighMegaCannon_B1_Step_1_AI]
+requireConditional:if ${allowAI}==true
+setUnitMemory:"""
+NahelArgamaClass_HighMegaCannon_AimTarget=memory.NahelArgamaClass_HighMegaCannon_AimTarget.getOffsetRelative(),
+NahelArgamaClass_HighMegaCannon_CDTimer=self.timeAlive+${NahelArgamaClass_HighMegaCannon_CD}
+"""
+setBodyRotation:directionBetween(self,memory.NahelArgamaClass_HighMegaCannon_AimTarget)
+
+alsoTriggerAction:"""
+SetAttackingCantTurnOn
+"""
+
+alsoQueueAction:"""
+SetAttackingCantAimOn,
+NahelArgamaClass_HighMegaCannon_Fire_Step_ChargeEffect_1,
+NahelArgamaClass_HighMegaCannon_Fire_Step_1_AI,
+NahelArgamaClass_HighMegaCannon_Fire_Step_BulletEffect_1,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+
+
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+
+
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+
+
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+
+
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_2,
+NahelArgamaClass_HighMegaCannon_Fire_Step_Final,
+NahelArgamaClass_HighMegaCannon_BulletEffect_1_StopPlay
+"""
+spawnEffects:NahelArgamaClass_HighMegaCannon_Flash
+
+
+
+
+
+
+[hiddenAction_SetOnSkillOn_NahelArgamaClass_HighMegaCannon]
+@copyFromSection:hiddenAction_SetOnSkillOn
+sendMessageWithData:"""
+skillMoveSpeedBuff=1,
+skillTurnSpeedBuff=1,
+skillShootDefBuff=500.0,
+skillSuperArmor=1.0
+"""
+
+
+
+
+
+
+[hiddenAction_NahelArgamaClass_HighMegaCannon_SetWeaponIndex]
+isVisible:false
+
+
+[hiddenAction_NahelArgamaClass_HighMegaCannon_Fire_Step_1_AI]
+requireConditional:if ${cantAction}==false and memory.close==false and (not memory.manualControlEnabled or ${manualControlReady})
+buildSpeed:2.0s
+spawnEffects:NahelArgamaClass_HighMegaCannon_Flash
+whenBuilding_cannotMove:true
+playSoundAtUnit:ROOT:Resource/Sound/SE/Weapon/Fire/BeamCannon_6.ogg:3.0
+[hiddenAction_NahelArgamaClass_HighMegaCannon_Fire_Step_1]
+requireConditional:if ${cantAction}==false and memory.close==false and (not memory.manualControlEnabled or ${manualControlReady})
+buildSpeed:2.0s
+
+fireTurretXAtGround:NahelArgamaClass_HighMegaCannon
+fireTurretXAtGround_count:0
+fireTurretXAtGround_withTarget:memory.NahelArgamaClass_HighMegaCannon_AimTarget
+
+whenBuilding_cannotMove:true
+whenBuilding_rotateTo_aimAtActionTarget:true
+whenBuilding_rotateTo_waitTillRotated:true
+playSoundAtUnit:ROOT:Resource/Sound/SE/Weapon/Fire/BeamCannon_6.ogg:3.0
+[hiddenAction_NahelArgamaClass_HighMegaCannon_Fire_Step_2]
+requireConditional:if ${cantAction}==false and memory.close==false and (not memory.manualControlEnabled or ${manualControlReady})
+buildSpeed:0.1s
+whenBuilding_cannotMove:true
+fireTurretXAtGround:NahelArgamaClass_HighMegaCannon
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+
+setResourcesWithLogic:en=self.resource.en-15
+
+[hiddenAction_NahelArgamaClass_HighMegaCannon_Fire_Step_Final]
+buildSpeed:3.0s
+whenBuilding_cannotMove:true
+alsoTriggerAction:"""
+SetAttackingOff,
+SetOnSkillOff,
+SetAttackingCantAimOff,
+SetAttackingCantTurnOff
+"""
+
+
+[hiddenAction_NahelArgamaClass_HighMegaCannon_ChargeEffect_StopPlay]
+sendMessageTo:memory.NahelArgamaClass_HighMegaCannon_ChargeEffect_1
+sendMessageWithTags:StopPlay
+
+[effect_NahelArgamaClass_HighMegaCannon_Flash]
+@copyFromSection:effect_Flash_1_L
+xOffsetRelative:0
+yOffsetRelative:80
+drawUnderUnits:true

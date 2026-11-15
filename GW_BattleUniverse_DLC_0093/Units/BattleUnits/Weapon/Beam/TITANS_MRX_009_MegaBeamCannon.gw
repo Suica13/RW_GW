@@ -248,7 +248,7 @@ text:MegaBeamCannon %{select(self.timeAlive<=memory.TITANS_MRX_009_MegaBeamCanno
 text_zh:MEGA粒子炮 %{select(self.timeAlive<=memory.TITANS_MRX_009_MegaBeamCannon_CDTimer,str(int(memory.TITANS_MRX_009_MegaBeamCannon_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 buildSpeed:0s
 allowMultipleInQueue:false

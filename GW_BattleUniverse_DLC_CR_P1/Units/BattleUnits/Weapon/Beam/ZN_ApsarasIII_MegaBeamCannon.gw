@@ -250,7 +250,7 @@ text:MegaBeamCannon %{select(self.timeAlive<=memory.ZN_ApsarasIII_MegaBeamCannon
 text_zh:MEGA粒子炮 %{select(self.timeAlive<=memory.ZN_ApsarasIII_MegaBeamCannon_CDTimer,str(int(memory.ZN_ApsarasIII_MegaBeamCannon_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 buildSpeed:0s
 allowMultipleInQueue:false

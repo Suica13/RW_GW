@@ -99,7 +99,7 @@ text_KP:100
 description:AreaAlly:\nReaction+15%\nAntiDetect+200m\nShootDef Up\n15s
 description_zh:范围友军:\n反应+15%\n反侦测+200m\n射击抗性上升\持续15秒
 
-displayType:infoOnly
+displayType:action
 
 price:EN=75
 

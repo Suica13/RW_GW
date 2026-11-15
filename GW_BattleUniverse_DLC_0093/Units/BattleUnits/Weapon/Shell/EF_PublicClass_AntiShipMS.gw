@@ -86,7 +86,7 @@ text:AntiShipMS %{select(self.timeAlive<=memory.EF_PublicClass_AntiShipMS_CDTime
 text_zh:对舰导弹 %{select(self.timeAlive<=memory.EF_PublicClass_AntiShipMS_CDTimer,str(int(memory.EF_PublicClass_AntiShipMS_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 buildSpeed:0s
 allowMultipleInQueue:false

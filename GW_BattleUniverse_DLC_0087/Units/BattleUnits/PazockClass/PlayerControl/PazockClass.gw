@@ -1,0 +1,139 @@
+[core]
+dont_load:true
+@global manualControlImplemented=true
+@memory manualShipArcGroup:float
+copyFrom:ROOT:Template/Unit/Skill/PlayerControl.gw,ROOT:Units/BattleUnits/PazockClass/PlayerControl/Ships/Arcs_fc1ea7e9360b.gw
+
+[action_LaunchAllUnits]
+pos:82
+
+[action_Common_FullBoost_Trigger]
+pos:65
+
+[action_Common_ReEntry_NeedBooster_Trigger]
+pos:65
+
+[action_ManualShip_Beam]
+isVisible:false
+requireConditional:false
+
+[action_ManualShip_Shell]
+isVisible:false
+requireConditional:false
+
+[action_ManualShip_Torpedo]
+isVisible:false
+requireConditional:false
+
+[hiddenAction_ManualShip_Send_PazockClass_Turret_AA_L1]
+sendMessageTo:self.attachment(slot='PazockClass_Turret_AA_L1')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_PazockClass_Turret_AA_R1]
+sendMessageTo:self.attachment(slot='PazockClass_Turret_AA_R1')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_PazockClass_Turret_AA_L2]
+sendMessageTo:self.attachment(slot='PazockClass_Turret_AA_L2')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_PazockClass_Turret_AA_R2]
+sendMessageTo:self.attachment(slot='PazockClass_Turret_AA_R2')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[action_ManualShip_AA]
+@copyFromSection:template_ManualWeapon
+pos:2
+text:Anti-air: %{select(memory.manualAutoAAOff,'OFF','ON')}
+text_zh:防空炮：%{select(memory.manualAutoAAOff,'关闭','自动迎击')}
+description:Toggle automatic interception by each anti-air turret. Native arcs, targets, energy, ammunition and reload are retained.
+description_zh:开关各防空炮的自动迎击。保留各炮塔射界、索敌、能耗、弹药和装填。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Ciws_1.png
+isLocked:false
+requireConditional:if ${manualControlReady}
+alsoTriggerAction:NONE
+displayType:action
+setUnitMemory:manualAutoAAOff=not memory.manualAutoAAOff
+
+[hiddenAction_ManualShip_Hold_PazockClass_Turret_AA_L1]
+sendMessageTo:self.attachment(slot='PazockClass_Turret_AA_L1')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_PazockClass_Turret_AA_R1]
+sendMessageTo:self.attachment(slot='PazockClass_Turret_AA_R1')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_PazockClass_Turret_AA_L2]
+sendMessageTo:self.attachment(slot='PazockClass_Turret_AA_L2')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_PazockClass_Turret_AA_R2]
+sendMessageTo:self.attachment(slot='PazockClass_Turret_AA_R2')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_HoldAll]
+alsoTriggerAction:ManualShip_Hold_PazockClass_Turret_AA_L1,ManualShip_Hold_PazockClass_Turret_AA_R1,ManualShip_Hold_PazockClass_Turret_AA_L2,ManualShip_Hold_PazockClass_Turret_AA_R2
+
+[hiddenAction_ManualControl_CancelSpecialWeapons]
+requireConditional:true
+alsoTriggerAction:ManualShip_HoldAll,SetOnSkillOff
+
+[action_ManualShip_ArcGroup]
+@copyFromSection:template_ManualWeapon
+pos:70
+text:Firing arcs
+text_zh:射界：%{select(memory.manualShipArcGroup==0,'防空点射','关闭')}
+description:Cycle firing-arc group / off. Only shown while selected.
+description_zh:切换各炮组射界／关闭。仅选中时显示；装填中的炮位调暗。
+isLocked:false
+requireConditional:if ${manualControlReady}
+setUnitMemory:manualShipArcGroup=(memory.manualShipArcGroup+1)%2
+
+[hiddenAction_TryAttack]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_AttackMode_Cqb_WhenHasTarget]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_ResetTargetTags_Step2]
+alsoTriggerAction:ManualControl_AfterTransform,ManualControl_RestoreGuard
+
+[action_ChangeAttackRuleMode_Free]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Guard]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Hold]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==2 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Shoot]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Cqb]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_AllowAIOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAI}==false and not self.hasTags(includes='inHangar'))
+
+[action_AllowAssignedOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAssigned}==false and not self.hasTags(includes='inHangar'))
+
+# External turret resource lookup requires a declaration in the hull type.
+[resource_PazockClass_Turret_AA_ShootTimer]
+hidden:true

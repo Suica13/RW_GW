@@ -1,0 +1,157 @@
+[core]
+dont_load:true
+@global manualControlImplemented=true
+@memory manualVulcanRightNext:bool
+copyFrom:ROOT:Template/Unit/Skill/PlayerControl.gw
+
+# Instance overrides keep native weapon sequences, equipment and damage definitions.
+
+[hiddenAction_TITANS_SeaSerpent_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>60  and distanceBetween(self,self.attacking)<=300 and eventData("RandomWeapon",type="float")<=15 and memory.armRBreaked==false)
+
+[hiddenAction_TITANS_SeaSerpent_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_TITANS_FedayeenRifle_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>60  and distanceBetween(self,self.attacking)<=memory.finalAttackRange and memory.armRBreaked==false and eventData("RandomWeapon",type="float")>45)
+
+[hiddenAction_TITANS_FedayeenRifle_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_TITANS_RX_139_Backpack_BeamGun_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>60  and distanceBetween(self,self.attacking)<=memory.finalAttackRange and memory.backpackBreaked==false and eventData("RandomWeapon",type="float")<=45 and eventData("RandomWeapon",type="float")>15)
+
+[hiddenAction_TITANS_RX_139_Backpack_BeamGun_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_TITANS_RX_139_Backpack_BeamGun_Fire_Step_3]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[action_Transform_LandFlyB]
+isVisible:if not memory.manualControlEnabled and (memory.close==false and memory.styleIndex!=96 and memory.styleIndex!=100 and not self.hasTags(includes='inHangar'))
+autoTrigger:if not memory.manualControlEnabled and (self.isControlledByAI()==true and ${allowAI}==true and memory.cantTransform==false and memory.close==false and not self.hasTags(includes='inHangar') and ${cantAction}==false and self.timeAlive>memory.changeTransform_LandFlyCD and memory.flyUnit!=1 and not self.tags(includes='inBattle'))
+
+[action_ManualControl_Transform_LandFlyB]
+@copyFromSection:action_Transform_LandFlyB
+pos:0
+autoTrigger:false
+isVisible:if memory.manualControlEnabled and (memory.close==false and memory.styleIndex!=96 and memory.styleIndex!=100 and not self.hasTags(includes='inHangar'))
+requireConditional:if ${manualControlReady} and (true) and not memory.cantTransform and ${cantAction}==false and ${onSkill}==false and self.timeAlive>=memory.changeTransform_LandFlyCD
+
+[action_Transform_LandFlyA]
+isVisible:if not memory.manualControlEnabled and (memory.close==false and memory.styleIndex!=0 and not self.hasTags(includes='inHangar'))
+autoTrigger:if not memory.manualControlEnabled and (false)
+
+[action_ManualControl_Transform_LandFlyA]
+@copyFromSection:action_Transform_LandFlyA
+pos:0
+autoTrigger:false
+isVisible:if memory.manualControlEnabled and (memory.close==false and memory.styleIndex!=0 and not self.hasTags(includes='inHangar'))
+requireConditional:if ${manualControlReady} and (true) and not memory.cantTransform and ${cantAction}==false and ${onSkill}==false and self.timeAlive>=memory.changeTransform_LandFlyCD
+
+[hiddenAction_ManualControl_CancelSpecialWeapons]
+requireConditional:true
+alsoTriggerAction:SetOnSkillOff
+
+[action_Manual_TITANS_SeaSerpent]
+@copyFromSection:template_ManualWeapon
+pos:3
+text:Sea serpent
+text_zh:海蛇
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Cqb_1.png
+isVisible:if ${manualControlReady} and ((((memory.armRBreaked==false))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.TITANS_SeaSerpent_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==false)))))
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.TITANS_SeaSerpent_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==false))))
+alsoTriggerAction:TITANS_SeaSerpent_Fire
+displayType:action
+
+[hiddenAction_TITANS_SeaSerpent_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.TITANS_SeaSerpent_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15))) or (${manualWeaponReady} and ((self.timeAlive>memory.TITANS_SeaSerpent_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==false)))))
+setUnitMemory:TITANS_SeaSerpent_CDTimer=self.timeAlive+${TITANS_SeaSerpent_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${TITANS_SeaSerpent_CD}s
+addActionCooldownApplyToActions:Manual_TITANS_SeaSerpent
+
+[action_Manual_TITANS_FedayeenRifle]
+@copyFromSection:template_ManualWeapon
+pos:2
+text:Fedayeen rifle
+text_zh:费达因步枪
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamRifle_1.png
+isVisible:if ${manualControlReady} and ((((memory.armRBreaked==false))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.TITANS_FedayeenRifle_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (self.resource.EN>0)) and ((((memory.armRBreaked==false)))) and self.resource.EN>=${TITANS_FedayeenRifle_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.TITANS_FedayeenRifle_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (self.resource.EN>0)) and ((((memory.armRBreaked==false)))) and self.resource.EN>=${TITANS_FedayeenRifle_EN}
+alsoTriggerAction:TITANS_FedayeenRifle_Fire
+displayType:action
+
+[hiddenAction_TITANS_FedayeenRifle_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.TITANS_FedayeenRifle_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15) and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.TITANS_FedayeenRifle_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (self.resource.EN>0)) and ((((memory.armRBreaked==false)))) and self.resource.EN>=${TITANS_FedayeenRifle_EN})
+setUnitMemory:TITANS_FedayeenRifle_CDTimer=self.timeAlive+${TITANS_FedayeenRifle_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${TITANS_FedayeenRifle_CD}s
+addActionCooldownApplyToActions:Manual_TITANS_FedayeenRifle
+
+[action_Manual_TITANS_RX_139_Backpack_BeamGun]
+@copyFromSection:template_ManualWeapon
+pos:4
+text:Beam cannon
+text_zh:光束枪
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamCannon_1.png
+isVisible:if ${manualControlReady} and ((((memory.backpackBreaked==false))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.TITANS_RX_139_Backpack_BeamGun_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((memory.backpackBreaked==false)))) and self.resource.EN>=${TITANS_RX_139_Backpack_BeamGun_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.TITANS_RX_139_Backpack_BeamGun_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((memory.backpackBreaked==false)))) and self.resource.EN>=${TITANS_RX_139_Backpack_BeamGun_EN}
+alsoTriggerAction:TITANS_RX_139_Backpack_BeamGun_Fire
+displayType:action
+
+[hiddenAction_TITANS_RX_139_Backpack_BeamGun_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.TITANS_RX_139_Backpack_BeamGun_CDTimer and ${onAttacking}==false and ${cantAction}==false and ${onSkill}==false  and not (directionBetween(self, self.attacking) < self.dir-35 or directionBetween(self, self.attacking) > self.dir+35)  and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.TITANS_RX_139_Backpack_BeamGun_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((memory.backpackBreaked==false)))) and self.resource.EN>=${TITANS_RX_139_Backpack_BeamGun_EN})
+setUnitMemory:TITANS_RX_139_Backpack_BeamGun_CDTimer=self.timeAlive+${TITANS_RX_139_Backpack_BeamGun_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${TITANS_RX_139_Backpack_BeamGun_CD}s
+addActionCooldownApplyToActions:Manual_TITANS_RX_139_Backpack_BeamGun
+
+[hiddenAction_TryAttack]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_AttackMode_Cqb_WhenHasTarget]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_LowPartsForceCqbMode]
+requireConditional:if not memory.manualControlEnabled and (memory.attackMode==0 and memory.armRBreaked==true)
+
+[hiddenAction_ResetTargetTags_Step2]
+alsoTriggerAction:ManualControl_AfterTransform,ManualControl_RestoreGuard
+
+[action_ChangeAttackRuleMode_Free]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Guard]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Hold]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==2 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Shoot]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Cqb]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_AllowAIOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAI}==false and not self.hasTags(includes='inHangar'))
+
+[action_AllowAssignedOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAssigned}==false and not self.hasTags(includes='inHangar'))
+
+[action_ManualControl_FirstSlot]
+isVisible:false

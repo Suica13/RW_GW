@@ -1,0 +1,164 @@
+[core]
+dont_load:true
+@global manualControlImplemented=true
+@memory manualVulcanRightNext:bool
+copyFrom:ROOT:Template/Unit/Skill/PlayerControl.gw
+
+# Instance overrides keep native weapon sequences, equipment and damage definitions.
+
+[hiddenAction_Common_Push_A_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)<=60   and memory.armLBreaked==true and memory.armRBreaked==true)
+
+[hiddenAction_Common_Push_A_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_ZN_EMS_05M_TMS_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>60 and distanceBetween(self,self.attacking)<=memory.finalAttackRange and memory.backpackBreaked==false and eventData("RandomWeapon",type="float")<=25)
+
+[hiddenAction_ZN_EMS_05M_TMS_Fire_Step_2]
+requireConditional:if (${cantAction}==false and memory.armRBreaked==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_ZN_EMS_05M_TMS_Fire_Step_3]
+requireConditional:if (${cantAction}==false and memory.armLBreaked==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_ZN_EMS_05M_MS_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>60  and distanceBetween(self,self.attacking)<=memory.finalAttackRange and memory.attackMode==0 and memory.armRBreaked==false and eventData("RandomWeapon",type="float")>25)
+
+[hiddenAction_ZN_EMS_05M_MS_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_ZN_EMS_05M_MS_Fire_Step_3]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_Common_Cqb_BBB_EMS_05M_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)<=60 and memory.armRBreaked==false)
+
+[hiddenAction_Common_Cqb_BBB_EMS_05M_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_Common_Cqb_BBB_EMS_05M_Fire_Step_3]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_ManualControl_CancelSpecialWeapons]
+requireConditional:true
+alsoTriggerAction:SetOnSkillOff
+
+[action_Manual_Common_Push_A]
+@copyFromSection:template_ManualWeapon
+pos:4
+text:Punch
+text_zh:徒手格斗
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Cqb_1.png
+isVisible:if ${manualControlReady} and ((((memory.armLBreaked==true) and (memory.armRBreaked==true))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.Common_Push_A_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armLBreaked==true) and (memory.armRBreaked==true)))))
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.Common_Push_A_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armLBreaked==true) and (memory.armRBreaked==true))))
+alsoTriggerAction:Common_Push_A_Fire
+displayType:action
+
+[hiddenAction_Common_Push_A_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.Common_Push_A_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50)) or (${manualWeaponReady} and ((self.timeAlive>memory.Common_Push_A_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armLBreaked==true) and (memory.armRBreaked==true)))))
+setUnitMemory:Common_Push_A_CDTimer=self.timeAlive+${Common_Push_A_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${Common_Push_A_CD}s
+addActionCooldownApplyToActions:Manual_Common_Push_A
+
+[action_Manual_ZN_EMS_05M_TMS]
+@copyFromSection:template_ManualWeapon
+pos:2
+text:Special weapon
+text_zh:特殊武装
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamRifle_1.png
+isVisible:if ${manualControlReady} and ((((memory.backpackBreaked==false))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.ZN_EMS_05M_TMS_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((memory.backpackBreaked==false)))) and self.resource.EN>=${ZN_EMS_05M_TMS_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.ZN_EMS_05M_TMS_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((memory.backpackBreaked==false)))) and self.resource.EN>=${ZN_EMS_05M_TMS_EN}
+alsoTriggerAction:ZN_EMS_05M_TMS_Fire
+displayType:action
+
+[hiddenAction_ZN_EMS_05M_TMS_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.ZN_EMS_05M_TMS_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)  and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.ZN_EMS_05M_TMS_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((memory.backpackBreaked==false)))) and self.resource.EN>=${ZN_EMS_05M_TMS_EN})
+setUnitMemory:ZN_EMS_05M_TMS_CDTimer=self.timeAlive+${ZN_EMS_05M_TMS_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${ZN_EMS_05M_TMS_CD}s
+addActionCooldownApplyToActions:Manual_ZN_EMS_05M_TMS
+
+[action_Manual_ZN_EMS_05M_MS]
+@copyFromSection:template_ManualWeapon
+pos:5
+text:Missiles
+text_zh:导弹
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Missile_1.png
+isVisible:if ${manualControlReady} and ((((memory.armRBreaked==false))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.ZN_EMS_05M_MS_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((memory.armRBreaked==false)))) and self.resource.EN>=${ZN_EMS_05M_MS_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.ZN_EMS_05M_MS_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((memory.armRBreaked==false)))) and self.resource.EN>=${ZN_EMS_05M_MS_EN}
+alsoTriggerAction:ZN_EMS_05M_MS_Fire
+displayType:action
+
+[hiddenAction_ZN_EMS_05M_MS_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.ZN_EMS_05M_MS_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)  and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.ZN_EMS_05M_MS_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((memory.armRBreaked==false)))) and self.resource.EN>=${ZN_EMS_05M_MS_EN})
+setUnitMemory:ZN_EMS_05M_MS_CDTimer=self.timeAlive+${ZN_EMS_05M_MS_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${ZN_EMS_05M_MS_CD}s
+addActionCooldownApplyToActions:Manual_ZN_EMS_05M_MS
+
+[action_Manual_Common_Cqb_BBB_EMS_05M]
+@copyFromSection:template_ManualWeapon
+pos:3
+text:Melee
+text_zh:格斗攻击
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Cqb_1.png
+isVisible:if ${manualControlReady} and ((((memory.armRBreaked==false))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.Common_Cqb_BBB_EMS_05M_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==false)))))
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.Common_Cqb_BBB_EMS_05M_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==false))))
+alsoTriggerAction:Common_Cqb_BBB_EMS_05M_Fire
+displayType:action
+
+[hiddenAction_Common_Cqb_BBB_EMS_05M_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.Common_Cqb_BBB_EMS_05M_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50)) or (${manualWeaponReady} and ((self.timeAlive>memory.Common_Cqb_BBB_EMS_05M_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==false)))))
+setUnitMemory:Common_Cqb_BBB_EMS_05M_CDTimer=self.timeAlive+${Common_Cqb_BBB_EMS_05M_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${Common_Cqb_BBB_EMS_05M_CD}s
+addActionCooldownApplyToActions:Manual_Common_Cqb_BBB_EMS_05M
+
+[hiddenAction_TryAttack]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_AttackMode_Cqb_WhenHasTarget]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_LowPartsForceCqbMode]
+requireConditional:if not memory.manualControlEnabled and (memory.attackMode==0 and memory.armRBreaked==true and memory.armLBreaked==true and memory.backpackBreaked==true)
+
+[hiddenAction_ResetTargetTags_Step2]
+alsoTriggerAction:ManualControl_AfterTransform,ManualControl_RestoreGuard
+
+[action_ChangeAttackRuleMode_Free]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Guard]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Hold]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==2 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Shoot]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Cqb]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_AllowAIOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAI}==false and not self.hasTags(includes='inHangar'))
+
+[action_AllowAssignedOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAssigned}==false and not self.hasTags(includes='inHangar'))

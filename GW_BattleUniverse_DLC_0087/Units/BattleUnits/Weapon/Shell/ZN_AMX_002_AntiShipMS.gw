@@ -90,7 +90,7 @@ text:AntiShipMS %{select(self.timeAlive<=memory.ZN_AMX_002_AntiShipMS_CDTimer,st
 text_zh:对舰导弹 %{select(self.timeAlive<=memory.ZN_AMX_002_AntiShipMS_CDTimer,str(int(memory.ZN_AMX_002_AntiShipMS_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 buildSpeed:0s
 allowMultipleInQueue:false

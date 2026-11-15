@@ -132,7 +132,7 @@ text:MainCannon[HEAT] %{select(self.timeAlive<=memory.EF_SCV_70_MainCannon_SP_CD
 text_zh:主炮[HEAT] %{select(self.timeAlive<=memory.EF_SCV_70_MainCannon_SP_CDTimer,str(int(memory.EF_SCV_70_MainCannon_SP_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 buildSpeed:0s
 allowMultipleInQueue:false

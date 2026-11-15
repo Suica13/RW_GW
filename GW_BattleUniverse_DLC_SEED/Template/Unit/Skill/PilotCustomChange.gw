@@ -24,6 +24,7 @@ targetHeight
 """
 whenBuilding_triggerAction:SetAttackingOff
 alsoTriggerAction:Send_TryClearQueued,Send_TryTransform_PilotCustomChange,Send_TryTransform_PilotCustomChange_Step2,Send_TryTransform_PilotCustomChange_Step3
+displayType:action
 
 [hiddenAction_Send_TryTransform_PilotCustomChange]
 @copyFromSection:hiddenAction_Send_TryTransform

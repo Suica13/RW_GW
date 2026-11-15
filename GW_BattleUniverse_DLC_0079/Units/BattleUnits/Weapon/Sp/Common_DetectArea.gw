@@ -75,7 +75,7 @@ text:DetectArea %{select(memory.Common_DetectArea_Switch==true,"OFF","ON")}
 text_zh:侦测区域 %{select(memory.Common_DetectArea_Switch==true,"开启中","关闭中")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 buildSpeed:0s
 allowMultipleInQueue:false
@@ -95,7 +95,7 @@ highPriorityQueue:true
 
 
 setUnitMemory:Common_DetectArea_Switch=select(memory.Common_DetectArea_Switch==false,true,false)
-
+canPlayerCancel:false
 
 [hiddenAction_Common_DetectArea_On]
 autoTrigger:"""

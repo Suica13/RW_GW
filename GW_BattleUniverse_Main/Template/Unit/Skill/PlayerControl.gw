@@ -19,6 +19,8 @@ dont_load:true
 @memory manualGuardUntil:float
 @memory manualGuardCDUntil:float
 @memory manualVulcanSerial:float
+@memory manualAutoVulcanOff:bool
+@memory manualAutoAAOff:bool
 @memory manualForcedBoostUntil:float
 @memory manualForcedBoostReadyAt:float
 # Base-reaction anchors: RX-78-2 135 -> 3s; RX-178 165 -> 2s; MSZ-006 210 -> 1.5s.
@@ -214,7 +216,7 @@ alsoTriggerAction:ManualControl_RefreshSpeed
 sendMessageTo:memory.battleUnitCore
 sendMessageWithTags:ManualGuardSpeedRefresh
 
-# Manual mode places movement first; native automatic-mode button positions remain unchanged.
+# Movement retains its native slot; slot zero is reserved for transformation.
 [action_ChangeMoveMode_T]
 isVisible:if not memory.manualControlEnabled and memory.moveMode==0 and not self.hasTags(includes='inHangar')
 [action_ChangeMoveMode_F]
@@ -222,12 +224,12 @@ isVisible:if not memory.manualControlEnabled and memory.moveMode==1 and not self
 [action_ManualControl_Move_T]
 alsoTriggerAction:ManualControl_RefreshSpeed
 @copyFromSection:action_ChangeMoveMode_T
-pos:0
+pos:994
 isVisible:if memory.manualControlEnabled and memory.moveMode==0 and not self.hasTags(includes='inHangar')
 [action_ManualControl_Move_F]
 alsoTriggerAction:ManualControl_RefreshSpeed
 @copyFromSection:action_ChangeMoveMode_F
-pos:0
+pos:994
 isVisible:if memory.manualControlEnabled and memory.moveMode==1 and not self.hasTags(includes='inHangar')
 
 # [ORDER_DEPENDENT] The native Transform handler resets tags and base combat stats.
@@ -345,6 +347,7 @@ setUnitMemory:pmcBorrowActive=false,pmcBorrowController=null,pmcOriginalHQ=null,
 # The normal pilot message is queued; release the lease before it is handled.
 [action_UnloadPilot]
 alsoTriggerAction:PMC_EndControl
+displayType:action
 
 [hiddenAction_PMC_Destroyed]
 autoTriggerOnEvent:destroyed
@@ -359,3 +362,27 @@ alsoTriggerAction:PMC_EndControl
 autoTriggerOnEvent:newMessage(withTag='ManualControl_BonusesChanged')
 requireConditional:if memory.manualControlEnabled and eventSource==memory.manualControlHQ
 alsoTriggerAction:ManualControl_RefreshSpeed
+
+[action_ManualControl_FirstSlot]
+@copyFromSection:template_ManualWeapon
+pos:0
+text:---
+text_zh:---
+description:Reserved action slot
+description_zh:预留行动位置
+displayType:action
+isVisible:if ${manualControlReady}
+isLocked:true
+requireConditional:false
+
+
+# [ENGINE_WORKAROUND] Active target acquisition is not a manual weapon command.
+# Keep the native five-second combat timeout; Damage still calls this action directly.
+[hiddenAction_Check_InBattle_Attack]
+autoTrigger:if (not memory.manualControlEnabled and self.attacking.hp>0) or (memory.manualControlEnabled and (${onAttacking}==true or ${onSkill}==true))
+
+# Attached ship turrets report a shot only after the firing permission is consumed.
+[hiddenAction_ManualControl_Combat]
+autoTriggerOnEvent:newMessage(withTag="ManualControl_Combat")
+requireConditional:if memory.manualControlEnabled
+setUnitMemory:inBattleTimer=self.timeAlive+5

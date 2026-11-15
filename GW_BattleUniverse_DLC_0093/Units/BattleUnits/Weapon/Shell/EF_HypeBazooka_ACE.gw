@@ -121,7 +121,7 @@ text:HypeBazooka %{select(self.timeAlive<=memory.EF_HypeBazooka_ACE_CDTimer,str(
 text_zh:高能火箭筒 %{select(self.timeAlive<=memory.EF_HypeBazooka_ACE_CDTimer,str(int(memory.EF_HypeBazooka_ACE_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 buildSpeed:0s
 allowMultipleInQueue:false

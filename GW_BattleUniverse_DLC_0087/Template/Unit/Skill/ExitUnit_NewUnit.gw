@@ -23,7 +23,7 @@ pos:100
 text:Exit
 text_zh:脱出
 iconImage:ROOT:Resource/Image/Units/Button/Misc/Exit_1.png
-displayType:infoOnly
+displayType:action
 
 
 ai_isDisabled:true

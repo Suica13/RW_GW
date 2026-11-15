@@ -46,7 +46,7 @@ description_zh:"""
 \n驾驶员将无法脱出
 """
 
-displayType:infoOnly
+displayType:action
 highPriorityQueue:true
 
 isVisible:if self.parent.hp<=0 

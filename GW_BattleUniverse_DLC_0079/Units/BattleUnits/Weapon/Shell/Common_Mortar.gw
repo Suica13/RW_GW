@@ -138,7 +138,7 @@ text:Mortar %{select(self.timeAlive<=memory.Common_Mortar_CDTimer,str(int(memory
 text_zh:迫击炮 %{select(self.timeAlive<=memory.Common_Mortar_CDTimer,str(int(memory.Common_Mortar_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 buildSpeed:0s
 allowMultipleInQueue:false

@@ -18,7 +18,11 @@ alwaysSinglePress:true
 ai_isDisabled:true
 isAlsoViewableByAllies:true
 isVisible:if memory.gameReady and (not memory.readyOK or self.resource.FactionIndex==9900101) and self.resource.GameStart==0
-requireConditional:if not memory.readyOK and self.resource.GameStart==0
+# Allied AI players also qualify; own-team units and enemy HQs do not.
+isLocked:if self.numberOfUnitsInAllyNotOwnTeam(withTag='HQ')<1
+isLockedMessage:PMC requires at least one allied player.
+isLockedMessage_zh:没有队友，无法选择PMC阵营。
+requireConditional:if not memory.readyOK and self.resource.GameStart==0 and self.numberOfUnitsInAllyNotOwnTeam(withTag='HQ')>0
 setResourcesWithLogic:FactionIndex=9900101
 temporarilyAddTags:PMC
 addGlobalTeamTags:PMC

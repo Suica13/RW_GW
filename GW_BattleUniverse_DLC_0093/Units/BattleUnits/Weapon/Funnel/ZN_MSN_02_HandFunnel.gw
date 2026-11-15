@@ -150,7 +150,7 @@ text:Funnel[LockOn] %{select(self.timeAlive<=memory.ZN_MSN_02_HandFunnel_CDTimer
 text_zh:浮游炮[锁定] %{select(self.timeAlive<=memory.ZN_MSN_02_HandFunnel_CDTimer,str(int(memory.ZN_MSN_02_HandFunnel_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 price:EN=${ZN_MSN_02_HandFunnel_EN} 
 

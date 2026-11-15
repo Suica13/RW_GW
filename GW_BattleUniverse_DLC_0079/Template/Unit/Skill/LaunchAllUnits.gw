@@ -16,7 +16,7 @@ alwaysSinglePress:true
 ai_isDisabled:true
 extraLagHidingInUI:true
 
-displayType:infoOnly
+displayType:action
 
 text:Launch All Units
 text_zh:紧急出动

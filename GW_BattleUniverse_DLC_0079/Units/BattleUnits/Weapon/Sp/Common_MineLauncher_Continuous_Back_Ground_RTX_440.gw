@@ -93,7 +93,7 @@ text_KP:100
 description:Set Up Mine 2 times
 description_zh:持续设置2枚地雷,期间无法攻击
 
-displayType:infoOnly
+displayType:action
 
 price:EN=${Common_MineLauncher_Continuous_Back_Ground_RTX_440_EN}
 

@@ -68,6 +68,13 @@ Projectile_AP_BeamRifle_Yellow*1
 
     |ProjectileAttackTimes:2
     |ProjectileAttackTimesDamageModifier:0.75
+),
+Projectile_HighBeamCannon_Yellow_Effect*1
+(
+    addResources=
+    ProjectileSpeed:1.0
+    |ProjectileSpread:1
+    |ProjectileLife:30
 )
 """
 

@@ -1,0 +1,148 @@
+[core]
+copyFrom:ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,ROOT:Template/Unit/Animation/Shoot/Common_Cannon_Shoot_A.gw
+dont_load:true
+@memory TITANS_ORX_013_MS_CDTimer:float
+@global TITANS_ORX_013_MS_CD=8
+@global TITANS_ORX_013_MS_EN=0
+
+[turret_TITANS_ORX_013_MS]
+x:0
+y:0
+canShoot:false
+projectile:TITANS_ORX_013_MS_Projectile
+delay:0.1s
+canAttackMaxAngle:15
+barrelX:18
+barrelY:-8
+limitingRange:0
+aimOffsetSpread:0
+recoilOffset:0
+recoilOutTime:0
+recoilReturnTime:0
+shoot_sound:ROOT:\Resource\Sound\SE\Weapon\Fire\Missile_1.ogg
+shoot_sound_vol:0.4
+shoot_flame:BZ_Fire_1_S
+
+[turret_TITANS_ORX_013_MS_L]
+@copyFromSection:turret_TITANS_ORX_013_MS
+barrelX:-18
+projectile:TITANS_ORX_013_MS_Projectile_L
+
+[projectile_TITANS_ORX_013_MS_Projectile]
+directDamage:0
+life:0
+explodeOnEndOfLife:true
+speed:0
+lightSize:0.75
+lightColor:#ffd53d
+explodeEffect:none
+spawnUnit:"""
+Projectile_MS_L*1(addResources=DpDamage:80
+    |ShellDamage:5000
+    |ProjectileSpeed:40
+    |ProjectileTurnspeed:0.75
+    |ProjectileSpread:0
+    |ProjectileExplosionRange:35
+    |ProjectileLife:15
+    |WeaponAccuracy:85
+    |PartBreakModifier:1.0
+    |CockpitBreakModifier:1.0
+    |PilotDamageModifier:1
+    |PilotTrueDamage:0
+    |AntiSizeLargeDamage:1.25
+    |AntiSizeSmallDamage:0.75
+    |AntiSizeLargeAccuracy:1.25
+    |AntiSizeSmallAccuracy:0.75
+    |AntiBuilding:1
+    |AntiAqua:0.75
+    |AntiAir:1
+    |AntiLand:1
+    |AntiSpace:1.0
+    |HeightChangeSpeed:2
+    |HeightHitRange:25
+    |EquipmentIndex:1
+    |EquipmentIndex2:200)
+"""
+
+[projectile_TITANS_ORX_013_MS_Projectile_L]
+@copyFromSection:projectile_TITANS_ORX_013_MS_Projectile
+spawnUnit:"""
+Projectile_MS_L*1(addResources=DpDamage:80
+    |ShellDamage:6500
+    |ProjectileSpeed:40
+    |ProjectileTurnspeed:0.75
+    |ProjectileSpread:0
+    |ProjectileExplosionRange:35
+    |ProjectileLife:15
+    |WeaponAccuracy:85
+    |PartBreakModifier:1.0
+    |CockpitBreakModifier:1.0
+    |PilotDamageModifier:1
+    |PilotTrueDamage:0
+    |AntiSizeLargeDamage:1.25
+    |AntiSizeSmallDamage:0.75
+    |AntiSizeLargeAccuracy:1.25
+    |AntiSizeSmallAccuracy:0.75
+    |AntiBuilding:1
+    |AntiAqua:0.75
+    |AntiAir:1
+    |AntiLand:1
+    |AntiSpace:1.0
+    |HeightChangeSpeed:2
+    |HeightHitRange:25
+    |EquipmentIndex:1
+    |EquipmentIndex2:200)
+"""
+
+[hiddenAction_TITANS_ORX_013_MS_Fire_Step_1]
+requireConditional:if ${cantAction}==false
+buildSpeed:0.35s
+
+[hiddenAction_TITANS_ORX_013_MS_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (memory.headBreaked==false) and (not memory.manualControlEnabled or ${manualControlReady})
+buildSpeed:0s
+fireTurretXAtGround:TITANS_ORX_013_MS
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+
+[hiddenAction_TITANS_ORX_013_MS_Fire_Step_3]
+@copyFromSection:hiddenAction_TITANS_ORX_013_MS_Fire_Step_2
+buildSpeed:${turret_TITANS_ORX_013_MS.delay}
+
+[hiddenAction_TITANS_ORX_013_MS_Fire_Step_3_L]
+@copyFromSection:hiddenAction_TITANS_ORX_013_MS_Fire_Step_2
+fireTurretXAtGround:TITANS_ORX_013_MS_L
+buildSpeed:${turret_TITANS_ORX_013_MS.delay}
+requireConditional:if (${cantAction}==false) and (memory.headBreaked==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_TITANS_ORX_013_MS_Fire_Step_Final]
+buildSpeed:0.3s
+alsoTriggerAction:SetAttackingOff
+
+[hiddenAction_TITANS_ORX_013_MS_Fire]
+requireConditional:if (self.timeAlive>memory.TITANS_ORX_013_MS_CDTimer and ${onAttacking}==false and ${cantAction}==false and ${onSkill}==false and self.resource.EN>=${TITANS_ORX_013_MS_EN} and (memory.headBreaked==false)) and ((not memory.manualControlEnabled and self.attacking.hp>0 and not (directionBetween(self,self.attacking)<self.dir-30 or directionBetween(self,self.attacking)>self.dir+30)) or (${manualWeaponReady}))
+setUnitMemory:"""
+TITANS_ORX_013_MS_CDTimer=self.timeAlive+${TITANS_ORX_013_MS_CD},
+manualInputBusyUntil=select(memory.manualControlEnabled,
+self.timeAlive+0.15,
+memory.manualInputBusyUntil)
+"""
+addResources:EN=-${TITANS_ORX_013_MS_EN}
+addActionCooldownTime:${TITANS_ORX_013_MS_CD}s
+addActionCooldownApplyToActions:Manual_TITANS_ORX_013_MS
+alsoTriggerAction:SetAttackingOn,SendEnemyTryAttack_Shoot,TITANS_ORX_013_MS_SetWeaponIndex,TITANS_ORX_013_MS_Queue
+
+[hiddenAction_TITANS_ORX_013_MS_Queue]
+alsoQueueAction:"""
+TITANS_ORX_013_MS_Fire_Step_1,
+TITANS_ORX_013_MS_Fire_Step_2,
+TITANS_ORX_013_MS_Fire_Step_3_L,
+TITANS_ORX_013_MS_Fire_Step_3,
+TITANS_ORX_013_MS_Fire_Step_3_L,
+TITANS_ORX_013_MS_Fire_Step_3,
+TITANS_ORX_013_MS_Fire_Step_3_L,
+TITANS_ORX_013_MS_Fire_Step_Final
+"""
+
+[hiddenAction_TITANS_ORX_013_MS_SetWeaponIndex]
+setUnitMemory:nowWeaponIndex=4,nowSubWeaponIndex=0
+

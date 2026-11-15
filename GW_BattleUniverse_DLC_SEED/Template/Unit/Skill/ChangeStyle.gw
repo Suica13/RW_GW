@@ -18,7 +18,7 @@ alwaysSinglePress:true
 ai_isDisabled:true
 extraLagHidingInUI:true
 
-displayType:Upgrade
+displayType:action
 
 text:ChangeStyle To B
 text_zh:切换姿态 B
@@ -68,3 +68,4 @@ iconImage:ROOT:Resource/Image/Units/Button/Action/Transform_2.png
 #convertTo:
 
 setUnitMemory:styleIndex=0
+displayType:action

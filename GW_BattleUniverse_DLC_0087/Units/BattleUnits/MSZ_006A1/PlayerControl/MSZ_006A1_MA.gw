@@ -1,0 +1,158 @@
+[core]
+dont_load:true
+@global manualControlImplemented=true
+@memory manualVulcanRightNext:bool
+copyFrom:ROOT:Template/Unit/Skill/PlayerControl.gw
+
+# Instance overrides keep native weapon sequences, equipment and damage definitions.
+
+[hiddenAction_AEUG_MSZ_006A1_BR_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>60  and distanceBetween(self,self.attacking)<=memory.finalAttackRange and self.resource().EquipmentIndex==0 and memory.armRBreaked==false and eventData("RandomWeapon",type="float")>35)
+
+[hiddenAction_AEUG_MSZ_006A1_BR_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_AEUG_MSZ_006A1_BR_Fire_Step_3]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_AEUG_MSZ_006A1_HML_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>60  and distanceBetween(self,self.attacking)<=memory.finalAttackRange and self.resource().EquipmentIndex==1 and memory.armRBreaked==false and eventData("RandomWeapon",type="float")>35)
+
+[hiddenAction_AEUG_MSZ_006A1_HML_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_AEUG_MSZ_006A1_MA_BeamGun_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>60  and distanceBetween(self,self.attacking)<=memory.finalAttackRange and ${onAttacking}==false and eventData("RandomWeapon",type="float")<=35)
+
+[hiddenAction_AEUG_MSZ_006A1_MA_BeamGun_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_AEUG_MSZ_006A1_MA_BeamGun_Fire_Step_3]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[action_Transform_LandFlyB]
+isVisible:if not memory.manualControlEnabled and (memory.close==false and memory.styleIndex!=96 and memory.styleIndex!=100 and not self.hasTags(includes='inHangar'))
+
+[action_ManualControl_Transform_LandFlyB]
+@copyFromSection:action_Transform_LandFlyB
+pos:0
+autoTrigger:false
+isVisible:if memory.manualControlEnabled and (memory.close==false and memory.styleIndex!=96 and memory.styleIndex!=100 and not self.hasTags(includes='inHangar'))
+requireConditional:if ${manualControlReady} and (true) and not memory.cantTransform and ${cantAction}==false and ${onSkill}==false and self.timeAlive>=memory.changeTransform_LandFlyCD
+
+[action_Transform_LandFlyA]
+isVisible:if not memory.manualControlEnabled and (memory.close==false and memory.styleIndex!=0 and not self.hasTags(includes='inHangar'))
+
+[action_ManualControl_Transform_LandFlyA]
+@copyFromSection:action_Transform_LandFlyA
+pos:0
+autoTrigger:false
+isVisible:if memory.manualControlEnabled and (memory.close==false and memory.styleIndex!=0 and not self.hasTags(includes='inHangar'))
+requireConditional:if ${manualControlReady} and (true) and not memory.cantTransform and ${cantAction}==false and ${onSkill}==false and self.timeAlive>=memory.changeTransform_LandFlyCD
+
+[hiddenAction_ManualControl_CancelSpecialWeapons]
+requireConditional:true
+alsoTriggerAction:SetOnSkillOff
+
+[action_Manual_AEUG_MSZ_006A1_BR]
+@copyFromSection:template_ManualWeapon
+pos:2
+text:Beam rifle
+text_zh:光束步枪
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamRifle_1.png
+isVisible:if ${manualControlReady} and ((((self.resource().EquipmentIndex==0) and (memory.armRBreaked==false))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.AEUG_MSZ_006A1_BR_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==0) and (memory.armRBreaked==false)))) and self.resource.EN>=${AEUG_MSZ_006A1_BR_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.AEUG_MSZ_006A1_BR_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==0) and (memory.armRBreaked==false)))) and self.resource.EN>=${AEUG_MSZ_006A1_BR_EN}
+alsoTriggerAction:AEUG_MSZ_006A1_BR_Fire
+displayType:action
+
+[hiddenAction_AEUG_MSZ_006A1_BR_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.AEUG_MSZ_006A1_BR_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.AEUG_MSZ_006A1_BR_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==0) and (memory.armRBreaked==false)))) and self.resource.EN>=${AEUG_MSZ_006A1_BR_EN})
+setUnitMemory:AEUG_MSZ_006A1_BR_CDTimer=self.timeAlive+${AEUG_MSZ_006A1_BR_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${AEUG_MSZ_006A1_BR_CD}s
+addActionCooldownApplyToActions:Manual_AEUG_MSZ_006A1_BR
+
+[action_Manual_AEUG_MSZ_006A1_HML]
+@copyFromSection:template_ManualWeapon
+pos:2
+text:Missiles
+text_zh:导弹
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Missile_1.png
+isVisible:if ${manualControlReady} and ((((self.resource().EquipmentIndex==1) and (memory.armRBreaked==false))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.AEUG_MSZ_006A1_HML_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==1) and (memory.armRBreaked==false)))) and self.resource.EN>=${AEUG_MSZ_006A1_HML_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.AEUG_MSZ_006A1_HML_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==1) and (memory.armRBreaked==false)))) and self.resource.EN>=${AEUG_MSZ_006A1_HML_EN}
+alsoTriggerAction:AEUG_MSZ_006A1_HML_Fire
+displayType:action
+
+[hiddenAction_AEUG_MSZ_006A1_HML_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.AEUG_MSZ_006A1_HML_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.AEUG_MSZ_006A1_HML_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==1) and (memory.armRBreaked==false)))) and self.resource.EN>=${AEUG_MSZ_006A1_HML_EN})
+setUnitMemory:AEUG_MSZ_006A1_HML_CDTimer=self.timeAlive+${AEUG_MSZ_006A1_HML_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${AEUG_MSZ_006A1_HML_CD}s
+addActionCooldownApplyToActions:Manual_AEUG_MSZ_006A1_HML
+
+[action_Manual_AEUG_MSZ_006A1_MA_BeamGun]
+@copyFromSection:template_ManualWeapon
+pos:4
+text:Beam guns
+text_zh:光束枪
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamRifle_1.png
+isVisible:if ${manualControlReady} and ((((true))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.AEUG_MSZ_006A1_MA_BeamGun_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((${onAttacking}==false)))) and self.resource.EN>=${AEUG_MSZ_006A1_MA_BeamGun_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.AEUG_MSZ_006A1_MA_BeamGun_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((${onAttacking}==false)))) and self.resource.EN>=${AEUG_MSZ_006A1_MA_BeamGun_EN}
+alsoTriggerAction:AEUG_MSZ_006A1_MA_BeamGun_Fire
+displayType:action
+
+[hiddenAction_AEUG_MSZ_006A1_MA_BeamGun_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.AEUG_MSZ_006A1_MA_BeamGun_CDTimer and ${onAttacking}==false and ${cantAction}==false and ${onSkill}==false  and not (directionBetween(self, self.attacking) < self.dir-35 or directionBetween(self, self.attacking) > self.dir+35)  and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.AEUG_MSZ_006A1_MA_BeamGun_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((${onAttacking}==false)))) and self.resource.EN>=${AEUG_MSZ_006A1_MA_BeamGun_EN})
+setUnitMemory:AEUG_MSZ_006A1_MA_BeamGun_CDTimer=self.timeAlive+${AEUG_MSZ_006A1_MA_BeamGun_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${AEUG_MSZ_006A1_MA_BeamGun_CD}s
+addActionCooldownApplyToActions:Manual_AEUG_MSZ_006A1_MA_BeamGun
+
+[hiddenAction_TryAttack]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_AttackMode_Cqb_WhenHasTarget]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_LowPartsForceCqbMode]
+requireConditional:if not memory.manualControlEnabled and (memory.attackMode==0 and memory.armRBreaked==true)
+
+[hiddenAction_ResetTargetTags_Step2]
+alsoTriggerAction:ManualControl_AfterTransform,ManualControl_RestoreGuard
+
+[action_ChangeAttackRuleMode_Free]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Guard]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Hold]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==2 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Shoot]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Cqb]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_AllowAIOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAI}==false and not self.hasTags(includes='inHangar'))
+
+[action_AllowAssignedOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAssigned}==false and not self.hasTags(includes='inHangar'))
+
+[action_ManualControl_FirstSlot]
+isVisible:false

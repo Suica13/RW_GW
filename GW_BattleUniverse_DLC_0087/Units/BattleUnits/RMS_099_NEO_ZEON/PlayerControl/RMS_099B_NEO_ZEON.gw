@@ -1,0 +1,270 @@
+[core]
+dont_load:true
+@global manualControlImplemented=true
+@memory manualVulcanRightNext:bool
+copyFrom:ROOT:Template/Unit/Skill/PlayerControl.gw
+
+# Instance overrides keep native weapon sequences, equipment and damage definitions.
+
+[hiddenAction_Common_Push_A_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)<=60   and memory.armRBreaked==true)
+
+[hiddenAction_Common_Push_A_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_AEUG_RMS_099B_Red_DoubleBeamCannon_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>60  and distanceBetween(self,self.attacking)<=memory.finalAttackRange  and eventData("RandomWeapon",type="float")<=35 and memory.backpackBreaked==false)
+
+[hiddenAction_AEUG_RMS_099B_Red_DoubleBeamCannon_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_AEUG_RMS_099B_Red_DoubleBeamCannon_Fire_Step_3]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_AEUG_RMS_099_BeamGun_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>60  and distanceBetween(self,self.attacking)<=memory.finalAttackRange  and eventData("RandomWeapon",type="float")>35 and eventData("RandomWeapon",type="float")<=50 and not (    memory.armRBreaked==true     and     memory.armLBreaked==true ))
+
+[hiddenAction_AEUG_RMS_099_BeamGun_Fire_Step_2]
+requireConditional:if (${cantAction}==false and memory.armRBreaked==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_AEUG_RMS_099_BeamGun_Fire_Step_3]
+requireConditional:if (${cantAction}==false and memory.armLBreaked==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_AEUG_ClayBazooka_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>60  and distanceBetween(self,self.attacking)<=memory.finalAttackRange and self.resource().EquipmentIndex==0 and memory.armRBreaked==false and eventData("RandomWeapon",type="float")>50)
+
+[hiddenAction_AEUG_ClayBazooka_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_AEUG_ClayBazooka_ShotgunMode_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>60  and distanceBetween(self,self.attacking)<=memory.finalAttackRange and self.resource().EquipmentIndex==1 and memory.armRBreaked==false and eventData("RandomWeapon",type="float")>50)
+
+[hiddenAction_AEUG_ClayBazooka_ShotgunMode_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_EF_BeamSaber_AF_Yellow_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)<=60 and memory.armRBreaked==false)
+
+[hiddenAction_EF_BeamSaber_AF_Yellow_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_EF_BeamSaber_AF_Yellow_Fire_Step_5]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_ManualControl_CancelSpecialWeapons]
+requireConditional:true
+alsoTriggerAction:SetOnSkillOff
+
+[action_Manual_Common_Push_A]
+@copyFromSection:template_ManualWeapon
+pos:4
+text:Punch
+text_zh:徒手格斗
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Cqb_1.png
+isVisible:if ${manualControlReady} and ((((memory.armRBreaked==true))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.Common_Push_A_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==true)))))
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.Common_Push_A_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==true))))
+alsoTriggerAction:Common_Push_A_Fire
+displayType:action
+
+[hiddenAction_Common_Push_A_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.Common_Push_A_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50)) or (${manualWeaponReady} and ((self.timeAlive>memory.Common_Push_A_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==true)))))
+setUnitMemory:Common_Push_A_CDTimer=self.timeAlive+${Common_Push_A_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${Common_Push_A_CD}s
+addActionCooldownApplyToActions:Manual_Common_Push_A
+
+[action_Manual_AEUG_RMS_099B_Red_DoubleBeamCannon]
+@copyFromSection:template_ManualWeapon
+pos:2
+text:Beam cannon
+text_zh:光束炮
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamCannon_1.png
+isVisible:if ${manualControlReady} and ((((memory.backpackBreaked==false))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.AEUG_RMS_099B_Red_DoubleBeamCannon_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((memory.backpackBreaked==false)))) and self.resource.EN>=${AEUG_RMS_099B_Red_DoubleBeamCannon_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.AEUG_RMS_099B_Red_DoubleBeamCannon_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((memory.backpackBreaked==false)))) and self.resource.EN>=${AEUG_RMS_099B_Red_DoubleBeamCannon_EN}
+alsoTriggerAction:AEUG_RMS_099B_Red_DoubleBeamCannon_Fire
+displayType:action
+
+[hiddenAction_AEUG_RMS_099B_Red_DoubleBeamCannon_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.AEUG_RMS_099B_Red_DoubleBeamCannon_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15) and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.AEUG_RMS_099B_Red_DoubleBeamCannon_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((memory.backpackBreaked==false)))) and self.resource.EN>=${AEUG_RMS_099B_Red_DoubleBeamCannon_EN})
+setUnitMemory:AEUG_RMS_099B_Red_DoubleBeamCannon_CDTimer=self.timeAlive+${AEUG_RMS_099B_Red_DoubleBeamCannon_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${AEUG_RMS_099B_Red_DoubleBeamCannon_CD}s
+addActionCooldownApplyToActions:Manual_AEUG_RMS_099B_Red_DoubleBeamCannon
+
+[action_Manual_AEUG_RMS_099_BeamGun]
+@copyFromSection:template_ManualWeapon
+pos:5
+text:Beam cannon
+text_zh:光束枪
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamCannon_1.png
+isVisible:if ${manualControlReady} and ((((not ((memory.armRBreaked==true) and (memory.armLBreaked==true))))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.AEUG_RMS_099_BeamGun_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (self.resource.EN>0)) and ((((not ((memory.armRBreaked==true) and (memory.armLBreaked==true)))))) and self.resource.EN>=${AEUG_RMS_099_BeamGun_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.AEUG_RMS_099_BeamGun_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (self.resource.EN>0)) and ((((not ((memory.armRBreaked==true) and (memory.armLBreaked==true)))))) and self.resource.EN>=${AEUG_RMS_099_BeamGun_EN}
+alsoTriggerAction:AEUG_RMS_099_BeamGun_Fire
+displayType:action
+
+[hiddenAction_AEUG_RMS_099_BeamGun_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.AEUG_RMS_099_BeamGun_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15) and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.AEUG_RMS_099_BeamGun_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (self.resource.EN>0)) and ((((not ((memory.armRBreaked==true) and (memory.armLBreaked==true)))))) and self.resource.EN>=${AEUG_RMS_099_BeamGun_EN})
+setUnitMemory:AEUG_RMS_099_BeamGun_CDTimer=self.timeAlive+${AEUG_RMS_099_BeamGun_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${AEUG_RMS_099_BeamGun_CD}s
+addActionCooldownApplyToActions:Manual_AEUG_RMS_099_BeamGun
+
+[action_Manual_AEUG_ClayBazooka]
+@copyFromSection:template_ManualWeapon
+pos:6
+text:Bazooka
+text_zh:火箭筒
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Bazooka_1.png
+isVisible:if ${manualControlReady} and ((((self.resource().EquipmentIndex==0) and (memory.armRBreaked==false))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.AEUG_ClayBazooka_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==0) and (memory.armRBreaked==false)))) and self.resource.EN>=${AEUG_ClayBazooka_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.AEUG_ClayBazooka_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==0) and (memory.armRBreaked==false)))) and self.resource.EN>=${AEUG_ClayBazooka_EN}
+alsoTriggerAction:AEUG_ClayBazooka_Fire
+displayType:action
+
+[hiddenAction_AEUG_ClayBazooka_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.AEUG_ClayBazooka_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.AEUG_ClayBazooka_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==0) and (memory.armRBreaked==false)))) and self.resource.EN>=${AEUG_ClayBazooka_EN})
+setUnitMemory:AEUG_ClayBazooka_CDTimer=self.timeAlive+${AEUG_ClayBazooka_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${AEUG_ClayBazooka_CD}s
+addActionCooldownApplyToActions:Manual_AEUG_ClayBazooka
+
+[action_Manual_AEUG_ClayBazooka_ShotgunMode]
+@copyFromSection:template_ManualWeapon
+pos:7
+text:Bazooka
+text_zh:火箭筒
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Bazooka_1.png
+isVisible:if ${manualControlReady} and ((((self.resource().EquipmentIndex==1) and (memory.armRBreaked==false))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.AEUG_ClayBazooka_ShotgunMode_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==1) and (memory.armRBreaked==false)))) and self.resource.EN>=${AEUG_ClayBazooka_ShotgunMode_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.AEUG_ClayBazooka_ShotgunMode_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==1) and (memory.armRBreaked==false)))) and self.resource.EN>=${AEUG_ClayBazooka_ShotgunMode_EN}
+alsoTriggerAction:AEUG_ClayBazooka_ShotgunMode_Fire
+displayType:action
+
+[hiddenAction_AEUG_ClayBazooka_ShotgunMode_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.AEUG_ClayBazooka_ShotgunMode_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.AEUG_ClayBazooka_ShotgunMode_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==1) and (memory.armRBreaked==false)))) and self.resource.EN>=${AEUG_ClayBazooka_ShotgunMode_EN})
+setUnitMemory:AEUG_ClayBazooka_ShotgunMode_CDTimer=self.timeAlive+${AEUG_ClayBazooka_ShotgunMode_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${AEUG_ClayBazooka_ShotgunMode_CD}s
+addActionCooldownApplyToActions:Manual_AEUG_ClayBazooka_ShotgunMode
+
+[action_Manual_EF_BeamSaber_AF_Yellow]
+@copyFromSection:template_ManualWeapon
+pos:3
+text:Beam saber
+text_zh:光束军刀
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Cqb_1.png
+isVisible:if ${manualControlReady} and ((((memory.armRBreaked==false))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.EF_BeamSaber_AF_Yellow_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==false)))))
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.EF_BeamSaber_AF_Yellow_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==false))))
+alsoTriggerAction:EF_BeamSaber_AF_Yellow_Fire
+displayType:action
+
+[hiddenAction_EF_BeamSaber_AF_Yellow_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.EF_BeamSaber_AF_Yellow_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50)) or (${manualWeaponReady} and ((self.timeAlive>memory.EF_BeamSaber_AF_Yellow_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==false)))))
+setUnitMemory:EF_BeamSaber_AF_Yellow_CDTimer=self.timeAlive+${EF_BeamSaber_AF_Yellow_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${EF_BeamSaber_AF_Yellow_CD}s
+addActionCooldownApplyToActions:Manual_EF_BeamSaber_AF_Yellow
+
+[turret_Common_DoubleVulcan_MS]
+canAttackCondition:if (not memory.manualControlEnabled or (${manualAuxiliaryReady} and not memory.manualAutoVulcanOff)) and (${cantAction}==false and distanceBetween(self,self.attacking)<=550 and memory.headBreaked==false and (    attacking.tags(includes='Aircraft')     or attacking.tags(includes='Tank')     or attacking.tags(includes='Pilot')     or (memory.attackMode==1 or memory.manualControlEnabled)     or self.resource().en<=0))
+
+[action_ManualAux_Common_DoubleVulcan_MS]
+@copyFromSection:template_ManualWeapon
+pos:40
+text:Head Vulcan: %{select(memory.manualAutoVulcanOff,'OFF','ON')}
+text_zh:头部火神炮：%{select(memory.manualAutoVulcanOff,'关闭','自动迎击')}
+description:Toggle automatic interception. Uses native target selection, ammunition and reload; primary weapons remain available.
+description_zh:开关自动迎击。沿用原生索敌、弹药和装填，可与主武器同时使用。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Ciws_1.png
+isVisible:if ${manualControlReady}
+isLocked:false
+requireConditional:if ${manualControlReady}
+alsoTriggerAction:NONE
+displayType:action
+setUnitMemory:manualAutoVulcanOff=not memory.manualAutoVulcanOff,manualVulcanSerial=memory.manualVulcanSerial+1
+
+[hiddenAction_ManualAux_Common_DoubleVulcan_MS_Fire]
+requireConditional:if ${manualAuxiliaryReady} and not memory.headBreaked and not memory.Common_DoubleVulcan_MS_OnCD and self.resource.Common_DoubleVulcan_MS_ShootTimer>0
+setUnitMemory:manualVulcanRightNext=false,manualVulcanSerial=memory.manualVulcanSerial+1,Common_DoubleVulcan_MS_OnCD=true,Common_DoubleVulcan_MS_CDTimer=self.timeAlive+${Common_DoubleVulcan_MS_CD}+self.resource.Common_DoubleVulcan_MS_ShootTimer*0.075
+spawnUnits:ManualAuxBurst_0087_Common_DoubleVulcan_MS
+
+[hiddenAction_ManualAux_Common_DoubleVulcan_MS_Shot]
+autoTriggerOnEvent:newMessage(withTag='ManualAuxShot_Common_DoubleVulcan_MS')
+requireConditional:if ${manualAuxiliaryReady} and eventData('burstSerial',type='float')==memory.manualVulcanSerial and not memory.headBreaked and self.resource.Common_DoubleVulcan_MS_ShootTimer>0
+alsoTriggerAction:ManualAux_Common_DoubleVulcan_MS_Left,ManualAux_Common_DoubleVulcan_MS_Right,ManualAux_Common_DoubleVulcan_MS_Spend
+
+[turret_ManualAux_Common_DoubleVulcan_MS_Left]
+@copyFromSection:turret_Common_DoubleVulcan_MS
+canShoot:false
+barrelX:-3
+barrelOffsetX_onOddShots:0
+
+[hiddenAction_ManualAux_Common_DoubleVulcan_MS_Left]
+requireConditional:if not memory.manualVulcanRightNext
+fireTurretXAtGround:ManualAux_Common_DoubleVulcan_MS_Left
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+
+[turret_ManualAux_Common_DoubleVulcan_MS_Right]
+@copyFromSection:turret_Common_DoubleVulcan_MS
+canShoot:false
+barrelX:3
+barrelOffsetX_onOddShots:0
+
+[hiddenAction_ManualAux_Common_DoubleVulcan_MS_Right]
+requireConditional:if memory.manualVulcanRightNext
+fireTurretXAtGround:ManualAux_Common_DoubleVulcan_MS_Right
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+
+[hiddenAction_ManualAux_Common_DoubleVulcan_MS_Spend]
+setUnitMemory:manualVulcanRightNext=not memory.manualVulcanRightNext
+addResources:Common_DoubleVulcan_MS_ShootTimer=-1
+
+[hiddenAction_TryAttack]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_AttackMode_Cqb_WhenHasTarget]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_LowPartsForceCqbMode]
+requireConditional:if not memory.manualControlEnabled and (memory.attackMode==0 and memory.armLBreaked==true and memory.armRBreaked==true)
+
+[hiddenAction_ResetTargetTags_Step2]
+alsoTriggerAction:ManualControl_AfterTransform,ManualControl_RestoreGuard
+
+[action_ChangeAttackRuleMode_Free]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Guard]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Hold]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==2 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Shoot]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Cqb]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_AllowAIOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAI}==false and not self.hasTags(includes='inHangar'))
+
+[action_AllowAssignedOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAssigned}==false and not self.hasTags(includes='inHangar'))

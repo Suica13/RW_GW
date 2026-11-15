@@ -985,7 +985,7 @@ text:AA BeamCannon %{select(self.timeAlive<=memory.ZN_MA_08_AA_BeamCannon_CDTime
 text_zh:对空光束炮 %{select(self.timeAlive<=memory.ZN_MA_08_AA_BeamCannon_CDTimer,str(int(memory.ZN_MA_08_AA_BeamCannon_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 buildSpeed:0s
 allowMultipleInQueue:false

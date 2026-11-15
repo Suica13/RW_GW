@@ -1,0 +1,137 @@
+[core]
+dont_load:true
+@global manualControlImplemented=true
+@memory manualVulcanRightNext:bool
+copyFrom:ROOT:Template/Unit/Skill/PlayerControl.gw
+
+# Instance overrides keep native weapon sequences, equipment and damage definitions.
+
+[hiddenAction_OMNI_GAT_X303_MA_BeamCannon_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>60  and distanceBetween(self,self.attacking)<=memory.finalAttackRange)
+
+[hiddenAction_OMNI_GAT_X303_MA_BeamCannon_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_Common_Cqb_Double_B_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)<=60)
+
+[hiddenAction_Common_Cqb_Double_B_Fire_Step_2]
+requireConditional:if (${cantAction}==false and memory.armRBreaked==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_Common_Cqb_Double_B_Fire_Step_3]
+requireConditional:if (${cantAction}==false and memory.armLBreaked==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[action_PSA_SwitchON]
+pos:65
+
+[action_PSA_SwitchOFF]
+pos:65
+
+[action_Transform_LandFlyB]
+isVisible:if not memory.manualControlEnabled and (memory.close==false and memory.styleIndex!=96 and memory.styleIndex!=100 and not self.hasTags(includes='inHangar'))
+autoTrigger:if not memory.manualControlEnabled and (self.isControlledByAI()==true and ${allowAI}==true and memory.cantTransform==false and memory.close==false and not self.hasTags(includes='inHangar') and ${cantAction}==false and self.timeAlive>memory.changeTransform_LandFlyCD and memory.flyUnit!=1 and not self.tags(includes='inBattle'))
+
+[action_ManualControl_Transform_LandFlyB]
+@copyFromSection:action_Transform_LandFlyB
+pos:0
+autoTrigger:false
+isVisible:if memory.manualControlEnabled and (memory.close==false and memory.styleIndex!=96 and memory.styleIndex!=100 and not self.hasTags(includes='inHangar'))
+requireConditional:if ${manualControlReady} and (true) and not memory.cantTransform and ${cantAction}==false and ${onSkill}==false and self.timeAlive>=memory.changeTransform_LandFlyCD
+
+[action_Transform_LandFlyA]
+isVisible:if not memory.manualControlEnabled and (memory.close==false and memory.styleIndex!=0 and not self.hasTags(includes='inHangar'))
+autoTrigger:if not memory.manualControlEnabled and (false)
+
+[action_ManualControl_Transform_LandFlyA]
+@copyFromSection:action_Transform_LandFlyA
+pos:0
+autoTrigger:false
+isVisible:if memory.manualControlEnabled and (memory.close==false and memory.styleIndex!=0 and not self.hasTags(includes='inHangar'))
+requireConditional:if ${manualControlReady} and (true) and not memory.cantTransform and ${cantAction}==false and ${onSkill}==false and self.timeAlive>=memory.changeTransform_LandFlyCD
+
+[hiddenAction_ManualControl_CancelSpecialWeapons]
+requireConditional:true
+alsoTriggerAction:SetOnSkillOff
+
+[action_Manual_OMNI_GAT_X303_MA_BeamCannon]
+@copyFromSection:template_ManualWeapon
+pos:2
+text:Beam cannon
+text_zh:光束炮
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamCannon_1.png
+isVisible:if ${manualControlReady} and ((true))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.OMNI_GAT_X303_MA_BeamCannon_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((true)) and self.resource.EN>=${OMNI_GAT_X303_MA_BeamCannon_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.OMNI_GAT_X303_MA_BeamCannon_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((true)) and self.resource.EN>=${OMNI_GAT_X303_MA_BeamCannon_EN}
+alsoTriggerAction:OMNI_GAT_X303_MA_BeamCannon_Fire
+displayType:action
+
+[hiddenAction_OMNI_GAT_X303_MA_BeamCannon_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.OMNI_GAT_X303_MA_BeamCannon_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.OMNI_GAT_X303_MA_BeamCannon_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((true)) and self.resource.EN>=${OMNI_GAT_X303_MA_BeamCannon_EN})
+setUnitMemory:OMNI_GAT_X303_MA_BeamCannon_CDTimer=self.timeAlive+${OMNI_GAT_X303_MA_BeamCannon_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${OMNI_GAT_X303_MA_BeamCannon_CD}s
+addActionCooldownApplyToActions:Manual_OMNI_GAT_X303_MA_BeamCannon
+
+[action_Manual_Common_Cqb_Double_B]
+@copyFromSection:template_ManualWeapon
+pos:3
+text:Melee
+text_zh:格斗攻击
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Cqb_1.png
+isVisible:if ${manualControlReady} and ((true))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.Common_Cqb_Double_B_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((true)))
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.Common_Cqb_Double_B_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((true))
+alsoTriggerAction:Common_Cqb_Double_B_Fire
+displayType:action
+
+[hiddenAction_Common_Cqb_Double_B_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.Common_Cqb_Double_B_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50)) or (${manualWeaponReady} and ((self.timeAlive>memory.Common_Cqb_Double_B_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((true)))
+setUnitMemory:Common_Cqb_Double_B_CDTimer=self.timeAlive+${Common_Cqb_Double_B_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${Common_Cqb_Double_B_CD}s
+addActionCooldownApplyToActions:Manual_Common_Cqb_Double_B
+
+[hiddenAction_TryAttack]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_AttackMode_Cqb_WhenHasTarget]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_LowPartsForceCqbMode]
+requireConditional:if not memory.manualControlEnabled and (memory.attackMode==0 and memory.armRBreaked==true and memory.armLBreaked==true)
+
+[hiddenAction_ResetTargetTags_Step2]
+alsoTriggerAction:ManualControl_AfterTransform,ManualControl_RestoreGuard
+
+[action_ChangeAttackRuleMode_Free]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Guard]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Hold]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==2 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Shoot]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Cqb]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_AllowAIOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAI}==false and not self.hasTags(includes='inHangar'))
+
+[action_AllowAssignedOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAssigned}==false and not self.hasTags(includes='inHangar'))
+
+[action_ManualControl_FirstSlot]
+isVisible:false

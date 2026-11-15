@@ -97,7 +97,7 @@ text_KP:100
 description:Set Up Mine 4 times
 description_zh:持续设置4枚地雷,期间无法攻击
 
-displayType:infoOnly
+displayType:action
 
 price:EN=${Common_MineLauncher_Continuous_Front_Space_YMS_15_EN}
 

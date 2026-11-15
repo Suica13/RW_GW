@@ -21,6 +21,8 @@ hidden:true
 
 
 [turret_Common_SingleVulcan_RX_79_G]
+# Actual automatic interception still counts as combat.
+onShoot_triggerActions:Check_InBattle_Attack
 x:0
 y:0
 

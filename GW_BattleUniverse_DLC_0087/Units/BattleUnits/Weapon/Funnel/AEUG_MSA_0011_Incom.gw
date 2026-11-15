@@ -115,7 +115,7 @@ text:Incom[LockOn] %{select(self.timeAlive<=memory.AEUG_MSA_0011_Incom_CDTimer,s
 text_zh:线控炮[锁定] %{select(self.timeAlive<=memory.AEUG_MSA_0011_Incom_CDTimer,str(int(memory.AEUG_MSA_0011_Incom_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 price:EN=${AEUG_MSA_0011_Incom_EN} 
 

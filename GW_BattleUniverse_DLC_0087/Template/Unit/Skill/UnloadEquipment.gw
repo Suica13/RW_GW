@@ -18,7 +18,7 @@ alwaysSinglePress:true
 ai_isDisabled:true
 extraLagHidingInUI:true
 
-displayType:infoOnly
+displayType:action
 
 text:Unload Equipment
 text_zh:卸载装备

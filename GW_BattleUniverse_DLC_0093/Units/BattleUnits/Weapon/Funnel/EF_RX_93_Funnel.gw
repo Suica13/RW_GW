@@ -80,7 +80,7 @@ text:Funnel[LockOn] %{select(self.timeAlive<=memory.EF_RX_93_Funnel_CDTimer,str(
 text_zh:浮游炮[锁定] %{select(self.timeAlive<=memory.EF_RX_93_Funnel_CDTimer,str(int(memory.EF_RX_93_Funnel_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 price:EN=${EF_RX_93_Funnel_EN} 
 

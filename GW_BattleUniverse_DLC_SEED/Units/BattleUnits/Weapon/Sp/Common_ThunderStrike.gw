@@ -39,7 +39,7 @@ text_KP:100
 description:Teleport instantly behind the enemy\nMust be within 150 yards of the enemy
 description_zh:瞬间移动到敌人身后\n必须与敌人相距150码以内
 
-displayType:infoOnly
+displayType:action
 
 buildSpeed:0s
 allowMultipleInQueue:false

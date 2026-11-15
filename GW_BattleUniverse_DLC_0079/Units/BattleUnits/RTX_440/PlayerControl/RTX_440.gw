@@ -1,0 +1,235 @@
+[core]
+dont_load:true
+@global manualControlImplemented=true
+@memory manualVulcanRightNext:bool
+copyFrom:ROOT:Template/Unit/Skill/PlayerControl.gw
+
+# Instance overrides keep native weapon sequences, equipment and damage definitions.
+
+[hiddenAction_Common_Push_A_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)<=60)
+
+[hiddenAction_Common_Push_A_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_Common_MineLauncher_Continuous_Back_Ground_RTX_440_Fire_Step_1]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_Common_MineLauncher_Continuous_Back_Ground_RTX_440_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_Common_Mortar_Bombing_MS_Trigger_ByAI]
+autoTrigger:if not memory.manualControlEnabled and (${allowAI}==true and ${cantAction}==false and ${onSkill}==false and memory.close==false and self.resource.EN>${Common_Mortar_Bombing_MS_EN} and self.timeAlive>memory.Common_Mortar_Bombing_MS_CDTimer and self.resource.TileMode==0 and self.parent.hp<=0  and memory.Common_Mortar_Bombing_MS_AimTarget.hp>0 and memory.Common_Mortar_Bombing_MS_AimTarget.teamID>=0 and not memory.Common_Mortar_Bombing_MS_AimTarget.tags(includes='UnDetected') and distanceBetween(self, memory.Common_Mortar_Bombing_MS_AimTarget)>=300)
+
+[hiddenAction_Common_Mortar_Bombing_MS_Fire_Step_3]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_EF_RTX_440_Rocket_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>60  and distanceBetween(self,self.attacking)<=500 and memory.attackMode==0 and memory.backpackBreaked==false and eventData("RandomWeapon",type="float")<=50 and eventData("RandomWeapon",type="float")>25)
+
+[hiddenAction_EF_RTX_440_Rocket_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_EF_RTX_440_Rocket_Fire_Step_3]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_EF_RTX_440_Rocket_Fire_Step_4]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_Common_Cannon_NoStop_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>120 and distanceBetween(self,self.attacking)<=memory.finalAttackRange and memory.attackMode==0 and memory.backpackBreaked==false and eventData("RandomWeapon",type="float")<=25)
+
+[hiddenAction_Common_Cannon_NoStop_Fire_Step_3]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_EF_RTX_440_HandGun_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>60  and distanceBetween(self,self.attacking)<=500 and not (    memory.armRBreaked==true     and     memory.armLBreaked==true ) and eventData("RandomWeapon",type="float")<=75 and eventData("RandomWeapon",type="float")>50)
+
+[hiddenAction_EF_RTX_440_HandGun_Fire_Step_2]
+requireConditional:if (${cantAction}==false and memory.armRBreaked==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_EF_RTX_440_HandGun_Fire_Step_3]
+requireConditional:if (${cantAction}==false and memory.armRBreaked==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_EF_RTX_440_HandGun_Fire_Step_Sub]
+requireConditional:if (${cantAction}==false and memory.armLBreaked==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_EF_RTX_440_Flamethrower_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>120  and distanceBetween(self,self.attacking)<=240 and memory.armLBreaked==false and eventData("RandomWeapon",type="float")>75)
+
+[hiddenAction_EF_RTX_440_Flamethrower_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_EF_RTX_440_Flamethrower_Fire_Step_3]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[action_Transform_LandLand_TankB]
+isVisible:if not memory.manualControlEnabled and (memory.close==false and memory.styleIndex!=95 and memory.styleIndex!=100 and not self.hasTags(includes='inHangar'))
+
+[action_ManualControl_Transform_LandLand_TankB]
+@copyFromSection:action_Transform_LandLand_TankB
+pos:0
+autoTrigger:false
+isVisible:if memory.manualControlEnabled and (memory.close==false and memory.styleIndex!=95 and memory.styleIndex!=100 and not self.hasTags(includes='inHangar'))
+requireConditional:if ${manualControlReady} and (true) and not memory.cantTransform and ${cantAction}==false and ${onSkill}==false
+
+[action_Transform_LandLand_TankA]
+isVisible:if not memory.manualControlEnabled and (memory.close==false and memory.styleIndex!=0 and not self.hasTags(includes='inHangar'))
+
+[action_ManualControl_Transform_LandLand_TankA]
+@copyFromSection:action_Transform_LandLand_TankA
+pos:0
+autoTrigger:false
+isVisible:if memory.manualControlEnabled and (memory.close==false and memory.styleIndex!=0 and not self.hasTags(includes='inHangar'))
+requireConditional:if ${manualControlReady} and (true) and not memory.cantTransform and ${cantAction}==false and ${onSkill}==false
+
+[action_Common_MineLauncher_Continuous_Back_Ground_RTX_440_Trigger]
+pos:30
+requireConditional:if (true) and (not memory.manualControlEnabled or ${manualWeaponReady})
+
+[action_Common_Mortar_Bombing_MS_Trigger]
+pos:30
+requireConditional:if (true) and (not memory.manualControlEnabled or ${manualWeaponReady})
+
+[hiddenAction_ManualControl_CancelSpecialWeapons]
+requireConditional:true
+alsoTriggerAction:SetOnSkillOff
+
+[action_Manual_Common_Push_A]
+@copyFromSection:template_ManualWeapon
+pos:3
+text:Punch
+text_zh:徒手格斗
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Cqb_1.png
+isVisible:if ${manualControlReady} and ((true))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.Common_Push_A_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((true)))
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.Common_Push_A_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((true))
+alsoTriggerAction:Common_Push_A_Fire
+displayType:action
+
+[hiddenAction_Common_Push_A_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.Common_Push_A_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50)) or (${manualWeaponReady} and ((self.timeAlive>memory.Common_Push_A_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((true)))
+setUnitMemory:Common_Push_A_CDTimer=self.timeAlive+${Common_Push_A_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${Common_Push_A_CD}s
+addActionCooldownApplyToActions:Manual_Common_Push_A
+
+[action_Manual_EF_RTX_440_Rocket]
+@copyFromSection:template_ManualWeapon
+pos:2
+text:Bazooka
+text_zh:火箭筒
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Bazooka_1.png
+isVisible:if ${manualControlReady} and ((((memory.backpackBreaked==false))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.EF_RTX_440_Rocket_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((memory.backpackBreaked==false)))) and self.resource.EN>=${EF_RTX_440_Rocket_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.EF_RTX_440_Rocket_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((memory.backpackBreaked==false)))) and self.resource.EN>=${EF_RTX_440_Rocket_EN}
+alsoTriggerAction:EF_RTX_440_Rocket_Fire
+displayType:action
+
+[hiddenAction_EF_RTX_440_Rocket_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.EF_RTX_440_Rocket_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)  and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.EF_RTX_440_Rocket_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((memory.backpackBreaked==false)))) and self.resource.EN>=${EF_RTX_440_Rocket_EN})
+setUnitMemory:EF_RTX_440_Rocket_CDTimer=self.timeAlive+${EF_RTX_440_Rocket_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${EF_RTX_440_Rocket_CD}s
+addActionCooldownApplyToActions:Manual_EF_RTX_440_Rocket
+
+[action_Manual_Common_Cannon_NoStop]
+@copyFromSection:template_ManualWeapon
+pos:4
+text:Cannon
+text_zh:火炮
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Missile_1.png
+isVisible:if ${manualControlReady} and ((((memory.backpackBreaked==false))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.Common_Cannon_NoStop_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((memory.backpackBreaked==false)))) and self.resource.EN>=${Common_Cannon_NoStop_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.Common_Cannon_NoStop_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((memory.backpackBreaked==false)))) and self.resource.EN>=${Common_Cannon_NoStop_EN}
+alsoTriggerAction:Common_Cannon_NoStop_Fire
+displayType:action
+
+[hiddenAction_Common_Cannon_NoStop_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.Common_Cannon_NoStop_CDTimer and ${onAttacking}==false and ${cantAction}==false and ${onSkill}==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15) and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.Common_Cannon_NoStop_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((memory.backpackBreaked==false)))) and self.resource.EN>=${Common_Cannon_NoStop_EN})
+setUnitMemory:Common_Cannon_NoStop_CDTimer=self.timeAlive+${Common_Cannon_NoStop_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${Common_Cannon_NoStop_CD}s
+addActionCooldownApplyToActions:Manual_Common_Cannon_NoStop
+
+[action_Manual_EF_RTX_440_HandGun]
+@copyFromSection:template_ManualWeapon
+pos:5
+text:Cannon
+text_zh:火炮
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Missile_1.png
+isVisible:if ${manualControlReady} and ((((not ((memory.armRBreaked==true) and (memory.armLBreaked==true))))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.EF_RTX_440_HandGun_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((not ((memory.armRBreaked==true) and (memory.armLBreaked==true)))))) and self.resource.EN>=${EF_RTX_440_HandGun_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.EF_RTX_440_HandGun_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((not ((memory.armRBreaked==true) and (memory.armLBreaked==true)))))) and self.resource.EN>=${EF_RTX_440_HandGun_EN}
+alsoTriggerAction:EF_RTX_440_HandGun_Fire
+displayType:action
+
+[hiddenAction_EF_RTX_440_HandGun_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.EF_RTX_440_HandGun_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)  and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.EF_RTX_440_HandGun_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((not ((memory.armRBreaked==true) and (memory.armLBreaked==true)))))) and self.resource.EN>=${EF_RTX_440_HandGun_EN})
+setUnitMemory:EF_RTX_440_HandGun_CDTimer=self.timeAlive+${EF_RTX_440_HandGun_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${EF_RTX_440_HandGun_CD}s
+addActionCooldownApplyToActions:Manual_EF_RTX_440_HandGun
+
+[hiddenAction_TryAttack]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_AttackMode_Cqb_WhenHasTarget]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_LowPartsForceCqbMode]
+requireConditional:if not memory.manualControlEnabled and (false)
+
+[hiddenAction_ResetTargetTags_Step2]
+alsoTriggerAction:ManualControl_AfterTransform,ManualControl_RestoreGuard
+
+[action_ChangeAttackRuleMode_Free]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Guard]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Hold]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==2 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Shoot]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Cqb]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_AllowAIOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAI}==false and not self.hasTags(includes='inHangar'))
+
+[action_AllowAssignedOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAssigned}==false and not self.hasTags(includes='inHangar'))
+
+[action_ManualSpecial_Flamethrower]
+alsoTriggerAction:EF_RTX_440_Flamethrower_B1_Trigger
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.EF_RTX_440_Flamethrower_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and self.resource.EN>=${EF_RTX_440_Flamethrower_EN}
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.EF_RTX_440_Flamethrower_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and self.resource.EN>=${EF_RTX_440_Flamethrower_EN})
+isVisible:if ${manualControlReady}
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/MachineGun_1.png
+description_zh:沿用原蓄力、连射、EN消耗及冷却。
+text_zh:火焰喷射器
+text:Flamethrower
+pos:6
+@copyFromSection:template_ManualWeapon
+displayType:action
+
+[hiddenAction_EF_RTX_440_Flamethrower_B1_Trigger]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.EF_RTX_440_Flamethrower_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15) and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.EF_RTX_440_Flamethrower_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and self.resource.EN>=${EF_RTX_440_Flamethrower_EN})
+
+[action_ManualControl_FirstSlot]
+isVisible:false

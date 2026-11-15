@@ -89,7 +89,7 @@ text_zh:导爆索[后方] %{select(self.timeAlive<=memory.Common_DemolitionChain
 text_KP:100
 
 
-displayType:infoOnly
+displayType:action
 
 price:EN=${Common_DemolitionChain_Back_Space_GP_03D_EN}
 

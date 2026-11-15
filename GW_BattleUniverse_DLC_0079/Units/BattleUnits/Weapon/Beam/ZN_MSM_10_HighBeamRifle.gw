@@ -241,7 +241,7 @@ text:HighBeamRifle %{select(self.timeAlive<=memory.ZN_MSM_10_HighBeamRifle_CDTim
 text_zh:声子增幅炮 %{select(self.timeAlive<=memory.ZN_MSM_10_HighBeamRifle_CDTimer,str(int(memory.ZN_MSM_10_HighBeamRifle_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 buildSpeed:0s
 allowMultipleInQueue:false

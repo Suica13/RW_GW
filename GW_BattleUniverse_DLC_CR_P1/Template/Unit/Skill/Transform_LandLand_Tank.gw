@@ -41,7 +41,7 @@ alwaysSinglePress:true
 ai_isDisabled:true
 extraLagHidingInUI:true
 
-displayType:Upgrade
+displayType:action
 
 text:SwitchToStyle B
 text_zh:切换到形态 B
@@ -100,7 +100,7 @@ iconImage:ROOT:Resource/Image/Units/Button/Action/Transform_2.png
 #convertTo:
 
 setUnitMemory:styleIndex=0
-
+displayType:action
 
 [hiddenAction_Transform_LandLand_TankCD]
 setUnitMemory:changeTransform_LandLand_TankCD=self.timeAlive+3

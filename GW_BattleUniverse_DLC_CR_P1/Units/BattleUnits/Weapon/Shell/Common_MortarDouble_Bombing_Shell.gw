@@ -146,7 +146,7 @@ text:Bombing %{select(self.timeAlive<=memory.Common_MortarDouble_Bombing_Shell_C
 text_zh:轰炸 %{select(self.timeAlive<=memory.Common_MortarDouble_Bombing_Shell_CDTimer,str(int(memory.Common_MortarDouble_Bombing_Shell_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 buildSpeed:0s
 allowMultipleInQueue:false

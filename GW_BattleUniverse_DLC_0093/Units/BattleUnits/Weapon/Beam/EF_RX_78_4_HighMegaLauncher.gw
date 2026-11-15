@@ -262,7 +262,7 @@ text:MegaBeamCannon %{select(self.timeAlive<=memory.EF_RX_78_4_HighMegaLauncher_
 text_zh:MEGA粒子炮 %{select(self.timeAlive<=memory.EF_RX_78_4_HighMegaLauncher_CDTimer,str(int(memory.EF_RX_78_4_HighMegaLauncher_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 buildSpeed:0s
 allowMultipleInQueue:false

@@ -140,7 +140,7 @@ text:Leader %{select(self.timeAlive<=memory.ZN_MAX_03_Leader_CDTimer,str(int(mem
 text_zh:电击网 %{select(self.timeAlive<=memory.ZN_MAX_03_Leader_CDTimer,str(int(memory.ZN_MAX_03_Leader_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 buildSpeed:0s
 allowMultipleInQueue:false

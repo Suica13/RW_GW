@@ -1,0 +1,80 @@
+[core]
+copyFrom:"""
+ROOT:Units/BattleUnits/Pilot/0087/ACE/Pilot_ID_List_0087.gw,
+ROOT:Units/Buildings/Beacon_ACE/UnitList/Mod/UnitTemplate.ini
+"""
+
+@memory Pilot_TITANS_0087_N_ACE_Rosamia:bool
+@memory Pilot_TITANS_0087_N_ACE_Rosamia_Timer:float
+
+[hiddenAction_AutoProduce_Pilot_TITANS_0087_N_ACE_Rosamia]
+@copyFromSection:template_AutoProduce
+@define UnitID=Pilot_TITANS_0087_N_ACE_Rosamia
+alsoTriggerAction:"""
+Pilot_TITANS_0087_N_ACE_Rosamia_Produce_Switch_G,
+Pilot_TITANS_0087_N_ACE_Rosamia_Produce_Switch_S
+"""
+
+
+[action_Pilot_TITANS_0087_N_ACE_Rosamia_Produce_Switch_G]
+@copyFromSection:template_Produce_Switch
+@define UnitID=Pilot_TITANS_0087_N_ACE_Rosamia
+@define Money=8500
+@define Resource=4500
+@define Time=30
+@define TileMode=0
+@define FactionVisible= (memory.Pannel_TITANS_0087_DontShow==false)
+@define OtherVisible= (true)
+
+[action_Pilot_TITANS_0087_N_ACE_Rosamia_Produce_Switch_S]
+@copyFromSection:template_Produce_Switch
+@define UnitID=Pilot_TITANS_0087_N_ACE_Rosamia
+@define Money=8500
+@define Resource=4500
+@define Time=30
+@define TileMode=1
+@define FactionVisible= (memory.Pannel_TITANS_0087_DontShow==false)
+@define OtherVisible= (true)
+
+[hiddenAction_Pilot_TITANS_0087_N_ACE_Rosamia_Produce_Payback]
+@copyFromSection:template_Produce_Payback
+@define UnitID=Pilot_TITANS_0087_N_ACE_Rosamia
+@define Money_G=8500
+@define Resource_G=4500
+@define Money_S=8500
+@define Resource_S=4500
+
+[hiddenAction_Pilot_TITANS_0087_N_ACE_Rosamia_Produce_T_G]
+@copyFromSection:template_Produce_T_G
+@define UnitID=Pilot_TITANS_0087_N_ACE_Rosamia
+produceUnits:"""
+ORX_005*1(addResources=PilotType:${Pilot_TITANS_0087_N_ACE_Rosamia}|EquipmentIndex:0)
+"""
+
+[hiddenAction_Pilot_TITANS_0087_N_ACE_Rosamia_Produce_T_S]
+@copyFromSection:template_Produce_T_S
+@define UnitID=Pilot_TITANS_0087_N_ACE_Rosamia
+produceUnits:"""
+ORX_005*1(addResources=PilotType:${Pilot_TITANS_0087_N_ACE_Rosamia}|EquipmentIndex:0)
+"""
+
+
+
+[hiddenAction_Pilot_TITANS_0087_N_ACE_Rosamia_Produce_Check]
+@copyFromSection:template_Produce_Check
+@define UnitID=Pilot_TITANS_0087_N_ACE_Rosamia
+alsoTriggerAction:"""
+Pilot_TITANS_0087_N_ACE_Rosamia_Produce_F,
+Pilot_TITANS_0087_N_ACE_Rosamia_Produce_T_G,
+Pilot_TITANS_0087_N_ACE_Rosamia_Produce_T_S
+"""
+
+[action_Pilot_TITANS_0087_N_ACE_Rosamia_Produce_Switch_ON]
+@copyFromSection:template_Produce_Switch_ON
+@define UnitID=Pilot_TITANS_0087_N_ACE_Rosamia
+alsoTriggerAction:Pilot_TITANS_0087_N_ACE_Rosamia_Produce_Payback
+
+[hiddenAction_Pilot_TITANS_0087_N_ACE_Rosamia_Produce_F]
+@copyFromSection:template_Produce_F
+@define UnitID=Pilot_TITANS_0087_N_ACE_Rosamia
+alsoTriggerAction:Pilot_TITANS_0087_N_ACE_Rosamia_Produce_Payback

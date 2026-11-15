@@ -1,0 +1,121 @@
+[core]
+dont_load:true
+copyFrom:ROOT:Resource/Image/Fx/Weapon/Shell/Common/BZ_Fire_1.gw,ROOT:Template/Unit/Animation/Shoot/Common_Cannon_Shoot_A.gw
+@memory TITANS_ORX_012_Incom_CDTimer:float
+@memory TITANS_ORX_012_Incom_Units:unit[]
+@global TITANS_ORX_012_Incom_CD=18
+@global TITANS_ORX_012_Incom_EN=100
+@global TITANS_ORX_012_Incom_PilotAwakeningSkill=0
+
+[hiddenAction_Get_FunnelSpawn_TITANS_ORX_012_Incom]
+autoTriggerOnEvent:newMessage(withTag="FunnelSpawn_TITANS_ORX_012_Incom")
+setUnitMemory:TITANS_ORX_012_Incom_Units[memory.TITANS_ORX_012_Incom_Units.size]=eventData("unitInfo",type="unit")
+
+[decal_DrawLineTo_TITANS_ORX_012_Incom_Unit_HasLink_0]
+layer:beforeBody
+order:3
+alpha:0.75
+basePositionFromLegEnd:arm1
+drawLineTo:memory.TITANS_ORX_012_Incom_Units[0].readUnitMemory("Incom_LinkUnits",type="unit[]")[0]
+color:#333333
+imageScale:0.75
+lineWidth:1
+xOffsetRelative:0
+yOffsetRelative:-15
+onlyOnNonPreview:true
+isVisible:if memory.TITANS_ORX_012_Incom_Units[0].hp>0
+onlyWhileAlive:true
+
+[decal_DrawLineTo_TITANS_ORX_012_Incom_Unit_NoLink_0]
+layer:beforeBody
+order:3
+alpha:0.75
+basePositionFromLegEnd:arm1
+drawLineTo:memory.TITANS_ORX_012_Incom_Units[0]
+color:#333333
+imageScale:0.75
+lineWidth:1
+xOffsetRelative:0
+yOffsetRelative:-15
+onlyOnNonPreview:true
+isVisible:if memory.TITANS_ORX_012_Incom_Units[0].hp>0 and memory.TITANS_ORX_012_Incom_Units[0].readUnitMemory("Incom_LinkUnits",type="unit[]").size<=0
+onlyWhileAlive:true
+
+[turret_TITANS_ORX_012_Incom]
+x:0
+y:0
+canShoot:false
+projectile:TITANS_ORX_012_Incom_Projectile
+delay:0.2s
+canAttackMaxAngle:15
+limitingAngle:0
+limitingRange:1200
+barrelX:0
+barrelY:0
+aimOffsetSpread:0
+recoilOffset:0
+recoilOutTime:0
+recoilReturnTime:0
+shoot_sound:ROOT:Resource/Sound/SE/Action/Common/Transform_1.ogg
+shoot_sound_vol:1.0
+shoot_flame:BZ_Fire_1_S
+
+[projectile_TITANS_ORX_012_Incom_Projectile]
+directDamage:0
+life:0
+explodeOnEndOfLife:true
+speed:0
+lightSize:0.75
+lightColor:#ff57e9
+effectOnCreate:none
+explodeEffect:none
+spawnUnit:ORX_012_Incom*1
+
+[hiddenAction_TITANS_ORX_012_Incom_Trigger_ByAI]
+autoTrigger:if ${allowAI}==true and ${cantAction}==false and ${onSkill}==false and memory.close==false and self.resource.EN>${TITANS_ORX_012_Incom_EN} and self.timeAlive>memory.TITANS_ORX_012_Incom_CDTimer and self.parent.hp<=0  and self.attacking.hp>0 and memory.pilotUnit.readUnitMemory("pilotAwakeningSkillFinal",type="float")>=${TITANS_ORX_012_Incom_PilotAwakeningSkill} and memory.headBreaked==false and not memory.manualControlEnabled and memory.TITANS_ORX_012_Incom_Units[0].hp<=0
+setResourcesWithLogic:EN=self.resource().EN-${TITANS_ORX_012_Incom_EN}
+alsoTriggerAction:TITANS_ORX_012_Incom_Trigger
+
+[action_TITANS_ORX_012_Incom_Trigger]
+pos:30
+text:Incom[LockOn] %{select(self.timeAlive<=memory.TITANS_ORX_012_Incom_CDTimer,str(int(memory.TITANS_ORX_012_Incom_CDTimer-self.timeAlive))+"s","OK")}
+text_zh:线控炮[锁定] %{select(self.timeAlive<=memory.TITANS_ORX_012_Incom_CDTimer,str(int(memory.TITANS_ORX_012_Incom_CDTimer-self.timeAlive))+"秒","OK")}
+text_KP:100
+displayType:action
+price:EN=${TITANS_ORX_012_Incom_EN}
+buildSpeed:0s
+allowMultipleInQueue:false
+alwaysSinglePress:true
+ai_isDisabled:true
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Incom_3.png
+highPriorityQueue:true
+isVisible:if self.parent.hp<=0 and not memory.manualControlEnabled
+isGuiBlinking:if self.timeAlive>memory.TITANS_ORX_012_Incom_CDTimer and ${cantAction}==false and ${onSkill}==false and memory.headBreaked==false
+isLocked:if self.timeAlive<=memory.TITANS_ORX_012_Incom_CDTimer
+isLockedMessage:In CD
+isLockedMessage_zh:冷却中
+isLockedAlt2:if (    ${cantAction}==true or ${onSkill}==true or ${allowAI}==true )or (    memory.TITANS_ORX_012_Incom_Units[0].hp>0 ) or (    memory.headBreaked==true)
+isLockedAlt2Message:Cant Action
+isLockedAlt2Message_zh:无法行动
+alsoTriggerAction:SetOnSkillOn,TITANS_ORX_012_Incom_B1_Step_1,PlayCommon_Cannon_Shoot_A_Step_1
+
+[hiddenAction_TITANS_ORX_012_Incom_B1_Step_1]
+setUnitMemory:TITANS_ORX_012_Incom_CDTimer=self.timeAlive+${TITANS_ORX_012_Incom_CD}
+shrinkArrays:TITANS_ORX_012_Incom_Units
+alsoQueueAction:TITANS_ORX_012_Incom_Fire_Step_1,TITANS_ORX_012_Incom_Fire_Step_Final
+resetCustomTimer:true
+
+[hiddenAction_TITANS_ORX_012_Incom_SetWeaponIndex]
+isVisible:false
+setUnitMemory:nowSubWeaponIndex=0
+
+[hiddenAction_TITANS_ORX_012_Incom_Fire_Step_1]
+requireConditional:if ${cantAction}==false and memory.headBreaked==false and (not memory.manualControlEnabled or ${manualControlReady})
+buildSpeed:0.25s
+fireTurretXAtGround:TITANS_ORX_012_Incom
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+
+[hiddenAction_TITANS_ORX_012_Incom_Fire_Step_Final]
+buildSpeed:0s
+alsoTriggerAction:SetOnSkillOff
+

@@ -206,7 +206,7 @@ text:Sniper %{select(self.timeAlive<=memory.EF_75mmSniperRifle_Sniper_CDTimer,st
 text_zh:狙击 %{select(self.timeAlive<=memory.EF_75mmSniperRifle_Sniper_CDTimer,str(int(memory.EF_75mmSniperRifle_Sniper_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 buildSpeed:0s
 allowMultipleInQueue:false

@@ -50,7 +50,7 @@ alwaysSinglePress:true
 ai_isDisabled:true
 extraLagHidingInUI:true
 
-displayType:Upgrade
+displayType:action
 
 text:Fly Style
 text_zh:飞行形态
@@ -106,7 +106,7 @@ iconImage:ROOT:Resource/Image/Units/Button/Action/Transform_2.png
 #convertTo:
 
 setUnitMemory:styleIndex=0
-
+displayType:action
 
 [hiddenAction_FlyStyleCD]
 setUnitMemory:changeFlyStyleCD=self.timeAlive+3

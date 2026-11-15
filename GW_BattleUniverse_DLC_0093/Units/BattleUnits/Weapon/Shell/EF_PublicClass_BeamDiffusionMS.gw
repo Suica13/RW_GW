@@ -86,7 +86,7 @@ text:BeamDiffusionMS %{select(self.timeAlive<=memory.EF_PublicClass_BeamDiffusio
 text_zh:光束扰乱膜飞弹 %{select(self.timeAlive<=memory.EF_PublicClass_BeamDiffusionMS_CDTimer,str(int(memory.EF_PublicClass_BeamDiffusionMS_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 buildSpeed:0s
 allowMultipleInQueue:false

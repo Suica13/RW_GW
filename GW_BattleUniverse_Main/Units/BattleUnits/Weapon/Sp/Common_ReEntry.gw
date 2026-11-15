@@ -166,7 +166,7 @@ text_zh:"""
 """
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 buildSpeed:0s
 allowMultipleInQueue:false

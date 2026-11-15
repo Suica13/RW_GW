@@ -1,0 +1,119 @@
+[core]
+dont_load:true
+@global manualControlImplemented=true
+@memory manualVulcanRightNext:bool
+copyFrom:ROOT:Template/Unit/Skill/PlayerControl.gw
+
+# Instance overrides keep native weapon sequences, equipment and damage definitions.
+
+[hiddenAction_ZN_MAN_08_Funnel_Trigger_ByAI]
+autoTrigger:if not memory.manualControlEnabled and (${allowAI}==true and ${cantAction}==false and ${onSkill}==false and memory.close==false and self.resource.EN>${ZN_MAN_08_Funnel_EN} and self.timeAlive>memory.ZN_MAN_08_Funnel_CDTimer and self.parent.hp<=0  and self.attacking.hp>0 and memory.pilotUnit.readUnitMemory("pilotAwakeningSkillFinal",type="float")>=${ZN_MAN_08_Funnel_PilotAwakeningSkill})
+
+[hiddenAction_ZN_MAN_08_Funnel_Fire_Step_1]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_ZN_MAN_08_Funnel_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_Common_Push_L_A_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)<=80)
+
+[hiddenAction_Common_Push_L_A_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_ZN_MAN_08_BeamCannon_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>80  and distanceBetween(self,self.attacking)<=memory.finalAttackRange and eventData("RandomWeapon",type="float")>50)
+
+[hiddenAction_ZN_MAN_08_BeamCannon_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_ZN_MAN_08_BeamCannon_Fire_Step_3]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[action_ZN_MAN_08_Funnel_Trigger]
+pos:30
+requireConditional:if (true) and (not memory.manualControlEnabled or ${manualWeaponReady})
+
+[hiddenAction_ManualControl_CancelSpecialWeapons]
+requireConditional:true
+alsoTriggerAction:SetOnSkillOff
+
+[action_Manual_Common_Push_L_A]
+@copyFromSection:template_ManualWeapon
+pos:3
+text:Melee
+text_zh:徒手格斗
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Cqb_1.png
+isVisible:if ${manualControlReady} and ((true))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.Common_Push_L_A_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((true)))
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.Common_Push_L_A_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((true))
+alsoTriggerAction:Common_Push_L_A_Fire
+displayType:action
+
+[hiddenAction_Common_Push_L_A_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.Common_Push_L_A_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50)) or (${manualWeaponReady} and ((self.timeAlive>memory.Common_Push_L_A_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((true)))
+setUnitMemory:Common_Push_L_A_CDTimer=self.timeAlive+${Common_Push_L_A_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${Common_Push_L_A_CD}s
+addActionCooldownApplyToActions:Manual_Common_Push_L_A
+
+[action_Manual_ZN_MAN_08_BeamCannon]
+@copyFromSection:template_ManualWeapon
+pos:2
+text:Beam cannon
+text_zh:光束炮
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamCannon_1.png
+isVisible:if ${manualControlReady} and ((true))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.ZN_MAN_08_BeamCannon_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (self.resource.EN>0)) and ((true)) and self.resource.EN>=${ZN_MAN_08_BeamCannon_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.ZN_MAN_08_BeamCannon_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (self.resource.EN>0)) and ((true)) and self.resource.EN>=${ZN_MAN_08_BeamCannon_EN}
+alsoTriggerAction:ZN_MAN_08_BeamCannon_Fire
+displayType:action
+
+[hiddenAction_ZN_MAN_08_BeamCannon_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.ZN_MAN_08_BeamCannon_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.ZN_MAN_08_BeamCannon_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (self.resource.EN>0)) and ((true)) and self.resource.EN>=${ZN_MAN_08_BeamCannon_EN})
+setUnitMemory:ZN_MAN_08_BeamCannon_CDTimer=self.timeAlive+${ZN_MAN_08_BeamCannon_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${ZN_MAN_08_BeamCannon_CD}s
+addActionCooldownApplyToActions:Manual_ZN_MAN_08_BeamCannon
+
+[hiddenAction_TryAttack]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_AttackMode_Cqb_WhenHasTarget]
+requireConditional:if not memory.manualControlEnabled and (false)
+
+[hiddenAction_LowPartsForceCqbMode]
+requireConditional:if not memory.manualControlEnabled and (false)
+
+[hiddenAction_ResetTargetTags_Step2]
+alsoTriggerAction:ManualControl_AfterTransform,ManualControl_RestoreGuard
+
+[action_ChangeAttackRuleMode_Free]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Guard]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Hold]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==2 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Shoot]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Cqb]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_AllowAIOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAI}==false and not self.hasTags(includes='inHangar'))
+
+[action_AllowAssignedOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAssigned}==false and not self.hasTags(includes='inHangar'))

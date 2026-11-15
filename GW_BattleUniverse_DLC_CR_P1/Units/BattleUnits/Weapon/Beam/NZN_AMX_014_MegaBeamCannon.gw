@@ -261,7 +261,7 @@ text:MegaBeamCannon %{select(self.timeAlive<=memory.NZN_AMX_014_MegaBeamCannon_C
 text_zh:MEGA粒子炮 %{select(self.timeAlive<=memory.NZN_AMX_014_MegaBeamCannon_CDTimer,str(int(memory.NZN_AMX_014_MegaBeamCannon_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 buildSpeed:0s
 allowMultipleInQueue:false

@@ -1,0 +1,103 @@
+[core]
+dont_load:true
+copyFrom:ROOT:Template/Unit/Skill/PlayerControl.gw
+@global manualControlImplemented=true
+
+[action_Manual_TITANS_ORX_013_BR]
+@copyFromSection:template_ManualWeapon
+pos:2
+text:ORX_013_BR
+text_zh:光束步枪
+displayType:action
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamRifle_1.png
+isVisible:if ${manualControlReady} and (memory.armRBreaked==false)
+isLocked:if not (${manualWeaponReady} and self.timeAlive>memory.TITANS_ORX_013_BR_CDTimer and self.resource.EN>=${TITANS_ORX_013_BR_EN} and (memory.armRBreaked==false))
+requireConditional:if ${manualWeaponReady} and self.timeAlive>memory.TITANS_ORX_013_BR_CDTimer and self.resource.EN>=${TITANS_ORX_013_BR_EN} and (memory.armRBreaked==false)
+alsoTriggerAction:TITANS_ORX_013_BR_Fire
+
+[action_Manual_TITANS_ORX_013_CrotchBeamCannon]
+@copyFromSection:template_ManualWeapon
+pos:4
+text:ORX_013_CrotchBeamCannon
+text_zh:双联腰部光束枪
+displayType:action
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamCannon_1.png
+isVisible:if ${manualControlReady} and (memory.headBreaked==false)
+isLocked:if not (${manualWeaponReady} and self.timeAlive>memory.TITANS_ORX_013_CrotchBeamCannon_CDTimer and self.resource.EN>=${TITANS_ORX_013_CrotchBeamCannon_EN} and (memory.headBreaked==false))
+requireConditional:if ${manualWeaponReady} and self.timeAlive>memory.TITANS_ORX_013_CrotchBeamCannon_CDTimer and self.resource.EN>=${TITANS_ORX_013_CrotchBeamCannon_EN} and (memory.headBreaked==false)
+alsoTriggerAction:TITANS_ORX_013_CrotchBeamCannon_Fire
+
+[action_Manual_TITANS_ORX_013_MS]
+@copyFromSection:template_ManualWeapon
+pos:5
+text:ORX_013_MS
+text_zh:肩部六连装导弹
+displayType:action
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Missile_1.png
+isVisible:if ${manualControlReady} and (memory.headBreaked==false)
+isLocked:if not (${manualWeaponReady} and self.timeAlive>memory.TITANS_ORX_013_MS_CDTimer and self.resource.EN>=${TITANS_ORX_013_MS_EN} and (memory.headBreaked==false))
+requireConditional:if ${manualWeaponReady} and self.timeAlive>memory.TITANS_ORX_013_MS_CDTimer and self.resource.EN>=${TITANS_ORX_013_MS_EN} and (memory.headBreaked==false)
+alsoTriggerAction:TITANS_ORX_013_MS_Fire
+
+[action_Manual_TITANS_ORX_013_BeamSaber]
+@copyFromSection:template_ManualWeapon
+pos:3
+text:ORX_013_BeamSaber
+text_zh:双大型光束军刀
+displayType:action
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Cqb_1.png
+isVisible:if ${manualControlReady} and (memory.armRBreaked==false)
+isLocked:if not (${manualWeaponReady} and self.timeAlive>memory.TITANS_ORX_013_BeamSaber_CDTimer and self.resource.EN>=${TITANS_ORX_013_BeamSaber_EN} and (memory.armRBreaked==false))
+requireConditional:if ${manualWeaponReady} and self.timeAlive>memory.TITANS_ORX_013_BeamSaber_CDTimer and self.resource.EN>=${TITANS_ORX_013_BeamSaber_EN} and (memory.armRBreaked==false)
+alsoTriggerAction:TITANS_ORX_013_BeamSaber_Fire
+
+[action_Manual_TITANS_ORX_013_Incom]
+@copyFromSection:template_ManualWeapon
+pos:30
+text:Incom
+text_zh:有线炮
+displayType:action
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Incom_3.png
+isVisible:if ${manualControlReady}
+isLocked:if not (${manualWeaponReady} and memory.headBreaked==false and self.timeAlive>memory.TITANS_ORX_013_Incom_CDTimer and self.resource.EN>=${TITANS_ORX_013_Incom_EN} and memory.TITANS_ORX_013_Incom_Units[0].hp<=0 and self.attacking.hp>0)
+requireConditional:if ${manualWeaponReady} and memory.headBreaked==false and self.timeAlive>memory.TITANS_ORX_013_Incom_CDTimer and self.resource.EN>=${TITANS_ORX_013_Incom_EN} and memory.TITANS_ORX_013_Incom_Units[0].hp<=0 and self.attacking.hp>0
+addResources:EN=-${TITANS_ORX_013_Incom_EN}
+alsoTriggerAction:TITANS_ORX_013_Incom_Launch
+
+[hiddenAction_ManualControl_CancelSpecialWeapons]
+requireConditional:true
+alsoTriggerAction:SetOnSkillOff,SetAttackingCantTurnOff
+setUnitMemory:nowSubWeaponIndex=0
+
+[action_Manual_Common_Push_A]
+@copyFromSection:template_ManualWeapon
+pos:6
+text:Punch
+text_zh:徒手格斗
+description:Uses native ammunition, EN and cooldown.
+description_zh:沿用原武装弹数、EN消耗与冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Cqb_1.png
+isVisible:if ${manualControlReady} and ((((memory.armRBreaked==true))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.Common_Push_A_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==true)))))
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.Common_Push_A_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==true))))
+alsoTriggerAction:Common_Push_A_Fire
+displayType:action
+
+[hiddenAction_Common_Push_A_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.Common_Push_A_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50)) or (${manualWeaponReady} and ((self.timeAlive>memory.Common_Push_A_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((memory.armRBreaked==true)))))
+setUnitMemory:"""
+Common_Push_A_CDTimer=self.timeAlive+${Common_Push_A_CD},
+manualInputBusyUntil=select(memory.manualControlEnabled,
+self.timeAlive+0.15,
+memory.manualInputBusyUntil)
+"""
+addActionCooldownTime:${Common_Push_A_CD}s
+addActionCooldownApplyToActions:Manual_Common_Push_A
+
+[hiddenAction_Common_Push_A_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_TITANS_ORX_013_Incom_Launch]
+requireConditional:if not memory.manualControlEnabled or (${manualControlReady} and ${cantAction}==false and memory.headBreaked==false)
+alsoTriggerAction:SetOnSkillOn,TITANS_ORX_013_Incom_B1_Step_1,PlayCommon_Cannon_Shoot_A_Step_1
+

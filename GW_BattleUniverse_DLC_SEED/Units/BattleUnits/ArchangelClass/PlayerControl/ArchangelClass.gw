@@ -1,0 +1,357 @@
+[core]
+dont_load:true
+@global manualControlImplemented=true
+@memory manualShipArcGroup:float
+copyFrom:ROOT:Template/Unit/Skill/PlayerControl.gw,ROOT:Units/BattleUnits/ArchangelClass/PlayerControl/Ships/Arcs_dc1dbe131c80.gw
+
+[action_LaunchAllUnits]
+pos:82
+
+[action_Common_FullBoost_Trigger]
+pos:65
+
+[action_Common_ReEntry_Trigger]
+pos:65
+
+[action_Common_ReEntry_FromSpace_Trigger]
+pos:65
+
+[hiddenAction_ManualShip_Send_ArchangelClass_Turret_BeamCannon_L1]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_BeamCannon_L1')
+sendMessageWithTags:ManualShip_0087_Beam
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_ArchangelClass_Turret_BeamCannon_R1]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_BeamCannon_R1')
+sendMessageWithTags:ManualShip_0087_Beam
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[action_ManualShip_Beam]
+@copyFromSection:template_ManualWeapon
+pos:2
+text:Beam cannon salvo [%{select(self.attachment(slot='ArchangelClass_Turret_BeamCannon_L1').hp>0 and not self.attachment(slot='ArchangelClass_Turret_BeamCannon_L1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_BeamCannon_L1').readUnitMemory('ArchangelClass_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_BeamCannon_L1').resource.ArchangelClass_Turret_BeamCannon_ShootTimer>0,1,0)+select(self.attachment(slot='ArchangelClass_Turret_BeamCannon_R1').hp>0 and not self.attachment(slot='ArchangelClass_Turret_BeamCannon_R1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_BeamCannon_R1').readUnitMemory('ArchangelClass_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_BeamCannon_R1').resource.ArchangelClass_Turret_BeamCannon_ShootTimer>0,1,0)}/2]
+text_zh:光束炮齐射 [%{select(self.attachment(slot='ArchangelClass_Turret_BeamCannon_L1').hp>0 and not self.attachment(slot='ArchangelClass_Turret_BeamCannon_L1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_BeamCannon_L1').readUnitMemory('ArchangelClass_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_BeamCannon_L1').resource.ArchangelClass_Turret_BeamCannon_ShootTimer>0,1,0)+select(self.attachment(slot='ArchangelClass_Turret_BeamCannon_R1').hp>0 and not self.attachment(slot='ArchangelClass_Turret_BeamCannon_R1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_BeamCannon_R1').readUnitMemory('ArchangelClass_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_BeamCannon_R1').resource.ArchangelClass_Turret_BeamCannon_ShootTimer>0,1,0)}/2]
+description:Order ready turrets to fire. Each turret aims at its own target; without a target it fires along its current barrel direction.
+description_zh:命令就绪炮位开火；有目标时各自瞄准，无目标时沿炮塔当前朝向发射。损坏或装填中的炮位跳过。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamCannon_1.png
+isLocked:if not ${manualAuxiliaryReady} or ${onSkill} or (select(self.attachment(slot='ArchangelClass_Turret_BeamCannon_L1').hp>0 and not self.attachment(slot='ArchangelClass_Turret_BeamCannon_L1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_BeamCannon_L1').readUnitMemory('ArchangelClass_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_BeamCannon_L1').resource.ArchangelClass_Turret_BeamCannon_ShootTimer>0,1,0)+select(self.attachment(slot='ArchangelClass_Turret_BeamCannon_R1').hp>0 and not self.attachment(slot='ArchangelClass_Turret_BeamCannon_R1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_BeamCannon_R1').readUnitMemory('ArchangelClass_Turret_BeamCannon_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_BeamCannon_R1').resource.ArchangelClass_Turret_BeamCannon_ShootTimer>0,1,0))<=0 or self.resource.EN<=0
+requireConditional:if ${manualAuxiliaryReady} and ${onSkill}==false
+alsoTriggerAction:ManualShip_Send_ArchangelClass_Turret_BeamCannon_L1,ManualShip_Send_ArchangelClass_Turret_BeamCannon_R1
+displayType:action
+
+[hiddenAction_ManualShip_Send_ArchangelClass_Turret_Railgun_L1]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_Railgun_L1')
+sendMessageWithTags:ManualShip_0087_Shell
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_ArchangelClass_Turret_Railgun_R1]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_Railgun_R1')
+sendMessageWithTags:ManualShip_0087_Shell
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[action_ManualShip_Shell]
+@copyFromSection:template_ManualWeapon
+pos:3
+text:Cannon salvo [%{select(self.attachment(slot='ArchangelClass_Turret_Railgun_L1').hp>0 and not self.attachment(slot='ArchangelClass_Turret_Railgun_L1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_Railgun_L1').readUnitMemory('ArchangelClass_Turret_Railgun_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_Railgun_L1').resource.ArchangelClass_Turret_Railgun_ShootTimer>0,1,0)+select(self.attachment(slot='ArchangelClass_Turret_Railgun_R1').hp>0 and not self.attachment(slot='ArchangelClass_Turret_Railgun_R1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_Railgun_R1').readUnitMemory('ArchangelClass_Turret_Railgun_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_Railgun_R1').resource.ArchangelClass_Turret_Railgun_ShootTimer>0,1,0)}/2]
+text_zh:舰炮齐射 [%{select(self.attachment(slot='ArchangelClass_Turret_Railgun_L1').hp>0 and not self.attachment(slot='ArchangelClass_Turret_Railgun_L1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_Railgun_L1').readUnitMemory('ArchangelClass_Turret_Railgun_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_Railgun_L1').resource.ArchangelClass_Turret_Railgun_ShootTimer>0,1,0)+select(self.attachment(slot='ArchangelClass_Turret_Railgun_R1').hp>0 and not self.attachment(slot='ArchangelClass_Turret_Railgun_R1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_Railgun_R1').readUnitMemory('ArchangelClass_Turret_Railgun_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_Railgun_R1').resource.ArchangelClass_Turret_Railgun_ShootTimer>0,1,0)}/2]
+description:Order ready turrets to fire. Each turret aims at its own target; without a target it fires along its current barrel direction.
+description_zh:命令就绪炮位开火；有目标时各自瞄准，无目标时沿炮塔当前朝向发射。损坏或装填中的炮位跳过。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Missile_1.png
+isLocked:if not ${manualAuxiliaryReady} or ${onSkill} or (select(self.attachment(slot='ArchangelClass_Turret_Railgun_L1').hp>0 and not self.attachment(slot='ArchangelClass_Turret_Railgun_L1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_Railgun_L1').readUnitMemory('ArchangelClass_Turret_Railgun_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_Railgun_L1').resource.ArchangelClass_Turret_Railgun_ShootTimer>0,1,0)+select(self.attachment(slot='ArchangelClass_Turret_Railgun_R1').hp>0 and not self.attachment(slot='ArchangelClass_Turret_Railgun_R1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_Railgun_R1').readUnitMemory('ArchangelClass_Turret_Railgun_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_Railgun_R1').resource.ArchangelClass_Turret_Railgun_ShootTimer>0,1,0))<=0 or self.resource.EN<=0
+requireConditional:if ${manualAuxiliaryReady} and ${onSkill}==false
+alsoTriggerAction:ManualShip_Send_ArchangelClass_Turret_Railgun_L1,ManualShip_Send_ArchangelClass_Turret_Railgun_R1
+displayType:action
+
+[hiddenAction_ManualShip_Send_ArchangelClass_Turret_MS_M1]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_MS_M1')
+sendMessageWithTags:ManualShip_0087_Torpedo
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_ArchangelClass_Turret_MS_M2]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_MS_M2')
+sendMessageWithTags:ManualShip_0087_Torpedo
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_ArchangelClass_Turret_MS_M3]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_MS_M3')
+sendMessageWithTags:ManualShip_0087_Torpedo
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_ArchangelClass_Turret_MS_M4]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_MS_M4')
+sendMessageWithTags:ManualShip_0087_Torpedo
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_ArchangelClass_Turret_MS_M5]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_MS_M5')
+sendMessageWithTags:ManualShip_0087_Torpedo
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_ArchangelClass_Turret_MS_M6]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_MS_M6')
+sendMessageWithTags:ManualShip_0087_Torpedo
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[action_ManualShip_Torpedo]
+@copyFromSection:template_ManualWeapon
+pos:4
+text:Missile / torpedo salvo [%{select(self.attachment(slot='ArchangelClass_Turret_MS_M1').hp>0 and not self.attachment(slot='ArchangelClass_Turret_MS_M1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_MS_M1').readUnitMemory('ArchangelClass_Turret_MS_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_MS_M1').resource.ArchangelClass_Turret_MS_ShootTimer>0,1,0)+select(self.attachment(slot='ArchangelClass_Turret_MS_M2').hp>0 and not self.attachment(slot='ArchangelClass_Turret_MS_M2').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_MS_M2').readUnitMemory('ArchangelClass_Turret_MS_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_MS_M2').resource.ArchangelClass_Turret_MS_ShootTimer>0,1,0)+select(self.attachment(slot='ArchangelClass_Turret_MS_M3').hp>0 and not self.attachment(slot='ArchangelClass_Turret_MS_M3').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_MS_M3').readUnitMemory('ArchangelClass_Turret_MS_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_MS_M3').resource.ArchangelClass_Turret_MS_ShootTimer>0,1,0)+select(self.attachment(slot='ArchangelClass_Turret_MS_M4').hp>0 and not self.attachment(slot='ArchangelClass_Turret_MS_M4').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_MS_M4').readUnitMemory('ArchangelClass_Turret_MS_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_MS_M4').resource.ArchangelClass_Turret_MS_ShootTimer>0,1,0)+select(self.attachment(slot='ArchangelClass_Turret_MS_M5').hp>0 and not self.attachment(slot='ArchangelClass_Turret_MS_M5').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_MS_M5').readUnitMemory('ArchangelClass_Turret_MS_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_MS_M5').resource.ArchangelClass_Turret_MS_ShootTimer>0,1,0)+select(self.attachment(slot='ArchangelClass_Turret_MS_M6').hp>0 and not self.attachment(slot='ArchangelClass_Turret_MS_M6').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_MS_M6').readUnitMemory('ArchangelClass_Turret_MS_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_MS_M6').resource.ArchangelClass_Turret_MS_ShootTimer>0,1,0)}/6]
+text_zh:导弹／鱼雷齐射 [%{select(self.attachment(slot='ArchangelClass_Turret_MS_M1').hp>0 and not self.attachment(slot='ArchangelClass_Turret_MS_M1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_MS_M1').readUnitMemory('ArchangelClass_Turret_MS_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_MS_M1').resource.ArchangelClass_Turret_MS_ShootTimer>0,1,0)+select(self.attachment(slot='ArchangelClass_Turret_MS_M2').hp>0 and not self.attachment(slot='ArchangelClass_Turret_MS_M2').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_MS_M2').readUnitMemory('ArchangelClass_Turret_MS_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_MS_M2').resource.ArchangelClass_Turret_MS_ShootTimer>0,1,0)+select(self.attachment(slot='ArchangelClass_Turret_MS_M3').hp>0 and not self.attachment(slot='ArchangelClass_Turret_MS_M3').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_MS_M3').readUnitMemory('ArchangelClass_Turret_MS_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_MS_M3').resource.ArchangelClass_Turret_MS_ShootTimer>0,1,0)+select(self.attachment(slot='ArchangelClass_Turret_MS_M4').hp>0 and not self.attachment(slot='ArchangelClass_Turret_MS_M4').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_MS_M4').readUnitMemory('ArchangelClass_Turret_MS_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_MS_M4').resource.ArchangelClass_Turret_MS_ShootTimer>0,1,0)+select(self.attachment(slot='ArchangelClass_Turret_MS_M5').hp>0 and not self.attachment(slot='ArchangelClass_Turret_MS_M5').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_MS_M5').readUnitMemory('ArchangelClass_Turret_MS_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_MS_M5').resource.ArchangelClass_Turret_MS_ShootTimer>0,1,0)+select(self.attachment(slot='ArchangelClass_Turret_MS_M6').hp>0 and not self.attachment(slot='ArchangelClass_Turret_MS_M6').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_MS_M6').readUnitMemory('ArchangelClass_Turret_MS_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_MS_M6').resource.ArchangelClass_Turret_MS_ShootTimer>0,1,0)}/6]
+description:Order ready turrets to fire. Each turret aims at its own target; without a target it fires along its current barrel direction.
+description_zh:命令就绪炮位开火；有目标时各自瞄准，无目标时沿炮塔当前朝向发射。损坏或装填中的炮位跳过。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Missile_1.png
+isLocked:if not ${manualAuxiliaryReady} or ${onSkill} or (select(self.attachment(slot='ArchangelClass_Turret_MS_M1').hp>0 and not self.attachment(slot='ArchangelClass_Turret_MS_M1').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_MS_M1').readUnitMemory('ArchangelClass_Turret_MS_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_MS_M1').resource.ArchangelClass_Turret_MS_ShootTimer>0,1,0)+select(self.attachment(slot='ArchangelClass_Turret_MS_M2').hp>0 and not self.attachment(slot='ArchangelClass_Turret_MS_M2').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_MS_M2').readUnitMemory('ArchangelClass_Turret_MS_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_MS_M2').resource.ArchangelClass_Turret_MS_ShootTimer>0,1,0)+select(self.attachment(slot='ArchangelClass_Turret_MS_M3').hp>0 and not self.attachment(slot='ArchangelClass_Turret_MS_M3').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_MS_M3').readUnitMemory('ArchangelClass_Turret_MS_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_MS_M3').resource.ArchangelClass_Turret_MS_ShootTimer>0,1,0)+select(self.attachment(slot='ArchangelClass_Turret_MS_M4').hp>0 and not self.attachment(slot='ArchangelClass_Turret_MS_M4').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_MS_M4').readUnitMemory('ArchangelClass_Turret_MS_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_MS_M4').resource.ArchangelClass_Turret_MS_ShootTimer>0,1,0)+select(self.attachment(slot='ArchangelClass_Turret_MS_M5').hp>0 and not self.attachment(slot='ArchangelClass_Turret_MS_M5').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_MS_M5').readUnitMemory('ArchangelClass_Turret_MS_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_MS_M5').resource.ArchangelClass_Turret_MS_ShootTimer>0,1,0)+select(self.attachment(slot='ArchangelClass_Turret_MS_M6').hp>0 and not self.attachment(slot='ArchangelClass_Turret_MS_M6').readUnitMemory('breaked',type='bool') and not self.attachment(slot='ArchangelClass_Turret_MS_M6').readUnitMemory('ArchangelClass_Turret_MS_OnCD',type='bool') and self.attachment(slot='ArchangelClass_Turret_MS_M6').resource.ArchangelClass_Turret_MS_ShootTimer>0,1,0))<=0 or self.resource.EN<=0
+requireConditional:if ${manualAuxiliaryReady} and ${onSkill}==false
+alsoTriggerAction:ManualShip_Send_ArchangelClass_Turret_MS_M1,ManualShip_Send_ArchangelClass_Turret_MS_M2,ManualShip_Send_ArchangelClass_Turret_MS_M3,ManualShip_Send_ArchangelClass_Turret_MS_M4,ManualShip_Send_ArchangelClass_Turret_MS_M5,ManualShip_Send_ArchangelClass_Turret_MS_M6
+displayType:action
+
+[hiddenAction_ManualShip_Send_ArchangelClass_Turret_AA_L1]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_AA_L1')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_ArchangelClass_Turret_AA_R1]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_AA_R1')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_ArchangelClass_Turret_AA_L2]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_AA_L2')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_ArchangelClass_Turret_AA_R2]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_AA_R2')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_ArchangelClass_Turret_AA_L3]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_AA_L3')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_ArchangelClass_Turret_AA_R3]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_AA_R3')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_ArchangelClass_Turret_AA_L4]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_AA_L4')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_ArchangelClass_Turret_AA_R4]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_AA_R4')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_ArchangelClass_Turret_AA_L5]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_AA_L5')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_ArchangelClass_Turret_AA_R5]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_AA_R5')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_ArchangelClass_Turret_AA_L6]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_AA_L6')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[hiddenAction_ManualShip_Send_ArchangelClass_Turret_AA_R6]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_AA_R6')
+sendMessageWithTags:ManualShip_0087_AA
+sendMessageWithData:owner=self,controller=memory.manualControlHQ,serial=memory.manualVulcanSerial
+
+[action_ManualShip_AA]
+@copyFromSection:template_ManualWeapon
+pos:5
+text:Anti-air: %{select(memory.manualAutoAAOff,'OFF','ON')}
+text_zh:防空炮：%{select(memory.manualAutoAAOff,'关闭','自动迎击')}
+description:Toggle automatic interception by each anti-air turret. Native arcs, targets, energy, ammunition and reload are retained.
+description_zh:开关各防空炮的自动迎击。保留各炮塔射界、索敌、能耗、弹药和装填。
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Ciws_1.png
+isLocked:false
+requireConditional:if ${manualControlReady}
+alsoTriggerAction:NONE
+displayType:action
+setUnitMemory:manualAutoAAOff=not memory.manualAutoAAOff
+
+[hiddenAction_ManualShip_Hold_ArchangelClass_Turret_BeamCannon_L1]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_BeamCannon_L1')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_ArchangelClass_Turret_BeamCannon_R1]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_BeamCannon_R1')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_ArchangelClass_Turret_Railgun_L1]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_Railgun_L1')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_ArchangelClass_Turret_Railgun_R1]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_Railgun_R1')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_ArchangelClass_Turret_MS_M1]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_MS_M1')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_ArchangelClass_Turret_MS_M2]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_MS_M2')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_ArchangelClass_Turret_MS_M3]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_MS_M3')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_ArchangelClass_Turret_MS_M4]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_MS_M4')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_ArchangelClass_Turret_MS_M5]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_MS_M5')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_ArchangelClass_Turret_MS_M6]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_MS_M6')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_ArchangelClass_Turret_AA_L1]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_AA_L1')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_ArchangelClass_Turret_AA_R1]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_AA_R1')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_ArchangelClass_Turret_AA_L2]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_AA_L2')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_ArchangelClass_Turret_AA_R2]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_AA_R2')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_ArchangelClass_Turret_AA_L3]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_AA_L3')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_ArchangelClass_Turret_AA_R3]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_AA_R3')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_ArchangelClass_Turret_AA_L4]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_AA_L4')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_ArchangelClass_Turret_AA_R4]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_AA_R4')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_ArchangelClass_Turret_AA_L5]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_AA_L5')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_ArchangelClass_Turret_AA_R5]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_AA_R5')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_ArchangelClass_Turret_AA_L6]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_AA_L6')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_Hold_ArchangelClass_Turret_AA_R6]
+sendMessageTo:self.attachment(slot='ArchangelClass_Turret_AA_R6')
+sendMessageWithTags:ManualShip_Hold
+sendMessageWithData:owner=self
+
+[hiddenAction_ManualShip_HoldAll]
+alsoTriggerAction:ManualShip_Hold_ArchangelClass_Turret_BeamCannon_L1,ManualShip_Hold_ArchangelClass_Turret_BeamCannon_R1,ManualShip_Hold_ArchangelClass_Turret_Railgun_L1,ManualShip_Hold_ArchangelClass_Turret_Railgun_R1,ManualShip_Hold_ArchangelClass_Turret_MS_M1,ManualShip_Hold_ArchangelClass_Turret_MS_M2,ManualShip_Hold_ArchangelClass_Turret_MS_M3,ManualShip_Hold_ArchangelClass_Turret_MS_M4,ManualShip_Hold_ArchangelClass_Turret_MS_M5,ManualShip_Hold_ArchangelClass_Turret_MS_M6,ManualShip_Hold_ArchangelClass_Turret_AA_L1,ManualShip_Hold_ArchangelClass_Turret_AA_R1,ManualShip_Hold_ArchangelClass_Turret_AA_L2,ManualShip_Hold_ArchangelClass_Turret_AA_R2,ManualShip_Hold_ArchangelClass_Turret_AA_L3,ManualShip_Hold_ArchangelClass_Turret_AA_R3,ManualShip_Hold_ArchangelClass_Turret_AA_L4,ManualShip_Hold_ArchangelClass_Turret_AA_R4,ManualShip_Hold_ArchangelClass_Turret_AA_L5,ManualShip_Hold_ArchangelClass_Turret_AA_R5,ManualShip_Hold_ArchangelClass_Turret_AA_L6,ManualShip_Hold_ArchangelClass_Turret_AA_R6
+
+[hiddenAction_ManualControl_CancelSpecialWeapons]
+requireConditional:true
+alsoTriggerAction:ManualShip_HoldAll,SetOnSkillOff
+
+[action_ManualShip_ArcGroup]
+@copyFromSection:template_ManualWeapon
+pos:70
+text:Firing arcs
+text_zh:射界：%{select(memory.manualShipArcGroup==0,'光束炮齐射',select(memory.manualShipArcGroup==1,'舰炮齐射',select(memory.manualShipArcGroup==2,'导弹／鱼雷齐射',select(memory.manualShipArcGroup==3,'防空点射','关闭'))))}
+description:Cycle firing-arc group / off. Only shown while selected.
+description_zh:切换各炮组射界／关闭。仅选中时显示；装填中的炮位调暗。
+isLocked:false
+requireConditional:if ${manualControlReady}
+setUnitMemory:manualShipArcGroup=(memory.manualShipArcGroup+1)%5
+
+[hiddenAction_TryAttack]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_AttackMode_Cqb_WhenHasTarget]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_ResetTargetTags_Step2]
+alsoTriggerAction:ManualControl_AfterTransform,ManualControl_RestoreGuard
+
+[action_ChangeAttackRuleMode_Free]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Guard]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Hold]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==2 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Shoot]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Cqb]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_AllowAIOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAI}==false and not self.hasTags(includes='inHangar'))
+
+[action_AllowAssignedOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAssigned}==false and not self.hasTags(includes='inHangar'))
+
+[resource_ArchangelClass_Turret_MS_ShootTimer]
+hidden:true
+
+[resource_ArchangelClass_Turret_BeamCannon_ShootTimer]
+hidden:true
+
+[resource_ArchangelClass_Turret_AA_ShootTimer]
+hidden:true
+
+[resource_ArchangelClass_Turret_Railgun_ShootTimer]
+hidden:true

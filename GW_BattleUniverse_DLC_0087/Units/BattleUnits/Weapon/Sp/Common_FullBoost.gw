@@ -65,7 +65,7 @@ text_KP:100
 description:Speed Up 20% And Reaction Up 15% in 12sec
 description_zh:12秒内速度提高20%与反应提高15%
 
-displayType:infoOnly
+displayType:action
 
 price:EN=100
 

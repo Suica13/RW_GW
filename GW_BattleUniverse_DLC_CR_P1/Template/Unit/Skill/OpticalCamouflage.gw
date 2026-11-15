@@ -106,7 +106,7 @@ text:OpticalCamouflage[ON]
 text_zh:光学迷彩[ON]
 text_KP:0
 
-displayType:infoOnly
+displayType:action
 
 buildSpeed:0s
 allowMultipleInQueue:false
@@ -136,7 +136,7 @@ text:OpticalCamouflage[OFF]
 text_zh:光学迷彩[OFF]
 text_KP:0
 
-displayType:infoOnly
+displayType:action
 
 buildSpeed:0s
 allowMultipleInQueue:false

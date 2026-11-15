@@ -48,7 +48,7 @@ description_zh:"""
 \n头部损坏时强制结束
 """
 
-displayType:infoOnly
+displayType:action
 highPriorityQueue:true
 
 isVisible:if self.parent.hp<=0 

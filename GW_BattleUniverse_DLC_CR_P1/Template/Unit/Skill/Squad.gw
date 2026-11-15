@@ -82,7 +82,7 @@ alwaysSinglePress:true
 ai_isDisabled:true
 extraLagHidingInUI:true
 
-displayType:infoOnly
+displayType:action
 
 text:Exit Squad
 text_zh:离开小队

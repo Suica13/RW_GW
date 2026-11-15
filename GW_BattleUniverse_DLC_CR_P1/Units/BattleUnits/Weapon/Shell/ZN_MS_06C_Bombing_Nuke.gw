@@ -170,7 +170,7 @@ text:Bombing[Nuke] %{select(self.timeAlive<=memory.ZN_MS_06C_Bombing_Nuke_CDTime
 text_zh:轰炸[核弹] %{select(self.timeAlive<=memory.ZN_MS_06C_Bombing_Nuke_CDTimer,str(int(memory.ZN_MS_06C_Bombing_Nuke_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 buildSpeed:0s
 allowMultipleInQueue:false

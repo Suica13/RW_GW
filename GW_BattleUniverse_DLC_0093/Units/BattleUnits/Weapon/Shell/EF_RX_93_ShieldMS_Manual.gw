@@ -17,6 +17,7 @@ isLockedAlt2:if self.timeAlive<=memory.EF_RX_93_ShieldMS_CDTimer
 isLockedAlt2Message:Weapon cooling down
 isLockedAlt2Message_zh:武器冷却中
 alsoTriggerAction:EF_RX_93_ShieldMS_Fire
+displayType:action
 
 [hiddenAction_EF_RX_93_ShieldMS_Fire]
 requireConditional:if self.timeAlive>memory.EF_RX_93_ShieldMS_CDTimer and ${onAttacking}==false and ${cantAction}==false and memory.armLBreaked==false and self.shield>0  and ${onSkill}==false and (memory.manualControlEnabled or not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)) and self.resource.EN>0 and self.shield>0 and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive'))) and self.timeAlive>memory.manualInputBusyUntil and self.resource.EN>=${EF_RX_93_ShieldMS_EN}

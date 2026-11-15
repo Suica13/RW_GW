@@ -86,7 +86,7 @@ text:Nuke %{select(self.timeAlive<=memory.OMNI_TS_MA2_H_NukeMS_CDTimer,str(int(m
 text_zh:核弹 %{select(self.timeAlive<=memory.OMNI_TS_MA2_H_NukeMS_CDTimer,str(int(memory.OMNI_TS_MA2_H_NukeMS_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 buildSpeed:0s
 allowMultipleInQueue:false

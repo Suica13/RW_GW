@@ -21,6 +21,8 @@ hidden:true
 
 
 [turret_Common_DoubleVulcan_MS_Beam]
+# Actual automatic interception still counts as combat.
+onShoot_triggerActions:Check_InBattle_Attack
 x:0
 y:0
 

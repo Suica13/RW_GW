@@ -140,7 +140,7 @@ text:SuperHammer %{select(self.timeAlive<=memory.EF_SHM_ACE_CDTimer,str(int(memo
 text_zh:超级流星锤 %{select(self.timeAlive<=memory.EF_SHM_ACE_CDTimer,str(int(memory.EF_SHM_ACE_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 buildSpeed:0s
 allowMultipleInQueue:false

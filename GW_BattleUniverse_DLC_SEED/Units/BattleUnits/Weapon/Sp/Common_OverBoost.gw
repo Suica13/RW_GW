@@ -99,7 +99,7 @@ text_KP:100
 description:Speed And Reaction Up 50% in 12sec,but continuously burns the unit  
 description_zh:12秒内提高50%速度与反应,但不断灼烧自机
 
-displayType:infoOnly
+displayType:action
 
 price:EN=100
 

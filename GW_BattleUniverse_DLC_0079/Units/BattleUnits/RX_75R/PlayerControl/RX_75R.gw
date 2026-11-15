@@ -1,0 +1,108 @@
+[core]
+dont_load:true
+@global manualControlImplemented=true
+@memory manualVulcanRightNext:bool
+copyFrom:ROOT:Template/Unit/Skill/PlayerControl.gw
+
+# Instance overrides keep native weapon sequences, equipment and damage definitions.
+
+[action_EnterDeployMode]
+pos:80
+
+[action_ExitDeployMode]
+pos:80
+
+[hiddenAction_ManualControl_CancelSpecialWeapons]
+requireConditional:true
+alsoTriggerAction:SetOnSkillOff
+
+[hiddenAction_TryAttack]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_AttackMode_Cqb_WhenHasTarget]
+requireConditional:if not memory.manualControlEnabled and (true)
+
+[hiddenAction_ResetTargetTags_Step2]
+alsoTriggerAction:ManualControl_AfterTransform,ManualControl_RestoreGuard
+
+[action_ChangeAttackRuleMode_Free]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Guard]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_ChangeAttackRuleMode_Hold]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackRuleMode==2 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Shoot]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Cqb]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==1 and not self.hasTags(includes='inHangar'))
+
+[action_AllowAIOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAI}==false and not self.hasTags(includes='inHangar'))
+
+[action_AllowAssignedOn]
+requireConditional:if not memory.manualControlEnabled and (true)
+isVisible:if not memory.manualControlEnabled and (${allowAssigned}==false and not self.hasTags(includes='inHangar'))
+
+[turret_EF_RX_75R_Cannon]
+canAttackCondition:if not memory.manualControlEnabled and (${onAttacking}==false and ${cantAction}==false and self.speed<0.2 and distanceBetween(self,self.attacking)>60 and ${onSkill}==false)
+
+[action_ManualTurret_EF_RX_75R_Cannon]
+alsoTriggerAction:ManualTurret_EF_RX_75R_Cannon_Fire
+requireConditional:if ${manualWeaponReady} and ((${onAttacking}==false) and (${cantAction}==false) and (self.speed<0.2) and (${onSkill}==false)) and not memory.EF_RX_75R_Cannon_OnCD and self.resource.EF_RX_75R_Cannon_ShootTimer>0 and self.resource.EF_RX_75R_Cannon_ShootTimer>=1 and self.resource.en>=${EF_RX_75R_Cannon_EN}
+isLocked:if not (${manualWeaponReady} and ((${onAttacking}==false) and (${cantAction}==false) and (self.speed<0.2) and (${onSkill}==false)) and not memory.EF_RX_75R_Cannon_OnCD and self.resource.EF_RX_75R_Cannon_ShootTimer>0 and self.resource.EF_RX_75R_Cannon_ShootTimer>=1 and self.resource.en>=${EF_RX_75R_Cannon_EN})
+isVisible:if ${manualControlReady}
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Missile_1.png
+description_zh:沿用原炮口、弹仓、EN消耗及装填。
+text_zh:火炮
+text:Cannon
+pos:2
+@copyFromSection:template_ManualWeapon
+displayType:action
+
+[turret_ManualTurret_EF_RX_75R_Cannon]
+canShoot:false
+@copyFromSection:turret_EF_RX_75R_Cannon
+
+[hiddenAction_ManualTurret_EF_RX_75R_Cannon_Fire]
+setUnitMemory:manualInputBusyUntil=self.timeAlive+0.15
+addResources:EF_RX_75R_Cannon_ShootTimer=-1,en=-${EF_RX_75R_Cannon_EN}
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+fireTurretXAtGround:ManualTurret_EF_RX_75R_Cannon
+requireConditional:if ${manualWeaponReady} and ((${onAttacking}==false) and (${cantAction}==false) and (self.speed<0.2) and (${onSkill}==false)) and not memory.EF_RX_75R_Cannon_OnCD and self.resource.EF_RX_75R_Cannon_ShootTimer>0 and self.resource.EF_RX_75R_Cannon_ShootTimer>=1 and self.resource.en>=${EF_RX_75R_Cannon_EN}
+
+[turret_EF_RX_75R_DoubleMG]
+canAttackCondition:if not memory.manualControlEnabled and (${cantAction}==false  and ${onSkill}==false)
+
+[action_ManualTurret_EF_RX_75R_DoubleMG]
+alsoTriggerAction:ManualTurret_EF_RX_75R_DoubleMG_Fire
+requireConditional:if ${manualWeaponReady} and ((${cantAction}==false) and (${onSkill}==false)) and not memory.EF_RX_75R_DoubleMG_OnCD and self.resource.EF_RX_75R_DoubleMG_ShootTimer>0 and self.resource.EF_RX_75R_DoubleMG_ShootTimer>=1
+isLocked:if not (${manualWeaponReady} and ((${cantAction}==false) and (${onSkill}==false)) and not memory.EF_RX_75R_DoubleMG_OnCD and self.resource.EF_RX_75R_DoubleMG_ShootTimer>0 and self.resource.EF_RX_75R_DoubleMG_ShootTimer>=1)
+isVisible:if ${manualControlReady}
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/MachineGun_1.png
+description_zh:沿用原炮口、弹仓、EN消耗及装填。
+text_zh:机枪
+text:Machine gun
+pos:5
+@copyFromSection:template_ManualWeapon
+displayType:action
+
+[turret_ManualTurret_EF_RX_75R_DoubleMG]
+canShoot:false
+@copyFromSection:turret_EF_RX_75R_DoubleMG
+
+[hiddenAction_ManualTurret_EF_RX_75R_DoubleMG_Fire]
+setUnitMemory:manualInputBusyUntil=self.timeAlive+0.15
+addResources:EF_RX_75R_DoubleMG_ShootTimer=-1
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+fireTurretXAtGround:ManualTurret_EF_RX_75R_DoubleMG
+requireConditional:if ${manualWeaponReady} and ((${cantAction}==false) and (${onSkill}==false)) and not memory.EF_RX_75R_DoubleMG_OnCD and self.resource.EF_RX_75R_DoubleMG_ShootTimer>0 and self.resource.EF_RX_75R_DoubleMG_ShootTimer>=1

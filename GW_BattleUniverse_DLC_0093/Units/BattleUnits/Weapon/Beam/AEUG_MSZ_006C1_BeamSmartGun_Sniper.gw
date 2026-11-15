@@ -191,7 +191,7 @@ text:Sniper %{select(self.timeAlive<=memory.AEUG_MSZ_006C1_BeamSmartGun_Sniper_C
 text_zh:狙击 %{select(self.timeAlive<=memory.AEUG_MSZ_006C1_BeamSmartGun_Sniper_CDTimer,str(int(memory.AEUG_MSZ_006C1_BeamSmartGun_Sniper_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 buildSpeed:0s
 allowMultipleInQueue:false

@@ -145,7 +145,7 @@ text:Incom[LockOn] %{select(self.timeAlive<=memory.NZN_AMX_014_Incom_CDTimer,str
 text_zh:线控炮[锁定] %{select(self.timeAlive<=memory.NZN_AMX_014_Incom_CDTimer,str(int(memory.NZN_AMX_014_Incom_CDTimer-self.timeAlive))+"秒","OK")}
 text_KP:100
 
-displayType:infoOnly
+displayType:action
 
 price:EN=${NZN_AMX_014_Incom_EN} 
 
