@@ -1,0 +1,53 @@
+[core]
+copyFrom:"""
+ROOT:Resource/Image/Fx/Common/Common_Light_1.gw
+"""
+dont_load:false
+
+
+
+
+[hiddenAction_TurnToOverLine_T]
+autoTrigger:"""
+if memory.styleIndex!=100 
+and self.resource().DedicatedMap==1 
+and self.timeAlive>0.25 
+"""
+convertTo_keepCurrentTags:true
+convertTo_keepCurrentFields:"""
+selfRegenRate,
+shieldRegen,
+maxEnergy,
+armour,
+mass,
+movespeed,
+maxTurnSpeed,
+maxAttackRange,
+nanoRange,
+fogOfWarSightRange,
+nanoFactorySpeed,
+targetHeight
+"""
+#clearActiveWaypoint:true
+setUnitMemory:styleIndex=100
+[hiddenAction_TurnToOverLine_F]
+autoTrigger:"""
+if memory.styleIndex==100 
+and self.resource().DedicatedMap==0
+"""
+convertTo_keepCurrentTags:true
+convertTo_keepCurrentFields:"""
+selfRegenRate,
+shieldRegen,
+maxEnergy,
+armour,
+mass,
+movespeed,
+maxTurnSpeed,
+maxAttackRange,
+nanoRange,
+fogOfWarSightRange,
+nanoFactorySpeed,
+targetHeight
+"""
+setUnitMemory:styleIndex=97

@@ -1,0 +1,116 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Resource/Image/Fx/Weapon/Shell/Common/MG_Fire_1.gw
+"""
+
+@memory Common_Vulcan_ZN_Heli_OnCD:bool
+@memory Common_Vulcan_ZN_Heli_CDTimer:float
+@global Common_Vulcan_ZN_Heli_CD=2
+@global Common_Vulcan_ZN_Heli_EN=0.5
+
+@global Common_Vulcan_ZN_Heli_Shoot=12
+[resource_Common_Vulcan_ZN_Heli_ShootTimer]
+hidden:true
+
+
+
+
+
+
+
+
+
+[turret_Common_Vulcan_ZN_Heli]
+x:0
+y:0
+
+canShoot:true
+canAttackCondition:"""
+if ${cantAction}==false 
+"""
+showRangeUIGuide:false
+resourceUsage:Common_Vulcan_ZN_Heli_ShootTimer=1,en=${Common_Vulcan_ZN_Heli_EN}
+projectile:Common_Vulcan_ZN_Heli_Projectile
+
+delay:0.1s
+limitingRange:1200
+limitingAngle:3
+
+canAttackMaxAngle:15
+barrelX:0
+barrelY:10
+
+aimOffsetSpread:0
+recoilOffset: 0
+recoilOutTime: 0
+recoilReturnTime: 0
+
+shoot_sound:ROOT:Resource/Sound/SE/Weapon/Fire/Vulcan_1.ogg
+shoot_sound_vol:0.15
+shoot_flame:MG_Fire_1_S
+
+
+
+[projectile_Common_Vulcan_ZN_Heli_Projectile]
+
+directDamage: 0
+life: 0
+explodeOnEndOfLife:true
+speed: 0
+
+lightSize:0
+effectOnCreate:none
+explodeEffect:none
+
+spawnUnit:"""
+Projectile_Vulcan*1
+(
+    addResources=
+    ShellDamage:150
+    |DpDamage:10
+    |WeaponAccuracy=100
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=0.5
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=1
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=1
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=1
+    |AntiLand=1
+    |AntiSpace=1.0
+    |HeightChangeSpeed=2.0
+    |HeightHitRange=25
+    |ProjectileSpeed:100
+    |ProjectileSpread:6
+    |ProjectileLife:20
+)
+"""
+
+
+
+[hiddenAction_Common_Vulcan_ZN_Heli_CDStart]
+autoTrigger:"""
+if memory.Common_Vulcan_ZN_Heli_OnCD==false 
+and 
+(
+    (
+        self.resource.Common_Vulcan_ZN_Heli_ShootTimer<=0 
+    ) 
+    or 
+    (
+        self.resource.Common_Vulcan_ZN_Heli_ShootTimer<${Common_Vulcan_ZN_Heli_Shoot} and not self.hasTags(includes='inBattle')
+    )
+)
+"""
+setUnitMemory:Common_Vulcan_ZN_Heli_OnCD=true,Common_Vulcan_ZN_Heli_CDTimer=self.timeAlive+${Common_Vulcan_ZN_Heli_CD}
+
+[hiddenAction_Common_Vulcan_ZN_Heli_CDEnd]
+autoTriggerOnEvent:created
+autoTrigger:if memory.Common_Vulcan_ZN_Heli_OnCD==true and self.timeAlive>memory.Common_Vulcan_ZN_Heli_CDTimer
+setUnitMemory:Common_Vulcan_ZN_Heli_OnCD=false
+setResourcesWithLogic:Common_Vulcan_ZN_Heli_ShootTimer=${Common_Vulcan_ZN_Heli_Shoot}

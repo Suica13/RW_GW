@@ -1,0 +1,21 @@
+[core]
+dont_load:false
+
+
+
+[effect_ABC_1]
+image:ROOT:Resource/Image/Fx/Unit/Image/BeamResistantCoating_1.png
+attachedToUnit:true
+life:4000
+ySpeedRelative:-0.4
+priority:high
+liveAfterAttachedDies:true
+dirOffsetRandom:180
+scaleFrom:0.75
+scaleTo:0.45
+alpha:0.5
+total_frames:5
+animateFrameStart: 0
+animateFrameEnd: 4
+animateFrameSpeed: 0.1
+showInFog:true

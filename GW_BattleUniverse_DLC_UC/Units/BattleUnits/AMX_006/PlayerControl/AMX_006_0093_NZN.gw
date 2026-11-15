@@ -1,0 +1,155 @@
+[core]
+@global manualControlImplemented=true
+copyFrom:"""
+ROOT:Template/Unit/Skill/PlayerControl.gw
+"""
+dont_load:true
+
+# Form-specific input adapters. Native damage, animations and firing queues are inherited.
+
+[action_Manual_NZN_AMX_006_BeamCannon]
+@copyFromSection:template_ManualWeapon
+pos:2
+text:Beam cannon
+text_zh:光束炮
+description:CD: ${NZN_AMX_006_BeamCannon_CD}s
+description_zh:冷却: ${NZN_AMX_006_BeamCannon_CD}秒
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamCannon_1.png
+isVisible:if ${manualControlReady}
+isLocked:if not (${manualWeaponReady} and (self.timeAlive>memory.NZN_AMX_006_BeamCannon_CDTimer and ${onAttacking}==false and ${cantAction}==false and ${onSkill}==false and self.resource.EN>0) and (memory.armRBreaked==false) and self.resource.EN>=${NZN_AMX_006_BeamCannon_EN})
+requireConditional:if ${manualWeaponReady} and (self.timeAlive>memory.NZN_AMX_006_BeamCannon_CDTimer and ${onAttacking}==false and ${cantAction}==false and ${onSkill}==false and self.resource.EN>0) and (memory.armRBreaked==false) and self.resource.EN>=${NZN_AMX_006_BeamCannon_EN}
+alsoTriggerAction:NZN_AMX_006_BeamCannon_Fire
+displayType:action
+
+[hiddenAction_NZN_AMX_006_BeamCannon_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.NZN_AMX_006_BeamCannon_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  and self.resource.EN>0)) or (${manualWeaponReady} and (self.timeAlive>memory.NZN_AMX_006_BeamCannon_CDTimer and ${onAttacking}==false and ${cantAction}==false and ${onSkill}==false and self.resource.EN>0) and (memory.armRBreaked==false) and self.resource.EN>=${NZN_AMX_006_BeamCannon_EN})
+addActionCooldownTime:${NZN_AMX_006_BeamCannon_CD}s
+addActionCooldownApplyToActions:Manual_NZN_AMX_006_BeamCannon
+setUnitMemory:NZN_AMX_006_BeamCannon_CDTimer=self.timeAlive+${NZN_AMX_006_BeamCannon_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+
+[action_Manual_NZN_AMX_006_BG]
+@copyFromSection:template_ManualWeapon
+pos:4
+text:Beam guns
+text_zh:光束枪
+description:CD: ${NZN_AMX_006_BG_CD}s
+description_zh:冷却: ${NZN_AMX_006_BG_CD}秒
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamRifle_1.png
+isVisible:if ${manualControlReady}
+isLocked:if not (${manualWeaponReady} and (self.timeAlive>memory.NZN_AMX_006_BG_CDTimer and ${onAttacking}==false and ${cantAction}==false and self.resource.EN>0) and (memory.backpackBreaked==false) and self.resource.EN>=${NZN_AMX_006_BG_EN})
+requireConditional:if ${manualWeaponReady} and (self.timeAlive>memory.NZN_AMX_006_BG_CDTimer and ${onAttacking}==false and ${cantAction}==false and self.resource.EN>0) and (memory.backpackBreaked==false) and self.resource.EN>=${NZN_AMX_006_BG_EN}
+alsoTriggerAction:NZN_AMX_006_BG_Fire
+displayType:action
+
+[hiddenAction_NZN_AMX_006_BG_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.NZN_AMX_006_BG_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15) and self.resource.EN>0)) or (${manualWeaponReady} and (self.timeAlive>memory.NZN_AMX_006_BG_CDTimer and ${onAttacking}==false and ${cantAction}==false and self.resource.EN>0) and (memory.backpackBreaked==false) and self.resource.EN>=${NZN_AMX_006_BG_EN})
+addActionCooldownTime:${NZN_AMX_006_BG_CD}s
+addActionCooldownApplyToActions:Manual_NZN_AMX_006_BG
+setUnitMemory:NZN_AMX_006_BG_CDTimer=self.timeAlive+${NZN_AMX_006_BG_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+
+[action_Manual_NZN_AMX_006_MS]
+@copyFromSection:template_ManualWeapon
+pos:5
+text:Missiles
+text_zh:导弹
+description:CD: ${NZN_AMX_006_MS_CD}s
+description_zh:冷却: ${NZN_AMX_006_MS_CD}秒
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Missile_1.png
+isVisible:if ${manualControlReady}
+isLocked:if not (${manualWeaponReady} and (self.timeAlive>memory.NZN_AMX_006_MS_CDTimer and ${onAttacking}==false and ${cantAction}==false and ${onSkill}==false and self.resource.EN>0) and (not (    memory.armRBreaked==true     and     memory.armLBreaked==true)) and self.resource.EN>=${NZN_AMX_006_MS_EN})
+requireConditional:if ${manualWeaponReady} and (self.timeAlive>memory.NZN_AMX_006_MS_CDTimer and ${onAttacking}==false and ${cantAction}==false and ${onSkill}==false and self.resource.EN>0) and (not (    memory.armRBreaked==true     and     memory.armLBreaked==true)) and self.resource.EN>=${NZN_AMX_006_MS_EN}
+alsoTriggerAction:NZN_AMX_006_MS_Fire
+displayType:action
+
+[hiddenAction_NZN_AMX_006_MS_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.NZN_AMX_006_MS_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30)  and self.resource.EN>0)) or (${manualWeaponReady} and (self.timeAlive>memory.NZN_AMX_006_MS_CDTimer and ${onAttacking}==false and ${cantAction}==false and ${onSkill}==false and self.resource.EN>0) and (not (    memory.armRBreaked==true     and     memory.armLBreaked==true)) and self.resource.EN>=${NZN_AMX_006_MS_EN})
+addActionCooldownTime:${NZN_AMX_006_MS_CD}s
+addActionCooldownApplyToActions:Manual_NZN_AMX_006_MS
+setUnitMemory:NZN_AMX_006_MS_CDTimer=self.timeAlive+${NZN_AMX_006_MS_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+
+[action_Manual_EF_BeamSaber_AF_Yellow]
+@copyFromSection:template_ManualWeapon
+pos:3
+text:Beam saber
+text_zh:光束军刀
+description:CD: ${EF_BeamSaber_AF_Yellow_CD}s
+description_zh:冷却: ${EF_BeamSaber_AF_Yellow_CD}秒
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Cqb_1.png
+isVisible:if ${manualControlReady}
+isLocked:if not (${manualWeaponReady} and (self.timeAlive>memory.EF_BeamSaber_AF_Yellow_CDTimer and ${onAttacking}==false and ${cantAction}==false) and (memory.armRBreaked==false))
+requireConditional:if ${manualWeaponReady} and (self.timeAlive>memory.EF_BeamSaber_AF_Yellow_CDTimer and ${onAttacking}==false and ${cantAction}==false) and (memory.armRBreaked==false)
+alsoTriggerAction:EF_BeamSaber_AF_Yellow_Fire
+displayType:action
+
+[hiddenAction_EF_BeamSaber_AF_Yellow_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.EF_BeamSaber_AF_Yellow_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50)) or (${manualWeaponReady} and (self.timeAlive>memory.EF_BeamSaber_AF_Yellow_CDTimer and ${onAttacking}==false and ${cantAction}==false) and (memory.armRBreaked==false))
+addActionCooldownTime:${EF_BeamSaber_AF_Yellow_CD}s
+addActionCooldownApplyToActions:Manual_EF_BeamSaber_AF_Yellow
+setUnitMemory:EF_BeamSaber_AF_Yellow_CDTimer=self.timeAlive+${EF_BeamSaber_AF_Yellow_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+
+[action_Manual_Common_Push_A]
+@copyFromSection:template_ManualWeapon
+pos:6
+text:Punch
+text_zh:徒手格斗
+description:CD: ${Common_Push_A_CD}s
+description_zh:冷却: ${Common_Push_A_CD}秒
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Cqb_1.png
+isVisible:if ${manualControlReady} and memory.armRBreaked
+isLocked:if not (${manualWeaponReady} and (self.timeAlive>memory.Common_Push_A_CDTimer and ${onAttacking}==false and ${cantAction}==false) and (memory.armRBreaked==true))
+requireConditional:if ${manualWeaponReady} and (self.timeAlive>memory.Common_Push_A_CDTimer and ${onAttacking}==false and ${cantAction}==false) and (memory.armRBreaked==true)
+alsoTriggerAction:Common_Push_A_Fire
+displayType:action
+
+[hiddenAction_Common_Push_A_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.Common_Push_A_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-30 or directionBetween(self, self.attacking) > self.dir+30) and max(-(self.attacking.height-self.height),(self.attacking.height-self.height))<=50)) or (${manualWeaponReady} and (self.timeAlive>memory.Common_Push_A_CDTimer and ${onAttacking}==false and ${cantAction}==false) and (memory.armRBreaked==true))
+addActionCooldownTime:${Common_Push_A_CD}s
+addActionCooldownApplyToActions:Manual_Common_Push_A
+setUnitMemory:Common_Push_A_CDTimer=self.timeAlive+${Common_Push_A_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+
+[hiddenAction_NZN_AMX_006_BeamCannon_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_NZN_AMX_006_BG_Fire_Step_4]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_NZN_AMX_006_BG_Fire_Step_3]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_NZN_AMX_006_BG_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_NZN_AMX_006_MS_Fire_Step_3]
+requireConditional:if (${cantAction}==false and memory.armRBreaked==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_NZN_AMX_006_MS_Fire_Step_Sub]
+requireConditional:if (${cantAction}==false and memory.armLBreaked==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_NZN_AMX_006_MS_Fire_Step_2]
+requireConditional:if (${cantAction}==false and memory.armRBreaked==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_EF_BeamSaber_AF_Yellow_Fire_Step_5]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_EF_BeamSaber_AF_Yellow_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[hiddenAction_Common_Push_A_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or (${manualControlReady} and not self.hasTags(includes='ManualGuardActive')))
+
+[action_ManualControl_TransformA]
+@copyFromSection:action_Transform_LandFlyA
+pos:0
+autoTrigger:false
+isVisible:if memory.manualControlEnabled and (memory.close==false and memory.styleIndex!=0 and not self.hasTags(includes='inHangar'))
+requireConditional:if ${manualControlReady} and (true) and not memory.cantTransform and self.timeAlive>=memory.changeTransform_LandFlyCD and ${cantAction}==false and ${onSkill}==false
+
+[action_ManualControl_TransformB]
+@copyFromSection:action_Transform_LandFlyB
+pos:0
+autoTrigger:false
+isVisible:if memory.manualControlEnabled and (memory.close==false and memory.styleIndex!=96 and memory.styleIndex!=100 and not self.hasTags(includes='inHangar'))
+requireConditional:if ${manualControlReady} and (true) and not memory.cantTransform and self.timeAlive>=memory.changeTransform_LandFlyCD and ${cantAction}==false and ${onSkill}==false
+
+[action_ManualControl_FirstSlot]
+isVisible:false

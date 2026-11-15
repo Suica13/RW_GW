@@ -1,0 +1,75 @@
+[core]
+dont_load:false
+
+[hiddenAction_PlayCommon_Cannon_Shoot_A_Step_1]
+buildSpeed:0s
+finishPlayingLastAnimation:true
+alsoTriggerAction:PlayCommon_Cannon_Shoot_A_Step_2
+[hiddenAction_PlayCommon_Cannon_Shoot_A_Step_2]
+playAnimation:Common_Cannon_Shoot_A
+
+
+[animation_Common_Cannon_Shoot_A]
+KeyframeTimeScale:1
+blendIn:0s
+blendOut:0s
+
+arm19_0.25s: {x:0, y:-0.5,dir:0}
+arm19_1.0s: {x:0, y:0,dir:0}
+arm19_3.0s: {x:0, y:0,dir:0}
+
+arm20_0.25s: {x:0, y:-0.5,dir:0}
+arm20_1.0s: {x:0, y:0,dir:0}
+arm20_3.0s: {x:0, y:0,dir:0}
+
+arm1_0.0s: {x:0, y:0,dir:0}
+arm1_1.0s: {x:0, y:0,dir:0}
+arm1_3.0s: {x:0, y:0,dir:0}
+
+arm2_0.25s: {x:0, y:-0.5,dir:0}
+arm2_1.0s: {x:0, y:0,dir:0}
+arm2_3.0s: {x:0, y:0,dir:0}
+
+arm3_0.25s: {x:0, y:-0.5,dir:-15}
+arm3_1.0s: {x:0, y:0,dir:-15}
+arm3_3.0s: {x:0, y:0,dir:0}
+
+arm4_0.25s: {x:0, y:-0.5,dir:15}
+arm4_1.0s: {x:0, y:0,dir:15}
+arm4_3.0s: {x:0, y:0,dir:0}
+
+arm5_0.25s: {x:0, y:-0.5,dir:0}
+arm5_1.0s: {x:0, y:0,dir:0}
+arm5_3.0s: {x:0, y:0,dir:0}
+
+arm6_0.25s: {x:0, y:-0.5,dir:0}
+arm6_1.0s: {x:0, y:0,dir:0}
+arm6_3.0s: {x:0, y:0,dir:0}
+
+arm10_0.25s: {x:0, y:-0.5,dir:-15}
+arm10_1.0s: {x:0, y:0,dir:-15}
+arm10_3.0s: {x:0, y:0,dir:0}
+
+arm11_0.25s: {x:0, y:-0.5,dir:15}
+arm11_0.5s: {x:0, y:0,dir:15}
+arm11_3.0s: {x:0, y:0,dir:0}
+
+arm12_0.25s: {x:0, y:-0.5,dir:-15}
+arm12_1.0s: {x:0, y:0,dir:-15}
+arm12_3.0s: {x:0, y:0,dir:0}
+
+leg17_0.25s: {x:-1, y: -1, dir: -4}
+leg17_1.0s: {x:-1, y: -1, dir: -4}
+leg17_3.0s: {x:0, y:0,dir:0}
+
+leg18_0.25s: {x:-1, y: -1, dir: -4}
+leg18_1.0s: {x:-1, y: -1, dir: -4}
+leg18_3.0s: {x:0, y:0,dir:0}
+
+leg19_0.25s: {x:1, y: 1, dir: 4}
+leg19_1.0s: {x:1, y: 1, dir: 4}
+leg19_3.0s: {x:0, y:0,dir:0}
+
+leg20_0.25s: {x:1, y: 1, dir: 4}
+leg20_1.0s: {x:1, y: 1, dir: 4}
+leg20_3.0s: {x:0, y:0,dir:0}

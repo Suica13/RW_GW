@@ -1,0 +1,37 @@
+[core]
+copyFrom:"""
+ROOT:Units/Buildings/Factory/UnitList/Mod/UnitTemplate.ini
+"""
+
+
+
+
+
+[hiddenAction_AutoProduce_NahelArgamaClass]
+@copyFromSection:template_AutoProduce
+@define UnitID=NahelArgamaClass
+alsoTriggerAction:AutoProduce_NahelArgamaClass_Step2
+
+[hiddenAction_AutoProduce_NahelArgamaClass_Step2]
+@copyFromSection:template_AutoProduce_Step2
+@define Money=17500
+@define Resource=30000
+alsoQueueAction:Produce_NahelArgamaClass
+
+
+
+[action_Produce_NahelArgamaClass]
+@copyFromSection:template_Produce_Fast
+@define UnitID=NahelArgamaClass
+@define Money=17500
+@define Resource=30000
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+buildSpeed:110s
+
+alsoQueueAction:Produce_NahelArgamaClass_1
+[hiddenAction_Produce_NahelArgamaClass_1]
+buildSpeed:0.0s
+highPriorityQueue:true
+produceUnits:"""
+NahelArgamaClass*1(addResources=PilotType:2101|EquipmentIndex:0)
+"""

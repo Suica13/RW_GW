@@ -1,0 +1,44 @@
+[core]
+dont_load:false
+
+
+[effect_Hanabi_1_WithHaro_Yellow_Start]
+image:ROOT:Resource/Image/Fx/Event/Image/Hanabi_1_Yellow.png
+priority:critical
+life: 60
+
+drawUnderUnits:false
+alwayStartDirAtZero:true
+
+xOffsetRelative:0
+yOffsetRelative:0
+dirOffset: 0
+
+alpha:1
+fadeOut:true
+
+total_frames:4
+animateFrameStart:0
+animateFrameEnd:3
+animateFrameSpeed:0.15
+
+showInFog:true
+
+alsoEmitEffectsOnDeath:Hanabi_1_WithHaro_Yellow_End
+
+[effect_Hanabi_1_WithHaro_Yellow_End]
+image:ROOT:Resource/Image/Fx/Event/Image/Hanabi_Haro_Yellow.png
+priority:critical
+life: 120
+
+drawUnderUnits:false
+alwayStartDirAtZero:true
+
+xOffsetRelative:0
+yOffsetRelative:0
+dirOffset: 0
+
+alpha:1
+fadeOut:true
+
+showInFog:true

@@ -1,0 +1,30 @@
+[core]
+copyFrom:"""
+ROOT:Template/Unit/Skill/CustomUnit.gw
+"""
+dont_load:false
+
+
+
+[template_CustomUnit_PilotCustomUnit]
+@copyFromSection:template_CustomUnit
+@define CustomRule_PilotCustomUnit=(true)
+@define CustomRule_PilotCustomUnit_Num=(99)
+
+
+autoTrigger:"""
+if memory.canSupply==true 
+and ${CustomRule} 
+and ${CustomRule_PilotCustomUnit} 
+and ${AutoCustomRule} 
+and self.numberOfUnitsInAllTeams(withTag="${UnitID}")<${CustomRule_PilotCustomUnit_Num} 
+and ${onSkill}==false
+"""
+
+buildSpeed:20s
+
+isVisible:if memory.canSupply==true and ${CustomRule} and ${CustomRule_PilotCustomUnit}
+
+isLockedAlt:if self.numberOfUnitsInAllTeams(withTag="${UnitID}")>=${CustomRule_PilotCustomUnit_Num}
+isLockedAltMessage:Limit ${CustomRule_PilotCustomUnit_Num}
+isLockedAltMessage_zh:限${CustomRule_PilotCustomUnit_Num}台

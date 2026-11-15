@@ -1,0 +1,73 @@
+[core]
+copyFrom:"""
+ROOT:Units/BattleUnits/Pilot/0087/ACE/Pilot_ID_List_0087.gw,
+ROOT:Units/Buildings/Beacon_ACE/UnitList/Mod/UnitTemplate.ini
+"""
+
+@memory Pilot_AEUG_0087_N_ACE_EMSN:bool
+@memory Pilot_AEUG_0087_N_ACE_EMSN_Timer:float
+
+[hiddenAction_AutoProduce_Pilot_AEUG_0087_N_ACE_EMSN]
+@copyFromSection:template_AutoProduce
+@define UnitID=Pilot_AEUG_0087_N_ACE_EMSN
+alsoTriggerAction:Pilot_AEUG_0087_N_ACE_EMSN_Produce_Switch_G,Pilot_AEUG_0087_N_ACE_EMSN_Produce_Switch_S
+
+
+[action_Pilot_AEUG_0087_N_ACE_EMSN_Produce_Switch_G]
+@copyFromSection:template_Produce_Switch
+@define UnitID=Pilot_AEUG_0087_N_ACE_EMSN
+@define Money=6000
+@define Resource=3000
+@define Time=30
+@define TileMode=0
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+@define OtherVisible= (true)
+
+[action_Pilot_AEUG_0087_N_ACE_EMSN_Produce_Switch_S]
+@copyFromSection:template_Produce_Switch
+@define UnitID=Pilot_AEUG_0087_N_ACE_EMSN
+@define Money=6000
+@define Resource=3000
+@define Time=30
+@define TileMode=1
+@define FactionVisible= (memory.Pannel_AEUG_0087_DontShow==false)
+@define OtherVisible= (true)
+
+[hiddenAction_Pilot_AEUG_0087_N_ACE_EMSN_Produce_Payback]
+@copyFromSection:template_Produce_Payback
+@define UnitID=Pilot_AEUG_0087_N_ACE_EMSN
+@define Money_G=6000
+@define Resource_G=3000
+@define Money_S=6000
+@define Resource_S=3000
+
+[hiddenAction_Pilot_AEUG_0087_N_ACE_EMSN_Produce_T_G]
+@copyFromSection:template_Produce_T_G
+@define UnitID=Pilot_AEUG_0087_N_ACE_EMSN
+produceUnits:"""
+RX_178_AEUG_FXA_05D*1(addResources=PilotType:${Pilot_AEUG_0087_N_ACE_EMSN}|EquipmentIndex:0)
+"""
+
+[hiddenAction_Pilot_AEUG_0087_N_ACE_EMSN_Produce_T_S]
+@copyFromSection:template_Produce_T_S
+@define UnitID=Pilot_AEUG_0087_N_ACE_EMSN
+produceUnits:"""
+RX_178_AEUG_FXA_05D*1(addResources=PilotType:${Pilot_AEUG_0087_N_ACE_EMSN}|EquipmentIndex:0)
+"""
+
+
+
+[hiddenAction_Pilot_AEUG_0087_N_ACE_EMSN_Produce_Check]
+@copyFromSection:template_Produce_Check
+@define UnitID=Pilot_AEUG_0087_N_ACE_EMSN
+alsoTriggerAction:Pilot_AEUG_0087_N_ACE_EMSN_Produce_F,Pilot_AEUG_0087_N_ACE_EMSN_Produce_T_G,Pilot_AEUG_0087_N_ACE_EMSN_Produce_T_S
+
+[action_Pilot_AEUG_0087_N_ACE_EMSN_Produce_Switch_ON]
+@copyFromSection:template_Produce_Switch_ON
+@define UnitID=Pilot_AEUG_0087_N_ACE_EMSN
+alsoTriggerAction:Pilot_AEUG_0087_N_ACE_EMSN_Produce_Payback
+
+[hiddenAction_Pilot_AEUG_0087_N_ACE_EMSN_Produce_F]
+@copyFromSection:template_Produce_F
+@define UnitID=Pilot_AEUG_0087_N_ACE_EMSN
+alsoTriggerAction:Pilot_AEUG_0087_N_ACE_EMSN_Produce_Payback

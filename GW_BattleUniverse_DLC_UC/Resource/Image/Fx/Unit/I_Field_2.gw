@@ -1,0 +1,42 @@
+[core]
+dont_load:false
+
+[effect_I_Field_2_L]
+image:ROOT:Resource/Image/Fx/Unit/Image/I_Field_2.png
+priority:critical
+yOffsetRelative:0
+life: 50
+scaleFrom: 1.5
+scaleTo: 1.5
+alwayStartDirAtZero:true
+drawUnderUnits:false
+
+[effect_I_Field_2]
+image:ROOT:Resource/Image/Fx/Unit/Image/I_Field_2.png
+priority:critical
+yOffsetRelative:0
+life: 50
+scaleFrom: 1
+scaleTo: 1
+alwayStartDirAtZero:true
+drawUnderUnits:false
+
+[effect_I_Field_2_S]
+image:ROOT:Resource/Image/Fx/Unit/Image/I_Field_2.png
+priority:critical
+yOffsetRelative:0
+life: 50
+scaleFrom: 0.5
+scaleTo: 0.5
+alwayStartDirAtZero:true
+drawUnderUnits:false
+
+[effect_I_Field_2_XS]
+image:ROOT:Resource/Image/Fx/Unit/Image/I_Field_2.png
+priority:critical
+yOffsetRelative:0
+life: 50
+scaleFrom: 0.25
+scaleTo: 0.25
+alwayStartDirAtZero:true
+drawUnderUnits:false

@@ -1,0 +1,55 @@
+[core]
+dont_load:false
+
+
+
+[animation_Guard]
+KeyframeTimeScale:0.5
+blendIn:1.0
+blendOut:0.5
+
+arm19_0.0s: {x:0, y:-0.5,dir:0}
+arm19_1.0s: {x:0, y:-0.5,dir:0}
+
+arm20_0.0s: {x:0, y:-0.5,dir:0}
+arm20_1.0s: {x:0, y:-0.5,dir:0}
+
+arm1_0.0s: {x:0, y:0,dir:0}
+arm1_1.0s: {x:0, y:0,dir:0}
+
+arm2_0.0s: {x:0, y:-0.5,dir:30}
+arm2_1.0s: {x:0, y:-0.5,dir:30}
+
+arm3_0.0s: {x:-0.5, y:3,dir:0}
+arm3_1.0s: {x:-0.5, y:3,dir:0}
+
+arm4_0.0s: {x:0, y:-4.5,dir:30}
+arm4_1.0s: {x:0, y:-4.5,dir:30}
+
+arm5_0.0s: {x:-0.5, y:3,dir:-5}
+arm5_1.0s: {x:-0.5, y:3,dir:-5}
+
+arm6_0.0s: {x:0, y:-4.5,dir:30}
+arm6_1.0s: {x:0, y:-4.5,dir:30}
+
+arm10_0s: {x:0.5, y:2,dir:0}
+arm10_0.1s: {x:0.5, y:3,dir:0}
+arm10_1s: {x:0.5, y:3,dir:0}
+
+arm11_0s: {x:1, y:0,dir:30}
+
+arm12_0s: {x:-0.5, y:3,dir:0}
+
+
+
+leg17_0.0s: {y: -0.5, dir: -6 }
+leg17_1.0s: {y: -0.5, dir: -6 }
+
+leg18_0.0s: {y: -1, dir: -6 }
+leg18_1.0s: {y: -1, dir: -6 }
+
+leg19_0.0s: {y: 1, dir: 4 }
+leg19_1.0s: {y: 1, dir: 4 }
+
+leg20_0.0s: {x:-2, y: 3, dir: 4 }
+leg20_1.0s: {x:-2, y: 3, dir: 4 }

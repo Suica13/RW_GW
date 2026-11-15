@@ -1,0 +1,38 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Units/BattleUnits/Weapon/Shell/Common_ArmGL_L.gw
+"""
+
+
+[projectile_Common_ArmGL_L_Projectile]
+spawnUnit:"""
+Projectile_Bazooka_S*1
+(
+    addResources=
+    ShellDamage:5500
+    |DpDamage:225
+    |WeaponAccuracy=90
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.25
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.25
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75
+    |AntiLand=1 
+    |AntiSpace=1 
+    |HeightChangeSpeed=2
+    |HeightHitRange=20
+    |ProjectileSpeed:75
+    |ProjectileSpread:2
+    |ProjectileExplosionRange:35
+    |ProjectileLife:25
+)
+"""
+
+

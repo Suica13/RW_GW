@@ -1,0 +1,26 @@
+[core]
+dont_load:false
+
+
+
+[animation_Common_Idle]
+KeyframeTimeScale:3
+blendIn:0.25s
+blendOut:0s
+
+#头部
+arm19_0.0s: {x:0, y:0,dir:0}
+arm19_0.25s: {x:0, y:0,dir:0}
+arm19_0.75s: {x:0, y:0,dir:0}
+
+arm19_1.25s: {x:0, y:0,dir:0}
+arm19_1.50s: {x:0, y:0,dir:0}
+arm19_1.75s: {x:0, y:0,dir:0}
+
+arm20_0.0s: {x:0, y:0,dir:0}
+arm20_0.25s: {x:0, y:0,dir:0}
+arm20_0.75s: {x:0, y:0,dir:0}
+
+arm20_1.25s: {x:0, y:0,dir:0}
+arm20_1.50s: {x:0, y:0,dir:0}
+arm20_1.75s: {x:0, y:0,dir:0}

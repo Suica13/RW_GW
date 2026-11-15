@@ -1,0 +1,45 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Units/BattleUnits/Weapon/Shell/Common_DoubleVulcan_MS.gw
+"""
+
+@global Common_DoubleVulcan_MS_Shoot=32
+[turret_Common_DoubleVulcan_MS]
+delay:0.05s
+canAttackCondition:"""
+if ${cantAction}==false 
+and distanceBetween(self,self.attacking)<=600 
+and memory.headBreaked==false 
+"""
+
+
+[projectile_Common_DoubleVulcan_MS_Projectile]
+spawnUnit:"""
+Projectile_Vulcan*1
+(
+    addResources=
+    ShellDamage:600 
+    |ShellAPDamage:60
+    |DpDamage:18
+    |WeaponAccuracy=100
+    |PartBreakModifier=1.0
+    |CockpitBreakModifier=0.5
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1
+    |AntiSizeSmallDamage=1
+    |AntiSizeLargeAccuracy=1
+    |AntiSizeSmallAccuracy=1
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=1.5 
+    |AntiLand=1
+    |AntiSpace=1 
+    |HeightChangeSpeed=3
+    |HeightHitRange=25
+    |ProjectileSpeed:100
+    |ProjectileSpread:8
+    |ProjectileLife:10
+)
+"""

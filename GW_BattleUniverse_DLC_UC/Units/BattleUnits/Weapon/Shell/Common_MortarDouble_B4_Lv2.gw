@@ -1,0 +1,35 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Units/BattleUnits/Weapon/Shell/Common_MortarDouble_B4.gw
+"""
+
+@global Common_MortarDouble_B4_Range=1200
+
+[projectile_Common_MortarDouble_B4_Projectile]
+spawnUnit:"""
+Projectile_MortarMarker_A*1
+(
+    offsetRandomXY=120,
+    addResources=
+    ShellDamage:2500
+    |DpDamage:125
+    |WeaponAccuracy=65
+    |PartBreakModifier=0.5
+    |CockpitBreakModifier=0.5
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiBuilding=2
+    |AntiAqua=0.75
+    |AntiAir=0.5 
+    |AntiLand=1
+    |AntiSpace=1
+
+    |ProjectileSpeed:25
+    |ProjectileSpread:25
+    |ProjectileExplosionRange:80
+    |ProjectileLife:200
+)
+"""
+
+

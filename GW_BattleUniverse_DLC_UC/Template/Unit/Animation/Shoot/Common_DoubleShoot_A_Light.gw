@@ -1,0 +1,82 @@
+[core]
+dont_load:false
+
+[hiddenAction_PlayCommon_DoubleShoot_A_Light_L_Step_1]
+finishPlayingLastAnimation:true
+alsoTriggerAction:PlayCommon_DoubleShoot_A_Light_L_Step_2
+[hiddenAction_PlayCommon_DoubleShoot_A_Light_L_Step_2]
+playAnimation:Common_DoubleShoot_A_Light_L
+
+[hiddenAction_PlayCommon_DoubleShoot_A_Light_R_Step_1]
+finishPlayingLastAnimation:true
+alsoTriggerAction:PlayCommon_DoubleShoot_A_Light_R_Step_2
+[hiddenAction_PlayCommon_DoubleShoot_A_Light_R_Step_2]
+playAnimation:Common_DoubleShoot_A_Light_R
+
+[animation_Common_DoubleShoot_A_Light_L]
+KeyframeTimeScale:1
+blendOut:0s
+
+arm19_0.0s: {x:0, y:0,dir:0}
+arm19_1.0s: {x:0, y:0,dir:0}
+
+arm20_0.0s: {x:0, y:0,dir:0}
+arm20_1.0s: {x:0, y:0,dir:0}
+
+arm1_0.0s: {x:0, y:0,dir:0}
+arm1_1.0s: {x:0, y:0,dir:0}
+
+arm2_0.0s: {x:0, y:0,dir:0}
+arm2_1.0s: {x:0, y:0,dir:0}
+
+arm3_0.0s: {x:0, y:-1,dir:0}
+arm3_1.0s: {x:0, y:0,dir:0}
+
+arm4_0.0s: {x:0, y:0,dir:0}
+arm4_1.0s: {x:0, y:0,dir:0}
+
+arm5_0.0s: {x:0, y:0,dir:0}
+arm5_1.0s: {x:0, y:0,dir:0}
+
+arm6_0.0s: {x:0, y:0,dir:0}
+arm6_1.0s: {x:0, y:0,dir:0}
+
+arm10_0s: {x:0, y:-1,dir:0}
+
+arm11_0s: {x:0, y:0,dir:0}
+
+arm12_0s: {x:0, y:-1,dir:0}
+
+[animation_Common_DoubleShoot_A_Light_R]
+KeyframeTimeScale:1
+blendOut:0s
+
+arm19_0.0s: {x:0, y:0,dir:0}
+arm19_1.0s: {x:0, y:0,dir:0}
+
+arm20_0.0s: {x:0, y:0,dir:0}
+arm20_1.0s: {x:0, y:0,dir:0}
+
+arm1_0.0s: {x:0, y:0,dir:0}
+arm1_1.0s: {x:0, y:0,dir:0}
+
+arm2_0.0s: {x:0, y:0,dir:0}
+arm2_1.0s: {x:0, y:0,dir:0}
+
+arm3_0.0s: {x:0, y:0,dir:0}
+arm3_1.0s: {x:0, y:0,dir:0}
+
+arm4_0.0s: {x:0, y:-1,dir:0}
+arm4_1.0s: {x:0, y:0,dir:0}
+
+arm5_0.0s: {x:0, y:0,dir:0}
+arm5_1.0s: {x:0, y:0,dir:0}
+
+arm6_0.0s: {x:0, y:0,dir:0}
+arm6_1.0s: {x:0, y:0,dir:0}
+
+arm10_0s: {x:0, y:0,dir:0}
+
+arm11_0s: {x:0, y:-1,dir:0}
+
+arm12_0s: {x:0, y:0,dir:0}

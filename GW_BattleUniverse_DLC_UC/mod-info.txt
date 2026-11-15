@@ -1,0 +1,5 @@
+[mod]
+title: 高达战争_宇宙世纪包 V166 / Universal Century DLC
+description:0079 / 0087 / 0093主线战役。必须启用Main，请勿与其他DLC同时加载。\nRequires Main. Do not enable any other DLC.
+minVersion:1.15p11
+thumbnail:mod-thumbnail.png

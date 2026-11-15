@@ -1,0 +1,6 @@
+[core]
+
+
+[hiddenAction_LPCTrue]
+autoTrigger:true
+setUnitMemory:baseExpSpeed=1.1

@@ -1,0 +1,25 @@
+[core]
+dont_load:false
+
+
+@global dogFightPlusRange=100
+
+[hiddenAction_DogFight_FindTarget_Close_ReLockTarget]
+autoTrigger:if self.attacking.hp>0 and distanceBetween(self, self.attacking)>500+${dogFightPlusRange} and self.hasActiveWaypoint(type="touchTarget") and memory.attackMode==1
+clearActiveWaypoint:true
+[hiddenAction_DogFight_FindTarget_Close_Start]
+autoTrigger:if self.attacking.hp>0 and not self.hasActiveWaypoint(type="move") and memory.attackMode==1
+addWaypoint_target_fromReference:self.getOffsetRelative(x=rnd(-50,50),y=distanceBetween(self, self.attacking)+rnd(200,250)+${dogFightPlusRange},dirOffset=directionBetween(self,self.attacking)-self.dir)
+addWaypoint_type:move
+addWaypoint_prepend:true
+alsoTriggerAction:DogFight_FindTarget_Close_Step2
+[hiddenAction_DogFight_FindTarget_Close_Step2]
+addWaypoint_target_fromReference:self.attacking
+addWaypoint_type:move
+addWaypoint_prepend:true
+alsoTriggerAction:DogFight_FindTarget_Close_Step3
+[hiddenAction_DogFight_FindTarget_Close_Step3]
+requireConditional:if not self.hasActiveWaypoint(type="touchTarget")
+addWaypoint_target_fromReference:self.attacking
+addWaypoint_type:touchTarget
+addWaypoint_prepend:false

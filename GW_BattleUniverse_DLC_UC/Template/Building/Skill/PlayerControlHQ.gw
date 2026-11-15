@@ -1,0 +1,52 @@
+[core]
+dont_load:true
+@memory manualControlledUnit:unit
+@memory pmcBorrowCandidate:unit
+@memory pmcCqbPoints:float
+@memory pmcShootPoints:float
+@memory pmcAccuracyPoints:float
+@memory pmcReactionPoints:float
+@memory pmcSpeedPoints:float
+@memory pmcDamagePoints:float
+@memory pmcDpPoints:float
+@memory pmcSupplyPoints:float
+@memory manualControlGrantAt:float
+
+# [ORDER_DEPENDENT] Single HQ slot: revoke old owner, replace slot, grant new owner.
+# Every weapon additionally verifies the slot, including while revoke messages are pending.
+[hiddenAction_ManualHQ_Request]
+autoTriggerOnEvent:newMessage(withTag="ManualControl_Request")
+requireConditional:if self.hasTags(includes='HQ_NotCaptured') and eventData('unitInfo',type='unit').hp>0 and eventData('unitInfo',type='unit').teamId==self.teamId and eventData('unitInfo',type='unit').hasTags(includes='ManualControlCapable') and not eventData('unitInfo',type='unit').hasTags(includes='inHangar')
+alsoTriggerAction:ManualHQ_RevokeOld,ManualHQ_SetOwner,ManualHQ_Grant
+
+[hiddenAction_ManualHQ_RevokeOld]
+requireConditional:if memory.manualControlledUnit.hp>0 and memory.manualControlledUnit!=eventData('unitInfo',type='unit')
+sendMessageTo:memory.manualControlledUnit
+sendMessageWithTags:ManualControl_Revoke
+sendMessageWithData:controller=self
+
+[hiddenAction_ManualHQ_SetOwner]
+setUnitMemory:manualControlledUnit=eventData('unitInfo',type='unit'),manualControlGrantAt=self.timeAlive+1
+
+[hiddenAction_ManualHQ_Grant]
+sendMessageTo:memory.manualControlledUnit
+sendMessageWithTags:ManualControl_Grant
+sendMessageWithData:controller=self
+
+[hiddenAction_ManualHQ_Release]
+autoTriggerOnEvent:newMessage(withTag="ManualControl_Release")
+requireConditional:if memory.manualControlledUnit==eventData('unitInfo',type='unit')
+setUnitMemory:manualControlledUnit=null
+
+[hiddenAction_ManualHQ_CleanStale]
+autoTrigger:if memory.manualControlledUnit!=null and (memory.manualControlledUnit.hp<=0 or memory.manualControlledUnit.teamId!=self.teamId or not self.hasTags(includes='HQ_NotCaptured') or not memory.manualControlledUnit.hasTags(includes='ManualControlCapable') or (self.timeAlive>memory.manualControlGrantAt and not memory.manualControlledUnit.readUnitMemory('manualControlEnabled',type='bool')))
+alsoTriggerAction:ManualHQ_RevokeStale,ManualHQ_ClearStale
+
+[hiddenAction_ManualHQ_RevokeStale]
+requireConditional:if memory.manualControlledUnit.hp>0
+sendMessageTo:memory.manualControlledUnit
+sendMessageWithTags:ManualControl_Revoke
+sendMessageWithData:controller=self
+
+[hiddenAction_ManualHQ_ClearStale]
+setUnitMemory:manualControlledUnit=null

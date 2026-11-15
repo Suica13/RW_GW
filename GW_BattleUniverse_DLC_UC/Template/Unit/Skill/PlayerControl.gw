@@ -1,0 +1,391 @@
+[core]
+copyFrom:"""
+ROOT:Template/Unit/Skill/PlayerControl_Marker.gw,
+ROOT:Resource/Image/Fx/Unit/ManualControl_ForcedBoost_Start.gw
+"""
+@global manualControlImplemented=false
+dont_load:true
+@memory manualControlEnabled:bool
+@memory pmcBorrowActive:bool
+@memory pmcBorrowController:unit
+@memory pmcOriginalTeam:float
+@memory pmcOriginalHQ:unit
+@memory pmcOriginalPilot:unit
+@memory pmcOriginalPilotTeam:float
+@memory pmcGrantDeadline:float
+@memory manualControlHQ:unit
+@memory manualSavedAI:bool
+@memory manualSavedAssigned:bool
+@memory manualSavedAttackRule:float
+@memory manualSavedAttackMode:float
+@memory manualInputBusyUntil:float
+@memory manualGuardUntil:float
+@memory manualGuardCDUntil:float
+@memory manualVulcanSerial:float
+@memory manualAutoVulcanOff:bool
+@memory manualAutoAAOff:bool
+@memory manualForcedBoostUntil:float
+@memory manualForcedBoostReadyAt:float
+# Base-reaction anchors: RX-78-2 135 -> 3s; RX-178 165 -> 2s; MSZ-006 210 -> 1.5s.
+@global manualForcedBoostCooldown=select(memory.baseReactionLevel<=165,3+(135-memory.baseReactionLevel)/30,select(memory.baseReactionLevel<=210,2+(165-memory.baseReactionLevel)/90,315/max(memory.baseReactionLevel,1)))
+
+@global manualControlReady=(memory.manualControlEnabled and memory.manualControlHQ.hp>0 and memory.manualControlHQ.teamId==self.teamId and memory.manualControlHQ.hasTags(includes='HQ_NotCaptured') and memory.manualControlHQ.readUnitMemory('manualControlledUnit',type='unit')==self and not self.hasTags(includes='inHangar') and parent.hp<=0 and memory.close==false and self.hp>0)
+@global manualWeaponReady=(((memory.manualControlEnabled and memory.manualControlHQ.hp>0 and memory.manualControlHQ.teamId==self.teamId and memory.manualControlHQ.hasTags(includes='HQ_NotCaptured') and memory.manualControlHQ.readUnitMemory('manualControlledUnit',type='unit')==self and not self.hasTags(includes='inHangar') and parent.hp<=0 and memory.close==false and self.hp>0) and memory.battleUnitCore.readUnitMemory('cantAction',type='bool')==false and memory.battleUnitCore.readUnitMemory('onAttacking',type='bool')==false and memory.battleUnitCore.readUnitMemory('onSkill',type='bool')==false and self.timeAlive>memory.manualInputBusyUntil) and not self.hasTags(includes='ManualGuardActive'))
+
+@global manualAuxiliaryReady=(((memory.manualControlEnabled and memory.manualControlHQ.hp>0 and memory.manualControlHQ.teamId==self.teamId and memory.manualControlHQ.hasTags(includes='HQ_NotCaptured') and memory.manualControlHQ.readUnitMemory('manualControlledUnit',type='unit')==self and not self.hasTags(includes='inHangar') and parent.hp<=0 and memory.close==false and self.hp>0) and memory.battleUnitCore.readUnitMemory('cantAction',type='bool')==false) and not self.hasTags(includes='ManualGuardActive'))
+
+[template_ManualWeapon]
+buildSpeed:0s
+highPriorityQueue:true
+allowMultipleInQueue:false
+canPlayerCancel:false
+alwaysSinglePress:true
+ai_isDisabled:true
+extraLagHidingInUI:true
+displayType:action
+isVisible:if ${manualControlReady}
+isLocked:if ${cantAction} or ${onAttacking} or ${onSkill} or self.timeAlive<=memory.manualInputBusyUntil
+isLockedMessage:Cannot act now
+isLockedMessage_zh:现在无法使用武装
+
+[action_ManualControl_Request]
+@copyFromSection:template_ManualWeapon
+pos:995.1
+text:Direct control%{select(${manualControlImplemented},'',' (In development)')}
+text_zh:直接控制%{select(${manualControlImplemented},'','（开发中）')}
+description:"""
+\nTake control of this unit; the previous unit returns to automatic combat.
+\nPress weapon buttons to fire; each weapon retains its cooldown. Vulcan bursts run independently.
+\nWhile controlled: shooting/melee +50%, accuracy/reaction +30%, speed +15%, vision +25%, final damage/DP taken -25%. PMC upgrades add to these bonuses.
+"""
+description_zh:"""
+\n接管本机，上一台受控单位恢复自动战斗。
+\n点击武装按钮，按机体当前朝向使用武装；各武装保留独立冷却。
+\n接管期间：射击/格斗系数+50%，命中/反应系数+30%，速度+15%，视野+25%，最终伤害/DP减免25%。另叠加PMC购买的增益点。
+"""
+iconImage:ROOT:Resource/Image/Units/Button/Action/AI_2.png
+isVisible:if not memory.manualControlEnabled and not self.isControlledByAI() and not self.hasTags(includes='inHangar') and parent.hp<=0
+isLocked:if not ${manualControlImplemented} or (memory.HQ.hp<=0 or memory.HQ.teamId!=self.teamId or not memory.HQ.hasTags(includes='HQ_NotCaptured') or memory.battleUnitCore.hp<=0 or ${cantAction} or ${onAttacking} or ${onSkill})
+isLockedMessage:Requires an own operational HQ and a ready unit
+isLockedMessage_zh:需要己方正常指挥部，且本机当前可行动
+requireConditional:if ${manualControlImplemented} and (not memory.manualControlEnabled and not self.isControlledByAI() and memory.HQ.hp>0 and memory.HQ.teamId==self.teamId and memory.HQ.hasTags(includes='HQ_NotCaptured') and memory.battleUnitCore.hp>0 and ${cantAction}==false and ${onAttacking}==false and ${onSkill}==false and not self.hasTags(includes='inHangar') and parent.hp<=0)
+sendMessageTo:memory.HQ
+sendMessageWithTags:ManualControl_Request
+sendMessageWithData:unitInfo=self
+
+[hiddenAction_ManualControl_Grant]
+autoTriggerOnEvent:newMessage(withTag="ManualControl_Grant")
+requireConditional:if ${manualControlImplemented} and (not memory.manualControlEnabled and eventData('controller',type='unit')==memory.HQ and memory.HQ.teamId==self.teamId and memory.HQ.readUnitMemory('manualControlledUnit',type='unit')==self and self.hp>0 and memory.close==false and not self.hasTags(includes='inHangar') and parent.hp<=0)
+setUnitMemory:manualSavedAI=${allowAI},manualSavedAssigned=${allowAssigned},manualSavedAttackRule=memory.attackRuleMode,manualSavedAttackMode=memory.attackMode,manualControlHQ=eventData('controller',type='unit'),manualControlEnabled=true,attackRuleMode=0,attackMode=0,nowWeaponIndex=0,manualInputBusyUntil=self.timeAlive+0.15
+temporarilyAddTags:ManualControlled
+clearAllWaypoints:true
+alsoTriggerAction:ManualControl_CancelWeapon,Send_AllowAI_Off,Send_AllowAssigned_Off,ManualControl_RefreshSpeed
+
+[action_ManualControl_Release]
+@copyFromSection:template_ManualWeapon
+pos:995.1
+text:Return to automatic combat
+text_zh:退出直接控制
+iconImage:ROOT:Resource/Image/Units/Button/Action/AI_1.png
+isVisible:if memory.manualControlEnabled
+isLocked:false
+requireConditional:if memory.manualControlEnabled
+alsoTriggerAction:ManualControl_ReleaseHQ,ManualControl_Exit
+
+[hiddenAction_ManualControl_Revoke]
+autoTriggerOnEvent:newMessage(withTag="ManualControl_Revoke")
+requireConditional:if memory.manualControlEnabled and eventData('controller',type='unit')==memory.manualControlHQ
+alsoTriggerAction:ManualControl_Exit
+
+[hiddenAction_ManualControl_CheckLease]
+autoTrigger:if memory.manualControlEnabled and not ${manualControlReady}
+alsoTriggerAction:ManualControl_ReleaseHQ,ManualControl_Exit
+
+[hiddenAction_ManualControl_ReleaseHQ]
+sendMessageTo:memory.manualControlHQ
+sendMessageWithTags:ManualControl_Release
+sendMessageWithData:unitInfo=self
+
+[hiddenAction_ManualControl_Exit]
+requireConditional:if memory.manualControlEnabled
+setUnitMemory:manualForcedBoostUntil=0,manualControlEnabled=false,manualGuardCDUntil=select(memory.manualGuardUntil>self.timeAlive,self.timeAlive+30,memory.manualGuardCDUntil),manualGuardUntil=0,manualVulcanSerial=memory.manualVulcanSerial+1,attackRuleMode=memory.manualSavedAttackRule,attackMode=memory.manualSavedAttackMode,manualInputBusyUntil=self.timeAlive+0.15
+temporarilyRemoveTags:ManualControlled,ManualGuardActive
+alsoTriggerAction:ManualControl_CancelWeapon,ManualControl_RestoreAI,ManualControl_RestoreAssigned,ManualControl_RefreshSpeed,PMC_ReturnBorrow
+
+# Cancel attack queues without resetting stagger/daze or weapon cooldowns.
+[hiddenAction_ManualControl_CancelWeapon]
+removeAllQueuedItemsWithoutRefund:true
+finishPlayingLastAnimation:true
+alsoTriggerAction:SetAttackingOff,SetAttackingCantMoveOff,SetAttackingCantTurnOff,SetAttackingCantAimOff,ManualControl_CancelSpecialWeapons
+
+[hiddenAction_ManualControl_RestoreAI]
+requireConditional:if memory.manualSavedAI and memory.manualControlHQ.teamId==self.teamId
+alsoTriggerAction:Send_AllowAI_On
+
+[hiddenAction_ManualControl_RestoreAssigned]
+requireConditional:if memory.manualSavedAssigned and memory.manualControlHQ.teamId==self.teamId
+alsoTriggerAction:Send_AllowAssigned_On
+
+# Automatic selection stays disabled for every controlled MS and MA form.
+[hiddenAction_TryAttack]
+requireConditional:if not memory.manualControlEnabled
+
+[hiddenAction_AttackMode_Cqb_WhenHasTarget]
+requireConditional:if not memory.manualControlEnabled
+
+[hiddenAction_LowPartsForceCqbMode]
+# Per-unit adapters preserve native part-damage conditions; non-MS units have no arm memory.
+requireConditional:false
+
+[action_ManualControl_AttackRule]
+pos:992
+text:Attack stance: Active
+text_zh:攻击姿态:主动攻击
+description:Manual weapon selection
+description_zh:由玩家按钮选择武装
+displayType:infoOnly
+buildSpeed:0s
+isVisible:if memory.manualControlEnabled
+
+[action_ChangeAttackRuleMode_Free]
+isVisible:if not memory.manualControlEnabled and memory.attackRuleMode==0 and not self.hasTags(includes='inHangar')
+requireConditional:if not memory.manualControlEnabled
+
+[action_ChangeAttackRuleMode_Guard]
+isVisible:if not memory.manualControlEnabled and memory.attackRuleMode==1 and not self.hasTags(includes='inHangar')
+requireConditional:if not memory.manualControlEnabled
+
+[action_ChangeAttackRuleMode_Hold]
+isVisible:if not memory.manualControlEnabled and memory.attackRuleMode==2 and not self.hasTags(includes='inHangar')
+requireConditional:if not memory.manualControlEnabled
+
+[action_Set_AttackMode_Shoot]
+isVisible:if not memory.manualControlEnabled and memory.attackMode==0 and not self.hasTags(includes='inHangar')
+requireConditional:if not memory.manualControlEnabled
+
+[action_Set_AttackMode_Cqb]
+isVisible:if not memory.manualControlEnabled and memory.attackMode==1 and not self.hasTags(includes='inHangar')
+requireConditional:if not memory.manualControlEnabled
+
+[action_AllowAIOn]
+isVisible:if not memory.manualControlEnabled and ${allowAI}==false and not self.hasTags(includes='inHangar')
+requireConditional:if not memory.manualControlEnabled
+
+[action_AllowAssignedOn]
+isVisible:if not memory.manualControlEnabled and ${allowAssigned}==false and not self.hasTags(includes='inHangar')
+requireConditional:if not memory.manualControlEnabled
+
+# Cancellable 3-second guard; the 30-second cooldown starts when guard ends.
+# Final HP/shield/pilot and DP factors are applied at their resource endpoints.
+[action_ManualControl_Guard]
+@copyFromSection:template_ManualWeapon
+pos:0
+text:Defence %{select(self.timeAlive<memory.manualGuardCDUntil,str(int(memory.manualGuardCDUntil-self.timeAlive))+'s','OK')}
+text_zh:防御 %{select(self.timeAlive<memory.manualGuardCDUntil,str(int(memory.manualGuardCDUntil-self.timeAlive))+'秒','就绪')}
+description:Up to 3s. Press again to stop. Cannot attack; movement and boost speed -25%. Final damage -25%, DP damage -50%. Cooldown: 30s after guard ends.
+description_zh:最多持续3秒，再次点击立即结束。期间不能攻击，移动和推进速度降低25%，最终伤害减少25%，DP伤害减少50%。结束后冷却30秒。
+iconImage:ROOT:Resource/Image/Units/Button/Action/Guard_On.png
+isVisible:false
+isLocked:if not ${manualAuxiliaryReady} or ${onSkill} or self.timeAlive<memory.manualGuardCDUntil
+requireConditional:false
+setUnitMemory:manualGuardUntil=self.timeAlive+3,manualGuardCDUntil=self.timeAlive+33,manualVulcanSerial=memory.manualVulcanSerial+1
+temporarilyAddTags:ManualGuardActive
+alsoTriggerAction:ManualControl_CancelWeapon,ManualControl_RefreshSpeed
+
+[action_ManualControl_GuardStop]
+@copyFromSection:template_ManualWeapon
+pos:0
+text:End defence [%{max(0,memory.manualGuardUntil-self.timeAlive)}s]
+text_zh:结束防御 [%{max(0,memory.manualGuardUntil-self.timeAlive)}秒]
+description:End defence immediately and start the 30-second cooldown.
+description_zh:立即结束防御，开始30秒冷却。
+iconImage:ROOT:Resource/Image/Units/Button/Action/Guard_Off.png
+isVisible:false
+isLocked:false
+requireConditional:false
+alsoTriggerAction:ManualControl_GuardFinish
+
+[hiddenAction_ManualControl_GuardEnd]
+autoTriggerCheckRate:everyFrame
+autoTrigger:if self.hasTags(includes='ManualGuardActive') and (self.timeAlive>=memory.manualGuardUntil or not ${manualControlReady})
+alsoTriggerAction:ManualControl_GuardFinish
+
+[hiddenAction_ManualControl_GuardFinish]
+setUnitMemory:manualGuardCDUntil=select(self.timeAlive>=memory.manualGuardUntil,memory.manualGuardUntil+30,self.timeAlive+30),manualGuardUntil=0
+temporarilyRemoveTags:ManualGuardActive
+alsoTriggerAction:ManualControl_RefreshSpeed
+
+[hiddenAction_ManualControl_RefreshSpeed]
+sendMessageTo:memory.battleUnitCore
+sendMessageWithTags:ManualGuardSpeedRefresh
+
+# Movement retains its native slot; slot zero is reserved for transformation.
+[action_ChangeMoveMode_T]
+isVisible:if not memory.manualControlEnabled and memory.moveMode==0 and not self.hasTags(includes='inHangar')
+[action_ChangeMoveMode_F]
+isVisible:if not memory.manualControlEnabled and memory.moveMode==1 and not self.hasTags(includes='inHangar')
+[action_ManualControl_Move_T]
+alsoTriggerAction:ManualControl_RefreshSpeed
+@copyFromSection:action_ChangeMoveMode_T
+pos:994
+isVisible:if memory.manualControlEnabled and memory.moveMode==0 and not self.hasTags(includes='inHangar')
+[action_ManualControl_Move_F]
+alsoTriggerAction:ManualControl_RefreshSpeed
+@copyFromSection:action_ChangeMoveMode_F
+pos:994
+isVisible:if memory.manualControlEnabled and memory.moveMode==1 and not self.hasTags(includes='inHangar')
+
+# [ORDER_DEPENDENT] The native Transform handler resets tags and base combat stats.
+# Run these after its existing ResetTargetTags_Step2 rather than adding an attachment.
+[hiddenAction_ResetTargetTags_Step2]
+alsoTriggerAction:ManualControl_AfterTransform,ManualControl_RestoreGuard
+[hiddenAction_ManualControl_AfterTransform]
+requireConditional:if ${manualControlReady}
+setUnitMemory:attackRuleMode=0,attackMode=0,manualVulcanSerial=memory.manualVulcanSerial+1
+# Cancelled burst messages cannot leak into a different form.
+temporarilyAddTags:ManualControlled
+alsoTriggerAction:Send_AllowAI_Off,Send_AllowAssigned_Off,ManualControl_RefreshSpeed
+[hiddenAction_ManualControl_RestoreGuard]
+requireConditional:false
+temporarilyAddTags:ManualGuardActive
+
+[hiddenAction_ManualControl_CancelSpecialWeapons]
+# Overridden by the relevant form adapter.
+requireConditional:false
+
+# DUEL lock reticle: the decal belongs to the controlled unit, anchored on its target.
+[decal_ManualControl_TargetLock]
+layer:shadow
+order:5
+onlyTeam:own
+onlyOnNonPreview:true
+onlyWhileAlive:true
+image:ROOT:Resource/Image/Units/Hud/Target_Locker/Manual_Target_Locker_Duel_Yellow.png
+imageScale:0.75
+alpha:0.75
+alwaysStartDirAtZero:true
+basePosition:self.attacking
+isVisible:if ${manualControlReady} and memory.hideUI==0 and self.attacking.hp>0 and not self.attacking.hasTags(includes='UnDetected')
+
+# Save compatibility: discard the retired timed MS guard state, preserving weapon availability.
+[hiddenAction_ManualControl_ClearLegacyMSGuard]
+autoTriggerCheckRate:everyFrame
+autoTrigger:if self.hasTags(includes='MS') and self.hasTags(includes='ManualGuardActive')
+temporarilyRemoveTags:ManualGuardActive
+setUnitMemory:manualGuardUntil=0,manualGuardCDUntil=0
+alsoTriggerAction:ManualControl_RefreshSpeed
+
+# The native price system charges exactly once and blocks insufficient EN before queueing.
+# ReadyAt survives release/reacquisition and form changes; only active acceleration is cancelled.
+[action_ManualControl_ForcedBoost]
+@copyFromSection:template_ManualWeapon
+pos:1
+text:Forced thrust%{select(self.timeAlive<memory.manualForcedBoostReadyAt,' ['+str(int(max(0,memory.manualForcedBoostReadyAt-self.timeAlive)*10+0.999)/10)+'s]','')}
+text_zh:强制喷射%{select(self.timeAlive<memory.manualForcedBoostReadyAt,'（'+str(int(max(0,memory.manualForcedBoostReadyAt-self.timeAlive)*10+0.999)/10)+'秒）','')}
+description:50 EN. Movement speed +100% for 0.5s. Cooldown scales with base reaction: RX-78-2 3s, Gundam Mk-II 2s, Z Gundam 1.5s.
+description_zh:消耗50 EN，移动速度提高100%，持续0.5秒。冷却按机体基础反应系数缩放：高达3秒，高达Mk-II 2秒，Z高达1.5秒。当前冷却：%{str(int((${manualForcedBoostCooldown})*100+0.5)/100)}秒。
+iconImage:ROOT:Resource/Image/Units/Button/Action/Boost_1.png
+price:EN=50
+isVisible:if ${manualControlReady}
+isLocked:if not ${manualAuxiliaryReady} or self.timeAlive<memory.manualForcedBoostReadyAt or self.resource.EN<50
+isLockedMessage:Requires 50 EN, a ready unit and completed cooldown.
+isLockedMessage_zh:需要50 EN、本机可行动且冷却完成。
+requireConditional:if ${manualAuxiliaryReady} and self.timeAlive>=memory.manualForcedBoostReadyAt
+setUnitMemory:manualForcedBoostUntil=self.timeAlive+0.5,manualForcedBoostReadyAt=self.timeAlive+${manualForcedBoostCooldown}
+spawnEffects:ManualControl_ForcedBoost_Start
+playSoundAtUnit:ROOT:Resource/Sound/SE/Unit/Boost_1.ogg
+alsoTriggerAction:ManualControl_RefreshSpeed
+
+[hiddenAction_ManualControl_ForcedBoostEnd]
+autoTriggerCheckRate:everyFrame
+autoTrigger:if memory.manualForcedBoostUntil>0 and self.timeAlive>=memory.manualForcedBoostUntil
+setUnitMemory:manualForcedBoostUntil=0
+alsoTriggerAction:ManualControl_RefreshSpeed
+
+# PMC borrowing has a separate pending phase; ownership is saved before any team switch.
+[hiddenAction_PMC_Borrow]
+autoTriggerOnEvent:newMessage(withTag='PMC_Borrow')
+requireConditional:if ${manualControlImplemented} and not memory.pmcBorrowActive and not memory.manualControlEnabled and self.hp>0 and memory.battleUnitCore.hp>0 and not memory.close and (memory.noNeedPilot or (memory.pilotUnit.hp>0 and memory.pilotUnit.parent==self)) and not self.hasTags(includes='inHangar') and parent.hp<=0 and eventSource==eventData('controller',type='unit') and eventSource.hp>0 and eventSource.hasTags(includes='PMC') and eventSource.hasTags(includes='HQ_NotCaptured') and eventSource.readUnitMemory('pmcBorrowCandidate',type='unit')==self and createMarker(x=self.x,y=self.y,teamId=eventSource.teamId).nearestUnit(withTag='ManualControlCapable',withinRange=1,relation='allyNotOwn')==self
+setUnitMemory:pmcBorrowActive=true,pmcBorrowController=eventData('controller',type='unit'),pmcOriginalTeam=self.teamId,pmcOriginalHQ=memory.HQ,pmcOriginalPilot=memory.pilotUnit,pmcOriginalPilotTeam=memory.pilotUnit.teamId,pmcGrantDeadline=self.timeAlive+2
+alsoTriggerAction:PMC_JoinController,PMC_RequestControl
+
+[hiddenAction_PMC_JoinController]
+switchToTeam:memory.pmcBorrowController.teamId
+setUnitMemory:HQ=memory.pmcBorrowController
+
+[hiddenAction_PMC_RequestControl]
+sendMessageTo:memory.pmcBorrowController
+sendMessageWithTags:ManualControl_Request
+sendMessageWithData:unitInfo=self
+
+# A rejected/dropped grant must not leave a unit transferred without an active lease.
+# Original-pilot identity also catches forced exit, swaps and pilot death before close updates.
+[hiddenAction_PMC_CheckBorrow]
+autoTriggerCheckRate:everyFrame
+autoTrigger:if memory.pmcBorrowActive and (memory.pmcBorrowController.hp<=0 or not memory.pmcBorrowController.hasTags(includes='HQ_NotCaptured') or self.teamId!=memory.pmcBorrowController.teamId or parent.hp>0 or self.hasTags(includes='inHangar') or memory.close or (memory.pmcOriginalPilot!=null and (memory.pmcOriginalPilot.hp<=0 or memory.pmcOriginalPilot.parent!=self)) or (not memory.manualControlEnabled and self.timeAlive>memory.pmcGrantDeadline))
+alsoTriggerAction:PMC_EndControl
+
+[hiddenAction_PMC_EndControl]
+requireConditional:if memory.pmcBorrowActive
+alsoTriggerAction:ManualControl_ReleaseHQ,ManualControl_Exit,PMC_ReturnBorrow
+
+[hiddenAction_PMC_ReturnBorrow]
+requireConditional:if memory.pmcBorrowActive
+alsoTriggerAction:PMC_ReturnPilot,PMC_ReturnOwner,PMC_ClearBorrow
+
+[hiddenAction_PMC_ReturnPilot]
+requireConditional:if memory.pmcOriginalPilot.hp>0 and memory.pmcOriginalPilot.teamId==memory.pmcBorrowController.teamId
+sendMessageTo:memory.pmcOriginalPilot
+sendMessageWithTags:ChangeTeam
+sendMessageWithData:teamID=memory.pmcOriginalPilotTeam
+
+[hiddenAction_PMC_ReturnOwner]
+switchToTeam:memory.pmcOriginalTeam
+setUnitMemory:HQ=memory.pmcOriginalHQ
+clearAllWaypoints:true
+
+[hiddenAction_PMC_ClearBorrow]
+setUnitMemory:pmcBorrowActive=false,pmcBorrowController=null,pmcOriginalHQ=null,pmcOriginalPilot=null,pmcGrantDeadline=0
+
+# The normal pilot message is queued; release the lease before it is handled.
+[action_UnloadPilot]
+alsoTriggerAction:PMC_EndControl
+displayType:action
+
+[hiddenAction_PMC_Destroyed]
+autoTriggerOnEvent:destroyed
+alsoTriggerAction:PMC_EndControl
+
+[hiddenAction_PMC_ReleaseBeforeDeath]
+requireConditional:if memory.pmcBorrowActive
+alsoTriggerAction:PMC_EndControl
+
+# Purchases update the current lease immediately, without writing EN or healing.
+[hiddenAction_ManualControl_BonusesChanged]
+autoTriggerOnEvent:newMessage(withTag='ManualControl_BonusesChanged')
+requireConditional:if memory.manualControlEnabled and eventSource==memory.manualControlHQ
+alsoTriggerAction:ManualControl_RefreshSpeed
+
+[action_ManualControl_FirstSlot]
+@copyFromSection:template_ManualWeapon
+pos:0
+text:---
+text_zh:---
+description:Reserved action slot
+description_zh:预留行动位置
+displayType:action
+isVisible:if ${manualControlReady}
+isLocked:true
+requireConditional:false
+
+
+# [ENGINE_WORKAROUND] Active target acquisition is not a manual weapon command.
+# Keep the native five-second combat timeout; Damage still calls this action directly.
+[hiddenAction_Check_InBattle_Attack]
+autoTrigger:if (not memory.manualControlEnabled and self.attacking.hp>0) or (memory.manualControlEnabled and (${onAttacking}==true or ${onSkill}==true))
+
+# Attached ship turrets report a shot only after the firing permission is consumed.
+[hiddenAction_ManualControl_Combat]
+autoTriggerOnEvent:newMessage(withTag="ManualControl_Combat")
+requireConditional:if memory.manualControlEnabled
+setUnitMemory:inBattleTimer=self.timeAlive+5

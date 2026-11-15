@@ -1,0 +1,22 @@
+[core]
+dont_load:false
+
+#爆炸
+[effect_Common_Crater_2]
+image:ROOT:Resource/Image/Fx/Common/Image/Crater_2.png
+attachedToUnit:false
+priority:critical
+life:500
+liveAfterAttachedDies:true
+dirOffsetRandom:180
+yOffsetRelative:10
+scaleFrom:1
+scaleTo:1
+alpha:1
+drawUnderUnits:true
+showInFog:true
+
+[effect_Common_Crater_2_L]
+@copyFromSection:effect_Common_Crater_2
+scaleFrom: 1.25
+scaleTo: 1.25

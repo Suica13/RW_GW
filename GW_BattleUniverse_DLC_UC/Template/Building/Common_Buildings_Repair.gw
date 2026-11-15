@@ -1,0 +1,15 @@
+[core]
+
+@memory selfRegenCD:float
+
+[hiddenAction_selfRegen]
+autoTrigger:if self.timeAlive>memory.selfRegenCD and self.hp>0 and self.hp<self.maxHp
+setUnitMemory:selfRegenCD=self.timeAlive+1
+setUnitStats:hp=self.hp+self.maxHp*0.005
+
+
+
+
+[hiddenAction_TookDamageBlockSelfRegen]
+autoTriggerOnEvent:newMessage(withTag="Damage")
+setUnitMemory:selfRegenCD=self.timeAlive+5

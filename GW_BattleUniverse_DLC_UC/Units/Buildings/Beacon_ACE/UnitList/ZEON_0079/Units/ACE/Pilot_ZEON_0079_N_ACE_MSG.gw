@@ -1,0 +1,10 @@
+[core]
+copyFrom:"""
+ROOT:Units/BattleUnits/Pilot/0079/ACE/Pilot_ID_List_0079.gw,
+ROOT:Units/Buildings/Beacon_ACE/UnitList/Mod/UnitTemplate.ini
+"""
+
+@memory Pilot_ZEON_0079_N_ACE_MSG:bool
+@memory Pilot_ZEON_0079_N_ACE_MSG_Timer:float
+
+

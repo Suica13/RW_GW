@@ -1,0 +1,24 @@
+[core]
+dont_load:false
+
+
+
+[animation_OnMoving]
+KeyframeTimeScale:1
+
+arm1_0.0s: {y: 0 }
+
+arm2_0.0s: {y: 0 }
+
+arm19_0.0s: {y:0,dir:0}
+arm20_0.0s: {y:0,dir:0}
+
+[animation_OnMovingReversing]
+KeyframeTimeScale:1
+
+arm1_0.0s: {y: 0 }
+
+arm2_0.0s: {y: 0 }
+
+arm19_0.0s: {y:0,dir:0}
+arm20_0.0s: {y:0,dir:0}

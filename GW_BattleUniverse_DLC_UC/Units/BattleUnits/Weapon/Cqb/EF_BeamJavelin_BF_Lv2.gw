@@ -1,0 +1,69 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Units/BattleUnits/Weapon/Cqb/EF_BeamJavelin_BF.gw
+"""
+
+
+[projectile_EF_BeamJavelin_BF_B_Projectile]
+spawnUnit:"""
+Projectile_Saber_L_B*1
+(
+    addResources=
+    CqbDamage:4000
+    |CqbBeamDamage:4000
+    |DpDamage:950
+    |WeaponAccuracy:125
+    |PartBreakModifier=0.75
+    |CockpitBreakModifier=1.25
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.5
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.5
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:0.25
+    |ProjectileAttackTimes:2
+)
+"""
+[projectile_EF_BeamJavelin_BF_F_Projectile]
+spawnUnit:"""
+Projectile_Saber_L_A_L*1
+(
+    addResources=
+    CqbDamage:4000
+    |CqbBeamDamage:4000
+    |DpDamage:700
+    |WeaponAccuracy:125
+    |PartBreakModifier=1.25
+    |CockpitBreakModifier=0.75
+    |PilotDamageModifier=1
+    |PilotTrueDamage=0
+    |AntiSizeLargeDamage=1.5
+    |AntiSizeSmallDamage=0.75
+    |AntiSizeLargeAccuracy=1.5
+    |AntiSizeSmallAccuracy=0.75
+    |AntiBuilding=1
+    |AntiAqua=0.75
+    |AntiAir=0.75 
+    |AntiLand=1
+    |AntiSpace=1
+    |HeightHitRange:35
+    |ProjectileSpeed:0
+    |ProjectileSpread:0
+    |ProjectileLife:0.25
+    |ProjectileAttackTimes:2
+)
+"""
+
+
+
+

@@ -1,0 +1,57 @@
+[core]
+dont_load:false
+
+[hiddenAction_PlayCommon_Melee_F_GP_03D_Step_1]
+finishPlayingLastAnimation:true
+alsoTriggerAction:PlayCommon_Melee_F_GP_03D_Step2
+[hiddenAction_PlayCommon_Melee_F_GP_03D_Step2]
+playAnimation:Common_Melee_F_GP_03D
+
+
+
+[animation_Common_Melee_F_GP_03D]
+KeyframeTimeScale:1
+blendOut:0s
+
+arm19_0.0s: {x:0, y:0,dir:0}
+arm19_1.0s: {x:0, y:0,dir:0}
+
+arm20_0.0s: {x:0, y:0,dir:0}
+arm20_1.0s: {x:0, y:0,dir:0}
+
+arm1_0.0s: {x:0, y:0,dir:0}
+arm1_1.0s: {x:0, y:0,dir:0}
+
+arm2_0.0s: {x:0, y:0,dir:0}
+arm2_1.0s: {x:0, y:0,dir:0}
+
+arm3_0.25s: {x:15, y:0,dir:65}
+arm3_0.45s: {x:15, y:0,dir:65}
+arm3_0.55s: {x:-10, y:5,dir:-100}
+arm3_2.0s: {x:-10, y:5,dir:-100}
+arm3_2.5s: {x:0, y:0,dir:0}
+
+arm4_0.0s: {x:0, y:0,dir:0}
+arm4_1.0s: {x:0, y:0,dir:0}
+
+arm5_0.0s: {x:0, y:0,dir:0}
+arm5_1.0s: {x:0, y:0,dir:0}
+
+arm6_0.0s: {x:0, y:0,dir:0}
+arm6_1.0s: {x:0, y:0,dir:0}
+
+arm10_0s: {x:0, y:0,dir:0}
+
+
+arm11_0.0s: {x:0, y:0,dir:0}
+arm11_1.0s: {x:0, y:0,dir:0}
+
+
+
+arm12_0s: {x:0, y:0,dir:0}
+
+
+
+
+
+

@@ -1,0 +1,10 @@
+[core]
+dont_load:false
+copyFrom:"""
+ROOT:Units/BattleUnits/Weapon/Shell/ZN_120mmMG.gw,
+ROOT:Template/Unit/Animation/Shoot/Common_Shoot_Two_Handed_A.gw
+"""
+
+
+[hiddenAction_ZN_120mmMG_Fire_Step_2]
+alsoTriggerAction:PlayCommon_Shoot_Two_Handed_A_Step_1

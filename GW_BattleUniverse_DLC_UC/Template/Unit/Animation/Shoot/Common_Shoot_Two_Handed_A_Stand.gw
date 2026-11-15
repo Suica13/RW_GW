@@ -1,0 +1,48 @@
+[core]
+dont_load:false
+
+[hiddenAction_PlayCommon_Shoot_Two_Handed_A_Stand_Step_1]
+buildSpeed:0s
+finishPlayingLastAnimation:true
+alsoTriggerAction:PlayCommon_Shoot_Two_Handed_A_Stand_Step_2
+[hiddenAction_PlayCommon_Shoot_Two_Handed_A_Stand_Step_2]
+playAnimation:Common_Shoot_Two_Handed_A_Stand
+
+
+[animation_Common_Shoot_Two_Handed_A_Stand]
+KeyframeTimeScale:300
+blendOut:0s
+
+arm19_0.0s: {x:0, y:-0.5,dir:0}
+arm19_1.0s: {x:0, y:-0.5,dir:0}
+
+arm20_0.0s: {x:0, y:-0.5,dir:0}
+arm20_1.0s: {x:0, y:-0.5,dir:0}
+
+arm1_0.0s: {x:0, y:0,dir:0}
+arm1_1.0s: {x:0, y:0,dir:0}
+
+arm2_0.0s: {x:0, y:-0.5,dir:30}
+arm2_1.0s: {x:0, y:-0.5,dir:30}
+
+arm3_0.0s: {x:3, y:6,dir:75}
+arm3_0.1s: {x:3, y:7,dir:75}
+arm3_1.0s: {x:3, y:6,dir:75}
+
+arm4_0.0s: {x:0, y:-3.5,dir:0}
+arm4_0.1s: {x:0, y:-2.5,dir:0}
+arm4_1.0s: {x:0, y:-3.5,dir:0}
+
+arm5_0.0s: {x:2, y:5,dir:35}
+arm5_1.0s: {x:2, y:5,dir:35}
+
+arm6_0.0s: {x:-1, y:-4.5,dir:0}
+arm6_1.0s: {x:-1, y:-4.5,dir:0}
+
+
+arm10_0s: {x:0, y:-1.5,dir:-30}
+
+arm11_0s: {x:-1, y:-4.5,dir:0}
+
+arm12_0s: {x:0, y:-2,dir:55}
+
