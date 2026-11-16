@@ -34,3 +34,12 @@ for name, records in ENT.items():
     DB[key] = text
     AI_FALLBACK_FACTORIES[name] = candidates
 (OUT/'ai-production-fallbacks.json').write_text(json.dumps(AI_FALLBACK_FACTORIES,ensure_ascii=False,indent=2),encoding='utf-8')
+
+# Every production cycle wakes each factory, while non-factory building/slot choices
+# keep their original random distribution. Native queues, costs and caps still apply.
+for key,text in list(DB.items()):
+    if key[1]!='Template/Building/Common_AutoProduce.ini':
+        continue
+    text=edit(text,'hiddenAction_AutoProduceBuildingSend','requireConditional','true')
+    text=edit(text,'hiddenAction_AutoProduceBuildingSend_Step2','requireConditional',"if memory.canProduceBuildingList[index].hasTags(includes='Factory') or (memory.autoProduceRandom<75 and index==memory.canProduceBuildingIndex)")
+    DB[key]=text

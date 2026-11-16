@@ -8,3 +8,6 @@ for faction,row in inventory.items():
     (O/('tech-'+faction+'.txt')).write_text('\n'.join(row['main']),encoding='utf-8')
     (O/('end-'+faction+'.txt')).write_text(str(progression['era_end'][faction]),encoding='utf-8')
 print('Runtime research fixtures prepared')
+
+cases=json.loads((O/'ace-conversion-cases.json').read_text('utf-8'))
+(O/'ace-cases.tsv').write_text('\n'.join(row['pilot']+'\t'+str(row['pilot_type']) for row in cases),encoding='utf-8')

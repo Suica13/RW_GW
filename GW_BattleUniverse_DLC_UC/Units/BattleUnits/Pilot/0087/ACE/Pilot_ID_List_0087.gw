@@ -15,43 +15,43 @@
 #=====================================NEO ZEON=====================================
 #=====================================NEO ZEON=====================================
 # 卡缪
-@global Pilot_AEUG_0087_N_ACE_KMBD=12001
+@global Pilot_AEUG_0087_N_ACE_KMBD:212001
 
 # 科瓦特罗
-@global Pilot_AEUG_0087_N_ACE_QWTR=12002
+@global Pilot_AEUG_0087_N_ACE_QWTR:212002
 
 # 阿姆罗
-@global Pilot_AEUG_0087_N_ACE_AMR=12003
+@global Pilot_AEUG_0087_N_ACE_AMR:212003
 
 # 艾玛
-@global Pilot_AEUG_0087_N_ACE_EMSN=12004
+@global Pilot_AEUG_0087_N_ACE_EMSN:212004
 
 # 花
-@global Pilot_AEUG_0087_N_ACE_FAUR=12005
+@global Pilot_AEUG_0087_N_ACE_FAUR:212005
 
 # 布莱特
-@global Pilot_AEUG_0087_N_ACE_BRTNA=12006
+@global Pilot_AEUG_0087_N_ACE_BRTNA:212006
 
 # 汉肯
-@global Pilot_AEUG_0087_N_ACE_HKBKN=12007
+@global Pilot_AEUG_0087_N_ACE_HKBKN:212007
 
 # 杰利特
-@global Pilot_TITANS_0087_N_ACE_JRDMS=22001
+@global Pilot_TITANS_0087_N_ACE_JRDMS:222001
 
 # 西洛克
-@global Pilot_TITANS_0087_N_ACE_Scirocco=22002
+@global Pilot_TITANS_0087_N_ACE_Scirocco:222002
 
 # 亚赞
-@global Pilot_TITANS_0087_N_ACE_Yazan=22003
+@global Pilot_TITANS_0087_N_ACE_Yazan:222003
 
 # 凤
-@global Pilot_TITANS_0087_N_ACE_FOUR=22004
+@global Pilot_TITANS_0087_N_ACE_FOUR:222004
 
 # 罗莎米亚
-@global Pilot_TITANS_0087_N_ACE_Rosamia=22005
+@global Pilot_TITANS_0087_N_ACE_Rosamia:222005
 
 # 布朗
-@global Pilot_TITANS_0087_N_ACE_Brown=22006
+@global Pilot_TITANS_0087_N_ACE_Brown:222006
 
 # 巴斯克
-@global Pilot_TITANS_0087_N_ACE_Basque=22007
+@global Pilot_TITANS_0087_N_ACE_Basque:222007

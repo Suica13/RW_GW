@@ -65,7 +65,7 @@ for faction,row in inventory.items():
         def number(text,field):return float(re.search(r'\$\{TechID\}_'+field+r'=([\d.]+)',text)[1])
         old_tp=number(before,'TechPoint')
         new_tp=number(after,'TechPoint')
-        check(new_tp==old_tp*.75,tech+' TP multiplier incorrect')
+        check(new_tp==old_tp*.5625,tech+' TP multiplier incorrect')
         check("+customTarget1.customTarget1.readUnitMemory('ucEraTechBase',type='float')" in after,tech+' lacks cumulative offset')
         for field in ['Time','Money','Resource']:check(number(before,field)==number(after,field),tech+' changed '+field)
         check(tech in loaded,tech+' missing marker')
@@ -78,7 +78,7 @@ for faction,row in inventory.items():
     for branch in row['branch']:check(not any(branch in s for s in merged),branch+' research action retained')
 
 hq=c.local(P/'Units/Buildings/HQ/Mod/HQ_EraProgression.gw')
-check(progression['gap']==3600,'Unexpected era gap')
+check(progression['gap']==2700,'Unexpected era gap')
 edges=[]
 for faction,targets in progression['edges'].items():
     gate=progression['era_end'][faction]+progression['gap']
@@ -239,7 +239,30 @@ for year in ['0079','0087','0093']:
     check('spawnUnits' not in conversion,year+' PMC gives starting units')
     pmc_eras.append(year)
 
-report={'technology_merges':merges,'main_technology_count':len(all_main),'technology_metrics':metrics,'progression_edges':edges,'era_gap':progression['gap'],'factories':factories,'warning_locations':[str(p.relative_to(P)) for p,_,_ in warnings],'loaded_uc_entities':len(loaded),'era_labels':era_labels,'combat_roots_from_folders':False,'pmc_available_eras':pmc_eras,'missing_active_file_refs':missing,'errors':errors}
+# Reported regressions: one active visual page, and every retained ACE has a direct ID route.
+uc_core=c.local(loaded['TechTree_Core_UC'])
+for faction in inventory:
+    check('showTechTree=false' in uc_core['hiddenAction_UC_Visit_'+faction]['setUnitMemory'],faction+' leaves the research button hidden after era change')
+for faction,row in inventory.items():
+    era_index=['0079','0087','0093'].index(row['era'])
+    check(uc_core['hiddenAction_UC_CloseOldPage_'+faction].get('requireConditional')==f'if memory.ucPage!={era_index}-memory.ucStartEra',faction+' can close the selected page while opening it')
+    controller=c.local(loaded['TechTree_UI_Main_'+faction])
+    check(controller['hiddenAction_ShowTechTree_Page0'].get('requireConditional')=="if self.attachment(slot='Page').hp<=0",faction+' can create duplicate pages')
+    close=controller['hiddenAction_UC_CloseOwnedPage']
+    check(close.get('attachments_onlyOnSlots')=='Page' and close.get('attachments_deleteNumUnits')=='1',faction+' does not delete the old visual page')
+ace_cases=json.loads((O/'ace-conversion-cases.json').read_text('utf-8'))
+check(len({row['pilot_type'] for row in ace_cases})==len(ace_cases),'ACE IDs collide across eras')
+ace_types={row['pilot']:row['pilot_type'] for row in ace_cases}
+for file in P.rglob('Pilot_ID_List_*.gw'):
+    for field,value in c.local(file).get('core',{}).items():
+        if field.startswith('@global ') and field[8:] in ace_types:
+            check(int(value)==ace_types[field[8:]],'Beacon and converter ACE IDs differ '+field)
+ace_entry=c.local(loaded['Pilot_CustomMarker_ACE'])
+check('newMessage' in ace_entry['hiddenAction_Start_PilotCustomChange']['autoTriggerOnEvent'],'ACE entry cannot retry')
+for row in ace_cases:
+    values=ace_entry['hiddenAction_UC_ACE_'+row['pilot']]
+    check(values['convertTo']==row['pilot'] and values['requireConditional']=='if customTarget1.resource.PilotType=='+str(row['pilot_type']),'Incorrect ACE direct conversion '+row['pilot'])
+report={'technology_merges':merges,'main_technology_count':len(all_main),'technology_metrics':metrics,'progression_edges':edges,'era_gap':progression['gap'],'factories':factories,'warning_locations':[str(p.relative_to(P)) for p,_,_ in warnings],'loaded_uc_entities':len(loaded),'era_labels':era_labels,'combat_roots_from_folders':False,'pmc_available_eras':pmc_eras,'ace_conversion_count':len(ace_cases),'missing_active_file_refs':missing,'errors':errors}
 (O/'verification.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
 print(json.dumps({'main':len(all_main),'edges':len(edges),'factories':sum(len(v) for v in factories.values()),'errors':errors},ensure_ascii=False,indent=2))
 assert not errors

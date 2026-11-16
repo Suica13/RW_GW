@@ -144,7 +144,7 @@ for key,t in list(DB.items()):
    pat=r'(\b'+re.escape(tech)+r'_TechPoint=|\$\{TechID\}_TechPoint=)([\d.]+)'
    s='hiddenAction_'+tech+'_Awake';d=local(t)
    if s in d:
-    memory=d[s].get('setUnitMemory','');memory=re.sub(r'(\$\{TechID\}_TechPoint=)([\d.]+)',lambda m:m[1]+str(float(m[2])*0.75).removesuffix('.0')+"+customTarget1.customTarget1.readUnitMemory('ucEraTechBase',type='float')",memory)
+    memory=d[s].get('setUnitMemory','');memory=re.sub(r'(\$\{TechID\}_TechPoint=)([\d.]+)',lambda m:m[1]+str(float(m[2])*0.5625).removesuffix('.0')+"+customTarget1.customTarget1.readUnitMemory('ucEraTechBase',type='float')",memory)
     t=edit(t,s,'setUnitMemory','"""\n'+memory+'\n"""')
   # Do not allow old skip-T1 entry points to invoke deleted side technologies.
   t=remove_sections(t,lambda s,v:s.startswith('hiddenAction_Tech_') and s.endswith('_PassT1'))
@@ -200,7 +200,7 @@ def add_entity(n,reason=None):
  if n in BAD_IDS:return
  key=SELECTED.get(n)
  # Main supplies the engine/system units. Only the restricted era-selection UI overrides it.
- if key and key[0]=='Main' and not key[1].startswith('Units/Buildings/HQ/HostOption/'):return
+ if key and key[0]=='Main' and n!='Pilot_CustomMarker_ACE' and not key[1].startswith('Units/Buildings/HQ/HostOption/'):return
  if key:
   evidence=reason or {'kind':'root'}
   if evidence not in ENTITY_REASONS[n]:ENTITY_REASONS[n].append(evidence)
@@ -217,7 +217,7 @@ for n,key in SELECTED.items():
  if n in BAD_IDS:continue
  if era=='Main' and path.startswith('Units/') and not path.startswith(('Units/BattleUnits/','Units/TechTree/','Units/Buildings/HQ/','Units/Buildings/Factory/')) and 'GameManager_CR' not in path:add_entity(n)
  if path.startswith('Units/Buildings/') and not ('/HQ/' in path or '/Factory/' in path or '/Beacon_ACE/' in path):add_entity(n)
-for n in KEEP_IDS|{'Type74','Type61','FF_S3','FF_4','Wappa','MTank','ZN_APC','MusaiClass','JiccoClass'}:add_entity(n)
+for n in KEEP_IDS|{'Pilot_CustomMarker_ACE','Type74','Type61','FF_S3','FF_4','Wappa','MTank','ZN_APC','MusaiClass','JiccoClass'}:add_entity(n)
 for n in ['HQ_Start','HQ_Start_Host','HQ_VS_GE_UC0079','HQ_VS_GE_UC0087','HQ_VS_GE_UC0093','HostOption_Core','GameManager_Start','GameManager_VS']+[('HQ_'+f) for f in FAC]+[('HQ_'+f+'_Space') for f in FAC]:add_entity(n)
 for n,key in SELECTED.items():
  if key[1].startswith('Units/Buildings/Factory/Faction/') and any('/'+f+'/' in key[1] for f in FAC):add_entity(n)

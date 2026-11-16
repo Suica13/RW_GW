@@ -12591,6 +12591,22 @@
     "source_package": "GW_BattleUniverse_DLC_0093",
     "source_path": "Units/TechTree/Tech/Faction/Common/Common_Building_Send.ini"
   },
+  "Template/Unit/BattleUnit_Framework_Pilot_ACE_Main.ini": {
+    "source_package": "GW_BattleUniverse_Main",
+    "source_path": "Template/Unit/BattleUnit_Framework_Pilot_ACE.ini"
+  },
+  "Template/Unit/BattleUnit_Graphics_Main.ini": {
+    "source_package": "GW_BattleUniverse_Main",
+    "source_path": "Template/Unit/BattleUnit_Graphics.ini"
+  },
+  "Template/Unit/BattleUnit_Graphics_Pilot_Main.ini": {
+    "source_package": "GW_BattleUniverse_Main",
+    "source_path": "Template/Unit/BattleUnit_Graphics_Pilot.ini"
+  },
+  "Template/Unit/Skill/PilotCustomChange.gw": {
+    "source_package": "GW_BattleUniverse_Main",
+    "source_path": "Template/Unit/Skill/PilotCustomChange.gw"
+  },
   "Units/DLCMarker/DLCMarker_UC.ini": {
     "source_package": "GW_BattleUniverse_Main",
     "source_path": "UC/DLCMarker_UC.ini"
@@ -12634,6 +12650,14 @@
   "Units/TechTree/UnlockedListMarker/UnlockedListMarker_UC.ini": {
     "source_package": "GW_BattleUniverse_Main",
     "source_path": "UC/UnlockedListMarker_UC.ini"
+  },
+  "Units/BattleUnits/Pilot/Mod/Pilot_CustomMarker_ACE.ini": {
+    "source_package": "GW_BattleUniverse_Main",
+    "source_path": "Units/BattleUnits/Pilot/Mod/Pilot_CustomMarker_ACE.ini"
+  },
+  "Units/BattleUnits/Pilot/Pilot_CustomMarker_ACE.ini": {
+    "source_package": "GW_BattleUniverse_Main",
+    "source_path": "Units/BattleUnits/Pilot/Pilot_CustomMarker_ACE.ini"
   },
   "Units/Buildings/HQ/HostOption/Button/HostOption_BackToMenu.ini": {
     "source_package": "GW_BattleUniverse_Main",

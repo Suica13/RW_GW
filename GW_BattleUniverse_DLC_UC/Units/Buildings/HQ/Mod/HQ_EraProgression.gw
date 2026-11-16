@@ -7,24 +7,24 @@ dont_load:true
 
 [action_UC_Advance_EFSF_0079_To_AEUG_0087]
 pos:90
-text:Advance to AEUG 0087 [TP %{memory.ucEraTechBase+21600}]
-text_zh:进入奥古[0087]时代 [科技点 %{memory.ucEraTechBase+21600}]
+text:Advance to AEUG 0087 [TP %{memory.ucEraTechBase+16200}]
+text_zh:进入奥古[0087]时代 [科技点 %{memory.ucEraTechBase+16200}]
 description:Complete all current-era mainline research and reach the required cumulative research points. Research points, credits, materials, units and completed research are retained.
-description_zh:完成本时代全部主线科技后，仍需累计3600点科技。科技点不清零，后续时代门槛继续累加；保留资金、资源、现役部队与已完成研究。
+description_zh:完成本时代全部主线科技后，仍需累计2700点科技。科技点不清零，后续时代门槛继续累加；保留资金、资源、现役部队与已完成研究。
 displayType:action
 buildSpeed:0s
 ai_isDisabled:true
 isVisible:if self.resource.FactionIndex==1010101
-isLocked:if not (self.globalTeamTags(includes='Tech_EFSF_0079_BaseTech') and self.globalTeamTags(includes='Tech_EFSF_0079_AntiMSPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_EarlyTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_OperationVDataRecoveryProject') and self.globalTeamTags(includes='Tech_EFSF_0079_GMDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GMModularizationPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_Luna2TechnologyIntegrationPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GundamNTCustomPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GMKaiDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GLineDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GPProject')) or self.resource.TechPoint<memory.ucEraTechBase+21600 or not self.hasTags(includes='HQ_NotCaptured')
+isLocked:if not (self.globalTeamTags(includes='Tech_EFSF_0079_BaseTech') and self.globalTeamTags(includes='Tech_EFSF_0079_AntiMSPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_EarlyTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_OperationVDataRecoveryProject') and self.globalTeamTags(includes='Tech_EFSF_0079_GMDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GMModularizationPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_Luna2TechnologyIntegrationPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GundamNTCustomPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GMKaiDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GLineDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GPProject')) or self.resource.TechPoint<memory.ucEraTechBase+16200 or not self.hasTags(includes='HQ_NotCaptured')
 isLockedMessage:Complete current-era research and accumulate the required research points.
 isLockedMessage_zh:需完成本时代全部主线，并达到显示的累计科技点门槛。
-requireConditional:if self.resource.FactionIndex==1010101 and (self.globalTeamTags(includes='Tech_EFSF_0079_BaseTech') and self.globalTeamTags(includes='Tech_EFSF_0079_AntiMSPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_EarlyTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_OperationVDataRecoveryProject') and self.globalTeamTags(includes='Tech_EFSF_0079_GMDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GMModularizationPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_Luna2TechnologyIntegrationPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GundamNTCustomPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GMKaiDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GLineDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GPProject')) and self.resource.TechPoint>=memory.ucEraTechBase+21600 and self.hasTags(includes='HQ_NotCaptured')
+requireConditional:if self.resource.FactionIndex==1010101 and (self.globalTeamTags(includes='Tech_EFSF_0079_BaseTech') and self.globalTeamTags(includes='Tech_EFSF_0079_AntiMSPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_EarlyTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_OperationVDataRecoveryProject') and self.globalTeamTags(includes='Tech_EFSF_0079_GMDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GMModularizationPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_Luna2TechnologyIntegrationPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GundamNTCustomPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GMKaiDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GLineDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GPProject')) and self.resource.TechPoint>=memory.ucEraTechBase+16200 and self.hasTags(includes='HQ_NotCaptured')
 temporarilyRemoveTags:EFSF_0079,ZEON_0079,TITANS_0087,NEO_ZEON_0087,0093_EFSF,0093_NZN
 temporarilyAddTags:AEUG_0087
 removeGlobalTeamTags:EFSF_0079,ZEON_0079,TITANS_0087,NEO_ZEON_0087,0093_EFSF,0093_NZN
 addGlobalTeamTags:AEUG_0087,Tech_AEUG_0087_Start,PassT0
 setResourcesWithLogic:FactionIndex=1020101
-setUnitMemory:ucEraTechBase=memory.ucEraTechBase+21600,autoTechTimer=0,stageIndex=1010,ucAdvancePending=false
+setUnitMemory:ucEraTechBase=memory.ucEraTechBase+16200,autoTechTimer=0,stageIndex=1010,ucAdvancePending=false
 alsoTriggerAction:UC_Advance_EFSF_0079_To_AEUG_0087_Ground,UC_Advance_EFSF_0079_To_AEUG_0087_Space
 
 [hiddenAction_UC_Advance_EFSF_0079_To_AEUG_0087_Ground]
@@ -37,24 +37,24 @@ convertTo:HQ_AEUG_0087
 
 [action_UC_Advance_EFSF_0079_To_TITANS_0087]
 pos:90
-text:Advance to Titans 0087 [TP %{memory.ucEraTechBase+21600}]
-text_zh:进入提坦斯[0087]时代 [科技点 %{memory.ucEraTechBase+21600}]
+text:Advance to Titans 0087 [TP %{memory.ucEraTechBase+16200}]
+text_zh:进入提坦斯[0087]时代 [科技点 %{memory.ucEraTechBase+16200}]
 description:Complete all current-era mainline research and reach the required cumulative research points. Research points, credits, materials, units and completed research are retained.
-description_zh:完成本时代全部主线科技后，仍需累计3600点科技。科技点不清零，后续时代门槛继续累加；保留资金、资源、现役部队与已完成研究。
+description_zh:完成本时代全部主线科技后，仍需累计2700点科技。科技点不清零，后续时代门槛继续累加；保留资金、资源、现役部队与已完成研究。
 displayType:action
 buildSpeed:0s
 ai_isDisabled:true
 isVisible:if self.resource.FactionIndex==1010101
-isLocked:if not (self.globalTeamTags(includes='Tech_EFSF_0079_BaseTech') and self.globalTeamTags(includes='Tech_EFSF_0079_AntiMSPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_EarlyTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_OperationVDataRecoveryProject') and self.globalTeamTags(includes='Tech_EFSF_0079_GMDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GMModularizationPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_Luna2TechnologyIntegrationPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GundamNTCustomPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GMKaiDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GLineDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GPProject')) or self.resource.TechPoint<memory.ucEraTechBase+21600 or not self.hasTags(includes='HQ_NotCaptured')
+isLocked:if not (self.globalTeamTags(includes='Tech_EFSF_0079_BaseTech') and self.globalTeamTags(includes='Tech_EFSF_0079_AntiMSPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_EarlyTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_OperationVDataRecoveryProject') and self.globalTeamTags(includes='Tech_EFSF_0079_GMDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GMModularizationPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_Luna2TechnologyIntegrationPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GundamNTCustomPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GMKaiDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GLineDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GPProject')) or self.resource.TechPoint<memory.ucEraTechBase+16200 or not self.hasTags(includes='HQ_NotCaptured')
 isLockedMessage:Complete current-era research and accumulate the required research points.
 isLockedMessage_zh:需完成本时代全部主线，并达到显示的累计科技点门槛。
-requireConditional:if self.resource.FactionIndex==1010101 and (self.globalTeamTags(includes='Tech_EFSF_0079_BaseTech') and self.globalTeamTags(includes='Tech_EFSF_0079_AntiMSPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_EarlyTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_OperationVDataRecoveryProject') and self.globalTeamTags(includes='Tech_EFSF_0079_GMDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GMModularizationPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_Luna2TechnologyIntegrationPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GundamNTCustomPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GMKaiDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GLineDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GPProject')) and self.resource.TechPoint>=memory.ucEraTechBase+21600 and self.hasTags(includes='HQ_NotCaptured')
+requireConditional:if self.resource.FactionIndex==1010101 and (self.globalTeamTags(includes='Tech_EFSF_0079_BaseTech') and self.globalTeamTags(includes='Tech_EFSF_0079_AntiMSPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_EarlyTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_OperationVDataRecoveryProject') and self.globalTeamTags(includes='Tech_EFSF_0079_GMDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GMModularizationPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_Luna2TechnologyIntegrationPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GundamNTCustomPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GMKaiDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GLineDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GPProject')) and self.resource.TechPoint>=memory.ucEraTechBase+16200 and self.hasTags(includes='HQ_NotCaptured')
 temporarilyRemoveTags:EFSF_0079,ZEON_0079,AEUG_0087,NEO_ZEON_0087,0093_EFSF,0093_NZN
 temporarilyAddTags:TITANS_0087
 removeGlobalTeamTags:EFSF_0079,ZEON_0079,AEUG_0087,NEO_ZEON_0087,0093_EFSF,0093_NZN
 addGlobalTeamTags:TITANS_0087,Tech_TITANS_0087_Start,PassT0
 setResourcesWithLogic:FactionIndex=1020201
-setUnitMemory:ucEraTechBase=memory.ucEraTechBase+21600,autoTechTimer=0,stageIndex=1010,ucAdvancePending=false
+setUnitMemory:ucEraTechBase=memory.ucEraTechBase+16200,autoTechTimer=0,stageIndex=1010,ucAdvancePending=false
 alsoTriggerAction:UC_Advance_EFSF_0079_To_TITANS_0087_Ground,UC_Advance_EFSF_0079_To_TITANS_0087_Space
 
 [hiddenAction_UC_Advance_EFSF_0079_To_TITANS_0087_Ground]
@@ -66,7 +66,7 @@ requireConditional:if self.resource.tileMode==1
 convertTo:HQ_TITANS_0087
 
 [hiddenAction_UC_AI_Advance_EFSF_0079]
-autoTrigger:if self.isControlledByAI() and self.resource.FactionIndex==1010101 and (self.globalTeamTags(includes='Tech_EFSF_0079_BaseTech') and self.globalTeamTags(includes='Tech_EFSF_0079_AntiMSPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_EarlyTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_OperationVDataRecoveryProject') and self.globalTeamTags(includes='Tech_EFSF_0079_GMDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GMModularizationPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_Luna2TechnologyIntegrationPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GundamNTCustomPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GMKaiDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GLineDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GPProject')) and self.resource.TechPoint>=memory.ucEraTechBase+21600 and self.hasTags(includes='HQ_NotCaptured') and not memory.ucAdvancePending
+autoTrigger:if self.isControlledByAI() and self.resource.FactionIndex==1010101 and (self.globalTeamTags(includes='Tech_EFSF_0079_BaseTech') and self.globalTeamTags(includes='Tech_EFSF_0079_AntiMSPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_EarlyTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_OperationVDataRecoveryProject') and self.globalTeamTags(includes='Tech_EFSF_0079_GMDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GMModularizationPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_Luna2TechnologyIntegrationPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GundamNTCustomPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GMKaiDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GLineDevelopmentPlan') and self.globalTeamTags(includes='Tech_EFSF_0079_T2_GPProject')) and self.resource.TechPoint>=memory.ucEraTechBase+16200 and self.hasTags(includes='HQ_NotCaptured') and not memory.ucAdvancePending
 setUnitMemory:ucAdvancePending=true,ucAdvanceRoll=rnd(0,1),ucAdvanceAt=self.timeAlive+0.1
 
 [hiddenAction_UC_AI_Choose_EFSF_0079]
@@ -84,24 +84,24 @@ alsoTriggerAction:UC_Advance_EFSF_0079_To_TITANS_0087
 
 [action_UC_Advance_ZEON_0079_To_AEUG_0087]
 pos:90
-text:Advance to AEUG 0087 [TP %{memory.ucEraTechBase+21600}]
-text_zh:进入奥古[0087]时代 [科技点 %{memory.ucEraTechBase+21600}]
+text:Advance to AEUG 0087 [TP %{memory.ucEraTechBase+16200}]
+text_zh:进入奥古[0087]时代 [科技点 %{memory.ucEraTechBase+16200}]
 description:Complete all current-era mainline research and reach the required cumulative research points. Research points, credits, materials, units and completed research are retained.
-description_zh:完成本时代全部主线科技后，仍需累计3600点科技。科技点不清零，后续时代门槛继续累加；保留资金、资源、现役部队与已完成研究。
+description_zh:完成本时代全部主线科技后，仍需累计2700点科技。科技点不清零，后续时代门槛继续累加；保留资金、资源、现役部队与已完成研究。
 displayType:action
 buildSpeed:0s
 ai_isDisabled:true
 isVisible:if self.resource.FactionIndex==1010201
-isLocked:if not (self.globalTeamTags(includes='Tech_ZEON_0079_BaseTech') and self.globalTeamTags(includes='Tech_ZEON_0079_GroundTypeZakuDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_GroundTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_NewGroundTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_ZakuIILateTypeDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_NewTypeUnderwaterMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_NextGenerationMainstayMSBiddingPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_UnitedMaintenancePlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_BaseDefenseMADevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_ZeongDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_OperationStardust')) or self.resource.TechPoint<memory.ucEraTechBase+21600 or not self.hasTags(includes='HQ_NotCaptured')
+isLocked:if not (self.globalTeamTags(includes='Tech_ZEON_0079_BaseTech') and self.globalTeamTags(includes='Tech_ZEON_0079_GroundTypeZakuDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_GroundTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_NewGroundTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_ZakuIILateTypeDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_NewTypeUnderwaterMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_NextGenerationMainstayMSBiddingPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_UnitedMaintenancePlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_BaseDefenseMADevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_ZeongDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_OperationStardust')) or self.resource.TechPoint<memory.ucEraTechBase+16200 or not self.hasTags(includes='HQ_NotCaptured')
 isLockedMessage:Complete current-era research and accumulate the required research points.
 isLockedMessage_zh:需完成本时代全部主线，并达到显示的累计科技点门槛。
-requireConditional:if self.resource.FactionIndex==1010201 and (self.globalTeamTags(includes='Tech_ZEON_0079_BaseTech') and self.globalTeamTags(includes='Tech_ZEON_0079_GroundTypeZakuDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_GroundTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_NewGroundTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_ZakuIILateTypeDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_NewTypeUnderwaterMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_NextGenerationMainstayMSBiddingPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_UnitedMaintenancePlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_BaseDefenseMADevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_ZeongDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_OperationStardust')) and self.resource.TechPoint>=memory.ucEraTechBase+21600 and self.hasTags(includes='HQ_NotCaptured')
+requireConditional:if self.resource.FactionIndex==1010201 and (self.globalTeamTags(includes='Tech_ZEON_0079_BaseTech') and self.globalTeamTags(includes='Tech_ZEON_0079_GroundTypeZakuDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_GroundTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_NewGroundTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_ZakuIILateTypeDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_NewTypeUnderwaterMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_NextGenerationMainstayMSBiddingPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_UnitedMaintenancePlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_BaseDefenseMADevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_ZeongDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_OperationStardust')) and self.resource.TechPoint>=memory.ucEraTechBase+16200 and self.hasTags(includes='HQ_NotCaptured')
 temporarilyRemoveTags:EFSF_0079,ZEON_0079,TITANS_0087,NEO_ZEON_0087,0093_EFSF,0093_NZN
 temporarilyAddTags:AEUG_0087
 removeGlobalTeamTags:EFSF_0079,ZEON_0079,TITANS_0087,NEO_ZEON_0087,0093_EFSF,0093_NZN
 addGlobalTeamTags:AEUG_0087,Tech_AEUG_0087_Start,PassT0
 setResourcesWithLogic:FactionIndex=1020101
-setUnitMemory:ucEraTechBase=memory.ucEraTechBase+21600,autoTechTimer=0,stageIndex=1010,ucAdvancePending=false
+setUnitMemory:ucEraTechBase=memory.ucEraTechBase+16200,autoTechTimer=0,stageIndex=1010,ucAdvancePending=false
 alsoTriggerAction:UC_Advance_ZEON_0079_To_AEUG_0087_Ground,UC_Advance_ZEON_0079_To_AEUG_0087_Space
 
 [hiddenAction_UC_Advance_ZEON_0079_To_AEUG_0087_Ground]
@@ -114,24 +114,24 @@ convertTo:HQ_AEUG_0087
 
 [action_UC_Advance_ZEON_0079_To_NEO_ZEON_0087]
 pos:90
-text:Advance to Neo Zeon 0087 [TP %{memory.ucEraTechBase+21600}]
-text_zh:进入新吉翁[0087]时代 [科技点 %{memory.ucEraTechBase+21600}]
+text:Advance to Neo Zeon 0087 [TP %{memory.ucEraTechBase+16200}]
+text_zh:进入新吉翁[0087]时代 [科技点 %{memory.ucEraTechBase+16200}]
 description:Complete all current-era mainline research and reach the required cumulative research points. Research points, credits, materials, units and completed research are retained.
-description_zh:完成本时代全部主线科技后，仍需累计3600点科技。科技点不清零，后续时代门槛继续累加；保留资金、资源、现役部队与已完成研究。
+description_zh:完成本时代全部主线科技后，仍需累计2700点科技。科技点不清零，后续时代门槛继续累加；保留资金、资源、现役部队与已完成研究。
 displayType:action
 buildSpeed:0s
 ai_isDisabled:true
 isVisible:if self.resource.FactionIndex==1010201
-isLocked:if not (self.globalTeamTags(includes='Tech_ZEON_0079_BaseTech') and self.globalTeamTags(includes='Tech_ZEON_0079_GroundTypeZakuDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_GroundTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_NewGroundTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_ZakuIILateTypeDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_NewTypeUnderwaterMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_NextGenerationMainstayMSBiddingPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_UnitedMaintenancePlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_BaseDefenseMADevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_ZeongDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_OperationStardust')) or self.resource.TechPoint<memory.ucEraTechBase+21600 or not self.hasTags(includes='HQ_NotCaptured')
+isLocked:if not (self.globalTeamTags(includes='Tech_ZEON_0079_BaseTech') and self.globalTeamTags(includes='Tech_ZEON_0079_GroundTypeZakuDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_GroundTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_NewGroundTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_ZakuIILateTypeDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_NewTypeUnderwaterMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_NextGenerationMainstayMSBiddingPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_UnitedMaintenancePlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_BaseDefenseMADevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_ZeongDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_OperationStardust')) or self.resource.TechPoint<memory.ucEraTechBase+16200 or not self.hasTags(includes='HQ_NotCaptured')
 isLockedMessage:Complete current-era research and accumulate the required research points.
 isLockedMessage_zh:需完成本时代全部主线，并达到显示的累计科技点门槛。
-requireConditional:if self.resource.FactionIndex==1010201 and (self.globalTeamTags(includes='Tech_ZEON_0079_BaseTech') and self.globalTeamTags(includes='Tech_ZEON_0079_GroundTypeZakuDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_GroundTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_NewGroundTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_ZakuIILateTypeDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_NewTypeUnderwaterMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_NextGenerationMainstayMSBiddingPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_UnitedMaintenancePlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_BaseDefenseMADevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_ZeongDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_OperationStardust')) and self.resource.TechPoint>=memory.ucEraTechBase+21600 and self.hasTags(includes='HQ_NotCaptured')
+requireConditional:if self.resource.FactionIndex==1010201 and (self.globalTeamTags(includes='Tech_ZEON_0079_BaseTech') and self.globalTeamTags(includes='Tech_ZEON_0079_GroundTypeZakuDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_GroundTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_NewGroundTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_ZakuIILateTypeDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_NewTypeUnderwaterMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_NextGenerationMainstayMSBiddingPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_UnitedMaintenancePlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_BaseDefenseMADevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_ZeongDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_OperationStardust')) and self.resource.TechPoint>=memory.ucEraTechBase+16200 and self.hasTags(includes='HQ_NotCaptured')
 temporarilyRemoveTags:EFSF_0079,ZEON_0079,AEUG_0087,TITANS_0087,0093_EFSF,0093_NZN
 temporarilyAddTags:NEO_ZEON_0087
 removeGlobalTeamTags:EFSF_0079,ZEON_0079,AEUG_0087,TITANS_0087,0093_EFSF,0093_NZN
 addGlobalTeamTags:NEO_ZEON_0087,Tech_NEO_ZEON_0087_Start,PassT0
 setResourcesWithLogic:FactionIndex=1020301
-setUnitMemory:ucEraTechBase=memory.ucEraTechBase+21600,autoTechTimer=0,stageIndex=1010,ucAdvancePending=false
+setUnitMemory:ucEraTechBase=memory.ucEraTechBase+16200,autoTechTimer=0,stageIndex=1010,ucAdvancePending=false
 alsoTriggerAction:UC_Advance_ZEON_0079_To_NEO_ZEON_0087_Ground,UC_Advance_ZEON_0079_To_NEO_ZEON_0087_Space
 
 [hiddenAction_UC_Advance_ZEON_0079_To_NEO_ZEON_0087_Ground]
@@ -143,7 +143,7 @@ requireConditional:if self.resource.tileMode==1
 convertTo:HQ_NEO_ZEON_0087
 
 [hiddenAction_UC_AI_Advance_ZEON_0079]
-autoTrigger:if self.isControlledByAI() and self.resource.FactionIndex==1010201 and (self.globalTeamTags(includes='Tech_ZEON_0079_BaseTech') and self.globalTeamTags(includes='Tech_ZEON_0079_GroundTypeZakuDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_GroundTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_NewGroundTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_ZakuIILateTypeDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_NewTypeUnderwaterMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_NextGenerationMainstayMSBiddingPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_UnitedMaintenancePlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_BaseDefenseMADevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_ZeongDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_OperationStardust')) and self.resource.TechPoint>=memory.ucEraTechBase+21600 and self.hasTags(includes='HQ_NotCaptured') and not memory.ucAdvancePending
+autoTrigger:if self.isControlledByAI() and self.resource.FactionIndex==1010201 and (self.globalTeamTags(includes='Tech_ZEON_0079_BaseTech') and self.globalTeamTags(includes='Tech_ZEON_0079_GroundTypeZakuDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_GroundTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_NewGroundTypeMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_ZakuIILateTypeDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_NewTypeUnderwaterMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_NextGenerationMainstayMSBiddingPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_UnitedMaintenancePlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_BaseDefenseMADevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_ZeongDevelopmentPlan') and self.globalTeamTags(includes='Tech_ZEON_0079_T2_OperationStardust')) and self.resource.TechPoint>=memory.ucEraTechBase+16200 and self.hasTags(includes='HQ_NotCaptured') and not memory.ucAdvancePending
 setUnitMemory:ucAdvancePending=true,ucAdvanceRoll=rnd(0,1),ucAdvanceAt=self.timeAlive+0.1
 
 [hiddenAction_UC_AI_Choose_ZEON_0079]
@@ -161,24 +161,24 @@ alsoTriggerAction:UC_Advance_ZEON_0079_To_NEO_ZEON_0087
 
 [action_UC_Advance_AEUG_0087_To_0093_EFSF]
 pos:90
-text:Advance to EFSF 0093 [TP %{memory.ucEraTechBase+20700}]
-text_zh:进入联邦军[0093]时代 [科技点 %{memory.ucEraTechBase+20700}]
+text:Advance to EFSF 0093 [TP %{memory.ucEraTechBase+15525}]
+text_zh:进入联邦军[0093]时代 [科技点 %{memory.ucEraTechBase+15525}]
 description:Complete all current-era mainline research and reach the required cumulative research points. Research points, credits, materials, units and completed research are retained.
-description_zh:完成本时代全部主线科技后，仍需累计3600点科技。科技点不清零，后续时代门槛继续累加；保留资金、资源、现役部队与已完成研究。
+description_zh:完成本时代全部主线科技后，仍需累计2700点科技。科技点不清零，后续时代门槛继续累加；保留资金、资源、现役部队与已完成研究。
 displayType:action
 buildSpeed:0s
 ai_isDisabled:true
 isVisible:if self.resource.FactionIndex==1020101
-isLocked:if not (self.globalTeamTags(includes='Tech_AEUG_0087_BaseTech') and self.globalTeamTags(includes='Tech_AEUG_0087_RickDiasDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_GundamSeizurePlan') and self.globalTeamTags(includes='Tech_AEUG_0087_HyakuShikiDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_MethussDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_ZetaGundamDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_ZPlusDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_ZZGundamDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_GMIIIDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_NouvelGMIIIDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_ZZFADevelopmentPlan')) or self.resource.TechPoint<memory.ucEraTechBase+20700 or not self.hasTags(includes='HQ_NotCaptured')
+isLocked:if not (self.globalTeamTags(includes='Tech_AEUG_0087_BaseTech') and self.globalTeamTags(includes='Tech_AEUG_0087_RickDiasDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_GundamSeizurePlan') and self.globalTeamTags(includes='Tech_AEUG_0087_HyakuShikiDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_MethussDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_ZetaGundamDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_ZPlusDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_ZZGundamDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_GMIIIDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_NouvelGMIIIDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_ZZFADevelopmentPlan')) or self.resource.TechPoint<memory.ucEraTechBase+15525 or not self.hasTags(includes='HQ_NotCaptured')
 isLockedMessage:Complete current-era research and accumulate the required research points.
 isLockedMessage_zh:需完成本时代全部主线，并达到显示的累计科技点门槛。
-requireConditional:if self.resource.FactionIndex==1020101 and (self.globalTeamTags(includes='Tech_AEUG_0087_BaseTech') and self.globalTeamTags(includes='Tech_AEUG_0087_RickDiasDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_GundamSeizurePlan') and self.globalTeamTags(includes='Tech_AEUG_0087_HyakuShikiDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_MethussDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_ZetaGundamDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_ZPlusDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_ZZGundamDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_GMIIIDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_NouvelGMIIIDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_ZZFADevelopmentPlan')) and self.resource.TechPoint>=memory.ucEraTechBase+20700 and self.hasTags(includes='HQ_NotCaptured')
+requireConditional:if self.resource.FactionIndex==1020101 and (self.globalTeamTags(includes='Tech_AEUG_0087_BaseTech') and self.globalTeamTags(includes='Tech_AEUG_0087_RickDiasDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_GundamSeizurePlan') and self.globalTeamTags(includes='Tech_AEUG_0087_HyakuShikiDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_MethussDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_ZetaGundamDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_ZPlusDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_ZZGundamDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_GMIIIDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_NouvelGMIIIDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_ZZFADevelopmentPlan')) and self.resource.TechPoint>=memory.ucEraTechBase+15525 and self.hasTags(includes='HQ_NotCaptured')
 temporarilyRemoveTags:EFSF_0079,ZEON_0079,AEUG_0087,TITANS_0087,NEO_ZEON_0087,0093_NZN
 temporarilyAddTags:0093_EFSF
 removeGlobalTeamTags:EFSF_0079,ZEON_0079,AEUG_0087,TITANS_0087,NEO_ZEON_0087,0093_NZN
 addGlobalTeamTags:0093_EFSF,Tech_0093_EFSF_Start,PassT0
 setResourcesWithLogic:FactionIndex=1030101
-setUnitMemory:ucEraTechBase=memory.ucEraTechBase+20700,autoTechTimer=0,stageIndex=1020,ucAdvancePending=false
+setUnitMemory:ucEraTechBase=memory.ucEraTechBase+15525,autoTechTimer=0,stageIndex=1020,ucAdvancePending=false
 alsoTriggerAction:UC_Advance_AEUG_0087_To_0093_EFSF_Ground,UC_Advance_AEUG_0087_To_0093_EFSF_Space
 
 [hiddenAction_UC_Advance_AEUG_0087_To_0093_EFSF_Ground]
@@ -190,7 +190,7 @@ requireConditional:if self.resource.tileMode==1
 convertTo:HQ_0093_EFSF
 
 [hiddenAction_UC_AI_Advance_AEUG_0087]
-autoTrigger:if self.isControlledByAI() and self.resource.FactionIndex==1020101 and (self.globalTeamTags(includes='Tech_AEUG_0087_BaseTech') and self.globalTeamTags(includes='Tech_AEUG_0087_RickDiasDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_GundamSeizurePlan') and self.globalTeamTags(includes='Tech_AEUG_0087_HyakuShikiDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_MethussDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_ZetaGundamDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_ZPlusDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_ZZGundamDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_GMIIIDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_NouvelGMIIIDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_ZZFADevelopmentPlan')) and self.resource.TechPoint>=memory.ucEraTechBase+20700 and self.hasTags(includes='HQ_NotCaptured') and not memory.ucAdvancePending
+autoTrigger:if self.isControlledByAI() and self.resource.FactionIndex==1020101 and (self.globalTeamTags(includes='Tech_AEUG_0087_BaseTech') and self.globalTeamTags(includes='Tech_AEUG_0087_RickDiasDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_GundamSeizurePlan') and self.globalTeamTags(includes='Tech_AEUG_0087_HyakuShikiDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_MethussDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_ZetaGundamDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_ZPlusDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_ZZGundamDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_GMIIIDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_NouvelGMIIIDevelopmentPlan') and self.globalTeamTags(includes='Tech_AEUG_0087_T2_ZZFADevelopmentPlan')) and self.resource.TechPoint>=memory.ucEraTechBase+15525 and self.hasTags(includes='HQ_NotCaptured') and not memory.ucAdvancePending
 setUnitMemory:ucAdvancePending=true,ucAdvanceRoll=rnd(0,1),ucAdvanceAt=self.timeAlive+0.1
 
 [hiddenAction_UC_AI_Choose_AEUG_0087]
@@ -204,24 +204,24 @@ alsoTriggerAction:UC_Advance_AEUG_0087_To_0093_EFSF
 
 [action_UC_Advance_TITANS_0087_To_0093_NZN]
 pos:90
-text:Advance to Neo Zeon 0093 [TP %{memory.ucEraTechBase+18900}]
-text_zh:进入新吉翁[0093]时代 [科技点 %{memory.ucEraTechBase+18900}]
+text:Advance to Neo Zeon 0093 [TP %{memory.ucEraTechBase+14175}]
+text_zh:进入新吉翁[0093]时代 [科技点 %{memory.ucEraTechBase+14175}]
 description:Complete all current-era mainline research and reach the required cumulative research points. Research points, credits, materials, units and completed research are retained.
-description_zh:完成本时代全部主线科技后，仍需累计3600点科技。科技点不清零，后续时代门槛继续累加；保留资金、资源、现役部队与已完成研究。
+description_zh:完成本时代全部主线科技后，仍需累计2700点科技。科技点不清零，后续时代门槛继续累加；保留资金、资源、现役部队与已完成研究。
 displayType:action
 buildSpeed:0s
 ai_isDisabled:true
 isVisible:if self.resource.FactionIndex==1020201
-isLocked:if not (self.globalTeamTags(includes='Tech_TITANS_0087_BaseTech') and self.globalTeamTags(includes='Tech_TITANS_0087_MovableFrameDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_MarasaiDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_ByarlantDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_AsshimarDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_SpaceTypeTMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_TheODevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_WoundwortDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_GMIIIDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_Kehaar2DevelopmentPlan')) or self.resource.TechPoint<memory.ucEraTechBase+18900 or not self.hasTags(includes='HQ_NotCaptured')
+isLocked:if not (self.globalTeamTags(includes='Tech_TITANS_0087_BaseTech') and self.globalTeamTags(includes='Tech_TITANS_0087_MovableFrameDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_MarasaiDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_ByarlantDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_AsshimarDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_SpaceTypeTMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_TheODevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_WoundwortDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_GMIIIDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_Kehaar2DevelopmentPlan')) or self.resource.TechPoint<memory.ucEraTechBase+14175 or not self.hasTags(includes='HQ_NotCaptured')
 isLockedMessage:Complete current-era research and accumulate the required research points.
 isLockedMessage_zh:需完成本时代全部主线，并达到显示的累计科技点门槛。
-requireConditional:if self.resource.FactionIndex==1020201 and (self.globalTeamTags(includes='Tech_TITANS_0087_BaseTech') and self.globalTeamTags(includes='Tech_TITANS_0087_MovableFrameDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_MarasaiDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_ByarlantDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_AsshimarDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_SpaceTypeTMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_TheODevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_WoundwortDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_GMIIIDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_Kehaar2DevelopmentPlan')) and self.resource.TechPoint>=memory.ucEraTechBase+18900 and self.hasTags(includes='HQ_NotCaptured')
+requireConditional:if self.resource.FactionIndex==1020201 and (self.globalTeamTags(includes='Tech_TITANS_0087_BaseTech') and self.globalTeamTags(includes='Tech_TITANS_0087_MovableFrameDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_MarasaiDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_ByarlantDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_AsshimarDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_SpaceTypeTMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_TheODevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_WoundwortDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_GMIIIDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_Kehaar2DevelopmentPlan')) and self.resource.TechPoint>=memory.ucEraTechBase+14175 and self.hasTags(includes='HQ_NotCaptured')
 temporarilyRemoveTags:EFSF_0079,ZEON_0079,AEUG_0087,TITANS_0087,NEO_ZEON_0087,0093_EFSF
 temporarilyAddTags:0093_NZN
 removeGlobalTeamTags:EFSF_0079,ZEON_0079,AEUG_0087,TITANS_0087,NEO_ZEON_0087,0093_EFSF
 addGlobalTeamTags:0093_NZN,Tech_0093_NZN_Start,PassT0
 setResourcesWithLogic:FactionIndex=1030201
-setUnitMemory:ucEraTechBase=memory.ucEraTechBase+18900,autoTechTimer=0,stageIndex=1020,ucAdvancePending=false
+setUnitMemory:ucEraTechBase=memory.ucEraTechBase+14175,autoTechTimer=0,stageIndex=1020,ucAdvancePending=false
 alsoTriggerAction:UC_Advance_TITANS_0087_To_0093_NZN_Ground,UC_Advance_TITANS_0087_To_0093_NZN_Space
 
 [hiddenAction_UC_Advance_TITANS_0087_To_0093_NZN_Ground]
@@ -234,24 +234,24 @@ convertTo:HQ_0093_NZN
 
 [action_UC_Advance_TITANS_0087_To_0093_EFSF]
 pos:90
-text:Advance to EFSF 0093 [TP %{memory.ucEraTechBase+18900}]
-text_zh:进入联邦军[0093]时代 [科技点 %{memory.ucEraTechBase+18900}]
+text:Advance to EFSF 0093 [TP %{memory.ucEraTechBase+14175}]
+text_zh:进入联邦军[0093]时代 [科技点 %{memory.ucEraTechBase+14175}]
 description:Complete all current-era mainline research and reach the required cumulative research points. Research points, credits, materials, units and completed research are retained.
-description_zh:完成本时代全部主线科技后，仍需累计3600点科技。科技点不清零，后续时代门槛继续累加；保留资金、资源、现役部队与已完成研究。
+description_zh:完成本时代全部主线科技后，仍需累计2700点科技。科技点不清零，后续时代门槛继续累加；保留资金、资源、现役部队与已完成研究。
 displayType:action
 buildSpeed:0s
 ai_isDisabled:true
 isVisible:if self.resource.FactionIndex==1020201
-isLocked:if not (self.globalTeamTags(includes='Tech_TITANS_0087_BaseTech') and self.globalTeamTags(includes='Tech_TITANS_0087_MovableFrameDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_MarasaiDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_ByarlantDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_AsshimarDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_SpaceTypeTMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_TheODevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_WoundwortDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_GMIIIDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_Kehaar2DevelopmentPlan')) or self.resource.TechPoint<memory.ucEraTechBase+18900 or not self.hasTags(includes='HQ_NotCaptured')
+isLocked:if not (self.globalTeamTags(includes='Tech_TITANS_0087_BaseTech') and self.globalTeamTags(includes='Tech_TITANS_0087_MovableFrameDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_MarasaiDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_ByarlantDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_AsshimarDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_SpaceTypeTMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_TheODevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_WoundwortDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_GMIIIDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_Kehaar2DevelopmentPlan')) or self.resource.TechPoint<memory.ucEraTechBase+14175 or not self.hasTags(includes='HQ_NotCaptured')
 isLockedMessage:Complete current-era research and accumulate the required research points.
 isLockedMessage_zh:需完成本时代全部主线，并达到显示的累计科技点门槛。
-requireConditional:if self.resource.FactionIndex==1020201 and (self.globalTeamTags(includes='Tech_TITANS_0087_BaseTech') and self.globalTeamTags(includes='Tech_TITANS_0087_MovableFrameDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_MarasaiDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_ByarlantDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_AsshimarDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_SpaceTypeTMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_TheODevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_WoundwortDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_GMIIIDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_Kehaar2DevelopmentPlan')) and self.resource.TechPoint>=memory.ucEraTechBase+18900 and self.hasTags(includes='HQ_NotCaptured')
+requireConditional:if self.resource.FactionIndex==1020201 and (self.globalTeamTags(includes='Tech_TITANS_0087_BaseTech') and self.globalTeamTags(includes='Tech_TITANS_0087_MovableFrameDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_MarasaiDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_ByarlantDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_AsshimarDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_SpaceTypeTMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_TheODevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_WoundwortDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_GMIIIDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_Kehaar2DevelopmentPlan')) and self.resource.TechPoint>=memory.ucEraTechBase+14175 and self.hasTags(includes='HQ_NotCaptured')
 temporarilyRemoveTags:EFSF_0079,ZEON_0079,AEUG_0087,TITANS_0087,NEO_ZEON_0087,0093_NZN
 temporarilyAddTags:0093_EFSF
 removeGlobalTeamTags:EFSF_0079,ZEON_0079,AEUG_0087,TITANS_0087,NEO_ZEON_0087,0093_NZN
 addGlobalTeamTags:0093_EFSF,Tech_0093_EFSF_Start,PassT0
 setResourcesWithLogic:FactionIndex=1030101
-setUnitMemory:ucEraTechBase=memory.ucEraTechBase+18900,autoTechTimer=0,stageIndex=1020,ucAdvancePending=false
+setUnitMemory:ucEraTechBase=memory.ucEraTechBase+14175,autoTechTimer=0,stageIndex=1020,ucAdvancePending=false
 alsoTriggerAction:UC_Advance_TITANS_0087_To_0093_EFSF_Ground,UC_Advance_TITANS_0087_To_0093_EFSF_Space
 
 [hiddenAction_UC_Advance_TITANS_0087_To_0093_EFSF_Ground]
@@ -263,7 +263,7 @@ requireConditional:if self.resource.tileMode==1
 convertTo:HQ_0093_EFSF
 
 [hiddenAction_UC_AI_Advance_TITANS_0087]
-autoTrigger:if self.isControlledByAI() and self.resource.FactionIndex==1020201 and (self.globalTeamTags(includes='Tech_TITANS_0087_BaseTech') and self.globalTeamTags(includes='Tech_TITANS_0087_MovableFrameDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_MarasaiDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_ByarlantDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_AsshimarDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_SpaceTypeTMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_TheODevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_WoundwortDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_GMIIIDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_Kehaar2DevelopmentPlan')) and self.resource.TechPoint>=memory.ucEraTechBase+18900 and self.hasTags(includes='HQ_NotCaptured') and not memory.ucAdvancePending
+autoTrigger:if self.isControlledByAI() and self.resource.FactionIndex==1020201 and (self.globalTeamTags(includes='Tech_TITANS_0087_BaseTech') and self.globalTeamTags(includes='Tech_TITANS_0087_MovableFrameDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_MarasaiDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_ByarlantDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_AsshimarDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_SpaceTypeTMSDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_TheODevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_WoundwortDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_GMIIIDevelopmentPlan') and self.globalTeamTags(includes='Tech_TITANS_0087_T2_Kehaar2DevelopmentPlan')) and self.resource.TechPoint>=memory.ucEraTechBase+14175 and self.hasTags(includes='HQ_NotCaptured') and not memory.ucAdvancePending
 setUnitMemory:ucAdvancePending=true,ucAdvanceRoll=rnd(0,1),ucAdvanceAt=self.timeAlive+0.1
 
 [hiddenAction_UC_AI_Choose_TITANS_0087]
@@ -281,24 +281,24 @@ alsoTriggerAction:UC_Advance_TITANS_0087_To_0093_EFSF
 
 [action_UC_Advance_NEO_ZEON_0087_To_0093_NZN]
 pos:90
-text:Advance to Neo Zeon 0093 [TP %{memory.ucEraTechBase+18900}]
-text_zh:进入新吉翁[0093]时代 [科技点 %{memory.ucEraTechBase+18900}]
+text:Advance to Neo Zeon 0093 [TP %{memory.ucEraTechBase+14175}]
+text_zh:进入新吉翁[0093]时代 [科技点 %{memory.ucEraTechBase+14175}]
 description:Complete all current-era mainline research and reach the required cumulative research points. Research points, credits, materials, units and completed research are retained.
-description_zh:完成本时代全部主线科技后，仍需累计3600点科技。科技点不清零，后续时代门槛继续累加；保留资金、资源、现役部队与已完成研究。
+description_zh:完成本时代全部主线科技后，仍需累计2700点科技。科技点不清零，后续时代门槛继续累加；保留资金、资源、现役部队与已完成研究。
 displayType:action
 buildSpeed:0s
 ai_isDisabled:true
 isVisible:if self.resource.FactionIndex==1020301
-isLocked:if not (self.globalTeamTags(includes='Tech_NEO_ZEON_0087_BaseTech') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_GelgoogStutzerDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_GyanKaiDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_EnemyMSBlueprintAcquisitionPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_GazaCDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_QubeleyDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_GallussJDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_HammaHammaDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_JamruFinDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_BawooDevelopmentPlan')) or self.resource.TechPoint<memory.ucEraTechBase+18900 or not self.hasTags(includes='HQ_NotCaptured')
+isLocked:if not (self.globalTeamTags(includes='Tech_NEO_ZEON_0087_BaseTech') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_GelgoogStutzerDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_GyanKaiDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_EnemyMSBlueprintAcquisitionPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_GazaCDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_QubeleyDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_GallussJDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_HammaHammaDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_JamruFinDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_BawooDevelopmentPlan')) or self.resource.TechPoint<memory.ucEraTechBase+14175 or not self.hasTags(includes='HQ_NotCaptured')
 isLockedMessage:Complete current-era research and accumulate the required research points.
 isLockedMessage_zh:需完成本时代全部主线，并达到显示的累计科技点门槛。
-requireConditional:if self.resource.FactionIndex==1020301 and (self.globalTeamTags(includes='Tech_NEO_ZEON_0087_BaseTech') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_GelgoogStutzerDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_GyanKaiDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_EnemyMSBlueprintAcquisitionPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_GazaCDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_QubeleyDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_GallussJDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_HammaHammaDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_JamruFinDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_BawooDevelopmentPlan')) and self.resource.TechPoint>=memory.ucEraTechBase+18900 and self.hasTags(includes='HQ_NotCaptured')
+requireConditional:if self.resource.FactionIndex==1020301 and (self.globalTeamTags(includes='Tech_NEO_ZEON_0087_BaseTech') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_GelgoogStutzerDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_GyanKaiDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_EnemyMSBlueprintAcquisitionPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_GazaCDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_QubeleyDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_GallussJDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_HammaHammaDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_JamruFinDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_BawooDevelopmentPlan')) and self.resource.TechPoint>=memory.ucEraTechBase+14175 and self.hasTags(includes='HQ_NotCaptured')
 temporarilyRemoveTags:EFSF_0079,ZEON_0079,AEUG_0087,TITANS_0087,NEO_ZEON_0087,0093_EFSF
 temporarilyAddTags:0093_NZN
 removeGlobalTeamTags:EFSF_0079,ZEON_0079,AEUG_0087,TITANS_0087,NEO_ZEON_0087,0093_EFSF
 addGlobalTeamTags:0093_NZN,Tech_0093_NZN_Start,PassT0
 setResourcesWithLogic:FactionIndex=1030201
-setUnitMemory:ucEraTechBase=memory.ucEraTechBase+18900,autoTechTimer=0,stageIndex=1020,ucAdvancePending=false
+setUnitMemory:ucEraTechBase=memory.ucEraTechBase+14175,autoTechTimer=0,stageIndex=1020,ucAdvancePending=false
 alsoTriggerAction:UC_Advance_NEO_ZEON_0087_To_0093_NZN_Ground,UC_Advance_NEO_ZEON_0087_To_0093_NZN_Space
 
 [hiddenAction_UC_Advance_NEO_ZEON_0087_To_0093_NZN_Ground]
@@ -310,7 +310,7 @@ requireConditional:if self.resource.tileMode==1
 convertTo:HQ_0093_NZN
 
 [hiddenAction_UC_AI_Advance_NEO_ZEON_0087]
-autoTrigger:if self.isControlledByAI() and self.resource.FactionIndex==1020301 and (self.globalTeamTags(includes='Tech_NEO_ZEON_0087_BaseTech') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_GelgoogStutzerDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_GyanKaiDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_EnemyMSBlueprintAcquisitionPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_GazaCDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_QubeleyDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_GallussJDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_HammaHammaDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_JamruFinDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_BawooDevelopmentPlan')) and self.resource.TechPoint>=memory.ucEraTechBase+18900 and self.hasTags(includes='HQ_NotCaptured') and not memory.ucAdvancePending
+autoTrigger:if self.isControlledByAI() and self.resource.FactionIndex==1020301 and (self.globalTeamTags(includes='Tech_NEO_ZEON_0087_BaseTech') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_GelgoogStutzerDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_GyanKaiDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_EnemyMSBlueprintAcquisitionPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_GazaCDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_QubeleyDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_GallussJDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_HammaHammaDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_JamruFinDevelopmentPlan') and self.globalTeamTags(includes='Tech_NEO_ZEON_0087_T2_BawooDevelopmentPlan')) and self.resource.TechPoint>=memory.ucEraTechBase+14175 and self.hasTags(includes='HQ_NotCaptured') and not memory.ucAdvancePending
 setUnitMemory:ucAdvancePending=true,ucAdvanceRoll=rnd(0,1),ucAdvanceAt=self.timeAlive+0.1
 
 [hiddenAction_UC_AI_Choose_NEO_ZEON_0087]

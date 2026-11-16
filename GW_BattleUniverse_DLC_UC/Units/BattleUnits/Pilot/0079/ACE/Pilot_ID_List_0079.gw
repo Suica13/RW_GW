@@ -5,37 +5,37 @@
 #=====================================EFSF=====================================
 
 #阿姆罗·雷
-@global Pilot_EFSF_0079_N_ACE_AMR=11001
+@global Pilot_EFSF_0079_N_ACE_AMR:111001
 #布莱特·诺亚
-@global Pilot_EFSF_0079_N_ACE_BRT=11002
+@global Pilot_EFSF_0079_N_ACE_BRT:111002
 #克里斯蒂娜·麦肯吉
-@global Pilot_EFSF_0079_N_ACE_CRS=11003
+@global Pilot_EFSF_0079_N_ACE_CRS:111003
 #弗特·罗姆菲洛
-@global Pilot_EFSF_0079_N_ACE_FOT=11004
+@global Pilot_EFSF_0079_N_ACE_FOT:111004
 #鲁斯·克塞尔
-@global Pilot_EFSF_0079_N_ACE_RUT=11005
+@global Pilot_EFSF_0079_N_ACE_RUT:111005
 #凯·西汀
-@global Pilot_EFSF_0079_N_ACE_KSD=11006
+@global Pilot_EFSF_0079_N_ACE_KSD:111006
 #史列加·罗
-@global Pilot_EFSF_0079_N_ACE_SLG=11007
+@global Pilot_EFSF_0079_N_ACE_SLG:111007
 #约翰·亚伯拉罕·雷比尔
-@global Pilot_EFSF_0079_N_ACE_RVL=11008
+@global Pilot_EFSF_0079_N_ACE_RVL:111008
 #天田士郎
-@global Pilot_EFSF_0079_N_ACE_SHR=11009
+@global Pilot_EFSF_0079_N_ACE_SHR:111009
 #加岛勇
-@global Pilot_EFSF_0079_N_ACE_YUU=11010
+@global Pilot_EFSF_0079_N_ACE_YUU:111010
 #提安姆
-@global Pilot_EFSF_0079_N_ACE_TAM=11011
+@global Pilot_EFSF_0079_N_ACE_TAM:111011
 #华肯
-@global Pilot_EFSF_0079_N_ACE_WAK=11012
+@global Pilot_EFSF_0079_N_ACE_WAK:111012
 #雪拉·玛斯
-@global Pilot_EFSF_0079_N_ACE_SYA=11013
+@global Pilot_EFSF_0079_N_ACE_SYA:111013
 #哈曼·杨德里
-@global Pilot_EFSF_0079_N_ACE_YDR=11014
+@global Pilot_EFSF_0079_N_ACE_YDR:111014
 #吉斯汀·隆伯德
-@global Pilot_EFSF_0079_N_ACE_JST=11015
+@global Pilot_EFSF_0079_N_ACE_JST:111015
 #浦木宏
-@global Pilot_EFSF_0079_N_ACE_KOU=11016
+@global Pilot_EFSF_0079_N_ACE_KOU:111016
 
 
 
@@ -45,43 +45,43 @@
 #=====================================ZEON=====================================
 
 #夏亚·阿兹纳布尔
-@global Pilot_ZEON_0079_N_ACE_CHA=12001
+@global Pilot_ZEON_0079_N_ACE_CHA:112001
 #多兹鲁·扎比
-@global Pilot_ZEON_0079_N_ACE_DZL=12002
+@global Pilot_ZEON_0079_N_ACE_DZL:112002
 #卡尔马·扎比
-@global Pilot_ZEON_0079_N_ACE_GRM=12003
+@global Pilot_ZEON_0079_N_ACE_GRM:112003
 #阿卡汉纳
-@global Pilot_ZEON_0079_N_ACE_AKHN=12004
+@global Pilot_ZEON_0079_N_ACE_AKHN:112004
 #基连·扎比
-@global Pilot_ZEON_0079_N_ACE_GRN=12005
+@global Pilot_ZEON_0079_N_ACE_GRN:112005
 #拉拉·辛
-@global Pilot_ZEON_0079_N_ACE_LLS=12006
+@global Pilot_ZEON_0079_N_ACE_LLS:112006
 #马·克贝
-@global Pilot_ZEON_0079_N_ACE_MQV=12007
+@global Pilot_ZEON_0079_N_ACE_MQV:112007
 #诺利斯·巴卡德
-@global Pilot_ZEON_0079_N_ACE_NRS=12008
+@global Pilot_ZEON_0079_N_ACE_NRS:112008
 #基尼亚斯·萨哈林
-@global Pilot_ZEON_0079_N_ACE_GNS=12009
+@global Pilot_ZEON_0079_N_ACE_GNS:112009
 #爱娜·萨哈林
-@global Pilot_ZEON_0079_N_ACE_ANS=12010
+@global Pilot_ZEON_0079_N_ACE_ANS:112010
 #尼姆巴斯·舒特森
-@global Pilot_ZEON_0079_N_ACE_NMBS=12011
+@global Pilot_ZEON_0079_N_ACE_NMBS:112011
 #兰巴·拉尔
-@global Pilot_ZEON_0079_N_ACE_RBR=12012
+@global Pilot_ZEON_0079_N_ACE_RBR:112012
 #米海尔·卡明斯基
-@global Pilot_ZEON_0079_N_ACE_KMSK=12013
+@global Pilot_ZEON_0079_N_ACE_KMSK:112013
 #巴纳德·瓦兹曼
-@global Pilot_ZEON_0079_N_ACE_BNI=12014
+@global Pilot_ZEON_0079_N_ACE_BNI:112014
 #基西莉亚·扎比
-@global Pilot_ZEON_0079_N_ACE_KCA=12015
+@global Pilot_ZEON_0079_N_ACE_KCA:112015
 #强尼·莱汀
-@global Pilot_ZEON_0079_N_ACE_JON=12016
+@global Pilot_ZEON_0079_N_ACE_JON:112016
 #松永真
-@global Pilot_ZEON_0079_N_ACE_MSG=12017
+@global Pilot_ZEON_0079_N_ACE_MSG:112017
 #阿纳贝尔·卡多
-@global Pilot_ZEON_0079_N_ACE_ANG=12018
+@global Pilot_ZEON_0079_N_ACE_ANG:112018
 #西玛·卡拉豪
-@global Pilot_ZEON_0079_N_ACE_CIA=12019
+@global Pilot_ZEON_0079_N_ACE_CIA:112019
 
 
 

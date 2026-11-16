@@ -89,7 +89,7 @@ public class UCTestMain {
     static int eraIndex(String faction) {return era(faction).equals("0093")?2:era(faction).equals("0087")?1:0;}
     static List<String> technologies(String faction) throws Exception {return Files.readAllLines(Paths.get("../tech-"+faction+".txt"));}
     static float localEnd(String faction) throws Exception {return Float.parseFloat(Files.readString(Paths.get("../end-"+faction+".txt")).trim());}
-    static float gate(String faction) throws Exception {return number(hq,"memory.ucEraTechBase")+localEnd(faction)+3600;}
+    static float gate(String faction) throws Exception {return number(hq,"memory.ucEraTechBase")+localEnd(faction)+2700;}
     static String currentFaction() {
         for(String faction:FACTIONS) if(hq.x.i().equals("HQ_"+faction)||hq.x.i().equals("HQ_"+faction+"_Space")) return faction;
         return "UNKNOWN:"+hq.x.i();
@@ -137,7 +137,7 @@ public class UCTestMain {
     static void advance(String from,String to) throws Exception {
         float required=gate(from);
         String name="UC_Advance_"+from+"_To_"+to;
-        resource(hq,"TechPoint",required-3600);
+        resource(hq,"TechPoint",required-2700);
         action(hq,name);
         check(currentFaction().equals(from),"research completion alone cannot advance");
         resource(hq,"TechPoint",required-1);
@@ -174,14 +174,14 @@ public class UCTestMain {
             final int terrain=tile;
             final String category=tile==0?"_Land":"_Space";
             onEngine(()->setup(route[0],terrain,0,0));Thread.sleep(1800);
-            onEngine(()->{checkEra(route[0],1);factory=create("Factory_"+route[0]+category,500,500,0);complete(route[0]);});Thread.sleep(500);
+            onEngine(()->{checkEra(route[0],1);action(core,"ShowTechTree_UC");factory=create("Factory_"+route[0]+category,500,500,0);complete(route[0]);});Thread.sleep(500);
             j[] saved={core};
             onEngine(()->advance(route[0],route[1]));Thread.sleep(1800);
-            onEngine(()->{checkEra(route[1],2);check(core==saved[0],"core identity retained");check(factory.x.i().equals("Factory_"+route[1]+category),"factory advances "+route[1]);complete(route[1]);});Thread.sleep(500);
+            onEngine(()->{checkEra(route[1],2);check(condition(core,"not memory.showTechTree"),"research button returns after era change");check(core==saved[0],"core identity retained");check(factory.x.i().equals("Factory_"+route[1]+category),"factory advances "+route[1]);complete(route[1]);});Thread.sleep(500);
             onEngine(()->advance(route[1],route[2]));Thread.sleep(1800);
             onEngine(()->{checkEra(route[2],3);check(core==saved[0],"final core identity");check(factory.x.i().equals("Factory_"+route[2]+category),"factory advances "+route[2]);action(core,"ShowTechTree_UC");});Thread.sleep(400);
             onEngine(()->{j controller=reference(core,"self.attachment(slot='"+route[2]+"')");action(reference(controller,"self.attachment(slot='Page')"),"LastPage");});Thread.sleep(500);
-            onEngine(()->{check(number(core,"memory.ucPage")==1,"history page selected");j controller=reference(core,"self.attachment(slot='"+route[1]+"')");check(reference(controller,"self.attachment(slot='Page')")!=null,"history page opens");});
+            onEngine(()->{checkSinglePage(route[1]);check(number(core,"memory.ucPage")==1,"history page selected");j controller=reference(core,"self.attachment(slot='"+route[1]+"')");check(reference(controller,"self.attachment(slot='Page')")!=null,"history page opens");});
             System.out.println("UC_ROUTE_PASS "+terrain+" "+String.join(" -> ",route));
         }
     }
@@ -388,6 +388,41 @@ public class UCTestMain {
                 await("PMC borrow grant",5000,()->borrowed[0].bX==hq.bX&&condition(borrowed[0],"memory.manualControlEnabled and memory.pmcBorrowActive"));
                 onEngine(()->{
                     check(reference(hq,"memory.manualControlledUnit")==borrowed[0],"PMC owns single control slot");
+                });
+                final j[] site={null};
+                onEngine(()->{
+                    j ally=reference(borrowed[0],"memory.pmcOriginalHQ");
+                    resource(ally,"FactionIndex",1030101);resource(ally,"GameStart",1);
+                    com.corrodinggames.rts.game.n.k(1).b(g.a("0093_EFSF,Tech_0093_EFSF_BaseTech"));
+                    site[0]=create("StrategicLocation_0093",800,800,-2);
+                });Thread.sleep(700);
+                onEngine(()->{
+                    memory(site[0],"captureTimer=0,nearestUnit=customTarget1");
+                    // Find the borrowed MS via the stock capture scan, then complete capture.
+                    action(site[0],"CheckNearestUnit");action(site[0],"CheckCaptureBarZero");
+                });
+                await("PMC capture handed to original ally",5000,()->site[0].bX==com.corrodinggames.rts.game.n.k(1));
+                await("PMC capture has allied building slots",5000,()->{
+                    j slot=reference(site[0],"self.attachment(slot='BuildingSlot_1')");
+                    return slot!=null&&slot.x.i().equals("0093_BuildingSlot");
+                });
+                onEngine(()->{
+                    check(!condition(site[0],"self.hasTags(includes='PMC')"),"captured site is not PMC restricted");
+                    check(number(site[0],"self.resource.FactionIndex")==1030101,"captured site uses ally faction");
+                    for(int slot=1;slot<=4;slot++)check(reference(site[0],"self.attachment(slot='BuildingSlot_"+slot+"')")!=null,"allied capture slot "+slot);
+                    com.corrodinggames.rts.game.n.k(1).b(g.a("Unlock_Refinery_Common_T3"));
+                    resource(site[0],"Money",5000);resource(site[0],"Resource",5000);
+                    j slot=reference(site[0],"self.attachment(slot='BuildingSlot_1')");
+                    var button=slot.x.h("Build_Refinery_Common_T3");check(button!=null,"captured slot has refinery action");
+                    slot.a(button,false,(android.graphics.PointF)null,(com.corrodinggames.rts.game.units.am)null);
+                    check(number(slot,"self.queueSize()")>0,"captured slot accepts construction queue");
+                });
+                await("PMC captured slot builds allied refinery",10000,()->{
+                    j slot=reference(site[0],"self.attachment(slot='BuildingSlot_1')");
+                    j building=reference(slot,"self.attachment(slot='Building')");
+                    return building!=null&&building.x.i().equals("Refinery_Common_T3")&&building.bX==com.corrodinggames.rts.game.n.k(1);
+                });
+                onEngine(()->{
                     action(borrowed[0],"ManualControl_Release");
                 });
                 await("PMC returns borrowed unit",5000,()->borrowed[0].bX==com.corrodinggames.rts.game.n.k(1)&&!condition(borrowed[0],"memory.manualControlEnabled or memory.pmcBorrowActive"));
@@ -397,6 +432,46 @@ public class UCTestMain {
         }
         onEngine(()->scripts.getRootNoCheck().startNew("maps/skirmish/[p2]Big Island (2p).tmx"));Thread.sleep(1200);
     }
+    static void aceTests() throws Exception {
+        onEngine(()->setup("AEUG_0087",0,0,0));Thread.sleep(1800);
+        // Keep an earlier-era tag too: ACE selection must follow PilotType, not tag order.
+        onEngine(()->{core=reference(hq,"self.attachment(slot='TechTreeMarkerSlot')");hq.bX.b(g.a("EFSF_0079"));});
+        for(String row:Files.readAllLines(Paths.get("../ace-cases.tsv"))) {
+            String[] fields=row.split("\t");final j[] body={null};
+            onEngine(()->{
+                body[0]=create("RGM_79",900,900,0);
+                resource(body[0],"PilotCustom",2);resource(body[0],"PilotType",Integer.parseInt(fields[1]));
+            });
+            Thread.sleep(1800);
+            onEngine(()->{
+                j pilot=reference(body[0],"self.attachment(slot='Pilot')");
+                System.out.println("UC_ACE_DIAG wanted="+fields[0]+" type="+number(body[0],"self.resource.PilotType")+" custom="+number(body[0],"self.resource.PilotCustom")+" pilot="+(pilot==null?"null":pilot.x.i())+" bodyPilot="+(reference(body[0],"memory.pilotUnit")==pilot));
+                if(pilot!=null)System.out.println("UC_ACE_DIAG target="+(reference(pilot,"customTarget1")==body[0])+" core="+(reference(pilot,"self.attachment(slot='BattleUnitCore')")!=null));
+            });
+            await("ACE converts "+fields[0],10000,()->{
+                j pilot=reference(body[0],"memory.pilotUnit");
+                return pilot!=null&&pilot.x.i().equals(fields[0])&&number(pilot,"self.hp")>0;
+            });
+            onEngine(()->{
+                j pilot=reference(body[0],"memory.pilotUnit");
+                check(pilot.x.i().equals(fields[0]),"ACE concrete identity "+fields[0]);
+                check(number(pilot,"memory.baseShootLevel")>0,"ACE initialized stats "+fields[0]);
+            });
+            System.out.println("UC_ACE_PASS "+fields[0]);
+        }
+    }
+    static void checkSinglePage(String selected) {
+        int count=0;
+        for(String faction:FACTIONS) {
+            j controller=reference(core,"self.attachment(slot='"+faction+"')");
+            if(controller==null)continue;
+            j page=reference(controller,"self.attachment(slot='Page')");
+            if(page!=null&&page.cu>0) {
+                count++;check(faction.equals(selected),"no stale page "+faction);
+            }
+        }
+        check(count==1,"exactly one visible technology page");
+    }
     static void tests() throws Exception {
         scripts=ScriptEngine.getInstance();
         var constructor=Debug.class.getDeclaredConstructor(com.corrodinggames.librocket.scripts.Root.class);
@@ -404,9 +479,10 @@ public class UCTestMain {
         onEngine(()->scripts.getRootNoCheck().startNew("maps/skirmish/[p2]Big Island (2p).tmx"));Thread.sleep(1200);
         System.out.println("UC_UNIT_COUNT "+com.corrodinggames.rts.game.units.custom.l.d.size());
         check(com.corrodinggames.rts.game.units.custom.l.d.size()<3000,"loaded unit count below 3000");
+        if(Boolean.getBoolean("uc.aceOnly")) {aceTests();System.out.println("UC_RUNTIME_SUCCESS checks="+checks);return;}
         if(Boolean.getBoolean("uc.techMergeOnly")) {technologyMergeTests();System.out.println("UC_RUNTIME_SUCCESS checks="+checks);return;}
         if(Boolean.getBoolean("uc.pmcOnly")) {pmcTests();System.out.println("UC_RUNTIME_SUCCESS checks="+checks);return;}
-        if(!Boolean.getBoolean("uc.aiOnly")) {pmcTests();entryTests();routeTests();}
+        if(!Boolean.getBoolean("uc.aiOnly")) {pmcTests();aceTests();entryTests();routeTests();}
         for(String faction:FACTIONS) if(System.getProperty("uc.aiFaction",faction).equals(faction)) aiTest(faction,1,!faction.startsWith("0093"));
         if(System.getProperty("uc.aiFaction")==null) {aiTest("EFSF_0079",0,false);aiTest("AEUG_0087",0,false);}
         onEngine(()->debug.overrideDeltaSpeed(-1));

@@ -11,7 +11,7 @@ for faction, row in INV.items():
     for tech in row['main']:
         memory = source['hiddenAction_' + tech + '_Awake']['setUnitMemory']
         points = float(re.search(r'\$\{TechID\}_TechPoint=([\d.]+)', memory)[1])
-        TECH_POINTS[faction][tech] = points * 0.75
+        TECH_POINTS[faction][tech] = points * 0.5625
 
 reference = TECH_POINTS['EFSF_0079']
 ERA_GAP = reference['Tech_EFSF_0079_T2_GPProject'] - reference['Tech_EFSF_0079_T2_GLineDevelopmentPlan']
@@ -77,7 +77,7 @@ autoTrigger:if self.globalTeamTags(includes='Tech_{faction}_Start') and self.att
 attachments_addNewUnits:TechTree_UI_Main_{faction}
 attachments_onlyOnSlots:{faction}
 addGlobalTeamTags:UC_Visited_{faction}
-setUnitMemory:ucPages=max(memory.ucPages,{era_index}+1-memory.ucStartEra),ucPage={era_index}-memory.ucStartEra
+setUnitMemory:ucPages=max(memory.ucPages,{era_index}+1-memory.ucStartEra),ucPage={era_index}-memory.ucStartEra,showTechTree=false
 alsoTriggerAction:UC_CloseOldPages
 alsoQueueAction:UC_Bootstrap_{faction}
 
@@ -93,6 +93,7 @@ sendMessageTo:self.attachment(slot='{faction}')
 sendMessageWithTags:ShowTechTree
 
 [hiddenAction_UC_CloseOldPage_{faction}]
+requireConditional:if memory.ucPage!={era_index}-memory.ucStartEra
 sendMessageTo:self.attachment(slot='{faction}')
 sendMessageWithTags:UC_CloseOwnedPage
 '''
@@ -103,7 +104,7 @@ sendMessageWithTags:UC_CloseOwnedPage
     text = edit(text, 'core', '@memory ucTechBase', 'float')
     text = edit(text, 'hiddenAction_InitializeStats', 'setUnitMemory', 'pageMax=0,pageCount=0,ucTechBase=customTarget1.customTarget1.readUnitMemory(\'ucEraTechBase\',type=\'float\')')
     text = replace_section(text, 'hiddenAction_ShowTechTree', 'autoTriggerOnEvent:newMessage(withTag="ShowTechTree")\nalsoTriggerAction:ShowTechTree_Page0')
-    text = replace_section(text, 'hiddenAction_ShowTechTree_Page0', f'attachments_addNewUnits:TechTree_UI_Page_UC_{faction}\nattachments_onlyOnSlots:Page')
+    text = replace_section(text, 'hiddenAction_ShowTechTree_Page0', f"requireConditional:if self.attachment(slot='Page').hp<=0\nattachments_addNewUnits:TechTree_UI_Page_UC_{faction}\nattachments_onlyOnSlots:Page")
     text = remove_sections(text, lambda s,v: s.startswith('hiddenAction_ShowTechTree_Page') and s != 'hiddenAction_ShowTechTree_Page0')
     text = replace_section(text, 'hiddenAction_GetNextPage', 'autoTriggerOnEvent:newMessage(withTag="NextPage")\nsendMessageTo:parent\nsendMessageWithTags:UC_Next')
     text = replace_section(text, 'hiddenAction_GetLastPage', 'autoTriggerOnEvent:newMessage(withTag="LastPage")\nsendMessageTo:parent\nsendMessageWithTags:UC_Last')
@@ -111,7 +112,8 @@ sendMessageWithTags:UC_CloseOwnedPage
     text += f'''
 [hiddenAction_UC_CloseOwnedPage]
 autoTriggerOnEvent:newMessage(withTag="UC_CloseOwnedPage")
-alsoTriggerAction:TryClosePage
+attachments_onlyOnSlots:Page
+attachments_deleteNumUnits:1
 
 [hiddenAction_UC_AI_Show]
 autoTrigger:if self.isControlledByAI() and self.globalTeamTags(includes='{faction}') and self.attachment(slot='Page').hp<=0
@@ -155,7 +157,7 @@ isVisible:true
             page += f'\n[decal_UC_MainLine_{index}]\n@copyFromSection:template_DrawLine\nbasePosition:self.getOffsetRelative(x={px},y={py})\ndrawLineTo:self.getOffsetRelative(x={x},y={y})\n'
     DB[('Main', f'UC/TechTree_UI_Page_UC_{faction}.ini')] = page
     CUSTOM['TechTree_UI_Page_UC_' + faction] = True
-core += '\n[hiddenAction_UC_Open]\nalsoTriggerAction:' + ','.join(open_calls) + '\n'
+core += '\n[hiddenAction_UC_Open]\nalsoTriggerAction:' + ','.join(['UC_CloseOldPages'] + open_calls) + '\n'
 core += '\n[hiddenAction_UC_CloseOldPages]\nalsoTriggerAction:' + ','.join(close_calls) + '\n'
 DB[('Main', 'UC/TechTree_Core_UC.ini')] = core
 CUSTOM['TechTree_Core_UC'] = True
@@ -331,3 +333,44 @@ showMessageToAllPlayers_zh:已加载宇宙世纪包。必须同时启用Main，�
 CUSTOM['DLCMarker_UC'] = True
 BAD_IDS.update(['DLCMarker_0079','DLCMarker_0087','DLCMarker_0093'])
 (OUT/'era-progression.json').write_text(json.dumps({'technology_points':TECH_POINTS,'gap':ERA_GAP,'era_end':ERA_END,'edges':EDGES},ensure_ascii=False,indent=2),encoding='utf-8')
+
+# Match the selected pilot ID, independent of historical faction tags retained by UC.
+ace_globals = {}
+for key, source in DB.items():
+    if '/Pilot/' in key[1]:
+        for field,value in local(source).get('core',{}).items():
+            if field.startswith('@global Pilot_') and re.fullmatch(r'[0-9]+',value):
+                ace_globals[field[8:]] = value
+# Original DLCs reuse numeric IDs (e.g. Zeon 0079 and AEUG 0087 both use 12001).
+# UC can retain both eras, so give each era an independent PilotType range.
+for pilot,value in list(ace_globals.items()):
+    if '_ACE_' in pilot:
+        year=next((year for year in ['0079','0087','0093'] if '_'+year+'_' in pilot),None)
+        if year:
+            ace_globals[pilot]=str(int(value)+{'0079':100000,'0087':200000,'0093':300000}[year])
+for key,source in list(DB.items()):
+    if '/Pilot/' not in key[1]:
+        continue
+    for field,value in local(source).get('core',{}).items():
+        if field.startswith('@global Pilot_') and field[8:] in ace_globals:
+            source=edit(source,'core',field,ace_globals[field[8:]])
+    DB[key]=source
+ace_entry = ('Main','Units/BattleUnits/Pilot/Pilot_CustomMarker_ACE.ini')
+ace_text = DB[ace_entry]
+ace_text = remove_sections(ace_text,lambda section,values: section.startswith('hiddenAction_Start_PilotCustomChange_ACE_') and '_Send_CV' not in section)
+ace_calls = []
+ace_cases = []
+for pilot in sorted(KEEP_IDS):
+    if '_ACE_' not in pilot or pilot not in ace_globals or pilot in BAD_IDS:
+        continue
+    records=ENT.get(pilot,[])
+    if not any('/Pilot/' in record['path'] for record in records):
+        continue
+    action='UC_ACE_'+pilot
+    ace_calls.append(action)
+    ace_text += f"\n[hiddenAction_{action}]\n@copyFromSection:template_Start_PilotCustomChange_ToUnit\nrequireConditional:if customTarget1.resource.PilotType=={ace_globals[pilot]}\nconvertTo:{pilot}\n"
+    ace_cases.append({'pilot':pilot,'pilot_type':int(ace_globals[pilot])})
+ace_text=edit(ace_text,'hiddenAction_Start_PilotCustomChange','alsoTriggerAction',','.join(ace_calls))
+ace_text=edit(ace_text,'hiddenAction_Send_TryTransform_PilotCustomChange_Step3','setUnitMemory','changePilotSkillsBool=true')
+DB[ace_entry]=ace_text
+(OUT/'ace-conversion-cases.json').write_text(json.dumps(ace_cases,indent=2),encoding='utf-8')
