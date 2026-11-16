@@ -47,6 +47,7 @@ public class UCTestMain {
             Thread.sleep(200);
         }
         onEngine(()->{
+            if(!Arrays.asList(FACTIONS).contains(currentFaction())) {System.out.println("UC_DIAG PMC HQ="+hq.x.i()+" FactionIndex="+number(hq,"self.resource.FactionIndex"));return;}
             System.out.println("UC_DIAG active="+currentFaction()+" TP="+number(hq,"self.resource.TechPoint")+" auto="+number(hq,"memory.autoTech")+" coreAuto="+number(core,"memory.autoTech")+" pending="+condition(hq,"memory.ucAdvancePending")+" queue="+number(hq,"self.queueSize()")+" captured="+!condition(hq,"self.hasTags(includes='HQ_NotCaptured')"));
             j controller=reference(core,"self.attachment(slot='"+currentFaction()+"')");
             System.out.println("UC_DIAG controllerAuto="+number(controller,"memory.autoTech")+" activeTag="+condition(controller,"self.globalTeamTags(includes='"+currentFaction()+"')")+" age="+number(controller,"self.timeAlive"));
@@ -323,6 +324,79 @@ public class UCTestMain {
             debug.overrideDeltaSpeed(-1);
         });
     }
+    static void pmcTests() throws Exception {
+        onEngine(()->scripts.getRootNoCheck().startNew("maps/skirmish/[p4]Desert (4p).tmx"));Thread.sleep(1200);
+        for(int tile=0;tile<2;tile++) for(String year:new String[]{"0079","0087","0093"}) {
+            final int terrain=tile;
+            final int[] savedAlly={0};
+            onEngine(()->{
+                debug.removeAllUnits();
+                var own=com.corrodinggames.rts.game.n.k(0);
+                var other=com.corrodinggames.rts.game.n.k(1);
+                var enemy=com.corrodinggames.rts.game.n.k(2);enemy.r=own.r+2;
+                j hostile=create("HQ_EFSF_0079",200000,200000,2);
+                resource(hostile,"GameStart",0);resource(hostile,"Money",0);resource(hostile,"Resource",0);
+                memory(hostile,"resX=0,techX=0");
+                own.a(g.a(""));other.a(g.a(""));savedAlly[0]=other.r;other.r=own.r+1;
+                j ally=create("HQ_EFSF_0079",1300,1300,1);
+                resource(ally,"GameStart",0);resource(ally,"Money",0);resource(ally,"Resource",0);
+                memory(ally,"resX=0,techX=0");
+                hq=create("HQ_VS_GE_UC"+year,300,300,0);
+                memory(hq,"gameReady=true,readyOK=false,gameStartChangeFaction=false,resX=1,mpX=1,mpStart=60,techX=0,autoTech=0,techShare=0");
+                resource(hq,"GameStart",0);resource(hq,"FactionIndex",0);resource(hq,"tileMode",terrain);
+                resource(hq,"Money",500000);resource(hq,"Resource",500000);
+                check(hq.x.h("ChoseFaction_PMC")!=null,"PMC action exists "+year);
+                action(hq,"ChoseFaction_PMC");
+                check(number(hq,"self.resource.FactionIndex")==0,"PMC rejected without allied player "+year);
+                other.r=own.r;
+            });Thread.sleep(400);
+            onEngine(()->{
+                check(number(hq,"self.numberOfUnitsInAllyNotOwnTeam(withTag='HQ')")>0,"PMC ally recognized");
+                action(hq,"ChoseFaction_PMC");
+                check(number(hq,"self.resource.FactionIndex")==9900101,"PMC can be selected "+year);
+                resource(hq,"GameStart",1);
+            });
+            await("PMC HQ "+year,5000,()->hq.x.i().equals("HQ_PMC"));
+            await("PMC slots "+year,5000,()->number(hq,"self.numberOfUnitsInTeam(withTag='PMC_Slot')")==4);
+            onEngine(()->{
+                check(condition(hq,"self.hasTags(includes='PMC')"),"PMC tag retained");
+                core=reference(hq,"self.attachment(slot='TechTreeMarkerSlot')");
+                check(core!=null&&core.x.i().equals("TechTree_Core_PMC"),"independent PMC tech core");
+                check(combatCount()==0,"PMC has no starting combat units");
+                check(hq.x.h("PMC_Borrow")!=null,"PMC borrow action exposed");
+                check(hq.x.h("PMC_BuyCqb")!=null,"PMC upgrade action exposed");
+                action(core,"ShowTechTree_PMC");
+            });Thread.sleep(400);
+            onEngine(()->{
+                j controller=reference(core,"self.attachment(slot='PMC')");
+                j page=reference(controller,"self.attachment(slot='Page')");
+                check(page!=null&&page.x.i().equals("TechTree_UI_Page_PMC_00"),"PMC placeholder page opens");
+                System.out.println("UC_PMC_PASS "+terrain+" "+year);
+            });
+            if(terrain==1&&year.equals("0093")) {
+                final j[] borrowed={null};
+                onEngine(()->{
+                    borrowed[0]=create("RGM_89",800,800,1);
+                    resource(borrowed[0],"PilotType",1101);
+                });
+                await("PMC allied pilot initializes",5000,()->condition(borrowed[0],"memory.battleUnitCore.hp>0 and memory.pilotUnit.hp>0 and memory.pilotUnit.parent==self"));
+                // The five-argument engine entry sets thisActionTarget for ground clicks.
+                onEngine(()->hq.a(hq.x.h("PMC_Borrow"),new android.graphics.PointF(number(borrowed[0],"self.x"),number(borrowed[0],"self.y")),null,0,0));
+                onEngine(()->{
+                    System.out.println("UC_PMC_DIAG candidate="+(reference(hq,"memory.pmcBorrowCandidate")==borrowed[0])+" team="+number(borrowed[0],"self.teamId")+" borrow="+condition(borrowed[0],"memory.pmcBorrowActive")+" control="+condition(borrowed[0],"memory.manualControlEnabled")+" slot="+(reference(hq,"memory.manualControlledUnit")==borrowed[0])+" close="+condition(borrowed[0],"memory.close")+" captured="+!condition(hq,"self.hasTags(includes='HQ_NotCaptured')"));
+                });
+                await("PMC borrow grant",5000,()->borrowed[0].bX==hq.bX&&condition(borrowed[0],"memory.manualControlEnabled and memory.pmcBorrowActive"));
+                onEngine(()->{
+                    check(reference(hq,"memory.manualControlledUnit")==borrowed[0],"PMC owns single control slot");
+                    action(borrowed[0],"ManualControl_Release");
+                });
+                await("PMC returns borrowed unit",5000,()->borrowed[0].bX==com.corrodinggames.rts.game.n.k(1)&&!condition(borrowed[0],"memory.manualControlEnabled or memory.pmcBorrowActive"));
+                System.out.println("UC_PMC_BORROW_PASS");
+            }
+            onEngine(()->com.corrodinggames.rts.game.n.k(1).r=savedAlly[0]);
+        }
+        onEngine(()->scripts.getRootNoCheck().startNew("maps/skirmish/[p2]Big Island (2p).tmx"));Thread.sleep(1200);
+    }
     static void tests() throws Exception {
         scripts=ScriptEngine.getInstance();
         var constructor=Debug.class.getDeclaredConstructor(com.corrodinggames.librocket.scripts.Root.class);
@@ -331,7 +405,8 @@ public class UCTestMain {
         System.out.println("UC_UNIT_COUNT "+com.corrodinggames.rts.game.units.custom.l.d.size());
         check(com.corrodinggames.rts.game.units.custom.l.d.size()<3000,"loaded unit count below 3000");
         if(Boolean.getBoolean("uc.techMergeOnly")) {technologyMergeTests();System.out.println("UC_RUNTIME_SUCCESS checks="+checks);return;}
-        if(!Boolean.getBoolean("uc.aiOnly")) {entryTests();routeTests();}
+        if(Boolean.getBoolean("uc.pmcOnly")) {pmcTests();System.out.println("UC_RUNTIME_SUCCESS checks="+checks);return;}
+        if(!Boolean.getBoolean("uc.aiOnly")) {pmcTests();entryTests();routeTests();}
         for(String faction:FACTIONS) if(System.getProperty("uc.aiFaction",faction).equals(faction)) aiTest(faction,1,!faction.startsWith("0093"));
         if(System.getProperty("uc.aiFaction")==null) {aiTest("EFSF_0079",0,false);aiTest("AEUG_0087",0,false);}
         onEngine(()->debug.overrideDeltaSpeed(-1));

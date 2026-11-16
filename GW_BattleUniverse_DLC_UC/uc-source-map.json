@@ -707,18 +707,6 @@
     "source_package": "GW_BattleUniverse_DLC_0079",
     "source_path": "Units/BattleUnits/DabudeClass/PlayerControl/Ships/DabudeClass_Turret_Cannon.gw"
   },
-  "Units/BattleUnits/Dodai/Dodai2.ini": {
-    "source_package": "GW_BattleUniverse_DLC_0079",
-    "source_path": "Units/BattleUnits/Dodai/Dodai2.ini"
-  },
-  "Units/BattleUnits/Dodai/Dodai2_CloseState.ini": {
-    "source_package": "GW_BattleUniverse_DLC_0079",
-    "source_path": "Units/BattleUnits/Dodai/Dodai2_CloseState.ini"
-  },
-  "Units/BattleUnits/Dodai/Dodai2_OverLine.ini": {
-    "source_package": "GW_BattleUniverse_DLC_0079",
-    "source_path": "Units/BattleUnits/Dodai/Dodai2_OverLine.ini"
-  },
   "Units/BattleUnits/Dodai/DodaiYS.ini": {
     "source_package": "GW_BattleUniverse_DLC_0079",
     "source_path": "Units/BattleUnits/Dodai/DodaiYS.ini"
@@ -1239,7 +1227,7 @@
     "source_package": "GW_BattleUniverse_DLC_0079",
     "source_path": "Units/BattleUnits/GwazineClass/PlayerControl/Ships/GwazineClass_Turret_MegaBeamCannon_3.gw"
   },
-  "Units/BattleUnits/HimalayaClass/Hangar_X8_Aircraft_UseEN.ini": {
+  "Units/BattleUnits/HimalayaClass/Hangar_X8_Aircraft_UseEN_Base.gw": {
     "source_package": "GW_BattleUniverse_DLC_0079",
     "source_path": "Units/BattleUnits/HimalayaClass/Hangar_X8_Aircraft_UseEN.ini"
   },
@@ -1515,17 +1503,9 @@
     "source_package": "GW_BattleUniverse_DLC_0079",
     "source_path": "Units/BattleUnits/MS_05/MS_05.ini"
   },
-  "Units/BattleUnits/MS_05/MS_05S.ini": {
-    "source_package": "GW_BattleUniverse_DLC_0079",
-    "source_path": "Units/BattleUnits/MS_05/MS_05S.ini"
-  },
   "Units/BattleUnits/MS_05/PlayerControl/MS_05.gw": {
     "source_package": "GW_BattleUniverse_DLC_0079",
     "source_path": "Units/BattleUnits/MS_05/PlayerControl/MS_05.gw"
-  },
-  "Units/BattleUnits/MS_05/PlayerControl/MS_05S.gw": {
-    "source_package": "GW_BattleUniverse_DLC_0079",
-    "source_path": "Units/BattleUnits/MS_05/PlayerControl/MS_05S.gw"
   },
   "Units/BattleUnits/MS_05SP/MS_05SP.ini": {
     "source_package": "GW_BattleUniverse_DLC_0079",
@@ -2447,18 +2427,6 @@
     "source_package": "GW_BattleUniverse_DLC_0079",
     "source_path": "Units/BattleUnits/PazockClass/PlayerControl/Ships/PazockClass_Turret_AA.gw"
   },
-  "Units/BattleUnits/PegasusClass/BlancRival.ini": {
-    "source_package": "GW_BattleUniverse_DLC_0079",
-    "source_path": "Units/BattleUnits/PegasusClass/BlancRival.ini"
-  },
-  "Units/BattleUnits/PegasusClass/BlancRival_CloseState.ini": {
-    "source_package": "GW_BattleUniverse_DLC_0079",
-    "source_path": "Units/BattleUnits/PegasusClass/BlancRival_CloseState.ini"
-  },
-  "Units/BattleUnits/PegasusClass/BlancRival_OverLine.ini": {
-    "source_package": "GW_BattleUniverse_DLC_0079",
-    "source_path": "Units/BattleUnits/PegasusClass/BlancRival_OverLine.ini"
-  },
   "Units/BattleUnits/PegasusClass/PegasusClass.ini": {
     "source_package": "GW_BattleUniverse_DLC_0079",
     "source_path": "Units/BattleUnits/PegasusClass/PegasusClass.ini"
@@ -2487,29 +2455,9 @@
     "source_package": "GW_BattleUniverse_DLC_0079",
     "source_path": "Units/BattleUnits/PegasusClass/PegasusClass_Turret_Cannon.ini"
   },
-  "Units/BattleUnits/PegasusClass/PegasusClass_Turret_Cannon_S.ini": {
-    "source_package": "GW_BattleUniverse_DLC_0079",
-    "source_path": "Units/BattleUnits/PegasusClass/PegasusClass_Turret_Cannon_S.ini"
-  },
   "Units/BattleUnits/PegasusClass/PegasusClass_Turret_MegaBeamCannon.ini": {
     "source_package": "GW_BattleUniverse_DLC_0079",
     "source_path": "Units/BattleUnits/PegasusClass/PegasusClass_Turret_MegaBeamCannon.ini"
-  },
-  "Units/BattleUnits/PegasusClass/PegasusClass_Turret_MegaBeamCannon_S.ini": {
-    "source_package": "GW_BattleUniverse_DLC_0079",
-    "source_path": "Units/BattleUnits/PegasusClass/PegasusClass_Turret_MegaBeamCannon_S.ini"
-  },
-  "Units/BattleUnits/PegasusClass/PlayerControl/BlancRival.gw": {
-    "source_package": "GW_BattleUniverse_DLC_0079",
-    "source_path": "Units/BattleUnits/PegasusClass/PlayerControl/BlancRival.gw"
-  },
-  "Units/BattleUnits/PegasusClass/PlayerControl/BlancRival_CloseState.gw": {
-    "source_package": "GW_BattleUniverse_DLC_0079",
-    "source_path": "Units/BattleUnits/PegasusClass/PlayerControl/BlancRival_CloseState.gw"
-  },
-  "Units/BattleUnits/PegasusClass/PlayerControl/BlancRival_OverLine.gw": {
-    "source_package": "GW_BattleUniverse_DLC_0079",
-    "source_path": "Units/BattleUnits/PegasusClass/PlayerControl/BlancRival_OverLine.gw"
   },
   "Units/BattleUnits/PegasusClass/PlayerControl/PegasusClass.gw": {
     "source_package": "GW_BattleUniverse_DLC_0079",
@@ -2526,14 +2474,6 @@
   "Units/BattleUnits/PegasusClass/PlayerControl/Ships/Arcs_218d68763137.gw": {
     "source_package": "GW_BattleUniverse_DLC_0079",
     "source_path": "Units/BattleUnits/PegasusClass/PlayerControl/Ships/Arcs_218d68763137.gw"
-  },
-  "Units/BattleUnits/PegasusClass/PlayerControl/Ships/Arcs_86d58831ef7d.gw": {
-    "source_package": "GW_BattleUniverse_DLC_0079",
-    "source_path": "Units/BattleUnits/PegasusClass/PlayerControl/Ships/Arcs_86d58831ef7d.gw"
-  },
-  "Units/BattleUnits/PegasusClass/PlayerControl/Ships/Arcs_d505f6f475fa.gw": {
-    "source_package": "GW_BattleUniverse_DLC_0079",
-    "source_path": "Units/BattleUnits/PegasusClass/PlayerControl/Ships/Arcs_d505f6f475fa.gw"
   },
   "Units/BattleUnits/PegasusClass/PlayerControl/Ships/PegasusClass_Turret_AA.gw": {
     "source_package": "GW_BattleUniverse_DLC_0079",
@@ -2555,22 +2495,6 @@
     "source_package": "GW_BattleUniverse_DLC_0079",
     "source_path": "Units/BattleUnits/PegasusClass/PlayerControl/Ships/PegasusClass_Turret_MegaBeamCannon.gw"
   },
-  "Units/BattleUnits/PegasusClass/PlayerControl/Ships/PegasusClass_Turret_MegaBeamCannon_S.gw": {
-    "source_package": "GW_BattleUniverse_DLC_0079",
-    "source_path": "Units/BattleUnits/PegasusClass/PlayerControl/Ships/PegasusClass_Turret_MegaBeamCannon_S.gw"
-  },
-  "Units/BattleUnits/PegasusClass/PlayerControl/Thoroughbred.gw": {
-    "source_package": "GW_BattleUniverse_DLC_0079",
-    "source_path": "Units/BattleUnits/PegasusClass/PlayerControl/Thoroughbred.gw"
-  },
-  "Units/BattleUnits/PegasusClass/PlayerControl/Thoroughbred_CloseState.gw": {
-    "source_package": "GW_BattleUniverse_DLC_0079",
-    "source_path": "Units/BattleUnits/PegasusClass/PlayerControl/Thoroughbred_CloseState.gw"
-  },
-  "Units/BattleUnits/PegasusClass/PlayerControl/Thoroughbred_OverLine.gw": {
-    "source_package": "GW_BattleUniverse_DLC_0079",
-    "source_path": "Units/BattleUnits/PegasusClass/PlayerControl/Thoroughbred_OverLine.gw"
-  },
   "Units/BattleUnits/PegasusClass/PlayerControl/WhiteBase.gw": {
     "source_package": "GW_BattleUniverse_DLC_0079",
     "source_path": "Units/BattleUnits/PegasusClass/PlayerControl/WhiteBase.gw"
@@ -2582,18 +2506,6 @@
   "Units/BattleUnits/PegasusClass/PlayerControl/WhiteBase_OverLine.gw": {
     "source_package": "GW_BattleUniverse_DLC_0079",
     "source_path": "Units/BattleUnits/PegasusClass/PlayerControl/WhiteBase_OverLine.gw"
-  },
-  "Units/BattleUnits/PegasusClass/Thoroughbred.ini": {
-    "source_package": "GW_BattleUniverse_DLC_0079",
-    "source_path": "Units/BattleUnits/PegasusClass/Thoroughbred.ini"
-  },
-  "Units/BattleUnits/PegasusClass/Thoroughbred_CloseState.ini": {
-    "source_package": "GW_BattleUniverse_DLC_0079",
-    "source_path": "Units/BattleUnits/PegasusClass/Thoroughbred_CloseState.ini"
-  },
-  "Units/BattleUnits/PegasusClass/Thoroughbred_OverLine.ini": {
-    "source_package": "GW_BattleUniverse_DLC_0079",
-    "source_path": "Units/BattleUnits/PegasusClass/Thoroughbred_OverLine.ini"
   },
   "Units/BattleUnits/PegasusClass/WhiteBase.ini": {
     "source_package": "GW_BattleUniverse_DLC_0079",
@@ -3350,10 +3262,6 @@
   "Units/BattleUnits/Type61/Type61A5.ini": {
     "source_package": "GW_BattleUniverse_DLC_0079",
     "source_path": "Units/BattleUnits/Type61/Type61A5.ini"
-  },
-  "Units/BattleUnits/Type61/Type61A5_TroopCarrier.ini": {
-    "source_package": "GW_BattleUniverse_DLC_0079",
-    "source_path": "Units/BattleUnits/Type61/Type61A5_TroopCarrier.ini"
   },
   "Units/BattleUnits/Type61_SPG/Type61_SPG.ini": {
     "source_package": "GW_BattleUniverse_DLC_0079",
@@ -5507,10 +5415,6 @@
     "source_package": "GW_BattleUniverse_DLC_0079",
     "source_path": "Units/Buildings/Factory/UnitList/EFSF_0079/Units/Space_Mega/SalamisClassLateType.gw"
   },
-  "Units/Buildings/Factory/UnitList/ZEON_0079/Units/Air/Dodai2.gw": {
-    "source_package": "GW_BattleUniverse_DLC_0079",
-    "source_path": "Units/Buildings/Factory/UnitList/ZEON_0079/Units/Air/Dodai2.gw"
-  },
   "Units/Buildings/Factory/UnitList/ZEON_0079/Units/Air/DodaiYS.gw": {
     "source_package": "GW_BattleUniverse_DLC_0079",
     "source_path": "Units/Buildings/Factory/UnitList/ZEON_0079/Units/Air/DodaiYS.gw"
@@ -6907,21 +6811,9 @@
     "source_package": "GW_BattleUniverse_DLC_0087",
     "source_path": "Units/BattleUnits/EndraClass/EndraClass.ini"
   },
-  "Units/BattleUnits/EndraClass/EndraClass_Turret_AA.ini": {
-    "source_package": "GW_BattleUniverse_DLC_0087",
-    "source_path": "Units/BattleUnits/EndraClass/EndraClass_Turret_AA.ini"
-  },
   "Units/BattleUnits/EndraClass/EndraClass_Turret_BeamCannon.ini": {
     "source_package": "GW_BattleUniverse_DLC_0087",
     "source_path": "Units/BattleUnits/EndraClass/EndraClass_Turret_BeamCannon.ini"
-  },
-  "Units/BattleUnits/EndraClass/EndraClass_Turret_BeamCannon_2.ini": {
-    "source_package": "GW_BattleUniverse_DLC_0087",
-    "source_path": "Units/BattleUnits/EndraClass/EndraClass_Turret_BeamCannon_2.ini"
-  },
-  "Units/BattleUnits/EndraClass/EndraClass_Turret_BeamCannon_3.ini": {
-    "source_package": "GW_BattleUniverse_DLC_0087",
-    "source_path": "Units/BattleUnits/EndraClass/EndraClass_Turret_BeamCannon_3.ini"
   },
   "Units/BattleUnits/EndraClass/EndraClass_Turret_MS.ini": {
     "source_package": "GW_BattleUniverse_DLC_0087",
@@ -6979,7 +6871,7 @@
     "source_package": "GW_BattleUniverse_DLC_0087",
     "source_path": "Units/BattleUnits/FatUncleKai/FatUncleKai_OverLine.ini"
   },
-  "Units/BattleUnits/GarudaClass/GarudaClass.ini": {
+  "Units/BattleUnits/GarudaClass/GarudaClass_Base.gw": {
     "source_package": "GW_BattleUniverse_DLC_0087",
     "source_path": "Units/BattleUnits/GarudaClass/GarudaClass.ini"
   },
@@ -7491,10 +7383,6 @@
     "source_package": "GW_BattleUniverse_DLC_0087",
     "source_path": "Units/BattleUnits/MSZ_006/MSZ_006_MA_OverLine.ini"
   },
-  "Units/BattleUnits/MSZ_006/MSZ_006_ZakuHead.ini": {
-    "source_package": "GW_BattleUniverse_DLC_0087",
-    "source_path": "Units/BattleUnits/MSZ_006/MSZ_006_ZakuHead.ini"
-  },
   "Units/BattleUnits/MSZ_006/PlayerControl/MSZ_006.gw": {
     "source_package": "GW_BattleUniverse_DLC_0087",
     "source_path": "Units/BattleUnits/MSZ_006/PlayerControl/MSZ_006.gw"
@@ -7506,10 +7394,6 @@
   "Units/BattleUnits/MSZ_006/PlayerControl/MSZ_006_MA_OverLine.gw": {
     "source_package": "GW_BattleUniverse_DLC_0087",
     "source_path": "Units/BattleUnits/MSZ_006/PlayerControl/MSZ_006_MA_OverLine.gw"
-  },
-  "Units/BattleUnits/MSZ_006/PlayerControl/MSZ_006_ZakuHead.gw": {
-    "source_package": "GW_BattleUniverse_DLC_0087",
-    "source_path": "Units/BattleUnits/MSZ_006/PlayerControl/MSZ_006_ZakuHead.gw"
   },
   "Units/BattleUnits/MSZ_006A1/MSZ_006A1.ini": {
     "source_package": "GW_BattleUniverse_DLC_0087",
@@ -7794,10 +7678,6 @@
   "Units/BattleUnits/MusaiClassFinalType/MusaiClassFinalType.ini": {
     "source_package": "GW_BattleUniverse_DLC_0087",
     "source_path": "Units/BattleUnits/MusaiClassFinalType/MusaiClassFinalType.ini"
-  },
-  "Units/BattleUnits/MusaiClassFinalType/MusaiClassFinalType_Turret_AA.ini": {
-    "source_package": "GW_BattleUniverse_DLC_0087",
-    "source_path": "Units/BattleUnits/MusaiClassFinalType/MusaiClassFinalType_Turret_AA.ini"
   },
   "Units/BattleUnits/MusaiClassFinalType/MusaiClassFinalType_Turret_BeamCannon.ini": {
     "source_package": "GW_BattleUniverse_DLC_0087",
@@ -8235,29 +8115,13 @@
     "source_package": "GW_BattleUniverse_DLC_0087",
     "source_path": "Units/BattleUnits/RGM_79C/RGM_79C.ini"
   },
-  "Units/BattleUnits/RGM_79C_KS/MSK_003.ini": {
-    "source_package": "GW_BattleUniverse_DLC_0087",
-    "source_path": "Units/BattleUnits/RGM_79C_KS/MSK_003.ini"
-  },
-  "Units/BattleUnits/RGM_79C_KS/PlayerControl/MSK_003.gw": {
-    "source_package": "GW_BattleUniverse_DLC_0087",
-    "source_path": "Units/BattleUnits/RGM_79C_KS/PlayerControl/MSK_003.gw"
-  },
   "Units/BattleUnits/RGM_79C_KS/PlayerControl/RGM_79C_KS.gw": {
     "source_package": "GW_BattleUniverse_DLC_0087",
     "source_path": "Units/BattleUnits/RGM_79C_KS/PlayerControl/RGM_79C_KS.gw"
   },
-  "Units/BattleUnits/RGM_79C_KS/PlayerControl/RGM_79C_KS_Custom.gw": {
-    "source_package": "GW_BattleUniverse_DLC_0087",
-    "source_path": "Units/BattleUnits/RGM_79C_KS/PlayerControl/RGM_79C_KS_Custom.gw"
-  },
   "Units/BattleUnits/RGM_79C_KS/RGM_79C_KS.ini": {
     "source_package": "GW_BattleUniverse_DLC_0087",
     "source_path": "Units/BattleUnits/RGM_79C_KS/RGM_79C_KS.ini"
-  },
-  "Units/BattleUnits/RGM_79C_KS/RGM_79C_KS_Custom.ini": {
-    "source_package": "GW_BattleUniverse_DLC_0087",
-    "source_path": "Units/BattleUnits/RGM_79C_KS/RGM_79C_KS_Custom.ini"
   },
   "Units/BattleUnits/RGM_79C_Space/PlayerControl/RGM_79C_Space.gw": {
     "source_package": "GW_BattleUniverse_DLC_0087",
@@ -8383,17 +8247,9 @@
     "source_package": "GW_BattleUniverse_DLC_0087",
     "source_path": "Units/BattleUnits/RMS_099_Red/PlayerControl/RMS_099B_Red.gw"
   },
-  "Units/BattleUnits/RMS_099_Red/PlayerControl/RMS_099_Red.gw": {
-    "source_package": "GW_BattleUniverse_DLC_0087",
-    "source_path": "Units/BattleUnits/RMS_099_Red/PlayerControl/RMS_099_Red.gw"
-  },
   "Units/BattleUnits/RMS_099_Red/RMS_099B_Red.ini": {
     "source_package": "GW_BattleUniverse_DLC_0087",
     "source_path": "Units/BattleUnits/RMS_099_Red/RMS_099B_Red.ini"
-  },
-  "Units/BattleUnits/RMS_099_Red/RMS_099_Red.ini": {
-    "source_package": "GW_BattleUniverse_DLC_0087",
-    "source_path": "Units/BattleUnits/RMS_099_Red/RMS_099_Red.ini"
   },
   "Units/BattleUnits/RMS_106/PlayerControl/RMS_106.gw": {
     "source_package": "GW_BattleUniverse_DLC_0087",
@@ -8479,7 +8335,7 @@
     "source_package": "GW_BattleUniverse_DLC_0087",
     "source_path": "Units/BattleUnits/RMS_179/PlayerControl/RMS_179_TITANS.gw"
   },
-  "Units/BattleUnits/RMS_179/RMS_179.ini": {
+  "Units/BattleUnits/RMS_179/RMS_179_Base.gw": {
     "source_package": "GW_BattleUniverse_DLC_0087",
     "source_path": "Units/BattleUnits/RMS_179/RMS_179.ini"
   },
@@ -8819,7 +8675,7 @@
     "source_package": "GW_BattleUniverse_DLC_0087",
     "source_path": "Units/BattleUnits/SalamisClassKai_0087/PlayerControl/Ships/SalamisClassKai_0087_Turret_BeamCannon_5.gw"
   },
-  "Units/BattleUnits/SalamisClassKai_0087/SalamisClassKai_0087.ini": {
+  "Units/BattleUnits/SalamisClassKai_0087/SalamisClassKai_0087_Base.gw": {
     "source_package": "GW_BattleUniverse_DLC_0087",
     "source_path": "Units/BattleUnits/SalamisClassKai_0087/SalamisClassKai_0087.ini"
   },
@@ -8954,10 +8810,6 @@
   "Units/BattleUnits/Weapon/Beam/AEUG_MSZ_010_HighMegaCannon.gw": {
     "source_package": "GW_BattleUniverse_DLC_0087",
     "source_path": "Units/BattleUnits/Weapon/Beam/AEUG_MSZ_010_HighMegaCannon.gw"
-  },
-  "Units/BattleUnits/Weapon/Beam/AEUG_RGM_79C_KS_Custom_BR.gw": {
-    "source_package": "GW_BattleUniverse_DLC_0087",
-    "source_path": "Units/BattleUnits/Weapon/Beam/AEUG_RGM_79C_KS_Custom_BR.gw"
   },
   "Units/BattleUnits/Weapon/Beam/AEUG_RMS_099B_Red_DoubleBeamCannon.gw": {
     "source_package": "GW_BattleUniverse_DLC_0087",
@@ -11851,10 +11703,6 @@
     "source_package": "GW_BattleUniverse_DLC_0093",
     "source_path": "Units/BattleUnits/MusaiClassFinalType_0093_NZN/MusaiClassFinalType_0093_NZN.ini"
   },
-  "Units/BattleUnits/MusaiClassFinalType_0093_NZN/MusaiClassFinalType_0093_NZN_Turret_AA.ini": {
-    "source_package": "GW_BattleUniverse_DLC_0093",
-    "source_path": "Units/BattleUnits/MusaiClassFinalType_0093_NZN/MusaiClassFinalType_0093_NZN_Turret_AA.ini"
-  },
   "Units/BattleUnits/MusaiClassFinalType_0093_NZN/MusaiClassFinalType_0093_NZN_Turret_BeamCannon.ini": {
     "source_package": "GW_BattleUniverse_DLC_0093",
     "source_path": "Units/BattleUnits/MusaiClassFinalType_0093_NZN/MusaiClassFinalType_0093_NZN_Turret_BeamCannon.ini"
@@ -12647,14 +12495,6 @@
     "source_package": "GW_BattleUniverse_DLC_0093",
     "source_path": "Units/TechTree/Mod/TechUnlockPlaceholder.gw"
   },
-  "Units/TechTree/PlaceholderUnits/0093_EFSF/TechUnit_0093_EFSF_Mid02_Placeholder.ini": {
-    "source_package": "GW_BattleUniverse_DLC_0093",
-    "source_path": "Units/TechTree/PlaceholderUnits/0093_EFSF/TechUnit_0093_EFSF_Mid02_Placeholder.ini"
-  },
-  "Units/TechTree/PlaceholderUnits/0093_EFSF/TechUnit_0093_EFSF_Mid03_Placeholder.ini": {
-    "source_package": "GW_BattleUniverse_DLC_0093",
-    "source_path": "Units/TechTree/PlaceholderUnits/0093_EFSF/TechUnit_0093_EFSF_Mid03_Placeholder.ini"
-  },
   "Units/TechTree/PlaceholderUnits/0093_EFSF/TechUnit_0093_EFSF_Mid04_Placeholder.ini": {
     "source_package": "GW_BattleUniverse_DLC_0093",
     "source_path": "Units/TechTree/PlaceholderUnits/0093_EFSF/TechUnit_0093_EFSF_Mid04_Placeholder.ini"
@@ -12662,14 +12502,6 @@
   "Units/TechTree/PlaceholderUnits/0093_EFSF/TechUnit_0093_EFSF_Mid05_Placeholder.ini": {
     "source_package": "GW_BattleUniverse_DLC_0093",
     "source_path": "Units/TechTree/PlaceholderUnits/0093_EFSF/TechUnit_0093_EFSF_Mid05_Placeholder.ini"
-  },
-  "Units/TechTree/PlaceholderUnits/0093_NZN/TechUnit_0093_NZN_Mid02_Placeholder.ini": {
-    "source_package": "GW_BattleUniverse_DLC_0093",
-    "source_path": "Units/TechTree/PlaceholderUnits/0093_NZN/TechUnit_0093_NZN_Mid02_Placeholder.ini"
-  },
-  "Units/TechTree/PlaceholderUnits/0093_NZN/TechUnit_0093_NZN_Mid03_Placeholder.ini": {
-    "source_package": "GW_BattleUniverse_DLC_0093",
-    "source_path": "Units/TechTree/PlaceholderUnits/0093_NZN/TechUnit_0093_NZN_Mid03_Placeholder.ini"
   },
   "Units/TechTree/PlaceholderUnits/0093_NZN/TechUnit_0093_NZN_Mid04_Placeholder.ini": {
     "source_package": "GW_BattleUniverse_DLC_0093",

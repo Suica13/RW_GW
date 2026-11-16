@@ -92,6 +92,23 @@ for group in config_groups.values():
             config_representatives[relative]=key
         config_outputs[key]=relative
 
+
+# File-only concrete ancestors supply inherited stats/art but must not look like playable units.
+for relative,key in list(config_representatives.items()):
+    era,path=key
+    own_core=local(DB[key]).get('core',{})
+    if key in active_keys or not path.startswith('Units/BattleUnits/') or any('/'+part+'/' in path for part in ['Weapon','Pilot','Shield']):
+        continue
+    if not path.endswith('.ini') or not own_core.get('name'):
+        continue
+    target=Path(relative)
+    renamed=target.with_name(target.stem+'_Base.gw').as_posix()
+    assert renamed not in config_representatives,renamed
+    config_representatives[renamed]=config_representatives.pop(relative)
+    for source,output in list(config_outputs.items()):
+        if output==relative:config_outputs[source]=renamed
+
+
 def canonical_key(key):
     return CANON.get((key[0],key[1].lower()),key)
 
@@ -168,6 +185,16 @@ for key in sorted(INCLUDED):
     if path.endswith('.ini'):
         text = edit(text,'core','dont_load','false' if named or path.startswith('UC/') else 'true')
     text = re.sub(r'(?m)^overrideAndReplace:([^\n]+)',lambda m:m[0] if any(r['era']=='Main' for r in ENT.get(m[1].strip(),[])) or m[1].strip() not in ENT else '',text)
+    if named and era in ['0079','0087','0093'] and path.startswith('Units/BattleUnits/') and not any('/'+part+'/' in path for part in ['Weapon','Pilot','Shield']):
+        cv.MOD=PACKS[era]
+        inherited_core=cv.merged(PACKS[era]/path).get('core',{})
+        tags={tag.strip() for tag in inherited_core.get('tags','').split(',')}
+        if 'Unit' in tags and tags.intersection({'MS','MA','Ship','Vehicle','Aircraft'}):
+            for field in ['displayText','displayText_zh']:
+                label=values.get('core',{}).get(field,inherited_core.get(field))
+                if label:
+                    label=re.sub(r'\[(?:0079|0087|0093)\]','',label).rstrip()+'['+era+']'
+                    text=edit(text,'core',field,label)
     if named and era=='Main':
         text = edit(text,'core','overrideAndReplace',named[0])
     if 'copyFrom' in values.get('core',{}):

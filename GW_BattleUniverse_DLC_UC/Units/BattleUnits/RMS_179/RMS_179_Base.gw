@@ -1,6 +1,6 @@
     
 [core]
-dont_load:false
+dont_load:true
 
 
 copyFrom:"""

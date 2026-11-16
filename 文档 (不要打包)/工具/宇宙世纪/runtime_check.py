@@ -39,6 +39,8 @@ result = {
     'technology_merges': matching('UC_TECH_MERGE_PASS'),
     'production_cases': matching('UC_PRODUCTION_PASS'),
     'unit_forms': matching('UC_FORM_PASS'),
+    'pmc_entries': matching('UC_PMC_PASS'),
+    'pmc_borrow': matching('UC_PMC_BORROW_PASS'),
     'routes': matching('UC_ROUTE_PASS'),
     'entries': matching('UC_ENTRY_PASS'),
     'ai_development': matching('UC_AI_PASS'),
@@ -50,7 +52,8 @@ result = {
 }
 fixture_names = [('technology_merges', 'tech-merge-cases.txt', 2), ('production_cases', 'tech-merge-production.txt', 1), ('unit_forms', 'tech-merge-forms.txt', 1)]
 result['technology_suite'] = all((ROOT / 'output/uc' / filename).is_file() and len(result[field]) == len((ROOT / 'output/uc' / filename).read_text('utf-8').splitlines()) * multiplier for field, filename, multiplier in fixture_names)
-result['full_suite'] = len(result['entries']) == 14 and len(result['routes']) == 10 and len(result['ai_development']) == 9
+result['pmc_suite'] = len(result['pmc_entries']) == 6 and len(result['pmc_borrow']) == 1
+result['full_suite'] = result['pmc_suite'] and len(result['entries']) == 14 and len(result['routes']) == 10 and len(result['ai_development']) == 9
 (ROOT / 'output/uc/runtime-check.json').write_text(json.dumps(result, indent=2), encoding='utf-8')
 print(json.dumps(result, indent=2))
 assert result['success'] and not result['failures'] and not loading_errors

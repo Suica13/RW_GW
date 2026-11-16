@@ -198,7 +198,48 @@ for source,targets in progression['edges'].items():
         check(target not in action['removeGlobalTeamTags'].split(','),'Advance removes destination global tag '+target)
         check(target not in action['temporarilyRemoveTags'].split(','),'Advance removes destination unit tag '+target)
 
-report={'technology_merges':merges,'main_technology_count':len(all_main),'technology_metrics':metrics,'progression_edges':edges,'era_gap':progression['gap'],'factories':factories,'warning_locations':[str(p.relative_to(P)) for p,_,_ in warnings],'loaded_uc_entities':len(loaded),'missing_active_file_refs':missing,'errors':errors}
+# Combat roots must come from a real technology/start roster; shared folders are not roots.
+retention=json.loads((O/'entity-retention.json').read_text('utf-8'))
+main_units={unit for units in json.loads((O/'main-unlocks.json').read_text('utf-8')).values() for unit in units}
+starter_units={'Type74','Type61','FF_S3','FF_4','Wappa','MTank','ZN_APC','MusaiClass','JiccoClass'}
+for faction,lists in factories.items():
+    for factory,units in lists.items():check(set(units).issubset(main_units),factory+' has production without a retained technology unlock')
+ace_units={name for name,records in entities.items() if any('ACE_Unit' in record['tags'].split(',') and '/Pilot/' not in record['path'] for record in records)}
+era_labels={}
+for name,path in loaded.items():
+    relative=path.relative_to(P).as_posix()
+    if not relative.startswith('Units/BattleUnits/') or any('/'+part+'/' in relative for part in ['Weapon','Pilot','Shield']):continue
+    reasons=retention.get(name,[])
+    check(bool(reasons),'Combat unit has no retention evidence '+name)
+    if any(reason['kind']=='root' for reason in reasons):
+        check(name in main_units|starter_units|ace_units,'Combat unit is an unauthorized folder root '+name)
+    origin=origins[relative]['source_package'].rsplit('_',1)[-1]
+    core=c.merged(path)['core']
+    tags={tag.strip() for tag in core.get('tags','').split(',')}
+    if origin in {'0079','0087','0093'} and 'Unit' in tags and tags.intersection({'MS','MA','Ship','Vehicle','Aircraft'}):
+        for field in ['displayText','displayText_zh']:
+            if core.get(field):check(core[field].endswith('['+origin+']'),name+' lacks era suffix in '+field)
+        era_labels[name]=origin
+for relative,origin in origins.items():
+    if relative.startswith('Units/BattleUnits/') and relative.endswith('_Base.gw'):
+        check(c.local(P/relative).get('core',{}).get('dont_load')=='true','Inheritance-only unit template not disabled '+relative)
+
+# Every UC start exposes the shared PMC selection and keeps its no-ally requirement.
+pmc_eras=[]
+for year in ['0079','0087','0093']:
+    definitions=c.effective(loaded['HQ_VS_GE_UC'+year])
+    selection=definitions.get('action_ChoseFaction_PMC',{})
+    check(selection.get('isVisible')!='false',year+' hides PMC')
+    check(selection.get('setResourcesWithLogic')=='FactionIndex=9900101',year+' wrong PMC faction index')
+    check('self.numberOfUnitsInAllyNotOwnTeam' in selection.get('isLocked',''),year+' PMC missing ally lock')
+    check('self.numberOfUnitsInAllyNotOwnTeam' in selection.get('requireConditional',''),year+' PMC allows selection without an ally')
+    conversion=definitions.get('hiddenAction_ConvertToFaction_PMC',{})
+    check(conversion.get('convertTo')=='HQ_PMC',year+' missing shared PMC HQ route')
+    check(conversion.get('attachments_addNewUnits')=='TechTree_Core_PMC',year+' wrong PMC technology tree')
+    check('spawnUnits' not in conversion,year+' PMC gives starting units')
+    pmc_eras.append(year)
+
+report={'technology_merges':merges,'main_technology_count':len(all_main),'technology_metrics':metrics,'progression_edges':edges,'era_gap':progression['gap'],'factories':factories,'warning_locations':[str(p.relative_to(P)) for p,_,_ in warnings],'loaded_uc_entities':len(loaded),'era_labels':era_labels,'combat_roots_from_folders':False,'pmc_available_eras':pmc_eras,'missing_active_file_refs':missing,'errors':errors}
 (O/'verification.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
 print(json.dumps({'main':len(all_main),'edges':len(edges),'factories':sum(len(v) for v in factories.values()),'errors':errors},ensure_ascii=False,indent=2))
 assert not errors

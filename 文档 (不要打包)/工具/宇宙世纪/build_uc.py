@@ -95,7 +95,10 @@ for name,rs in ENT.items():
    if r['path'].startswith('Units/BattleUnits/') and not r['path'].startswith(('Units/BattleUnits/Weapon/','Units/BattleUnits/Pilot/')):
     folder=r['path'].split('/')[2]
     BATTLE_ALLOWED.update(n for n,records in ENT.items() if any(q['era']==r['era'] and q['path'].startswith('Units/BattleUnits/'+folder+'/') for q in records))
-# Starter vehicles and all normal/officer pilots remain supported. ACEs are kept only when on the main chain.
+# Explicit ACE combat units are an intentional exception to the technology-only roster.
+ACE_UNIT_IDS={name for name,records in ENT.items() if any('ACE_Unit' in record['tags'].split(',') and '/Pilot/' not in record['path'] for record in records)}
+KEEP_IDS.update(ACE_UNIT_IDS)
+# Starter vehicles and all normal/officer pilots remain supported. ACE pilots follow the main chain.
 for n,rs in ENT.items():
  if any('/Pilot/' in r['path'] and '/ACE/' not in r['path'] for r in rs):KEEP_IDS.add(n)
 for n in ['Type74','Type61','FF_S3','FF_4','Wappa','MTank','ZN_APC','MusaiClass','JiccoClass']:BATTLE_ALLOWED.add(n)
@@ -103,6 +106,12 @@ for n,rs in ENT.items():
  combat=any(r['path'].startswith('Units/BattleUnits/') and not any('/'+x+'/' in r['path'] for x in ['Weapon','Pilot','Shield']) and any(t in r['tags'].split(',') for t in ['MS','Ship','Unit','MA','Vehicle']) for r in rs)
  if combat and n not in BATTLE_ALLOWED:BAD_IDS.add(n)
  if '/ACE/' in ' '.join(r['path'] for r in rs) and n not in KEEP_IDS and not n.startswith('Pilot_CustomMarker'):BAD_IDS.add(n)
+# Production with no surviving technology unlock must not create a combat root.
+for (era,path),text in DB.items():
+ if '/Factory/UnitList/' not in path or '/Units/' not in path.split('/Factory/UnitList/',1)[1]:continue
+ for section,values in local(text).items():
+  unit=values.get('@define UnitID')
+  if unit in ENT and unit not in KEEP_IDS and any(record['path'].startswith('Units/BattleUnits/') for record in ENT[unit]):BAD_IDS.add(unit)
 BAD_IDS.update(BRANCH)
 BAD_IDS.update(REMOVED_UNITS)
 if (OUT/'branch-exclusive-ids.json').is_file():BAD_IDS.update(json.loads((OUT/'branch-exclusive-ids.json').read_text('utf-8')))
@@ -145,7 +154,6 @@ for key,t in list(DB.items()):
  if re.search(r'HQ_VS_GE_UC(0079|0087|0093)\.ini$',path):
   for source_era in ['0079','0087','0093']:
    t=t.replace('TechTree_Core_'+source_era,'TechTree_Core_UC').replace('UnlockedListMarker_'+source_era,'UnlockedListMarker_UC')
-  t+='\n[action_ChoseFaction_PMC]\nisVisible:false\nrequireConditional:false\n'
  DB[key]=t
 # Keep prerequisites as the complete original main-chain order, irrespective of old side-branch gates.
 for f,r in INV.items():
@@ -186,12 +194,16 @@ exec(Path(__file__).with_name('uc_factory_ai.py').read_text('utf-8-sig'))
 for n in ENT:
  r=choose(n)
  if r:SELECTED[n]=(r['era'],r['path'])
-def add_entity(n):
+ENTITY_REASONS=collections.defaultdict(list)
+def add_entity(n,reason=None):
  if n in CUSTOM:return
  if n in BAD_IDS:return
  key=SELECTED.get(n)
  # Main supplies the engine/system units. Only the restricted era-selection UI overrides it.
  if key and key[0]=='Main' and not key[1].startswith('Units/Buildings/HQ/HostOption/'):return
+ if key:
+  evidence=reason or {'kind':'root'}
+  if evidence not in ENTITY_REASONS[n]:ENTITY_REASONS[n].append(evidence)
  if key and n not in KEEP_VISITED:
   KEEP_VISITED.add(n);ENTITY_QUEUE.append(n);add_file(key)
 def add_file(key):
@@ -205,7 +217,7 @@ for n,key in SELECTED.items():
  if n in BAD_IDS:continue
  if era=='Main' and path.startswith('Units/') and not path.startswith(('Units/BattleUnits/','Units/TechTree/','Units/Buildings/HQ/','Units/Buildings/Factory/')) and 'GameManager_CR' not in path:add_entity(n)
  if path.startswith('Units/Buildings/') and not ('/HQ/' in path or '/Factory/' in path or '/Beacon_ACE/' in path):add_entity(n)
-for n in KEEP_IDS|BATTLE_ALLOWED:add_entity(n)
+for n in KEEP_IDS|{'Type74','Type61','FF_S3','FF_4','Wappa','MTank','ZN_APC','MusaiClass','JiccoClass'}:add_entity(n)
 for n in ['HQ_Start','HQ_Start_Host','HQ_VS_GE_UC0079','HQ_VS_GE_UC0087','HQ_VS_GE_UC0093','HostOption_Core','GameManager_Start','GameManager_VS']+[('HQ_'+f) for f in FAC]+[('HQ_'+f+'_Space') for f in FAC]:add_entity(n)
 for n,key in SELECTED.items():
  if key[1].startswith('Units/Buildings/Factory/Faction/') and any('/'+f+'/' in key[1] for f in FAC):add_entity(n)
@@ -233,8 +245,10 @@ while FILE_QUEUE:
      elif (era,dep.lower()) in CANON:add_file(CANON[(era,dep.lower())])
      else:missing.append((era,path,ref))
    if k in ID_FIELDS:
+    # Get/Send registrations only manipulate tags; they are not a unit acquisition path.
+    if k=='@define UnitID' and 'TechTree/Tech/Faction/' in path and path.endswith(('_Get.ini','_Send.ini')):continue
     for token in re.findall(r'[A-Za-z][A-Za-z0-9_]*',val):
-     if token in ENT:add_entity(token)
+     if token in ENT:add_entity(token,{'kind':k,'era':era,'path':path,'section':s})
  for ref in re.findall(r'ROOT:([A-Za-z0-9_ ./\\\[\]()-]+?\.'+ASSET_EXT+r')',t):
   ref=ref.replace('\\','/').lstrip('/')
   if ref.startswith('UC/'):continue
@@ -243,6 +257,7 @@ while FILE_QUEUE:
    assetera,ref=ref[7:].split('/',1)
   p=PACKS[assetera]/ref
   if p.is_file():ASSETS[(assetera,ref)]=p
+(OUT/'entity-retention.json').write_text(json.dumps(ENTITY_REASONS,ensure_ascii=False,indent=2),encoding='utf-8')
 print('Closure complete:',len(INCLUDED),'configs;',len(KEEP_VISITED),'entities',flush=True)
 # Preserve the source DLC directory conventions; resolve only real name collisions.
 exec(Path(__file__).with_name('emit_package.py').read_text('utf-8-sig'))
