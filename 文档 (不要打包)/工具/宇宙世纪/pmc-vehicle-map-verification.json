@@ -1,0 +1,164 @@
+{
+  "date": "2026-11-18",
+  "base_version": "V169",
+  "vehicle_configurations": 132,
+  "weapon_buttons": 165,
+  "source_unit_ids": 81,
+  "main_uc_engine": {
+    "exit_code": 0,
+    "elapsed": 185.2,
+    "loaded": [
+      "2026-11-18 01:52:48.051: Loading units from mod: GW_BattleUniverse_Main",
+      "2026-11-18 01:52:58.923: Loading units from mod: mega_builders",
+      "2026-11-18 01:52:59.182: Loading units from mod: GW_BattleUniverse_DLC_UC"
+    ],
+    "unit_count": 1779,
+    "assertions": 321,
+    "technology_merges": [],
+    "production_cases": [],
+    "unit_forms": [],
+    "pmc_entries": [],
+    "pmc_borrow": [],
+    "ace_conversions": [],
+    "routes": [],
+    "entries": [],
+    "source_vehicles": [],
+    "pmc_vehicles": [
+      "UC_PMC_VEHICLE_PASS ownership, pilot swap, tank burst, plane weapons"
+    ],
+    "special_maps": [
+      "UC_SP_MAP_PASS mods/units/GW_BattleUniverse_Main/Maps/[p20]AtJaburosFall[10v10]_PVP_02_SP.tmx",
+      "UC_SP_MAP_PASS mods/units/GW_BattleUniverse_Main/Maps/[p20]FleetGraveyard[10v10]_PVP_01_SP.tmx",
+      "UC_SP_MAP_PASS mods/units/GW_BattleUniverse_Main/Maps/[p20]NewCity[10v10]_PVP_01_SP.tmx",
+      "UC_SP_MAP_PASS mods/units/GW_BattleUniverse_Main/Maps/[p20]RiseFromTheAshes[10v10]_PVP_01_SP.tmx",
+      "UC_SP_MAP_PASS mods/units/GW_BattleUniverse_Main/Maps/[p20]ShoalZoneSpace[10v10]_PVP_01_SP.tmx",
+      "UC_SP_MAP_PASS mods/units/GW_BattleUniverse_Main/Maps/[p20]SoutheastAsia[10v10]_PVP_01_SP.tmx",
+      "UC_SP_MAP_PASS mods/units/GW_BattleUniverse_Main/Maps/[p20]TremorMountain[10v10]_PVP_02_SP.tmx"
+    ],
+    "range_queries": [],
+    "ai_development": [],
+    "ai_advances": [],
+    "failures": [],
+    "initialized": true,
+    "loading_errors": [],
+    "success": true,
+    "technology_suite": false,
+    "pmc_suite": false,
+    "ace_suite": false,
+    "full_suite": false
+  },
+  "source_engine": {
+    "exit_code": 0,
+    "elapsed": 258.5,
+    "success": true,
+    "source_vehicles": [
+      "UC_SOURCE_VEHICLE_PASS all native source vehicles load and expose buttons"
+    ],
+    "assertions": 260,
+    "failures": [],
+    "loading_errors": [],
+    "loaded": [
+      "2026-11-18 01:52:45.069: Loading units from mod: GW_BattleUniverse_DLC_0079",
+      "2026-11-18 01:53:26.991: Loading units from mod: GW_BattleUniverse_DLC_0087",
+      "2026-11-18 01:53:57.818: Loading units from mod: GW_BattleUniverse_DLC_0093",
+      "2026-11-18 01:54:07.698: Loading units from mod: GW_BattleUniverse_DLC_SEED",
+      "2026-11-18 01:54:17.730: Loading units from mod: GW_BattleUniverse_Main",
+      "2026-11-18 01:54:28.615: Loading units from mod: mega_builders"
+    ]
+  },
+  "maps": [
+    "[p20]AtJaburosFall(10v10)_PVP_02_SP_Map.tmx",
+    "[p20]FleetGraveyard(10v10)_PVP_01_SP_Map.tmx",
+    "[p20]NewCity(10v10)_PVP_01_SP_Map.tmx",
+    "[p20]RiseFromTheAshes(10v10)_PVP_01_SP_Map.tmx",
+    "[p20]ShoalZoneSpace(10v10)_PVP_01_SP_Map.tmx",
+    "[p20]SoutheastAsia(10v10)_PVP_01_SP_Map.tmx",
+    "[p20]TremorMountain(10v10)_PVP_02_SP_Map.tmx"
+  ],
+  "map_layout": {
+    "players": 20,
+    "sides": 2,
+    "original_anchor_players": [
+      0,
+      1
+    ],
+    "teammates_per_anchor": 9,
+    "grid_spacing": 5,
+    "original_maps_preserved": true
+  },
+  "pmc": {
+    "uncapturable": true,
+    "ignored_by_ai_capture_search": true,
+    "excluded_from_occupation_victory_count": true,
+    "allied_pilot_swap_follows_outgoing_pilot": true,
+    "borrowed_pilot_exit_disabled": true
+  },
+  "additional_weapon_polling": false,
+  "mcp_lint": {
+    "files": 133,
+    "errors": 0,
+    "warnings": 371,
+    "by_code": {
+      "05": 1,
+      "06": 287,
+      "07": 83
+    },
+    "cache": {
+      "enabled": true,
+      "hits": 128,
+      "misses": 5
+    }
+  },
+  "isolated_engines_removed": true,
+  "output_loose_runtime_configs": 0,
+  "user_music_preserved": true,
+  "live_multiplayer_tested": false,
+  "full_match_or_visual_review_tested": false,
+  "release_version": "V170",
+  "map_label": {
+    "text": "PMC",
+    "color": "white",
+    "position": "thumbnail-top-center"
+  },
+  "v170_map_engine": {
+    "exit_code": 0,
+    "elapsed": 151.7,
+    "loaded": [
+      "2026-11-18 04:06:36.578: Loading units from mod: GW_BattleUniverse_Main",
+      "2026-11-18 04:06:45.776: Loading units from mod: mega_builders",
+      "2026-11-18 04:06:45.999: Loading units from mod: GW_BattleUniverse_DLC_UC"
+    ],
+    "unit_count": 1779,
+    "assertions": 302,
+    "technology_merges": [],
+    "production_cases": [],
+    "unit_forms": [],
+    "pmc_entries": [],
+    "pmc_borrow": [],
+    "ace_conversions": [],
+    "routes": [],
+    "entries": [],
+    "source_vehicles": [],
+    "pmc_vehicles": [],
+    "special_maps": [
+      "UC_SP_MAP_PASS mods/units/GW_BattleUniverse_Main/Maps/[p20]AtJaburosFall(10v10)_PVP_02_SP_Map.tmx",
+      "UC_SP_MAP_PASS mods/units/GW_BattleUniverse_Main/Maps/[p20]FleetGraveyard(10v10)_PVP_01_SP_Map.tmx",
+      "UC_SP_MAP_PASS mods/units/GW_BattleUniverse_Main/Maps/[p20]NewCity(10v10)_PVP_01_SP_Map.tmx",
+      "UC_SP_MAP_PASS mods/units/GW_BattleUniverse_Main/Maps/[p20]RiseFromTheAshes(10v10)_PVP_01_SP_Map.tmx",
+      "UC_SP_MAP_PASS mods/units/GW_BattleUniverse_Main/Maps/[p20]ShoalZoneSpace(10v10)_PVP_01_SP_Map.tmx",
+      "UC_SP_MAP_PASS mods/units/GW_BattleUniverse_Main/Maps/[p20]SoutheastAsia(10v10)_PVP_01_SP_Map.tmx",
+      "UC_SP_MAP_PASS mods/units/GW_BattleUniverse_Main/Maps/[p20]TremorMountain(10v10)_PVP_02_SP_Map.tmx"
+    ],
+    "range_queries": [],
+    "ai_development": [],
+    "ai_advances": [],
+    "failures": [],
+    "initialized": true,
+    "loading_errors": [],
+    "success": true,
+    "technology_suite": false,
+    "pmc_suite": false,
+    "ace_suite": false,
+    "full_suite": false
+  }
+}

@@ -1,0 +1,1897 @@
+{
+  "vehicles": [
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "AntiZakuTank",
+      "file": "Units/BattleUnits/AntiZakuTank/AntiZakuTank.ini",
+      "adapter": "Units/BattleUnits/AntiZakuTank/PlayerControl/AntiZakuTank.gw",
+      "buttons": [
+        "ManualVehicle_EF_AntiZakuTank_MG"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "Burstliner",
+      "file": "Units/BattleUnits/Burstliner/Burstliner.ini",
+      "adapter": "Units/BattleUnits/Burstliner/PlayerControl/Burstliner.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "Cui",
+      "file": "Units/BattleUnits/Cui/Cui.ini",
+      "adapter": "Units/BattleUnits/Cui/PlayerControl/Cui.gw",
+      "buttons": [
+        "ManualVehicle_ZN_Cui_AA"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "Dodai2",
+      "file": "Units/BattleUnits/Dodai/Dodai2.ini",
+      "adapter": "Units/BattleUnits/Dodai/PlayerControl/Dodai2.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "DodaiYS",
+      "file": "Units/BattleUnits/Dodai/DodaiYS.ini",
+      "adapter": "Units/BattleUnits/Dodai/PlayerControl/DodaiYS.gw",
+      "buttons": [
+        "Manual_Common_DoubleMS_DodaiYS"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "Dopp",
+      "file": "Units/BattleUnits/Dopp/Dopp.ini",
+      "adapter": "Units/BattleUnits/Dopp/PlayerControl/Dopp.gw",
+      "buttons": [
+        "Manual_Common_DoubleVulcan_Dopp",
+        "Manual_Common_DoubleMS_Dopp"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "EF_Heli",
+      "file": "Units/BattleUnits/EF_Heli/EF_Heli.ini",
+      "adapter": "Units/BattleUnits/EF_Heli/PlayerControl/EF_Heli.gw",
+      "buttons": [
+        "ManualVehicle_Common_DoubleMS_EF_Heli",
+        "ManualVehicle_Common_Vulcan_EF_Heli"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "EF_MinigunAPC",
+      "file": "Units/BattleUnits/EF_MinigunAPC/EF_MinigunAPC.ini",
+      "adapter": "Units/BattleUnits/EF_MinigunAPC/PlayerControl/EF_MinigunAPC.gw",
+      "buttons": [
+        "ManualVehicle_EF_MinigunAPC_MG"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "FanFan",
+      "file": "Units/BattleUnits/FanFan/FanFan.ini",
+      "adapter": "Units/BattleUnits/FanFan/PlayerControl/FanFan.gw",
+      "buttons": [
+        "ManualVehicle_Common_DoubleMS_FanFan"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "FatUncle",
+      "file": "Units/BattleUnits/FatUncle/FatUncle.ini",
+      "adapter": "Units/BattleUnits/FatUncle/PlayerControl/FatUncle.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "FatUncleKai",
+      "file": "Units/BattleUnits/FatUncleKai/FatUncleKai.ini",
+      "adapter": "Units/BattleUnits/FatUncleKai/PlayerControl/FatUncleKai.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "FFB_7Bst",
+      "file": "Units/BattleUnits/FFB_7Bst/FFB_7Bst.ini",
+      "adapter": "Units/BattleUnits/FFB_7Bst/PlayerControl/FFB_7Bst.gw",
+      "buttons": [
+        "Manual_Common_DoubleVulcan_FFB_7Bst",
+        "Manual_Common_DoubleMS_FFB_7Bst",
+        "Manual_Common_Bomb_FFB_7Bst",
+        "Manual_EF_FFB_7Bst_BR"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "FF_4",
+      "file": "Units/BattleUnits/FF_4/FF_4.ini",
+      "adapter": "Units/BattleUnits/FF_4/PlayerControl/FF_4.gw",
+      "buttons": [
+        "Manual_Common_DoubleVulcan_FF_4"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "FF_6",
+      "file": "Units/BattleUnits/FF_6/FF_6.ini",
+      "adapter": "Units/BattleUnits/FF_6/PlayerControl/FF_6.gw",
+      "buttons": [
+        "Manual_Common_DoubleVulcan_FF_6",
+        "Manual_Common_DoubleMS_FF_6"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "FF_S3",
+      "file": "Units/BattleUnits/FF_S3/FF_S3.ini",
+      "adapter": "Units/BattleUnits/FF_S3/PlayerControl/FF_S3.gw",
+      "buttons": [
+        "Manual_Common_DoubleVulcan_FF_S3",
+        "Manual_Common_DoubleMS_FF_S3"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "FF_X7",
+      "file": "Units/BattleUnits/FF_X7/FF_X7.ini",
+      "adapter": "Units/BattleUnits/FF_X7/PlayerControl/FF_X7.gw",
+      "buttons": [
+        "Manual_Common_DoubleVulcan_FF_X7",
+        "Manual_Common_DoubleMS_FF_X7"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "FF_X7Bst",
+      "file": "Units/BattleUnits/FF_X7Bst/FF_X7Bst.ini",
+      "adapter": "Units/BattleUnits/FF_X7Bst/PlayerControl/FF_X7Bst.gw",
+      "buttons": [
+        "Manual_Common_DoubleVulcan_FF_X7Bst",
+        "Manual_Common_DoubleMS_FF_X7Bst",
+        "Manual_EF_FF_X7Bst_BR"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "FF_X7Bst_II",
+      "file": "Units/BattleUnits/FF_X7Bst_II/FF_X7Bst_II.ini",
+      "adapter": "Units/BattleUnits/FF_X7Bst_II/PlayerControl/FF_X7Bst_II.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "FF_X_II",
+      "file": "Units/BattleUnits/FF_X_II/FF_X_II.ini",
+      "adapter": "Units/BattleUnits/FF_X_II/PlayerControl/FF_X_II.gw",
+      "buttons": [
+        "Manual_EF_FF_X_II_BR"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "FF_X_II_FB",
+      "file": "Units/BattleUnits/FF_X_II/FF_X_II_FB.ini",
+      "adapter": "Units/BattleUnits/FF_X_II/PlayerControl/FF_X_II_FB.gw",
+      "buttons": [
+        "Manual_EF_FF_X_II_BR"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "FF_X_II_GP00",
+      "file": "Units/BattleUnits/FF_X_II_GP00/FF_X_II_GP00.ini",
+      "adapter": "Units/BattleUnits/FF_X_II_GP00/PlayerControl/FF_X_II_GP00.gw",
+      "buttons": [
+        "Manual_EF_FF_X_II_BR"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "Gattle",
+      "file": "Units/BattleUnits/Gattle/Gattle.ini",
+      "adapter": "Units/BattleUnits/Gattle/PlayerControl/Gattle.gw",
+      "buttons": [
+        "Manual_Common_DoubleVulcan_Gattle",
+        "Manual_Common_DoubleMS_Gattle"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "Gunperry",
+      "file": "Units/BattleUnits/Gunperry/Gunperry.ini",
+      "adapter": "Units/BattleUnits/Gunperry/PlayerControl/Gunperry.gw",
+      "buttons": [
+        "ManualVehicle_Common_DoubleMS_Gunperry"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "G_Bull_Easy",
+      "file": "Units/BattleUnits/G_Fighter/G_Bull_Easy.ini",
+      "adapter": "Units/BattleUnits/G_Fighter/PlayerControl/G_Bull_Easy.gw",
+      "buttons": [
+        "ManualVehicle_EF_G_Bull_Easy_BeamGun"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "G_Fighter",
+      "file": "Units/BattleUnits/G_Fighter/G_Fighter.ini",
+      "adapter": "Units/BattleUnits/G_Fighter/PlayerControl/G_Fighter.gw",
+      "buttons": [
+        "Manual_Common_DoubleMS_G_Fighter",
+        "Manual_EF_G_Fighter_BR"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "JiccoClass",
+      "file": "Units/BattleUnits/JiccoClass/JiccoClass.ini",
+      "adapter": "Units/BattleUnits/JiccoClass/PlayerControl/JiccoClass.gw",
+      "buttons": [
+        "Manual_Common_DoubleMS_JiccoClass"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "Medea",
+      "file": "Units/BattleUnits/Medea/Medea.ini",
+      "adapter": "Units/BattleUnits/Medea/PlayerControl/Medea.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "MedeaKai",
+      "file": "Units/BattleUnits/MedeaKai/MedeaKai.ini",
+      "adapter": "Units/BattleUnits/MedeaKai/PlayerControl/MedeaKai.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "MissileCar",
+      "file": "Units/BattleUnits/MissileCar/MissileCar.ini",
+      "adapter": "Units/BattleUnits/MissileCar/PlayerControl/MissileCar.gw",
+      "buttons": [
+        "ManualVehicle_Common_DoubleMS_MissileCar"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "MTank",
+      "file": "Units/BattleUnits/MTank/MTank.ini",
+      "adapter": "Units/BattleUnits/MTank/PlayerControl/MTank.gw",
+      "buttons": [
+        "ManualVehicle_Common_DoubleVulcan_MTank",
+        "ManualVehicle_ZN_MTank_Cannon"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "MTank_Eins",
+      "file": "Units/BattleUnits/MTank_Eins/MTank_Eins.ini",
+      "adapter": "Units/BattleUnits/MTank_Eins/PlayerControl/MTank_Eins.gw",
+      "buttons": [
+        "ManualVehicle_ZN_MTank_Eins_Cannon"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "PublicClass",
+      "file": "Units/BattleUnits/PublicClass/PublicClass.ini",
+      "adapter": "Units/BattleUnits/PublicClass/PlayerControl/PublicClass.gw",
+      "buttons": [
+        "Manual_Common_DoubleMS_PublicClass"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "SamsonGroundTransportTruck",
+      "file": "Units/BattleUnits/SamsonGroundTransportTruck/SamsonGroundTransportTruck.ini",
+      "adapter": "Units/BattleUnits/SamsonGroundTransportTruck/PlayerControl/SamsonGroundTransportTruck.gw",
+      "buttons": [
+        "ManualVehicle_ZN_SamsonGroundTransportTruck_AA_L",
+        "ManualVehicle_ZN_SamsonGroundTransportTruck_AA_R"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "SFU_X79",
+      "file": "Units/BattleUnits/SFU_X79/SFU_X79.ini",
+      "adapter": "Units/BattleUnits/SFU_X79/PlayerControl/SFU_X79.gw",
+      "buttons": [
+        "Manual_Common_DoubleMS_SFU_X79"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "Skiure",
+      "file": "Units/BattleUnits/Skiure/Skiure.ini",
+      "adapter": "Units/BattleUnits/Skiure/PlayerControl/Skiure.gw",
+      "buttons": [
+        "Manual_ZN_Skiure_BeamCannon"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "Type61",
+      "file": "Units/BattleUnits/Type61/Type61.ini",
+      "adapter": "Units/BattleUnits/Type61/PlayerControl/Type61.gw",
+      "buttons": [
+        "ManualVehicle_EF_Type61_Cannon"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "Type61A5",
+      "file": "Units/BattleUnits/Type61/Type61A5.ini",
+      "adapter": "Units/BattleUnits/Type61/PlayerControl/Type61A5.gw",
+      "buttons": [
+        "ManualVehicle_EF_Type61A5_MG",
+        "ManualVehicle_EF_Type61A5_Cannon"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "Type61A5_TroopCarrier",
+      "file": "Units/BattleUnits/Type61/Type61A5_TroopCarrier.ini",
+      "adapter": "Units/BattleUnits/Type61/PlayerControl/Type61A5_TroopCarrier.gw",
+      "buttons": [
+        "ManualVehicle_EF_Type61A5_MG",
+        "ManualVehicle_EF_Type61A5_Cannon"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "Type61_SPG",
+      "file": "Units/BattleUnits/Type61_SPG/Type61_SPG.ini",
+      "adapter": "Units/BattleUnits/Type61_SPG/PlayerControl/Type61_SPG.gw",
+      "buttons": [
+        "ManualVehicle_EF_Type61_SPG_Cannon"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "Type74",
+      "file": "Units/BattleUnits/Type74/Type74.ini",
+      "adapter": "Units/BattleUnits/Type74/PlayerControl/Type74.gw",
+      "buttons": [
+        "ManualVehicle_EF_Type74_MG"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "Wappa",
+      "file": "Units/BattleUnits/Wappa/Wappa.ini",
+      "adapter": "Units/BattleUnits/Wappa/PlayerControl/Wappa.gw",
+      "buttons": [
+        "ManualVehicle_ZN_Wappa_MG",
+        "ManualVehicle_ZN_Wappa_C4"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "ZN_APC",
+      "file": "Units/BattleUnits/ZN_APC/ZN_APC.ini",
+      "adapter": "Units/BattleUnits/ZN_APC/PlayerControl/ZN_APC.gw",
+      "buttons": [
+        "ManualVehicle_ZN_APC_MG"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "ZN_APC_WithMS",
+      "file": "Units/BattleUnits/ZN_APC/ZN_APC_WithMS.ini",
+      "adapter": "Units/BattleUnits/ZN_APC/PlayerControl/ZN_APC_WithMS.gw",
+      "buttons": [
+        "ManualVehicle_ZN_APC_MG",
+        "ManualVehicle_Common_DoubleMS_ZN_APC"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "ZN_Heli",
+      "file": "Units/BattleUnits/ZN_Heli/ZN_Heli.ini",
+      "adapter": "Units/BattleUnits/ZN_Heli/PlayerControl/ZN_Heli.gw",
+      "buttons": [
+        "ManualVehicle_Common_DoubleMS_ZN_Heli",
+        "ManualVehicle_Common_Vulcan_ZN_Heli"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0087",
+      "unit": "BaseJabber",
+      "file": "Units/BattleUnits/BaseJabber/BaseJabber.ini",
+      "adapter": "Units/BattleUnits/BaseJabber/PlayerControl/BaseJabber.gw",
+      "buttons": [
+        "Manual_TITANS_BaseJabber_BeamCannon"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0087",
+      "unit": "DodaiKai",
+      "file": "Units/BattleUnits/DodaiKai/DodaiKai.ini",
+      "adapter": "Units/BattleUnits/DodaiKai/PlayerControl/DodaiKai.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0087",
+      "unit": "Dopp",
+      "file": "Units/BattleUnits/Dopp/Dopp.ini",
+      "adapter": "Units/BattleUnits/Dopp/PlayerControl/Dopp.gw",
+      "buttons": [
+        "Manual_Common_DoubleVulcan_Dopp",
+        "Manual_Common_DoubleMS_Dopp"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0087",
+      "unit": "FatUncleKai",
+      "file": "Units/BattleUnits/FatUncleKai/FatUncleKai.ini",
+      "adapter": "Units/BattleUnits/FatUncleKai/PlayerControl/FatUncleKai.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0087",
+      "unit": "FF_S3",
+      "file": "Units/BattleUnits/FF_S3/FF_S3.ini",
+      "adapter": "Units/BattleUnits/FF_S3/PlayerControl/FF_S3.gw",
+      "buttons": [
+        "Manual_Common_DoubleVulcan_FF_S3",
+        "Manual_Common_DoubleMS_FF_S3"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0087",
+      "unit": "Gator",
+      "file": "Units/BattleUnits/Gator/Gator.ini",
+      "adapter": "Units/BattleUnits/Gator/PlayerControl/Gator.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0087",
+      "unit": "MedeaKai",
+      "file": "Units/BattleUnits/MedeaKai/MedeaKai.ini",
+      "adapter": "Units/BattleUnits/MedeaKai/PlayerControl/MedeaKai.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_SEED",
+      "unit": "ACV",
+      "file": "Units/BattleUnits/ACV/ACV.ini",
+      "adapter": "Units/BattleUnits/ACV/PlayerControl/ACV.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_SEED",
+      "unit": "Agile",
+      "file": "Units/BattleUnits/Agile/Agile.ini",
+      "adapter": "Units/BattleUnits/Agile/PlayerControl/Agile.gw",
+      "buttons": [
+        "ManualVehicle_Common_DoubleMS_ZN_Heli",
+        "ManualVehicle_Common_Vulcan_ZN_Heli"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_SEED",
+      "unit": "ConnectedArmoredVehicle",
+      "file": "Units/BattleUnits/ConnectedArmoredVehicle/ConnectedArmoredVehicle.ini",
+      "adapter": "Units/BattleUnits/ConnectedArmoredVehicle/PlayerControl/ConnectedArmoredVehicle.gw",
+      "buttons": [
+        "ManualVehicle_ZN_APC_MG"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_SEED",
+      "unit": "FX_550",
+      "file": "Units/BattleUnits/FX_550/FX_550.ini",
+      "adapter": "Units/BattleUnits/FX_550/PlayerControl/FX_550.gw",
+      "buttons": [
+        "Manual_OMNI_FX_550_BR",
+        "Manual_Common_DoubleGun_FX_550",
+        "Manual_Common_DoubleMS_FX_550",
+        "Manual_OMNI_GAT_X105_BR",
+        "Manual_OMNI_GAT_X105_Launcher",
+        "Manual_OMNI_GAT_X105_S_RocketAnchor"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_SEED",
+      "unit": "F_7D",
+      "file": "Units/BattleUnits/F_7D/F_7D.ini",
+      "adapter": "Units/BattleUnits/F_7D/PlayerControl/F_7D.gw",
+      "buttons": [
+        "Manual_Common_DoubleVulcan_FF_6",
+        "Manual_Common_DoubleMS_FF_6"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_SEED",
+      "unit": "Guul",
+      "file": "Units/BattleUnits/Guul/Guul.ini",
+      "adapter": "Units/BattleUnits/Guul/PlayerControl/Guul.gw",
+      "buttons": [
+        "Manual_Common_DoubleMS_DodaiYS"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_SEED",
+      "unit": "Infestus",
+      "file": "Units/BattleUnits/Infestus/Infestus.ini",
+      "adapter": "Units/BattleUnits/Infestus/PlayerControl/Infestus.gw",
+      "buttons": [
+        "Manual_Common_DoubleVulcan_Dopp",
+        "Manual_Common_DoubleMS_Dopp"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_SEED",
+      "unit": "LinearArtillery",
+      "file": "Units/BattleUnits/LinearArtillery/LinearArtillery.ini",
+      "adapter": "Units/BattleUnits/LinearArtillery/PlayerControl/LinearArtillery.gw",
+      "buttons": [
+        "ManualVehicle_EF_Type61_SPG_Cannon"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_SEED",
+      "unit": "LinearGunTank",
+      "file": "Units/BattleUnits/LinearGunTank/LinearGunTank.ini",
+      "adapter": "Units/BattleUnits/LinearGunTank/PlayerControl/LinearGunTank.gw",
+      "buttons": [
+        "ManualVehicle_OMNI_LinearGunTank_Cannon"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_SEED",
+      "unit": "MissileCar_CE",
+      "file": "Units/BattleUnits/MissileCar_CE/MissileCar_CE.ini",
+      "adapter": "Units/BattleUnits/MissileCar_CE/PlayerControl/MissileCar_CE.gw",
+      "buttons": [
+        "ManualVehicle_Common_DoubleMS_MissileCar"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_SEED",
+      "unit": "OMNI_MinigunAPC",
+      "file": "Units/BattleUnits/OMNI_MinigunAPC/OMNI_MinigunAPC.ini",
+      "adapter": "Units/BattleUnits/OMNI_MinigunAPC/PlayerControl/OMNI_MinigunAPC.gw",
+      "buttons": [
+        "ManualVehicle_EF_MinigunAPC_MG"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_SEED",
+      "unit": "PowerCar",
+      "file": "Units/BattleUnits/PowerCar/PowerCar.ini",
+      "adapter": "Units/BattleUnits/PowerCar/PlayerControl/PowerCar.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_SEED",
+      "unit": "SupplyTruck",
+      "file": "Units/BattleUnits/SupplyTruck/SupplyTruck.ini",
+      "adapter": "Units/BattleUnits/SupplyTruck/PlayerControl/SupplyTruck.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_SEED",
+      "unit": "TS_MA2",
+      "file": "Units/BattleUnits/TS_MA2/TS_MA2.ini",
+      "adapter": "Units/BattleUnits/TS_MA2/PlayerControl/TS_MA2.gw",
+      "buttons": [
+        "Manual_OMNI_TS_MA2_LinearGun",
+        "Manual_Common_DoubleVulcan_FF_6",
+        "Manual_Common_DoubleMS_TS_MA2"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_SEED",
+      "unit": "TS_MA2_H",
+      "file": "Units/BattleUnits/TS_MA2/TS_MA2_H.ini",
+      "adapter": "Units/BattleUnits/TS_MA2/PlayerControl/TS_MA2_H.gw",
+      "buttons": [
+        "Manual_OMNI_TS_MA2_H_BeamCannon",
+        "Manual_Common_DoubleVulcan_FF_6",
+        "Manual_Common_DoubleMS_TS_MA2"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_SEED",
+      "unit": "VoLPHAU",
+      "file": "Units/BattleUnits/VoLPHAU/VoLPHAU.ini",
+      "adapter": "Units/BattleUnits/VoLPHAU/PlayerControl/VoLPHAU.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_SEED",
+      "unit": "VTOLFighter",
+      "file": "Units/BattleUnits/VTOLFighter/VTOLFighter.ini",
+      "adapter": "Units/BattleUnits/VTOLFighter/PlayerControl/VTOLFighter.gw",
+      "buttons": [
+        "ManualVehicle_Common_DoubleMS_EF_Heli",
+        "ManualVehicle_Common_Vulcan_EF_Heli"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_SEED",
+      "unit": "VTOLTransport",
+      "file": "Units/BattleUnits/VTOLTransport/VTOLTransport.ini",
+      "adapter": "Units/BattleUnits/VTOLTransport/PlayerControl/VTOLTransport.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "AntiZakuTank",
+      "file": "Units/BattleUnits/AntiZakuTank/AntiZakuTank.ini",
+      "adapter": "Units/BattleUnits/AntiZakuTank/PlayerControl/AntiZakuTank.gw",
+      "buttons": [
+        "ManualVehicle_EF_AntiZakuTank_MG"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "BaseJabber",
+      "file": "Units/BattleUnits/BaseJabber/BaseJabber.ini",
+      "adapter": "Units/BattleUnits/BaseJabber/PlayerControl/BaseJabber.gw",
+      "buttons": [
+        "Manual_TITANS_BaseJabber_BeamCannon"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "Cui",
+      "file": "Units/BattleUnits/Cui/Cui.ini",
+      "adapter": "Units/BattleUnits/Cui/PlayerControl/Cui.gw",
+      "buttons": [
+        "ManualVehicle_ZN_Cui_AA"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "Dash",
+      "file": "Units/BattleUnits/Dash/Dash.ini",
+      "adapter": "Units/BattleUnits/Dash/PlayerControl/Dash.gw",
+      "buttons": [
+        "Manual_Common_DoubleVulcan_Dash"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "DEPP_ROG",
+      "file": "Units/BattleUnits/DEPP_ROG/DEPP_ROG.ini",
+      "adapter": "Units/BattleUnits/DEPP_ROG/PlayerControl/DEPP_ROG.gw",
+      "buttons": [
+        "Manual_Common_Bomb_DEPP_ROG",
+        "ManualVehicle_Common_DoubleMS_DEPP_ROG"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "DodaiYS",
+      "file": "Units/BattleUnits/Dodai/DodaiYS.ini",
+      "adapter": "Units/BattleUnits/Dodai/PlayerControl/DodaiYS.gw",
+      "buttons": [
+        "Manual_Common_DoubleMS_DodaiYS"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "DodaiKai",
+      "file": "Units/BattleUnits/DodaiKai/DodaiKai.ini",
+      "adapter": "Units/BattleUnits/DodaiKai/PlayerControl/DodaiKai.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "DonEscargot",
+      "file": "Units/BattleUnits/DonEscargot/DonEscargot.ini",
+      "adapter": "Units/BattleUnits/DonEscargot/PlayerControl/DonEscargot.gw",
+      "buttons": [
+        "Manual_Common_DoubleVulcan_DonEscargot",
+        "Manual_Common_Bomb_DonEscargot"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "Dopp",
+      "file": "Units/BattleUnits/Dopp/Dopp.ini",
+      "adapter": "Units/BattleUnits/Dopp/PlayerControl/Dopp.gw",
+      "buttons": [
+        "Manual_Common_DoubleVulcan_Dopp",
+        "Manual_Common_DoubleMS_Dopp"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "EF_Heli",
+      "file": "Units/BattleUnits/EF_Heli/EF_Heli.ini",
+      "adapter": "Units/BattleUnits/EF_Heli/PlayerControl/EF_Heli.gw",
+      "buttons": [
+        "ManualVehicle_Common_DoubleMS_EF_Heli",
+        "ManualVehicle_Common_Vulcan_EF_Heli"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "EF_MinigunAPC",
+      "file": "Units/BattleUnits/EF_MinigunAPC/EF_MinigunAPC.ini",
+      "adapter": "Units/BattleUnits/EF_MinigunAPC/PlayerControl/EF_MinigunAPC.gw",
+      "buttons": [
+        "ManualVehicle_EF_MinigunAPC_MG"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "FanFan",
+      "file": "Units/BattleUnits/FanFan/FanFan.ini",
+      "adapter": "Units/BattleUnits/FanFan/PlayerControl/FanFan.gw",
+      "buttons": [
+        "ManualVehicle_Common_DoubleMS_FanFan"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "FatUncle",
+      "file": "Units/BattleUnits/FatUncle/FatUncle.ini",
+      "adapter": "Units/BattleUnits/FatUncle/PlayerControl/FatUncle.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "FatUncleKai",
+      "file": "Units/BattleUnits/FatUncleKai/FatUncleKai.ini",
+      "adapter": "Units/BattleUnits/FatUncleKai/PlayerControl/FatUncleKai.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "FFB_7Bst",
+      "file": "Units/BattleUnits/FFB_7Bst/FFB_7Bst.ini",
+      "adapter": "Units/BattleUnits/FFB_7Bst/PlayerControl/FFB_7Bst.gw",
+      "buttons": [
+        "Manual_Common_DoubleVulcan_FFB_7Bst",
+        "Manual_Common_DoubleMS_FFB_7Bst",
+        "Manual_Common_Bomb_FFB_7Bst",
+        "Manual_EF_FFB_7Bst_BR"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "FF_4",
+      "file": "Units/BattleUnits/FF_4/FF_4.ini",
+      "adapter": "Units/BattleUnits/FF_4/PlayerControl/FF_4.gw",
+      "buttons": [
+        "Manual_Common_DoubleVulcan_FF_4"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "FF_6",
+      "file": "Units/BattleUnits/FF_6/FF_6.ini",
+      "adapter": "Units/BattleUnits/FF_6/PlayerControl/FF_6.gw",
+      "buttons": [
+        "Manual_Common_DoubleVulcan_FF_6",
+        "Manual_Common_DoubleMS_FF_6"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "FF_B2",
+      "file": "Units/BattleUnits/FF_B2/FF_B2.ini",
+      "adapter": "Units/BattleUnits/FF_B2/PlayerControl/FF_B2.gw",
+      "buttons": [
+        "Manual_Common_DoubleVulcan_FF_B2",
+        "Manual_Common_DoubleMS_FF_B2",
+        "Manual_Common_Bomb_FF_B2"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "FF_S3",
+      "file": "Units/BattleUnits/FF_S3/FF_S3.ini",
+      "adapter": "Units/BattleUnits/FF_S3/PlayerControl/FF_S3.gw",
+      "buttons": [
+        "Manual_Common_DoubleVulcan_FF_S3",
+        "Manual_Common_DoubleMS_FF_S3"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "FF_X7",
+      "file": "Units/BattleUnits/FF_X7/FF_X7.ini",
+      "adapter": "Units/BattleUnits/FF_X7/PlayerControl/FF_X7.gw",
+      "buttons": [
+        "Manual_Common_DoubleVulcan_FF_X7",
+        "Manual_Common_DoubleMS_FF_X7"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "FF_X7Bst",
+      "file": "Units/BattleUnits/FF_X7Bst/FF_X7Bst.ini",
+      "adapter": "Units/BattleUnits/FF_X7Bst/PlayerControl/FF_X7Bst.gw",
+      "buttons": [
+        "Manual_Common_DoubleVulcan_FF_X7Bst",
+        "Manual_Common_DoubleMS_FF_X7Bst",
+        "Manual_EF_FF_X7Bst_BR"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "FF_X_II",
+      "file": "Units/BattleUnits/FF_X_II/FF_X_II.ini",
+      "adapter": "Units/BattleUnits/FF_X_II/PlayerControl/FF_X_II.gw",
+      "buttons": [
+        "Manual_EF_FF_X_II_BR"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "FF_X_II_FB",
+      "file": "Units/BattleUnits/FF_X_II/FF_X_II_FB.ini",
+      "adapter": "Units/BattleUnits/FF_X_II/PlayerControl/FF_X_II_FB.gw",
+      "buttons": [
+        "Manual_EF_FF_X_II_BR"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "Gator",
+      "file": "Units/BattleUnits/Gator/Gator.ini",
+      "adapter": "Units/BattleUnits/Gator/PlayerControl/Gator.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "Gattle",
+      "file": "Units/BattleUnits/Gattle/Gattle.ini",
+      "adapter": "Units/BattleUnits/Gattle/PlayerControl/Gattle.gw",
+      "buttons": [
+        "Manual_Common_DoubleVulcan_Gattle",
+        "Manual_Common_DoubleMS_Gattle"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "Gunperry",
+      "file": "Units/BattleUnits/Gunperry/Gunperry.ini",
+      "adapter": "Units/BattleUnits/Gunperry/PlayerControl/Gunperry.gw",
+      "buttons": [
+        "ManualVehicle_Common_DoubleMS_Gunperry"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "JiccoClass",
+      "file": "Units/BattleUnits/JiccoClass/JiccoClass.ini",
+      "adapter": "Units/BattleUnits/JiccoClass/PlayerControl/JiccoClass.gw",
+      "buttons": [
+        "Manual_Common_DoubleMS_JiccoClass"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "Luggun",
+      "file": "Units/BattleUnits/Luggun/Luggun.ini",
+      "adapter": "Units/BattleUnits/Luggun/PlayerControl/Luggun.gw",
+      "buttons": [
+        "Manual_Common_Bomb_Luggun",
+        "ManualVehicle_ZN_Luggun_AA_L",
+        "ManualVehicle_ZN_Luggun_AA_R"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "Medea",
+      "file": "Units/BattleUnits/Medea/Medea.ini",
+      "adapter": "Units/BattleUnits/Medea/PlayerControl/Medea.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "MedeaKai",
+      "file": "Units/BattleUnits/MedeaKai/MedeaKai.ini",
+      "adapter": "Units/BattleUnits/MedeaKai/PlayerControl/MedeaKai.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "MissileCar",
+      "file": "Units/BattleUnits/MissileCar/MissileCar.ini",
+      "adapter": "Units/BattleUnits/MissileCar/PlayerControl/MissileCar.gw",
+      "buttons": [
+        "ManualVehicle_Common_DoubleMS_MissileCar"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "MTank",
+      "file": "Units/BattleUnits/MTank/MTank.ini",
+      "adapter": "Units/BattleUnits/MTank/PlayerControl/MTank.gw",
+      "buttons": [
+        "ManualVehicle_Common_DoubleVulcan_MTank",
+        "ManualVehicle_ZN_MTank_Cannon"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "MTank_Eins",
+      "file": "Units/BattleUnits/MTank_Eins/MTank_Eins.ini",
+      "adapter": "Units/BattleUnits/MTank_Eins/PlayerControl/MTank_Eins.gw",
+      "buttons": [
+        "ManualVehicle_ZN_MTank_Eins_Cannon"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "PublicClass",
+      "file": "Units/BattleUnits/PublicClass/PublicClass.ini",
+      "adapter": "Units/BattleUnits/PublicClass/PlayerControl/PublicClass.gw",
+      "buttons": [
+        "Manual_Common_DoubleMS_PublicClass"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "SamsonGroundTransportTruck",
+      "file": "Units/BattleUnits/SamsonGroundTransportTruck/SamsonGroundTransportTruck.ini",
+      "adapter": "Units/BattleUnits/SamsonGroundTransportTruck/PlayerControl/SamsonGroundTransportTruck.gw",
+      "buttons": [
+        "ManualVehicle_ZN_SamsonGroundTransportTruck_AA_L",
+        "ManualVehicle_ZN_SamsonGroundTransportTruck_AA_R"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "Type61",
+      "file": "Units/BattleUnits/Type61/Type61.ini",
+      "adapter": "Units/BattleUnits/Type61/PlayerControl/Type61.gw",
+      "buttons": [
+        "ManualVehicle_EF_Type61_Cannon"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "Type61A5",
+      "file": "Units/BattleUnits/Type61/Type61A5.ini",
+      "adapter": "Units/BattleUnits/Type61/PlayerControl/Type61A5.gw",
+      "buttons": [
+        "ManualVehicle_EF_Type61A5_MG",
+        "ManualVehicle_EF_Type61A5_Cannon"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "Type61_SPG",
+      "file": "Units/BattleUnits/Type61_SPG/Type61_SPG.ini",
+      "adapter": "Units/BattleUnits/Type61_SPG/PlayerControl/Type61_SPG.gw",
+      "buttons": [
+        "ManualVehicle_EF_Type61_SPG_Cannon"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "Type74",
+      "file": "Units/BattleUnits/Type74/Type74.ini",
+      "adapter": "Units/BattleUnits/Type74/PlayerControl/Type74.gw",
+      "buttons": [
+        "ManualVehicle_EF_Type74_MG"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "Type74Kai",
+      "file": "Units/BattleUnits/Type74/Type74Kai.ini",
+      "adapter": "Units/BattleUnits/Type74/PlayerControl/Type74Kai.gw",
+      "buttons": [
+        "ManualVehicle_EF_Type74_MG"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "Wappa",
+      "file": "Units/BattleUnits/Wappa/Wappa.ini",
+      "adapter": "Units/BattleUnits/Wappa/PlayerControl/Wappa.gw",
+      "buttons": [
+        "ManualVehicle_ZN_Wappa_MG",
+        "ManualVehicle_ZN_Wappa_C4"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "ZN_APC",
+      "file": "Units/BattleUnits/ZN_APC/ZN_APC.ini",
+      "adapter": "Units/BattleUnits/ZN_APC/PlayerControl/ZN_APC.gw",
+      "buttons": [
+        "ManualVehicle_ZN_APC_MG"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "ZN_APC_WithMS",
+      "file": "Units/BattleUnits/ZN_APC/ZN_APC_WithMS.ini",
+      "adapter": "Units/BattleUnits/ZN_APC/PlayerControl/ZN_APC_WithMS.gw",
+      "buttons": [
+        "ManualVehicle_ZN_APC_MG",
+        "ManualVehicle_Common_DoubleMS_ZN_APC"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "ZN_Heli",
+      "file": "Units/BattleUnits/ZN_Heli/ZN_Heli.ini",
+      "adapter": "Units/BattleUnits/ZN_Heli/PlayerControl/ZN_Heli.gw",
+      "buttons": [
+        "ManualVehicle_Common_DoubleMS_ZN_Heli",
+        "ManualVehicle_Common_Vulcan_ZN_Heli"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "Dash",
+      "file": "Units/BattleUnits/Dash/Dash.ini",
+      "adapter": "Units/BattleUnits/Dash/PlayerControl/Dash.gw",
+      "buttons": [
+        "Manual_Common_DoubleVulcan_Dash"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "DEPP_ROG",
+      "file": "Units/BattleUnits/DEPP_ROG/DEPP_ROG.ini",
+      "adapter": "Units/BattleUnits/DEPP_ROG/PlayerControl/DEPP_ROG.gw",
+      "buttons": [
+        "Manual_Common_Bomb_DEPP_ROG",
+        "ManualVehicle_Common_DoubleMS_DEPP_ROG"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "DonEscargot",
+      "file": "Units/BattleUnits/DonEscargot/DonEscargot.ini",
+      "adapter": "Units/BattleUnits/DonEscargot/PlayerControl/DonEscargot.gw",
+      "buttons": [
+        "Manual_Common_DoubleVulcan_DonEscargot",
+        "Manual_Common_Bomb_DonEscargot"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "FF_B2",
+      "file": "Units/BattleUnits/FF_B2/FF_B2.ini",
+      "adapter": "Units/BattleUnits/FF_B2/PlayerControl/FF_B2.gw",
+      "buttons": [
+        "Manual_Common_DoubleVulcan_FF_B2",
+        "Manual_Common_DoubleMS_FF_B2",
+        "Manual_Common_Bomb_FF_B2"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "Luggun",
+      "file": "Units/BattleUnits/Luggun/Luggun.ini",
+      "adapter": "Units/BattleUnits/Luggun/PlayerControl/Luggun.gw",
+      "buttons": [
+        "Manual_Common_Bomb_Luggun",
+        "ManualVehicle_ZN_Luggun_AA_L",
+        "ManualVehicle_ZN_Luggun_AA_R"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "Type74Kai",
+      "file": "Units/BattleUnits/Type74/Type74Kai.ini",
+      "adapter": "Units/BattleUnits/Type74/PlayerControl/Type74Kai.gw",
+      "buttons": [
+        "ManualVehicle_EF_Type74_MG"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0087",
+      "unit": "Dash",
+      "file": "Units/BattleUnits/Dash/Dash.ini",
+      "adapter": "Units/BattleUnits/Dash/PlayerControl/Dash.gw",
+      "buttons": [
+        "Manual_Common_DoubleVulcan_Dash"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_SEED",
+      "unit": "PatrolAircraft",
+      "file": "Units/BattleUnits/PatrolAircraft/PatrolAircraft.ini",
+      "adapter": "Units/BattleUnits/PatrolAircraft/PlayerControl/PatrolAircraft.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_SEED",
+      "unit": "PatrolAircraft_CloseState",
+      "file": "Units/BattleUnits/PatrolAircraft/PatrolAircraft_CloseState.ini",
+      "adapter": "Units/BattleUnits/PatrolAircraft/PlayerControl/PatrolAircraft_CloseState.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_SEED",
+      "unit": "PatrolAircraft_OverLine",
+      "file": "Units/BattleUnits/PatrolAircraft/PatrolAircraft_OverLine.ini",
+      "adapter": "Units/BattleUnits/PatrolAircraft/PlayerControl/PatrolAircraft_OverLine.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_Main",
+      "unit": "Ballute",
+      "file": "Units/BattleUnits/Ballute/Ballute.ini",
+      "adapter": "Units/BattleUnits/Ballute/PlayerControl/Ballute.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_Main",
+      "unit": "HLV_0079",
+      "file": "Units/BattleUnits/HLV/HLV_0079.ini",
+      "adapter": "Units/BattleUnits/HLV/PlayerControl/HLV_0079.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_Main",
+      "unit": "HLV_0087",
+      "file": "Units/BattleUnits/HLV/HLV_0087.ini",
+      "adapter": "Units/BattleUnits/HLV/PlayerControl/HLV_0087.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_Main",
+      "unit": "HLV_0093",
+      "file": "Units/BattleUnits/HLV/HLV_0093.ini",
+      "adapter": "Units/BattleUnits/HLV/PlayerControl/HLV_0093.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_Main",
+      "unit": "HLV_CE71",
+      "file": "Units/BattleUnits/HLV/HLV_CE71.ini",
+      "adapter": "Units/BattleUnits/HLV/PlayerControl/HLV_CE71.gw",
+      "buttons": []
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "MTank_Chassis",
+      "file": "Units/BattleUnits/MTank/MTank_Chassis.ini",
+      "adapter": "Units/BattleUnits/MTank/PlayerControl/MTank_Chassis.gw",
+      "buttons": [
+        "ManualVehicle_Common_DoubleVulcan_MTank"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_0079",
+      "unit": "MTank_Top",
+      "file": "Units/BattleUnits/MTank/MTank_Top.ini",
+      "adapter": "Units/BattleUnits/MTank/PlayerControl/MTank_Top.gw",
+      "buttons": [
+        "ManualVehicle_ZN_MTank_Cannon"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "MTank_Chassis",
+      "file": "Units/BattleUnits/MTank/MTank_Chassis.ini",
+      "adapter": "Units/BattleUnits/MTank/PlayerControl/MTank_Chassis.gw",
+      "buttons": [
+        "ManualVehicle_Common_DoubleVulcan_MTank"
+      ]
+    },
+    {
+      "package": "GW_BattleUniverse_DLC_UC",
+      "unit": "MTank_Top",
+      "file": "Units/BattleUnits/MTank/MTank_Top.ini",
+      "adapter": "Units/BattleUnits/MTank/PlayerControl/MTank_Top.gw",
+      "buttons": [
+        "ManualVehicle_ZN_MTank_Cannon"
+      ]
+    }
+  ],
+  "maps": [
+    {
+      "source": "AtJaburosFall[3v3]_PVP_02.tmx",
+      "map": "[p20]AtJaburosFall(10v10)_PVP_02_SP_Map.tmx",
+      "thumbnail": "[p20]AtJaburosFall(10v10)_PVP_02_SP_Map_map.png",
+      "positions": {
+        "0": [
+          22,
+          156
+        ],
+        "2": [
+          22,
+          151
+        ],
+        "4": [
+          17,
+          156
+        ],
+        "6": [
+          27,
+          156
+        ],
+        "8": [
+          22,
+          161
+        ],
+        "10": [
+          17,
+          151
+        ],
+        "12": [
+          27,
+          151
+        ],
+        "14": [
+          17,
+          161
+        ],
+        "16": [
+          27,
+          161
+        ],
+        "18": [
+          22,
+          146
+        ],
+        "1": [
+          478,
+          201
+        ],
+        "3": [
+          478,
+          196
+        ],
+        "5": [
+          473,
+          201
+        ],
+        "7": [
+          483,
+          201
+        ],
+        "9": [
+          478,
+          206
+        ],
+        "11": [
+          473,
+          196
+        ],
+        "13": [
+          483,
+          196
+        ],
+        "15": [
+          473,
+          206
+        ],
+        "17": [
+          483,
+          206
+        ],
+        "19": [
+          478,
+          191
+        ]
+      },
+      "tile_size": [
+        "20",
+        "20"
+      ],
+      "world_tile_size": [
+        20,
+        20
+      ],
+      "label": {
+        "text": "PMC",
+        "color": "white",
+        "position": "thumbnail-top-center"
+      }
+    },
+    {
+      "source": "FleetGraveyard[3v3]_PVP_01.tmx",
+      "map": "[p20]FleetGraveyard(10v10)_PVP_01_SP_Map.tmx",
+      "thumbnail": "[p20]FleetGraveyard(10v10)_PVP_01_SP_Map_map.png",
+      "positions": {
+        "0": [
+          51,
+          128
+        ],
+        "2": [
+          51,
+          123
+        ],
+        "4": [
+          46,
+          128
+        ],
+        "6": [
+          56,
+          128
+        ],
+        "8": [
+          51,
+          133
+        ],
+        "10": [
+          46,
+          123
+        ],
+        "12": [
+          56,
+          123
+        ],
+        "14": [
+          46,
+          133
+        ],
+        "16": [
+          56,
+          133
+        ],
+        "18": [
+          51,
+          118
+        ],
+        "1": [
+          548,
+          171
+        ],
+        "3": [
+          548,
+          166
+        ],
+        "5": [
+          543,
+          171
+        ],
+        "7": [
+          553,
+          171
+        ],
+        "9": [
+          548,
+          176
+        ],
+        "11": [
+          543,
+          166
+        ],
+        "13": [
+          553,
+          166
+        ],
+        "15": [
+          543,
+          176
+        ],
+        "17": [
+          553,
+          176
+        ],
+        "19": [
+          548,
+          161
+        ]
+      },
+      "tile_size": [
+        "20",
+        "20"
+      ],
+      "world_tile_size": [
+        20,
+        20
+      ],
+      "label": {
+        "text": "PMC",
+        "color": "white",
+        "position": "thumbnail-top-center"
+      }
+    },
+    {
+      "source": "NewCity[3v3]_PVP_01.tmx",
+      "map": "[p20]NewCity(10v10)_PVP_01_SP_Map.tmx",
+      "thumbnail": "[p20]NewCity(10v10)_PVP_01_SP_Map_map.png",
+      "positions": {
+        "0": [
+          24,
+          81
+        ],
+        "2": [
+          24,
+          76
+        ],
+        "4": [
+          19,
+          81
+        ],
+        "6": [
+          29,
+          81
+        ],
+        "8": [
+          24,
+          86
+        ],
+        "10": [
+          19,
+          76
+        ],
+        "12": [
+          29,
+          76
+        ],
+        "14": [
+          19,
+          86
+        ],
+        "16": [
+          29,
+          86
+        ],
+        "18": [
+          24,
+          71
+        ],
+        "1": [
+          219,
+          77
+        ],
+        "3": [
+          219,
+          72
+        ],
+        "5": [
+          214,
+          77
+        ],
+        "7": [
+          224,
+          77
+        ],
+        "9": [
+          219,
+          82
+        ],
+        "11": [
+          214,
+          72
+        ],
+        "13": [
+          224,
+          72
+        ],
+        "15": [
+          214,
+          82
+        ],
+        "17": [
+          224,
+          82
+        ],
+        "19": [
+          219,
+          67
+        ]
+      },
+      "tile_size": [
+        "20",
+        "20"
+      ],
+      "world_tile_size": [
+        20,
+        20
+      ],
+      "label": {
+        "text": "PMC",
+        "color": "white",
+        "position": "thumbnail-top-center"
+      }
+    },
+    {
+      "source": "RiseFromTheAshes[3v3]_PVP_01.tmx",
+      "map": "[p20]RiseFromTheAshes(10v10)_PVP_01_SP_Map.tmx",
+      "thumbnail": "[p20]RiseFromTheAshes(10v10)_PVP_01_SP_Map_map.png",
+      "positions": {
+        "0": [
+          236,
+          408
+        ],
+        "2": [
+          236,
+          403
+        ],
+        "4": [
+          231,
+          408
+        ],
+        "6": [
+          241,
+          408
+        ],
+        "8": [
+          236,
+          413
+        ],
+        "10": [
+          231,
+          403
+        ],
+        "12": [
+          241,
+          403
+        ],
+        "14": [
+          231,
+          413
+        ],
+        "16": [
+          241,
+          413
+        ],
+        "18": [
+          236,
+          398
+        ],
+        "1": [
+          375,
+          54
+        ],
+        "3": [
+          375,
+          49
+        ],
+        "5": [
+          370,
+          54
+        ],
+        "7": [
+          380,
+          54
+        ],
+        "9": [
+          375,
+          59
+        ],
+        "11": [
+          370,
+          49
+        ],
+        "13": [
+          380,
+          49
+        ],
+        "15": [
+          370,
+          59
+        ],
+        "17": [
+          380,
+          59
+        ],
+        "19": [
+          375,
+          44
+        ]
+      },
+      "tile_size": [
+        "10",
+        "10"
+      ],
+      "world_tile_size": [
+        20,
+        20
+      ],
+      "label": {
+        "text": "PMC",
+        "color": "white",
+        "position": "thumbnail-top-center"
+      }
+    },
+    {
+      "source": "ShoalZoneSpace[5v5]_PVP_01.tmx",
+      "map": "[p20]ShoalZoneSpace(10v10)_PVP_01_SP_Map.tmx",
+      "thumbnail": "[p20]ShoalZoneSpace(10v10)_PVP_01_SP_Map_map.png",
+      "positions": {
+        "0": [
+          28,
+          150
+        ],
+        "2": [
+          28,
+          145
+        ],
+        "4": [
+          23,
+          150
+        ],
+        "6": [
+          33,
+          150
+        ],
+        "8": [
+          28,
+          155
+        ],
+        "10": [
+          23,
+          145
+        ],
+        "12": [
+          33,
+          145
+        ],
+        "14": [
+          23,
+          155
+        ],
+        "16": [
+          33,
+          155
+        ],
+        "18": [
+          28,
+          140
+        ],
+        "1": [
+          472,
+          150
+        ],
+        "3": [
+          472,
+          145
+        ],
+        "5": [
+          467,
+          150
+        ],
+        "7": [
+          477,
+          150
+        ],
+        "9": [
+          472,
+          155
+        ],
+        "11": [
+          467,
+          145
+        ],
+        "13": [
+          477,
+          145
+        ],
+        "15": [
+          467,
+          155
+        ],
+        "17": [
+          477,
+          155
+        ],
+        "19": [
+          472,
+          140
+        ]
+      },
+      "tile_size": [
+        "20",
+        "20"
+      ],
+      "world_tile_size": [
+        20,
+        20
+      ],
+      "label": {
+        "text": "PMC",
+        "color": "white",
+        "position": "thumbnail-top-center"
+      }
+    },
+    {
+      "source": "SoutheastAsia[3v3]_PVP_01.tmx",
+      "map": "[p20]SoutheastAsia(10v10)_PVP_01_SP_Map.tmx",
+      "thumbnail": "[p20]SoutheastAsia(10v10)_PVP_01_SP_Map_map.png",
+      "positions": {
+        "0": [
+          23,
+          22
+        ],
+        "2": [
+          23,
+          17
+        ],
+        "4": [
+          18,
+          22
+        ],
+        "6": [
+          28,
+          22
+        ],
+        "8": [
+          23,
+          27
+        ],
+        "10": [
+          18,
+          17
+        ],
+        "12": [
+          28,
+          17
+        ],
+        "14": [
+          18,
+          27
+        ],
+        "16": [
+          28,
+          27
+        ],
+        "18": [
+          23,
+          12
+        ],
+        "1": [
+          477,
+          30
+        ],
+        "3": [
+          477,
+          25
+        ],
+        "5": [
+          472,
+          30
+        ],
+        "7": [
+          482,
+          30
+        ],
+        "9": [
+          477,
+          35
+        ],
+        "11": [
+          472,
+          25
+        ],
+        "13": [
+          482,
+          25
+        ],
+        "15": [
+          472,
+          35
+        ],
+        "17": [
+          482,
+          35
+        ],
+        "19": [
+          477,
+          20
+        ]
+      },
+      "tile_size": [
+        "10",
+        "10"
+      ],
+      "world_tile_size": [
+        20,
+        20
+      ],
+      "label": {
+        "text": "PMC",
+        "color": "white",
+        "position": "thumbnail-top-center"
+      }
+    },
+    {
+      "source": "TremorMountain[3v3]_PVP_02.tmx",
+      "map": "[p20]TremorMountain(10v10)_PVP_02_SP_Map.tmx",
+      "thumbnail": "[p20]TremorMountain(10v10)_PVP_02_SP_Map_map.png",
+      "positions": {
+        "0": [
+          49,
+          58
+        ],
+        "2": [
+          49,
+          53
+        ],
+        "4": [
+          44,
+          58
+        ],
+        "6": [
+          54,
+          58
+        ],
+        "8": [
+          49,
+          63
+        ],
+        "10": [
+          54,
+          53
+        ],
+        "12": [
+          44,
+          63
+        ],
+        "14": [
+          54,
+          63
+        ],
+        "16": [
+          49,
+          48
+        ],
+        "18": [
+          39,
+          58
+        ],
+        "1": [
+          450,
+          58
+        ],
+        "3": [
+          450,
+          53
+        ],
+        "5": [
+          445,
+          58
+        ],
+        "7": [
+          455,
+          58
+        ],
+        "9": [
+          450,
+          63
+        ],
+        "11": [
+          445,
+          53
+        ],
+        "13": [
+          445,
+          63
+        ],
+        "15": [
+          455,
+          63
+        ],
+        "17": [
+          450,
+          48
+        ],
+        "19": [
+          440,
+          58
+        ]
+      },
+      "tile_size": [
+        "20",
+        "20"
+      ],
+      "world_tile_size": [
+        20,
+        20
+      ],
+      "label": {
+        "text": "PMC",
+        "color": "white",
+        "position": "thumbnail-top-center"
+      }
+    }
+  ]
+}

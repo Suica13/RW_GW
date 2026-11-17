@@ -1,4 +1,9 @@
 [core]
+@memory pmcSwapHQ:unit
+@memory pmcSwapTarget:unit
+@memory pmcSwapOutgoing:unit
+@memory pmcSwapIncoming:unit
+@memory pmcSwapPending:bool
 copyFrom:"""
 ROOT:Template/Unit/Skill/PlayerControl_Marker.gw,
 ROOT:Resource/Image/Fx/Unit/ManualControl_ForcedBoost_Start.gw
@@ -306,7 +311,7 @@ alsoTriggerAction:ManualControl_RefreshSpeed
 [hiddenAction_PMC_Borrow]
 autoTriggerOnEvent:newMessage(withTag='PMC_Borrow')
 requireConditional:if ${manualControlImplemented} and not memory.pmcBorrowActive and not memory.manualControlEnabled and self.hp>0 and memory.battleUnitCore.hp>0 and not memory.close and (memory.noNeedPilot or (memory.pilotUnit.hp>0 and memory.pilotUnit.parent==self)) and not self.hasTags(includes='inHangar') and parent.hp<=0 and eventSource==eventData('controller',type='unit') and eventSource.hp>0 and eventSource.hasTags(includes='PMC') and eventSource.hasTags(includes='HQ_NotCaptured') and eventSource.readUnitMemory('pmcBorrowCandidate',type='unit')==self and createMarker(x=self.x,y=self.y,teamId=eventSource.teamId).nearestUnit(withTag='ManualControlCapable',withinRange=1,relation='allyNotOwn')==self
-setUnitMemory:pmcBorrowActive=true,pmcBorrowController=eventData('controller',type='unit'),pmcOriginalTeam=self.teamId,pmcOriginalHQ=memory.HQ,pmcOriginalPilot=memory.pilotUnit,pmcOriginalPilotTeam=memory.pilotUnit.teamId,pmcGrantDeadline=self.timeAlive+2
+setUnitMemory:pmcSwapPending=false,pmcBorrowActive=true,pmcBorrowController=eventData('controller',type='unit'),pmcOriginalTeam=self.teamId,pmcOriginalHQ=memory.HQ,pmcOriginalPilot=memory.pilotUnit,pmcOriginalPilotTeam=memory.pilotUnit.teamId,pmcGrantDeadline=self.timeAlive+2
 alsoTriggerAction:PMC_JoinController,PMC_RequestControl
 
 [hiddenAction_PMC_JoinController]
@@ -334,7 +339,7 @@ requireConditional:if memory.pmcBorrowActive
 alsoTriggerAction:PMC_ReturnPilot,PMC_ReturnOwner,PMC_ClearBorrow
 
 [hiddenAction_PMC_ReturnPilot]
-requireConditional:if memory.pmcOriginalPilot.hp>0 and memory.pmcOriginalPilot.teamId==memory.pmcBorrowController.teamId
+requireConditional:if not memory.pmcSwapPending and memory.pmcOriginalPilot.hp>0 and memory.pmcOriginalPilot.teamId==memory.pmcBorrowController.teamId
 sendMessageTo:memory.pmcOriginalPilot
 sendMessageWithTags:ChangeTeam
 sendMessageWithData:teamID=memory.pmcOriginalPilotTeam
@@ -349,6 +354,10 @@ setUnitMemory:pmcBorrowActive=false,pmcBorrowController=null,pmcOriginalHQ=null,
 
 # The normal pilot message is queued; release the lease before it is handled.
 [action_UnloadPilot]
+isLockedAlt2Message_zh:PMC接管友军机体期间禁止驾驶员脱出
+isLockedAlt2Message:Pilot exit is disabled while borrowed by PMC
+isLockedAlt2:if memory.pmcBorrowActive
+requireConditional:if not memory.pmcBorrowActive
 alsoTriggerAction:PMC_EndControl
 displayType:action
 
@@ -389,3 +398,49 @@ autoTrigger:if (not memory.manualControlEnabled and self.attacking.hp>0) or (mem
 autoTriggerOnEvent:newMessage(withTag="ManualControl_Combat")
 requireConditional:if memory.manualControlEnabled
 setUnitMemory:inBattleTimer=self.timeAlive+5
+
+# A PMC swap follows the outgoing pilot. End the old lease before the pilots move.
+[hiddenAction_ChangePilotWithTarget_Step2]
+requireConditional:if select(memory.pmcBorrowActive,not memory.pmcSwapPending and ${manualControlReady} and createMarker(x=thisActionTarget.x,y=thisActionTarget.y,teamId=self.teamId).nearestUnit(withinRange=50,withTag='Unit',withoutTag='Pilot',relation='ally').hp>0,thisActionTarget.getOffsetRelative().nearestUnit(withinRange=50,withTag='Unit').teamId==self.teamId)
+sendMessageTo:select(memory.pmcBorrowActive,null,thisActionTarget.getOffsetRelative().nearestUnit(withinRange=50,withTag='Unit'))
+alsoTriggerAction:PMC_PreparePilotSwap
+
+[hiddenAction_PMC_PreparePilotSwap]
+requireConditional:if memory.pmcBorrowActive and ${manualControlReady}
+setUnitMemory:pmcSwapHQ=memory.pmcBorrowController,pmcSwapTarget=createMarker(x=thisActionTarget.x,y=thisActionTarget.y,teamId=self.teamId).nearestUnit(withinRange=50,withTag='Unit',withoutTag='Pilot',relation='ally')
+alsoTriggerAction:PMC_StartPilotSwap
+
+[hiddenAction_PMC_StartPilotSwap]
+requireConditional:if memory.pmcSwapTarget!=self and memory.pmcSwapTarget.hp>0 and memory.pmcSwapTarget.parent.hp<=0 and not memory.pmcSwapTarget.hasTags(includes='inHangar') and not memory.pmcSwapTarget.hasTags(includes='ManualControlled') and memory.pmcSwapTarget.hasTags(includes='ManualControlCapable') and memory.pmcSwapTarget.readUnitMemory('pilotUnit',type='unit').hp>0 and memory.pmcSwapTarget.readUnitMemory('pilotUnit',type='unit').parent==memory.pmcSwapTarget and memory.pilotUnit.hp>0 and memory.pilotUnit.parent==self
+setUnitMemory:pmcSwapOutgoing=memory.pilotUnit,pmcSwapIncoming=memory.pmcSwapTarget.readUnitMemory('pilotUnit',type='unit'),pmcSwapPending=true
+alsoTriggerAction:PMC_EndControl,PMC_SwapOutgoing,PMC_SwapIncoming
+
+[hiddenAction_PMC_SwapOutgoing]
+sendMessageTo:memory.pmcSwapOutgoing
+sendMessageWithTags:PMC_ExchangePilot
+sendMessageWithData:unitInfo=memory.pmcSwapTarget
+
+[hiddenAction_PMC_SwapIncoming]
+sendMessageTo:memory.pmcSwapIncoming
+sendMessageWithTags:PMC_ExchangePilot
+sendMessageWithData:unitInfo=self
+
+[hiddenAction_PMC_PilotSwapArrived]
+autoTriggerOnEvent:newMessage(withTag='PMC_PilotSwapArrived')
+requireConditional:if memory.pmcSwapPending and (eventSource==memory.pmcSwapOutgoing or eventSource==memory.pmcSwapIncoming) and memory.pmcSwapOutgoing.parent==memory.pmcSwapTarget and memory.pmcSwapIncoming.parent==self
+setUnitMemory:pmcSwapPending=false
+sendMessageTo:memory.pmcSwapHQ
+sendMessageWithTags:PMC_SwapControl
+sendMessageWithData:unitInfo=memory.pmcSwapTarget
+
+# Dedicated PMC entry stays available when native special modes hide their swap UI.
+[action_PMC_ChangePilotWithTarget]
+@copyFromSection:action_ChangePilotWithTarget
+pos:1002
+text:Swap pilot and control target
+text_zh:交换驾驶员并接管目标
+displayType:action
+isVisible:if memory.pmcBorrowActive and ${manualControlReady} and memory.pilotUnit.hp>0
+isLocked:false
+requireConditional:if memory.pmcBorrowActive and ${manualControlReady} and memory.pilotUnit.hp>0
+alsoTriggerAction:ChangePilotWithTarget_Step2

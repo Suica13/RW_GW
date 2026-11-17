@@ -1,0 +1,47 @@
+[core]
+dont_load:true
+@global manualControlImplemented=true
+copyFrom:ROOT:Template/Unit/Skill/PlayerControl.gw
+
+
+# Use native projectiles, costs, burst delays and reload actions; no weapon polling.
+
+[hiddenAction_EF_FF_X_II_BR_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>=0  and distanceBetween(self,self.attacking)<=memory.finalAttackRange)
+
+[hiddenAction_EF_FF_X_II_BR_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_EF_FF_X_II_BR_Fire_Step_3]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[action_Manual_EF_FF_X_II_BR]
+@copyFromSection:template_ManualWeapon
+pos:2
+text:Beam rifle
+text_zh:光束步枪
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamRifle_1.png
+isVisible:if ${manualControlReady} and ((true))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.EF_FF_X_II_BR_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((true)) and self.resource.EN>=${EF_FF_X_II_BR_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.EF_FF_X_II_BR_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((true)) and self.resource.EN>=${EF_FF_X_II_BR_EN}
+alsoTriggerAction:EF_FF_X_II_BR_Fire
+
+[hiddenAction_EF_FF_X_II_BR_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.EF_FF_X_II_BR_CDTimer and ${onAttacking}==false and ${cantAction}==false and ${onSkill}==false  and not (directionBetween(self, self.attacking) < self.dir-35 or directionBetween(self, self.attacking) > self.dir+35)  and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.EF_FF_X_II_BR_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((true)) and self.resource.EN>=${EF_FF_X_II_BR_EN})
+setUnitMemory:EF_FF_X_II_BR_CDTimer=self.timeAlive+${EF_FF_X_II_BR_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${EF_FF_X_II_BR_CD}s
+addActionCooldownApplyToActions:Manual_EF_FF_X_II_BR
+
+[hiddenAction_ManualControl_CancelSpecialWeapons]
+requireConditional:true
+alsoTriggerAction:SetOnSkillOff
+
+[action_Set_AttackMode_Shoot]
+autoTrigger:false
+isLocked:true
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Cqb]
+autoTrigger:false
+isLocked:true
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==1 and not self.hasTags(includes='inHangar'))

@@ -1,0 +1,66 @@
+[core]
+dont_load:true
+@global manualControlImplemented=true
+copyFrom:ROOT:Template/Unit/Skill/PlayerControl.gw
+@memory manualVehicle_Common_DoubleMS_Gunperry_Left:float
+@memory manualVehicle_Common_DoubleMS_Gunperry_Next:float
+
+# Use native projectiles, costs, burst delays and reload actions; no weapon polling.
+
+[hiddenAction_Common_SmokingLauncher_NowPos_Fire_Step_1]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_Common_MinovskyParticle_S_Fire_Step_1]
+requireConditional:if (true) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[turret_Common_DoubleMS_Gunperry]
+canAttackCondition:if not memory.manualControlEnabled and (${cantAction}==false)
+
+[action_ManualVehicle_Common_DoubleMS_Gunperry]
+temporarilyAddTags:inBattle
+@copyFromSection:template_ManualWeapon
+pos:2
+text:Cannon
+text_zh:火炮
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Missile_1.png
+isLocked:if not (${manualAuxiliaryReady} and (${cantAction}==false) and self.resource.Common_DoubleMS_Gunperry_ShootTimer>=1 and self.resource.en>=${Common_DoubleMS_Gunperry_EN} and memory.manualVehicle_Common_DoubleMS_Gunperry_Left<=0 and self.timeAlive>=memory.manualVehicle_Common_DoubleMS_Gunperry_Next)
+requireConditional:if ${manualAuxiliaryReady} and (${cantAction}==false) and self.resource.Common_DoubleMS_Gunperry_ShootTimer>=1 and self.resource.en>=${Common_DoubleMS_Gunperry_EN} and memory.manualVehicle_Common_DoubleMS_Gunperry_Left<=0 and self.timeAlive>=memory.manualVehicle_Common_DoubleMS_Gunperry_Next
+setUnitMemory:manualVehicle_Common_DoubleMS_Gunperry_Left=max(1,int(self.resource.Common_DoubleMS_Gunperry_ShootTimer/(1)))
+alsoTriggerAction:ManualVehicle_Common_DoubleMS_Gunperry_Shot,ManualVehicle_Common_DoubleMS_Gunperry_Continue,ManualVehicle_Common_DoubleMS_Gunperry_Stop
+
+[hiddenAction_ManualVehicle_Common_DoubleMS_Gunperry_Shot]
+addResources:Common_DoubleMS_Gunperry_ShootTimer=-1,en=-${Common_DoubleMS_Gunperry_EN}
+requireConditional:if ${manualAuxiliaryReady} and (${cantAction}==false) and self.resource.Common_DoubleMS_Gunperry_ShootTimer>=1 and self.resource.en>=${Common_DoubleMS_Gunperry_EN} and memory.manualVehicle_Common_DoubleMS_Gunperry_Left>0
+fireTurretXAtGround:Common_DoubleMS_Gunperry
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+setUnitMemory:manualVehicle_Common_DoubleMS_Gunperry_Left=memory.manualVehicle_Common_DoubleMS_Gunperry_Left-1,manualVehicle_Common_DoubleMS_Gunperry_Next=self.timeAlive+0.35
+alsoTriggerAction:Check_InBattle_Attack
+
+[hiddenAction_ManualVehicle_Common_DoubleMS_Gunperry_Wait]
+highPriorityQueue:false
+allowMultipleInQueue:true
+buildSpeed:0.35s
+alsoTriggerAction:ManualVehicle_Common_DoubleMS_Gunperry_Shot,ManualVehicle_Common_DoubleMS_Gunperry_Continue,ManualVehicle_Common_DoubleMS_Gunperry_Stop
+
+[hiddenAction_ManualVehicle_Common_DoubleMS_Gunperry_Continue]
+requireConditional:if ${manualAuxiliaryReady} and (${cantAction}==false) and self.resource.Common_DoubleMS_Gunperry_ShootTimer>=1 and self.resource.en>=${Common_DoubleMS_Gunperry_EN} and memory.manualVehicle_Common_DoubleMS_Gunperry_Left>0
+alsoQueueAction:ManualVehicle_Common_DoubleMS_Gunperry_Wait
+
+[hiddenAction_ManualVehicle_Common_DoubleMS_Gunperry_Stop]
+requireConditional:if not (${manualAuxiliaryReady} and (${cantAction}==false) and self.resource.Common_DoubleMS_Gunperry_ShootTimer>=1 and self.resource.en>=${Common_DoubleMS_Gunperry_EN}) or memory.manualVehicle_Common_DoubleMS_Gunperry_Left<=0
+setUnitMemory:manualVehicle_Common_DoubleMS_Gunperry_Left=0
+
+[hiddenAction_ManualControl_CancelSpecialWeapons]
+requireConditional:true
+alsoTriggerAction:SetOnSkillOff
+setUnitMemory:manualVehicle_Common_DoubleMS_Gunperry_Left=0
+
+[action_Set_AttackMode_Shoot]
+autoTrigger:false
+isLocked:true
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Cqb]
+autoTrigger:false
+isLocked:true
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==1 and not self.hasTags(includes='inHangar'))

@@ -1,0 +1,99 @@
+[core]
+dont_load:true
+@global manualControlImplemented=true
+copyFrom:ROOT:Template/Unit/Skill/PlayerControl.gw
+@memory manualVehicle_ZN_Wappa_MG_Left:float
+@memory manualVehicle_ZN_Wappa_MG_Next:float
+@memory manualVehicle_ZN_Wappa_C4_Left:float
+@memory manualVehicle_ZN_Wappa_C4_Next:float
+
+# Use native projectiles, costs, burst delays and reload actions; no weapon polling.
+
+[turret_ZN_Wappa_MG]
+canAttackCondition:if not memory.manualControlEnabled and (${onAttacking}==false and ${cantAction}==false)
+
+[action_ManualVehicle_ZN_Wappa_MG]
+temporarilyAddTags:inBattle
+@copyFromSection:template_ManualWeapon
+pos:2
+text:Autocannon
+text_zh:机炮
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/MachineGun_1.png
+isLocked:if not (${manualAuxiliaryReady} and ((${onAttacking}==false) and (${cantAction}==false)) and self.resource.ZN_Wappa_MG_ShootTimer>=1 and self.resource.en>=${ZN_Wappa_MG_EN} and memory.manualVehicle_ZN_Wappa_MG_Left<=0 and self.timeAlive>=memory.manualVehicle_ZN_Wappa_MG_Next)
+requireConditional:if ${manualAuxiliaryReady} and ((${onAttacking}==false) and (${cantAction}==false)) and self.resource.ZN_Wappa_MG_ShootTimer>=1 and self.resource.en>=${ZN_Wappa_MG_EN} and memory.manualVehicle_ZN_Wappa_MG_Left<=0 and self.timeAlive>=memory.manualVehicle_ZN_Wappa_MG_Next
+setUnitMemory:manualVehicle_ZN_Wappa_MG_Left=max(1,int(self.resource.ZN_Wappa_MG_ShootTimer/(1)))
+alsoTriggerAction:ManualVehicle_ZN_Wappa_MG_Shot,ManualVehicle_ZN_Wappa_MG_Continue,ManualVehicle_ZN_Wappa_MG_Stop
+
+[hiddenAction_ManualVehicle_ZN_Wappa_MG_Shot]
+addResources:ZN_Wappa_MG_ShootTimer=-1,en=-${ZN_Wappa_MG_EN}
+requireConditional:if ${manualAuxiliaryReady} and ((${onAttacking}==false) and (${cantAction}==false)) and self.resource.ZN_Wappa_MG_ShootTimer>=1 and self.resource.en>=${ZN_Wappa_MG_EN} and memory.manualVehicle_ZN_Wappa_MG_Left>0
+fireTurretXAtGround:ZN_Wappa_MG
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+setUnitMemory:manualVehicle_ZN_Wappa_MG_Left=memory.manualVehicle_ZN_Wappa_MG_Left-1,manualVehicle_ZN_Wappa_MG_Next=self.timeAlive+0.1
+alsoTriggerAction:Check_InBattle_Attack
+
+[hiddenAction_ManualVehicle_ZN_Wappa_MG_Wait]
+highPriorityQueue:false
+allowMultipleInQueue:true
+buildSpeed:0.1s
+alsoTriggerAction:ManualVehicle_ZN_Wappa_MG_Shot,ManualVehicle_ZN_Wappa_MG_Continue,ManualVehicle_ZN_Wappa_MG_Stop
+
+[hiddenAction_ManualVehicle_ZN_Wappa_MG_Continue]
+requireConditional:if ${manualAuxiliaryReady} and ((${onAttacking}==false) and (${cantAction}==false)) and self.resource.ZN_Wappa_MG_ShootTimer>=1 and self.resource.en>=${ZN_Wappa_MG_EN} and memory.manualVehicle_ZN_Wappa_MG_Left>0
+alsoQueueAction:ManualVehicle_ZN_Wappa_MG_Wait
+
+[hiddenAction_ManualVehicle_ZN_Wappa_MG_Stop]
+requireConditional:if not (${manualAuxiliaryReady} and ((${onAttacking}==false) and (${cantAction}==false)) and self.resource.ZN_Wappa_MG_ShootTimer>=1 and self.resource.en>=${ZN_Wappa_MG_EN}) or memory.manualVehicle_ZN_Wappa_MG_Left<=0
+setUnitMemory:manualVehicle_ZN_Wappa_MG_Left=0
+
+[turret_ZN_Wappa_C4]
+canAttackCondition:if not memory.manualControlEnabled and (${onAttacking}==false and ${cantAction}==false)
+
+[action_ManualVehicle_ZN_Wappa_C4]
+temporarilyAddTags:inBattle
+@copyFromSection:template_ManualWeapon
+pos:4
+text:Explosive charge
+text_zh:爆破炸药
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Missile_1.png
+isLocked:if not (${manualAuxiliaryReady} and ((${onAttacking}==false) and (${cantAction}==false)) and self.resource.ZN_Wappa_C4_ShootTimer>=1 and self.resource.en>=${ZN_Wappa_C4_EN} and memory.manualVehicle_ZN_Wappa_C4_Left<=0 and self.timeAlive>=memory.manualVehicle_ZN_Wappa_C4_Next)
+requireConditional:if ${manualAuxiliaryReady} and ((${onAttacking}==false) and (${cantAction}==false)) and self.resource.ZN_Wappa_C4_ShootTimer>=1 and self.resource.en>=${ZN_Wappa_C4_EN} and memory.manualVehicle_ZN_Wappa_C4_Left<=0 and self.timeAlive>=memory.manualVehicle_ZN_Wappa_C4_Next
+setUnitMemory:manualVehicle_ZN_Wappa_C4_Left=max(1,int(self.resource.ZN_Wappa_C4_ShootTimer/(1)))
+alsoTriggerAction:ManualVehicle_ZN_Wappa_C4_Shot,ManualVehicle_ZN_Wappa_C4_Continue,ManualVehicle_ZN_Wappa_C4_Stop
+
+[hiddenAction_ManualVehicle_ZN_Wappa_C4_Shot]
+addResources:ZN_Wappa_C4_ShootTimer=-1,en=-${ZN_Wappa_C4_EN}
+requireConditional:if ${manualAuxiliaryReady} and ((${onAttacking}==false) and (${cantAction}==false)) and self.resource.ZN_Wappa_C4_ShootTimer>=1 and self.resource.en>=${ZN_Wappa_C4_EN} and memory.manualVehicle_ZN_Wappa_C4_Left>0
+fireTurretXAtGround:ZN_Wappa_C4
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+setUnitMemory:manualVehicle_ZN_Wappa_C4_Left=memory.manualVehicle_ZN_Wappa_C4_Left-1,manualVehicle_ZN_Wappa_C4_Next=self.timeAlive+0.0
+alsoTriggerAction:Check_InBattle_Attack
+
+[hiddenAction_ManualVehicle_ZN_Wappa_C4_Wait]
+highPriorityQueue:false
+allowMultipleInQueue:true
+buildSpeed:0.016666666666666666s
+alsoTriggerAction:ManualVehicle_ZN_Wappa_C4_Shot,ManualVehicle_ZN_Wappa_C4_Continue,ManualVehicle_ZN_Wappa_C4_Stop
+
+[hiddenAction_ManualVehicle_ZN_Wappa_C4_Continue]
+requireConditional:if ${manualAuxiliaryReady} and ((${onAttacking}==false) and (${cantAction}==false)) and self.resource.ZN_Wappa_C4_ShootTimer>=1 and self.resource.en>=${ZN_Wappa_C4_EN} and memory.manualVehicle_ZN_Wappa_C4_Left>0
+alsoQueueAction:ManualVehicle_ZN_Wappa_C4_Wait
+
+[hiddenAction_ManualVehicle_ZN_Wappa_C4_Stop]
+requireConditional:if not (${manualAuxiliaryReady} and ((${onAttacking}==false) and (${cantAction}==false)) and self.resource.ZN_Wappa_C4_ShootTimer>=1 and self.resource.en>=${ZN_Wappa_C4_EN}) or memory.manualVehicle_ZN_Wappa_C4_Left<=0
+setUnitMemory:manualVehicle_ZN_Wappa_C4_Left=0
+
+[hiddenAction_ManualControl_CancelSpecialWeapons]
+requireConditional:true
+alsoTriggerAction:SetOnSkillOff
+setUnitMemory:manualVehicle_ZN_Wappa_MG_Left=0,manualVehicle_ZN_Wappa_C4_Left=0
+
+[action_Set_AttackMode_Shoot]
+autoTrigger:false
+isLocked:true
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Cqb]
+autoTrigger:false
+isLocked:true
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==1 and not self.hasTags(includes='inHangar'))

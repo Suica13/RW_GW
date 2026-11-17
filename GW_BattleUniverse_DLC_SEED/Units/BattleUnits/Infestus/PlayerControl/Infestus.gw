@@ -1,0 +1,79 @@
+[core]
+dont_load:true
+@global manualControlImplemented=true
+copyFrom:ROOT:Template/Unit/Skill/PlayerControl.gw
+
+
+# Use native projectiles, costs, burst delays and reload actions; no weapon polling.
+
+[hiddenAction_Common_DoubleVulcan_Dopp_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>=0  and distanceBetween(self,self.attacking)<=memory.finalAttackRange and self.resource().EquipmentIndex==0 and eventData("RandomWeapon",type="float")>=50)
+
+[hiddenAction_Common_DoubleVulcan_Dopp_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_Common_DoubleVulcan_Dopp_Fire_Step_3]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_Common_DoubleVulcan_Dopp_Fire_Step_4]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_Common_DoubleMS_Dopp_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>=50    and distanceBetween(self,self.attacking)<=memory.finalAttackRange and self.resource().EquipmentIndex==0 and eventData("RandomWeapon",type="float")<=50)
+
+[hiddenAction_Common_DoubleMS_Dopp_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_Common_DoubleMS_Dopp_Fire_Step_3]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_Common_DoubleMS_Dopp_Fire_Step_4]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[action_Manual_Common_DoubleVulcan_Dopp]
+@copyFromSection:template_ManualWeapon
+pos:2
+text:Autocannon
+text_zh:机炮
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/MachineGun_1.png
+isVisible:if ${manualControlReady} and ((((self.resource().EquipmentIndex==0))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.Common_DoubleVulcan_Dopp_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==0)))) and self.resource.EN>=${Common_DoubleVulcan_Dopp_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.Common_DoubleVulcan_Dopp_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==0)))) and self.resource.EN>=${Common_DoubleVulcan_Dopp_EN}
+alsoTriggerAction:Common_DoubleVulcan_Dopp_Fire
+
+[hiddenAction_Common_DoubleVulcan_Dopp_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.Common_DoubleVulcan_Dopp_CDTimer and ${onAttacking}==false and ${cantAction}==false and ${onSkill}==false  and not (directionBetween(self, self.attacking) < self.dir-25 or directionBetween(self, self.attacking) > self.dir+25)  and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.Common_DoubleVulcan_Dopp_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==0)))) and self.resource.EN>=${Common_DoubleVulcan_Dopp_EN})
+setUnitMemory:Common_DoubleVulcan_Dopp_CDTimer=self.timeAlive+${Common_DoubleVulcan_Dopp_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${Common_DoubleVulcan_Dopp_CD}s
+addActionCooldownApplyToActions:Manual_Common_DoubleVulcan_Dopp
+
+[action_Manual_Common_DoubleMS_Dopp]
+@copyFromSection:template_ManualWeapon
+pos:4
+text:Missiles
+text_zh:导弹
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamRifle_1.png
+isVisible:if ${manualControlReady} and ((((self.resource().EquipmentIndex==0))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.Common_DoubleMS_Dopp_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==0)))) and self.resource.EN>=${Common_DoubleMS_Dopp_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.Common_DoubleMS_Dopp_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==0)))) and self.resource.EN>=${Common_DoubleMS_Dopp_EN}
+alsoTriggerAction:Common_DoubleMS_Dopp_Fire
+
+[hiddenAction_Common_DoubleMS_Dopp_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.Common_DoubleMS_Dopp_CDTimer and ${onAttacking}==false and ${cantAction}==false and ${onSkill}==false  and not (directionBetween(self, self.attacking) < self.dir-45 or directionBetween(self, self.attacking) > self.dir+45)  and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.Common_DoubleMS_Dopp_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==0)))) and self.resource.EN>=${Common_DoubleMS_Dopp_EN})
+setUnitMemory:Common_DoubleMS_Dopp_CDTimer=self.timeAlive+${Common_DoubleMS_Dopp_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${Common_DoubleMS_Dopp_CD}s
+addActionCooldownApplyToActions:Manual_Common_DoubleMS_Dopp
+
+[hiddenAction_ManualControl_CancelSpecialWeapons]
+requireConditional:true
+alsoTriggerAction:SetOnSkillOff
+
+[action_Set_AttackMode_Shoot]
+autoTrigger:false
+isLocked:true
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Cqb]
+autoTrigger:false
+isLocked:true
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==1 and not self.hasTags(includes='inHangar'))

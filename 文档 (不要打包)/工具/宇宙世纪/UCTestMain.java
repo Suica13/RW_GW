@@ -432,6 +432,142 @@ public class UCTestMain {
         }
         onEngine(()->scripts.getRootNoCheck().startNew("maps/skirmish/[p2]Big Island (2p).tmx"));Thread.sleep(1200);
     }
+    static void sourceVehicleTests() throws Exception {
+        onEngine(()->{
+            debug.removeAllUnits();
+            int i=0;
+            for(String row:Files.readAllLines(Paths.get("../source-vehicle-cases.tsv"))) {
+                String[] values=row.split("\t");
+                j unit=create(values[0],700+(i%10)*70,700+(i/10)*70,0);
+                check(condition(unit,"self.hasTags(includes='ManualControlCapable')"),"source vehicle capability "+values[0]);
+                check(unit.x.h("PMC_ChangePilotWithTarget")!=null,"PMC dedicated swap button "+values[0]);
+                for(int n=1;n<values.length;n++)check(unit.x.h(values[n])!=null,"source vehicle button "+values[0]+":"+values[n]);
+                i++;
+            }
+        });
+        Thread.sleep(1500);
+        System.out.println("UC_SOURCE_VEHICLE_PASS all native source vehicles load and expose buttons");
+    }
+    static void specialMapTests() throws Exception {
+        for(String line:Files.readAllLines(Paths.get("../sp-map-cases.tsv"))) {
+            String[] fields=line.split("\t");
+            onEngine(()->{
+                check(com.corrodinggames.rts.appFramework.c.a(fields[0])==20,"native map capacity twenty "+fields[0]);
+                // The single-player shortcut resets capacity to ten after computing its loop bound.
+                // Initialize the same twenty teams used by a multiplayer lobby instead.
+                var engine=com.corrodinggames.rts.gameFramework.l.B();
+                engine.bS.g();engine.L();com.corrodinggames.rts.game.n.F();
+                com.corrodinggames.rts.game.n.b(20,true);
+                engine.bs=new com.corrodinggames.rts.game.e(0);engine.bs.v="Player";engine.bs.r=0;
+                for(int i=1;i<20;i++){var team=(com.corrodinggames.rts.game.n)Class.forName("com.corrodinggames.rts.game.a.a").getConstructor(int.class).newInstance(i);team.v="AI";team.r=i%2;}
+                engine.dm=null;engine.dl=fields[0];engine.bX.aq();
+                engine.a(true,com.corrodinggames.rts.gameFramework.s.b);
+                // The offline loader resets alliances; apply the requested two-team lobby layout.
+                for(int i=0;i<20;i++)com.corrodinggames.rts.game.n.k(i).r=i%2;
+                int count=0;
+                for(int team=0;team<20;team++) {
+                    String[] xy=fields[team+1].split(",");float x=Float.parseFloat(xy[0]),y=Float.parseFloat(xy[1]);
+                    int found=0;
+                    for(Object raw:com.corrodinggames.rts.game.units.am.bE) {
+                        var u=(com.corrodinggames.rts.game.units.am)raw;
+                        if(u instanceof j&&u.bX==com.corrodinggames.rts.game.n.k(team)&&((j)u).x.i().startsWith("HQ_")&&Math.abs(u.eo-x)<1&&Math.abs(u.ep-y)<1)found++;
+                    }
+                    check(found==1,"map HQ team "+team+" at expected position");count+=found;
+                    check(com.corrodinggames.rts.game.n.k(team).r==team%2,"map team alliance "+team);
+                }
+                int total=0;
+                for(Object raw:com.corrodinggames.rts.game.units.am.bE)if(raw instanceof j&&condition((j)raw,"self.hasTags(includes='HQ')"))total++;
+                check(count==20&&total==20,"twenty independent map HQs, no old starts");
+                String shown=com.corrodinggames.rts.appFramework.c.b(fields[0]);
+                check(shown.contains("(10v10)")&&!shown.startsWith(" ")&&!shown.startsWith("PVP"),"full map name retained "+shown);
+
+            });
+            System.out.println("UC_SP_MAP_PASS "+fields[0]);
+        }
+    }
+    static void pmcVehicleTests() throws Exception {
+        onEngine(()->scripts.getRootNoCheck().startNew("maps/skirmish/[p4]Desert (4p).tmx"));Thread.sleep(1000);
+        final j[] a={null},b={null},plane={null},enemy={null},pa={null},pb={null};
+        onEngine(()->{
+            debug.removeAllUnits();
+            for(int i=0;i<4;i++)com.corrodinggames.rts.game.n.k(i).r=i==3?1:0;
+            for(int i=1;i<=3;i++) {
+                j base=create("HQ_EFSF_0079",i==3?200000:1300+i*200,i==3?200000:1300,i);
+                resource(base,"GameStart",0);resource(base,"Money",0);resource(base,"Resource",0);memory(base,"resX=0,techX=0");
+            }
+            hq=create("HQ_VS_GE_UC0079",300,300,0);
+            memory(hq,"gameReady=true,readyOK=false,gameStartChangeFaction=false,resX=1,mpX=1,mpStart=60,techX=0,autoTech=0,techShare=0");
+            resource(hq,"GameStart",0);resource(hq,"FactionIndex",0);resource(hq,"tileMode",0);resource(hq,"Money",500000);resource(hq,"Resource",500000);
+            action(hq,"ChoseFaction_PMC");resource(hq,"GameStart",1);
+        });
+        await("PMC test HQ",5000,()->hq.x.i().equals("HQ_PMC"));
+        onEngine(()->{
+            a[0]=create("RGM_79",800,800,1);b[0]=create("Type61",1100,800,2);plane[0]=create("Dopp",1800,800,1);enemy[0]=create("RGM_79",320,320,3);
+            for(j u:new j[]{a[0],b[0],plane[0],enemy[0]})resource(u,"PilotType",1101);
+        });
+        await("PMC test pilots",10000,()->condition(a[0],"memory.pilotUnit.hp>0 and memory.pilotUnit.parent==self")&&condition(b[0],"memory.pilotUnit.hp>0 and memory.pilotUnit.parent==self")&&condition(plane[0],"memory.pilotUnit.hp>0 and memory.pilotUnit.parent==self"));
+        onEngine(()->{
+            core=reference(hq,"self.attachment(slot='TechTreeMarkerSlot')");
+            pa[0]=reference(a[0],"memory.pilotUnit");pb[0]=reference(b[0],"memory.pilotUnit");
+            float capture=number(hq,"memory.captureTimer");action(hq,"CheckCapture");
+            check(number(hq,"memory.captureTimer")==capture&&!condition(hq,"memory.captured"),"PMC capture action disabled");
+            j ec=reference(enemy[0],"memory.battleUnitCore");action(ec,"AI_CheckEnemyHQ");action(ec,"AI_CheckNearsetEnemyHQ");
+            check(reference(ec,"memory.nearsetEnemyHQ")!=hq,"AI ignores PMC HQ target");
+            for(int i=0;i<number(ec,"memory.enemyHQ.size");i++)check(reference(ec,"memory.enemyHQ["+i+"]")!=hq,"PMC excluded from AI cache "+i);
+            hq.a(hq.x.h("PMC_Borrow"),new android.graphics.PointF(a[0].eo,a[0].ep),null,0,0);
+        });
+        await("borrow source",5000,()->condition(a[0],"memory.pmcBorrowActive and memory.manualControlEnabled"));
+        onEngine(()->{
+            action(a[0],"UnloadPilot");
+            check(reference(pa[0],"parent")==a[0]&&condition(a[0],"memory.manualControlEnabled"),"PMC pilot exit blocked");
+            a[0].a(a[0].x.h("PMC_ChangePilotWithTarget"),new android.graphics.PointF(b[0].eo,b[0].ep),null,0,0);
+        });
+        Thread.sleep(1500);
+        onEngine(()->System.out.println("UC_VEHICLE_DIAG pending="+condition(a[0],"memory.pmcSwapPending")+" outgoingAtTarget="+(reference(pa[0],"parent")==b[0])+" incomingAtSource="+(reference(pb[0],"parent")==a[0])+" controlAtTarget="+(reference(hq,"memory.manualControlledUnit")==b[0])+" sourceTeam="+a[0].bX.k+" targetTeam="+b[0].bX.k));
+        onEngine(()->System.out.println("UC_SWAP_STATE candidate="+(reference(hq,"memory.pmcSwapCandidate")==b[0])+" borrowCandidate="+(reference(hq,"memory.pmcBorrowCandidate")==b[0])+" savedHQ="+(reference(a[0],"memory.pmcSwapHQ")==hq)+" oldSlot="+(reference(hq,"memory.manualControlledUnit")==a[0])+" queue="+number(hq,"self.queueSize()")+" deadline="+number(hq,"memory.pmcSwapDeadline")+" time="+number(hq,"self.timeAlive")+" targetClose="+condition(b[0],"memory.close")+" targetBorrow="+condition(b[0],"memory.pmcBorrowActive")+" targetControl="+condition(b[0],"memory.manualControlEnabled")+" targetPilot="+(reference(b[0],"memory.pilotUnit")==pa[0])));
+        onEngine(()->System.out.println("UC_SWAP_DETAIL originalTeam="+number(b[0],"memory.pmcOriginalTeam")+" grantAt="+number(hq,"memory.manualControlGrantAt")+" slotB="+(reference(hq,"memory.manualControlledUnit")==b[0])+" core="+(reference(b[0],"memory.battleUnitCore")!=null)+" pilotHP="+number(pa[0],"self.hp")+" candidateHP="+number(b[0],"self.hp")+" relation="+condition(b[0],"createMarker(x=self.x,y=self.y,teamId=memory.HQ.teamId).nearestUnit(withTag='ManualControlCapable',withinRange=1,relation='allyNotOwn')==self")));
+        await("PMC swap follows pilot",10000,()->reference(hq,"memory.manualControlledUnit")==b[0]&&condition(b[0],"memory.pmcBorrowActive and memory.manualControlEnabled")&&reference(pa[0],"parent")==b[0]&&reference(pb[0],"parent")==a[0]);
+        onEngine(()->{
+            check(a[0].bX==com.corrodinggames.rts.game.n.k(1),"source unit returned after swap");
+            check(pb[0].bX==a[0].bX&&pa[0].bX==b[0].bX,"swapped pilots follow receiving teams");
+            resource(b[0],"EN",450);resource(b[0],"EF_Type61_Cannon_ShootTimer",2);
+            memory(b[0],"EF_Type61_Cannon_OnCD=false");
+            check(b[0].x.h("ManualVehicle_EF_Type61_Cannon")!=null,"tank native weapon button");
+            action(b[0],"ManualVehicle_EF_Type61_Cannon");
+            System.out.println("UC_TANK_SHOT ammo="+number(b[0],"self.resource.EF_Type61_Cannon_ShootTimer")+" en="+number(b[0],"self.resource.EN")+" left="+number(b[0],"memory.manualVehicle_EF_Type61_Cannon_Left"));
+            check(number(b[0],"self.resource.EF_Type61_Cannon_ShootTimer")==1,"first tank shot consumes native ammunition");
+            check(number(b[0],"self.resource.EN")==442,"first tank shot consumes exactly native EN");
+        });
+        await("tank burst second shot",3000,()->number(b[0],"self.resource.EF_Type61_Cannon_ShootTimer")==0);
+        await("tank native reload",7000,()->number(b[0],"self.resource.EF_Type61_Cannon_ShootTimer")==2);
+        onEngine(()->{
+            action(b[0],"ManualControl_Release");
+            check(b[0].bX==com.corrodinggames.rts.game.n.k(2),"target returns to original owner");
+            check(pa[0].bX==b[0].bX,"exchanged pilot stays with target on release");
+            hq.a(hq.x.h("PMC_Borrow"),new android.graphics.PointF(plane[0].eo,plane[0].ep),null,0,0);
+        });
+        await("plane direct control ready",5000,()->condition(plane[0],"memory.manualControlEnabled and self.timeAlive>memory.manualInputBusyUntil and memory.battleUnitCore.readUnitMemory('cantAction',type='bool')==false and memory.battleUnitCore.readUnitMemory('onAttacking',type='bool')==false and memory.battleUnitCore.readUnitMemory('onSkill',type='bool')==false"));
+        onEngine(()->{
+            resource(plane[0],"EN",450);memory(plane[0],"Common_DoubleVulcan_Dopp_CDTimer=0");
+            action(plane[0],"Manual_Common_DoubleVulcan_Dopp");
+            check(number(plane[0],"memory.Common_DoubleVulcan_Dopp_CDTimer")>number(plane[0],"self.timeAlive"),"plane weapon retains native cooldown");
+            check(number(plane[0],"self.resource.EN")==440,"plane native weapon EN cost");
+        });
+        Thread.sleep(1000);
+        onEngine(()->{
+            check(!condition(hq,"memory.captured"),"PMC still immune with enemy nearby");
+            action(plane[0],"ManualControl_Release");
+            check(condition(hq,"self.numberOfUnitsInTeam(withTag='PMC_HQ')==1"),"PMC has distinct victory exclusion tag");
+            for(Object raw:com.corrodinggames.rts.game.units.am.bE) {
+                if(!(raw instanceof j))continue;j base=(j)raw;
+                if(base.bX.r==hq.bX.r&&condition(base,"self.hasTags(includes='HQ_NotCaptured') and not self.hasTags(includes='PMC')"))base.b(g.a("HQ_NotCaptured"));
+            }
+            check(condition(hq,"self.numberOfUnitsInTeam(withTag='HQ_NotCaptured')+self.numberOfUnitsInAllyNotOwnTeam(withTag='HQ_NotCaptured')-self.numberOfUnitsInTeam(withTag='PMC_HQ')-self.numberOfUnitsInAllyNotOwnTeam(withTag='PMC_HQ')<=0"),"PMC excluded when ordinary allied HQs fall");
+            action(hq,"CheckCaptureBar_Lose");
+            check(number(hq,"self.hp")<=0,"PMC does not prevent team defeat");
+        });
+        System.out.println("UC_PMC_VEHICLE_PASS ownership, pilot swap, tank burst, plane weapons");
+    }
     static void rangeQueryTests() throws Exception {
         onEngine(()->setup("EFSF_0079",0,0,0));Thread.sleep(1800);
         final j[] bodies=new j[2];
@@ -521,6 +657,9 @@ public class UCTestMain {
         onEngine(()->scripts.getRootNoCheck().startNew("maps/skirmish/[p2]Big Island (2p).tmx"));Thread.sleep(1200);
         System.out.println("UC_UNIT_COUNT "+com.corrodinggames.rts.game.units.custom.l.d.size());
         check(com.corrodinggames.rts.game.units.custom.l.d.size()<3000,"loaded unit count below 3000");
+        if(Boolean.getBoolean("uc.sourceVehiclesOnly")) {sourceVehicleTests();System.out.println("UC_RUNTIME_SUCCESS checks="+checks);return;}
+        if(Boolean.getBoolean("uc.mapsOnly")) {specialMapTests();System.out.println("UC_RUNTIME_SUCCESS checks="+checks);return;}
+        if(Boolean.getBoolean("uc.pmcVehicleOnly")) {pmcVehicleTests();specialMapTests();System.out.println("UC_RUNTIME_SUCCESS checks="+checks);return;}
         if(Boolean.getBoolean("uc.rangeOnly")) {rangeQueryTests();System.out.println("UC_RUNTIME_SUCCESS checks="+checks);return;}
         if(Boolean.getBoolean("uc.aceOnly")) {aceTests();System.out.println("UC_RUNTIME_SUCCESS checks="+checks);return;}
         if(Boolean.getBoolean("uc.techMergeOnly")) {technologyMergeTests();System.out.println("UC_RUNTIME_SUCCESS checks="+checks);return;}

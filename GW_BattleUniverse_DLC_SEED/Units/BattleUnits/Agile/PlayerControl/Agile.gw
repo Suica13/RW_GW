@@ -1,0 +1,99 @@
+[core]
+dont_load:true
+@global manualControlImplemented=true
+copyFrom:ROOT:Template/Unit/Skill/PlayerControl.gw
+@memory manualVehicle_Common_DoubleMS_ZN_Heli_Left:float
+@memory manualVehicle_Common_DoubleMS_ZN_Heli_Next:float
+@memory manualVehicle_Common_Vulcan_ZN_Heli_Left:float
+@memory manualVehicle_Common_Vulcan_ZN_Heli_Next:float
+
+# Use native projectiles, costs, burst delays and reload actions; no weapon polling.
+
+[turret_Common_DoubleMS_ZN_Heli]
+canAttackCondition:if not memory.manualControlEnabled and (${cantAction}==false)
+
+[action_ManualVehicle_Common_DoubleMS_ZN_Heli]
+temporarilyAddTags:inBattle
+@copyFromSection:template_ManualWeapon
+pos:2
+text:Missiles
+text_zh:导弹
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamRifle_1.png
+isLocked:if not (${manualAuxiliaryReady} and (${cantAction}==false) and self.resource.Common_DoubleMS_ZN_Heli_ShootTimer>=1 and self.resource.en>=${Common_DoubleMS_ZN_Heli_EN} and memory.manualVehicle_Common_DoubleMS_ZN_Heli_Left<=0 and self.timeAlive>=memory.manualVehicle_Common_DoubleMS_ZN_Heli_Next)
+requireConditional:if ${manualAuxiliaryReady} and (${cantAction}==false) and self.resource.Common_DoubleMS_ZN_Heli_ShootTimer>=1 and self.resource.en>=${Common_DoubleMS_ZN_Heli_EN} and memory.manualVehicle_Common_DoubleMS_ZN_Heli_Left<=0 and self.timeAlive>=memory.manualVehicle_Common_DoubleMS_ZN_Heli_Next
+setUnitMemory:manualVehicle_Common_DoubleMS_ZN_Heli_Left=max(1,int(self.resource.Common_DoubleMS_ZN_Heli_ShootTimer/(1)))
+alsoTriggerAction:ManualVehicle_Common_DoubleMS_ZN_Heli_Shot,ManualVehicle_Common_DoubleMS_ZN_Heli_Continue,ManualVehicle_Common_DoubleMS_ZN_Heli_Stop
+
+[hiddenAction_ManualVehicle_Common_DoubleMS_ZN_Heli_Shot]
+addResources:Common_DoubleMS_ZN_Heli_ShootTimer=-1,en=-${Common_DoubleMS_ZN_Heli_EN}
+requireConditional:if ${manualAuxiliaryReady} and (${cantAction}==false) and self.resource.Common_DoubleMS_ZN_Heli_ShootTimer>=1 and self.resource.en>=${Common_DoubleMS_ZN_Heli_EN} and memory.manualVehicle_Common_DoubleMS_ZN_Heli_Left>0
+fireTurretXAtGround:Common_DoubleMS_ZN_Heli
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+setUnitMemory:manualVehicle_Common_DoubleMS_ZN_Heli_Left=memory.manualVehicle_Common_DoubleMS_ZN_Heli_Left-1,manualVehicle_Common_DoubleMS_ZN_Heli_Next=self.timeAlive+0.2
+alsoTriggerAction:Check_InBattle_Attack
+
+[hiddenAction_ManualVehicle_Common_DoubleMS_ZN_Heli_Wait]
+highPriorityQueue:false
+allowMultipleInQueue:true
+buildSpeed:0.2s
+alsoTriggerAction:ManualVehicle_Common_DoubleMS_ZN_Heli_Shot,ManualVehicle_Common_DoubleMS_ZN_Heli_Continue,ManualVehicle_Common_DoubleMS_ZN_Heli_Stop
+
+[hiddenAction_ManualVehicle_Common_DoubleMS_ZN_Heli_Continue]
+requireConditional:if ${manualAuxiliaryReady} and (${cantAction}==false) and self.resource.Common_DoubleMS_ZN_Heli_ShootTimer>=1 and self.resource.en>=${Common_DoubleMS_ZN_Heli_EN} and memory.manualVehicle_Common_DoubleMS_ZN_Heli_Left>0
+alsoQueueAction:ManualVehicle_Common_DoubleMS_ZN_Heli_Wait
+
+[hiddenAction_ManualVehicle_Common_DoubleMS_ZN_Heli_Stop]
+requireConditional:if not (${manualAuxiliaryReady} and (${cantAction}==false) and self.resource.Common_DoubleMS_ZN_Heli_ShootTimer>=1 and self.resource.en>=${Common_DoubleMS_ZN_Heli_EN}) or memory.manualVehicle_Common_DoubleMS_ZN_Heli_Left<=0
+setUnitMemory:manualVehicle_Common_DoubleMS_ZN_Heli_Left=0
+
+[turret_Common_Vulcan_ZN_Heli]
+canAttackCondition:if not memory.manualControlEnabled and (${cantAction}==false)
+
+[action_ManualVehicle_Common_Vulcan_ZN_Heli]
+temporarilyAddTags:inBattle
+@copyFromSection:template_ManualWeapon
+pos:4
+text:Autocannon
+text_zh:机炮
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/MachineGun_1.png
+isLocked:if not (${manualAuxiliaryReady} and (${cantAction}==false) and self.resource.Common_Vulcan_ZN_Heli_ShootTimer>=1 and self.resource.en>=${Common_Vulcan_ZN_Heli_EN} and memory.manualVehicle_Common_Vulcan_ZN_Heli_Left<=0 and self.timeAlive>=memory.manualVehicle_Common_Vulcan_ZN_Heli_Next)
+requireConditional:if ${manualAuxiliaryReady} and (${cantAction}==false) and self.resource.Common_Vulcan_ZN_Heli_ShootTimer>=1 and self.resource.en>=${Common_Vulcan_ZN_Heli_EN} and memory.manualVehicle_Common_Vulcan_ZN_Heli_Left<=0 and self.timeAlive>=memory.manualVehicle_Common_Vulcan_ZN_Heli_Next
+setUnitMemory:manualVehicle_Common_Vulcan_ZN_Heli_Left=max(1,int(self.resource.Common_Vulcan_ZN_Heli_ShootTimer/(1)))
+alsoTriggerAction:ManualVehicle_Common_Vulcan_ZN_Heli_Shot,ManualVehicle_Common_Vulcan_ZN_Heli_Continue,ManualVehicle_Common_Vulcan_ZN_Heli_Stop
+
+[hiddenAction_ManualVehicle_Common_Vulcan_ZN_Heli_Shot]
+addResources:Common_Vulcan_ZN_Heli_ShootTimer=-1,en=-${Common_Vulcan_ZN_Heli_EN}
+requireConditional:if ${manualAuxiliaryReady} and (${cantAction}==false) and self.resource.Common_Vulcan_ZN_Heli_ShootTimer>=1 and self.resource.en>=${Common_Vulcan_ZN_Heli_EN} and memory.manualVehicle_Common_Vulcan_ZN_Heli_Left>0
+fireTurretXAtGround:Common_Vulcan_ZN_Heli
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+setUnitMemory:manualVehicle_Common_Vulcan_ZN_Heli_Left=memory.manualVehicle_Common_Vulcan_ZN_Heli_Left-1,manualVehicle_Common_Vulcan_ZN_Heli_Next=self.timeAlive+0.1
+alsoTriggerAction:Check_InBattle_Attack
+
+[hiddenAction_ManualVehicle_Common_Vulcan_ZN_Heli_Wait]
+highPriorityQueue:false
+allowMultipleInQueue:true
+buildSpeed:0.1s
+alsoTriggerAction:ManualVehicle_Common_Vulcan_ZN_Heli_Shot,ManualVehicle_Common_Vulcan_ZN_Heli_Continue,ManualVehicle_Common_Vulcan_ZN_Heli_Stop
+
+[hiddenAction_ManualVehicle_Common_Vulcan_ZN_Heli_Continue]
+requireConditional:if ${manualAuxiliaryReady} and (${cantAction}==false) and self.resource.Common_Vulcan_ZN_Heli_ShootTimer>=1 and self.resource.en>=${Common_Vulcan_ZN_Heli_EN} and memory.manualVehicle_Common_Vulcan_ZN_Heli_Left>0
+alsoQueueAction:ManualVehicle_Common_Vulcan_ZN_Heli_Wait
+
+[hiddenAction_ManualVehicle_Common_Vulcan_ZN_Heli_Stop]
+requireConditional:if not (${manualAuxiliaryReady} and (${cantAction}==false) and self.resource.Common_Vulcan_ZN_Heli_ShootTimer>=1 and self.resource.en>=${Common_Vulcan_ZN_Heli_EN}) or memory.manualVehicle_Common_Vulcan_ZN_Heli_Left<=0
+setUnitMemory:manualVehicle_Common_Vulcan_ZN_Heli_Left=0
+
+[hiddenAction_ManualControl_CancelSpecialWeapons]
+requireConditional:true
+alsoTriggerAction:SetOnSkillOff
+setUnitMemory:manualVehicle_Common_DoubleMS_ZN_Heli_Left=0,manualVehicle_Common_Vulcan_ZN_Heli_Left=0
+
+[action_Set_AttackMode_Shoot]
+autoTrigger:false
+isLocked:true
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Cqb]
+autoTrigger:false
+isLocked:true
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==1 and not self.hasTags(includes='inHangar'))

@@ -28,7 +28,7 @@ text = console.read_text('utf-8', errors='replace') + '\n' + LOG.read_text('utf-
 lines = text.splitlines()
 def matching(marker):
     return [line for line in lines if marker in line]
-loading_errors = list(dict.fromkeys(line[:500] for line in lines if any(marker in line for marker in ['Error while loading', 'Adding error for mod:', 'Failed to open'])))
+loading_errors = list(dict.fromkeys(line[:500] for line in lines if any(marker in line for marker in ['Error while loading', 'Adding error for mod:', 'Failed to open', 'Error loading map:'])))
 unit_counts = re.findall(r'UC_UNIT_COUNT (\d+)', text)
 result = {
     'exit_code': code,
@@ -44,6 +44,9 @@ result = {
     'ace_conversions': matching('UC_ACE_PASS'),
     'routes': matching('UC_ROUTE_PASS'),
     'entries': matching('UC_ENTRY_PASS'),
+    'source_vehicles': matching('UC_SOURCE_VEHICLE_PASS'),
+    'pmc_vehicles': matching('UC_PMC_VEHICLE_PASS'),
+    'special_maps': matching('UC_SP_MAP_PASS'),
     'range_queries': matching('UC_RANGE_PASS'),
     'ai_development': matching('UC_AI_PASS'),
     'ai_advances': matching('UC_AI_ADVANCE_PASS'),

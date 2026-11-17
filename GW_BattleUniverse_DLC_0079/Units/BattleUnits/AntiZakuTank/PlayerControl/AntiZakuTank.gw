@@ -1,0 +1,60 @@
+[core]
+dont_load:true
+@global manualControlImplemented=true
+copyFrom:ROOT:Template/Unit/Skill/PlayerControl.gw
+@memory manualVehicle_EF_AntiZakuTank_MG_Left:float
+@memory manualVehicle_EF_AntiZakuTank_MG_Next:float
+
+# Use native projectiles, costs, burst delays and reload actions; no weapon polling.
+
+[turret_EF_AntiZakuTank_MG]
+canAttackCondition:if not memory.manualControlEnabled and (${onAttacking}==false and ${cantAction}==false)
+
+[action_ManualVehicle_EF_AntiZakuTank_MG]
+temporarilyAddTags:inBattle
+@copyFromSection:template_ManualWeapon
+pos:2
+text:Autocannon
+text_zh:机炮
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/MachineGun_1.png
+isLocked:if not (${manualAuxiliaryReady} and ((${onAttacking}==false) and (${cantAction}==false)) and self.resource.EF_AntiZakuTank_MG_ShootTimer>=1 and self.resource.en>=${EF_AntiZakuTank_MG_EN} and memory.manualVehicle_EF_AntiZakuTank_MG_Left<=0 and self.timeAlive>=memory.manualVehicle_EF_AntiZakuTank_MG_Next)
+requireConditional:if ${manualAuxiliaryReady} and ((${onAttacking}==false) and (${cantAction}==false)) and self.resource.EF_AntiZakuTank_MG_ShootTimer>=1 and self.resource.en>=${EF_AntiZakuTank_MG_EN} and memory.manualVehicle_EF_AntiZakuTank_MG_Left<=0 and self.timeAlive>=memory.manualVehicle_EF_AntiZakuTank_MG_Next
+setUnitMemory:manualVehicle_EF_AntiZakuTank_MG_Left=max(1,int(self.resource.EF_AntiZakuTank_MG_ShootTimer/(1)))
+alsoTriggerAction:ManualVehicle_EF_AntiZakuTank_MG_Shot,ManualVehicle_EF_AntiZakuTank_MG_Continue,ManualVehicle_EF_AntiZakuTank_MG_Stop
+
+[hiddenAction_ManualVehicle_EF_AntiZakuTank_MG_Shot]
+addResources:EF_AntiZakuTank_MG_ShootTimer=-1,en=-${EF_AntiZakuTank_MG_EN}
+requireConditional:if ${manualAuxiliaryReady} and ((${onAttacking}==false) and (${cantAction}==false)) and self.resource.EF_AntiZakuTank_MG_ShootTimer>=1 and self.resource.en>=${EF_AntiZakuTank_MG_EN} and memory.manualVehicle_EF_AntiZakuTank_MG_Left>0
+fireTurretXAtGround:EF_AntiZakuTank_MG
+fireTurretXAtGround_withTarget:self.getOffsetRelative(y=1000)
+setUnitMemory:manualVehicle_EF_AntiZakuTank_MG_Left=memory.manualVehicle_EF_AntiZakuTank_MG_Left-1,manualVehicle_EF_AntiZakuTank_MG_Next=self.timeAlive+0.1
+alsoTriggerAction:Check_InBattle_Attack
+
+[hiddenAction_ManualVehicle_EF_AntiZakuTank_MG_Wait]
+highPriorityQueue:false
+allowMultipleInQueue:true
+buildSpeed:0.1s
+alsoTriggerAction:ManualVehicle_EF_AntiZakuTank_MG_Shot,ManualVehicle_EF_AntiZakuTank_MG_Continue,ManualVehicle_EF_AntiZakuTank_MG_Stop
+
+[hiddenAction_ManualVehicle_EF_AntiZakuTank_MG_Continue]
+requireConditional:if ${manualAuxiliaryReady} and ((${onAttacking}==false) and (${cantAction}==false)) and self.resource.EF_AntiZakuTank_MG_ShootTimer>=1 and self.resource.en>=${EF_AntiZakuTank_MG_EN} and memory.manualVehicle_EF_AntiZakuTank_MG_Left>0
+alsoQueueAction:ManualVehicle_EF_AntiZakuTank_MG_Wait
+
+[hiddenAction_ManualVehicle_EF_AntiZakuTank_MG_Stop]
+requireConditional:if not (${manualAuxiliaryReady} and ((${onAttacking}==false) and (${cantAction}==false)) and self.resource.EF_AntiZakuTank_MG_ShootTimer>=1 and self.resource.en>=${EF_AntiZakuTank_MG_EN}) or memory.manualVehicle_EF_AntiZakuTank_MG_Left<=0
+setUnitMemory:manualVehicle_EF_AntiZakuTank_MG_Left=0
+
+[hiddenAction_ManualControl_CancelSpecialWeapons]
+requireConditional:true
+alsoTriggerAction:SetOnSkillOff
+setUnitMemory:manualVehicle_EF_AntiZakuTank_MG_Left=0
+
+[action_Set_AttackMode_Shoot]
+autoTrigger:false
+isLocked:true
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Cqb]
+autoTrigger:false
+isLocked:true
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==1 and not self.hasTags(includes='inHangar'))

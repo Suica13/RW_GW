@@ -12818,5 +12818,189 @@
   "Units/TechTree/UnlockedListMarker/Mod/Common_UnlockedListMarker.ini": {
     "source_package": "GW_BattleUniverse_Main",
     "source_path": "Units/TechTree/UnlockedListMarker/Mod/Common_UnlockedListMarker.ini"
+  },
+  "Units/BattleUnits/AntiZakuTank/PlayerControl/AntiZakuTank.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/AntiZakuTank/PlayerControl/AntiZakuTank.gw"
+  },
+  "Units/BattleUnits/BaseJabber/PlayerControl/BaseJabber.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0087",
+    "source_path": "Units/BattleUnits/BaseJabber/PlayerControl/BaseJabber.gw"
+  },
+  "Units/BattleUnits/Cui/PlayerControl/Cui.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/Cui/PlayerControl/Cui.gw"
+  },
+  "Units/BattleUnits/Dash/PlayerControl/Dash.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0087",
+    "source_path": "Units/BattleUnits/Dash/PlayerControl/Dash.gw"
+  },
+  "Units/BattleUnits/DEPP_ROG/PlayerControl/DEPP_ROG.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/DEPP_ROG/PlayerControl/DEPP_ROG.gw"
+  },
+  "Units/BattleUnits/Dodai/PlayerControl/DodaiYS.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/Dodai/PlayerControl/DodaiYS.gw"
+  },
+  "Units/BattleUnits/DodaiKai/PlayerControl/DodaiKai.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0087",
+    "source_path": "Units/BattleUnits/DodaiKai/PlayerControl/DodaiKai.gw"
+  },
+  "Units/BattleUnits/DonEscargot/PlayerControl/DonEscargot.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/DonEscargot/PlayerControl/DonEscargot.gw"
+  },
+  "Units/BattleUnits/Dopp/PlayerControl/Dopp.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/Dopp/PlayerControl/Dopp.gw"
+  },
+  "Units/BattleUnits/EF_Heli/PlayerControl/EF_Heli.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/EF_Heli/PlayerControl/EF_Heli.gw"
+  },
+  "Units/BattleUnits/EF_MinigunAPC/PlayerControl/EF_MinigunAPC.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/EF_MinigunAPC/PlayerControl/EF_MinigunAPC.gw"
+  },
+  "Units/BattleUnits/FanFan/PlayerControl/FanFan.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/FanFan/PlayerControl/FanFan.gw"
+  },
+  "Units/BattleUnits/FatUncle/PlayerControl/FatUncle.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/FatUncle/PlayerControl/FatUncle.gw"
+  },
+  "Units/BattleUnits/FatUncleKai/PlayerControl/FatUncleKai.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0087",
+    "source_path": "Units/BattleUnits/FatUncleKai/PlayerControl/FatUncleKai.gw"
+  },
+  "Units/BattleUnits/FFB_7Bst/PlayerControl/FFB_7Bst.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/FFB_7Bst/PlayerControl/FFB_7Bst.gw"
+  },
+  "Units/BattleUnits/FF_4/PlayerControl/FF_4.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/FF_4/PlayerControl/FF_4.gw"
+  },
+  "Units/BattleUnits/FF_6/PlayerControl/FF_6.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/FF_6/PlayerControl/FF_6.gw"
+  },
+  "Units/BattleUnits/FF_B2/PlayerControl/FF_B2.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/FF_B2/PlayerControl/FF_B2.gw"
+  },
+  "Units/BattleUnits/FF_S3/PlayerControl/FF_S3.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0087",
+    "source_path": "Units/BattleUnits/FF_S3/PlayerControl/FF_S3.gw"
+  },
+  "Units/BattleUnits/FF_X7/PlayerControl/FF_X7.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/FF_X7/PlayerControl/FF_X7.gw"
+  },
+  "Units/BattleUnits/FF_X7Bst/PlayerControl/FF_X7Bst.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/FF_X7Bst/PlayerControl/FF_X7Bst.gw"
+  },
+  "Units/BattleUnits/FF_X_II/PlayerControl/FF_X_II.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/FF_X_II/PlayerControl/FF_X_II.gw"
+  },
+  "Units/BattleUnits/FF_X_II/PlayerControl/FF_X_II_FB.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/FF_X_II/PlayerControl/FF_X_II_FB.gw"
+  },
+  "Units/BattleUnits/Gator/PlayerControl/Gator.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0087",
+    "source_path": "Units/BattleUnits/Gator/PlayerControl/Gator.gw"
+  },
+  "Units/BattleUnits/Gattle/PlayerControl/Gattle.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/Gattle/PlayerControl/Gattle.gw"
+  },
+  "Units/BattleUnits/Gunperry/PlayerControl/Gunperry.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/Gunperry/PlayerControl/Gunperry.gw"
+  },
+  "Units/BattleUnits/JiccoClass/PlayerControl/JiccoClass.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/JiccoClass/PlayerControl/JiccoClass.gw"
+  },
+  "Units/BattleUnits/Luggun/PlayerControl/Luggun.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/Luggun/PlayerControl/Luggun.gw"
+  },
+  "Units/BattleUnits/Medea/PlayerControl/Medea.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/Medea/PlayerControl/Medea.gw"
+  },
+  "Units/BattleUnits/MedeaKai/PlayerControl/MedeaKai.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0087",
+    "source_path": "Units/BattleUnits/MedeaKai/PlayerControl/MedeaKai.gw"
+  },
+  "Units/BattleUnits/MissileCar/PlayerControl/MissileCar.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/MissileCar/PlayerControl/MissileCar.gw"
+  },
+  "Units/BattleUnits/MTank/PlayerControl/MTank.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/MTank/PlayerControl/MTank.gw"
+  },
+  "Units/BattleUnits/MTank_Eins/PlayerControl/MTank_Eins.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/MTank_Eins/PlayerControl/MTank_Eins.gw"
+  },
+  "Units/BattleUnits/PublicClass/PlayerControl/PublicClass.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/PublicClass/PlayerControl/PublicClass.gw"
+  },
+  "Units/BattleUnits/SamsonGroundTransportTruck/PlayerControl/SamsonGroundTransportTruck.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/SamsonGroundTransportTruck/PlayerControl/SamsonGroundTransportTruck.gw"
+  },
+  "Units/BattleUnits/Type61/PlayerControl/Type61.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/Type61/PlayerControl/Type61.gw"
+  },
+  "Units/BattleUnits/Type61/PlayerControl/Type61A5.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/Type61/PlayerControl/Type61A5.gw"
+  },
+  "Units/BattleUnits/Type61_SPG/PlayerControl/Type61_SPG.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/Type61_SPG/PlayerControl/Type61_SPG.gw"
+  },
+  "Units/BattleUnits/Type74/PlayerControl/Type74.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/Type74/PlayerControl/Type74.gw"
+  },
+  "Units/BattleUnits/Type74/PlayerControl/Type74Kai.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/Type74/PlayerControl/Type74Kai.gw"
+  },
+  "Units/BattleUnits/Wappa/PlayerControl/Wappa.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/Wappa/PlayerControl/Wappa.gw"
+  },
+  "Units/BattleUnits/ZN_APC/PlayerControl/ZN_APC.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/ZN_APC/PlayerControl/ZN_APC.gw"
+  },
+  "Units/BattleUnits/ZN_APC/PlayerControl/ZN_APC_WithMS.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/ZN_APC/PlayerControl/ZN_APC_WithMS.gw"
+  },
+  "Units/BattleUnits/ZN_Heli/PlayerControl/ZN_Heli.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/ZN_Heli/PlayerControl/ZN_Heli.gw"
+  },
+  "Units/BattleUnits/MTank/PlayerControl/MTank_Chassis.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/MTank/PlayerControl/MTank_Chassis.gw"
+  },
+  "Units/BattleUnits/MTank/PlayerControl/MTank_Top.gw": {
+    "source_package": "GW_BattleUniverse_DLC_0079",
+    "source_path": "Units/BattleUnits/MTank/PlayerControl/MTank_Top.gw"
   }
 }

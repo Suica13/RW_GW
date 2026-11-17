@@ -1,0 +1,171 @@
+[core]
+dont_load:true
+@global manualControlImplemented=true
+copyFrom:ROOT:Template/Unit/Skill/PlayerControl.gw
+
+
+# Use native projectiles, costs, burst delays and reload actions; no weapon polling.
+
+[hiddenAction_OMNI_FX_550_BR_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>=0  and distanceBetween(self,self.attacking)<=memory.finalAttackRange and eventData("RandomWeapon",type="float")<=75 and eventData("RandomWeapon",type="float")>50)
+
+[hiddenAction_OMNI_FX_550_BR_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_Common_DoubleGun_FX_550_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>=0  and distanceBetween(self,self.attacking)<=memory.finalAttackRange and eventData("RandomWeapon",type="float")<=50 and eventData("RandomWeapon",type="float")>25)
+
+[hiddenAction_Common_DoubleGun_FX_550_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_Common_DoubleGun_FX_550_Fire_Step_3]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_Common_DoubleGun_FX_550_Fire_Step_4]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_Common_DoubleMS_FX_550_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>=0   and distanceBetween(self,self.attacking)<=memory.finalAttackRange and eventData("RandomWeapon",type="float")<=25)
+
+[hiddenAction_Common_DoubleMS_FX_550_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_Common_DoubleMS_FX_550_Fire_Step_3]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_Common_DoubleMS_FX_550_Fire_Step_4]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_OMNI_GAT_X105_BR_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>60  and distanceBetween(self,self.attacking)<=memory.finalAttackRange and eventData("RandomWeapon",type="float")>75 and self.resource().EquipmentIndex==1)
+
+[hiddenAction_OMNI_GAT_X105_BR_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_OMNI_GAT_X105_Launcher_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>60  and distanceBetween(self,self.attacking)<=memory.finalAttackRange and eventData("RandomWeapon",type="float")>75 and self.resource().EquipmentIndex==2)
+
+[hiddenAction_OMNI_GAT_X105_Launcher_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[hiddenAction_OMNI_GAT_X105_S_RocketAnchor_Trigger]
+requireConditional:if not memory.manualControlEnabled and (distanceBetween(self,self.attacking)>60  and distanceBetween(self,self.attacking)<=memory.finalAttackRange and eventData("RandomWeapon",type="float")>75 and self.resource().EquipmentIndex==3)
+
+[hiddenAction_OMNI_GAT_X105_S_RocketAnchor_Fire_Step_2]
+requireConditional:if (${cantAction}==false) and (not memory.manualControlEnabled or ${manualControlReady})
+
+[action_Manual_OMNI_FX_550_BR]
+@copyFromSection:template_ManualWeapon
+pos:2
+text:Beam rifle
+text_zh:光束步枪
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamRifle_1.png
+isVisible:if ${manualControlReady} and ((true))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.OMNI_FX_550_BR_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((true)) and self.resource.EN>=${OMNI_FX_550_BR_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.OMNI_FX_550_BR_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((true)) and self.resource.EN>=${OMNI_FX_550_BR_EN}
+alsoTriggerAction:OMNI_FX_550_BR_Fire
+
+[hiddenAction_OMNI_FX_550_BR_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.OMNI_FX_550_BR_CDTimer and ${onAttacking}==false and ${cantAction}==false and ${onSkill}==false  and not (directionBetween(self, self.attacking) < self.dir-25 or directionBetween(self, self.attacking) > self.dir+25)  and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.OMNI_FX_550_BR_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((true)) and self.resource.EN>=${OMNI_FX_550_BR_EN})
+setUnitMemory:OMNI_FX_550_BR_CDTimer=self.timeAlive+${OMNI_FX_550_BR_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${OMNI_FX_550_BR_CD}s
+addActionCooldownApplyToActions:Manual_OMNI_FX_550_BR
+
+[action_Manual_Common_DoubleGun_FX_550]
+@copyFromSection:template_ManualWeapon
+pos:4
+text:Cannon
+text_zh:火炮
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Missile_1.png
+isVisible:if ${manualControlReady} and ((true))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.Common_DoubleGun_FX_550_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((true)) and self.resource.EN>=${Common_DoubleGun_FX_550_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.Common_DoubleGun_FX_550_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((true)) and self.resource.EN>=${Common_DoubleGun_FX_550_EN}
+alsoTriggerAction:Common_DoubleGun_FX_550_Fire
+
+[hiddenAction_Common_DoubleGun_FX_550_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.Common_DoubleGun_FX_550_CDTimer and ${onAttacking}==false and ${cantAction}==false and ${onSkill}==false  and not (directionBetween(self, self.attacking) < self.dir-25 or directionBetween(self, self.attacking) > self.dir+25)  and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.Common_DoubleGun_FX_550_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((true)) and self.resource.EN>=${Common_DoubleGun_FX_550_EN})
+setUnitMemory:Common_DoubleGun_FX_550_CDTimer=self.timeAlive+${Common_DoubleGun_FX_550_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${Common_DoubleGun_FX_550_CD}s
+addActionCooldownApplyToActions:Manual_Common_DoubleGun_FX_550
+
+[action_Manual_Common_DoubleMS_FX_550]
+@copyFromSection:template_ManualWeapon
+pos:5
+text:Missiles
+text_zh:导弹
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamRifle_1.png
+isVisible:if ${manualControlReady} and ((true))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.Common_DoubleMS_FX_550_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((true)) and self.resource.EN>=${Common_DoubleMS_FX_550_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.Common_DoubleMS_FX_550_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((true)) and self.resource.EN>=${Common_DoubleMS_FX_550_EN}
+alsoTriggerAction:Common_DoubleMS_FX_550_Fire
+
+[hiddenAction_Common_DoubleMS_FX_550_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.Common_DoubleMS_FX_550_CDTimer and ${onAttacking}==false and ${cantAction}==false and ${onSkill}==false  and not (directionBetween(self, self.attacking) < self.dir-45 or directionBetween(self, self.attacking) > self.dir+45)  and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.Common_DoubleMS_FX_550_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((true)) and self.resource.EN>=${Common_DoubleMS_FX_550_EN})
+setUnitMemory:Common_DoubleMS_FX_550_CDTimer=self.timeAlive+${Common_DoubleMS_FX_550_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${Common_DoubleMS_FX_550_CD}s
+addActionCooldownApplyToActions:Manual_Common_DoubleMS_FX_550
+
+[action_Manual_OMNI_GAT_X105_BR]
+@copyFromSection:template_ManualWeapon
+pos:6
+text:Beam rifle
+text_zh:光束步枪
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamRifle_1.png
+isVisible:if ${manualControlReady} and ((((self.resource().EquipmentIndex==1))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.OMNI_GAT_X105_BR_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==1)))) and self.resource.EN>=${OMNI_GAT_X105_BR_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.OMNI_GAT_X105_BR_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==1)))) and self.resource.EN>=${OMNI_GAT_X105_BR_EN}
+alsoTriggerAction:OMNI_GAT_X105_BR_Fire
+
+[hiddenAction_OMNI_GAT_X105_BR_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.OMNI_GAT_X105_BR_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.OMNI_GAT_X105_BR_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==1)))) and self.resource.EN>=${OMNI_GAT_X105_BR_EN})
+setUnitMemory:OMNI_GAT_X105_BR_CDTimer=self.timeAlive+${OMNI_GAT_X105_BR_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${OMNI_GAT_X105_BR_CD}s
+addActionCooldownApplyToActions:Manual_OMNI_GAT_X105_BR
+
+[action_Manual_OMNI_GAT_X105_Launcher]
+@copyFromSection:template_ManualWeapon
+pos:7
+text:Launcher cannon
+text_zh:强袭背包炮
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/BeamRifle_1.png
+isVisible:if ${manualControlReady} and ((((self.resource().EquipmentIndex==2))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.OMNI_GAT_X105_Launcher_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==2)))) and self.resource.EN>=${OMNI_GAT_X105_Launcher_EN})
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.OMNI_GAT_X105_Launcher_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==2)))) and self.resource.EN>=${OMNI_GAT_X105_Launcher_EN}
+alsoTriggerAction:OMNI_GAT_X105_Launcher_Fire
+
+[hiddenAction_OMNI_GAT_X105_Launcher_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.OMNI_GAT_X105_Launcher_CDTimer and ${onAttacking}==false and ${cantAction}==false  and ${onSkill}==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15)  and self.resource.EN>0)) or (${manualWeaponReady} and ((self.timeAlive>memory.OMNI_GAT_X105_Launcher_CDTimer) and (${onAttacking}==false) and (${cantAction}==false) and (${onSkill}==false) and (self.resource.EN>0)) and ((((self.resource().EquipmentIndex==2)))) and self.resource.EN>=${OMNI_GAT_X105_Launcher_EN})
+setUnitMemory:OMNI_GAT_X105_Launcher_CDTimer=self.timeAlive+${OMNI_GAT_X105_Launcher_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${OMNI_GAT_X105_Launcher_CD}s
+addActionCooldownApplyToActions:Manual_OMNI_GAT_X105_Launcher
+
+[action_Manual_OMNI_GAT_X105_S_RocketAnchor]
+@copyFromSection:template_ManualWeapon
+pos:8
+text:Bazooka
+text_zh:火箭筒
+iconImage:ROOT:Resource/Image/Units/Button/Weapon/Bazooka_1.png
+isVisible:if ${manualControlReady} and ((((self.resource().EquipmentIndex==3))))
+isLocked:if not (${manualWeaponReady} and ((self.timeAlive>memory.OMNI_GAT_X105_S_RocketAnchor_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((self.resource().EquipmentIndex==3)))))
+requireConditional:if ${manualWeaponReady} and ((self.timeAlive>memory.OMNI_GAT_X105_S_RocketAnchor_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((self.resource().EquipmentIndex==3))))
+alsoTriggerAction:OMNI_GAT_X105_S_RocketAnchor_Fire
+
+[hiddenAction_OMNI_GAT_X105_S_RocketAnchor_Fire]
+requireConditional:if (not memory.manualControlEnabled and (self.timeAlive>memory.OMNI_GAT_X105_S_RocketAnchor_CDTimer and ${onAttacking}==false and ${cantAction}==false and not (directionBetween(self, self.attacking) < self.dir-15 or directionBetween(self, self.attacking) > self.dir+15))) or (${manualWeaponReady} and ((self.timeAlive>memory.OMNI_GAT_X105_S_RocketAnchor_CDTimer) and (${onAttacking}==false) and (${cantAction}==false)) and ((((self.resource().EquipmentIndex==3)))))
+setUnitMemory:OMNI_GAT_X105_S_RocketAnchor_CDTimer=self.timeAlive+${OMNI_GAT_X105_S_RocketAnchor_CD},manualInputBusyUntil=select(memory.manualControlEnabled,self.timeAlive+0.15,memory.manualInputBusyUntil)
+addActionCooldownTime:${OMNI_GAT_X105_S_RocketAnchor_CD}s
+addActionCooldownApplyToActions:Manual_OMNI_GAT_X105_S_RocketAnchor
+
+[hiddenAction_ManualControl_CancelSpecialWeapons]
+requireConditional:true
+alsoTriggerAction:SetOnSkillOff
+
+[action_Set_AttackMode_Shoot]
+autoTrigger:false
+isLocked:true
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==0 and not self.hasTags(includes='inHangar'))
+
+[action_Set_AttackMode_Cqb]
+autoTrigger:false
+isLocked:true
+isVisible:if not memory.manualControlEnabled and (memory.attackMode==1 and not self.hasTags(includes='inHangar'))
