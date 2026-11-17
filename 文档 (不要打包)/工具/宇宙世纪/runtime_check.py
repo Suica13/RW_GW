@@ -44,6 +44,7 @@ result = {
     'ace_conversions': matching('UC_ACE_PASS'),
     'routes': matching('UC_ROUTE_PASS'),
     'entries': matching('UC_ENTRY_PASS'),
+    'range_queries': matching('UC_RANGE_PASS'),
     'ai_development': matching('UC_AI_PASS'),
     'ai_advances': matching('UC_AI_ADVANCE_PASS'),
     'failures': [line[:1000] for line in lines if 'UC_ASSERT_FAIL' in line or 'UC_RUNTIME_FAILURE' in line],

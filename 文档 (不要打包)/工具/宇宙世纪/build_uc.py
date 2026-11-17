@@ -190,6 +190,7 @@ for key,t in list(DB.items()):
  t=re.sub(r'(?m)^copyFrom:"""([\s\S]*?)"""',clean_copy,t)
  DB[key]=t
 exec(Path(__file__).with_name('uc_factory_ai.py').read_text('utf-8-sig'))
+exec(Path(__file__).with_name('uc_runtime_optimizations.py').read_text('utf-8-sig'))
 # A single concrete definition wins per entity ID; modules retain local template/resource semantics.
 for n in ENT:
  r=choose(n)

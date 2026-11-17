@@ -432,6 +432,48 @@ public class UCTestMain {
         }
         onEngine(()->scripts.getRootNoCheck().startNew("maps/skirmish/[p2]Big Island (2p).tmx"));Thread.sleep(1200);
     }
+    static void rangeQueryTests() throws Exception {
+        onEngine(()->setup("EFSF_0079",0,0,0));Thread.sleep(1800);
+        final j[] bodies=new j[2];
+        onEngine(()->{
+            core=reference(hq,"self.attachment(slot='TechTreeMarkerSlot')");
+            bodies[0]=create("RGM_79",900,900,0);
+            bodies[1]=create("RGM_79",1600,900,0);
+        });
+        await("range test cores initialize",10000,()->reference(bodies[0],"memory.battleUnitCore")!=null&&reference(bodies[1],"memory.battleUnitCore")!=null);
+        Thread.sleep(1800);
+        onEngine(()->{
+            j[] cores={reference(bodies[0],"memory.battleUnitCore"),reference(bodies[1],"memory.battleUnitCore")};
+            String[] values={"finalAttackRange","finalFogOfWarSightRange","finalDetectRange"};
+            float[] factors={0.75f,0.5f,0.5f};
+            float[][] baseline=new float[2][3];
+            for(int i=0;i<2;i++) {
+                action(cores[i],"Check_AttackRange");
+                check(!condition(cores[i],"memory.rangeMinovskyNearby"),"initial range query clear "+i);
+                for(int n=0;n<3;n++) {
+                    baseline[i][n]=number(cores[i],"memory."+values[n]);
+                    check(baseline[i][n]>0,"baseline "+values[n]+" "+i);
+                }
+            }
+            bodies[0].a(g.a("MinovskyParticle"));
+            action(cores[0],"Check_AttackRange");action(cores[1],"Check_AttackRange");
+            check(condition(cores[0],"memory.rangeMinovskyNearby"),"nearby query updates in same action");
+            check(!condition(cores[1],"memory.rangeMinovskyNearby"),"range query isolated per core");
+            for(int n=0;n<3;n++) {
+                check(Math.abs(number(cores[0],"memory."+values[n])-baseline[0][n]*factors[n])<0.01,"particle factor "+values[n]);
+                check(Math.abs(number(cores[1],"memory."+values[n])-baseline[1][n])<0.01,"distant core unchanged "+values[n]);
+            }
+            bodies[0].b(g.a("MinovskyParticle"));
+            action(cores[0],"Check_AttackRange");
+            check(!condition(cores[0],"memory.rangeMinovskyNearby"),"range query refresh after particle removal");
+            for(int n=0;n<3;n++)check(Math.abs(number(cores[0],"memory."+values[n])-baseline[0][n])<0.01,"restored "+values[n]);
+            bodies[0].a(g.a("ManualControlled"));
+            action(cores[0],"Check_AttackRange");
+            check(Math.abs(number(cores[0],"memory.finalFogOfWarSightRange")-baseline[0][1]*1.25f)<0.01,"manual control vision preserved");
+            bodies[0].b(g.a("ManualControlled"));
+        });
+        System.out.println("UC_RANGE_PASS cached query preserves range, sight and detection");
+    }
     static void aceTests() throws Exception {
         onEngine(()->setup("AEUG_0087",0,0,0));Thread.sleep(1800);
         // Keep an earlier-era tag too: ACE selection must follow PilotType, not tag order.
@@ -479,6 +521,7 @@ public class UCTestMain {
         onEngine(()->scripts.getRootNoCheck().startNew("maps/skirmish/[p2]Big Island (2p).tmx"));Thread.sleep(1200);
         System.out.println("UC_UNIT_COUNT "+com.corrodinggames.rts.game.units.custom.l.d.size());
         check(com.corrodinggames.rts.game.units.custom.l.d.size()<3000,"loaded unit count below 3000");
+        if(Boolean.getBoolean("uc.rangeOnly")) {rangeQueryTests();System.out.println("UC_RUNTIME_SUCCESS checks="+checks);return;}
         if(Boolean.getBoolean("uc.aceOnly")) {aceTests();System.out.println("UC_RUNTIME_SUCCESS checks="+checks);return;}
         if(Boolean.getBoolean("uc.techMergeOnly")) {technologyMergeTests();System.out.println("UC_RUNTIME_SUCCESS checks="+checks);return;}
         if(Boolean.getBoolean("uc.pmcOnly")) {pmcTests();System.out.println("UC_RUNTIME_SUCCESS checks="+checks);return;}

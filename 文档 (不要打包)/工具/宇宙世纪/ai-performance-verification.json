@@ -1,0 +1,50 @@
+{
+  "version": "V169",
+  "changes": [
+    "UC native source-era factory AI scheduling restored",
+    "Main and UC range calculation reuses one identical spatial query instead of three"
+  ],
+  "factory_audit": {
+    "factories": 36,
+    "fields": 1263,
+    "native_hq_scheduler_exact_match": true
+  },
+  "ai_runtime": {
+    "success": true,
+    "assertions": 161,
+    "ai_development": [
+      "UC_AI_PASS EFSF_0079 auto=1",
+      "UC_AI_PASS ZEON_0079 auto=1",
+      "UC_AI_PASS AEUG_0087 auto=1",
+      "UC_AI_PASS TITANS_0087 auto=1",
+      "UC_AI_PASS NEO_ZEON_0087 auto=1",
+      "UC_AI_PASS 0093_EFSF auto=1",
+      "UC_AI_PASS 0093_NZN auto=1",
+      "UC_AI_PASS EFSF_0079 auto=0",
+      "UC_AI_PASS AEUG_0087 auto=0"
+    ],
+    "ai_advances": [
+      "UC_AI_ADVANCE_PASS EFSF_0079 -> TITANS_0087",
+      "UC_AI_ADVANCE_PASS TITANS_0087 -> 0093_EFSF",
+      "UC_AI_ADVANCE_PASS ZEON_0079 -> NEO_ZEON_0087",
+      "UC_AI_ADVANCE_PASS NEO_ZEON_0087 -> 0093_NZN",
+      "UC_AI_ADVANCE_PASS AEUG_0087 -> 0093_EFSF",
+      "UC_AI_ADVANCE_PASS TITANS_0087 -> 0093_NZN",
+      "UC_AI_ADVANCE_PASS NEO_ZEON_0087 -> 0093_NZN"
+    ],
+    "loading_errors": []
+  },
+  "range_runtime": {
+    "success": true,
+    "unit_count": 1779,
+    "assertions": 22,
+    "range_queries": [
+      "UC_RANGE_PASS cached query preserves range, sight and detection"
+    ],
+    "loading_errors": []
+  },
+  "fps_measured": false,
+  "full_gameplay_suite_run": false,
+  "output_loose_runtime_configs": 0,
+  "control_timing_and_bonuses_unchanged": true
+}
